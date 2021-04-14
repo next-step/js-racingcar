@@ -1,23 +1,28 @@
-<br/>
 <p align="middle" >
   <img width="200px;" src="https://user-images.githubusercontent.com/50367798/106415730-2645a280-6493-11eb-876c-ef7172652261.png"/>
 </p>
 <h2 align="middle">level1 - 자동차 경주 게임</h2>
 <p align="middle">자바스크립트로 구현 하는 자동차 경주 게임</p>
 <p align="middle">
-  <img src="https://img.shields.io/badge/version-1.0.0-blue?style=flat-square" alt="template version"/>
-  <img src="https://img.shields.io/badge/language-html-red.svg?style=flat-square"/>
-  <img src="https://img.shields.io/badge/language-css-blue.svg?style=flat-square"/>
-  <img src="https://img.shields.io/badge/language-js-yellow.svg?style=flat-square"/>
-  <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"/>
+<img src="https://img.shields.io/badge/version-1.0.0-blue?style=flat-square" alt="template version"/>
+<img src="https://img.shields.io/badge/language-html-blue.svg?style=flat-square"/>
+<a href="https://github.com/daybrush/moveable/blob/master/LICENSE" target="_blank">
+  <img src="https://img.shields.io/github/license/daybrush/moveable.svg?style=flat-square&label=license&color=08CE5D"/>
+  </a>
 </p>
 
+## 기능 구현 목록
+
+[docs/README.md](/docs/README.md)
+
 ## 🔥 Projects!
+
 <p align="middle">
   <img width="400" src="https://techcourse-storage.s3.ap-northeast-2.amazonaws.com/7c76e809d82a4a3aa0fd78a86be25427">
 </p>
 
 ### 🎯 step1
+
 - [ ] 주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.
 - [ ] 자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.
 - [ ] 자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5자 이하만 가능하다.
@@ -27,8 +32,9 @@
 - [ ] 우승자가 여러명일 경우 ,를 이용하여 구분한다.
 
 ### 🎯🎯 step2
+
 - [ ] 자동차 경주 게임의 턴이 진행 될 때마다 1초의 텀(progressive 재생)을 두고 진행한다.
-    - [ ] 애니메이션 구현을 위해 setInterval, setTimeout, requestAnimationFrame 을 활용한다.
+  - [ ] 애니메이션 구현을 위해 setInterval, setTimeout, requestAnimationFrame 을 활용한다.
 - [ ] 정상적으로 게임의 턴이 다 동작된 후에는 결과를 보여주고, 2초 후에 축하의 alert 메세지를 띄운다.
 - [ ] 위 기능들이 정상적으로 동작하는지 Cypress를 이용해 테스트한다.
 
@@ -54,7 +60,7 @@ live-server 폴더명
 
 ## 👏 Contributing
 
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요. 
+만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
 
 <br>
 

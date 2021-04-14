@@ -4,10 +4,10 @@
 }
 
 .spinner::after {
-  content: '';
+  content: "";
   box-sizing: border-box;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   left: 0;
   top: 0;
   position: absolute;
