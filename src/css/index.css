@@ -1,0 +1,37 @@
+@import './shared/button.css';
+@import './shared/layout.css';
+@import './shared/sizing.css';
+@import './shared/typhography.css';
+@import './ui/spinner.css';
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+.car-player {
+  height: 36px;
+  min-width: 64px;
+  padding: 0 16px;
+  border-radius: 4px;
+  outline: 0;
+  border-style: none;
+  background-color: #f5f5f5;
+  display: inline-flex;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.forward-icon {
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+}
