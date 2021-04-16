@@ -35,6 +35,7 @@ const startRacing = (tryNumber,array)=>{
       count++;
       if (count === Number(tryNumber)) {
         clearInterval(timer);
+        document.querySelectorAll('.relative').forEach(x=>x.remove())
       }
     },1000);
 
