@@ -1,5 +1,5 @@
 import { app_div } from "./index.js"
-import { MESSAGE, INPUT_SECTION } from "./constant.js";
+import { MESSAGE, INPUT_SECTION, NAME } from "./constant.js";
 import { addInputCountUI } from "./setCount.js";
 
 export let cars;
@@ -17,15 +17,13 @@ export const addInputNameUI = () => {
     const btn = div_carname.querySelector("button");
     cars = [];
     if (target == btn) {
-      let flag = 1;
       cars = names.split(",").map((x) => x.trim());
-      cars.forEach((x) => {
-        if (flag && !(1 <= x.length && x.length <= 5)) {
-          alert(MESSAGE.CAR_NAME);
-          flag = 0;
-        }
-      });
-      if (!flag) return;
+      for (let i = 0; i < cars.length; i++){
+          if (!(NAME.MIN <= cars[i].length && cars[i].length <= NAME.MAX)){
+            alert(MESSAGE.CAR_NAME);
+            return;
+          }
+      }
       btn.setAttribute("disabled", true);
       addInputCountUI();
     }

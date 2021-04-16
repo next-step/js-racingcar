@@ -20,8 +20,7 @@ export const addProcessUI = () => {
   
   const proceedGame = () => {
     let cnt = 0;
-    let distance = new Array(cars.length);
-    distance.fill(0);
+    let distance = new Array(cars.length).fill(0);
   
     const timerId = setInterval(() => {
       let move = [];

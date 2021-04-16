@@ -18,9 +18,8 @@ export const addInputCountUI = () => {
     const count_div = target.parentNode;
     const value = count_div.querySelector("input").value;
     const btn = count_div.querySelector("button");
-    runningtime = 0;
+    runningtime = value;
     if (target == btn) {
-      runningtime = value;
       if (runningtime <= 0) {
         alert(MESSAGE.RUN_TIME);
         return;

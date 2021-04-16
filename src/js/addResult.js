@@ -28,8 +28,9 @@ export const addResultSection = (distance) => {
   };
   
   const restartGame = () => {
-    app_div.removeChild(app_div.querySelector("#process_section"));
-    app_div.removeChild(app_div.querySelector("#result_section"));
-    app_div.removeChild(app_div.querySelector("#input_section"));
+    const sections = app_div.querySelectorAll("section");
+    for(let i = 0; i < sections.length; i++){
+      app_div.removeChild(sections[i]);
+    }
     addInputNameUI();
   };
