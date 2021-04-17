@@ -8,11 +8,13 @@ class Car {
     }
 
     init() {
-        console.log(this.name, this.manager);
+        this.timerId = setInterval(this.go.bind(this), 1000);
     }
 
     go() {
-
+        if (this.manager.isGameOver) return clearInterval(this.timerId);
+        if (!this.isGo()) return;
+        if (++this.count === this.manager.goalCount) return this.manager.winners.push(this.name);
     }
 
     isGo() {
