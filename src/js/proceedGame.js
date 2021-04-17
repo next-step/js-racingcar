@@ -4,6 +4,9 @@ import { runningtime } from "./setCount.js"
 import { PROGRESS } from "./constant.js";
 import { addResultSection } from "./addResult.js"
 
+export let distance_forcheck;
+export let k = 1;
+
 export const addProcessUI = () => {
     let process_section = `<section class="d-flex justify-center mt-5" id="process_section">
                                   <div class="mt-4 d-flex">\n`;
@@ -36,6 +39,7 @@ export const addProcessUI = () => {
       if (++cnt == runningtime) {
         clearInterval(timerId);
         addProgressIcon(cars, "", 1);
+        distance_forcheck = distance;
         addResultSection(distance);
       }
     }, 1000);
