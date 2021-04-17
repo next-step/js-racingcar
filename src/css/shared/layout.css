@@ -106,3 +106,9 @@
 .content-evenly {
   align-content: space-around;
 }
+
+
+/* hidden */
+.hidden {
+  visibility: hidden;
+}
