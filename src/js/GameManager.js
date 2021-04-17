@@ -52,7 +52,7 @@ class GameManager {
         if (!this.winners.length) return;
         this.isGameOver = true;
         clearInterval(this.winnerCheckTimerId);
-        getEl('#race-result-section').innerHTML = winnerTemplate(this.winners);
+        getEl('#race-result').innerHTML = winnerTemplate(this.winners);
         setTimeout(() => {
             alert('🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇');
         }, 2000);
@@ -66,8 +66,8 @@ class GameManager {
         this.isGameOver = false;
 
         getEl('#race-times-field').classList.toggle('show');
-        getEl('#race-progress-section').innerHTML = '';
-        getEl('#race-result-section').innerHTML = '';
+        getEl('#race-progress').innerHTML = '';
+        getEl('#race-result').innerHTML = '';
     }
 }
 
