@@ -22,13 +22,12 @@ export class Cars {
 
     timer = setInterval(() => {
       this.moveCarsRandomly();
-
+      times += 1;
       if (times >= this.raceTimes) {
         this.removeSpinner();
         clearInterval(timer);
         this.onRaceEnd?.(this.cars);
       }
-      times += 1;
     }, 1000);
   }
 
@@ -71,6 +70,7 @@ export class Cars {
     const racingField = createEl('div');
     carContainer.setAttribute('class', 'car mr-2');
     carPlayer.setAttribute('class', 'car-player');
+    racingField.setAttribute('class', 'race-field');
     carPlayer.textContent = name;
     carContainer.appendChild(carPlayer);
     carContainer.appendChild(racingField);
