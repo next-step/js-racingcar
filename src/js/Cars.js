@@ -1,43 +1,46 @@
 import { $, createEl } from './utils/dom.js';
 import { getRandomInt } from './utils/random.js';
 
-// 차 이름, 시도 횟수 입력 받아서
-// 차 전진 시키고 결과 앱에 전달
 export class Cars {
-  constructor() {
+  constructor({ onRaceEnd }) {
     this.cars = [];
     this.raceTimes = 0;
     this.container = $('#section-car-race');
+    this.onRaceEnd = onRaceEnd;
   }
 
   setState({ cars, raceTimes }) {
     this.cars = cars.map((name) => ({ name, moves: 0, ref: null }));
     this.raceTimes = raceTimes;
     this.render();
-    this.moveCar();
+    this.raceStart();
   }
 
-  moveCar() {
+  raceStart() {
     let times = 0;
     let timer = null;
 
     timer = setInterval(() => {
-      this.cars.map((car) => {
-        const randNum = getRandomInt(0, 9);
-        if (randNum >= 4) {
-          car.moves += 1;
-          const arrowEl = Cars.createArrowElement();
-          car.ref.prepend(arrowEl);
-        }
-        return car;
-      });
+      this.moveCarsRandomly();
 
       if (times >= this.raceTimes) {
         this.removeSpinner();
         clearInterval(timer);
+        this.onRaceEnd?.(this.cars);
       }
       times += 1;
     }, 1000);
+  }
+
+  moveCarsRandomly() {
+    this.cars = this.cars.map((car) => {
+      const randNum = getRandomInt(0, 9);
+      if (randNum < 4) return car;
+      const arrowEl = Cars.createArrowElement();
+      car.ref.prepend(arrowEl);
+      car.moves += 1;
+      return car;
+    });
   }
 
   render() {
