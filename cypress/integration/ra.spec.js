@@ -1,13 +1,37 @@
+import { MEESAGE } from "../../src/js/util/constant.js";
 describe("racingCar", () => {
   beforeEach(() => {
     cy.visit("http://localhost:8080");
   });
+  const setAlert = () => {
+    cy.window().then((win) => cy.stub(win, "alert").as("windowAlert"));
+  };
   const insertCarNames = (str = "A,B,C,D") => {
     cy.get("#carNameBox>input").type(str).get("#carNameBox>button").click();
   };
-  it("자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5자 이하만 가능하다.", () => {
-    insertCarNames();
+  it("자동차 이름은 이름은 1자 이상, 5자 이하만 가능하다.", () => {
+    const str = "AAAAAA,B,C";
+
+    setAlert();
+    insertCarNames(str);
+
+    cy.get("@windowAlert").should(
+      "be.calledWith",
+      MEESAGE.INVALID_CARNAME_LENGTH
+    );
   });
+  it("자동차 이름은 공백일 수 없다.", () => {
+    const str = "A,  ,B,C";
+
+    setAlert();
+    insertCarNames(str);
+
+    cy.get("@windowAlert").should(
+      "be.calledWith",
+      MEESAGE.INVALID_CARNAME_LENGTH
+    );
+  });
+  
   it("자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
     insertCarNames();
   });
