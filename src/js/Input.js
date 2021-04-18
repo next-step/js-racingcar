@@ -23,8 +23,8 @@ export class Input {
     });
 
     raceTimesSubmitBtn.addEventListener('click', () => {
-      this.raceTimes = Number(raceTimesInput);
-      this.onSubmit?.();
+      this.raceTimes = Number(raceTimesInput.value);
+      this.onSubmit?.({ cars: this.cars, raceTimes: this.raceTimes });
     });
   }
 }
