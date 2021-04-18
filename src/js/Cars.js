@@ -59,6 +59,12 @@ export class Cars {
     });
   }
 
+  reset() {
+    this.cars = [];
+    this.raceTimes = 0;
+    this.container.innerHTML = '';
+  }
+
   static createCarElement(name, car) {
     const carContainer = createEl('div');
     const carPlayer = createEl('div');

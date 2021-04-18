@@ -27,4 +27,11 @@ export class Input {
       this.onSubmit?.({ cars: this.cars, raceTimes: this.raceTimes });
     });
   }
+
+  reset() {
+    this.cars = [];
+    this.raceTimes = 0;
+    const raceTimesSection = $('#section-race-times');
+    raceTimesSection.classList.add('hidden');
+  }
 }

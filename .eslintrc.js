@@ -14,5 +14,6 @@ module.exports = {
   rules: {
     'import/prefer-default-export': 'off',
     'import/extensions': 'off',
+    'no-param-reassign': 'warn',
   },
 };
