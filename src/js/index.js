@@ -1,10 +1,15 @@
 const $ = (selector) => document.querySelector(selector)
 const $All = (selector) => document.querySelectorAll(selector)
 
-const [carButtonDom,tryButtonDom, restartButtonDom] = $All(".btn-cyan")
+const [carButtonDom,tryButtonDom] = $All(".btn-cyan")
 const [carNameDom, tryNumberDom] = $All('.w-100');
 const progressTitle = $('.mt-4');
+const resultDom = $All('.mt-5')[2];
 
+
+
+let max=-Infinity;
+let maxCarName = [];
 let carNameArray,tryNumber,isGo,countArray={};
 let carMovingDom;
 
@@ -20,10 +25,10 @@ const tryButtonEvent = tryButtonDom.addEventListener('click',()=>{
 })
 
 const startRacing = (tryNumber,carName)=>{
-    let count=0;
-    carName.map(val => progressTitle.innerHTML += setting(val));
-    carMovingDom = $All('.car-player');
-    timerCheck(count,carName);
+  let count=0;
+  carName.map(val => progressTitle.innerHTML += setting(val));
+  carMovingDom = $All('.car-player');
+  timerCheck(count,carName);
 }
 
 const timerCheck = (count,carName)=>{
@@ -34,6 +39,20 @@ const timerCheck = (count,carName)=>{
     if (count === Number(tryNumber)) {
       clearInterval(timer);
       $All('.relative').forEach(x=>x.remove())
+      checkWinner();
+      resultDom.innerHTML = result(maxCarName);
+      $All('.btn-cyan')[2].addEventListener('click',()=>{
+
+        while ( progressTitle.hasChildNodes() )
+        { progressTitle.firstChild.remove(); }
+
+        while ( resultDom.hasChildNodes() )
+        { resultDom.firstChild.remove(); }
+        countArray={};
+        max=-Infinity;
+        maxCarName = [];
+
+      })
     }
   },1000);
 }
@@ -63,3 +82,26 @@ const setting = (carName)=>` <div class="mr-2">
           </div>`
 
 const moving = ()=>`<div class="forward-icon mt-2">⬇️️</div>`
+
+const result = (winnerName) =>`
+          <div>
+          <h2>🏆 최종 우승자: <span id="winners">${winnerName}</span> 🏆</h2>
+          <div class="d-flex justify-center">
+            <button type="button" class="btn btn-cyan">다시 시작하기</button>
+          </div>
+          </div>
+`
+
+const checkWinner = ()=>{
+  for(let idx in countArray){
+    if(max < countArray[idx]){
+      maxCarName = [];
+      maxCarName.push(idx);
+      max = countArray[idx];
+    }
+    else if(max === countArray[idx]){
+      maxCarName.push(idx);
+      max = countArray[idx];
+    }
+  }
+}
