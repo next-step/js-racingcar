@@ -41,3 +41,9 @@ fieldset {
 #race-times-field.show {
   visibility: visible;
 }
+
+.spinner-container.hide {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
