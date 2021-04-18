@@ -1,0 +1,15 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/znzmektm2/js-racingcar.git",
+  "author": "znzmektm2 <tingcber2@naver.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack serve ./src/js"
+  },
+  "devDependencies": {
+    "cypress": "^6.4.0",
+    "eslint": "^7.24.0"
+  }
+}
