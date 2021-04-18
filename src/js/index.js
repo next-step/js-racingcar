@@ -1,4 +1,5 @@
-console.log(ERROR_MSG);
+const $form = document.querySelector('form');
+
 const $wrapCarsName = document.getElementById('wrap-cars-name');
 const $inputCarsName = $wrapCarsName.querySelector('input');
 const $buttonCarsName = $wrapCarsName.querySelector('button');
@@ -7,10 +8,12 @@ const $wrapTryTimes = document.getElementById('wrap-try-times');
 const $inputTryTimes = $wrapTryTimes.querySelector('input');
 const $buttonTryTimes = $wrapTryTimes.querySelector('button');
 
+const $racingBoardSection = document.getElementById('racing-board-section');
 const $racingBoard = document.getElementById('racing-board');
 const $racingResult = document.getElementById('racing-result');
 
 const $winners = document.getElementById('winners');
+const $retry = document.getElementById('retry');
 
 let cars = [];
 
@@ -20,6 +23,8 @@ $buttonCarsName.addEventListener('click', (e) => {
   if (!isValid) {
     return errorAlert('INVALID_NAME');
   }
+
+  e.target.setAttribute('disabled', 'disabled');
 
   const carObjects = carsName.split(',').map((name) => {
     name = name.trim();
@@ -49,10 +54,10 @@ $buttonTryTimes.addEventListener('click', (e) => {
   if (!isValid) {
     return errorAlert('INVALID_TIMES');
   }
+  e.target.setAttribute('disabled', 'disabled');
+  $racingBoardSection.classList.remove('d-none');
 
   promiseCars = cars.map((car) => car.run(tryTimes));
-
-  $racingBoard.classList.remove('d-none');
 
   Promise.all([...promiseCars]).then((results) => {
     const winner = [];
@@ -69,5 +74,18 @@ $buttonTryTimes.addEventListener('click', (e) => {
 
     $racingResult.classList.remove('d-none');
     $winners.innerText = winner.join(', ');
+    setTimeout(() => {
+      alert('🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇');
+    }, 2000);
   });
 });
+
+function reset() {
+  cars.length = 0;
+  $form.reset();
+  $racingBoard.innerHTML = $winners.innerText = '';
+  document.querySelectorAll('.hide').forEach(($el) => $el.classList.add('d-none'));
+  document.querySelectorAll('[disabled]').forEach(($el) => $el.removeAttribute('disabled'));
+}
+
+$retry.addEventListener('click', reset);

@@ -7,28 +7,13 @@ class Car {
     this.interval = null;
   }
 
-  run(times) {
-    return new Promise((resolve) => {
-      let tryCount = 0;
-      this.interval = setInterval(() => {
-        tryCount++;
-        console.log(new Date(), this.playerName);
+  canGoForward() {
+    const randomNum = Math.floor(Math.random() * 10);
+    return randomNum > 3;
+  }
 
-        this.loading.classList.remove('d-none');
-        const randomNum = Math.floor(Math.random() * 10);
-        const forward = randomNum > 3;
-
-        this.loading.classList.add('d-none');
-
-        if (forward) this.goForward();
-
-        if (tryCount === times) {
-          clearInterval(this.interval);
-          this.interval = null;
-          resolve([this.playerName, this.forwardCount]);
-        }
-      }, 2000);
-    });
+  toggleLoading(on) {
+    this.loading.classList[on ? 'remove' : 'add']('d-none');
   }
 
   goForward() {
@@ -39,5 +24,30 @@ class Car {
     forwardIcon.textContent = '⬇️';
 
     this.loading.before(forwardIcon);
+  }
+
+  finish() {
+    clearInterval(this.interval);
+    this.interval = null;
+  }
+
+  run(times) {
+    return new Promise((resolve) => {
+      let tryCount = 0;
+      this.interval = setInterval(() => {
+        tryCount++;
+
+        this.toggleLoading(true);
+
+        if (this.canGoForward()) this.goForward();
+
+        this.toggleLoading(false);
+
+        if (tryCount === times) {
+          this.finish();
+          resolve([this.playerName, this.forwardCount]);
+        }
+      }, 1000);
+    });
   }
 }
