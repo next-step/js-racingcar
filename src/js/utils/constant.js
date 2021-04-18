@@ -42,9 +42,9 @@ export const TEMPLATE = {
                          </div>
                         `,
   CAR_MOVE: `<div class="forward-icon mt-2">⬇️️</div>`,
-  WINNER: (names) => {
+  WINNER: (players) => {
 
-    const winners = names.join(',')
+    // const winners = names.join(',')
     return `<section class="d-flex justify-center mt-5">
               <div>
                 <h2>🏆 최종 우승자: ${winners}🏆</h2>

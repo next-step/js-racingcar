@@ -1,13 +1,16 @@
-import { allSelector, selector } from './utils/util.js'
+import { selector } from './utils/util.js'
 import { TEMPLATE } from './utils/constant.js'
-let changeListeners = [];
-export function subscribe(callbackFunction) {
-  changeListeners.push(callbackFunction);
+
+let changeListeners = []
+
+export function subscribe (callbackFunction) {
+  changeListeners.push(callbackFunction)
 }
 
-function publish() {
-  changeListeners.forEach(changeListener => changeListener());
+function publish () {
+  changeListeners.forEach(changeListener => changeListener())
 }
+
 class Game {
   constructor (parent) {
     this.parent = parent
@@ -29,9 +32,8 @@ class Panel {
     this.render()
   }
 
-  render = ()  => {
-    console.log(this)
-    this.$parent.innerHTML = '';
+  render = () => {
+    this.$parent.innerHTML = ''
     this.$parent.insertAdjacentHTML('afterbegin', TEMPLATE.INPUT_NAME_COUNT)
     this.addDomEvent()
   }
@@ -58,9 +60,11 @@ class Panel {
   }
 
   addCarPlayers (target) {
-    this.carNames = selector('input', target).value.split(',')
-    const isValid = this.carNames.every(name => (name.length > 0 && name.length < 6))
-    if (this.carNames.length > 0 && isValid) {
+    const inputValues = selector('input', target).value.split(',')
+    const isValid = inputValues.every(name => (name.length > 0 && name.length < 6))
+    if (inputValues.length > 0 && isValid) {
+
+      this.carNames = inputValues.map(name => ({name, count : 0}))
       return !this.showCountComponent && this.showInputCount()
     }
   }
@@ -69,29 +73,40 @@ class Panel {
     this.playCount = selector('input', target).value
     const isValid = this.playCount > 0
     if (isValid) {
-      new Car(this.carNames, this.playCount)
+      new Car({
+        carNames: this.carNames,
+        count: this.playCount,
+        onRestart: this.restart
+      })
     }
   }
+
+  restart = ({ target }) => {
+    if (target.classList.contains('restart-racing')) {
+      publish()
+    }
+  }
+
 }
 
 class Car {
-  constructor (names, count) {
-    this.$parent = selector('#game-process-component');
-    this.names = names
+  constructor ({ carNames, count, onRestart }) {
+    this.$parent = selector('#game-process-component')
+    this.players = carNames
     this.count = count
-    this.result = [];
+    this.restart = onRestart;
 
-    this.init();
+    this.init()
   }
 
-  init() {
-   this.makeCarStatus();
+  init () {
+    this.makeCarStatus()
   }
 
-  makeCarStatus() {
-    const template = this.names.reduce((html, name) => {
-      html += TEMPLATE.CAR_STATUS(name)
-      return html;
+  makeCarStatus () {
+    const template = this.players.reduce((html, player) => {
+      html += TEMPLATE.CAR_STATUS(player.name)
+      return html
     }, '')
     this.$parent.insertAdjacentHTML('beforeend', TEMPLATE.CAR_BOARD(template))
     this.timer(1000, this.count)
@@ -100,25 +115,21 @@ class Car {
   makeRandomNum () {
     return Math.floor(Math.random() * 10)
   }
-  insertMove(id) {
-    selector(`div[data-name="${id}"] > div`,this.$parent).insertAdjacentHTML('afterend', TEMPLATE.CAR_MOVE)
+
+  insertMove (id) {
+    selector(`div[data-name="${id}"] > div`, this.$parent).insertAdjacentHTML('afterend', TEMPLATE.CAR_MOVE)
   }
 
   clearSpinner (id) {
-    const target = selector(`div[data-name="${id}"]`, this.$parent);
+    const target = selector(`div[data-name="${id}"]`, this.$parent)
     target.removeChild(target.lastElementChild)
-    this.addReselt();
+    this.addResult()
   }
 
-  addReselt() {
+  addResult () {
     selector('#game-result-component').addEventListener('click', this.restart)
   }
 
-  restart = ({target}) => {
-    if(target.classList.contains('restart-racing')){
-      publish();
-    }
-  }
   timer (time = 1000, count = 3) {
 
     // let startTime = new Date().getTime();
@@ -145,18 +156,19 @@ class Car {
     // };
     // requestAnimationFrame(callback);
 
-
     if (count < 1) {
-      this.names.forEach(name => this.clearSpinner(name));
-      selector('#game-result-component').innerHTML = TEMPLATE.WINNER(this.names)
+      this.players.forEach(player => this.clearSpinner(player.name))
+      console.log(this.players)
+      selector('#game-result-component').innerHTML = TEMPLATE.WINNER(this.players)
       // setTimeout(() => alert('축하애요'), 2000)
       return false
     } else {
       count -= 1
       setTimeout(() => {
-        this.names.forEach(name => {
-          if ( this.makeRandomNum() > 3) {
-            this.insertMove(name)
+        this.players.forEach(player => {
+          if (this.makeRandomNum() > 3) {
+            player.count += 1;
+            this.insertMove(player.name)
           }
         })
         this.timer(1000, count)
@@ -183,5 +195,5 @@ class Car {
 // -> 결과를 보여준다.
 // -> 결과가 보여지고 나서 시스템 alert노출
 
-const game111 = new Game(selector('#app'))
+new Game(selector('#app'))
 // game.start()
