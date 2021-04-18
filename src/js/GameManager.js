@@ -1,5 +1,7 @@
 import { getEl, getEls, disabledEl } from './util.js';
 import { winnerTemplate } from './template.js';
+import { MESSAGES, VALIDATION, TIMER } from './constant.js';
+
 import Car from './Car.js';
 
 class GameManager {
@@ -25,21 +27,21 @@ class GameManager {
         const str = inputEl.value.replace(/ /g, '');
         const carNames = str.split(',');
 
-        if (!str || !this._checkNameValidation(carNames)) return alert('유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.');
+        if (!str || !this._checkNameValidation(carNames)) return alert(MESSAGES.INVALID_CAR_NAME);
         this.carNames = carNames;
         getEl('#race-times-field').classList.toggle('show');
         disabledEl(target, inputEl);
     }
 
     _checkNameValidation(carNames) {
-        return carNames.some(car => !(car.length > 5));
+        return !carNames.some(car => car.length > VALIDATION.MAX_CAR_NAME_LENGTH);
     }
 
     setGoalCount({ target }) {
         const inputEl = getEl('#input-race-times');
         const num = +inputEl.value;
 
-        if (isNaN(num) || num <= 0) return alert('입력한 레이싱 횟수가 너무 적습니다. 레이싱 횟수는 1이상이어야 합니다.');
+        if (isNaN(num) || num < VALIDATION.MIN_GOAL_COUNT) return alert(MESSAGES.INVALID_GOAL_COUNT);
         this.goalCount = num;
         disabledEl(target, inputEl);
 
@@ -48,7 +50,7 @@ class GameManager {
 
     _startGame() {
         this.cars = this.carNames.map((name, idx) => new Car({ name, idx, manager: this }));
-        this.gameOverCheckTimerId = setInterval(this._checkGameOver.bind(this), 1000);
+        this.gameOverCheckTimerId = setInterval(this._checkGameOver.bind(this), TIMER.GAME_OVER_CHECK);
     }
 
     _checkGameOver() {
@@ -60,8 +62,8 @@ class GameManager {
         getEls('.spinner-container').forEach(el => el.classList.add('hide'));
 
         this.congratsTimerId = setTimeout(() => {
-            alert('🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇');
-        }, 2000);
+            alert(MESSAGES.CONGRATS);
+        }, TIMER.CONGRATS);
     }
 
     resultClickHandler({ target }) {
