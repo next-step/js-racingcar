@@ -1,6 +1,6 @@
 class Car {
-  constructor(name, targetEl) {
-    this.name = name;
+  constructor(playerName, targetEl) {
+    this.playerName = playerName;
     this.targetEl = targetEl;
     this.loading = targetEl.querySelector('.loading');
     this.forwardCount = 0;
@@ -8,22 +8,27 @@ class Car {
   }
 
   run(times) {
-    let tryCount = 0;
-    this.interval = setInterval(() => {
-      tryCount++;
-      this.loading.classList.remove('d-none');
-      const randomNum = Math.floor(Math.random() * 10);
-      const forward = randomNum > 3;
+    return new Promise((resolve) => {
+      let tryCount = 0;
+      this.interval = setInterval(() => {
+        tryCount++;
+        console.log(new Date(), this.playerName);
 
-      this.loading.classList.add('d-none');
+        this.loading.classList.remove('d-none');
+        const randomNum = Math.floor(Math.random() * 10);
+        const forward = randomNum > 3;
 
-      if (forward) this.goForward();
+        this.loading.classList.add('d-none');
 
-      if (tryCount === times) {
-        clearInterval(this.interval);
-        this.interval = null;
-      }
-    }, 2000);
+        if (forward) this.goForward();
+
+        if (tryCount === times) {
+          clearInterval(this.interval);
+          this.interval = null;
+          resolve([this.playerName, this.forwardCount]);
+        }
+      }, 2000);
+    });
   }
 
   goForward() {

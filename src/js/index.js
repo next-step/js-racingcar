@@ -7,8 +7,10 @@ const $wrapTryTimes = document.getElementById('wrap-try-times');
 const $inputTryTimes = $wrapTryTimes.querySelector('input');
 const $buttonTryTimes = $wrapTryTimes.querySelector('button');
 
-const $racingBoardSection = document.getElementById('racing-board-section');
 const $racingBoard = document.getElementById('racing-board');
+const $racingResult = document.getElementById('racing-result');
+
+const $winners = document.getElementById('winners');
 
 let cars = [];
 
@@ -19,13 +21,11 @@ $buttonCarsName.addEventListener('click', (e) => {
     return errorAlert('INVALID_NAME');
   }
 
-  const carObjects = carsName
-    .trim()
-    .split(',')
-    .map((name) => {
-      const wrapCarPlayer = document.createElement('div');
-      wrapCarPlayer.className = 'mr-2';
-      const html = `
+  const carObjects = carsName.split(',').map((name) => {
+    name = name.trim();
+    const wrapCarPlayer = document.createElement('div');
+    wrapCarPlayer.className = 'mr-2';
+    const html = `
         <div class="car-player">${name}</div>
         <div class="d-flex justify-center mt-3 loading">
           <div class="relative spinner-container">
@@ -33,10 +33,10 @@ $buttonCarsName.addEventListener('click', (e) => {
           </div>
         </div>
       `;
-      wrapCarPlayer.innerHTML = html;
-      $racingBoard.appendChild(wrapCarPlayer);
-      return new Car(name, wrapCarPlayer);
-    });
+    wrapCarPlayer.innerHTML = html;
+    $racingBoard.appendChild(wrapCarPlayer);
+    return new Car(name, wrapCarPlayer);
+  });
 
   cars = cars.concat(carObjects);
 
@@ -50,9 +50,24 @@ $buttonTryTimes.addEventListener('click', (e) => {
     return errorAlert('INVALID_TIMES');
   }
 
-  cars.forEach((car) => {
-    car.run(tryTimes);
-  });
+  promiseCars = cars.map((car) => car.run(tryTimes));
 
-  $racingBoardSection.classList.remove('d-none');
+  $racingBoard.classList.remove('d-none');
+
+  Promise.all([...promiseCars]).then((results) => {
+    const winner = [];
+    const topScore = Math.max.apply(
+      Math,
+      results.map((result) => result[1]),
+    );
+
+    results.forEach((result) => {
+      if (topScore == result[1]) {
+        winner.push(result[0]);
+      }
+    });
+
+    $racingResult.classList.remove('d-none');
+    $winners.innerText = winner.join(', ');
+  });
 });

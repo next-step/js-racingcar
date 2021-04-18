@@ -1,6 +1,6 @@
 function checkNames(carsName = '') {
-  const splitNames = carsName.trim().split(',');
-  return splitNames.every((name) => name && name.length <= 5);
+  const splitNames = carsName.split(',');
+  return splitNames.every((name) => name && name.trim().length <= 5);
 }
 
 function checkTimes(times) {
