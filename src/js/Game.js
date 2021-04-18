@@ -43,6 +43,8 @@ export class Game {
         </div>
       </div>
     `;
+
+    setTimeout(() => alert('축하합니다!'), 2000);
   }
 
   static findWinners(cars) {
