@@ -4,7 +4,7 @@
 }
 
 .spinner::after {
-  content: '';
+  content: "";
   box-sizing: border-box;
   width: 25px;
   height: 25px;
@@ -24,6 +24,6 @@
 
 @keyframes spinner {
   to {
-    transform: rotate(360deg);
+    /* transform: rotate(360deg); */
   }
 }
