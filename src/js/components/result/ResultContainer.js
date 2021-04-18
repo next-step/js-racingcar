@@ -12,4 +12,11 @@ export default class ResultContainer extends Component {
     `;
     // 현 컴포넌트의 내부 html코드를 작성해서 return하세요.
   }
+  mountComponents() {
+    // createChildComponent 함수에 생성자, targetSelector, getPropsFunction을 인자로 전달해서 실행하세요.
+  }
+  componentDidMount() {}
+  setEventDelegation() {
+    //addEventLinstener를 사용해서 self에 이벤트를 위임하세요.
+  }
 }

@@ -38,7 +38,7 @@ export default class DisplayContainer extends Component {
     // createChildComponent 함수에 생성자, targetSelector, getPropsFunction을 인자로 전달해서 실행하세요.
   }
   componentDidMount() {}
-  setEventLinstener() {
+  setEventDelegation() {
     //addEventLinstener를 사용해서 self에 이벤트를 위임하세요.
   }
 }

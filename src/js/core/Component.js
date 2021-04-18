@@ -5,7 +5,7 @@ export default class Component {
     this.$self = document.createElement(tagName);
     this.children = [];
     this.render($newtarget, newProps);
-    this.setEventLinstener();
+    this.setEventDelegation();
   }
   selectPropsToUse() {
     this.selfProps = {};
@@ -17,7 +17,7 @@ export default class Component {
     // createChildComponent 함수에 생성자, targetSelector, getPropsFunction을 인자로 전달해서 실행하세요.
   }
   componentDidMount() {}
-  setEventLinstener() {
+  setEventDelegation() {
     //addEventLinstener를 사용해서 self에 이벤트를 위임하세요.
   }
   render($newTarget, newProps) {
@@ -67,7 +67,7 @@ export default class Component {
       component.render($target, getProps());
     });
   }
-  addEventLinstener(eventType, selector, callback) {
+  addEvent(eventType, selector, callback) {
     const children = [...this.$target.querySelectorAll(selector)];
     const isTarget = (target) => {
       return children.includes(target) || target.closest(selector);
