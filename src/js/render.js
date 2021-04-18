@@ -13,9 +13,10 @@ class Game {
     this.parent = parent
 
     this.init()
+    subscribe(this.init)
   }
 
-  init () {
+  init = () => {
     new Panel(this.parent)
   }
 }
@@ -26,7 +27,6 @@ class Panel {
     this.showCountComponent = false
 
     this.render()
-    subscribe(this.render)
   }
 
   render = ()  => {
@@ -36,7 +36,7 @@ class Panel {
     this.addDomEvent()
   }
 
-  addDomEvent () {
+  addDomEvent = () => {
     this.$panel = selector('#game-input-panel-component', this.$parent)
     this.$panel.addEventListener('click', this.handlePanelClick)
 
