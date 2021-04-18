@@ -23,3 +23,13 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('inputCarName', (names) => {
+  cy.get('#input-car-name').type(names);
+  cy.get('#submit-car-name').click();
+});
+
+Cypress.Commands.add('inputRaceTimes', (times) => {
+  cy.get('#input-race-times').type(times);
+  cy.get('#submit-race-times').click();
+});
