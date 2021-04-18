@@ -17,10 +17,6 @@ export default class CarName extends Component {
     </div>
    `;
   }
-  mountComponents() {
-    // createChildComponent 함수에 생성자, targetSelector, getPropsFunction을 인자로 전달해서 실행하세요.
-  }
-  componentDidMount() {}
   setEventDelegation() {
     this.addEvent("click", "#carNameBox>button", (target) => {
       const $input = _.$("input", this.$target);
@@ -46,7 +42,6 @@ export default class CarName extends Component {
         return false;
       }
     }
-
     return true;
   }
   isBlank(str) {

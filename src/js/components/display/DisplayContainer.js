@@ -7,16 +7,16 @@ export default class DisplayContainer extends Component {
     return `
     <div class="mt-4 d-flex">
     <div class="mr-2">
-      <div class="car-player">EAST</div>
+      <div class="car-player">A</div>
       <div class="forward-icon mt-2">⬇️️</div>
       <div class="forward-icon mt-2">⬇️️</div>
     </div>
     <div class="mr-2">
-      <div class="car-player">WEST</div>
+      <div class="car-player">B</div>
       <div class="forward-icon mt-2">⬇️️</div>
     </div>
     <div class="mr-2">
-      <div class="car-player">SOUTH</div>
+      <div class="car-player">C</div>
       <div class="d-flex justify-center mt-3">
         <div class="relative spinner-container">
           <span class="material spinner"></span>
@@ -24,7 +24,7 @@ export default class DisplayContainer extends Component {
       </div>
     </div>
     <div class="mr-2">
-      <div class="car-player">NORTH</div>
+      <div class="car-player">D</div>
       <div class="d-flex justify-center mt-3">
         <div class="relative spinner-container">
           <span class="material spinner"></span>
