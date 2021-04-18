@@ -1,19 +1,12 @@
-import { ErrorMsg } from "./constants";
-
 export default abstract class Component {
-  public $target: Element;
-  public state: Object;
+  public $target: HTMLElement;
   private props: Object;
   private isMounted: boolean;
 
-  constructor($target: Element | null, props: Object = {}) {
-    if ($target === null) {
-      throw Error(ErrorMsg.CanNotBeNull);
-    }
+  constructor($target: HTMLElement, props: Object = {}) {
     this.isMounted = false;
     this.$target = $target;
     this.props = props;
-    this.state = {};
     this.componentInit();
     this.render();
     this.isMounted = true;
@@ -22,7 +15,6 @@ export default abstract class Component {
   componentInit() {}
   componentDidMount() {}
   componentDidUpdate() {}
-  setState(nextState: Object) {}
   getInnerHTML() {
     return "";
   }

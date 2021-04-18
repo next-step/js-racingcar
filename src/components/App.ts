@@ -1,34 +1,44 @@
+import { ID } from "../common/constants";
 import Component from "../core/Component";
-import GameForm from "./GameForm";
-import GamePlay from "./GamePlay";
+import UserInput from "./UserInput";
+import GameProcess from "./GameProcess";
 import GameResult from "./GameResult";
+import { id2Query } from "../common/utils";
 
 export default class App extends Component {
-  private gameFormComp?: GameForm;
-  private gamePlayComp?: GamePlay;
+  private userInputComp?: UserInput;
+  private gameProcessComp?: GameProcess;
   private gameResultComp?: GameResult;
 
-  constructor($target: Element | null) {
+  constructor($target: HTMLElement) {
     super($target);
   }
 
   componentDidMount() {
-    this.gameFormComp = new GameForm(document.querySelector(".game-form"));
-    this.gamePlayComp = new GamePlay(document.querySelector(".game-play"));
+    this.userInputComp = new UserInput(
+      this.$target.querySelector(id2Query(ID.UserInputComponent)) as HTMLElement
+    );
+    this.gameProcessComp = new GameProcess(
+      this.$target.querySelector(
+        id2Query(ID.GameProcessComponent)
+      ) as HTMLElement
+    );
     this.gameResultComp = new GameResult(
-      document.querySelector(".game-result")
+      this.$target.querySelector(
+        id2Query(ID.GameResultComponent)
+      ) as HTMLElement
     );
   }
 
   getInnerHTML() {
     return `
-      <section class="d-flex justify-center mt-5">
-        <form class="game-form"></form>
+      <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
+      <section id="${ID.UserInputComponent}" class="d-flex justify-center mt-5">
       </section>
-      <section class="d-flex justify-center mt-5">
+      <section id="${ID.GameProcessComponent}"class="d-flex justify-center mt-5">
         <div class="mt-4 d-flex game-play"></div>
       </section>
-      <section class="d-flex justify-center mt-5">
+      <section id="${ID.GameResultComponent}" class="d-flex justify-center mt-5">
         <div class="game-result"></div>
       </section>
     `;
