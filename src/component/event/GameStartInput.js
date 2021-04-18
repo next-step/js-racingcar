@@ -35,20 +35,21 @@ function handleNameInput(e, setCars) {
 	}
 }
 
-function handleCountInput(e, setCount) {
+async function handleCountInput(e, setCount, gameStart) {
 	if (e.keyCode === 13) {
 		e.preventDefault();
 		const count = parseInt(e.target.value);
 		setCount(count);
+		await gameStart();
 		return;
 	}
 }
 
-function onKeyInput(callback, e) {
+async function onKeyInput(callback, e) {
 	if (e.target.classList.contains("car-name")) {
 		handleNameInput.call(this, e, callback[0]);
 	} else if (e.target.classList.contains("car-count")) {
-		handleCountInput.call(this, e, callback[1]);
+		await handleCountInput.call(this, e, callback[1], callback[2]);
 	}
 }
 

@@ -19,6 +19,14 @@ class Car {
 	set position(position) {
 		this._position = position;
 	}
+
+	moveForward() {
+		const randomNumber = Math.floor(Math.random() * 10);
+		if (randomNumber <= 3) {
+			return;
+		}
+		this.position += 1;
+	}
 }
 
 export default Car;
