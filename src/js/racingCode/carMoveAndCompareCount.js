@@ -1,4 +1,4 @@
-import {$All, moving, progressTitle, result, resultDom,carButtonDom,tryButtonDom} from "../source/source.js";
+import {$All, moving, progressTitle, result, resultDom,carButtonDom,tryButtonDom,sectionRaceTimes} from "../source/source.js";
 
 let maxCarName = [];
 let countArray={};
@@ -10,7 +10,8 @@ const compareCountAndTryNumber = (timer,count,tryNumber)=>{
     $All('.relative').forEach(x=>x.remove())
     checkWinner();
     resultDom.innerHTML = result(maxCarName);
-    $All('.btn-cyan')[2].addEventListener('click',returnToOriginalHandler)
+    $All('.btn-cyan')[2].addEventListener('click',returnToOriginalHandler);
+    setTimeout(()=>{alert('ㅊㅋㅊㅋ')},2000);
   }
 }
 
@@ -24,6 +25,7 @@ const returnToOriginalHandler = ()=>{
   max=-Infinity;
   maxCarName = [];
 
+  sectionRaceTimes.hidden = true;
   carButtonDom.disabled = false;
   tryButtonDom.disabled = false;
 }

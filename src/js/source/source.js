@@ -5,6 +5,7 @@ const [carButtonDom,tryButtonDom] = $All(".btn-cyan")
 const [carNameDom, tryNumberDom] = $All('.w-100');
 const progressTitle = $('.mt-4');
 const resultDom = $All('.mt-5')[2];
+const sectionRaceTimes = $('#section-race-times')
 
 const setting = (carName)=>` <div class="mr-2">
             <div class="car-player">${carName}</div>
@@ -26,4 +27,4 @@ const result = (winnerName) =>`
           </div>
 `
 
-export {$,$All,carButtonDom,tryButtonDom,carNameDom,tryNumberDom,progressTitle,resultDom,setting,moving,result}
+export {$,$All,carButtonDom,tryButtonDom,carNameDom,tryNumberDom,progressTitle,resultDom,setting,moving,result,sectionRaceTimes}
