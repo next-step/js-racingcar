@@ -1,4 +1,9 @@
-import { MESSAGE, TEMPLATE } from '../utils/constant.js'
+import {
+  MESSAGE,
+  MINIMUM_COUNT,
+  NAME_LIMIT_LENGTH, NAME_MINIMUM_LENGTH,
+  TEMPLATE
+} from '../utils/constant.js'
 import {selector} from "../utils/util.js";
 import Cars from "./Cars.js";
 
@@ -29,23 +34,18 @@ class Panel {
     }
   }
 
-  makeId = (name) => {
-    return Date.now() + name
-  }
-
   addCarPlayers = (target) => {
     const inputValues = selector('input', target).value.split(',')
     if (inputValues.length > 0 && this.isValidName(inputValues)) {
-      this.carNames = inputValues.map((name, idx) => ({name, count: 0, id: this.makeId(idx)}))
+      this.carNames = inputValues.map((name) => ({name}))
       return this.showCountPanel()
     }
 
     alert(MESSAGE.NO_VALID_CAR_NAMES)
-
   }
 
   isValidName = (names) => {
-    return names.every(name => (name.length > 0 && name.length < 6))
+    return names.every(name => (name.length > NAME_MINIMUM_LENGTH && name.length < NAME_LIMIT_LENGTH))
   }
 
   showCountPanel = () => {
@@ -53,7 +53,7 @@ class Panel {
   }
 
   isValidCount = (count) => {
-    return isNaN(count) === false && count > 0
+    return isNaN(count) === false && count > MINIMUM_COUNT;
   }
 
 
