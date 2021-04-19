@@ -1,7 +1,8 @@
 const ERROR_MESSAGE = Object.freeze({
-  NAME_OVERFLOW: "각 이름은 5글자 이하여야 합니다.",
+  NAME_LENGTH: "각 이름은 1글자 이상, 5글자 이하여야 합니다.",
 });
 
+const MIN_NAME_LENGTH = 1;
 const MAX_NAME_LENGTH = 5;
 
-export { ERROR_MESSAGE, MAX_NAME_LENGTH };
+export { ERROR_MESSAGE, MIN_NAME_LENGTH, MAX_NAME_LENGTH };

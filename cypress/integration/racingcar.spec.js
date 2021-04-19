@@ -17,6 +17,20 @@ describe("racing car game", () => {
       cy.get(".car-list").should("contain.text", "D");
     });
 
+    it("하나 이상의 이름이 1자 미만이면 경고창이 뜬다.", () => {
+      const carNames = "A, , C, D";
+
+      cy.get(".car-name-input").type(carNames);
+      cy.get(".car-name-submit").click();
+
+      cy.on("window:alert", (error) =>
+        expect(error).to.contains(ERROR_MESSAGE.NAME_LENGTH)
+      );
+      cy.get(".car-list").should("not.contain.text", "A");
+      cy.get(".car-list").should("not.contain.text", "C");
+      cy.get(".car-list").should("not.contain.text", "D");
+    });
+
     it("하나 이상의 이름이 5자를 초과하면 경고창이 뜬다.", () => {
       const carNames = "ABCDEF, B, C, D";
 
@@ -24,7 +38,7 @@ describe("racing car game", () => {
       cy.get(".car-name-submit").click();
 
       cy.on("window:alert", (error) =>
-        expect(error).to.contains(ERROR_MESSAGE.NAME_OVERFLOW)
+        expect(error).to.contains(ERROR_MESSAGE.NAME_LENGTH)
       );
       cy.get(".car-list").should("not.contain.text", "ABCDEF");
       cy.get(".car-list").should("not.contain.text", "B");
