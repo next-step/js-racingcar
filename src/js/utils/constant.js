@@ -32,7 +32,7 @@ export const TEMPLATE = {
                         </div>
                      </section>
                     `,
-  CAR_STATUS: (name) => `<div class="mr-2"  data-name=${name}>
+  CAR_STATUS: (name, id) => `<div class="mr-2"  data-id=${id}>
                             <div class="car-player">${name}</div>
                             <div class="d-flex justify-center mt-3 spinner-component">
                               <div class="relative spinner-container">
@@ -43,8 +43,8 @@ export const TEMPLATE = {
                         `,
   CAR_MOVE: `<div class="forward-icon mt-2">⬇️️</div>`,
   WINNER: (players) => {
-
-    // const winners = names.join(',')
+    const maxNum = players.reduce((max, {count}) => (max < count ? max = count : max) ,0);
+    const winners = players.filter(player => player.count === maxNum).map(player => player.name).join(',')
     return `<section class="d-flex justify-center mt-5">
               <div>
                 <h2>🏆 최종 우승자: ${winners}🏆</h2>
