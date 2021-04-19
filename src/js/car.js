@@ -2,27 +2,29 @@ class Car {
   constructor(playerName, targetEl) {
     this.playerName = playerName;
     this.targetEl = targetEl;
-    this.loading = targetEl.querySelector('.loading');
+    this.loading = targetEl.querySelector(".loading");
     this.forwardCount = 0;
     this.interval = null;
   }
 
-  canGoForward() {
+  checkForward() {
     const randomNum = Math.floor(Math.random() * 10);
     return randomNum > 3;
   }
 
   toggleLoading(on) {
-    this.loading.classList[on ? 'remove' : 'add']('d-none');
+    this.loading.classList[on ? "remove" : "add"]("d-none");
+  }
+
+  drawForwardIcon() {
+    const forwardIcon = document.createElement("div");
+    forwardIcon.className = "forward-icon mt-2";
+    forwardIcon.textContent = "⬇️";
+    return forwardIcon;
   }
 
   goForward() {
-    this.forwardCount++;
-
-    const forwardIcon = document.createElement('div');
-    forwardIcon.className = 'forward-icon mt-2';
-    forwardIcon.textContent = '⬇️';
-
+    const forwardIcon = this.drawForwardIcon();
     this.loading.before(forwardIcon);
   }
 
@@ -39,7 +41,10 @@ class Car {
 
         this.toggleLoading(true);
 
-        if (this.canGoForward()) this.goForward();
+        if (this.checkForward()) {
+          this.forwardCount++;
+          this.goForward();
+        }
 
         this.toggleLoading(false);
 
