@@ -6,35 +6,34 @@ class Car {
     constructor({ name, idx, manager }) {
         this.name = name;
         this.id = idx;
-        this.count = 0;
         this.manager = manager;
-        this.goTimerId = null;
-        this.raceProgressEl = getEl('#race-progress');
+        this.count = 0;
+        this.moveTimerId = null;
         this.forwardIconWrapEl = null;
-        this.init();
+        this.raceProgressEl = getEl('#race-progress');
     }
 
-    init() {
-        this.goTimerId = setInterval(this.go.bind(this), TIMER.GO);
+    start() {
+        this.moveTimerId = setInterval(this.move.bind(this), TIMER.MOVE);
         this.raceProgressEl.innerHTML += carTemplate({ id: this.id, name: this.name });
     }
 
-    go() {
-        if (this.manager.isGameOver) return clearInterval(this.goTimerId);
-        if (!this.isGo()) return;
+    move() {
+        if (this.manager.isGameOver) return clearInterval(this.moveTimerId);
+        if (!this.isMove()) return;
         if (!this.forwardIconWrapEl) this.forwardIconWrapEl = getEl(`#car-${this.id} .forward-icon-wrap`);
 
         this.forwardIconWrapEl.innerHTML += forwardTemplate();
         if (++this.count === this.manager.goalCount) return this.manager.winners.push(this.name);
     }
 
-    isGo() {
+    isMove() {
         const num = Math.floor(Math.random() * VALIDATION.MAX_RANDOM_NUMVER);
-        return num > VALIDATION.GO_CONDITION;
+        return num > VALIDATION.MOVE_CONDITION;
     }
 
-    clearCar() {
-        clearInterval(this.goTimerId);
+    clear() {
+        clearInterval(this.moveTimerId);
     }
 }
 

@@ -6,35 +6,34 @@ import Car from './Car.js';
 
 class GameManager {
     constructor() {
-        this.carNames = [];
         this.cars = [];
         this.goalCount = 0;
+        this.isGameOver = false;
         this.winners = [];
         this.gameOverCheckTimerId = null;
         this.congratsTimerId = null;
-        this.isGameOver = false;
         this.init();
     }
 
     init() {
-        getEl('#submit-car-name').addEventListener('click', this.setCarNames.bind(this));
+        getEl('#submit-car-name').addEventListener('click', this.setCars.bind(this));
         getEl('#submit-race-times').addEventListener('click', this.setGoalCount.bind(this));
         getEl("#race-result").addEventListener('click', this.resultClickHandler.bind(this));
     }
 
-    setCarNames({ target }) {
+    setCars({ target }) {
         const inputEl = getEl('#input-car-name');
         const str = inputEl.value.replace(/ /g, '');
-        const carNames = str.split(',');
+        const cars = str.split(',');
 
-        if (!str || !this._checkNameValidation(carNames)) return alert(MESSAGES.INVALID_CAR_NAME);
-        this.carNames = carNames;
+        if (!str || !this._checkNameValidation(cars)) return alert(MESSAGES.INVALID_CAR_NAME);
+        this.cars = cars.map((name, idx) => new Car({ name, idx, manager: this }));
         getEl('#race-times-field').classList.toggle('show');
         disabledEl(target, inputEl);
     }
 
-    _checkNameValidation(carNames) {
-        return !carNames.some(car => car.length > VALIDATION.MAX_CAR_NAME_LENGTH);
+    _checkNameValidation(cars) {
+        return !cars.some(car => car.length > VALIDATION.MAX_CAR_NAME_LENGTH);
     }
 
     setGoalCount({ target }) {
@@ -49,18 +48,18 @@ class GameManager {
     }
 
     _startGame() {
-        this.cars = this.carNames.map((name, idx) => new Car({ name, idx, manager: this }));
+        this.cars.forEach(car => car.start());
         this.gameOverCheckTimerId = setInterval(this._checkGameOver.bind(this), TIMER.GAME_OVER_CHECK);
     }
 
     _checkGameOver() {
         if (!this.winners.length) return;
-        clearInterval(this.gameOverCheckTimerId);
 
         this.isGameOver = true;
         getEl('#race-result').innerHTML = winnerTemplate(this.winners);
         getEls('.spinner-container').forEach(el => el.classList.add('hide'));
 
+        clearInterval(this.gameOverCheckTimerId);
         this.congratsTimerId = setTimeout(() => {
             alert(MESSAGES.CONGRATS);
         }, TIMER.CONGRATS);
@@ -74,8 +73,12 @@ class GameManager {
     _resetGame() {
         clearTimeout(this.congratsTimerId);
 
-        this.cars.forEach(car => car.clearCar());
-        this._initProperties();
+        this.cars.forEach(car => car.clear());
+        this._resetProperties();
+        this._resetGround();
+    }
+
+    _resetGround() {
         getEl('#race-times-field').classList.toggle('show');
         getEl('#race-progress').innerHTML = '';
         getEl('#race-result').innerHTML = '';
@@ -85,8 +88,7 @@ class GameManager {
         });
     }
 
-    _initProperties() {
-        this.carNames = [];
+    _resetProperties() {
         this.cars = [];
         this.goalCount = 0;
         this.winners = [];

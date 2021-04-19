@@ -8,11 +8,11 @@ export const VALIDATION = {
     MAX_CAR_NAME_LENGTH: 5,
     MIN_GOAL_COUNT: 1,
     MAX_RANDOM_NUMVER: 10,
-    GO_CONDITION: 3,
+    MOVE_CONDITION: 3,
 };
 
 export const TIMER = {
     GAME_OVER_CHECK: 1000,
     CONGRATS: 2000,
-    GO: 1000,
+    MOVE: 1000,
 };
