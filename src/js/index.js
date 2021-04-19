@@ -58,7 +58,6 @@ celebrationAlert = () => {
   }, 2000);
 };
 
-    });
 gameOver = (results) => {
   const winner = [];
   const topScore = Math.max.apply(
