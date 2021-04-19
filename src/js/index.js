@@ -17,6 +17,19 @@ const $retry = document.getElementById("retry");
 
 let cars = [];
 
+readyPlayer = (carsName) => {
+  const splitCarsName = carsName.split(",");
+  function run() {
+    if (splitCarsName.length === 0) return;
+
+    const carObject = getCarObject(splitCarsName.shift());
+    cars.push(carObject);
+
+    requestAnimationFrame(run);
+  }
+  requestAnimationFrame(run);
+};
+
 getCarObject = (name) => {
   name = name.trim();
   const wrapCarPlayer = drawCarPlayers(name);
@@ -45,23 +58,23 @@ celebrationAlert = () => {
   }, 2000);
 };
 
-gameOver = () => {
-  (results) => {
-    const winner = [];
-    const topScore = Math.max.apply(
-      Math,
-      results.map((result) => result[1])
-    );
-
-    results.forEach((result) => {
-      if (topScore == result[1]) {
-        winner.push(result[0]);
-      }
     });
+gameOver = (results) => {
+  const winner = [];
+  const topScore = Math.max.apply(
+    Math,
+    results.map((result) => result[1])
+  );
 
-    toggle.visible($racingResult);
-    $winners.innerText = winner.join(", ");
-    celebrationAlert();
+  results.forEach((result) => {
+    if (topScore == result[1]) {
+      winner.push(result[0]);
+    }
+  });
+
+  toggle.visible($racingResult);
+  $winners.innerText = winner.join(", ");
+  celebrationAlert();
 };
 
 toggle = {
@@ -88,8 +101,7 @@ onClickEvent = {
     toggle.disabled(e.target);
     toggle.visible($wrapTryTimes);
 
-    const carObjects = carsName.split(",").map(getCarObject);
-    cars = cars.concat(carObjects);
+    readyPlayer(carsName);
   },
   tryTimes: (e) => {
     const tryTimes = parseInt($inputTryTimes.value, 10);
