@@ -11,9 +11,9 @@ export const NUMBERIC_CONDITIONS = {
   TERMS_OF_ADVANCE: 4,
 };
 
-export const RACING_SECONDS_INTERVAL = 1000;
+export const RACING_TIME_INTERVAL = 1000;
 
-export const ALERT_SECONDS = 2000;
+export const CONGRATULATION_ALERT_DELAY = 2000;
 
 export const MSG = {
   INVALID_CAR_NAME:

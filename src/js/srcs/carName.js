@@ -8,8 +8,9 @@ const submitCarName = ({ target }) => {
     .value.split(",")
     .map((v) => v.trim());
   const isValidCarName = carNameArr.every(
-    (e) =>
-      e.length > CARNAME.MIN_LENGTH - 1 && e.length < CARNAME.MAX_LENGTH + 1
+    (carName) =>
+      carName.length >= CARNAME.MIN_LENGTH &&
+      carName.length <= CARNAME.MAX_LENGTH
   );
   const isDuplicateCarName =
     carNameArr.length === new Set(carNameArr).size ? false : true;
@@ -17,8 +18,8 @@ const submitCarName = ({ target }) => {
   if (!isValidCarName) return alert(MSG.INVALID_CAR_NAME);
   if (isDuplicateCarName) return alert(MSG.DUPLICATE_CAR_NAME);
 
-  state.cars = carNameArr.map((name) => {
-    return { name: name, position: 0 };
+  state.cars = carNameArr.map((carName) => {
+    return { name: carName, position: 0 };
   });
   handledisabled($("#inputCarName"), target);
   raceTimes();
