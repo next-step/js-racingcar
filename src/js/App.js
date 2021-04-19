@@ -29,7 +29,7 @@ export default function App() {
 
   const submitCarName = () => {
     const carNames = carNameInput.value.replace(" ", "").split(",");
-    if (carNames.filter(validateCarName).length) {
+    if (carNames.some(validateCarName)) {
       alert(ERROR_MESSAGE.NAME_LENGTH);
       return;
     }
