@@ -15,8 +15,20 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    const onInputUserData = (carNames: string[], raceTimes: number) => {
+      const carProps = carNames.map((carName) =>
+        this.gameProcessComp!.createDefaultCarProps(carName)
+      );
+      this.gameProcessComp?.setState({ carProps, raceTimes });
+      console.log(carNames, raceTimes);
+      console.log(carProps);
+    };
+
     this.userInputComp = new UserInput(
-      this.$target.querySelector(id2Query(ID.UserInputComponent)) as HTMLElement
+      this.$target.querySelector(
+        id2Query(ID.UserInputComponent)
+      ) as HTMLElement,
+      { onInputUserData }
     );
     this.gameProcessComp = new GameProcess(
       this.$target.querySelector(
@@ -36,7 +48,6 @@ export default class App extends Component {
       <section id="${ID.UserInputComponent}" class="d-flex justify-center mt-5">
       </section>
       <section id="${ID.GameProcessComponent}"class="d-flex justify-center mt-5">
-        <div class="mt-4 d-flex game-play"></div>
       </section>
       <section id="${ID.GameResultComponent}" class="d-flex justify-center mt-5">
         <div class="game-result"></div>

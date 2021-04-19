@@ -1,9 +1,9 @@
-export default abstract class Component {
+export default abstract class Component<T = {}> {
   public $target: HTMLElement;
-  private props: Object;
+  public props?: T;
   private isMounted: boolean;
 
-  constructor($target: HTMLElement, props: Object = {}) {
+  constructor($target: HTMLElement, props?: T) {
     this.isMounted = false;
     this.$target = $target;
     this.props = props;

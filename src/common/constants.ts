@@ -9,6 +9,10 @@ export const AlertMsg = Object.freeze({
     "입력한 레이싱 횟수가 너무 적습니다. 레이싱 횟수는 1이상이어야 합니다.",
 });
 
+export const ClassName = Object.freeze({
+  Car: "car",
+});
+
 export const ID = Object.freeze({
   UserInputComponent: "user-input-component",
   GameProcessComponent: "game-process-component",

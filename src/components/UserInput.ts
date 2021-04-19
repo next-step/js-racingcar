@@ -7,6 +7,11 @@ interface UserInputState {
   raceTimesVal?: number;
   isSubmittedCarName?: boolean;
   isSubmittedRaceTimes?: boolean;
+  carNames?: string[];
+}
+
+interface UserInputProps {
+  onInputUserData(carNames: string[], raceTimes: number): void;
 }
 
 const defaultState: UserInputState = {
@@ -14,9 +19,9 @@ const defaultState: UserInputState = {
   isSubmittedRaceTimes: false,
 };
 
-export default class UserInput extends Component {
+export default class UserInput extends Component<UserInputProps> {
   private state: UserInputState;
-  constructor($target: HTMLElement, props?: Object) {
+  constructor($target: HTMLElement, props: UserInputProps) {
     super($target, props);
     this.state = { ...defaultState };
   }
@@ -39,7 +44,11 @@ export default class UserInput extends Component {
         alert(AlertMsg.InvalidCarName);
         return;
       }
-      this.setState({ isSubmittedCarName: true, carNameVal: $inputCar.value });
+      this.setState({
+        isSubmittedCarName: true,
+        carNameVal: $inputCar.value,
+        carNames,
+      });
     };
 
     const onClickRaceTimesBtn = () => {
@@ -52,6 +61,10 @@ export default class UserInput extends Component {
         return;
       }
       this.setState({ isSubmittedRaceTimes: true, raceTimesVal: raceTimes });
+
+      if (Array.isArray(this.state.carNames)) {
+        this.props?.onInputUserData([...this.state.carNames], raceTimes);
+      }
     };
 
     this.$target.addEventListener("click", (e) => {
