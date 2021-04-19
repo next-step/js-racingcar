@@ -1,4 +1,4 @@
-import {TEMPLATE} from "../utils/constant.js";
+import { MESSAGE, TEMPLATE } from '../utils/constant.js'
 import {selector} from "../utils/util.js";
 import Cars from "./Cars.js";
 
@@ -36,11 +36,11 @@ class Panel {
   addCarPlayers = (target) => {
     const inputValues = selector('input', target).value.split(',')
     if (inputValues.length > 0 && this.isValidName(inputValues)) {
-      this.carNames = inputValues.map(name => ({name, count: 0, id: this.makeId(name)}))
+      this.carNames = inputValues.map((name, idx) => ({name, count: 0, id: this.makeId(idx)}))
       return this.showCountPanel()
     }
 
-    alert('message')
+    alert(MESSAGE.NO_VALID_CAR_NAMES)
 
   }
 
@@ -50,7 +50,6 @@ class Panel {
 
   showCountPanel = () => {
     selector('.car-racing-count').classList.remove('hidden')
-
   }
 
   isValidCount = (count) => {
@@ -62,11 +61,13 @@ class Panel {
     const { carNames } = this;
     const count = selector('input', target).value
     if (this.isValidCount(count)) {
-      new Cars({
+      return new Cars({
         carNames,
         count,
       })
     }
+
+    alert(MESSAGE.NO_VALID_COUNT);
   }
 
   restart = ({target}) => {

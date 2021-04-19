@@ -1,5 +1,10 @@
 import {selector} from "../utils/util.js";
-import {TEMPLATE} from "../utils/constant.js";
+import {
+  DELAY_TIME,
+  MESSAGE,
+  MOVE_POSSIBLE_NUMBER,
+  TEMPLATE
+} from '../utils/constant.js'
 
 class Cars {
   constructor({carNames, count }) {
@@ -20,7 +25,7 @@ class Cars {
       return html
     }, '')
     this.$parent.insertAdjacentHTML('beforeend', TEMPLATE.CAR_BOARD(template))
-    this.timer(1000, this.count)
+    this.timer(DELAY_TIME.PROCESSING_TIME, this.count)
   }
 
   makeRandomNum = () => {
@@ -36,9 +41,20 @@ class Cars {
     target.removeChild(target.lastElementChild)
   }
 
+  showWinnerAlert = () => {
+    setTimeout(() => alert(MESSAGE.WINNER_ALERT), DELAY_TIME.WINNER_TIME)
+  }
+
+  moveCar = (player) => {
+    if (this.makeRandomNum() > MOVE_POSSIBLE_NUMBER) {
+        player.count += 1;
+        this.insertMove(player.id)
+      }
+    return false;
+  }
+
 
   timer(time = 1000, count) {
-
     // let startTime = new Date().getTime();
     // let i = 0;
     // const callback = ()  => {
@@ -66,17 +82,12 @@ class Cars {
     if (count < 1) {
       this.players.forEach(player => this.clearSpinner(player.id))
       selector('#game-result-component').innerHTML = TEMPLATE.WINNER(this.players)
-      // setTimeout(() => alert('축하애요'), 2000)
+      this.showWinnerAlert();
       return false
     } else {
       count -= 1
       setTimeout(() => {
-        this.players.forEach(player => {
-          if (this.makeRandomNum() > 3) {
-            player.count += 1;
-            this.insertMove(player.id)
-          }
-        })
+        this.players.forEach(this.moveCar)
         this.timer(1000, count)
       }, time)
     }
