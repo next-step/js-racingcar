@@ -1,4 +1,4 @@
-import {$All, moving, progressTitle, result, resultDom} from "../source/source.js";
+import {$All, moving, progressTitle, result, resultDom,carButtonDom,tryButtonDom} from "../source/source.js";
 
 let maxCarName = [];
 let countArray={};
@@ -23,6 +23,9 @@ const returnToOriginalHandler = ()=>{
   countArray={};
   max=-Infinity;
   maxCarName = [];
+
+  carButtonDom.disabled = false;
+  tryButtonDom.disabled = false;
 }
 
 const goCarMove = (carNameArray,isGo,carMovingDom)=>{
