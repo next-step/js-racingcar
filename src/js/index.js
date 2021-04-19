@@ -6,23 +6,25 @@ const [carNameDom, tryNumberDom] = $All('.w-100');
 const progressTitle = $('.mt-4');
 const resultDom = $All('.mt-5')[2];
 
-
-
 let max=-Infinity;
 let maxCarName = [];
-let carNameArray,tryNumber,isGo,countArray={};
+let carNameArray,tryNumber,isGo=[],countArray={};
 let carMovingDom;
 
 const splitCarName = (val)=>val.split(',');
 
-const carButtonEvent = carButtonDom.addEventListener('click',()=>{
+const carButtonHandler = ()=>{
   carNameArray = splitCarName(carNameDom.value);
-})
+}
+const carButtonEvent = carButtonDom.addEventListener('click',carButtonHandler)
 
-const tryButtonEvent = tryButtonDom.addEventListener('click',()=>{
+const tryButtonHandler = ()=>{
   tryNumber = tryNumberDom.value;
   startRacing(tryNumber,carNameArray)
-})
+}
+
+const tryButtonEvent = tryButtonDom.addEventListener('click',tryButtonHandler)
+
 
 const startRacing = (tryNumber,carName)=>{
   let count=0;
@@ -36,25 +38,29 @@ const timerCheck = (count,carName)=>{
     isGo = carName.map(() => Math.floor(Math.random() * 10) >= 4 ? true : false);
     goCarMove(carNameArray, isGo);
     count++;
-    if (count === Number(tryNumber)) {
-      clearInterval(timer);
-      $All('.relative').forEach(x=>x.remove())
-      checkWinner();
-      resultDom.innerHTML = result(maxCarName);
-      $All('.btn-cyan')[2].addEventListener('click',()=>{
-
-        while ( progressTitle.hasChildNodes() )
-        { progressTitle.firstChild.remove(); }
-
-        while ( resultDom.hasChildNodes() )
-        { resultDom.firstChild.remove(); }
-        countArray={};
-        max=-Infinity;
-        maxCarName = [];
-
-      })
-    }
+    compareCountAndTryNumber(timer,count);
   },1000);
+}
+
+const compareCountAndTryNumber = (timer,count)=>{
+  if (count === Number(tryNumber)) {
+    clearInterval(timer);
+    $All('.relative').forEach(x=>x.remove())
+    checkWinner();
+    resultDom.innerHTML = result(maxCarName);
+    $All('.btn-cyan')[2].addEventListener('click',returnToOriginalHandler)
+  }
+}
+
+const returnToOriginalHandler = ()=>{
+  while ( progressTitle.hasChildNodes() )
+  { progressTitle.firstChild.remove(); }
+
+  while ( resultDom.hasChildNodes() )
+  { resultDom.firstChild.remove(); }
+  countArray={};
+  max=-Infinity;
+  maxCarName = [];
 }
 
 const goCarMove = (carNameArray,isGo)=>{
