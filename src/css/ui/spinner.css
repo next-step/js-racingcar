@@ -4,7 +4,7 @@
 }
 
 .spinner::after {
-  content: '';
+  content: "";
   box-sizing: border-box;
   width: 25px;
   height: 25px;
