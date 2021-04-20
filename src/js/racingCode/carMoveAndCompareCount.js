@@ -8,7 +8,7 @@ import {
   carButtonDom,
   tryButtonDom,
   sectionRaceTimes,
-  successMessage,
+  Message,
 } from "../source/source.js";
 
 let maxCarName = [];
@@ -23,7 +23,7 @@ const compareCountAndTryNumber = (timer, count, tryNumber) => {
     resultDom.innerHTML = result(maxCarName);
     $All(".btn-cyan")[2].addEventListener("click", returnToOriginalHandler);
     setTimeout(() => {
-      alert(successMessage);
+      alert(Message.success);
     }, 2000);
   }
 };

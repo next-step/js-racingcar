@@ -2,8 +2,7 @@ import {
   carNameDom,
   tryNumberDom,
   sectionRaceTimes,
-  overFiveErrorMessage,
-  countErrorMessage,
+  Message,
 } from "../source/source.js";
 import { startRacing } from "../racingCode/startRacing.js";
 import { carButtonDom, tryButtonDom } from "../source/source.js";
@@ -16,8 +15,8 @@ const splitCarName = (val) => val.split(",");
 const carButtonHandler = () => {
   carNameArray = splitCarName(carNameDom.value);
   carNameArray.map((val) => {
-    if (val.length > 5) {
-      alert(overFiveErrorMessage);
+    if (val.length > 5 || val.length < 1) {
+      alert(Message.overFiveError);
       isSmallerFive = false;
     }
   });
@@ -35,7 +34,7 @@ const tryButtonHandler = () => {
     startRacing(tryNumber, carNameArray);
     tryButtonDom.disabled = true;
   } else {
-    alert(countErrorMessage);
+    alert(Message.countError);
   }
 };
 

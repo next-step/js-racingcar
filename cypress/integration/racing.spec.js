@@ -1,7 +1,7 @@
 describe("ui-racing", () => {
   beforeEach(() => {
     cy.visit(
-      "http://localhost:63342/js-racingcar/index.html?_ijt=siqk93q6r5s4qrcam1s6at0l3r"
+      "http://localhost:63342/js-racingcar/index.html?_ijt=3si4pgd0dur43fr0frfj99v8c6"
     );
   });
   const NAMES = "EAST,WEST,SOUTH,NORTH";
@@ -69,6 +69,7 @@ describe("ui-racing", () => {
     inputCount(NUMBER);
     cy.wait(NUMBER * 1000 + 2000);
     checkAlertMessage(WINNER_MESSAGE);
+    cy.get(".car-player").should("have.text", 1);
   });
 
   it("3게임 진행", () => {
