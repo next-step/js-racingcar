@@ -10,7 +10,6 @@ import {
 } from "./utils/constnats.js";
 
 const template = `
-<div>
   <section class="d-flex justify-center mt-5">
     <form>
       <fieldset>
@@ -37,7 +36,6 @@ const template = `
     <div class="car-list mt-4 d-flex">
     </div>
   </section>
-</div>
 `;
 
 export default function App(target) {
