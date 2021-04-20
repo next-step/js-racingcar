@@ -1,3 +1,3 @@
 import App from "./App.js";
 
-App();
+App("#app");

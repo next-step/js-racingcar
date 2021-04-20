@@ -1,17 +1,25 @@
+import createElement from "../utils/createElement.js";
+import $store from "../store/index.js";
+
 const CarListItem = (name) => `
   <div class="mr-2">
     <div class="car-player">${name}</div>
   </div>
 `;
 
-export default function CarList() {
-  const carList = document.querySelector(".car-list");
+export default function CarList(target) {
+  const dom = createElement(target);
 
-  const render = (carNames) => {
-    carList.innerHTML = carNames.map(CarListItem).join("");
+  const init = () => {
+    $store.game.subscribe("cars", render);
   };
 
-  return {
-    render,
+  const render = () => {
+    const carNames = $store.game.getCarNames();
+    dom.innerHTML = carNames.map(CarListItem).join("");
   };
+
+  init();
+
+  return dom;
 }
