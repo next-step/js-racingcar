@@ -27,8 +27,8 @@ const template = `
       <fieldset>
         <p>시도할 횟수를 입력해주세요.</p>
         <div class="d-flex">
-          <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-          <button type="button" class="btn btn-cyan">확인</button>
+          <input type="number" class="racing-times-input w-100 mr-2" placeholder="시도 횟수" />
+          <button type="button" class="racing-times-submit btn btn-cyan">확인</button>
         </div>
       </fieldset>
     </form>
@@ -44,7 +44,10 @@ export default function App(target) {
   const dom = createElement(target, template);
 
   const carNameInput = dom.querySelector(".car-name-input");
-  const carNameSubmitBtn = dom.querySelector(".car-name-submit");
+  const carNameSubmit = dom.querySelector(".car-name-submit");
+
+  const racingTimesInput = dom.querySelector(".racing-times-input");
+  const racingTimesSubmit = dom.querySelector(".racing-times-submit");
 
   const init = () => {
     CarList(".car-list");
@@ -54,7 +57,9 @@ export default function App(target) {
 
   const initEventListener = () => {
     carNameInput.addEventListener("keypress", onKeypressCarNameInput);
-    carNameSubmitBtn.addEventListener("click", submitCarName);
+    carNameSubmit.addEventListener("click", submitCarName);
+    racingTimesInput.addEventListener("keypress", onKeypressRacingTimesInput);
+    racingTimesSubmit.addEventListener("click", submitRacingTimes);
   };
 
   const onKeypressCarNameInput = ({ target, key }) => {
@@ -78,6 +83,25 @@ export default function App(target) {
 
   const validateCarName = (name) =>
     name.length < MIN_NAME_LENGTH || name.length > MAX_NAME_LENGTH;
+
+  const onKeypressRacingTimesInput = ({ target, key }) => {
+    if (key !== "Enter" || !target.value) {
+      return;
+    }
+
+    submitRacingTimes();
+  };
+
+  const submitRacingTimes = () => {
+    const racingTimes = racingTimesInput.value.trim();
+    if (Number.isInteger(racingTimes) || racingTimes < 1) {
+      alert(ERROR_MESSAGE.RACING_TIMES);
+      return;
+    }
+
+    $store.game.inputRacingTimes(racingTimes);
+    $store.game.setLoading(true);
+  };
 
   init();
 

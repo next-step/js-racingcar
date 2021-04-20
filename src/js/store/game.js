@@ -16,12 +16,17 @@ const game = (() => {
     publish("cars");
   };
 
-  const getCarNames = () => {
-    return state.cars.map((car) => car.name);
+  const getCars = () => {
+    return state.cars;
   };
 
   const inputRacingTimes = (racingTimes) => {
     state.racingTimes = racingTimes;
+  };
+
+  const setLoading = (value) => {
+    state.cars.forEach((car) => car.setLoading(value));
+    publish("cars");
   };
 
   const subscribe = (target, method) => {
@@ -42,8 +47,9 @@ const game = (() => {
   return {
     resetCars,
     addCar,
-    getCarNames,
+    getCars,
     inputRacingTimes,
+    setLoading,
     subscribe,
   };
 })();

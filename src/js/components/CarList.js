@@ -1,12 +1,6 @@
 import createElement from "../utils/createElement.js";
 import $store from "../store/index.js";
 
-const CarListItem = (name) => `
-  <div class="mr-2">
-    <div class="car-player">${name}</div>
-  </div>
-`;
-
 export default function CarList(target) {
   const dom = createElement(target);
 
@@ -15,8 +9,10 @@ export default function CarList(target) {
   };
 
   const render = () => {
-    const carNames = $store.game.getCarNames();
-    dom.innerHTML = carNames.map(CarListItem).join("");
+    dom.innerHTML = "";
+
+    const cars = $store.game.getCars();
+    cars.forEach((car) => dom.appendChild(car.render()));
   };
 
   init();
