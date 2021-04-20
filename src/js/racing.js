@@ -1,9 +1,6 @@
-import {CAR_NAME_LIST, NUMBER_OF_ATTEMPTS} from './register.js';
-import {resultTemplate, moveTemplate, carTemplate, startBtnTemplate} from '../utils/templates.js';
-
-const $start = document.getElementById('start');
-const $result = document.getElementById('result');
-const $track = document.getElementById('main');
+import {CAR_NAME_LIST, TRY_NUMBER} from './register.js';
+import {resultTemplate, moveTemplate, carTemplate} from '../utils/templates.js';
+import {$start, $result, $track} from '../utils/doms.js';
 
 export const initRacing = () => {
     $start.addEventListener('click', onRacing);
@@ -28,12 +25,12 @@ const onRacing = () => {
 
             if (randNum >= 4) {
                 distance[i] += 1;
-                document.getElementById(carName).insertAdjacentHTML('beforeend', moveTemplate());
+                document.getElementById(carName).insertAdjacentHTML('beforeend', moveTemplate(randNum));
             }
             i += 1;
         });
         cnt += 1;
-        if (cnt == NUMBER_OF_ATTEMPTS) {
+        if (cnt == TRY_NUMBER) {
             clearInterval(race);
         }
     }, 1000);
@@ -52,5 +49,5 @@ const onRacing = () => {
         setTimeout(() => {
             alert(winnerList.join(',') + '님 우승을 축하합니다.');
         }, 1000 * 2);
-    }, 1000 * NUMBER_OF_ATTEMPTS);
+    }, 1000 * TRY_NUMBER);
 };

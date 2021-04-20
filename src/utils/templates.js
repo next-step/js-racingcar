@@ -1,6 +1,6 @@
 export const carTemplate = (carName) => {
     return `<div class="mr-2" id="${carName}">
-                <div class="car-player">${carName}</div>
+                <div class="car-player ${carName}">${carName}</div>
             </div>`;
 };
 
@@ -8,8 +8,8 @@ export const resultTemplate = (winnerList) => {
     return `<div class="winner"><h2>🏆 최종 우승자: ${winnerList.join(',')}🏆</h2></div>`;
 };
 
-export const moveTemplate = () => {
-    return `<div class="forward-icon mt-2">⬇️️</div>`;
+export const moveTemplate = (randNum) => {
+    return `<div class="forward-icon mt-2 num-${randNum}">⬇️️</div>`;
 };
 
 export const startBtnTemplate = () => {

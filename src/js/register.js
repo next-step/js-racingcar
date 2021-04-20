@@ -1,12 +1,8 @@
 import {carTemplate, tryNumberTemplate} from '../utils/templates.js';
-
-const $inputCarName = document.getElementById('input-car-name');
-const $inputNumber = document.getElementById('input-number');
-const $track = document.getElementById('main');
-const $number = document.getElementById('try-number');
+import {$inputCarName, $inputNumber, $track, $number} from '../utils/doms.js';
 
 export const CAR_NAME_LIST = [];
-export let NUMBER_OF_ATTEMPTS = 0;
+export let TRY_NUMBER = 0;
 
 export const initRegister = () => {
     const $nameBtn = document.getElementById('btn-name');
@@ -39,7 +35,7 @@ const onRegisterCar = () => {
 };
 
 const onRegisterNumber = () => {
-    NUMBER_OF_ATTEMPTS = $inputNumber.value;
-    $number.insertAdjacentHTML('afterbegin', tryNumberTemplate(NUMBER_OF_ATTEMPTS));
+    TRY_NUMBER = $inputNumber.value;
+    $number.insertAdjacentHTML('afterbegin', tryNumberTemplate(TRY_NUMBER));
     $inputNumber.value = '';
 };
