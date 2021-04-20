@@ -12,7 +12,7 @@ describe('자동차 객체를 테스트', () => {
   it('자동차 객체를 생성한다.', () => {
     cy.wrap(car)
       .invoke('status')
-      .should('deep.eq', [name, numbers['INIT_NUM']])
+      .should('deep.eq', [name, numbers.INIT_NUM])
   })
 
   it('자동차는 전진할 수 있다.', () => {
@@ -21,7 +21,7 @@ describe('자동차 객체를 테스트', () => {
     cy.wrap(car)
       .invoke('status')
       .its(1)
-      .should('eq', numbers['INIT_NUM'] + 1)
+      .should('eq', numbers.INIT_NUM + 1)
   })
 
   it('자동차는 멈출 수 있다.', () => {
@@ -30,7 +30,7 @@ describe('자동차 객체를 테스트', () => {
     cy.wrap(car)
       .invoke('status')
       .its(1)
-      .should('eq', numbers['INIT_NUM'])
+      .should('eq', numbers.INIT_NUM)
   })
 
   it('해당하는 시간초에 움직일 수 있는가', () => {
@@ -65,7 +65,7 @@ describe('자동차목록을 테스트', () => {
       .should('eq', carNames.length)
 
     const predict = [];
-    carNames.forEach(carName => predict.push([carName, numbers['INIT_NUM']]));
+    carNames.forEach(carName => predict.push([carName, numbers.INIT_NUM]));
 
     cy.wrap(cars)
       .invoke('getCarsStatus')
@@ -77,7 +77,7 @@ describe('자동차목록을 테스트', () => {
       .invoke('move', tryNum, true)
     cy.wrap(cars)
       .invoke('getForward')
-      .each(forwards => cy.wrap(forwards).should('eq', numbers['INIT_NUM'] + tryNum))
+      .each(forwards => cy.wrap(forwards).should('eq', numbers.INIT_NUM + tryNum))
   })
 
   it('주어진 횟수만큼 자동차들은 멈출 수 있다.', () => {
@@ -85,7 +85,7 @@ describe('자동차목록을 테스트', () => {
       .invoke('move', tryNum, false)
     cy.wrap(cars)
       .invoke('getForward')
-      .each(forwards => cy.wrap(forwards).should('eq', numbers['INIT_NUM']))
+      .each(forwards => cy.wrap(forwards).should('eq', numbers.INIT_NUM))
   })
 
 })

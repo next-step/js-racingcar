@@ -1,4 +1,5 @@
 import { numbers } from "../utils/constant.js";
+import { TAG, CAR_ATTRIBUTE } from "../utils/selector.js";
 
 export function RacingCar(inputName) {
   const name = inputName;
@@ -15,6 +16,7 @@ export function RacingCars() {
   const cars = [];
   
   this.setNames = inputNames => {
+    if(!Array.isArray(inputNames)) inputNames = [inputNames];
     inputNames.forEach(name => cars.push(new RacingCar(name)));
   };
   
@@ -30,12 +32,12 @@ export function RacingCars() {
 
 export const carTemplate = name => {
   const carName = document.createTextNode(name);
-  const carNameElement = document.createElement("div");
-  carNameElement.setAttribute("class", "car-player mr-2");
+  const carNameElement = document.createElement(TAG.DIV);
+  carNameElement.setAttribute(TAG.CLASS, CAR_ATTRIBUTE.CAR_NAME);
   carNameElement.appendChild(carName);
 
-  const carElement = document.createElement("div");
-  carElement.setAttribute("id", "car");
+  const carElement = document.createElement(TAG.DIV);
+  carElement.setAttribute(TAG.ID, CAR_ATTRIBUTE.CAR);
   carElement.appendChild(carNameElement);
   return carElement;
 };
@@ -43,8 +45,8 @@ export const carTemplate = name => {
 export const carForwardTemplate = () => {
   const forward = document.createTextNode("⬇️");
 
-  const element = document.createElement("div");
-  element.setAttribute("class", "forward-icon mt-2");
+  const element = document.createElement(TAG.DIV);
+  element.setAttribute(TAG.CLASS, CAR_ATTRIBUTE.CAR_FORWARD);
   element.appendChild(forward);
   return element;
 }

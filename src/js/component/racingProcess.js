@@ -1,12 +1,13 @@
 import { $, $all } from "../utils/dom.js";
+import { COMPONENT } from "../utils/selector.js";
 import { carForwardTemplate, carTemplate } from "./racingCar.js";
 
 export default function RacingProcess() {
-  const $process = $("#car-list");
+  const $process = $(COMPONENT.CAR_LIST);
 
   this.moveAtTime = (cars, time) => {
     const movable = cars.areMovableTime(time);
-    $all("#car").forEach((element, index) => {
+    $all(COMPONENT.CARS).forEach((element, index) => {
       movable[index] ? element.appendChild(carForwardTemplate()) : "";
     });
   }

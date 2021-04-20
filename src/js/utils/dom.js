@@ -3,6 +3,6 @@ export const $ = (selector, target='') => {
   return target.querySelector(selector);
 }
 export const $all = (selector, target='') => {
-  if(!target) document.querySelectorAll(selector);
+  if(!target) return document.querySelectorAll(selector);
   return target.querySelectorAll(selector);
 }

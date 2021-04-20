@@ -8,15 +8,21 @@ export default function RacingApp() {
   const cars = new RacingCars();
 
   this.render = () => {
-    cars.move(2, true);
     for(var i =1; i< 4; i++) {
       process.moveAtTime(cars, i);
     }
-    
+  }
+
+  this.inputCar = carNames => {
+    cars.setNames(carNames);
+    this.init();
+  }
+
+  this.inputTry = tryNum => {
+    cars.move(tryNum, true);
   }
 
   this.init = () => {
-    cars.setNames(["임시1", "임시2", "임시3"]);
     process.init(cars);
     this.render();
   }
