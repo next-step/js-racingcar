@@ -1,4 +1,5 @@
 import {
+  $,
   $All,
   moving,
   progressTitle,
@@ -7,6 +8,7 @@ import {
   carButtonDom,
   tryButtonDom,
   sectionRaceTimes,
+  successMessage,
 } from "../source/source.js";
 
 let maxCarName = [];
@@ -21,7 +23,7 @@ const compareCountAndTryNumber = (timer, count, tryNumber) => {
     resultDom.innerHTML = result(maxCarName);
     $All(".btn-cyan")[2].addEventListener("click", returnToOriginalHandler);
     setTimeout(() => {
-      alert("ㅊㅋㅊㅋ");
+      alert(successMessage);
     }, 2000);
   }
 };
@@ -41,6 +43,9 @@ const returnToOriginalHandler = () => {
   sectionRaceTimes.hidden = true;
   carButtonDom.disabled = false;
   tryButtonDom.disabled = false;
+
+  $("#inputCarName").value = "";
+  $("#inputTryNumber").value = "";
 };
 
 const goCarMove = (carNameArray, isGo, carMovingDom) => {
@@ -69,4 +74,4 @@ const checkWinner = () => {
   }
 };
 
-export { addMovingDom, compareCountAndTryNumber, goCarMove };
+export { addMovingDom, compareCountAndTryNumber, goCarMove, maxCarName };
