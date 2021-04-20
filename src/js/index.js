@@ -1,2 +1,1 @@
-import {carButtonEvent,tryButtonEvent} from "./eventHandler/event.js";
-
+import { carButtonEvent, tryButtonEvent } from "./eventHandler/event.js";

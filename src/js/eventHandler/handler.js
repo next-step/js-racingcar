@@ -1,33 +1,36 @@
-import {carNameDom, tryNumberDom,sectionRaceTimes} from "../source/source.js";
-import {startRacing} from "../racingCode/startRacing.js";
-import {carButtonDom, tryButtonDom} from "../source/source.js";
+import {
+  carNameDom,
+  tryNumberDom,
+  sectionRaceTimes,
+} from "../source/source.js";
+import { startRacing } from "../racingCode/startRacing.js";
+import { carButtonDom, tryButtonDom } from "../source/source.js";
 
-let carNameArray,tryNumber;
-let isSmallerFive=true;
+let carNameArray, tryNumber;
+let isSmallerFive = true;
 
-const splitCarName = (val)=>val.split(',');
+const splitCarName = (val) => val.split(",");
 
-const carButtonHandler = ()=>{
+const carButtonHandler = () => {
   carNameArray = splitCarName(carNameDom.value);
-  carNameArray.map((val)=>{
-    if(val.length > 5){
-      alert('안돼');
-      isSmallerFive= false;
+  carNameArray.map((val) => {
+    if (val.length > 5) {
+      alert("안돼");
+      isSmallerFive = false;
     }
-  })
-  if(isSmallerFive) {
+  });
+  if (isSmallerFive) {
     carButtonDom.disabled = true;
     sectionRaceTimes.hidden = false;
+  } else {
+    isSmallerFive = true;
   }
-  else{
-    isSmallerFive =true;
-  }
-}
+};
 
-const tryButtonHandler = ()=>{
+const tryButtonHandler = () => {
   tryNumber = tryNumberDom.value;
-  startRacing(tryNumber,carNameArray);
+  startRacing(tryNumber, carNameArray);
   tryButtonDom.disabled = true;
-}
+};
 
-export {carButtonHandler,tryButtonHandler};
+export { carButtonHandler, tryButtonHandler };
