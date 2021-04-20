@@ -19,28 +19,35 @@ export default class GameProcess extends Component {
     this.render();
   }
 
-  async playGame() {
-    const Interval = 1000;
-    const carProps1 = this.state!.carProps!.map((carProp) => {
-      carProp.isForwarding = true;
-      return carProp;
-    });
-    this.setState({ carProps: carProps1 });
+  async executeTask(duration: number) {
+    const loadingProps = this.state!.carProps!.map((carProp) => ({
+      ...carProp,
+      isForwarding: true,
+    }));
+    this.setState({ carProps: loadingProps });
 
-    await delay(500);
+    await delay(duration);
 
-    const carProps2: CarProps[] = this.state!.carProps!.map((carProp) => {
-      carProp.forwardedCnt++;
+    const forwardProps: CarProps[] = this.state!.carProps!.map((carProp) => {
       carProp.isForwarding = false;
+      if (this.canMove()) {
+        carProp.forwardedCnt++;
+      }
       return carProp;
     });
-    this.setState({ carProps: carProps2 });
-    setTimeout(() => this.playGame(), Interval);
+    this.setState({ carProps: forwardProps });
   }
 
-  componentDidMount() {
+  private canMove(): boolean {
+    return (Math.random() * 100) % 10 >= 4;
+  }
+
+  async playGame() {
     const Interval = 1000;
-    setTimeout(() => this.playGame(), Interval);
+    const raceTimes: number = this.state?.raceTimes ?? 0;
+    for (let i = 0; i < raceTimes; i++) {
+      await this.executeTask(Interval);
+    }
   }
 
   createDefaultCarProps(carName: string): CarProps {
@@ -56,13 +63,9 @@ export default class GameProcess extends Component {
       return "";
     }
 
-    const carsHTML = new Array(this.state!.carProps!.length)
-      .fill(null)
-      .map(
-        (_, idx) => `
-      <div data-id="${idx}" class="${ClassName.Car} mr-2"></div>`
-      )
-      .join("");
+    const carsHTML = this.state!.carProps!.map(
+      (_, idx) => `<div data-id="${idx}" class="${ClassName.Car} mr-2"></div>`
+    ).join("");
 
     return `
         <div class="mt-4 d-flex game-play">
@@ -77,11 +80,9 @@ export default class GameProcess extends Component {
     );
 
     Array.from($cars).forEach(($car) => {
-      if (typeof $car.dataset.id === "string") {
-        const idx: number = +$car.dataset.id;
-        const carProps = this.state!.carProps![idx] as CarProps;
-        new Car($car, carProps);
-      }
+      const idx: number = +$car.dataset.id!;
+      const carProps = this.state!.carProps![idx] as CarProps;
+      new Car($car, carProps);
     });
   }
 }

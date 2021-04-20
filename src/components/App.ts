@@ -19,9 +19,8 @@ export default class App extends Component {
       const carProps = carNames.map((carName) =>
         this.gameProcessComp!.createDefaultCarProps(carName)
       );
-      this.gameProcessComp?.setState({ carProps, raceTimes });
-      console.log(carNames, raceTimes);
-      console.log(carProps);
+      this.gameProcessComp!.setState({ carProps, raceTimes });
+      this.gameProcessComp!.playGame();
     };
 
     this.userInputComp = new UserInput(
