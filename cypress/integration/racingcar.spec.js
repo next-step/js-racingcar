@@ -33,7 +33,7 @@ describe("racingcar", () => {
 
   it("1. 주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.", () => {
     let racingTimes3 = 3;
-    let arr = [Array(racingTimes3)].map(() => 0);
+    let arr = [...Array(racingTimes3)].map(() => 0);
 
     inputAndSubmitCarName(carNamesABC);
     inputAndSubmitRaceTimes(racingTimes3);
@@ -43,6 +43,7 @@ describe("racingcar", () => {
         cy.get(".mt-4").each((carRace, i) => {
           const forwardIconsLength = carRace.find(".forward-icon").length;
 
+          console.log(forwardIconsLength, arr[i]);
           expect(forwardIconsLength).to.satisfy((forwardIconsLength) => {
             return (
               forwardIconsLength === arr[i] || forwardIconsLength === arr[i] + 1
