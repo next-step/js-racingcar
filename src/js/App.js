@@ -1,4 +1,4 @@
-import createElement from "./utils/createElement.js";
+import { createElement, wait } from "./utils/utils.js";
 import $store from "./store/index.js";
 
 import CarList from "./components/CarList.js";
@@ -92,15 +92,23 @@ export default function App(target) {
     submitRacingTimes();
   };
 
-  const submitRacingTimes = () => {
+  const submitRacingTimes = async () => {
     const racingTimes = racingTimesInput.value.trim();
     if (Number.isInteger(racingTimes) || racingTimes < 1) {
       alert(ERROR_MESSAGE.RACING_TIMES);
       return;
     }
 
-    $store.game.inputRacingTimes(racingTimes);
     $store.game.setLoading(true);
+    await startRace(racingTimes);
+    $store.game.setLoading(false);
+  };
+
+  const startRace = async (racingTimes) => {
+    for (let i = 0; i < racingTimes; i++) {
+      await wait(1000);
+      $store.game.raceAll();
+    }
   };
 
   init();

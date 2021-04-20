@@ -1,9 +1,15 @@
 import { ERROR_MESSAGE } from "../../src/js/utils/constnats";
+import * as utils from "../../src/js/utils/utils.js";
 
 describe("racing car game", () => {
   beforeEach(() => {
     cy.visit("http://localhost:8080");
   });
+
+  const setGame = (carNames, racingTimes) => {
+    inputCarNames(carNames);
+    inputRacingTimes(racingTimes);
+  };
 
   const inputCarNames = (carNames) => {
     cy.get(".car-name-input").type(carNames);
@@ -54,7 +60,7 @@ describe("racing car game", () => {
     it("횟수 입력 전까지는 로딩이미지가 뜨지 않는다.", () => {
       inputCarNames("A,B,C,D");
 
-      cy.get(".loading-spinner").not(".hidden").should("not.exist");
+      cy.get(".loading-spinner").should("not.exist");
     });
   });
 
@@ -63,7 +69,7 @@ describe("racing car game", () => {
       inputCarNames("A,B,C,D");
       inputRacingTimes(1);
 
-      cy.get(".loading-spinner").not(".hidden").should("have.length", 4);
+      cy.get(".loading-spinner").should("have.length", 4);
     });
 
     it("1 이하의 수를 입력하면 경고창이 뜬다.", () => {
@@ -73,7 +79,27 @@ describe("racing car game", () => {
       cy.on("window:alert", (error) =>
         expect(error).to.contains(ERROR_MESSAGE.RACING_TIMES)
       );
-      cy.get(".loading-spinner").not(".hidden").should("not.exist");
+      cy.get(".loading-spinner").should("not.exist");
+    });
+  });
+
+  context("게임 진행 시", () => {
+    it("랜덤 값이 4 이상이면 1초 이후에 forward 아이콘이 생긴다", () => {
+      cy.stub(utils, "generateRandom").returns(4);
+
+      setGame("A", 1);
+      cy.get(".forward-icon").should("not.exist");
+      cy.wait(1000);
+      cy.get(".forward-icon").should("exist");
+    });
+
+    it("랜덤 값이 3 이하면 1초 이후에도 forward 아이콘이 생기지 않는다.", () => {
+      cy.stub(utils, "generateRandom").returns(3);
+
+      setGame("A", 1);
+      cy.get(".forward-icon").should("not.exist");
+      cy.wait(1000);
+      cy.get(".forward-icon").should("not.exist");
     });
   });
 });

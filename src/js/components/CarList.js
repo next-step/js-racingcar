@@ -1,4 +1,4 @@
-import createElement from "../utils/createElement.js";
+import { createElement } from "../utils/utils.js";
 import $store from "../store/index.js";
 
 export default function CarList(target) {

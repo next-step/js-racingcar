@@ -9,6 +9,7 @@ const game = (() => {
 
   const resetCars = () => {
     state.cars = [];
+    publish("cars");
   };
 
   const addCar = (name) => {
@@ -26,6 +27,11 @@ const game = (() => {
 
   const setLoading = (value) => {
     state.cars.forEach((car) => car.setLoading(value));
+    publish("cars");
+  };
+
+  const raceAll = () => {
+    state.cars.forEach((car) => car.race());
     publish("cars");
   };
 
@@ -50,6 +56,7 @@ const game = (() => {
     getCars,
     inputRacingTimes,
     setLoading,
+    raceAll,
     subscribe,
   };
 })();

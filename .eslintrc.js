@@ -15,5 +15,6 @@ module.exports = {
   },
   rules: {
     semi: "error",
+    "cypress/no-unnecessary-waiting": "off",
   },
 };
