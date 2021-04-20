@@ -35,7 +35,7 @@ class Panel {
   }
 
   addCarPlayers = (target) => {
-    const inputValues = selector('input', target).value.split(',')
+    const inputValues = selector('input', target).value.split(',').map(name => name.trim())
     if (inputValues.length > 0 && this.isValidName(inputValues)) {
       this.carNames = inputValues.map((name) => ({name}))
       return this.showCountPanel()

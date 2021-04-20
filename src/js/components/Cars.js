@@ -25,7 +25,7 @@ class Cars {
 
   makeCarStatus = () => {
     this.$parent.insertAdjacentElement('beforeend',this.makeTemplate())
-    this.timer(DELAY_TIME.PROCESSING_TIME, this.count)
+    this.timer(this.count)
   }
 
   showWinnerAlert = () => {
@@ -36,18 +36,25 @@ class Cars {
     this.carList.forEach((car) => car[fnc]())
   }
 
-  timer (time = 1000, count) {
+  timer (count) {
     if (count < 1) {
       this.handleCarList('clearSpinner')
       selector('#game-result-component').innerHTML = TEMPLATE.WINNER(this.carList)
       this.showWinnerAlert()
       return false
     } else {
-      count -= 1
-      setTimeout(() => {
-        this.handleCarList('move')
-        this.timer(1000, count)
-      }, time)
+      let startTime = new Date().getTime();
+      const callback = ()  => {
+        const currentTime = new Date().getTime();
+        if (currentTime - 1000 > startTime) {
+          count -= 1
+          this.handleCarList('move')
+          this.timer(count)
+        } else {
+          requestAnimationFrame(callback);
+        }
+      };
+      requestAnimationFrame(callback);
     }
   }
 

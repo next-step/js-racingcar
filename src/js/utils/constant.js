@@ -69,7 +69,6 @@ export const MESSAGE = {
 }
 
 export const DELAY_TIME = {
-  PROCESSING_TIME: 1000,
   WINNER_TIME: 2000
 }
 
