@@ -4,22 +4,29 @@ import { runningtime } from "./setCount.js"
 import { PROGRESS } from "./constant.js";
 import { addResultSection } from "./addResult.js"
 
-export let distance_forcheck;
 export let k = 1;
 
 export const addProcessUI = () => {
     let process_section = `<section class="d-flex justify-center mt-5" id="process_section">
-                                  <div class="mt-4 d-flex">\n`;
+                                  <div class="mt-4 d-flex">
+                                    ${setPlayersCar()}
+                                  </div> 
+                          </section>`;
+
+    app_div.insertAdjacentHTML("beforeend", process_section);
+    proceedGame();
+  };
+
+  const setPlayersCar = () => {
+    let playersCar = "";
     for (let i = 0; i < cars.length; i++) {
-      process_section += `<div class="mr-2">
+      playersCar += `<div class="mr-2">
                                   <div class="car-player">${cars[i]}</div>
                                   ${PROGRESS.WAIT}
                               </div>\n`;
     }
-    process_section += `</div> </section>`;
-    app_div.insertAdjacentHTML("beforeend", process_section);
-    proceedGame();
-  };
+    return playersCar;
+  }
   
   const proceedGame = () => {
     let cnt = 0;
@@ -38,8 +45,7 @@ export const addProcessUI = () => {
   
       if (++cnt == runningtime) {
         clearInterval(timerId);
-        addProgressIcon(cars, "", 1);
-        distance_forcheck = distance;
+        addProgressIcon(cars, "", 1);;
         addResultSection(distance);
       }
     }, 1000);
