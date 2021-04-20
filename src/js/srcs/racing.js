@@ -7,11 +7,33 @@ import {
   RACING_TIME_INTERVAL,
 } from "./../utils/constants.js";
 
-const spinnerHtml = `<div class="d-flex justify-center mt-3">
-  <div class="relative spinner-container">
-    <span class="material spinner"></span>
-  </div>
-</div>`;
+const beforeStartRacingHtml = () => {
+  return state.cars.reduce((acc, car) => {
+    return (
+      acc +
+      `<div  class="mt-4 d-flex">
+        <div class="mr-2">
+          <div class="car-player">${car.name}</div>
+          <div class="car"></div>
+          <div class="spinnerWrap d-flex justify-center mt-3">
+            <div class="relative spinner-container">
+              <span class="material spinner"></span>
+            </div>
+          </div>
+        </div>
+      </div>`
+    );
+  }, "");
+};
+
+const removeSpinner = () => {
+  state.cars.map((v, i) => {
+    document
+      .getElementsByClassName("mt-4")
+      [i].getElementsByClassName("spinnerWrap")[0]
+      .classList.add("hidden");
+  });
+};
 
 export const carsPositioning = (cars) => {
   cars.map((car) => {
@@ -22,16 +44,14 @@ export const carsPositioning = (cars) => {
 };
 
 const createCarRacing = () => {
-  return state.cars.map((car) => {
-    return `
-    <div  class="mt-4 d-flex">
-      <div class="mr-2">
-        <div class="car-player">${car.name}</div>
-        ${'<div class="forward-icon mt-2">⬇️️</div>'.repeat(car.position)}
-        ${state.racingTimes > 0 ? spinnerHtml : ""}
-      </div>
-    </div>
-    `;
+  state.cars.map((v, i) => {
+    const forwardIcon = `${'<div class="forward-icon mt-2">⬇️️</div>'.repeat(
+      state.cars[i].position
+    )}`;
+
+    document
+      .getElementsByClassName("mt-4")
+      [i].getElementsByClassName("car")[0].innerHTML = forwardIcon;
   });
 };
 
@@ -42,13 +62,16 @@ const startRacing = () => {
     const currentTime = new Date().getTime();
 
     if (currentTime - RACING_TIME_INTERVAL > startTime) {
-      console.log("startTime", startTime, "currentTime", currentTime);
       startTime = currentTime;
       state.racingTimes--;
 
       carsPositioning(state.cars);
-      $("#carRacingWrap").innerHTML = createCarRacing().join("");
-      if (state.racingTimes === 0) return winner();
+      createCarRacing();
+
+      if (state.racingTimes === 0) {
+        removeSpinner();
+        return winner();
+      }
     }
     requestAnimationFrame(callback);
   };
@@ -56,6 +79,6 @@ const startRacing = () => {
 };
 
 export const racing = () => {
-  $("#carRacingWrap").innerHTML = createCarRacing().join("");
+  $("#carRacingWrap").innerHTML = beforeStartRacingHtml();
   startRacing();
 };
