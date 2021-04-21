@@ -1,0 +1,29 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "description": "Black Coffee Study level2 8th: racing car game mission",
+  "main": "index.js",
+  "scripts": {
+    "live": "live-server --port=8888 --browser=chrome",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmindy/js-racingcar.git"
+  },
+  "author": "mmmindy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mmindy/js-racingcar/issues"
+  },
+  "homepage": "https://github.com/mmindy/js-racingcar#readme",
+  "devDependencies": {
+    "cypress": "^7.0.1",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "prettier": "2.2.1"
+  }
+}
