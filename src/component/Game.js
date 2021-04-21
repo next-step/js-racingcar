@@ -2,7 +2,7 @@ import GameStartInput from "./GameStartInput.js";
 import CarRacing from "./CarRacing.js";
 import WinnerBoard from "./WinnerBoard.js";
 
-import onKeyInput from "./event/GameStartInput.js";
+import onKeyInput, { handleNameClick } from "./event/GameStartInput.js";
 
 import refineName from "../util/refineName.js";
 
@@ -53,7 +53,6 @@ function Game() {
 	this.checkWinner = () => {
 		const winners = [];
 		this.cars.forEach((car) => {
-			console.log("car.position", car.position);
 			if (car.position === this.maxPosition) {
 				winners.push(car.name);
 			}
@@ -67,13 +66,16 @@ function Game() {
 		const winners = this.checkWinner();
 		const stringifiedWinner = refineName(winners);
 		this.winnerBoard.setWinners(winners);
-		setTimeout(() => alert(stringifiedWinner), 2000);
+		setTimeout(() => alert("🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇"), 2000);
 	};
 
 	new GameStartInput({
 		target: this.$GameStartForm,
-		onKeyInput: onKeyInput.bind(this, [this.setCars, this.setCount, this.startGame])
+		onKeyInput: onKeyInput.bind(this, [this.setCars, this.setCount, this.startGame]),
+		button: document.querySelector('#submit-name'),
+		onClick: handleNameClick.bind(this)
 	});
+
 	this.carRacing = new CarRacing(this.$CarRacing);
 	this.winnerBoard = new WinnerBoard(this.$WinnerBoard);
 }

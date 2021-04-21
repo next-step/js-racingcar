@@ -14,6 +14,7 @@ function WinnerBoard(target) {
 		const button = template("button", {
 			type: "button",
 			class: "btn btn-cyan",
+			id:"restart-racing",
 			text: "다시 시작하기",
 			onClick: () => {
 				window.location.reload();
