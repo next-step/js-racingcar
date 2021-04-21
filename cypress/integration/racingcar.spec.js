@@ -120,4 +120,15 @@ describe("racing car game", () => {
       cy.get("@alert").should("be.calledWith", WINNING_MASSAGE);
     });
   });
+
+  context("다시 시작하기 버튼 클릭 시", () => {
+    it("초기화면으로 돌아간다", () => {
+      setGame("a", 1);
+
+      cy.get(".reset-btn").click();
+
+      cy.get(".car-list").should("not.contain.text", "a");
+      cy.get(".winner-list").should("not.contain.text", "a");
+    });
+  });
 });

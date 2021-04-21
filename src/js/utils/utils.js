@@ -1,11 +1,10 @@
 const createElement = (target, htmlStr) => {
   const parents = document.querySelector(target);
-  if (!htmlStr) {
-    return parents;
+  if (htmlStr) {
+    parents.innerHTML = htmlStr.trim();
   }
-  parents.innerHTML = htmlStr.trim();
 
-  return parents.firstChild;
+  return parents;
 };
 
 const generateRandom = (min, max) => {

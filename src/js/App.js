@@ -42,7 +42,7 @@ const template = `
     <div>
       <h2 class="winner-list"></h2>
       <div class="d-flex justify-center">
-        <button type="button" class="btn btn-cyan">다시 시작하기</button>
+        <button type="button" class="reset-btn btn btn-cyan">다시 시작하기</button>
       </div>
     </div>
   </section>
@@ -58,6 +58,8 @@ export default function App(target) {
   const racingTimesInput = dom.querySelector(".racing-times-input");
   const racingTimesSubmit = dom.querySelector(".racing-times-submit");
 
+  const resetBtn = dom.querySelector(".reset-btn");
+
   const init = () => {
     CarList(".car-list");
     WinnerList(".winner-list");
@@ -70,6 +72,7 @@ export default function App(target) {
     carNameSubmit.addEventListener("click", submitCarName);
     racingTimesInput.addEventListener("keypress", onKeypressRacingTimesInput);
     racingTimesSubmit.addEventListener("click", submitRacingTimes);
+    resetBtn.addEventListener("click", resetGame);
   };
 
   const onKeypressCarNameInput = ({ target, key }) => {
@@ -87,7 +90,7 @@ export default function App(target) {
       return;
     }
 
-    $store.game.resetCars();
+    $store.game.reset();
     carNames.forEach((name) => $store.game.addCar(name));
   };
 
@@ -127,7 +130,15 @@ export default function App(target) {
 
   const congratulate = async () => {
     await wait(2000);
-    alert(WINNING_MASSAGE);
+    if ($store.game.getWinnerNames().length) {
+      alert(WINNING_MASSAGE);
+    }
+  };
+
+  const resetGame = () => {
+    $store.game.reset();
+    carNameInput.value = "";
+    racingTimesInput.value = "";
   };
 
   init();

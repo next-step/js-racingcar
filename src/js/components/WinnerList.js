@@ -15,7 +15,7 @@ export default function WinnerList(target) {
   const render = () => {
     const winners = $store.game.getWinnerNames();
 
-    dom.innerText = template(winners);
+    dom.innerText = winners.length ? template(winners) : "";
   };
 
   init();

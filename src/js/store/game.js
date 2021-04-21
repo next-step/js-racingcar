@@ -8,9 +8,11 @@ const game = (() => {
   };
   const subscriber = {};
 
-  const resetCars = () => {
+  const reset = () => {
     state.cars = [];
+    state.winners = [];
     publish("cars");
+    publish("winner");
   };
 
   const addCar = (name) => {
@@ -62,7 +64,7 @@ const game = (() => {
   };
 
   return {
-    resetCars,
+    reset,
     addCar,
     getCars,
     inputRacingTimes,
