@@ -53,3 +53,29 @@ describe("자동차의 입력값을 테스트한다", () => {
 })
 
 
+describe("시도횟수의 입력값을 테스트한다", () => {
+  const TRY_NUM_INPUT = "#" + COMPONENT.TRY_INPUT;
+  const CAR_NAME_INPUT = "#" + COMPONENT.CAR_INPUT;
+  const INPUT = "car1, car2, car3";
+  const NOT_NATURAL_NUMBER = 0;
+
+  beforeEach("자동차의 이름 입력 후 시도회수를 확인한다", () => {
+    cy.visit('http://localhost:5500')
+
+    cy.get(CAR_NAME_INPUT)
+    .type(INPUT)
+    .type('{enter}')
+  })
+
+  it("시도 회수는 0회 이상이어야한다", () => {
+    cy.on('window:alert', cy.stub().as('alerted'))
+    cy.get(TRY_NUM_INPUT)
+    .type(NOT_NATURAL_NUMBER)
+    .type('{enter}')
+
+    cy.get('@alerted').should('have.been.calledOnce')
+    .and('have.been.calledWith', ERROR_MESSAGE.INVALID_TRY_SIZE)
+  })
+})
+
+

@@ -18,15 +18,17 @@ export default function RacingInput(app) {
       })
       if(!names.includes(false)) {
         app.inputCar(names);
-        showTry();
+        // showTry(); TODO: tryinput 보이게, 본인은 disable하게 
       }
       return;
     }
     if(inputTarget === COMPONENT.TRY_INPUT) {
-      app.inputTry(getValue(event));
+      const tryNum = ERROR_CHECK.TRY_SIZE(getValue(event));
+      if(tryNum) {
+        app.inputTry(tryNum);
+      }
     }
   }
-
 
   $input.addEventListener(KEY_EVENT.KEY_DOWN, onKeyHandler);
 }
