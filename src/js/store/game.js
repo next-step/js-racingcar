@@ -37,7 +37,7 @@ const game = (() => {
   };
 
   const determineWinner = () => {
-    const winnerPosition = Math.max(state.cars.map((car) => car.position));
+    const winnerPosition = Math.max(...state.cars.map((car) => car.position));
     state.winners = state.cars.filter((car) => car.position === winnerPosition);
     publish("winner");
   };
