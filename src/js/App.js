@@ -2,6 +2,7 @@ import { createElement, wait } from "./utils/utils.js";
 import $store from "./store/index.js";
 
 import CarList from "./components/CarList.js";
+import WinnerList from "./components/WinnerList.js";
 
 import {
   ERROR_MESSAGE,
@@ -32,10 +33,19 @@ const template = `
       </fieldset>
     </form>
   </section>
-  <section class="result-section d-flex justify-center mt-5">
+  <section class="d-flex justify-center mt-5">
     <div class="car-list mt-4 d-flex">
     </div>
   </section>
+  <section class="result-section d-flex justify-center mt-5">
+    <div>
+      <h2 class="winner-list"></h2>
+      <div class="d-flex justify-center">
+        <button type="button" class="btn btn-cyan">다시 시작하기</button>
+      </div>
+    </div>
+  </section>
+
 `;
 
 export default function App(target) {
@@ -49,6 +59,7 @@ export default function App(target) {
 
   const init = () => {
     CarList(".car-list");
+    WinnerList(".winner-list");
 
     initEventListener();
   };
@@ -97,16 +108,18 @@ export default function App(target) {
       return;
     }
 
-    $store.game.setLoading(true);
-    await startRace(racingTimes);
-    $store.game.setLoading(false);
+    startRace(racingTimes);
   };
 
   const startRace = async (racingTimes) => {
+    $store.game.setLoading(true);
     for (let i = 0; i < racingTimes; i++) {
       await wait(1000);
       $store.game.raceAll();
     }
+    $store.game.setLoading(false);
+
+    $store.game.determineWinner();
   };
 
   init();

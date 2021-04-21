@@ -4,6 +4,7 @@ const game = (() => {
   const state = {
     cars: [],
     racingTimes: 0,
+    winners: [],
   };
   const subscriber = {};
 
@@ -35,6 +36,16 @@ const game = (() => {
     publish("cars");
   };
 
+  const determineWinner = () => {
+    const winnerPosition = Math.max(state.cars.map((car) => car.position));
+    state.winners = state.cars.filter((car) => car.position === winnerPosition);
+    publish("winner");
+  };
+
+  const getWinnerNames = () => {
+    return state.winners.map((car) => car.name);
+  };
+
   const subscribe = (target, method) => {
     if (!subscriber[target]) {
       subscriber[target] = [];
@@ -57,6 +68,8 @@ const game = (() => {
     inputRacingTimes,
     setLoading,
     raceAll,
+    determineWinner,
+    getWinnerNames,
     subscribe,
   };
 })();

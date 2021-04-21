@@ -6,10 +6,10 @@ describe("racing car game", () => {
     cy.visit("http://localhost:8080");
   });
 
-  // const setGame = (carNames, racingTimes) => {
-  //   inputCarNames(carNames);
-  //   inputRacingTimes(racingTimes);
-  // };
+  const setGame = (carNames, racingTimes) => {
+    inputCarNames(carNames);
+    inputRacingTimes(racingTimes);
+  };
 
   const inputCarNames = (carNames) => {
     cy.get(".car-name-input").type(carNames);
@@ -103,4 +103,11 @@ describe("racing car game", () => {
   //     cy.get(".forward-icon").should("not.exist");
   //   });
   // });
+
+  context("게임 종료 시", () => {
+    it("우승자 이름을 출력", () => {
+      setGame("a", 1);
+      cy.get(".winner-list").should("contain.text", "a");
+    });
+  });
 });
