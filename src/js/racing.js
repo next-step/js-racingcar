@@ -1,4 +1,5 @@
-import {CAR_NAME_LIST, TRY_NUMBER} from './register.js';
+import {CAR_NAME_LIST} from './register/registerCar.js';
+import {TRY_NUMBER} from './register/registerNumber.js';
 import {resultTemplate, moveTemplate, carTemplate} from '../utils/templates.js';
 import {$start, $result, $track} from '../utils/doms.js';
 
@@ -7,6 +8,14 @@ export const initRacing = () => {
 };
 
 const onRacing = () => {
+    if (CAR_NAME_LIST.length == 0) {
+        alert('자동차 이름을 입력해주세요.');
+        return;
+    }
+    if (TRY_NUMBER == 0) {
+        alert('시도 횟수를 입력해주세요.');
+        return;
+    }
     if ($start.classList.contains('checked')) {
         $track.innerHTML = '';
         document.querySelector('.winner').innerHTML = '';
