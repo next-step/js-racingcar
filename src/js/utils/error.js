@@ -16,7 +16,7 @@ export const ERROR_MESSAGE = {
 
 export const ERROR_CHECK = {
   NAME_LENGTH: name => name && 1 <= name.length && name.length <= 5 ? name.trim() : ERROR.INVALID_NAME_LENGTH(),
-  TRY_SIZE: tryNum => tryNum && is_numeric(tryNum) && 1 <= parseInt(tryNum) ? tryNum : ERROR.INVALID_TRY_SIZE()
+  TRY_SIZE: tryNum => tryNum && is_numeric(tryNum) && 1 <= parseInt(tryNum) ? parseInt(tryNum) : ERROR.INVALID_TRY_SIZE()
 }
 
 function is_numeric(str){

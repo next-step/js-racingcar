@@ -1,5 +1,6 @@
 import { BOUNDARY, NUMBERS } from "../utils/constant.js";
-import { TAG, CAR_ATTRIBUTE } from "../utils/selector.js";
+import { $all, $child, $element, $text } from "../utils/dom.js";
+import { ID, TAG, CAR_ATTRIBUTE } from "../utils/selector.js";
 
 export function RacingCar(inputName) {
   const name = inputName;
@@ -19,6 +20,7 @@ export function RacingCars() {
   const movableStrategy = () => Math.random() * NUMBERS.RANDOM_BOUND >= BOUNDARY.FORWARD;
   
   this.setNames = inputNames => {
+    cars.splice(0, cars.length);
     if(!Array.isArray(inputNames)) inputNames = [inputNames];
     inputNames.forEach(name => cars.push(new RacingCar(name)));
   };
@@ -43,22 +45,38 @@ export function RacingCars() {
 }
 
 export const carTemplate = name => {
-  const carName = document.createTextNode(name);
-  const carNameElement = document.createElement(TAG.DIV);
-  carNameElement.setAttribute(TAG.CLASS, CAR_ATTRIBUTE.CAR_NAME);
-  carNameElement.appendChild(carName);
+  const $carName = $text(name);
+  const $carNameElement = $element(TAG.DIV, TAG.CLASS, CAR_ATTRIBUTE.CAR_NAME);
+  $child($carNameElement, $carName);
 
-  const carElement = document.createElement(TAG.DIV);
-  carElement.setAttribute(TAG.ID, CAR_ATTRIBUTE.CAR);
-  carElement.appendChild(carNameElement);
-  return carElement;
+  const $carElement = $element(TAG.DIV, TAG.ID, CAR_ATTRIBUTE.CAR);
+  $child($carElement, $carNameElement);
+  return $carElement;
 };
 
 export const carForwardTemplate = () => {
-  const forward = document.createTextNode("⬇️");
+  const $forward = $text("⬇️");
+  const $forwardContainer = $element(TAG.DIV, TAG.CLASS, CAR_ATTRIBUTE.CAR_FORWARD);
+  $child($forwardContainer, $forward);
 
-  const element = document.createElement(TAG.DIV);
-  element.setAttribute(TAG.CLASS, CAR_ATTRIBUTE.CAR_FORWARD);
-  element.appendChild(forward);
-  return element;
+  return $forwardContainer;
+}
+
+export const carDelayTemplate = () => {
+  const $delay = $element(TAG.SPAN, TAG.CLASS, CAR_ATTRIBUTE.CAR_DELAY);
+  const $delayContainer = $element(TAG.DIV, TAG.CLASS, CAR_ATTRIBUTE.CAR_DELAY_CONTAINER);
+  $child($delayContainer, $delay);
+
+  const $delayDiv = $element(TAG.DIV, TAG.CLASS, CAR_ATTRIBUTE.CAR_DELAY_DIV);
+  $delayDiv.setAttribute(TAG.ID, CAR_ATTRIBUTE.CAR_DELAY_ID);
+  $child($delayDiv, $delayContainer);
+  
+  return $delayDiv;
+}
+
+export const deleteDelay = () => {
+  let $delyDiv = $all(ID + CAR_ATTRIBUTE.CAR_DELAY_ID);
+  console.log($delyDiv);
+  $delyDiv && $delyDiv.forEach(elem => elem.remove());
+  console.log($delyDiv);
 }
