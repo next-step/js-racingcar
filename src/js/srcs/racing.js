@@ -14,7 +14,7 @@ const beforeStartRacingHtml = () => {
       `<div  class="mt-4 d-flex">
         <div class="mr-2">
           <div class="car-player">${car.name}</div>
-          <div class="car"></div>
+          <div class="forwardIcon"></div>
           <div class="spinnerWrap d-flex justify-center mt-3">
             <div class="relative spinner-container">
               <span class="material spinner"></span>
@@ -51,7 +51,7 @@ const createCarRacing = () => {
 
     document
       .getElementsByClassName("mt-4")
-      [i].getElementsByClassName("car")[0].innerHTML = forwardIcon;
+      [i].getElementsByClassName("forwardIcon")[0].innerHTML = forwardIcon;
   });
 };
 
