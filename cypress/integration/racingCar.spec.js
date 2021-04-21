@@ -1,5 +1,5 @@
 import { RacingCar, RacingCars } from "../../src/js/component/racingCar"
-import { NUMBERS } from "../../src/js/utils/constant";
+import { BOUNDARY, NUMBERS } from "../../src/js/utils/constant";
 
 describe('자동차 객체를 테스트', () => {
   const name = "이름";
@@ -72,9 +72,11 @@ describe('자동차목록을 테스트', () => {
       .should('deep.eq', predict)
   })
 
-  const movement = movable => 
+  const movement = movable => {
+    cy.stub(Math, 'random').returns(movable ? NUMBERS.RANDOM_BOUND * BOUNDARY.FORWARD : 0)
     cy.wrap(cars)
-      .invoke('move', tryNum, movable)
+      .invoke('move', tryNum)
+  }
 
   const checkForwards = number => 
     cy.wrap(cars)
@@ -92,5 +94,11 @@ describe('자동차목록을 테스트', () => {
     checkForwards(NUMBERS.INIT_NUM)
   })
 
+  it('우승자를 찾을 수 있다', () => {
+    movement(true)
+    cy.wrap(cars)
+      .invoke('winner')
+      .should('deep.eq', carNames)
+  })
 })
 

@@ -1,3 +1,4 @@
+import { DELIMITER } from "../../src/js/utils/constant";
 import { ERROR_MESSAGE } from "../../src/js/utils/error";
 import { CAR_ATTRIBUTE, COMPONENT } from "../../src/js/utils/selector";
 
@@ -8,6 +9,7 @@ const INPUT = "car1, car2, car3";
 const INPUT_LIST = INPUT.split(",").map(item => item.trim());
 const OVER_LENGTH_INPUT = "name, cawerwer";
 const TRY_NUM_INPUT = "#" + COMPONENT.TRY_INPUT;
+const TRY_NUMBER = 5;
 const NOT_NATURAL_NUMBER = 0;
 
 const typeTarget = (target, input) => {
@@ -86,3 +88,17 @@ describe("시도횟수의 입력값을 테스트한다", () => {
 })
 
 
+describe("우승자를 확인한다", () => {
+  beforeEach("자동차의 이름과 시도횟수를 입력한다", () => {
+    cy.visit(URL)
+    typeTarget(CAR_NAME_INPUT, INPUT)
+    typeTarget(TRY_NUM_INPUT, TRY_NUMBER)
+  })
+
+  it("우승자는 입력한 목록중에 존재해야한다", () => {
+    cy.get(COMPONENT.WINNER)
+      .invoke('text')
+      .invoke('split', `${DELIMITER.DISTING}`)
+      .then(winner => expect(INPUT_LIST).to.include.members(winner))
+  })
+})

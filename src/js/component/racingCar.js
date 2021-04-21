@@ -1,4 +1,4 @@
-import { NUMBERS } from "../utils/constant.js";
+import { BOUNDARY, NUMBERS } from "../utils/constant.js";
 import { TAG, CAR_ATTRIBUTE } from "../utils/selector.js";
 
 export function RacingCar(inputName) {
@@ -13,15 +13,27 @@ export function RacingCar(inputName) {
 }
 
 export function RacingCars() {
+  const NAME_INDEX = 0;
+  const FORWARD_INDEX = 1;
   const cars = [];
+  const movableStrategy = () => Math.random() * NUMBERS.RANDOM_BOUND >= BOUNDARY.FORWARD;
   
   this.setNames = inputNames => {
     if(!Array.isArray(inputNames)) inputNames = [inputNames];
     inputNames.forEach(name => cars.push(new RacingCar(name)));
   };
   
-  this.move = (tryNum, movable) => {
-    for (var i = 0; i < tryNum; i++) cars.forEach(car => car.move(movable));
+  this.move = tryNum => {
+    for (var i = 0; i < tryNum; i++) {
+      cars.forEach(car => car.move(movableStrategy()));
+    }
+  }
+
+  this.winner = () => {
+    const maxForward = Math.max(...this.getForward());
+    const status = this.getCarsStatus();
+    return status.filter(stat => stat[FORWARD_INDEX] === maxForward)
+        .map(stat => stat[NAME_INDEX]);
   }
 
   this.getCarsStatus = () => cars.map(car => car.status());

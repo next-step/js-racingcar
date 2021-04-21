@@ -4,11 +4,14 @@ export const TAG = {
   ID: "id"
 }
 
+export const ATTRIBUTE = {
+  HIDDEN: "hidden"
+}
+
 export const CAR_ATTRIBUTE = {
   CAR: "car",
   CAR_NAME: "car-player mr-2",
-  CAR_FORWARD: "forward-icon mt-2",
-  HIDDEN: "hidden"
+  CAR_FORWARD: "forward-icon mt-2"
 }
 
 export const COMPONENT = {
@@ -17,5 +20,7 @@ export const COMPONENT = {
   INPUT: "#user-input-component",
   TRY_SECTION: "#section-race-times",
   CAR_INPUT: "input-car-name",
-  TRY_INPUT: "input-race-times"
+  TRY_INPUT: "input-race-times",
+  RESULT_SECTION: "#game-result-component",
+  WINNER: "#winners"
 }

@@ -1,18 +1,19 @@
-import { BOUNDARY, NUMBERS } from "../utils/constant.js";
 import { RacingCars } from "./racingCar.js";
 import RacingInput from "./racingInput.js";
 import RacingProcess from "./racingProcess.js";
+import RacingResult from "./racingResult.js";
 
 export default function RacingApp() {
   const input = new RacingInput(this);
   const process = new RacingProcess();
   const cars = new RacingCars();
-  const movableStrategy = () => Math.random() * NUMBERS.RANDOM_BOUND >= BOUNDARY.FORWARD;
+  const result = new RacingResult();
 
-  this.render = () => {
+  this.render = async () => {
     for(var i =1; i< 4; i++) {
-      process.moveAtTime(cars, i);
+      await process.moveAtTime(cars, i);
     }
+    this.winner();
   }
 
   this.inputCar = carNames => {
@@ -21,11 +22,16 @@ export default function RacingApp() {
   }
 
   this.inputTry = tryNum => {
-    cars.move(tryNum, movableStrategy());
+    cars.move(tryNum);
+    this.render();
+  }
+
+  this.winner = () => {
+    const winners = cars.winner();
+    result.render(winners);
   }
 
   this.init = () => {
     process.init(cars);
-    this.render();
   }
 }
