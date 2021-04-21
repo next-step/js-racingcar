@@ -1,3 +1,4 @@
+import { BOUNDARY, NUMBERS } from "../utils/constant.js";
 import { RacingCars } from "./racingCar.js";
 import RacingInput from "./racingInput.js";
 import RacingProcess from "./racingProcess.js";
@@ -6,6 +7,7 @@ export default function RacingApp() {
   const input = new RacingInput(this);
   const process = new RacingProcess();
   const cars = new RacingCars();
+  const movableStrategy = () => Math.random() * NUMBERS.RANDOM_BOUND >= BOUNDARY.FORWARD;
 
   this.render = () => {
     for(var i =1; i< 4; i++) {
@@ -19,7 +21,7 @@ export default function RacingApp() {
   }
 
   this.inputTry = tryNum => {
-    cars.move(tryNum, true);
+    cars.move(tryNum, movableStrategy());
   }
 
   this.init = () => {

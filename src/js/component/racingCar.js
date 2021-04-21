@@ -1,9 +1,9 @@
-import { numbers } from "../utils/constant.js";
+import { NUMBERS } from "../utils/constant.js";
 import { TAG, CAR_ATTRIBUTE } from "../utils/selector.js";
 
 export function RacingCar(inputName) {
   const name = inputName;
-  let forward = numbers['INIT_NUM'];
+  let forward = NUMBERS['INIT_NUM'];
 
   this.status = () => [name, forward];
   this.getName = () => name;

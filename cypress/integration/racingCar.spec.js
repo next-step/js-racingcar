@@ -1,5 +1,5 @@
 import { RacingCar, RacingCars } from "../../src/js/component/racingCar"
-import { numbers } from "../../src/js/utils/constant";
+import { NUMBERS } from "../../src/js/utils/constant";
 
 describe('자동차 객체를 테스트', () => {
   const name = "이름";
@@ -12,25 +12,26 @@ describe('자동차 객체를 테스트', () => {
   it('자동차 객체를 생성한다.', () => {
     cy.wrap(car)
       .invoke('status')
-      .should('deep.eq', [name, numbers.INIT_NUM])
+      .should('deep.eq', [name, NUMBERS.INIT_NUM])
   })
 
+  const movement = movable => 
+    cy.wrap(car)
+      .invoke('move', movable)
+  
+  const checkForward = number => 
+    cy.wrap(car)
+      .invoke('getForward')
+      .should('eq', number)
+
   it('자동차는 전진할 수 있다.', () => {
-    cy.wrap(car)
-      .invoke('move', true)
-    cy.wrap(car)
-      .invoke('status')
-      .its(1)
-      .should('eq', numbers.INIT_NUM + 1)
+    movement(true)
+    checkForward(NUMBERS.INIT_NUM + 1)
   })
 
   it('자동차는 멈출 수 있다.', () => {
-    cy.wrap(car)
-      .invoke('move', false)
-    cy.wrap(car)
-      .invoke('status')
-      .its(1)
-      .should('eq', numbers.INIT_NUM)
+    movement(false)
+    checkForward(NUMBERS.INIT_NUM)
   })
 
   it('해당하는 시간초에 움직일 수 있는가', () => {
@@ -38,8 +39,7 @@ describe('자동차 객체를 테스트', () => {
       .invoke('isMovableTime', 1)
       .should('eq', false)
 
-    cy.wrap(car)
-      .invoke('move', true)
+    movement(true)
     
     cy.wrap(car)
       .invoke('isMovableTime', 1)
@@ -65,27 +65,31 @@ describe('자동차목록을 테스트', () => {
       .should('eq', carNames.length)
 
     const predict = [];
-    carNames.forEach(carName => predict.push([carName, numbers.INIT_NUM]));
+    carNames.forEach(carName => predict.push([carName, NUMBERS.INIT_NUM]));
 
     cy.wrap(cars)
       .invoke('getCarsStatus')
       .should('deep.eq', predict)
   })
 
-  it('주어진 횟수만큼 자동차들은 전진할 수 있다.', () => {
+  const movement = movable => 
     cy.wrap(cars)
-      .invoke('move', tryNum, true)
+      .invoke('move', tryNum, movable)
+
+  const checkForwards = number => 
     cy.wrap(cars)
       .invoke('getForward')
-      .each(forwards => cy.wrap(forwards).should('eq', numbers.INIT_NUM + tryNum))
+      .each(forwards => cy.wrap(forwards).should('eq', number))
+
+
+  it('주어진 횟수만큼 자동차들은 전진할 수 있다.', () => {
+    movement(true)
+    checkForwards(NUMBERS.INIT_NUM + tryNum)
   })
 
   it('주어진 횟수만큼 자동차들은 멈출 수 있다.', () => {
-    cy.wrap(cars)
-      .invoke('move', tryNum, false)
-    cy.wrap(cars)
-      .invoke('getForward')
-      .each(forwards => cy.wrap(forwards).should('eq', numbers.INIT_NUM))
+    movement(false)
+    checkForwards(NUMBERS.INIT_NUM)
   })
 
 })
