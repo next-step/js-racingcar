@@ -1,6 +1,6 @@
 import { carTemplate, forwardTemplate } from './template.js';
-import { getEl } from './util.js';
-import { VALIDATION, TIMER } from './constant.js';
+import { getEl, isMove } from './util.js';
+import { TIMER } from './constant.js';
 
 class Car {
     constructor({ name, idx, manager }) {
@@ -20,16 +20,11 @@ class Car {
 
     move() {
         if (this.manager.isGameOver) return clearInterval(this.moveTimerId);
-        if (!this.isMove()) return;
+        if (!isMove()) return;
         if (!this.forwardIconWrapEl) this.forwardIconWrapEl = getEl(`#car-${this.id} .forward-icon-wrap`);
 
         this.forwardIconWrapEl.innerHTML += forwardTemplate();
         if (++this.count === this.manager.goalCount) return this.manager.winners.push(this.name);
-    }
-
-    isMove() {
-        const num = Math.floor(Math.random() * VALIDATION.MAX_RANDOM_NUMVER);
-        return num > VALIDATION.MOVE_CONDITION;
     }
 
     clear() {
