@@ -8,15 +8,15 @@ export default function RacingResult() {
   $result.setAttribute(TAG.CLASS, ATTRIBUTE.HIDDEN);
   const showResult = () => $result.removeAttribute(TAG.CLASS);
 
-  this.render = winners => {
+  this.render = (winners) => {
     showResult();
     const $winner = $(COMPONENT.WINNER, $result);
     $winner.textContent = winners.join(DELIMITER.DISTING);
-  }
+  };
 
-  const onClickHanlder = event => {
-    if(isButton(event)) reStart();
-  }
+  const onClickHanlder = (event) => {
+    if (isButton(event)) reStart();
+  };
 
   $result.addEventListener(CLICK_EVENT.CLICK, onClickHanlder);
 }
