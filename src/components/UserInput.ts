@@ -15,6 +15,8 @@ interface UserInputProps {
 }
 
 const defaultState: UserInputState = {
+  carNameVal: "",
+  raceTimesVal: 0,
   isSubmittedCarName: false,
   isSubmittedRaceTimes: false,
 };
@@ -27,6 +29,10 @@ export default class UserInput extends Component<UserInputProps> {
   }
   componentInit() {
     this.bindEvents();
+  }
+
+  reset() {
+    this.setState(defaultState);
   }
 
   setState(nextState: UserInputState) {

@@ -7,11 +7,20 @@ interface GameProcessState {
   carProps?: CarProps[];
   raceTimes?: number;
 }
+
+const defaultState: GameProcessState = {
+  carProps: [],
+  raceTimes: 0,
+};
 export default class GameProcess extends Component {
   private state?: GameProcessState;
   constructor($target: HTMLElement, props?: Object) {
     super($target, props);
-    this.state = { carProps: [], raceTimes: 0 };
+    this.state = { ...defaultState };
+  }
+
+  reset() {
+    this.setState(defaultState);
   }
 
   setState(nextState: GameProcessState) {
@@ -42,12 +51,16 @@ export default class GameProcess extends Component {
     return (Math.random() * 100) % 10 >= 4;
   }
 
-  async playGame() {
-    const Interval = 1000;
-    const raceTimes: number = this.state?.raceTimes ?? 0;
-    for (let i = 0; i < raceTimes; i++) {
-      await this.executeTask(Interval);
+  async playGame(interval: number) {
+    for (let i = 0; i < this.state!.raceTimes!; i++) {
+      await this.executeTask(interval);
     }
+    const maxForwardedCnt = Math.max(
+      ...this.state!.carProps!.map((prop) => prop.forwardedCnt)
+    );
+    return this.state!.carProps!.filter(
+      (prop) => prop.forwardedCnt === maxForwardedCnt
+    ).map((prop) => prop.name);
   }
 
   createDefaultCarProps(carName: string): CarProps {
