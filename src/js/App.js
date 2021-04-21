@@ -101,7 +101,7 @@ export default function App(target) {
     submitRacingTimes();
   };
 
-  const submitRacingTimes = async () => {
+  const submitRacingTimes = () => {
     const racingTimes = racingTimesInput.value.trim();
     if (Number.isInteger(racingTimes) || racingTimes < 1) {
       alert(ERROR_MESSAGE.RACING_TIMES);
