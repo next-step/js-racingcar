@@ -6,7 +6,7 @@ import ResultContainer from "./components/result/ResultContainer.js";
 export default class App extends Deact {
   async setup() {
     this.state = {
-      gameState: "wait",
+      gameState: "waitName",
     };
   }
   setPropsFromState() {
@@ -20,7 +20,7 @@ export default class App extends Deact {
       <form></form>
       </section>
       ${
-        gameState !== "wait"
+        gameState !== "waitName"
           ? '<section id="display_container" class="d-flex justify-center mt-5"></section>'
           : ""
       }
@@ -33,12 +33,13 @@ export default class App extends Deact {
   }
   mountComponents() {
     const { gameState } = this.props;
+    const { setGameState } = this;
     this.createComponent(
       CarName,
       "#input_container>form",
       () => {
         const { gameState } = this.state;
-        return { gameState };
+        return { gameState, setGameState: setGameState.bind(this) };
       },
       "fieldset"
     );
@@ -47,7 +48,8 @@ export default class App extends Deact {
       AttemptCount,
       "#input_container>form",
       () => {
-        return {};
+        const { gameState } = this.state;
+        return { gameState, setGameState: setGameState.bind(this) };
       },
       "fieldset"
     );
@@ -61,5 +63,9 @@ export default class App extends Deact {
       this.createComponent(ResultContainer, "#result_container", () => {
         return {};
       });
+  }
+  setGameState(newState) {
+    this.updateState({ gameState: newState });
+    console.log(this.state);
   }
 }
