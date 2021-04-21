@@ -10,6 +10,8 @@ const RACE_MOVE_PIVOT = 4;
 const RANDOM_MIN = 0;
 const RANDOM_MAX = 9;
 
+const WINNING_MASSAGE = "🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇";
+
 export {
   ERROR_MESSAGE,
   MIN_NAME_LENGTH,
@@ -17,4 +19,5 @@ export {
   RACE_MOVE_PIVOT,
   RANDOM_MIN,
   RANDOM_MAX,
+  WINNING_MASSAGE,
 };

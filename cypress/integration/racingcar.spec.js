@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../../src/js/utils/constnats";
+import { ERROR_MESSAGE, WINNING_MASSAGE } from "../../src/js/utils/constnats";
 // import * as utils from "../../src/js/utils/utils.js";
 
 describe("racing car game", () => {
@@ -105,9 +105,19 @@ describe("racing car game", () => {
   // });
 
   context("게임 종료 시", () => {
-    it("우승자 이름을 출력", () => {
+    it("우승자 이름을 출력한다.", () => {
       setGame("a", 1);
       cy.get(".winner-list").should("contain.text", "a");
+    });
+
+    it("2초 뒤에 alert창으로 축하한다.", () => {
+      cy.window().then((window) => cy.stub(window, "alert").as("alert"));
+
+      setGame("a", 1);
+
+      cy.get("@alert").should("not.be.called");
+      cy.wait(2000);
+      cy.get("@alert").should("be.calledWith", WINNING_MASSAGE);
     });
   });
 });

@@ -8,6 +8,7 @@ import {
   ERROR_MESSAGE,
   MIN_NAME_LENGTH,
   MAX_NAME_LENGTH,
+  WINNING_MASSAGE,
 } from "./utils/constnats.js";
 
 const template = `
@@ -120,6 +121,13 @@ export default function App(target) {
     $store.game.setLoading(false);
 
     $store.game.determineWinner();
+
+    congratulate();
+  };
+
+  const congratulate = async () => {
+    await wait(2000);
+    alert(WINNING_MASSAGE);
   };
 
   init();
