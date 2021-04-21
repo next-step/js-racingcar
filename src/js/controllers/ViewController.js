@@ -34,7 +34,7 @@ export default class ViewContorller {
     this.controlView("#game-result-section");
     this.$gameResultSection.insertAdjacentHTML(
       "afterbegin",
-      `🏆 최종 우승자: ${winnersName} 🏆`
+      `<h1>🏆 최종 우승자: ${winnersName} 🏆</h1>`
     );
 
     setTimeout(() => alert(MESSAGE.CELEBRATION), 2000);
