@@ -19,5 +19,5 @@ export const startBtnTemplate = () => {
 };
 
 export const tryNumberTemplate = (tryNumber) => {
-    return `<h2>시도 횟수 : ${tryNumber}</h2>`;
+    return `<h3>시도 횟수 : ${tryNumber}</h3>`;
 };
