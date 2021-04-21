@@ -14,10 +14,10 @@ const App = (({ stage, id }) => {
       privt.set(this, {
         el: qsById(sel),
         stage: stage.entry,
-        name: new Name(this, id.userInputComp),
-        round: new Round(this, id.raceTimesComp),
-        race: new Race(this, id.gameProcessComp),
-        award: new Award(this, id.gameResultComp),
+        name: Name.of(this, id.userInputComp),
+        round: Round.of(this, id.raceTimesComp),
+        race: Race.of(this, id.gameProcessComp),
+        award: Award.of(this, id.gameResultComp),
       });
     }
 
