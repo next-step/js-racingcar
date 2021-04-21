@@ -1,4 +1,4 @@
-import { getEl, getEls, disabledEl } from './util.js';
+import { getEl, getEls, disabledEl, checkNameValidation, resetGround } from './util.js';
 import { winnerTemplate } from './template.js';
 import { MESSAGES, VALIDATION, TIMER } from './constant.js';
 
@@ -26,14 +26,10 @@ class GameManager {
         const str = inputEl.value.replace(/ /g, '');
         const cars = str.split(',');
 
-        if (!str || !this._checkNameValidation(cars)) return alert(MESSAGES.INVALID_CAR_NAME);
+        if (!str || !checkNameValidation(cars)) return alert(MESSAGES.INVALID_CAR_NAME);
         this.cars = cars.map((name, idx) => new Car({ name, idx, manager: this }));
         getEl('#race-times-field').classList.toggle('show');
         disabledEl(target, inputEl);
-    }
-
-    _checkNameValidation(cars) {
-        return !cars.some(car => car.length > VALIDATION.MAX_CAR_NAME_LENGTH);
     }
 
     setGoalCount({ target }) {
@@ -75,17 +71,7 @@ class GameManager {
 
         this.cars.forEach(car => car.clear());
         this._resetProperties();
-        this._resetGround();
-    }
-
-    _resetGround() {
-        getEl('#race-times-field').classList.toggle('show');
-        getEl('#race-progress').innerHTML = '';
-        getEl('#race-result').innerHTML = '';
-        getEls('.interactive-element').forEach(el => {
-            if (el.value) el.value = '';
-            el.removeAttribute('disabled')
-        });
+        resetGround();
     }
 
     _resetProperties() {
