@@ -6,7 +6,7 @@ import ResultContainer from "./components/result/ResultContainer.js";
 export default class App extends Deact {
   async setup() {
     this.state = {
-      gameState: "done",
+      gameState: "wait",
     };
   }
   setPropsFromState() {
@@ -37,7 +37,8 @@ export default class App extends Deact {
       CarName,
       "#input_container>form",
       () => {
-        return {};
+        const { gameState } = this.state;
+        return { gameState };
       },
       "fieldset"
     );
