@@ -35,3 +35,8 @@ fieldset {
   border: none;
   padding: 0;
 }
+
+#race-time-section,
+#race-progress-section {
+  visibility: hidden;
+}

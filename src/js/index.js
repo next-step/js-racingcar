@@ -1,7 +1,5 @@
 'use strict';
 
-import RacingCar from './racingCar.js';
+import CarRaicingGame from './racingCar.js';
 
-console.log('hello');
-
-const racingCar = new RacingCar();
+const carRaicingGame = new CarRaicingGame();
