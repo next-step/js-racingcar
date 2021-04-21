@@ -1,4 +1,5 @@
 import { generateRandom } from "../utils/utils.js";
+import { RACE_MOVE_PIVOT, RANDOM_MAX, RANDOM_MIN } from "../utils/constnats.js";
 
 const loadingSpinner = `
   <div class="loading-spinner d-flex justify-center mt-4">
@@ -59,7 +60,8 @@ export default class Car {
   }
 
   race() {
-    if (generateRandom(0, 9) < 4) {
+    const randomNumber = generateRandom(RANDOM_MIN, RANDOM_MAX);
+    if (randomNumber < RACE_MOVE_PIVOT) {
       return;
     }
     this.move();
