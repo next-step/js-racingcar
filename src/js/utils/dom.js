@@ -17,3 +17,4 @@ export const $element = (selector, target='', attribute='') => {
 
 export const $child = (parent, child) => parent.appendChild(child);
 export const $disable = (selector) => $(selector).setAttribute("disabled", true);
+

@@ -22,3 +22,4 @@ export const ERROR_CHECK = {
 function is_numeric(str){
   return /^\d+$/.test(str);
 }
+

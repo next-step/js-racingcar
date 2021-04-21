@@ -32,3 +32,4 @@ export const COMPONENT = {
   RESULT_SECTION: "#game-result-component",
   WINNER: "#winners"
 }
+

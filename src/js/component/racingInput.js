@@ -26,7 +26,7 @@ export default function RacingInput(app) {
     }
     if(inputTarget === COMPONENT.TRY_INPUT) {
       const tryNum = ERROR_CHECK.TRY_SIZE(getValue(event));
-      if(tryNum) {
+      if(tryNum) { 
         app.inputTry(tryNum);
         $disable(ID+COMPONENT.TRY_INPUT);
       }

@@ -14,7 +14,6 @@ export default function RacingResult() {
     $winner.textContent = winners.join(DELIMITER.DISTING);
   }
 
-  
   const onClickHanlder = event => {
     if(isButton(event)) reStart();
   }

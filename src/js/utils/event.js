@@ -20,3 +20,4 @@ export const reStart = () => window.location.reload();
 export const alertWinner = winners => alert(winners+"님이 우승하셨습니다!");
 export const SECOND = 1000;
 export const ALERT_TIME = 2;
+
