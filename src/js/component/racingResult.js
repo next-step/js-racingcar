@@ -1,15 +1,15 @@
 import { DELIMITER } from "../utils/constant.js";
 import { $ } from "../utils/dom.js";
 import { CLICK_EVENT, isButton, reStart } from "../utils/event.js";
-import { ATTRIBUTE, COMPONENT } from "../utils/selector.js";
+import { ATTRIBUTE, COMPONENT, TAG } from "../utils/selector.js";
 
 export default function RacingResult() {
   const $result = $(COMPONENT.RESULT_SECTION);
-  // $result.setAttribute(TAG.CLASS, ATTRIBUTE.HIDDEN);
-  // const showResult = () => $result.removeAttribute(TAG.CLASS);
+  $result.setAttribute(TAG.CLASS, ATTRIBUTE.HIDDEN);
+  const showResult = () => $result.removeAttribute(TAG.CLASS);
 
   this.render = winners => {
-    // showResult();
+    showResult();
     const $winner = $(COMPONENT.WINNER, $result);
     $winner.textContent = winners.join(DELIMITER.DISTING);
   }

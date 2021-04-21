@@ -1,5 +1,5 @@
-import { $ } from "../utils/dom.js";
-import { ATTRIBUTE, COMPONENT, TAG } from "../utils/selector.js";
+import { $, $disable } from "../utils/dom.js";
+import { ATTRIBUTE, COMPONENT, ID, TAG } from "../utils/selector.js";
 import { getId, getValue, isEnter, KEY_EVENT } from "../utils/event.js";
 import { ERROR_CHECK } from "../utils/error.js";
 import { DELIMITER } from "../utils/constant.js";
@@ -7,8 +7,8 @@ import { DELIMITER } from "../utils/constant.js";
 export default function RacingInput(app) {
   const $input = $(COMPONENT.INPUT);
   const $tryNumInput = $(COMPONENT.TRY_SECTION);
-  // $tryNumInput.setAttribute(TAG.CLASS, ATTRIBUTE.HIDDEN);
-  // const showTry = () => $tryNumInput.removeAttribute(TAG.CLASS);
+  $tryNumInput.setAttribute(TAG.CLASS, ATTRIBUTE.HIDDEN);
+  const showTry = () => $tryNumInput.removeAttribute(TAG.CLASS);
 
   const onKeyHandler = event => {
     if(!isEnter(event)) return;
@@ -19,7 +19,8 @@ export default function RacingInput(app) {
       })
       if(!names.includes(false)) {
         app.inputCar(names);
-        // showTry(); TODO: tryinput 보이게, 본인은 disable하게 
+        showTry();
+        $disable(ID+COMPONENT.CAR_INPUT);
       }
       return;
     }
@@ -27,7 +28,7 @@ export default function RacingInput(app) {
       const tryNum = ERROR_CHECK.TRY_SIZE(getValue(event));
       if(tryNum) {
         app.inputTry(tryNum);
-        // 본인은 disable하게
+        $disable(ID+COMPONENT.TRY_INPUT);
       }
     }
   }
