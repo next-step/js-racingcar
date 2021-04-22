@@ -44,7 +44,7 @@ const SETTINGS = {
   keyCode: {
     enter: 'Enter',
   },
-  string: {
+  delimiter: {
     comma: ',',
     empty: '',
     winnerDelimiter: ',&nbsp;',

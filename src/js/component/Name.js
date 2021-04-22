@@ -4,7 +4,7 @@ import { disabled, popUp, qsById } from '../utils.js';
 import Component from './Component.js';
 import EntryName from '../domain/EntryName.js';
 
-const Name = (({ stage, id, event, keyCode, string }) => {
+const Name = (({ stage, id, event, keyCode, delimiter }) => {
   const renderingRouter = {
     data: [
       [
@@ -58,7 +58,7 @@ const Name = (({ stage, id, event, keyCode, string }) => {
       const { app, inputCarName } = privt.get(this);
 
       try {
-        const entryNames = inputCarName.value.split(string.comma);
+        const entryNames = inputCarName.value.split(delimiter.comma);
         app.state = {
           entryNames: entryNames.map(EntryName.of),
           stage: stage.round,

@@ -3,13 +3,13 @@ import { qsById, timeout } from '../utils.js';
 
 import Component from './Component.js';
 
-const Race = (({ defaultVal, stage, id, event, string }) => {
+const Race = (({ defaultVal, stage, id, event, delimiter }) => {
   const raceEvent = new Event(event.race);
   const renderingRouter = {
     data: [
       [
         currStage => currStage < stage.race,
-        ({ el }) => (el.innerHTML = string.empty),
+        ({ el }) => (el.innerHTML = delimiter.empty),
       ],
       [
         currStage => currStage === stage.race,
@@ -45,10 +45,10 @@ const Race = (({ defaultVal, stage, id, event, string }) => {
             <div class="car-player">${name}</div> 
             ${Array(laps)
               .fill('<div class="forward-icon mt-2">⬇️️</div>')
-              .join(string.empty)} 
+              .join(delimiter.empty)} 
             ${
               isFinished
-                ? string.empty
+                ? delimiter.empty
                 : `<div class="d-flex justify-center mt-3">
                     <div class="relative spinner-container">
                       <span class="material spinner"></span>
@@ -57,7 +57,7 @@ const Race = (({ defaultVal, stage, id, event, string }) => {
             }
           </div>`,
       )
-      .join(string.empty);
+      .join(delimiter.empty);
 
   const privt = new WeakMap();
   return class extends Component {

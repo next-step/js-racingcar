@@ -3,7 +3,7 @@ import { popUp, qsById, timeout } from '../utils.js';
 
 import Component from './Component.js';
 
-const Award = (({ defaultVal, stage, id, klass, event, string, msg }) => {
+const Award = (({ defaultVal, stage, id, klass, event, delimiter, msg }) => {
   const awardEvent = new Event(event.award);
   const renderingRouter = {
     data: [
@@ -11,7 +11,7 @@ const Award = (({ defaultVal, stage, id, klass, event, string, msg }) => {
         currStage => currStage < stage.award,
         ({ el, infoGameResult }) => {
           el.classList.add(klass.hidden);
-          infoGameResult.innerHTML = string.empty;
+          infoGameResult.innerHTML = delimiter.empty;
         },
       ],
       [
@@ -20,7 +20,7 @@ const Award = (({ defaultVal, stage, id, klass, event, string, msg }) => {
           const {
             racingGame: { winners },
           } = app.state;
-          infoGameResult.innerHTML = winners.join(string.winnerDelimiter);
+          infoGameResult.innerHTML = winners.join(delimiter.winnerDelimiter);
           el.classList.remove(klass.hidden);
           el.dispatchEvent(awardEvent);
         },
