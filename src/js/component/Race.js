@@ -75,7 +75,7 @@ const Race = (({ defaultVal, stage, id, event, delimiter }) => {
 
     race() {
       const { app } = privt.get(this);
-      let { racingGame } = app.state;
+      const { racingGame } = app.state;
 
       racingGame.race();
       timeout(
