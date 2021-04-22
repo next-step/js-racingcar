@@ -48,6 +48,15 @@ export default function GameSettingInput(target, { startRace }) {
     racingTimesInput.addEventListener("keypress", onKeypressRacingTimesInput);
     racingTimesSubmit.addEventListener("click", submitRacingTimes);
   };
+
+  const onKeypressCarNameInput = ({ target, key }) => {
+    if (key !== "Enter" || !target.value) {
+      return;
+    }
+
+    submitCarName();
+  };
+
   const submitCarName = () => {
     const carNames = carNameInput.value.replace(" ", "").split(",");
     if (carNames.some(validateCarName)) {
@@ -78,14 +87,6 @@ export default function GameSettingInput(target, { startRace }) {
     }
 
     startRace(racingTimes);
-  };
-
-  const onKeypressCarNameInput = ({ target, key }) => {
-    if (key !== "Enter" || !target.value) {
-      return;
-    }
-
-    submitCarName();
   };
 
   init();
