@@ -27,7 +27,6 @@ const template = `
 
 export default function App(target) {
   const dom = createElement(target, template);
-
   const resetBtn = dom.querySelector(".reset-btn");
 
   const init = () => {

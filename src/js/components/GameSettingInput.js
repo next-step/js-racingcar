@@ -34,7 +34,6 @@ export default function GameSettingInput(target, { startRace }) {
   const dom = createElement(target, template);
   const carNameInput = dom.querySelector(".car-name-input");
   const carNameSubmit = dom.querySelector(".car-name-submit");
-
   const racingTimesInput = dom.querySelector(".racing-times-input");
   const racingTimesSubmit = dom.querySelector(".racing-times-submit");
 
