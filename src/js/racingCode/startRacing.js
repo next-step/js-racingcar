@@ -1,4 +1,4 @@
-import { $All, progressTitle, setting } from "../source/source.js";
+import { $All, progressTitle, setting } from "../utils/constant.js";
 import { timerCheck } from "./timerCheck.js";
 
 const startRacing = (tryNumber, carName) => {

@@ -9,15 +9,15 @@ import {
   tryButtonDom,
   sectionRaceTimes,
   Message,
-} from "../source/source.js";
+} from "../utils/constant.js";
 
 let maxCarName = [];
 let countArray = {};
 let max = -Infinity;
 
-const compareCountAndTryNumber = (timer, count, tryNumber) => {
-  if (count === Number(tryNumber)) {
-    clearInterval(timer);
+const compareCountAndTryNumber = (tryObject) => {
+  if (tryObject.count === Number(tryObject.tryNumber)) {
+    clearInterval(tryObject.timer);
     $All(".relative").forEach((x) => x.remove());
     checkWinner();
     resultDom.innerHTML = result(maxCarName);
@@ -29,23 +29,28 @@ const compareCountAndTryNumber = (timer, count, tryNumber) => {
 };
 
 const returnToOriginalHandler = () => {
-  while (progressTitle.hasChildNodes()) {
-    progressTitle.firstChild.remove();
-  }
+  initializeDom();
+  initializeValue();
+  initializeAttr();
+};
 
-  while (resultDom.hasChildNodes()) {
-    resultDom.firstChild.remove();
-  }
+const initializeDom = () => {
+  while (progressTitle.hasChildNodes()) progressTitle.firstChild.remove();
+  while (resultDom.hasChildNodes()) resultDom.firstChild.remove();
+};
+
+const initializeValue = () => {
   countArray = {};
   max = -Infinity;
   maxCarName = [];
+  $("#inputCarName").value = "";
+  $("#inputTryNumber").value = "";
+};
 
+const initializeAttr = () => {
   sectionRaceTimes.hidden = true;
   carButtonDom.disabled = false;
   tryButtonDom.disabled = false;
-
-  $("#inputCarName").value = "";
-  $("#inputTryNumber").value = "";
 };
 
 const goCarMove = (carNameArray, isGo, carMovingDom) => {
@@ -58,11 +63,11 @@ const goCarMove = (carNameArray, isGo, carMovingDom) => {
 };
 
 const addMovingDom = (isGo, idx, carMovingDom) => {
-  if (isGo[idx]) carMovingDom[idx].insertAdjacentHTML("afterend", moving());
+  if (isGo[idx]) carMovingDom[idx].insertAdjacentHTML("afterend", moving);
 };
 
 const checkWinner = () => {
-  for (let idx in countArray) {
+  for (const idx in countArray) {
     if (max < countArray[idx]) {
       maxCarName = [];
       maxCarName.push(idx);

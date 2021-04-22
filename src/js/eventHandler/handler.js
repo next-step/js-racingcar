@@ -3,9 +3,9 @@ import {
   tryNumberDom,
   sectionRaceTimes,
   Message,
-} from "../source/source.js";
+} from "../utils/constant.js";
 import { startRacing } from "../racingCode/startRacing.js";
-import { carButtonDom, tryButtonDom } from "../source/source.js";
+import { carButtonDom, tryButtonDom } from "../utils/constant.js";
 
 let carNameArray, tryNumber;
 let isSmallerFive = true;

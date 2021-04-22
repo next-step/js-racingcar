@@ -16,7 +16,7 @@ const setting = (carName) => ` <div class="mr-2">
             </div>
           </div>`;
 
-const moving = () => `<div class="forward-icon mt-2">⬇️️</div>`;
+const moving = `<div class="forward-icon mt-2">⬇️️</div>`;
 
 const Message = {
   success: "🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇",

@@ -5,14 +5,18 @@ import {
 
 let isGo = [];
 
+let tryObject = {};
+
 const timerCheck = (count, carNameArray, tryNumber, carMovingDom) => {
-  let timer = setInterval(() => {
+  tryObject.count = count;
+  tryObject.tryNumber = tryNumber;
+  tryObject.timer = setInterval(() => {
     isGo = carNameArray.map(() =>
       Math.floor(Math.random() * 10) >= 4 ? true : false
     );
     goCarMove(carNameArray, isGo, carMovingDom);
-    count++;
-    compareCountAndTryNumber(timer, count, tryNumber);
+    tryObject.count++;
+    compareCountAndTryNumber(tryObject);
   }, 1000);
 };
 
