@@ -12,7 +12,9 @@ export const AlertMsg = Object.freeze({
 
 export const ClassName = Object.freeze({
   Car: "car",
+  CarPlayer: "car-player",
   Btn: "btn",
+  forwardIcon: "forward-icon",
 });
 
 export const ID = Object.freeze({

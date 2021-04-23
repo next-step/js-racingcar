@@ -1,5 +1,5 @@
 import { ClassName } from "../common/constants";
-import { class2Query, delay } from "../common/utils";
+import { class2Query, delay, getRandom } from "../common/utils";
 import Component from "../core/Component";
 import { Car, CarProps } from "./Car";
 
@@ -48,7 +48,7 @@ export default class GameProcess extends Component {
   }
 
   private canMove(): boolean {
-    return (Math.random() * 100) % 10 >= 4;
+    return getRandom(0, 9) >= 4;
   }
 
   async playGame(interval: number) {
