@@ -1,5 +1,4 @@
 import { ERROR_MESSAGE, WINNING_MASSAGE } from "../../src/js/utils/constnats";
-// import * as utils from "../../src/js/utils/utils.js";
 
 describe("racing car game", () => {
   beforeEach(() => {
@@ -83,26 +82,15 @@ describe("racing car game", () => {
     });
   });
 
-  // TODO: mocking이 되지 않고 운좋게 통과하고 있었음
-  // context("게임 진행 시", () => {
-  //   it("랜덤 값이 4 이상이면 1초 이후에 forward 아이콘이 생긴다", () => {
-  //     cy.stub(utils, "generateRandom").returns(4);
-  //
-  //     setGame("A", 1);
-  //     cy.get(".forward-icon").should("not.exist");
-  //     cy.wait(1000);
-  //     cy.get(".forward-icon").should("exist");
-  //   });
-  //
-  //   it("랜덤 값이 3 이하면 1초 이후에도 forward 아이콘이 생기지 않는다.", () => {
-  //     cy.stub(utils, "generateRandom").returns(3);
-  //
-  //     setGame("A", 1);
-  //     cy.get(".forward-icon").should("not.exist");
-  //     cy.wait(1000);
-  //     cy.get(".forward-icon").should("not.exist");
-  //   });
-  // });
+  // 랜덤에 의지한 좋지 못한 테스트
+  context("게임 진행 시", () => {
+    it("1초 이후에 forward 아이콘이 생긴다", () => {
+      setGame("a,b,c,d,e,f,g,h,i,j,k", 1);
+      cy.get(".forward-icon").should("not.exist");
+      cy.wait(1000);
+      cy.get(".forward-icon").should("exist");
+    });
+  });
 
   context("게임 종료 시", () => {
     it("우승자 이름을 출력한다.", () => {
