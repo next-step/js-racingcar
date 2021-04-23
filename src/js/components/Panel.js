@@ -53,7 +53,7 @@ class Panel {
   }
 
   isValidCount = (count) => {
-    return isNaN(count) === false && count > MINIMUM_COUNT;
+    return Number.isNaN(count) === false && count > MINIMUM_COUNT;
   }
 
 

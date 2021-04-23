@@ -70,16 +70,5 @@ describe('ui-racing', () => {
     checkAlertMessage(WINNER_MESSAGE)
   })
 
-  it('3게임 진행', () => {
-    goRacing(getRandomNumber());
-    restartRacing();
-
-    goRacing(getRandomNumber());
-    restartRacing();
-
-    goRacing(getRandomNumber());
-    restartRacing();
-  })
-
 
 })
