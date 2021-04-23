@@ -1,4 +1,6 @@
 import { ERROR_MESSAGE, WINNING_MASSAGE } from "../../src/js/utils/constnats";
+import * as utils from "../../src/js/utils/utils.js";
+import Car from "../../src/js/domain/Car.js";
 
 describe("racing car game", () => {
   beforeEach(() => {
@@ -117,6 +119,30 @@ describe("racing car game", () => {
 
       cy.get(".car-list").should("not.contain.text", "a");
       cy.get(".winner-list").should("not.contain.text", "a");
+    });
+  });
+});
+
+describe("Car class", () => {
+  context("race 함수 실행 시", () => {
+    it("랜덤값이 4 이상이면 position이 1 증가한다.", () => {
+      cy.stub(utils, "generateRandom").returns(4);
+
+      const car = new Car("test");
+
+      expect(car.position).eq(0);
+      car.race();
+      expect(car.position).eq(1);
+    });
+
+    it("랜덤값이 3 이하면 position이 1 증가한다.", () => {
+      cy.stub(utils, "generateRandom").returns(3);
+
+      const car = new Car("test");
+
+      expect(car.position).eq(0);
+      car.race();
+      expect(car.position).eq(0);
     });
   });
 });
