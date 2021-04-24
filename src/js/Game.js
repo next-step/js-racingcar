@@ -5,6 +5,7 @@ import { Cars } from './Cars.js';
 export class Game {
   constructor() {
     this.winnerSection = $('#section-winner');
+    this.winnerName = $('#winner-name');
     this.Cars = new Cars({ onRaceEnd: (cars) => this.handleRaceEnd(cars) });
     this.Input = new Input({
       onSubmit: ({ cars, raceTimes }) => {
@@ -23,7 +24,7 @@ export class Game {
   }
 
   restart() {
-    this.winnerSection.innerHTML = '';
+    this.winnerSection.classList.add('hidden');
     this.Input.reset();
     this.Cars.reset();
   }
@@ -35,14 +36,8 @@ export class Game {
 
   showWinner(winners) {
     const winnerNames = winners.map(({ name }) => name).join(', ');
-    this.winnerSection.innerHTML = `
-    <div>
-        <h2>🏆 최종 우승자: ${winnerNames} 🏆</h2>
-        <div class="d-flex justify-center">
-          <button type="button" id="restart" class="btn btn-cyan">다시 시작하기</button>
-        </div>
-      </div>
-    `;
+    this.winnerSection.classList.remove('hidden');
+    this.winnerName.textContent = winnerNames;
 
     setTimeout(() => alert('축하합니다!'), 2000);
   }
