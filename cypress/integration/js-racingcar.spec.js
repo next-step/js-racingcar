@@ -45,19 +45,39 @@ describe('js-racing.spec.js', () => {
 
       cy.tick(4000);
 
-      names.forEach((name) => {
-        cy.contains('.car-player', name).siblings('.race-field')
-        // TODO: find 시 forwaord-icon이 없는 경우 test fail하지 않도록 수정
-          .find('.forward-icon')
-          .its('length')
-          .should('lte', 4);
-      });
+      cy.get('.car')
+        .each((car) => {
+          const moves = car.find('.forward-icon').length;
+          expect(moves).to.be.at.most(4);
+        });
     });
   });
 
   describe('우승자 표시', () => {
     it('자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다 (우승자 한 명 이상)', () => {
-      // TODO: 우승자가 맞는지 확인하는 테스트 작성
+      const names = ['a', 'b', 'c', 'd'];
+      let winners = [];
+      let maxMove = 0;
+
+      cy.inputCarName(names.join(','));
+      cy.inputRaceTimes(4);
+
+      cy.tick(4000);
+
+      cy.get('.car')
+        .each((car) => {
+          const moves = car.find('.forward-icon').length;
+          const name = car.children('.car-player').text();
+
+          if (moves === maxMove) {
+            winners.push(name);
+          } else if (moves > maxMove) {
+            maxMove = moves;
+            winners = [name];
+          }
+        }).then(() => {
+          cy.get('#winner-name').should('have.text', winners.join(', '));
+        });
     });
 
     it('2초 후에 축하의 alert 메세지를 띄운다.', () => {
