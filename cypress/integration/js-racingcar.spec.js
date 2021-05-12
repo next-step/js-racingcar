@@ -66,8 +66,17 @@ describe('js-racingcar', () => {
           expect(text).to.equal(winners.join(delimiter.comma));
         }),
       );
+  });
 
-    cy.tick(defaultVal.celebrationTerm);
+  it('축하 메세지 확인', () => {
+    const [names, round] = [[1, 2, 3, 4, 5], 5];
+
+    cy.getById(id.inputCarName).type(names.join(delimiter.comma));
+    cy.getById(id.submitCarName).click();
+    cy.getById(id.inputRaceTimes).type(round);
+    cy.getById(id.submitRaceTimes).click();
+
+    cy.tick(round * defaultVal.raceTerm + defaultVal.celebrationTerm);
     cy.checkAlertMsg(AT_ALERTED, msg.celebration);
   });
 });
