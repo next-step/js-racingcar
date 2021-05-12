@@ -23,3 +23,13 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('getById', (id, ...args) => {
+  const [ops = {}, ...rest] = args;
+  return cy.get(`#${id}`, { timeout: 400, ...ops }, ...rest);
+});
+
+Cypress.Commands.add('checkAlertMsg', (alertAlias, msg) => {
+  cy.get(alertAlias)
+    .should('have.been.calledOnce')
+    .and('have.been.calledWith', msg);
+});
