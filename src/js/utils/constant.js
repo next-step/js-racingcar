@@ -1,3 +1,5 @@
+import { createDom } from './util.js'
+
 export const TEMPLATE = {
   INPUT_NAME_COUNT: `
             <section class="d-flex justify-center mt-5">
@@ -28,13 +30,10 @@ export const TEMPLATE = {
 `,
 
   CAR_BOARD_ELEMENT: () => {
-    const section = document.createElement('div');
-    section.classList.add("d-flex", "justify-center","mt-5", "hello")
-    return section
+    return  createDom('div', "d-flex", "justify-center","mt-5", "hello");
   },
   CAR_ELEMENT: (name) => {
-    const car = document.createElement('div')
-    car.classList.add('mr-2')
+    const car = createDom('div', 'mr-2')
     car.innerHTML = TEMPLATE.CAR_STATUS(name)
     return car
   },

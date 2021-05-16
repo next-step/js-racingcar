@@ -8,11 +8,11 @@ class Car {
     this.$el = TEMPLATE.CAR_ELEMENT(this.name)
   }
 
-  makeRandomNum = () => {
+  _makeRandomNum = () => {
     return Math.floor(Math.random() * 10)
   }
 
-  insertMoveElement = () => {
+  _insertMoveElement = () => {
     selector(`.car-player`, this.$el).insertAdjacentHTML('afterend', TEMPLATE.CAR_MOVE)
   }
 
@@ -21,9 +21,9 @@ class Car {
   }
 
   move = () => {
-    if (this.makeRandomNum() > MOVE_POSSIBLE_NUMBER) {
+    if (this._makeRandomNum() > MOVE_POSSIBLE_NUMBER) {
       this.count += 1
-      this.insertMoveElement()
+      this._insertMoveElement()
     }
     return false
   }

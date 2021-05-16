@@ -2,10 +2,10 @@ import Panel from "./Panel.js";
 
 class Game {
   constructor (parent) {
-    this.start(parent)
+    this._start(parent)
   }
 
-  start = (parent) => {
+  _start = (parent) => {
     new Panel(parent)
   }
 }

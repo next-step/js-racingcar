@@ -1,4 +1,6 @@
 export const selector = (v, el = document) => el.querySelector(v);
-
-export const allSelector = (v, el = document) => el.querySelectorAll(v);
-
+export const createDom = (tag = 'div', ...classList) => {
+  const el = document.createElement(tag);
+  el.classList.add(...classList);
+  return el;
+}

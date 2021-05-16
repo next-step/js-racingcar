@@ -1,6 +1,6 @@
 describe('ui-racing', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:8080/')
+    cy.visit('http://localhost:8081/')
 
   })
   const NAMES = 'EAST, WEST, SOUTH, NORTH';
