@@ -4,7 +4,7 @@
 }
 
 .spinner::after {
-  content: '';
+  content: "";
   box-sizing: border-box;
   width: 25px;
   height: 25px;
@@ -20,6 +20,10 @@
   border-bottom: 4px solid rgba(0, 191, 215, 1);
   border-right: 4px solid rgba(0, 191, 215, 0);
   animation: spinner 0.6s linear infinite;
+}
+
+.spinnerWrap.hidden {
+  display: none;
 }
 
 @keyframes spinner {
