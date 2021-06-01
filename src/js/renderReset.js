@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="kr">
-  <head>
-    <meta charset="UTF-8" />
-    <title>🏎️ 자동차 경주 게임</title>
-    <link rel="stylesheet" href="./src/css/index.css" />
-  </head>
-  <body>
+import { setCarNameEvent } from "./setCarNameEvent.js"
+
+const renderReset = () => {
+    const body = document.querySelector("body")
+    body.innerHTML = `
     <div id="app">
       <section class="d-flex justify-center mt-5">
         <form>
@@ -29,14 +26,11 @@
         </div>
       </section>
       <section id="result" class="d-flex justify-center mt-5">
-        <!-- <div>
-          <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
-          <div class="d-flex justify-center">
-            <button type="button" class="btn btn-cyan">다시 시작하기</button>
-          </div>
-        </div> -->
       </section>
     </div>
     <script type="module" src="./src/js/index.js"></script>
-  </body>
-</html>
+    `
+    setCarNameEvent();
+}
+
+export { renderReset }

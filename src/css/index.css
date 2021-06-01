@@ -34,4 +34,5 @@ body {
 fieldset {
   border: none;
   padding: 0;
+  margin: 10px 0;
 }
