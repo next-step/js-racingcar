@@ -3,9 +3,7 @@
 @import './shared/sizing.css';
 @import './shared/typhography.css';
 @import './ui/spinner.css';
-
-html,
-body {
+html, body {
   margin: 0;
   height: 100%;
 }
@@ -34,4 +32,18 @@ body {
 fieldset {
   border: none;
   padding: 0;
+}
+
+#race-times-field {
+  visibility: hidden;
+}
+
+#race-times-field.show {
+  visibility: visible;
+}
+
+.spinner-container.hide {
+  visibility: hidden;
+  width: 0;
+  height: 0;
 }

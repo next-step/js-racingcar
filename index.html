@@ -9,63 +9,33 @@
     <div id="app">
       <section class="d-flex justify-center mt-5">
         <form>
-          <fieldset>
+          <fieldset id="race-name-field">
             <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
             <p>
               5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
               예시) EAST, WEST, SOUTH, NORTH
             </p>
             <div class="d-flex">
-              <input type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-              <button type="button" class="btn btn-cyan">확인</button>
+              <input type="text" id="input-car-name" class="w-100 mr-2 interactive-element" placeholder="자동차 이름" />
+              <button type="button" id="submit-car-name" class="btn btn-cyan interactive-element">확인</button>
             </div>
           </fieldset>
-          <fieldset>
+          <fieldset id="race-times-field">
             <p>시도할 횟수를 입력해주세요.</p>
             <div class="d-flex">
-              <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-              <button type="button" class="btn btn-cyan">확인</button>
+              <input type="number" id="input-race-times" class="w-100 mr-2 interactive-element" placeholder="시도 횟수" />
+              <button type="button" id="submit-race-times" class="btn btn-cyan interactive-element">확인</button>
             </div>
           </fieldset>
         </form>
       </section>
       <section class="d-flex justify-center mt-5">
-        <div class="mt-4 d-flex">
-          <div class="mr-2">
-            <div class="car-player">EAST</div>
-            <div class="forward-icon mt-2">⬇️️</div>
-            <div class="forward-icon mt-2">⬇️️</div>
-          </div>
-          <div class="mr-2">
-            <div class="car-player">WEST</div>
-            <div class="forward-icon mt-2">⬇️️</div>
-          </div>
-          <div class="mr-2">
-            <div class="car-player">SOUTH</div>
-            <div class="d-flex justify-center mt-3">
-              <div class="relative spinner-container">
-                <span class="material spinner"></span>
-              </div>
-            </div>
-          </div>
-          <div class="mr-2">
-            <div class="car-player">NORTH</div>
-            <div class="d-flex justify-center mt-3">
-              <div class="relative spinner-container">
-                <span class="material spinner"></span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div id="race-progress" class="mt-4 d-flex"></div>
       </section>
       <section class="d-flex justify-center mt-5">
-        <div>
-          <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
-          <div class="d-flex justify-center">
-            <button type="button" class="btn btn-cyan">다시 시작하기</button>
-          </div>
-        </div>
+        <div id="race-result"></div>
       </section>
     </div>
+    <script type="module" src="./src/js/index.js"></script>
   </body>
 </html>
