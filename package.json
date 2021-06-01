@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "cypress": "^7.1.0",
+    "eslint": "^7.24.0",
+    "prettier": "^2.2.1"
+  }
+}
