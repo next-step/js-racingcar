@@ -1,0 +1,40 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "description": "부릉부릉",
+  "main": "index.js",
+  "scripts": {
+    "dev":"live-server",
+    "test": "npx cypress open",
+    "pre-commit": "lint-staged"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moonheekim0118/js-racingcar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moonheekim0118/js-racingcar/issues"
+  },
+  "homepage": "https://github.com/moonheekim0118/js-racingcar#readme",
+  "devDependencies": {
+    "cypress": "^7.4.0",
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "live-server": "^1.2.1",
+    "prettier": "^2.3.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,json,css}": [
+      "prettier --write"
+    ],
+    "cypress/**/*.{js}": [
+      "prettier --write"
+    ]
+  }
+}
