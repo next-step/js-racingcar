@@ -1,9 +1,9 @@
 import { $ } from '../utils/helpers.js';
 import getRandomInt from '../utils/getRandomInt.js';
 
-const track = (name) => {
+const track = (name, id) => {
   return `
-        <div class="mr-2" data-car=${name}>
+        <div class="mr-2" data-car=${id}>
           <div class="car-player">${name}</div>
         </div>
         `;
@@ -19,13 +19,12 @@ const spinner = () => {
   `;
 };
 
-export default function RacingCar(name) {
+export default function RacingCar(name, id) {
   this.distance = 0;
-  this.isStay = false;
 
   this.ready = (racingTrack) => {
-    racingTrack.insertAdjacentHTML('beforeend', track(name));
-    this.myTrack = $(`[data-car="${name}"]`);
+    racingTrack.insertAdjacentHTML('beforeend', track(name, id));
+    this.myTrack = $(`[data-car="${id}"]`);
     this.$stop = document.createElement('div');
     this.$stop.className = 'd-flex justify-center mt-3 spinner-box';
     this.$stop.insertAdjacentHTML('beforeend', spinner());

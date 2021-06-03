@@ -12,7 +12,7 @@ function getAllIndexes(arr, val) {
 export default function RacingCars(names) {
   this.names = names;
   this.cars = [];
-  names.map((name) => this.cars.push(new RacingCar(name)));
+  names.map((name, index) => this.cars.push(new RacingCar(name, index)));
 
   this.ready = (racingTrack) => {
     this.cars.map((car) => {
