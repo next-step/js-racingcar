@@ -31,15 +31,17 @@ export default function RacingCar(name, id) {
     this.myTrack.insertAdjacentElement('beforeend', this.$stop);
   };
 
-  this.goRound = () => {
-    if (getRandomInt(0, 9) > 3) {
-      const newStop = $('.spinner-box', this.myTrack).cloneNode(true);
-      this.$stop.remove();
-      this.myTrack.insertAdjacentHTML('beforeend', go());
-      this.$stop = newStop;
-      this.myTrack.insertAdjacentElement('beforeend', this.$stop);
-      this.distance++;
-    }
+  // TODO: 디폴트 인자를 넣어서 만약 값이 있다면 그 값을 이용해서 세팅하기
+  // TODO: 디폴트 값을 getRamdomInt로 하면 되겠다
+  // this.goRound = () => {
+  this.goRound = (val = getRandomInt(0, 9)) => {
+    if (val < 4) return;
+    const newStop = $('.spinner-box', this.myTrack).cloneNode(true);
+    this.$stop.remove();
+    this.myTrack.insertAdjacentHTML('beforeend', go());
+    this.$stop = newStop;
+    this.myTrack.insertAdjacentElement('beforeend', this.$stop);
+    this.distance++;
   };
 
   this.end = () => {
