@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       cars: [],
       times: 0,
+      isStart: false,
       isTimeFormOpen: false,
     };
   }
@@ -31,9 +32,13 @@ class App extends Component {
       CarNameForm: new CarNameForm($carNameForm, {
         onSubmit: this.handleCarNameSubmit.bind(this),
       }),
-      TimeForm: new TimeForm($timeForm, {
-        onSubmit: this.handleTimeSubmit.bind(this),
-      }),
+      TimeForm: new TimeForm(
+        $timeForm,
+        { isTimeFormOpen: this.state.isTimeFormOpen },
+        {
+          onSubmit: this.handleTimeSubmit.bind(this),
+        }
+      ),
       RaceResult: new RaceResult($raceResult, this.state, {
         onClickInit: this.handleClickInit.bind(this),
       }),
@@ -44,8 +49,14 @@ class App extends Component {
     }
   }
 
-  handleCarNameSubmit() {}
-  handleTimeSubmit() {}
+  handleCarNameSubmit(carNames) {
+    const nextState = { ...this.state, carNames, isTimeFormOpen: true };
+    this.setState(nextState);
+  }
+  handleTimeSubmit(times) {
+    const nextState = { ...this.state, times, isStart: true };
+    this.setState(nextState);
+  }
   handleClickInit() {}
 }
 
