@@ -9,7 +9,7 @@
     <div id="app">
       <section class="d-flex justify-center mt-5">
         <div class=="inputs">
-          <section class="car-names">
+          <section class="car-names" data-test="car-names-section">
             <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
             <p>
               5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
@@ -20,21 +20,23 @@
                 type="text"
                 class="w-100 mr-2 car-names__input"
                 placeholder="자동차 이름"
+                data-test="car-names-input"
               />
-              <button type="button" class="btn btn-cyan car-names__btn">
+              <button type="button" class="btn btn-cyan car-names__btn" data-test="car-names-btn">
                 확인
               </button>
             </div>
           </section>
-          <section class="try-number hidden">
+          <section class="try-number hidden" data-test="try-number-section">
             <p>시도할 횟수를 입력해주세요.</p>
             <div class="d-flex">
               <input
                 type="number"
                 class="w-100 mr-2 try-number__input"
                 placeholder="시도 횟수"
+                data-test="try-number-input"
               />
-              <button type="button" class="btn btn-cyan try-number__btn">
+              <button type="button" class="btn btn-cyan try-number__btn" data-test="try-number-btn">
                 확인
               </button>
             </div>
