@@ -33,7 +33,7 @@ export default function RacingCar(name) {
   };
 
   this.goRound = () => {
-    if (getRandomInt(0, 10) > 3) {
+    if (getRandomInt(0, 9) > 3) {
       const newStop = $('.spinner-box', this.myTrack).cloneNode(true);
       this.$stop.remove();
       this.myTrack.insertAdjacentHTML('beforeend', go());
