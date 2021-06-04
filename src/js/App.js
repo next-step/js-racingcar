@@ -1,19 +1,24 @@
 import Component from "./core/component.js";
 import CarNameForm from "./components/CarNameForm.js";
-import TimeForm from "./components/TimeForm.js";
+import CarRace from "./components/CarRace.js";
 import RaceResult from "./components/RaceResult.js";
+import TimeForm from "./components/TimeForm.js";
 import { $ } from "./utils/dom.js";
+
+const initialState = {
+  cars: [],
+  winners: [],
+  time: 0,
+  isStarted: false,
+  isEnded: false,
+  isTimeFormOpen: false,
+};
 
 class App extends Component {
   constructor($root) {
     super();
     this.$root = $root;
-    this.state = {
-      cars: [],
-      times: 0,
-      isStart: false,
-      isTimeFormOpen: false,
-    };
+    this.state = initialState;
   }
 
   setState(nextState) {
@@ -26,10 +31,11 @@ class App extends Component {
   mountChildren() {
     const $carNameForm = $("#car-form");
     const $timeForm = $("#time-form");
-    const $raceResult = $("#result");
+    const $carRace = $("#car-race");
+    const $result = $("#result");
 
     this.children = {
-      CarNameForm: new CarNameForm($carNameForm, {
+      CarNameForm: new CarNameForm($carNameForm, this.state, {
         onSubmit: this.handleCarNameSubmit.bind(this),
       }),
       TimeForm: new TimeForm(
@@ -39,7 +45,10 @@ class App extends Component {
           onSubmit: this.handleTimeSubmit.bind(this),
         }
       ),
-      RaceResult: new RaceResult($raceResult, this.state, {
+      CarRace: new CarRace($carRace, this.state, {
+        onGetResult: this.handleGetResult.bind(this),
+      }),
+      RaceResult: new RaceResult($result, this.state, {
         onClickInit: this.handleClickInit.bind(this),
       }),
     };
@@ -53,11 +62,22 @@ class App extends Component {
     const nextState = { ...this.state, cars, isTimeFormOpen: true };
     this.setState(nextState);
   }
-  handleTimeSubmit(times) {
-    const nextState = { ...this.state, times, isStart: true };
+  handleTimeSubmit(time) {
+    const nextState = { ...this.state, time, isStarted: true };
     this.setState(nextState);
   }
-  handleClickInit() {}
+
+  handleGetResult(carInfos) {
+    const maxStep = [...carInfos].sort((a, b) => b.step - a.step)[0].step;
+    const winners = carInfos
+      .filter((car) => car.step === maxStep)
+      .map((car) => car.name);
+    this.setState({ ...this.state, winners, isEnded: true });
+  }
+
+  handleClickInit() {
+    this.setState(initialState);
+  }
 }
 
 export default App;
