@@ -5,19 +5,19 @@ class TimeForm extends Component {
   constructor($root, props, handlers) {
     super();
     this.$root = $root;
+    this.$input = $("input", this.$root);
     this.props = props;
     this.handlers = handlers;
   }
 
   bindEvents() {
-    const $input = $("input", this.$root);
     this.$root.addEventListener("submit", (e) => {
       e.preventDefault();
-      const times = Number($input.value);
+      const times = Number(this.$input.value);
       if (times <= 0) {
         return alert("레이싱 횟수가 너무 적습니다. 1회 이상이어야해요.");
       }
-      $input.disabled = true;
+      this.$input.disabled = true;
       this.handlers.onSubmit(times);
     });
   }
@@ -27,6 +27,8 @@ class TimeForm extends Component {
       this.$root.classList.remove("hidden");
     } else {
       this.$root.classList.add("hidden");
+      this.$input.disabled = false;
+      this.$input.value = "";
     }
   }
 }
