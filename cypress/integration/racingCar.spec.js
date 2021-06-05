@@ -8,7 +8,7 @@ import {
   RESULT,
   INIT_BUTTON,
 } from "../constants/selectors.js";
-import { INTERVAL_TIME } from "../constants/numbers.js";
+import { INTERVAL_TIME, ALERT_DELAY_TIME } from "../constants/numbers.js";
 import {
   NOT_ALLOWED_NAME_ERROR,
   NOT_ALLOWED_TIME_ERROR,
@@ -98,13 +98,13 @@ describe("자동차 경주", () => {
       cy.get(RESULT).should("be.visible");
     });
 
-    it("결과 컴포넌트가 렌더링 되고 1초 후에 축하 알림이 뜬다.", () => {
+    it("결과 컴포넌트가 렌더링 되고 2초 후에 축하 알림이 뜬다.", () => {
       const alertStub = cy.stub();
       cy.on("window:alert", alertStub);
       cy.clock();
       cy.tick(INTERVAL_TIME * 3 + INTERVAL_TIME);
       cy.get(RESULT).should("be.visible");
-      cy.tick(1000).then(() => {
+      cy.tick(ALERT_DELAY_TIME).then(() => {
         const actualMessage = alertStub.getCall(0).lastArg;
         expect(actualMessage).to.equal(WIN_MESSAGE);
       });
