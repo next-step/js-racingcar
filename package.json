@@ -1,0 +1,25 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "description": "blackcoffee frontend study level2 mission2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inhyuck/js-racingcar.git"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "dev.inhyuck@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inhyuck/js-racingcar/issues"
+  },
+  "homepage": "https://github.com/inhyuck/js-racingcar#readme",
+  "devDependencies": {
+    "cypress": "^7.4.0"
+  }
+}
