@@ -83,7 +83,7 @@ class App extends Component {
   }
 
   handleGetResult(carInfos) {
-    const maxStep = [...carInfos].sort((a, b) => b.step - a.step)[0].step;
+    const maxStep = Math.max(...carInfos.map((info) => info.step));
     const winners = carInfos
       .filter((car) => car.step === maxStep)
       .map((car) => car.name);
