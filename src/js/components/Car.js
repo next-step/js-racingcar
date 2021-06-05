@@ -38,10 +38,9 @@ class Car extends Component {
     if (this.state.isMoved) {
       const $forward = forwardTemplate(this.state.step);
       this.$root.appendChild($forward);
-    } else {
-      const $loader = loaderTemplate(this.state.step);
-      this.$root.appendChild($loader);
     }
+    const $loader = loaderTemplate(this.state.step);
+    this.$root.appendChild($loader);
   }
 
   handleRace(isArrived) {
