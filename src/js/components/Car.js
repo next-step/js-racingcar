@@ -1,4 +1,10 @@
 import Component from "../core/component.js";
+import { LOADER_ID, RANDOM_NUMBER, WIN_NUMBER } from "../constants/index.js";
+import {
+  headerTemplate,
+  forwardTemplate,
+  loaderTemplate,
+} from "../templates/Car.js";
 
 class Car extends Component {
   constructor($root, props, handlers) {
@@ -20,35 +26,27 @@ class Car extends Component {
   }
 
   init() {
-    this.$root.innerHTML = `<div class="car-player">${this.props.name}</div>`;
+    this.$root.innerHTML = headerTemplate(this.props.name);
   }
 
   mount() {
     const lastChild = this.$root.lastChild;
-    if (lastChild.id === "loader") {
+    if (lastChild.id === LOADER_ID) {
       this.$root.removeChild(lastChild);
     }
     if (this.state.isStopped) return;
     if (this.state.isMoved) {
-      const $container = document.createElement("div");
-      $container.className = "forward-icon mt-2";
-      $container.innerText = "⬇️";
-      this.$root.appendChild($container);
+      const $forward = forwardTemplate(this.state.step);
+      this.$root.appendChild($forward);
     } else {
-      const $container = document.createElement("div");
-      $container.id = "loader";
-      $container.className = "d-flex justify-center mt-3";
-      $container.innerHTML = `
-      <div class="relative spinner-container">
-        <span class="material spinner"></span>
-      </div>`;
-      this.$root.appendChild($container);
+      const $loader = loaderTemplate(this.state.step);
+      this.$root.appendChild($loader);
     }
   }
 
   handleRace(isArrived) {
-    const random = Math.floor(Math.random() * 10);
-    if (random < 4) {
+    const random = Math.floor(Math.random() * RANDOM_NUMBER);
+    if (random < WIN_NUMBER) {
       this.setState({
         ...this.state,
         isMoved: false,

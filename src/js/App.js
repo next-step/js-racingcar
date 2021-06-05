@@ -3,7 +3,14 @@ import CarNameForm from "./components/CarNameForm.js";
 import CarRace from "./components/CarRace.js";
 import RaceResult from "./components/RaceResult.js";
 import TimeForm from "./components/TimeForm.js";
+import {
+  APP_SELECTORS,
+  WIN_MESSAGE,
+  ALERT_DELAY_TIME,
+} from "./constants/index.js";
 import { $ } from "./utils/dom.js";
+
+let timer;
 
 const initialState = {
   cars: [],
@@ -26,13 +33,14 @@ class App extends Component {
     for (const component in this.children) {
       this.children[component].updateProps(this.state);
     }
+    this.mount();
   }
 
   mountChildren() {
-    const $carNameForm = $("#car-form");
-    const $timeForm = $("#time-form");
-    const $carRace = $("#car-race");
-    const $result = $("#result");
+    const $carNameForm = $(APP_SELECTORS.CAR_FORM);
+    const $timeForm = $(APP_SELECTORS.TIME_FORM);
+    const $carRace = $(APP_SELECTORS.CAR_RACE);
+    const $result = $(APP_SELECTORS.RESULT);
 
     this.children = {
       CarNameForm: new CarNameForm($carNameForm, this.state, {
@@ -55,6 +63,13 @@ class App extends Component {
 
     for (const component in this.children) {
       this.children[component].render();
+    }
+  }
+
+  mount() {
+    if (timer) clearTimeout(timer);
+    if (this.state.isEnded) {
+      timer = setTimeout(() => alert(WIN_MESSAGE), ALERT_DELAY_TIME);
     }
   }
 

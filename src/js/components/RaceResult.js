@@ -1,4 +1,6 @@
 import Component from "../core/component.js";
+import template from "../templates/RaceResult.js";
+import { RESULT_SELECTORS, HIDDEN_CLASS } from "../constants/index.js";
 import { $ } from "../utils/dom.js";
 
 class RaceResult extends Component {
@@ -10,24 +12,19 @@ class RaceResult extends Component {
   }
 
   bindEvents() {
-    const $initButton = $("#init-button", this.$root);
+    const $initButton = $(RESULT_SELECTORS.INIT_BUTTON, this.$root);
     $initButton.addEventListener("click", this.handlers.onClickInit);
   }
 
   mount() {
     if (!this.props.isStarted) {
-      this.$root.classList.add("hidden");
+      this.$root.classList.add(HIDDEN_CLASS);
     } else if (this.props.isEnded) {
-      this.$root.classList.remove("hidden");
-      const $winner = $("#winner", this.$root);
-      $winner.innerText = generator(this.props.winners);
+      this.$root.classList.remove(HIDDEN_CLASS);
+      const $winner = $(RESULT_SELECTORS.WINNER_CONTAINER, this.$root);
+      $winner.innerText = template(this.props.winners);
     }
   }
 }
 
 export default RaceResult;
-
-const generator = (winners) => {
-  winners = winners.join(",");
-  return `🏆 최종 우승자는 ${winners} 🏆 "`;
-};

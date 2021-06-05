@@ -1,11 +1,16 @@
 import Component from "../core/component.js";
+import {
+  NOT_ALLOWED_TIME_ERROR,
+  HIDDEN_CLASS,
+  INPUT_SELECTOR,
+} from "../constants/index.js";
 import { $ } from "../utils/dom.js";
 
 class TimeForm extends Component {
   constructor($root, props, handlers) {
     super();
     this.$root = $root;
-    this.$input = $("input", this.$root);
+    this.$input = $(INPUT_SELECTOR, this.$root);
     this.props = props;
     this.handlers = handlers;
   }
@@ -15,7 +20,7 @@ class TimeForm extends Component {
       e.preventDefault();
       const times = Number(this.$input.value);
       if (times <= 0) {
-        return alert("레이싱 횟수가 너무 적습니다. 1회 이상이어야해요.");
+        return alert(NOT_ALLOWED_TIME_ERROR);
       }
       this.$input.disabled = true;
       this.handlers.onSubmit(times);
@@ -24,9 +29,9 @@ class TimeForm extends Component {
 
   mount() {
     if (this.props.isTimeFormOpen) {
-      this.$root.classList.remove("hidden");
+      this.$root.classList.remove(HIDDEN_CLASS);
     } else {
-      this.$root.classList.add("hidden");
+      this.$root.classList.add(HIDDEN_CLASS);
       this.$input.disabled = false;
       this.$input.value = "";
     }

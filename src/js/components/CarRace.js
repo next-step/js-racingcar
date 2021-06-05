@@ -1,5 +1,7 @@
 import Component from "../core/component.js";
 import Car from "./Car.js";
+import { INTERVAL_TIME } from "../constants/index.js";
+import carTemplate from "../templates/CarRace.js";
 
 let interval;
 class CarRace extends Component {
@@ -26,12 +28,11 @@ class CarRace extends Component {
   }
 
   handleAddCars() {
-    this.children = this.props.cars.map((car) => {
-      const $container = document.createElement("div");
-      $container.className = "mr-2";
-      this.$root.appendChild($container);
+    this.children = this.props.cars.map((car, id) => {
+      const $car = carTemplate(id);
+      this.$root.appendChild($car);
       return new Car(
-        $container,
+        $car,
         {
           name: car,
           time: this.props.time,
@@ -42,7 +43,7 @@ class CarRace extends Component {
       );
     });
     this.children.forEach((child) => child.render());
-    interval = setInterval(this.handleStartRace.bind(this), 1000);
+    interval = setInterval(this.handleStartRace.bind(this), INTERVAL_TIME);
   }
 
   handleStartRace() {

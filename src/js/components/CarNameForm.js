@@ -1,11 +1,13 @@
 import Component from "../core/component.js";
+import { NOT_ALLOWED_NAME_ERROR, INPUT_SELECTOR } from "../constants/index.js";
+import { nameVaildator } from "../utils/validator.js";
 import { $ } from "../utils/dom.js";
 
 class CarNameForm extends Component {
   constructor($root, props, handlers) {
     super();
     this.$root = $root;
-    this.$input = $("input", this.$root);
+    this.$input = $(INPUT_SELECTOR, this.$root);
     this.props = props;
     this.handlers = handlers;
   }
@@ -14,11 +16,8 @@ class CarNameForm extends Component {
     this.$root.addEventListener("submit", (e) => {
       e.preventDefault();
       const names = this.$input.value.split(",");
-      const hasNotAllowedName =
-        names.findIndex((name) => name.length > 5 || name.length === 0) !== -1;
-      if (hasNotAllowedName) {
-        return alert("자동차 이름은 5자 이하, 1자 이상이어야 해요");
-      }
+      if (nameVaildator(names)) return alert(NOT_ALLOWED_NAME_ERROR);
+
       this.$input.disabled = true;
       this.handlers.onSubmit(names);
     });
