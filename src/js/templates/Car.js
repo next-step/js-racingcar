@@ -1,6 +1,7 @@
 import { LOADER_ID, FORWARD_ID } from "../constants/index.js";
 
-export const headerTemplate = (name) => `<div class="car-player">${name}</div>`;
+export const headerTemplate = (name) =>
+  `<div class="car-player" data-name="${name}">${name}</div>`;
 
 export const forwardTemplate = (id) => {
   const $container = document.createElement("div");

@@ -3,6 +3,7 @@ export const TIME_FORM = "#time-form";
 
 export const CAR_RACE = "#car-race";
 export const RESULT = "#result";
+export const CAR_PLAYER = ".car-player";
 
 export const INIT_BUTTON = "#init-button";
 export const WINNER_CONTAINER = "#winner";

@@ -5,7 +5,7 @@ import {
   forwardTemplate,
   loaderTemplate,
 } from "../templates/Car.js";
-import { getRandomNumber } from "../utils/getRandomNumber.js";
+import getRandomNumber from "../utils/getRandomNumber.js";
 
 class Car extends Component {
   constructor($root, props, handlers) {
