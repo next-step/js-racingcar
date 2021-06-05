@@ -1,4 +1,5 @@
 import RacingCar from './RacingCar.js';
+import { $ } from '../utils/helpers.js';
 
 function getAllIndexes(arr, val) {
   var indexes = [],
@@ -9,16 +10,30 @@ function getAllIndexes(arr, val) {
   return indexes;
 }
 
-export default function RacingCars(names) {
+const track = (name, id) => {
+  return `
+        <div class="mr-2" data-car=${id}>
+          <div class="car-player">${name}</div>
+        </div>
+        `;
+};
+
+
+export default function RacingCars(racingTrack, names) {
   this.names = names;
+  this.racingTrack = racingTrack;
   this.cars = [];
+
   names.map((name, index) => this.cars.push(new RacingCar(name, index)));
 
-  this.ready = (racingTrack) => {
+  this.ready = () => {
     this.cars.map((car) => {
-      car.ready(racingTrack);
-      // racingTrack.insertAdjacentHTML('beforeend', car.ready());
-      // car.setTrack();
+      const track = document.createElement('div');
+      track.className = 'mr-2';
+      track.dataset.car = car.id;
+      track.innerHTML = `<div class="car-player">${car.name}</div>`;
+      this.racingTrack.insertAdjacentElement('beforeend', track);
+      car.ready(track);
     });
   };
 

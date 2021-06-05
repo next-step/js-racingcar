@@ -21,10 +21,12 @@ const spinner = () => {
 
 export default function RacingCar(name, id) {
   this.distance = 0;
+  this.myTrack;
+  this.name = name;
+  this.id = id;
 
-  this.ready = (racingTrack) => {
-    racingTrack.insertAdjacentHTML('beforeend', track(name, id));
-    this.myTrack = $(`[data-car="${id}"]`);
+  this.ready = (track) => {
+    this.myTrack = track;
     this.$stop = document.createElement('div');
     this.$stop.className = 'd-flex justify-center mt-3 spinner-box';
     this.$stop.insertAdjacentHTML('beforeend', spinner());

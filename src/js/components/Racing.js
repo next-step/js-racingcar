@@ -24,6 +24,9 @@ export default function Racing(app) {
     gameProcess.reset();
   };
 
+  this.getGameProcess = () => gameProcess;
+  this.getResultPane = () => resultPane;
+
   const clickEventHandler = (event) => {
     const target = event.target.closest('button');
     if (!target) return;

@@ -1,12 +1,18 @@
 import { $ } from '../utils/helpers.js';
 import RacingCars from './RacingCars.js';
 
-export default function GameProcess() {
-  this.racingTrack = $('.racing-track');
+export default function GameProcess(track) {
+  this.track = track;
+
+  this.setTrack = (newTrack) => {
+    this.track = newTrack;
+  }
+
+  this.getTrack = () => this.track;
 
   this.ready = (carNames) => {
-    this.RacingCars = new RacingCars(carNames);
-    this.RacingCars.ready(this.racingTrack);
+    this.RacingCars = new RacingCars(this.track, carNames);
+    this.RacingCars.ready();
   };
 
   this.goRound = () => {
@@ -36,4 +42,8 @@ export default function GameProcess() {
     this.RacingCars.reset();
     this.RacingCars = null;
   };
+
+  this.getRacingCars = () => {
+    return this.RacingCars;
+  }
 }
