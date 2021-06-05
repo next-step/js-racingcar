@@ -1,9 +1,10 @@
-import { LOADER_ID } from "../constants/index.js";
+import { LOADER_ID, FORWARD_ID } from "../constants/index.js";
 
 export const headerTemplate = (name) => `<div class="car-player">${name}</div>`;
 
 export const forwardTemplate = (id) => {
   const $container = document.createElement("div");
+  $container.id = FORWARD_ID;
   $container.dataset.id = id;
   $container.className = "forward-icon mt-2";
   $container.innerText = "⬇️";

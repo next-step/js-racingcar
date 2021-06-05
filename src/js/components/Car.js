@@ -1,10 +1,11 @@
 import Component from "../core/component.js";
-import { LOADER_ID, RANDOM_NUMBER, WIN_NUMBER } from "../constants/index.js";
+import { LOADER_ID, WIN_NUMBER } from "../constants/index.js";
 import {
   headerTemplate,
   forwardTemplate,
   loaderTemplate,
 } from "../templates/Car.js";
+import { getRandomNumber } from "../utils/getRandomNumber.js";
 
 class Car extends Component {
   constructor($root, props, handlers) {
@@ -44,7 +45,7 @@ class Car extends Component {
   }
 
   handleRace(isArrived) {
-    const random = Math.floor(Math.random() * RANDOM_NUMBER);
+    const random = getRandomNumber();
     if (random < WIN_NUMBER) {
       this.setState({
         ...this.state,

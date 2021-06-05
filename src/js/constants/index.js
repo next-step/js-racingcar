@@ -13,6 +13,7 @@ export const RESULT_SELECTORS = {
 export const INPUT_SELECTOR = "input";
 export const HIDDEN_CLASS = "hidden";
 export const LOADER_ID = "loader";
+export const FORWARD_ID = "forward";
 
 export const NOT_ALLOWED_TIME_ERROR =
   "레이싱 횟수가 너무 적습니다. 1회 이상으로 입력해주세요.";
