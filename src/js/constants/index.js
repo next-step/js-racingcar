@@ -11,7 +11,6 @@ export const RESULT_SELECTORS = {
 };
 
 export const INPUT_SELECTOR = "input";
-
 export const HIDDEN_CLASS = "hidden";
 export const LOADER_ID = "loader";
 
