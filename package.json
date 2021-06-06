@@ -4,6 +4,7 @@
   "description": "blackcoffee frontend study level2 mission2",
   "main": "index.js",
   "scripts": {
+    "live-server": "live-server .",
     "test": "cypress run --spec cypress/integration/racingcar/*"
   },
   "repository": {
