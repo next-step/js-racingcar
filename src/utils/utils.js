@@ -4,4 +4,10 @@ const eventHandler = ({ el, type, callback }) => {
   el.addEventListener(type, callback);
 };
 
-export { $, eventHandler };
+const handleElement = {
+  disableElement: (el) => (el.disabled = true),
+  showElement: (el) => (el.hidden = false),
+  hiddenElement: (el) => (el.hidden = true),
+};
+
+export { $, eventHandler, handleElement };
