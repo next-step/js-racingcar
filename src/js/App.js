@@ -74,12 +74,10 @@ class App extends Component {
   }
 
   handleCarNameSubmit(cars) {
-    const nextState = { ...this.state, cars, isTimeFormOpen: true };
-    this.setState(nextState);
+    this.setState({ ...this.state, cars, isTimeFormOpen: true });
   }
   handleTimeSubmit(time) {
-    const nextState = { ...this.state, time, isStarted: true };
-    this.setState(nextState);
+    this.setState({ ...this.state, time, isStarted: true });
   }
 
   handleGetResult(carInfos) {
