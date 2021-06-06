@@ -8,10 +8,17 @@ function Game() {
   const carNameInput = $('#car-name-input');
   const carNameBtn = $('#car-name-btn');
   const tryCountSection = $('#try-count-section');
+  const tryCountInput = $('#try-count-input');
+  const tryCountBtn = $('#try-count-btn');
   let carNames;
+  let gameCount;
 
   this.checkCarLength = (carNames) => {
     return carNames.split(',').find((car) => car.trim().length > 5);
+  };
+
+  this.checkGameCount = (count) => {
+    return count < 1 || !Number.isInteger(count);
   };
 
   this.onClickCarNameBtn = (e) => {
@@ -25,6 +32,16 @@ function Game() {
     showElement(tryCountSection);
   };
 
+  this.onClickCarTryCountBtn = (e) => {
+    e.preventDefault();
+    gameCount = Number(tryCountInput.value);
+    if (this.checkGameCount(gameCount)) {
+      alert(MESSAGE.TRY_ALERT);
+      return;
+    }
+    [tryCountInput, tryCountBtn].forEach((el) => disableElement(el));
+  };
+
   this.init = () => {
     eventHandler({
       el: carNameBtn,
@@ -33,9 +50,9 @@ function Game() {
     });
 
     eventHandler({
-      el: carNameBtn,
+      el: tryCountBtn,
       type: 'click',
-      callback: this.onClickCarNameBtn,
+      callback: this.onClickCarTryCountBtn,
     });
   };
 

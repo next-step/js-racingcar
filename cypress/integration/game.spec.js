@@ -23,4 +23,41 @@ describe('racing game', () => {
         });
       });
   });
+
+  it('자동차의 이동 횟수는 1 이상이어야 한다.', () => {
+    const stub = cy.stub();
+    cy.on('window:alert', stub);
+    cy.inputCarNames(CAR_NAMES);
+    cy.inputCarCount(-1);
+    cy.get('#try-count-section')
+      .invoke('val')
+      .then((count) => {
+        if (count < 1) {
+          expect(stub.getCall(0)).to.be.calledWith(MESSAGE.TRY_ALERT);
+        }
+      });
+
+    cy.inputCarCount(1.3);
+    cy.get('#try-count-input')
+      .invoke('val')
+      .then((count) => {
+        if (Number.isInteger === false) {
+          expect(stub.getCall(1)).to.be.calledWith(MESSAGE.TRY_ALERT);
+        }
+      });
+  });
+
+  it('자동차의 이동 횟수는 정수이어야 한다.', () => {
+    const stub = cy.stub();
+    cy.on('window:alert', stub);
+    cy.inputCarNames(CAR_NAMES);
+    cy.inputCarCount(1.3);
+    cy.get('#try-count-input')
+      .invoke('val')
+      .then((count) => {
+        if (Number.isInteger(count) === false) {
+          expect(stub.getCall(0)).to.be.calledWith(MESSAGE.TRY_ALERT);
+        }
+      });
+  });
 });
