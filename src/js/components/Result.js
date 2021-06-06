@@ -1,4 +1,9 @@
-export function Result($el) {
+/**
+ * @param {Element} $el
+ * @param props
+ * @param {[string]} props.winnerCarNames
+ */
+export function Result($el, props) {
 
     const render = () => {
         $el.innerHTML = `

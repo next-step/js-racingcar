@@ -1,4 +1,11 @@
-export function Board($el) {
+/**
+ * @param {Element} $el
+ * @param props
+ * @param {[string]} props.carNames
+ * @param {number} props.count
+ * @param {function} props.setWinnerCarNames
+ */
+export function Board($el, props) {
 
     const render = () => {
         $el.innerHTML = `
@@ -33,6 +40,6 @@ export function Board($el) {
             </section>
         `;
     };
-   
+
     render();
 }

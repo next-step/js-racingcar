@@ -1,4 +1,18 @@
-export function Form($el) {
+/**
+ * @param {Element} $el
+ * @param props
+ * @param {function} props.setCarNames
+ * @param {function} props.setCount
+ */
+export function Form($el, props) {
+
+    const bindEvents = () => {
+        $el.addEventListener('click', ({target: {dataset: {action}}}) => {
+            if (action === 'registerCarNames') {
+                console.log(action);
+            }
+        });
+    };
 
     const render = () => {
         $el.innerHTML = `
@@ -12,7 +26,7 @@ export function Form($el) {
                         </p>
                         <div class="d-flex">
                             <input type="text" class="w-100 mr-2" placeholder="자동차 이름" data-test="names-input"/>
-                            <button type="button" class="btn btn-cyan" data-test="names-input-button">확인</button>
+                            <button type="button" class="btn btn-cyan" data-test="names-input-button" data-action="registerCarNames">확인</button>
                         </div>
                     </fieldset>
                     <fieldset>
@@ -25,6 +39,8 @@ export function Form($el) {
                 </form>
             </section>
         `;
+
+        bindEvents();
     };
 
     render();
