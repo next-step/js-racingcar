@@ -35,7 +35,6 @@ class CarRace extends Component {
         $car,
         {
           name: car,
-          time: this.props.time,
         },
         {
           onArrive: this.handleArrive.bind(this),
