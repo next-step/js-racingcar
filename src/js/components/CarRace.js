@@ -27,7 +27,7 @@ class CarRace extends Component {
     }
   }
 
-  handleAddCars() {
+  handleAddCars = () => {
     this.children = this.props.cars.map((car, id) => {
       const $car = carTemplate(id);
       this.$root.appendChild($car);
@@ -37,15 +37,15 @@ class CarRace extends Component {
           name: car,
         },
         {
-          onArrive: this.handleArrive.bind(this),
+          onArrive: this.handleArrive,
         }
       );
     });
     this.children.forEach((child) => child.render());
-    interval = setInterval(this.handleStartRace.bind(this), INTERVAL_TIME);
-  }
+    interval = setInterval(this.handleStartRace, INTERVAL_TIME);
+  };
 
-  handleStartRace() {
+  handleStartRace = () => {
     if (this.state.count === this.props.time) {
       clearInterval(interval);
       this.handlers.onGetResult(this.state.carInfos);
@@ -54,14 +54,14 @@ class CarRace extends Component {
     const isArrived = this.state.count + 1 === this.props.time;
     this.children.forEach((child) => child.handleRace(isArrived));
     this.state = { ...this.state, count: this.state.count + 1 };
-  }
+  };
 
-  handleArrive(name, step) {
+  handleArrive = (name, step) => {
     this.state = {
       ...this.state,
       carInfos: [...this.state.carInfos, { name, step }],
     };
-  }
+  };
 }
 
 export default CarRace;

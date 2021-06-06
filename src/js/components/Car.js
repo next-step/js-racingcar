@@ -44,7 +44,7 @@ class Car extends Component {
     this.$root.appendChild($loader);
   }
 
-  handleRace(isArrived) {
+  handleRace = (isArrived) => {
     const random = getRandomNumber();
     if (random < WIN_NUMBER) {
       this.setState({
@@ -62,7 +62,7 @@ class Car extends Component {
       this.handlers.onArrive(this.props.name, this.state.step);
       this.setState({ ...this.state, isStopped: true });
     }
-  }
+  };
 }
 
 export default Car;

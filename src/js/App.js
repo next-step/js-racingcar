@@ -44,20 +44,20 @@ class App extends Component {
 
     this.children = {
       CarNameForm: new CarNameForm($carNameForm, this.state, {
-        onSubmit: this.handleCarNameSubmit.bind(this),
+        onSubmit: this.handleCarNameSubmit,
       }),
       TimeForm: new TimeForm(
         $timeForm,
         { isTimeFormOpen: this.state.isTimeFormOpen },
         {
-          onSubmit: this.handleTimeSubmit.bind(this),
+          onSubmit: this.handleTimeSubmit,
         }
       ),
       CarRace: new CarRace($carRace, this.state, {
-        onGetResult: this.handleGetResult.bind(this),
+        onGetResult: this.handleGetResult,
       }),
       RaceResult: new RaceResult($result, this.state, {
-        onClickInit: this.handleClickInit.bind(this),
+        onClickInit: this.handleClickInit,
       }),
     };
 
@@ -73,24 +73,24 @@ class App extends Component {
     }
   }
 
-  handleCarNameSubmit(cars) {
+  handleCarNameSubmit = (cars) => {
     this.setState({ ...this.state, cars, isTimeFormOpen: true });
-  }
-  handleTimeSubmit(time) {
+  };
+  handleTimeSubmit = (time) => {
     this.setState({ ...this.state, time, isStarted: true });
-  }
+  };
 
-  handleGetResult(carInfos) {
+  handleGetResult = (carInfos) => {
     const maxStep = Math.max(...carInfos.map((info) => info.step));
     const winners = carInfos
       .filter((car) => car.step === maxStep)
       .map((car) => car.name);
     this.setState({ ...this.state, winners, isEnded: true });
-  }
+  };
 
-  handleClickInit() {
+  handleClickInit = () => {
     this.setState(initialState);
-  }
+  };
 }
 
 export default App;
