@@ -6,4 +6,14 @@ const MESSAGE = {
   FINISH: '🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇',
 };
 
-export { MESSAGE };
+const PROCESS = {
+  MOVE: `<div class='move forward-icon mt-2'>⬇️️</div>`,
+  STOP: `<div class='d-flex justify-center mt-3'>
+      <div class='relative spinner-container'>
+        <span class='material spinner'></span>
+      </div>
+    </div>
+  `,
+};
+
+export { MESSAGE, PROCESS };

@@ -1,5 +1,7 @@
 import { $, addEvent } from './utils.js';
+import Register from './register.js';
 import { MESSAGE } from './constants.js';
+import Car from './car.js';
 
 export default class RacingGame {
   constructor(container) {
@@ -42,6 +44,7 @@ export default class RacingGame {
       target: this.container,
       selector: '.track-container',
     });
+    this.tracks = $({ target: this.trackContainer, selector: '.tracks' });
 
     this.resultContainer = $({
       target: this.container,
@@ -85,9 +88,11 @@ export default class RacingGame {
       alert(MESSAGE.NAME_ERROR);
       return;
     }
-    this.cars = carNames;
+    // this.cars = carNames;
     this.carnameInput.setAttribute('readOnly', true);
     this.carnameButton.setAttribute('disabled', true);
+    carNames.map(carname => this.cars.push(new Car(carname)));
+    this.gamecountContainer.classList.remove('d-none');
   };
 
   registerCount = () => {
@@ -99,19 +104,41 @@ export default class RacingGame {
     this.gameCount = count;
     this.gamecountInput.setAttribute('readOnly', true);
     this.gamecountButton.setAttribute('disabled', true);
+    this.trackContainer.classList.remove('d-none');
     this.startGame();
   };
 
   startGame = () => {
     if (this.cars.length === 0 || !this.gameCount) {
-      console.log('you can not');
+      alert('참여자가 없거나 횟수를 지정하지 않았습니다.');
       return;
     }
-    console.log('you can start game');
-    console.log(this.cars, this.gameCount);
+
+    this.cars.map(car => {
+      car.setPlayer();
+      this.tracks.appendChild(car.getPlayer());
+    });
+
+    this.timer = setInterval(() => {
+      this.cars.map(car => {
+        car.moveOrNot() && car.move();
+      });
+      this.gameCount--;
+
+      if (this.gameCount === 0) {
+        this.finishGame();
+      }
+    }, 1000);
+  };
+
+  finishGame = () => {
+    clearInterval(this.timer);
+    this.resultContainer.classList.remove('d-none');
   };
 
   restartGame = () => {
+    this.gameCount = 0;
+    this.cars = [];
     console.log('restartgame');
   };
 }

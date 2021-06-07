@@ -35,3 +35,7 @@ fieldset {
   border: none;
   padding: 0;
 }
+
+.d-none {
+  display: none;
+}
