@@ -3,6 +3,10 @@ import {Board} from './components/Board.js';
 import {Result} from './components/Result.js';
 import {$} from './utils/selector.js';
 
+/**
+ * @param {Element} $el
+ * @constructor
+ */
 export function RacingCar($el) {
 
     const state = {
@@ -11,12 +15,12 @@ export function RacingCar($el) {
         winnerCarNames: [],
     };
 
-    const setCarNames = (carNames) => {
+    /**
+     * @param {[string]} carNames
+     * @param {number} count
+     */
+    const setCarNamesAndCount = ({carNames, count}) => {
         state.carNames = carNames;
-        render();
-    };
-
-    const setCount = (count) => {
         state.count = count;
         render();
     };
@@ -36,9 +40,10 @@ export function RacingCar($el) {
                 <div data-component="Board"></div>         
                 <div data-component="Result"></div>         
             `;
+
+            new Form($('[data-component="Form"]', $el), {setCarNamesAndCount});
         }
 
-        new Form($('[data-component="Form"]', $el), {setCarNames, setCount});
         count && new Board($('[data-component="Board"]', $el), {carNames, count, setWinnerCarNames});
         isEndRace && new Result($('[data-component="Result"]', $el), {winnerCarNames});
     };
