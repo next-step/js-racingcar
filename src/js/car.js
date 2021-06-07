@@ -5,7 +5,6 @@ export default class Car {
   constructor(carname) {
     this.name = carname;
     this.distance = 0;
-    this.state = null;
   }
 
   setPlayer = () => {
@@ -27,20 +26,21 @@ export default class Car {
     return this.track;
   };
 
-  // 1초 마다 갈지 안갈지.
-  // 가게 되면 move icon으로 변경
-  // 가지 않으면 계속 스피너
-  // 마지막 스피너 앞에 무브 아이콘으로 변경
   move = () => {
     this.distance++;
     const last = this.track.querySelector('.stop');
     const trace = document.createElement('div');
     trace.innerHTML = PROCESS.MOVE;
-    last.insertAdjacentElement('beforeend', trace);
+    last.insertAdjacentElement('beforebegin', trace);
   };
 
   moveOrNot = () => {
     const random = getRandomInt(0, 9);
     return random >= 4;
+  };
+
+  finish = () => {
+    const last = this.track.querySelector('.stop');
+    last.remove();
   };
 }

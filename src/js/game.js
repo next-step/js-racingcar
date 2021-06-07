@@ -44,7 +44,7 @@ export default class RacingGame {
       target: this.container,
       selector: '.track-container',
     });
-    this.tracks = $({ target: this.trackContainer, selector: '.tracks' });
+    this.tracks = $({ target: this.container, selector: '.tracks' });
 
     this.resultContainer = $({
       target: this.container,
@@ -88,7 +88,7 @@ export default class RacingGame {
       alert(MESSAGE.NAME_ERROR);
       return;
     }
-    // this.cars = carNames;
+
     this.carnameInput.setAttribute('readOnly', true);
     this.carnameButton.setAttribute('disabled', true);
     carNames.map(carname => this.cars.push(new Car(carname)));
@@ -114,6 +114,7 @@ export default class RacingGame {
       return;
     }
 
+    this.remainCount = this.gameCount;
     this.cars.map(car => {
       car.setPlayer();
       this.tracks.appendChild(car.getPlayer());
@@ -123,9 +124,9 @@ export default class RacingGame {
       this.cars.map(car => {
         car.moveOrNot() && car.move();
       });
-      this.gameCount--;
+      this.remainCount--;
 
-      if (this.gameCount === 0) {
+      if (this.remainCount === 0) {
         this.finishGame();
       }
     }, 1000);
@@ -133,12 +134,36 @@ export default class RacingGame {
 
   finishGame = () => {
     clearInterval(this.timer);
+    this.cars.map(car => car.finish());
+
+    const winnername = this.findWinner().map(winner => winner.name);
+    this.resultWinner.innerText = winnername.join(',');
     this.resultContainer.classList.remove('d-none');
   };
 
+  findWinner = () => {
+    const longest = Math.max(...this.cars.map(car => car.distance));
+    return this.cars.filter(car => car.distance === longest);
+  };
+
   restartGame = () => {
+    // console.log('restartgame');
     this.gameCount = 0;
     this.cars = [];
-    console.log('restartgame');
+
+    this.carnameInput.value = '';
+    this.carnameInput.removeAttribute('readOnly');
+    this.carnameButton.removeAttribute('disabled');
+
+    this.gamecountInput.value = '';
+    this.gamecountInput.removeAttribute('readOnly');
+    this.gamecountButton.removeAttribute('disabled');
+    this.gamecountContainer.classList.add('d-none');
+
+    this.tracks.innerHTML = '';
+    this.trackContainer.classList.add('d-none');
+
+    this.resultWinner.innerText = '';
+    this.resultContainer.classList.add('d-none');
   };
 }
