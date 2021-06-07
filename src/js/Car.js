@@ -6,6 +6,15 @@ export default class Car {
         this.renderContainer();
     }
 
+    setRandom(num) {
+        this.random.push(num);
+
+        this.removeSpinner();
+        if (num >= 4) {
+            this.renderForward();
+        }
+    }
+
     renderContainer() {
         const container = document.createElement('div');
         container.className = 'mr-2 car-container';
@@ -15,20 +24,26 @@ export default class Car {
         $board.appendChild(container);
     }
 
-    setRandom(num) {
-        this.random.push(num);
+    renderSpinner() {
+        const spinner = document.createElement('div');
+        spinner.className = 'd-flex justify-center mt-3';
+        spinner.innerHTML = '<div class="relative spinner-container"><span class="material spinner"></span></div>';
 
-        if (num >= 4) {
-            this.renderForward();
-        }
+        const $container = document.querySelectorAll('.car-container')[this.index];
+        $container.appendChild(spinner);
+    }
+
+    removeSpinner() {
+        const $container = document.querySelectorAll('.car-container')[this.index];
+        const $spinner = $container.lastChild;
+        $container.removeChild($spinner);
     }
 
     renderForward() {
+        const $container = document.querySelectorAll('.car-container')[this.index];
         const forward = document.createElement('div');
         forward.className = 'forward-icon mt-2';
         forward.innerText = '⬇️';
-
-        const $container = document.querySelectorAll('.car-container')[this.index];
         $container.appendChild(forward);
     }
 

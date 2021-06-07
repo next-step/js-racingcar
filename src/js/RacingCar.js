@@ -1,5 +1,5 @@
 import Car from './Car.js';
-import { NAME_ERROR_MESSAGE, NUMBER_ERROR_MESSAGE } from './utils/constants.js';
+import { NAME_ERROR_MESSAGE, NUMBER_ERROR_MESSAGE, CONGRATS_MESSAGE } from './utils/constants.js';
 
 export default class RacingCar {
     constructor() {
@@ -76,11 +76,34 @@ export default class RacingCar {
 
     startRacing() {
         this.changeVisibility(document.querySelectorAll('section')[1], true);
-        for (let i = 0; i < this.tryNum; i++) {
-            this.cars.forEach((car) => car.setRandom(this.getRandomNumber()));
-        }
-        // 수정 예정
-        this.renderResult();
+
+        let i = 0;
+        let last = 0;
+        let isSpinnerRendered = false;
+        const racing = (timestamp) => {
+            if (i >= this.tryNum) {
+                this.renderResult();
+                return;
+            }
+
+            if (!last) {
+                last = timestamp;
+            } else {
+                if (timestamp - last > 1000) {
+                    isSpinnerRendered = false;
+                    last = timestamp;
+                    i++;
+                    this.cars.forEach((car) => car.setRandom(this.getRandomNumber()));
+                } else {
+                    if (!isSpinnerRendered) {
+                        this.cars.forEach((car) => car.renderSpinner());
+                        isSpinnerRendered = true;
+                    }
+                }
+            }
+            window.requestAnimationFrame(racing);
+        };
+        window.requestAnimationFrame(racing);
     }
 
     renderResult() {
@@ -93,11 +116,24 @@ export default class RacingCar {
         const $h2 = $resultBoard.querySelector('h2');
         $h2.innerText = `🏆 최종 우승자: ${winners.join(', ')} 🏆`;
         this.changeVisibility($resultBoard, true);
+
+        setTimeout(() => {
+            alert(CONGRATS_MESSAGE);
+        }, 2000);
     }
 
     retry() {
-        const $nameInput = document.querySelectorAll('input')[0];
+        const $inputs = document.querySelectorAll('input');
+        const $nameInput = $inputs[0];
+        const $tryNumInput = $inputs[1];
         $nameInput.value = '';
+        $tryNumInput.value = '';
+
+        const $board = document.querySelector('.mt-4');
+        $board.innerHTML = '';
+
+        this.cars = [];
+        this.tryNum = 0;
         this.hideViews();
     }
 }
