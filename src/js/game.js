@@ -1,5 +1,4 @@
 import { $, addEvent } from './utils.js';
-import Register from './register.js';
 import { MESSAGE } from './constants.js';
 import Car from './car.js';
 
@@ -139,6 +138,8 @@ export default class RacingGame {
     const winnername = this.findWinner().map(winner => winner.name);
     this.resultWinner.innerText = winnername.join(',');
     this.resultContainer.classList.remove('d-none');
+
+    setTimeout(() => window.alert(MESSAGE.FINISH), 2000);
   };
 
   findWinner = () => {
