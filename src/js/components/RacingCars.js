@@ -1,23 +1,13 @@
 import RacingCar from './RacingCar.js';
-import { $ } from '../utils/helpers.js';
 
-function getAllIndexes(arr, val) {
-  var indexes = [],
-    i = -1;
-  while ((i = arr.indexOf(val, i + 1)) != -1) {
-    indexes.push(i);
-  }
+const maxValueIndexes = (arr) => {
+  const max = Math.max.apply(null, arr);
+  const indexes = [];
+  arr.forEach((val, index) => {
+    if (val === max) indexes.push(index);
+  });
   return indexes;
-}
-
-const track = (name, id) => {
-  return `
-        <div class="mr-2" data-car=${id}>
-          <div class="car-player">${name}</div>
-        </div>
-        `;
 };
-
 
 export default function RacingCars(racingTrack, names) {
   this.names = names;
@@ -43,12 +33,8 @@ export default function RacingCars(racingTrack, names) {
 
   this.getWinner = () => {
     const carsDistance = this.cars.map((car) => car.getDistance());
-    const indexes = getAllIndexes(
-      carsDistance,
-      Math.max.apply(null, carsDistance)
-    );
-    const winners = indexes.map((index) => this.cars[index].getName());
-    return winners;
+    const indexes = maxValueIndexes(carsDistance);
+    return indexes.map((index) => this.cars[index].getName());
   };
 
   this.reset = () => {

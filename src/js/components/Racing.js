@@ -43,6 +43,4 @@ export default function Racing(app) {
   };
 
   $on(app, 'click', clickEventHandler);
-  // TODO: 엔터에도 동작하게 만들기
-  // $on(app, 'keyUp', clickEventHandler);
 }
