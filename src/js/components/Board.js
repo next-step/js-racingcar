@@ -5,17 +5,19 @@
  * @param {number} props.count
  * @param {function} props.setWinnerCarNames
  */
+import {BoardItem} from './BoardItem.js';
+import {$} from '../utils/selector.js';
+
 export function Board($el, props) {
 
-    const cars = props.carNames.map(carName => {
-        return `
-           <div class="mr-2" data-test="car">
-                <div class="car-player">${carName}</div>
-            </div> 
-        `;
-    });
-
     const render = () => {
+        const cars = props.carNames.map(carName => {
+            return `
+               <div class="mr-2" data-component="BoardItem-${carName}" data-test="car">
+               </div> 
+            `;
+        });
+
         $el.innerHTML = `
             <section class="d-flex justify-center mt-5">
                 <div class="mt-4 d-flex">
@@ -23,6 +25,11 @@ export function Board($el, props) {
                 </div>
             </section>
         `;
+
+        const {carNames, count} = props;
+        carNames.forEach(carName => {
+            new BoardItem($(`[data-component="BoardItem-${carName}"]`, $el), {carName, count});
+        });
     };
 
     render();

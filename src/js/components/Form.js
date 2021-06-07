@@ -14,9 +14,8 @@ export function Form($el, props) {
     };
 
     const bindEvents = () => {
-        const $form = $('form', $el);
-
         $el.addEventListener('click', ({target: {dataset: {action}}}) => {
+            const $form = $('form', $el);
             if (action === 'enterCarNames') {
                 enterCarNames(new FormData($form).get('carNamesText'));
             }
