@@ -9,6 +9,22 @@ export default class RacingCar {
         this.registerEventListener();
     }
 
+    setCars(names) {
+        this.cars = names.map((name, i) => (new Car(name, i)));
+    }
+
+    setTryNum() {
+        const $input = document.querySelectorAll('input')[1];
+        const value = +$input.value;
+
+        if (value < 1) {
+            alert(NUMBER_ERROR_MESSAGE);
+            return;
+        }
+        this.tryNum = value;
+        this.startRacing();
+    }
+
     hideViews() {
         const $tryNumField = document.querySelectorAll('fieldset')[1];
         const $sections = document.querySelectorAll('section');
@@ -31,6 +47,18 @@ export default class RacingCar {
         $retryButton.addEventListener('click', () => this.retry());
     }
 
+    renderResult() {
+        const winners = this.getWinners();
+        const $resultBoard = document.querySelectorAll('section')[2];
+        const $h2 = $resultBoard.querySelector('h2');
+        $h2.innerText = `🏆 최종 우승자: ${winners.join(', ')} 🏆`;
+        this.changeVisibility($resultBoard, true);
+
+        setTimeout(() => {
+            alert(CONGRATS_MESSAGE);
+        }, 2000);
+    }
+
     changeVisibility(node, isVisible) {
         node.style.visibility = isVisible ? 'visible' : 'hidden';
     }
@@ -45,29 +73,13 @@ export default class RacingCar {
         }
 
         const names = value.split(/,\s*/);
-        if (names.some((name) => name.length > 5)) {
+        if (names.some((name) => name.length > 5 || name.length < 1)) {
             alert(NAME_ERROR_MESSAGE);
             return;
         }
 
         this.setCars(names);
         this.changeVisibility(document.querySelectorAll('fieldset')[1], true);
-    }
-
-    setCars(names) {
-        this.cars = names.map((name, i) => (new Car(name, i)));
-    }
-
-    setTryNum() {
-        const $input = document.querySelectorAll('input')[1];
-        const value = +$input.value;
-
-        if (value < 1) {
-            alert(NUMBER_ERROR_MESSAGE);
-            return;
-        }
-        this.tryNum = value;
-        this.startRacing();
     }
 
     getRandomNumber() {
@@ -106,20 +118,12 @@ export default class RacingCar {
         window.requestAnimationFrame(racing);
     }
 
-    renderResult() {
+    getWinners() {
         const max = this.cars.reduce((prev, curr) => prev < curr.getForwardNum() ? curr.getForwardNum() : prev, 0);
         const winners = this.cars
                         .filter((car) => car.getForwardNum() === max)
                         .map((car) => car.getName());
-        
-        const $resultBoard = document.querySelectorAll('section')[2];
-        const $h2 = $resultBoard.querySelector('h2');
-        $h2.innerText = `🏆 최종 우승자: ${winners.join(', ')} 🏆`;
-        this.changeVisibility($resultBoard, true);
-
-        setTimeout(() => {
-            alert(CONGRATS_MESSAGE);
-        }, 2000);
+        return winners;
     }
 
     retry() {
