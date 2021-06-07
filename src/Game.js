@@ -1,5 +1,10 @@
-import { $, eventHandler, handleElement } from './utils/utils.js';
-import { MESSAGE } from './utils/constants.js';
+import {
+  $,
+  eventHandler,
+  handleElement,
+  getRandomNumber,
+} from './utils/utils.js';
+import { MESSAGE, GAME } from './utils/constants.js';
 import player from './components/Player.js';
 
 const { disableElement, showElement, hiddenElement } = handleElement;
@@ -11,20 +16,54 @@ function Game() {
   const tryCountInput = $('#try-count-input');
   const tryCountBtn = $('#try-count-btn');
   const gameArea = $('#game-area');
+  const resultSection = $('#result-section');
+  const winnerMessage = $('#winner');
   let carNames;
   let gameCount;
 
-  this.decideGoStop = () => {
+  this.winner = (carInfo) => {
+    const maxValue = Math.max(...Object.values(carInfo));
+    return [...Object.keys(carInfo)]
+      .filter((car) => carInfo[car] === maxValue)
+      .join(', ');
+  };
+
+  this.renderResult = (carInfo) => {
+    console.log(carInfo);
+    const result = this.winner(carInfo);
+    winnerMessage.innerHTML = `🏆 최종 우승자: ${result} 🏆`;
+    showElement(resultSection);
+  };
+
+  this.decideGoStop = (carInfo) => {
     const cars = document.querySelectorAll('div[data-player]');
-    cars.forEach((item) => console.log(item.innerHTML));
+
+    for (const item of cars) {
+      const player = item.dataset.player;
+      const randomNumber = getRandomNumber(GAME.MIN_COUNT, GAME.MAX_COUNT);
+
+      if (!carInfo[player]) {
+        carInfo[player] = 0;
+      }
+
+      if (randomNumber <= GAME.BASE_COUNT) {
+        continue;
+      }
+      carInfo[player] += 1;
+    }
+    return carInfo;
   };
 
   this.startGame = () => {
     gameArea.innerHTML = this.setCars(carNames);
-
-    for (let i = 0; i < gameCount; i++) {
-      this.decideGoStop();
-    }
+    const carInfo = Array.from({ length: gameCount }, () => 0).reduce(
+      (prev, next) => {
+        prev = { ...this.decideGoStop(prev) };
+        return prev;
+      },
+      {},
+    );
+    this.renderResult(carInfo);
   };
 
   this.checkCarLength = (carNames) => {

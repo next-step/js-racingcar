@@ -10,4 +10,8 @@ const handleElement = {
   hiddenElement: (el) => (el.hidden = true),
 };
 
-export { $, eventHandler, handleElement };
+const getRandomNumber = (min, max) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
+export { $, eventHandler, handleElement, getRandomNumber };

@@ -6,4 +6,10 @@ const MESSAGE = {
     '입력한 레이싱 횟수가 너무 적습니다. 레이싱 횟수는 1이상 정수이어야 합니다.',
 };
 
-export { MESSAGE };
+const GAME = {
+  MIN_COUNT: 0,
+  MAX_COUNT: 9,
+  BASE_COUNT: 3,
+};
+
+export { MESSAGE, GAME };
