@@ -16,12 +16,41 @@ describe('레이싱 진행 테스트', () => {
     cy.visit('/');
   });
 
+  context('clock과 tick을 이용해서 매 초 진행상황 테스트', () => {
+    beforeEach(() => {
+      cy.clock();
+      startRacing();
+      cy.getBySel('car-track').as('track');
+    });
+    it('자동차 경주 게임의 턴이 진행 될 때마다 1초의 텀(progressive)를 두고 진행한다.', () => {
+      [...Array(ROUND).keys()].map((i) => {
+        // NOTE: before에는 모든 자동차의 맨 뒤가 스피너야 한다.
+        cy.get('@track').each(($track) => {
+          const $spinner = $track.children().last()[0];
+          expect($spinner).to.have.class('spinner-box');
+        });
+        // NOTE: 1초
+        cy.tick(1000);
+        // NOTE: after에도 로딩스피너가 있어야함. 단 마지막 라운드에서는 없어야함
+        cy.get('@track').each(($track) => {
+          const $spinner = $track.children().last()[0];
+          if (i + 1 === ROUND) {
+            expect($spinner).not.to.have.class('spinner-box');
+          } else {
+            expect($spinner).to.have.class('spinner-box');
+          }
+        });
+      });
+    });
+  });
+
   context('정상적인 입력을 통해 게임이 시작되었습니다.', () => {
     beforeEach(() => {
       startRacing();
     });
 
     it('정상적으로 게임의 턴이 다 동작된 후에는 결과를 보여주고 2초 후에 축하의 alert 메세지를 띄운다.', () => {
+      const now = new Date();
       cy.window().then((window) => cy.stub(window, 'alert').as('alert'));
       cy.get('@alert').should('not.be.called');
       cy.wait(1000 * ROUND + 2000);
@@ -35,8 +64,6 @@ describe('레이싱 진행 테스트', () => {
       startRacing();
       cy.get('.result-pane').should('have.not.class', 'hidden');
     });
-    // TODO: 구현 못함
-    // it('자동차 경주 게임의 턴이 진행 될 때마다 1초의 텀(progressive)를 두고 진행한다.', () => {});
   });
 
   context('Racing 컴포넌트를 인위적으로 만들고 테스트합니다.', () => {

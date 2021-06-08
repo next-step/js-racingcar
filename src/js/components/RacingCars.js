@@ -20,6 +20,7 @@ export default function RacingCars(racingTrack, names) {
     this.cars.map((car) => {
       const track = document.createElement('div');
       track.className = 'mr-2';
+      track.dataset.test = 'car-track';
       track.dataset.car = car.id;
       track.innerHTML = `<div class="car-player">${car.name}</div>`;
       this.racingTrack.insertAdjacentElement('beforeend', track);
