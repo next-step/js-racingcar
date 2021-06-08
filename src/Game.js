@@ -7,7 +7,8 @@ import {
 import { MESSAGE, GAME } from './utils/constants.js';
 import player from './components/Player.js';
 
-const { disableElement, showElement, hiddenElement } = handleElement;
+const { enableElement, disableElement, showElement, hiddenElement } =
+  handleElement;
 
 function Game() {
   const carNameInput = $('#car-name-input');
@@ -18,8 +19,19 @@ function Game() {
   const gameArea = $('#game-area');
   const resultSection = $('#result-section');
   const winnerMessage = $('#winner');
+  const resetBtn = $('#reset-btn');
   let carNames;
   let gameCount;
+
+  this.resetGame = () => {
+    [carNameInput, carNameBtn, tryCountInput, tryCountBtn].forEach((el) =>
+      enableElement(el),
+    );
+    [resultSection, tryCountSection].forEach((el) => hiddenElement(el));
+    gameArea.innerHTML = '';
+    carNameInput.value = '';
+    tryCountInput.value = '';
+  };
 
   this.winner = (carInfo) => {
     const maxValue = Math.max(...Object.values(carInfo));
@@ -29,7 +41,6 @@ function Game() {
   };
 
   this.renderResult = (carInfo) => {
-    console.log(carInfo);
     const result = this.winner(carInfo);
     winnerMessage.innerHTML = `🏆 최종 우승자: ${result} 🏆`;
     showElement(resultSection);
@@ -113,6 +124,12 @@ function Game() {
       el: tryCountBtn,
       type: 'click',
       callback: this.onClickCarTryCountBtn,
+    });
+
+    eventHandler({
+      el: resetBtn,
+      type: 'click',
+      callback: this.resetGame,
     });
   };
 
