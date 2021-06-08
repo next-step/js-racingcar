@@ -1,6 +1,6 @@
 import { $, $$$, setSelectorHidden } from "../utils/util.js";
 import { carList, Car } from "../Car.js";
-import { renderGame, setGameCnt } from "./CarGame.js";
+import { renderGame, setGameCnt, startGame } from "./CarGame.js";
 
 const $form = $("form");
 const $carName = $("#carName");
@@ -66,6 +66,7 @@ const changeGameCount = (inputText) => {
   }
   setGameCnt(inputText);
   setDisable($gaemCnt);
+  startGame();
   return;
 };
 
