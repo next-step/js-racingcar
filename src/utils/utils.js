@@ -5,6 +5,7 @@ const eventHandler = ({ el, type, callback }) => {
 };
 
 const handleElement = {
+  enableElement: (el) => (el.disabled = false),
   disableElement: (el) => (el.disabled = true),
   showElement: (el) => (el.hidden = false),
   hiddenElement: (el) => (el.hidden = true),
