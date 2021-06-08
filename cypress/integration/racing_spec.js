@@ -1,7 +1,8 @@
 import { MESSAGE } from '../../src/js/constants';
+import { Car } from '../../src/js/car.js';
 
 describe('자동차 경주', () => {
-  beforeEach('페이지에 접속', () => {
+  it('페이지에 접속', () => {
     cy.visit('http://127.0.0.1:5500/index.html');
   });
 
@@ -36,8 +37,8 @@ describe('자동차 경주', () => {
       });
     });
 
-    //display: none 때문에 입력불가능
     it('사용자는 몇 번의 이동을 할 것인지를 입력할 수 있다.', () => {
+      cy.get('.gamecount-container').invoke('css', 'display', 'block');
       cy.get('.gamecount-container').within(() => {
         cy.get('input').type(3).should('have.value', 3);
       });

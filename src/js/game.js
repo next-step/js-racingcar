@@ -82,7 +82,8 @@ export default class RacingGame {
   registerCars = () => {
     const carNames = this.carnameInput.value.split(',');
     const validCarNames =
-      carNames && carNames.every(car => car.trim().length > 0);
+      carNames &&
+      carNames.every(car => car.trim().length > 0 && car.trim().length <= 5);
     if (!validCarNames) {
       alert(MESSAGE.NAME_ERROR);
       return;
