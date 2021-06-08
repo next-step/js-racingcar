@@ -92,13 +92,6 @@ export default class RacingCar {
         let i = 0;
         let last = 0;
         let isSpinnerRendered = false;
-        // const racing = setInterval(() => {
-        //     console.log('racing');
-        //     i++;
-        //     if (i >= this.tryNum) {
-        //         clearInterval(racing);
-        //     }
-        // }, 1000);
         const racing = (timestamp) => {
             if (i >= this.tryNum) {
                 this.renderResult();
@@ -108,12 +101,10 @@ export default class RacingCar {
             if (!last) {
                 last = timestamp;
             } else {
-                console.log('diff = ', timestamp - last);
                 if (Math.floor((timestamp - last) / 1000) === 1) {
                     isSpinnerRendered = false;
                     last = timestamp;
                     i++;
-                    console.log('-----', i, '-----');
                     this.cars.forEach((car) => car.setRandom(this.getRandomNumber()));
                 } else {
                     if (!isSpinnerRendered) {
