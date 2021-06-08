@@ -58,49 +58,47 @@ export default class RacingController {
 
 		const cars = model.getCars();
 		const tryNum = model.getTryNum();
-		for (let i = 0; i < tryNum; i++) {
-			cars.forEach((car) => {
-				car.checkRandom(this.getRandomNumber());
-			});
-		}
-		
-		model.setWinners(this.getWinners(model));
-		view.renderWinners(model);
-        setTimeout(() => {
-            alert(CONGRATS_MESSAGE);
-        }, 2000);
-        // let i = 0;
-        // let last = 0;
-        // let isSpinnerRendered = false;
-        // const racing = (timestamp) => {
-        //     if (i >= tryNum) {
-        //         // this.renderResult();
-        //         return;
-        //     }
 
-        //     if (!last) {
-        //         last = timestamp;
-        //     } else {
-        //         if (Math.floor((timestamp - last) / 1000) === 1) {
-        //             isSpinnerRendered = false;
-        //             last = timestamp;
-        //             i++;
-        //             cars.forEach((car) => car.setRandom(this.getRandomNumber()));
-        //         } else {
-        //             if (!isSpinnerRendered) {
-        //                 cars.forEach((car) => car.renderSpinner());
-        //                 isSpinnerRendered = true;
-        //             }
-        //         }
-        //     }
-        //     window.requestAnimationFrame(racing);
-        // };
-        // window.requestAnimationFrame(racing);
+        let i = 0;
+        let last = 0;
+        let isSpinnerRendered = false;
+        const racing = (timestamp) => {
+            if (i >= tryNum) {
+				this.finishRacing(model, view);
+                return;
+            }
+
+            if (!last) {
+                last = timestamp;
+            } else {
+                if (Math.floor((timestamp - last) / 1000) === 1) {
+                    isSpinnerRendered = false;
+                    last = timestamp;
+                    i++;
+                    cars.forEach((car) => car.checkRandom(this.getRandomNumber()));
+                } else {
+                    if (!isSpinnerRendered) {
+                        cars.forEach((car) => car.getView().renderSpinner());
+                        isSpinnerRendered = true;
+                    }
+                }
+            }
+            window.requestAnimationFrame(racing);
+        };
+        window.requestAnimationFrame(racing);
     }
 
 	getRandomNumber() {
         return Math.floor(Math.random() * 10);
     }
+
+	finishRacing(model, view) {
+		model.setWinners(this.getWinners(model));
+		view.renderWinners(model);
+        setTimeout(() => {
+            alert(CONGRATS_MESSAGE);
+        }, 2000);
+	}
 	
 	getWinners(model) {
 		const cars = model.getCars();

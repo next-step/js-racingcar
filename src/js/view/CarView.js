@@ -13,6 +13,21 @@ export default class CarView {
         $board.appendChild(container);
     }
 
+    renderSpinner() {
+        const spinner = document.createElement('div');
+        spinner.className = 'd-flex justify-center mt-3';
+        spinner.innerHTML = '<div class="relative spinner-container"><span class="material spinner"></span></div>';
+
+        const $container = document.querySelectorAll('.car-container')[this.model.index];
+        $container.appendChild(spinner);
+    }
+
+    removeSpinner() {
+        const $container = document.querySelectorAll('.car-container')[this.model.index];
+        const $spinner = $container.lastChild;
+        $container.removeChild($spinner);
+    }
+
 	renderForward() {
         const $container = document.querySelectorAll('.car-container')[this.model.getIndex()];
         const forward = document.createElement('div');

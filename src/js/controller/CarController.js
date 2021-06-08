@@ -8,9 +8,13 @@ export default class CarController {
 		return this.model;
 	}
 
+	getView() {
+		return this.view;
+	}
+
 	checkRandom(num) {
 		this.model.setRandom(num);
-
+		this.view.removeSpinner();
 		if (num >= 4) {
 			this.view.renderForward();
 		}
