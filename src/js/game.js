@@ -120,20 +120,34 @@ export default class RacingGame {
       this.tracks.appendChild(car.getPlayer());
     });
 
-    this.timer = setInterval(() => {
-      this.cars.map(car => {
-        car.moveOrNot() && car.move();
-      });
-      this.remainCount--;
+    // this.timer = setInterval(() => {
+    //   this.cars.map(car => {
+    //     car.moveOrNot() && car.move();
+    //   });
+    //   this.remainCount--;
 
+    //   if (this.remainCount === 0) {
+    //     this.finishGame();
+    //   }
+    // }, 1000);
+
+    this.timer = function () {
       if (this.remainCount === 0) {
         this.finishGame();
+      } else {
+        this.cars.map(car => {
+          car.moveOrNot() && car.move();
+        });
+        this.remainCount--;
+        requestAnimationFrame(callback);
       }
-    }, 1000);
+    };
+    requestAnimationFrame(callback);
   };
 
   finishGame = () => {
-    clearInterval(this.timer);
+    // clearInterval(this.timer);
+    cancelAnimationFrame(this.timer);
     this.cars.map(car => car.finish());
 
     const winnername = this.findWinner().map(winner => winner.name);
