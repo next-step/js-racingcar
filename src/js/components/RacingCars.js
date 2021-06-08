@@ -1,6 +1,6 @@
 import RacingCar from './RacingCar.js';
 
-const maxValueIndexes = (arr) => {
+export const maxValueIndexes = (arr) => {
   const max = Math.max.apply(null, arr);
   const indexes = [];
   arr.forEach((val, index) => {
