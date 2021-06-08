@@ -1,9 +1,14 @@
 import { $, setSelectorHidden } from "../utils/util.js";
 import { carList } from "../Car.js";
 const $carGameList = $("#carGameList");
+let gameCnt = 0;
 
 export const CarGame = () => {
   setSelectorHidden($carGameList, true);
+};
+
+export const setGameCnt = (input) => {
+  gameCnt = Number(input);
 };
 
 export const renderGame = () => {
@@ -20,3 +25,5 @@ export const renderGame = () => {
   });
   $carGameList.innerHTML += "</div>";
 };
+
+const gameStart = () => {};

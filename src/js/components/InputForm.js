@@ -1,6 +1,6 @@
 import { $, $$$, setSelectorHidden } from "../utils/util.js";
 import { carList, Car } from "../Car.js";
-import { renderGame } from "./CarGame.js";
+import { renderGame, setGameCnt } from "./CarGame.js";
 
 const $form = $("form");
 const $carName = $("#carName");
@@ -17,20 +17,25 @@ const formKeyUp = ({ target, key }) => {
   const inputText = target.value;
   if (target.placeholder === "자동차 이름") {
     setCarNameList(inputText);
+    return;
   }
-  console.log(target, key);
+  if (target.placeholder === "시도 횟수") {
+    changeGameCount(inputText);
+    return;
+  }
 };
 const formClick = ({ target }) => {
   const closestId = target.closest("div").id;
+  const inputText = $$$($carName, "input").value;
   if (target.innerText != "확인") {
     return;
   }
   if (closestId === "carName") {
-    setCarNameList($$$($carName, "input").value);
+    setCarNameList(inputText);
     return;
   }
   if (closestId === "gameCnt") {
-    setDisable($gaemCnt);
+    changeGameCount(inputText);
   }
 };
 
@@ -51,7 +56,16 @@ const setCarNameList = (inputText) => {
   }
   setDisable($carName);
   setSelectorHidden($gaemCnt, false);
-  //   renderGame();
+  renderGame();
+  return;
+};
+
+const changeGameCount = (inputText) => {
+  if (inputText === "") {
+    return;
+  }
+  setGameCnt(inputText);
+  setDisable($gaemCnt);
   return;
 };
 
