@@ -22,8 +22,10 @@ describe('test racing car game', () => {
 		});
 	});
 
+	const cars = 'TEST1, TEST2, TEST3, TEST4, TEST5';
+
 	it('input valid names and invalid number', () => {
-		cy.get('.name-input').type('TEST1, TEST2, TEST3, TEST4, TEST5');
+		cy.get('.name-input').type(cars);
 		cy.get('.name-button').click();
 		
 		cy.get('.try-input').type(0);
@@ -34,7 +36,7 @@ describe('test racing car game', () => {
 	});
 
 	it('input valid names and number, and start game', () => {
-		cy.get('.name-input').type('TEST1, TEST2, TEST3, TEST4, TEST5');
+		cy.get('.name-input').type(cars);
 		cy.get('.name-button').click();
 		cy.get('.try-input').type(5);
 		cy.get('.try-button').click();
@@ -44,7 +46,7 @@ describe('test racing car game', () => {
 	});
 
 	it('after 5 seconds, show winners', () => {
-		cy.get('.name-input').type('TEST1, TEST2, TEST3, TEST4, TEST5');
+		cy.get('.name-input').type(cars);
 		cy.get('.name-button').click();
 		cy.get('.try-input').type(5);
 		cy.get('.try-button').click();
@@ -54,5 +56,15 @@ describe('test racing car game', () => {
 		cy.get('.result-container').should('be.visible');
 	});
 
-	it('alert congratulation message', () => {});
+	it('alert congratulation message', () => {
+		cy.get('.name-input').type(cars);
+		cy.get('.name-button').click();
+		cy.get('.try-input').type(5);
+		cy.get('.try-button').click();
+
+		cy.tick(7000);
+		cy.on('window:alert', (str) => {
+			expect(str).to.equal(CONGRATS_MESSAGE);
+		});
+	});
 });
