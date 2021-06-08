@@ -6,32 +6,32 @@ describe('test racing car game', () => {
 		cy.clock();
 	});
 
-	// it('input names with name over length 5', () => {
-	// 	cy.get('.name-input').type('TEST, TESTTT');
-	// 	cy.get('.name-button').click();
-	// 	cy.on('window:alert', (str) => {
-	// 		expect(str).to.equal(NAME_ERROR_MESSAGE);
-	// 	});
-	// });
+	it('input names with name over length 5', () => {
+		cy.get('.name-input').type('TEST, TESTTT');
+		cy.get('.name-button').click();
+		cy.on('window:alert', (str) => {
+			expect(str).to.equal(NAME_ERROR_MESSAGE);
+		});
+	});
 
-	// it('input names with name shorter than length 1', () => {
-	// 	cy.get('.name-input').type('TEST, TEST2,');
-	// 	cy.get('.name-button').click();
-	// 	cy.on('window:alert', (str) => {
-	// 		expect(str).to.equal(NAME_ERROR_MESSAGE);
-	// 	});
-	// });
+	it('input names with name shorter than length 1', () => {
+		cy.get('.name-input').type('TEST, TEST2,');
+		cy.get('.name-button').click();
+		cy.on('window:alert', (str) => {
+			expect(str).to.equal(NAME_ERROR_MESSAGE);
+		});
+	});
 
-	// it('input valid names and invalid number', () => {
-	// 	cy.get('.name-input').type('TEST1, TEST2, TEST3, TEST4, TEST5');
-	// 	cy.get('.name-button').click();
+	it('input valid names and invalid number', () => {
+		cy.get('.name-input').type('TEST1, TEST2, TEST3, TEST4, TEST5');
+		cy.get('.name-button').click();
 		
-	// 	cy.get('.try-input').type(0);
-	// 	cy.get('.try-button').click();
-	// 	cy.on('window:alert', (str) => {
-	// 		expect(str).to.equal(NUMBER_ERROR_MESSAGE);
-	// 	});
-	// });
+		cy.get('.try-input').type(0);
+		cy.get('.try-button').click();
+		cy.on('window:alert', (str) => {
+			expect(str).to.equal(NUMBER_ERROR_MESSAGE);
+		});
+	});
 
 	it('input valid names and number, and start game', () => {
 		cy.get('.name-input').type('TEST1, TEST2, TEST3, TEST4, TEST5');
