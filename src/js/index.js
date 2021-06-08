@@ -1,4 +1,3 @@
-import RacingCar from './RacingCar.js';
 import RacingModel from './model/RacingModel.js';
 import RacingView from './view/RacingView.js';
 import RacingController from './controller/RacingController.js';
