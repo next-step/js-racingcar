@@ -32,14 +32,15 @@ export default function Racing(app) {
     if (!target) return;
 
     // TODO: if ... else 문이 아닌 멋있는 방법을 찾아보자.
-    if (target.classList.contains('car-names__btn')) {
-      this.setCarNames();
-    } else if (target.classList.contains('try-number__btn')) {
-      if (!this.setRound()) return;
-      this.startGame();
-    } else if (target.classList.contains('result-pane__btn')) {
-      this.resetGame();
+    const options = {
+      names: this.setCarNames,
+      num: () => {
+        if (!this.setRound()) return;
+        this.startGame();
+      },
+      retry: this.resetGame,
     }
+    options[target.dataset.button]();
   };
 
   $on(app, 'click', clickEventHandler);
