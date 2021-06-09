@@ -9,13 +9,7 @@ export default function ResultPane(pane) {
 
   this.showWinner = (winners) => {
     this.$pane.classList.remove('hidden');
-    let s = '🏆 최종 우승자: ';
-    winners.map((winner, index) => {
-      if (index > 0) s += `, ${winner}`;
-      else s += winner;
-    });
-    s += '🏆';
-    $('h2', this.$pane).innerText = s;
+    $('h2', this.$pane).innerText = `🏆 최종 우승자: ${winners.join(',  ')}🏆`;
   };
 
   this.reset = () => {
