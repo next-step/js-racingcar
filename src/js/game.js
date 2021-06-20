@@ -1,6 +1,6 @@
 import { $, addEvent } from './utils.js';
 import { MESSAGE } from './constants.js';
-import Car from './car.js';
+import Car from './components/car.js';
 
 export default class RacingGame {
   constructor(container) {
@@ -13,29 +13,30 @@ export default class RacingGame {
   }
 
   init() {
-    this.carnameContainer = $({
+    // this.gameForm = $({ target: this.container, selector: '.game-form' });
+    this.carnameForm = $({
       target: this.container,
-      selector: '.carname-container',
+      selector: '.carname-form',
     });
     this.carnameInput = $({
-      target: this.carnameContainer,
+      target: this.carnameForm,
       selector: 'input',
     });
     this.carnameButton = $({
-      target: this.carnameContainer,
+      target: this.carnameForm,
       selector: 'button',
     });
 
-    this.gamecountContainer = $({
+    this.gamecountForm = $({
       target: this.container,
-      selector: '.gamecount-container',
+      selector: '.gamecount-form',
     });
     this.gamecountInput = $({
-      target: this.gamecountContainer,
+      target: this.gamecountForm,
       selector: 'input',
     });
     this.gamecountButton = $({
-      target: this.gamecountContainer,
+      target: this.gamecountForm,
       selector: 'button',
     });
 
@@ -61,57 +62,63 @@ export default class RacingGame {
 
   bindEvent() {
     addEvent({
-      el: this.carnameButton,
-      type: 'click',
-      callback: this.registerCars.bind(this),
+      el: this.carnameForm,
+      type: 'submit',
+      callback: this.registerCars,
     });
 
     addEvent({
-      el: this.gamecountButton,
-      type: 'click',
-      callback: this.registerCount.bind(this),
+      el: this.gamecountForm,
+      type: 'submit',
+      callback: this.registerCount,
     });
 
     addEvent({
       el: this.restartButton,
       type: 'click',
-      callback: this.restartGame.bind(this),
+      callback: this.restartGame,
     });
   }
 
-  registerCars = () => {
+  registerCars = e => {
+    e.preventDefault();
     const carNames = this.carnameInput.value.split(',');
     const validCarNames =
       carNames &&
-      carNames.every(car => car.trim().length > 0 && car.trim().length <= 5);
+      carNames.every(car => {
+        const carnameLength = car.trim().length;
+        return carnameLength > 0 && carnameLength <= 5;
+      });
     if (!validCarNames) {
-      alert(MESSAGE.NAME_ERROR);
-      return;
+      return alert(MESSAGE.NAME_LENGTH_ERROR);
     }
 
     this.carnameInput.setAttribute('readOnly', true);
     this.carnameButton.setAttribute('disabled', true);
-    carNames.map(carname => this.cars.push(new Car(carname)));
-    this.gamecountContainer.classList.remove('d-none');
+    this.cars = carNames.map(carname => new Car(carname));
+
+    this.gamecountForm.hidden = false;
   };
 
-  registerCount = () => {
+  registerCount = e => {
+    e.preventDefault();
     const count = this.gamecountInput.valueAsNumber;
-    if (count <= 0 || isNaN(count)) {
-      alert(MESSAGE.COUNT_ERROR);
-      return;
+    if (count <= 0) {
+      return alert(MESSAGE.COUNT_MINIMUM_ERROR);
+    }
+    if (isNaN(count)) {
+      return alert(MESSAGE.COUNT_ONLY_NUM_ERROR);
     }
     this.gameCount = count;
     this.gamecountInput.setAttribute('readOnly', true);
     this.gamecountButton.setAttribute('disabled', true);
-    this.trackContainer.classList.remove('d-none');
+    this.trackContainer.hidden = false;
     this.startGame();
   };
 
   startGame = () => {
-    if (this.cars.length === 0 || !this.gameCount) {
-      alert('참여자가 없거나 횟수를 지정하지 않았습니다.');
-      return;
+    if (!this.cars || !this.gameCount) {
+      return alert('참여자가 없거나 횟수를 지정하지 않았습니다.');
     }
 
     this.remainCount = this.gameCount;
@@ -120,39 +127,39 @@ export default class RacingGame {
       this.tracks.appendChild(car.getPlayer());
     });
 
-    // this.timer = setInterval(() => {
-    //   this.cars.map(car => {
-    //     car.moveOrNot() && car.move();
-    //   });
-    //   this.remainCount--;
+    this.timer = setInterval(() => {
+      this.cars.map(car => {
+        car.moveOrNot() && car.move();
+      });
+      this.remainCount--;
 
-    //   if (this.remainCount === 0) {
-    //     this.finishGame();
-    //   }
-    // }, 1000);
-
-    this.timer = function () {
       if (this.remainCount === 0) {
         this.finishGame();
-      } else {
-        this.cars.map(car => {
-          car.moveOrNot() && car.move();
-        });
-        this.remainCount--;
-        requestAnimationFrame(callback);
       }
-    };
-    requestAnimationFrame(callback);
+    }, 1000);
+
+    // this.timer = function () {
+    //   if (this.gameCount === 0) {
+    //     this.finishGame();
+    //   } else {
+    //     this.cars.map(car => {
+    //       car.moveOrNot() && car.move();
+    //     });
+    //     this.gameCount--;
+    //     requestAnimationFrame(this.timer);
+    //   }
+    // };
+    // requestAnimationFrame(this.timer);
   };
 
   finishGame = () => {
-    // clearInterval(this.timer);
-    cancelAnimationFrame(this.timer);
+    clearInterval(this.timer);
+    // cancelAnimationFrame(this.timer);
     this.cars.map(car => car.finish());
 
-    const winnername = this.findWinner().map(winner => winner.name);
-    this.resultWinner.innerText = winnername.join(',');
-    this.resultContainer.classList.remove('d-none');
+    const winnerName = this.findWinner().map(winner => winner.name);
+    this.resultWinner.innerText = winnerName.join(',');
+    this.resultContainer.hidden = false;
 
     setTimeout(() => window.alert(MESSAGE.FINISH), 2000);
   };
@@ -174,12 +181,12 @@ export default class RacingGame {
     this.gamecountInput.value = '';
     this.gamecountInput.removeAttribute('readOnly');
     this.gamecountButton.removeAttribute('disabled');
-    this.gamecountContainer.classList.add('d-none');
+    this.gamecountForm.hidden = true;
 
     this.tracks.innerHTML = '';
-    this.trackContainer.classList.add('d-none');
+    this.trackContainer.hidden = true;
 
     this.resultWinner.innerText = '';
-    this.resultContainer.classList.add('d-none');
+    this.resultContainer.hidden = true;
   };
 }

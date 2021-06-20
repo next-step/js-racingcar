@@ -9,8 +9,8 @@
   <body>
     <div id="app">
       <section class="d-flex justify-center mt-5">
-        <form>
-          <fieldset class="carname-container">
+        <div>
+          <form class="carname-form">
             <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
             <p>
               5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
@@ -18,24 +18,24 @@
             </p>
             <div class="d-flex">
               <input type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-              <button type="button" class="btn btn-cyan">확인</button>
+              <button type="submit" class="btn btn-cyan">확인</button>
             </div>
-          </fieldset>
-          <fieldset class="gamecount-container d-none">
+          </form>
+          <form class="gamecount-form" hidden>
             <p>시도할 횟수를 입력해주세요.</p>
             <div class="d-flex">
               <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-              <button type="button" class="btn btn-cyan">확인</button>
+              <button type="submit" class="btn btn-cyan">확인</button>
             </div>
-          </fieldset>
-        </form>
+          </form>
+        </div>
       </section>
-      <section class="d-flex justify-center mt-5 track-container d-none">
+      <section class="d-flex justify-center mt-5 track-container" hidden>
         <div class="mt-4 d-flex tracks"></div>
       </section>
-      <section class="d-flex justify-center mt-5 result-container d-none">
-        <div>
-          <h2>🏆 최종 우승자: <span class="winner"></span>🏆</h2>
+      <section class="mt-5 result-container" hidden>
+        <div class="d-flex justify-center flex-direction-col">
+          <h2 class="text-center">🏆 최종 우승자: <span class="winner"></span>🏆</h2>
           <div class="d-flex justify-center restart">
             <button type="button" class="btn btn-cyan">다시 시작하기</button>
           </div>

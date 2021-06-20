@@ -1,5 +1,5 @@
-import { $, addEvent, getRandomInt } from './utils.js';
-import { MESSAGE, PROCESS } from './constants.js';
+import { $, addEvent, getRandomInt } from '../utils.js';
+import { MESSAGE, PROCESS } from '../constants.js';
 
 export default class Car {
   constructor(carname) {

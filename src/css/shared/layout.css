@@ -16,6 +16,10 @@
   display: flex;
 }
 
+.flex-direction-col {
+  flex-direction: column;
+}
+
 .d-block {
   display: block;
 }
@@ -105,4 +109,8 @@
 }
 .content-evenly {
   align-content: space-around;
+}
+
+.text-center {
+  text-align: center;
 }
