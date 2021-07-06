@@ -12,7 +12,11 @@ const handleElement = {
 };
 
 const getRandomNumber = (min, max) => {
-  return Math.floor(Math.random() * (max - min) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-export { $, eventHandler, handleElement, getRandomNumber };
+const delay = (time) => {
+  return new Promise((resolve) => setTimeout(() => resolve()), time);
+};
+
+export { $, eventHandler, handleElement, getRandomNumber, delay };

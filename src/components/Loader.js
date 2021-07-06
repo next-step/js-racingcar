@@ -1,4 +1,4 @@
-const loader = () => {
+const Loader = () => {
   return `
     <div class="d-flex justify-center mt-3">
       <div class="relative spinner-container">
@@ -8,4 +8,4 @@ const loader = () => {
   `;
 };
 
-export default loader;
+export default Loader;

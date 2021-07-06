@@ -1,3 +1,4 @@
-import Game from './Game.js';
+import { $ } from './utils/utils.js';
+import App from './App.js';
 
-document.addEventListener('DOMContentLoaded', () => new Game());
+document.addEventListener('DOMContentLoaded', () => new App($('#app')));
