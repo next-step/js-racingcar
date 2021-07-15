@@ -9,7 +9,7 @@
     <div id="app">
       <section class="d-flex justify-center mt-5">
         <form>
-          <fieldset>
+          <fieldset id="car-name-container">
             <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
             <p>
               5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
@@ -20,13 +20,13 @@
               <button id="submit-cars-name" type="button" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
-          <fieldset>
+          <!-- <fieldset id="trial-count-container">
             <p>시도할 횟수를 입력해주세요.</p>
-            <div id="trial-count-container" class="d-flex">
+            <div class="d-flex">
               <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
               <button type="button" class="btn btn-cyan">확인</button>
             </div>
-          </fieldset>
+          </fieldset> -->
         </form>
       </section>
       <section class="d-flex justify-center mt-5">
@@ -67,5 +67,6 @@
         </div>
       </section>
     </div>
+    <script src="src/js/index.js" type="module"></script>
   </body>
 </html>
