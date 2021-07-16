@@ -15,17 +15,14 @@ const shouldExist = (f) => (arg) => f(arg).should('exist');
 const sholudAlertByMessage = (message) => {
 	const stub = cy.stub();
 	cy.on('window:alert', stub);
+
 	return () => expect(stub.getCall(0)).to.be.calledWith(message);
 };
 const shouldExistByPlaceHolder = shouldExist(findByPlaceholderText);
 
 const typeAndEnter = (f) => (type) => f().type(`${type}{enter}`);
-const carNameInputTypeAndEnter = typeAndEnter(() =>
-	findByPlaceholderText(CAR_NAME_PLACEHOLDER)
-);
-const roundInputTypeAndEnter = typeAndEnter(() =>
-	findByPlaceholderText(ROUND_PLACEHOLDER)
-);
+const carNameInputTypeAndEnter = typeAndEnter(() => findByPlaceholderText(CAR_NAME_PLACEHOLDER));
+const roundInputTypeAndEnter = typeAndEnter(() => findByPlaceholderText(ROUND_PLACEHOLDER));
 describe('레이싱 카', () => {
 	beforeEach(() => {
 		cy.visit('https://next-step.github.io/js-racingcar/');
@@ -64,16 +61,14 @@ describe('레이싱 카', () => {
 		[-1, 0].forEach((round) => {
 			it(`${round} 입력시, ${INVALID_ROUND_ERROR_MESSAGE}`, () => {
 				carNameInputTypeAndEnter(goodCarNames);
-				const assertAlertExpectation = sholudAlertByMessage(
-					INVALID_ROUND_ERROR_MESSAGE
-				);
+				const assertAlertExpectation = sholudAlertByMessage(INVALID_ROUND_ERROR_MESSAGE);
 				roundInputTypeAndEnter(round).then(assertAlertExpectation);
 				// 사실 논리적으로 생각한다면, wrapper tag가 몇겹이 쌓여있는지 모르기 때문에
 				// 첫번째 부모에서 findByRole이 실패한다면, 재귀적으로 부모를 탐색해야하는 로직이 더 정확할텐데
 				// cypress 함수들이 손에 익지 않아 원하는 로직을 만들기 쉽지 않다.
 				cy.findByPlaceholderText(ROUND_PLACEHOLDER)
 					.parent()
-					.findByRole('button', { name: /확인/ })
+					.findByRole('button', {name: /확인/})
 					.click()
 					.then(assertAlertExpectation);
 			});
