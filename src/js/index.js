@@ -1,9 +1,8 @@
-const $ = (selector) => document.querySelector(selector);
+import $ from './util.js';
 
 const $submitCarNameBtn = $('#submit-cars-name');
 const $inputCarName = $('#input-cars-name');
 const $carNameContainer = $('#car-name-container');
-
 
 $submitCarNameBtn.addEventListener('click', () => {
   const names = $inputCarName.value.split(',');
@@ -15,6 +14,7 @@ $submitCarNameBtn.addEventListener('click', () => {
       return;
     }
   })
+
   const $trialCountContainer = `<fieldset id="trial-count-container">
   <p>시도할 횟수를 입력해주세요.</p>
   <div class="d-flex">
