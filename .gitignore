@@ -1,2 +1,4 @@
 node_modules/*
 *.json
+cypress/plugins/*
+cypress/support/*
