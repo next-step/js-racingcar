@@ -1,22 +1,47 @@
-import { Racing } from "./components/racingComponent.js";
-import CarInput from "./components/carInputComponent.js";
-import {Store} from './store.js';
-import RepeatInput from "./components/repeatInputComponent.js";
-import {Result} from './components/resultComponent.js';
-import { SUCCESS } from "./message.js";
+import InputWrapperComponent from "./components/inputComponent/inputWrapperComponent.js";
+import RacingComponent from "./components/racingComponent/racingComponent.js";
+import ResultComponent from './components/resultComponent/resultComponent.js';
+import Store from './store.js';
+import { SUCCESS } from "./utils/message.js";
+import Component from "./components/componentClass.js";
 
-export default class App {
+export default class App extends Component{
     constructor(component){
-        this.component = component;
-        this.store = Store.apply(this);
-        this.init();
+        super(component, Store());
     }
     
     init() {
         this.render();
-        this.store.step = 0;
+        this.changeStep(0);
     }
-
+    changeStep(value) {
+        if(value === 0) {
+            this.store.step = () => {
+                this.input.display(true,false, 0);
+                this.racing.display(false);
+                this.result.display(false);
+            };
+        } else if(value === 1) {
+            this.store.step = () => {
+                this.input.display(true,true, 1);
+                this.racing.display(false);
+                this.result.display(false);
+            };
+        } else if (value === 2) {
+            this.store.step = () => {
+                this.input.display(true,true);
+                this.racing.display(true);
+                this.result.display(false);
+                this.raceStart();
+            };
+        } else if (value === 3) {
+            this.store.step = () => {
+                this.input.display(true,true);
+                this.racing.display(true);
+                this.result.display(true);
+            };
+        }
+    }
     raceStart(){
         let cars = this.store.carList.map(car => ({
             name : car,
@@ -46,17 +71,12 @@ export default class App {
             cars.sort((a,b) => b.cnt - a.cnt);
 
             //가장 앞선 차들의 이름 배열을 lank에 할당.
-            const lank = cars.reduce((prev, next, idx) => {
-                if(prev[0].cnt === next.cnt && idx !== 0){
-                    return [...prev, next];
-                }else {
-                    return prev;
-                }
-            }, [cars[0]])
+            const lank = cars
+            .filter(e => e.cnt === cars[0].cnt)
             .map(e => e.name);
 
             this.result.lank(lank);
-            this.store.step = 3;
+            this.changeStep(3);
 
             SUCCESS();
 
@@ -65,40 +85,28 @@ export default class App {
     }
 
     setElement(){
-        const fieldset = this.component.querySelectorAll('fieldset');
         const section = this.component.querySelectorAll('.d-flex.justify-center.mt-5');
-
-        const carInput = fieldset[0];
-        this.carInput = new CarInput(carInput, this.store);
-        const repeatInput = fieldset[1];
-        this.repeatInput = new RepeatInput(repeatInput, this.store);
-        const racing = section[1];
-        this.racing = new Racing(racing, []);
-        const result = section[2];
-        this.result = new Result(result, this.store);
+        
+        this.input = new InputWrapperComponent(section[0], this.store, this.changeStep.bind(this));
+        this.racing = new RacingComponent(section[1], []);
+        this.result = new ResultComponent(section[2], this.store, this.changeStep.bind(this));
         
     }
     render() { 
-        this.component.innerHTML = `
-        <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
-        <section class="d-flex justify-center mt-5">
-            <form>
-                <fieldset>
-                </fieldset>
-                <fieldset>
-                </fieldset>
-            </form>
-        </section>
-        
-        <div  id="game-process-component" class="d-flex justify-center mt-5">
-        </div>
+        super.render(`
+            <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
+            <section class="d-flex justify-center mt-5">
+            </section>
+            
+            <div  id="game-process-component" class="d-flex justify-center mt-5">
+            </div>
 
-        <div class="d-flex justify-center mt-5">
-        </div>
+            <div class="d-flex justify-center mt-5">
+            </div>
 
-        <div class="d-flex justify-center mt-5"/>
-        </div>
-        `;
+            <div class="d-flex justify-center mt-5"/>
+            </div>
+        `);
         this.setElement();
     };
 };

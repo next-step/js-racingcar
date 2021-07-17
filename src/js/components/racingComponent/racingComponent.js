@@ -1,8 +1,10 @@
 import {Car} from "./carComponent.js";
+import Component from "../componentClass.js";
 
-export class Racing{
-    constructor(component){
-        this.component = component;
+export default class RacingComponent extends Component{
+    constructor(component, children){
+        super(component);
+        this.children = children;
     }
     refresh(children){
         this.children = children;
@@ -10,7 +12,7 @@ export class Racing{
     }
 
     render() {
-        this.component.innerHTML = `
+        super.render(`
             <section class="mt-4">
                 <div class="d-flex">
                 ${  
@@ -19,6 +21,7 @@ export class Racing{
                     : ""
                 }
                 </div>
-            </section>`;
+            </section>
+        `);
     }
 };
