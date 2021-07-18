@@ -1,21 +1,13 @@
 class Component {
-  constructor(target, props, state = {}) {
+  constructor(target, props = null, store = null) {
     this.$target = target;
     this.$props = props;
-    this.$state = state;
-
-    this.initState(state);
+    this.$store = store;
+    this.setup();
     this.setEvent();
     this.render();
   }
-
-  initState(newState) {
-    this.$state = newState;
-  }
-  setState(newState) {
-    this.$state = { ...this.$state, ...newState };
-    this.render();
-  }
+  setup() {}
   setEvent() {}
   template() {
     return '';

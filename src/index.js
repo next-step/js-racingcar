@@ -1,8 +1,9 @@
 import App from './App.js';
+import { qs } from './util/helper.js';
 
-new App(document.querySelector('#app'));
-{
-  /* 
+new App(qs('#app'));
+
+/* 
   <section class="d-flex justify-center mt-5">
         <form>
           <fieldset>
@@ -63,4 +64,3 @@ new App(document.querySelector('#app'));
         </div>
       </section>
       */
-}
