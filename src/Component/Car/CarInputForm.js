@@ -15,7 +15,7 @@ class CarInputForm extends Component {
     if ($input.type === 'text') {
       const cars = filterCarName($input.value);
       if (!isVaildCarName(cars))
-        return alert(ERROR.CAR_NAME_MUST_FIVE_CHAR_LESS);
+        return alert(ERROR.INVAILD_CAR_NAME_LENGTH);
 
       const carObj = cars.map((carName) => {
         return {

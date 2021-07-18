@@ -43,7 +43,7 @@ class CarWinnerArea extends Component {
   setEvent() {
     delegate(this.$target, EVENT.CLICK, 'button', () => {
       if (!canPlayGame(this.cars, this.times)) {
-        return showAlert(ERROR.CAR_MUST_TWO_LEAST_AND_PLAY_TIME_MUST_TWO_LEAST);
+        return showAlert(ERROR.INVAILD_START_CONDITION);
       }
       this.$store.dispatch(actions.RESET_CAR_STATE());
       this.playGame();
