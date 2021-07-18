@@ -1,9 +1,11 @@
+import { getRandomInt } from '../utils/random.js'
 import {
   DISPLAY_WINNERS,
   GET_CARS,
   MOVE_CARS,
   RESET_GAME,
   SET_GAME_COUNT,
+  SET_MANUAL,
 } from './actions.js'
 
 const initialState = {
@@ -11,10 +13,7 @@ const initialState = {
   totalAttemps: 0,
   remainAttemps: 0,
   winners: [],
-}
-
-function getRandomInt() {
-  return Math.floor(Math.random() * 9)
+  manual: false,
 }
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -41,7 +40,13 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         remainAttemps: state.remainAttemps - 1,
         cars: state.cars.map((car) => {
-          const newMove = getRandomInt() < 4 ? car.move : car.move + 1
+          const newMove = payload.randomInt
+            ? payload.randomInt < 4
+              ? car.move
+              : car.move + 1
+            : getRandomInt() < 4
+            ? car.move
+            : car.move + 1
           return { name: car.name, move: newMove }
         }),
       }
@@ -59,6 +64,13 @@ const reducer = (state = initialState, { type, payload }) => {
         totalAttemps: 0,
         remainAttemps: 0,
         winners: [],
+        manual: false,
+      }
+
+    case SET_MANUAL:
+      return {
+        ...state,
+        manual: true,
       }
 
     default:

@@ -5,12 +5,14 @@ import {
   MOVE_CARS,
   DISPLAY_WINNERS,
   RESET_GAME,
+  SET_MANUAL,
 } from './actions.js'
 
 const getCars = (cars) => CreateAction(GET_CARS, { cars })
 const setGameCount = (count) => CreateAction(SET_GAME_COUNT, { count })
-const moveCars = () => CreateAction(MOVE_CARS)
+const moveCars = (randomInt) => CreateAction(MOVE_CARS, { randomInt })
 const resetGame = () => CreateAction(RESET_GAME)
 const displayWinners = (winners) => CreateAction(DISPLAY_WINNERS, { winners })
+const setManual = () => CreateAction(SET_MANUAL)
 
-export { getCars, setGameCount, moveCars, resetGame, displayWinners }
+export { getCars, setGameCount, moveCars, resetGame, displayWinners, setManual }

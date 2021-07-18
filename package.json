@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev": "yarn run live-server --port=3000",
+    "test": "yarn run cypress open --config pageLoadTimeout=30000,baseUrl=http://localhost:3000"
+  },
+  "devDependencies": {
+    "cypress": "^7.7.0"
+  },
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}
