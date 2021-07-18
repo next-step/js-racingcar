@@ -1,3 +1,4 @@
+import RacingBoards from './Components/RacingBoards.js'
 import RacingForm from './Components/RacingForm.js'
 import { store } from './modules/store.js'
 import { $ } from './utils/dom.js'
@@ -5,11 +6,11 @@ import { $ } from './utils/dom.js'
 class App {
   constructor() {
     const $Form = $('#racing-form')
-    console.log('hi')
+    const $Boards = $('#racing-boards')
 
     store.subscribe(() => {
-      console.log('hi')
       new RacingForm($Form)
+      new RacingBoards($Boards)
     })
 
     this.initStore()

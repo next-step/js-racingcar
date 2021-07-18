@@ -13,12 +13,20 @@ const initialState = {
   winners: [],
 }
 
+function getRandomInt() {
+  return Math.floor(Math.random() * 9)
+}
+
 const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_CARS:
       return {
         ...state,
-        cars: [...payload.cars],
+        cars: [
+          ...payload.cars.map((car) => {
+            return { name: car, move: 0 }
+          }),
+        ],
       }
 
     case SET_GAME_COUNT:
@@ -32,6 +40,18 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         remainAttemps: state.remainAttemps - 1,
+        cars: state.cars.map((car) => {
+          const newMove = getRandomInt() < 4 ? car.move : car.move + 1
+          console.log(newMove)
+          return { name: car.name, move: newMove }
+        }),
+      }
+
+    case DISPLAY_WINNERS:
+      return {
+        ...state,
+        winners: payload.winners,
+        remainAttemps: -1,
       }
 
     case RESET_GAME:
@@ -42,11 +62,6 @@ const reducer = (state = initialState, { type, payload }) => {
         winners: [],
       }
 
-    case DISPLAY_WINNERS:
-      return {
-        ...state,
-        winners: payload.winners,
-      }
     default:
       return {
         ...state,

@@ -13,7 +13,7 @@ import { $ } from '../utils/dom.js'
 
 const actionMap = {
   GET_CARS: (insertedCars) => {
-    const cars = insertedCars.split(',')
+    const cars = insertedCars.split(',').map((car) => car.trim())
 
     for (let i = 0; i < cars.length; i++) {
       if (!cars[i].length || cars[i].length > 5) {
@@ -91,7 +91,7 @@ export default class RacingForm extends Component {
           <div class="d-flex">
             <input type="text" id="cars" class="w-100 mr-2" placeholder="자동차 이름" 
             data-action=${GET_CARS}  ${isCarSettings && 'disabled'} 
-            value=${isCarSettings ? cars.join(',') : ''}>
+            value=${isCarSettings ? cars.map((car) => car.name).join(',') : ''}>
             <button type="button" class="btn btn-cyan" 
             data-action=${GET_CARS} ${isCarSettings && 'disabled'}>확인</button>
           </div>
