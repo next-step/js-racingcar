@@ -6,10 +6,13 @@
 	"author": "sinholee <dltlsgh5@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"unit-test:racingcar": "yarn cypress run --spec 'cypress/racingcar/unit-test/**/*'"
+		"unit-test:racingcar": "yarn cypress run --spec 'cypress/integration/racingcar/unit-test/**/*'",
+		"e2e:racingcar": "yarn cypress run  --spec 'cypress/integration/racingcar/racingcar.spec.js'"
 	},
 	"devDependencies": {
 		"@testing-library/cypress": "^7.0.6",
-		"cypress": "^7.7.0"
+		"@testing-library/jest-dom": "^5.14.1",
+		"cypress": "^7.7.0",
+		"jest-dom": "^4.0.0"
 	}
 }
