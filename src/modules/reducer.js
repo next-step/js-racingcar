@@ -27,7 +27,6 @@ const reducer = (state = initialState, { type, payload }) => {
         times: payload.times,
       };
     case PLAY_ONE_ROUND:
-      console.log(payload);
       return {
         ...state,
         isPlaying: true,
