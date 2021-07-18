@@ -17,6 +17,19 @@ describe('js-racingcar', () => {
         .should('be.visible');
     })
 
+    it('정상적인 이름을 입력했을때 이름 입력과 확인 버튼이 비활성화 된다.', () => {
+      const carNames = 'one, two, three, four';
+
+      cy.get('#input-cars-name')
+        .type(carNames)
+        .then(() => {
+          cy.get('#submit-cars-name')
+            .click()
+            .should('be.disabled');
+        })
+        .should('be.disabled');
+    })
+
     it('길이가 0인 이름을 입력하면 에러메세지가 나타난다.', () => {
       const carNames = '    , a, aa, aaa';
 

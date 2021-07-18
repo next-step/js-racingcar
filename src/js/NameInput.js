@@ -33,8 +33,7 @@ export default class NameInput extends Component {
       const inputNames = $inputCarName.value
                           .split(',')
                           .map(name => name.trim());
-      console.log(inputNames);
-                                              
+
       if (!isValidName(inputNames)) {
         alert('유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.');  
         return;  
