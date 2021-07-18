@@ -2,9 +2,9 @@ import { $ } from './util.js';
 import Component from './Component.js';
 import AttemptNumberInput from './AttemptNumberInput.js';
 import isValidName from './validation.js';
+import INVALID_NAME_LENGTH_ERROR from './message.js';
 
 export default class NameInput extends Component {
-  
   template() {
     return `
       <section class="d-flex justify-center mt-5">
@@ -35,10 +35,13 @@ export default class NameInput extends Component {
                           .map(name => name.trim());
 
       if (!isValidName(inputNames)) {
-        alert('유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.');  
+        alert(INVALID_NAME_LENGTH_ERROR);
+        $inputCarName.value = '';
         return;  
       }
 
+      $inputCarName.disabled = true;
+      $submitCarNameBtn.disabled = true;
       new AttemptNumberInput('#car-name-container');
     });
 

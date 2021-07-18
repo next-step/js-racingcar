@@ -1,3 +1,5 @@
+import INVALID_NAME_LENGTH_ERROR from '../../src/js/message.js';
+
 describe('js-racingcar', () => {
   beforeEach(() => {
     //페이지 접속
@@ -45,6 +47,8 @@ describe('js-racingcar', () => {
         .then(() => {
           expect(stub.getCall(0)).to.be.calledWith('유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.')
         })
+
+        cy.get('#input-cars-name').should('have.value', '');
     })
 
     it('길이가 6이상인 이름을 입력하면 에러메세지가 나타난다.', () => {
@@ -62,6 +66,8 @@ describe('js-racingcar', () => {
         .then(() => {
           expect(stub.getCall(0)).to.be.calledWith('유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.')
         })
+      
+      cy.get('#input-cars-name').should('have.value', '');  
     })
 
 
