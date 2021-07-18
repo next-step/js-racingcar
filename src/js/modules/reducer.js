@@ -42,7 +42,6 @@ const reducer = (state = initialState, { type, payload }) => {
         remainAttemps: state.remainAttemps - 1,
         cars: state.cars.map((car) => {
           const newMove = getRandomInt() < 4 ? car.move : car.move + 1
-          console.log(newMove)
           return { name: car.name, move: newMove }
         }),
       }
