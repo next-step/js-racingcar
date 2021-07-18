@@ -9,30 +9,33 @@ class CarInputForm extends Component {
     super($target, $props, store);
   }
 
+  handleClick(event) {
+    const $input = qs('input', event.target.closest('.d-flex'));
+
+    if ($input.type === 'text') {
+      const cars = filterCarName($input.value);
+      if (!isVaildCarName(cars))
+        return alert(ERROR.CAR_NAME_MUST_FIVE_CHAR_LESS);
+
+      const carObj = cars.map((carName) => {
+        return {
+          carName,
+          carStates: [],
+        };
+      });
+
+      return this.$store.dispatch(actions.SET_CARS_NAME(carObj));
+    }
+
+    if ($input.type === 'number') {
+      const times = Number($input.value);
+      return this.$store.dispatch(actions.SET_PLAY_TIMES(times));
+    }
+  }
+
   setEvent() {
-    delegate(this.$target, EVENT.CLICK, '.btn', (event) => {
-      const $input = qs('input', event.target.closest('.d-flex'));
-
-      if ($input.type === 'text') {
-        const cars = filterCarName($input.value);
-        if (!isVaildCarName(cars))
-          return alert(ERROR.CAR_NAME_MUST_FIVE_CHAR_LESS);
-
-        const carObj = cars.map((carName) => {
-          return {
-            carName,
-            carStates: [],
-          };
-        });
-
-        return this.$store.dispatch(actions.SET_CARS_NAME(carObj));
-      }
-
-      if ($input.type === 'number') {
-        const times = Number($input.value);
-        return this.$store.dispatch(actions.SET_PLAY_TIMES(times));
-      }
-    });
+    delegate(this.$target, EVENT.CLICK, '.btn', (event) => this.handleClick(event))
+      
   }
 
   template() {
