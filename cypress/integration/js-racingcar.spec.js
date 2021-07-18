@@ -18,7 +18,7 @@ describe('js-racingcar', () => {
     })
 
     it('길이가 0인 이름을 입력하면 에러메세지가 나타난다.', () => {
-      const carNames =',a,aa,aaa';
+      const carNames = '    , a, aa, aaa';
 
       cy.get('#input-cars-name')
         .type(carNames);
@@ -35,7 +35,7 @@ describe('js-racingcar', () => {
     })
 
     it('길이가 6이상인 이름을 입력하면 에러메세지가 나타난다.', () => {
-      const carNames ='aaaaaa,aaa,aa,a';
+      const carNames ='aaaaaa, aaa, aa, a';
 
       cy.get('#input-cars-name')
         .type(carNames);

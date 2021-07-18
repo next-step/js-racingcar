@@ -1,6 +1,7 @@
-import {$} from './util.js';
+import { $ } from './util.js';
 import Component from './Component.js';
 import AttemptNumberInput from './AttemptNumberInput.js';
+import isValidName from './validation.js';
 
 export default class NameInput extends Component {
   
@@ -32,18 +33,14 @@ export default class NameInput extends Component {
       const inputNames = $inputCarName.value
                           .split(',')
                           .map(name => name.trim());
-
-      const isValidName = inputNames
-                          .filter(name => name.length > 5 || name.length === 0)
-                          .length
-                          
-      if (!isValidName) {
-        new AttemptNumberInput('#car-name-container');
+      console.log(inputNames);
+                                              
+      if (!isValidName(inputNames)) {
+        alert('유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.');  
         return;  
       }
 
-      alert('유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.');
-            
+      new AttemptNumberInput('#car-name-container');
     });
 
   }
