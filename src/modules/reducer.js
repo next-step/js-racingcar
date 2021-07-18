@@ -11,6 +11,7 @@ const initialState = {
   cars: [],
   times: 0,
   winner: [],
+  isPlaying: false,
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -29,6 +30,7 @@ const reducer = (state = initialState, { type, payload }) => {
       console.log(payload);
       return {
         ...state,
+        isPlaying: true,
         cars: state.cars.map((car, carIdx) => {
           return {
             ...car,
@@ -44,6 +46,7 @@ const reducer = (state = initialState, { type, payload }) => {
     case BEFORE_PLAY_LOADING:
       return {
         ...state,
+        isPlaying: true,
         cars: state.cars.map((car) => {
           return {
             ...car,
@@ -54,6 +57,7 @@ const reducer = (state = initialState, { type, payload }) => {
     case CHOOSE_WINNER:
       return {
         ...state,
+        isPlaying: false,
         winner: payload.winner,
       };
     case RESET_CAR_STATE:

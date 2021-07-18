@@ -15,10 +15,11 @@ class CarWinnerArea extends Component {
   }
 
   setup() {
-    const { cars, winner, times } = this.$store.getState();
+    const { cars, winner, times, isPlaying } = this.$store.getState();
     this.cars = cars;
     this.winner = winner;
     this.times = times;
+    this.isPlaying = isPlaying;
   }
 
   async playGame() {
@@ -58,7 +59,11 @@ class CarWinnerArea extends Component {
             .join(', ')}🏆
           </h2>
           <div class="d-flex justify-center">
-            <button type="button" class="btn btn-cyan">다시 시작하기</button>
+          ${
+            this.isPlaying
+              ? ''
+              : `<button type="button" class="btn btn-cyan">다시 시작하기</button>`
+          }
           </div>
         </div>
         `
@@ -66,7 +71,11 @@ class CarWinnerArea extends Component {
         <div>
           <h2>🏆 우승의 주인공은 누가 될까요! 🏆</h2>
           <div class="d-flex justify-center">
-            <button type="button" class="btn btn-cyan">시작하기</button>
+          ${
+            this.isPlaying
+              ? ''
+              : `<button type="button" class="btn btn-cyan">시작하기</button>`
+          }
           </div>
         </div> 
         `;

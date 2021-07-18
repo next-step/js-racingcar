@@ -36,7 +36,7 @@ export const filterCarName = (str) => {
 
 export const isVaildCarName = (carNames) => {
   for (const carName of carNames) {
-    if (carName.length >= 5) return false;
+    if (carName.length > 5) return false;
   }
   return true;
 };
