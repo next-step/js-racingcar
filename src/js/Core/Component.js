@@ -1,4 +1,4 @@
-import { $ } from './util.js';
+import { $ } from '../Utils/util.js';
 
 export default class Component {
   $target;
@@ -39,7 +39,7 @@ export default class Component {
   }
 
   setState(newState) {
-    this.state = {...this.state, ... newState};
+    this.state = newState;
     this.render();
   }
 }

@@ -1,24 +1,29 @@
-import AttemptNumberInput from './AttemptNumberInput.js';
-import Component from './Component.js';
-import NameInput from './NameInput.js';
+import Component from './Core/Component.js';
+import MakeCar from './Components/MakeCar.js';
 import { 
   isValidName, 
-  isValidNum } from './validation.js'; 
+  isValidNum } from './Utils/validation.js'; 
 import { 
   INVALID_NAME_LENGTH_ERROR,
-  ATTEMPT_NUM_UNDER_MIN_ERROR} from './message.js';
+  ATTEMPT_NUM_UNDER_MIN_ERROR} from './Constants/message.js';
+import Car from './Car.js';
 
 export default class App extends Component {
   
   setup() {
-    this.state = {}
+    this.state = {
+      carLists: [],
+      attemptNum: 0,
+      currentCount: 0,
+    }
   }
 
   mounted() {
-    new NameInput('#input-container', {
-      inputNames: this.inputNames.bind(this)
+    new MakeCar('#input-container', {
+      inputNames: this.inputNames.bind(this),
+      inputCount: this.inputCount.bind(this),
     });
-  
+
   }
 
   template() {
@@ -33,27 +38,30 @@ export default class App extends Component {
     const inputCarNames = carNames
                           .split(',')
                           .map(name => name.trim());
-
+    
     if (!isValidName(inputCarNames)) {
       alert(INVALID_NAME_LENGTH_ERROR);
       return false;  
     }
 
-    this.state = inputCarNames
-                  .reduce((obj, name) => ({...obj, [name]: ''}), {})
-    new AttemptNumberInput('#input-container form', {
-      inputCount: this.inputCount.bind(this),
-    });
+    const carInstances = inputCarNames
+                  .map(name => new Car(name))
+
+    this.state.carLists = carInstances;
+
     return true;
   }
 
   inputCount(countAttempt) {
-    
+
     if (!isValidNum(countAttempt)) {
-      alert(ATTEMPT_NUM_UNDER_MIN_ERROR)
+      alert(ATTEMPT_NUM_UNDER_MIN_ERROR);
       return false;
     }
+    this.state.attemptNum  = countAttempt
+    
     return true;
   }
 
+  
 }
