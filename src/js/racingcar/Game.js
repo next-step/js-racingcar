@@ -1,4 +1,4 @@
-import { max } from './utils.js';
+import {max} from '../utils.js';
 
 export default class Game {
 	// matrix테스트를 위해서 매트릭스 객체를 새로 선언하여 생성자 인자로 주입하는 방식을
@@ -45,10 +45,7 @@ export default class Game {
 		return res;
 	}
 	get winner() {
-		const scores = this.calScoresGroupByCandidates(
-			this.matrix,
-			this.candidates
-		);
+		const scores = this.calScoresGroupByCandidates(this.matrix, this.candidates);
 
 		let maxScore = max(scores);
 
