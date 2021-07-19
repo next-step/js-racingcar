@@ -1,5 +1,8 @@
-import Game from './Game.js';
-import MatrixCreator from './MatrixCreator.js';
+// import Game from './Game.js';
+// import MatrixCreator from './MatrixCreator.js';
+
+import Game from './racingcar/Game.js';
+import MatrixCreator from './racingcar/MatrixCreator';
 
 export const goOrStop = (number) => Game.goOrStop(number);
 
