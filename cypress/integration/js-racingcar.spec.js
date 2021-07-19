@@ -1,4 +1,7 @@
-import INVALID_NAME_LENGTH_ERROR from '../../src/js/message.js';
+import {
+  INVALID_NAME_LENGTH_ERROR, 
+  ATTEMPT_NUM_UNDER_MIN_ERROR 
+} from '../../src/js/message.js';
 
 describe('js-racingcar', () => {
   beforeEach(() => {
@@ -56,7 +59,7 @@ describe('js-racingcar', () => {
       cy.get('#submit-cars-name')
         .click()
         .then(() => {
-          expect(stub.getCall(0)).to.be.calledWith('유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.')
+          expect(stub.getCall(0)).to.be.calledWith(INVALID_NAME_LENGTH_ERROR)
         })
 
         cy.get('#input-cars-name').should('have.value', '');
@@ -75,7 +78,7 @@ describe('js-racingcar', () => {
       cy.get('#submit-cars-name')
         .click()
         .then(() => {
-          expect(stub.getCall(0)).to.be.calledWith('유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.')
+          expect(stub.getCall(0)).to.be.calledWith(INVALID_NAME_LENGTH_ERROR)
         })
       
       cy.get('#input-cars-name').should('have.value', '');  
@@ -83,7 +86,69 @@ describe('js-racingcar', () => {
   })
 
   describe('시도 횟수를 입력한다', () => {
+    beforeEach(() => {
+      const carNames = 'one, two, three, four';
+      
+      cy.get('[data-cy=input-cars-name]')
+        .type(carNames);
 
+      cy.get('#submit-cars-name')
+        .click();
+    })
+
+    describe('1 이상의 숫자를 입력하면 자동차 경주 창이 나타난다.', () => {
+      it ('숫자 1을 입력한다', () => {
+        const attemptsNumber = 1;
+    
+        cy.get('[data-cy="attempt-number-container"]')
+          .type(attemptsNumber)
+          .then(() => {
+            cy.get('.mt-4')
+              .should('be.visible')
+          })
+      })
+
+      it ('숫자 10을 입력한다', () => {
+        const attemptsNumber = 10;
+    
+        cy.get('[data-cy="attempt-number-container"]')
+          .type(attemptsNumber)
+          .then(() => {
+            cy.get('.mt-4')
+              .should('be.visible')
+          })
+      })
+    })
+    
+    describe('0이하의 숫자를 입력하면 에러메세지가 나타난다.', () => {
+      it ('0을 입력한다.', () => {
+        const attemptsNumber = 0;
+        
+        const stub = cy.stub();
+
+        cy.on('window:alert', stub) 
+
+        cy.get('[data-cy="attempt-number-container"]')
+          .type(attemptsNumber)
+          .then(() => {
+            expect(stub.getCall(0)).to.be.calledWith(ATTEMPT_NUM_UNDER_MIN_ERROR)
+          })
+      })
+
+      it ('-3을 입력한다.', () => {
+        const attemptsNumber = -3;
+        
+        const stub = cy.stub();
+
+        cy.on('window:alert', stub) 
+
+        cy.get('[data-cy="attempt-number-container"]')
+          .type(attemptsNumber)
+          .then(() => {
+            expect(stub.getCall(0)).to.be.calledWith(ATTEMPT_NUM_UNDER_MIN_ERROR)
+          })
+      })
+    })
   })
 })
 

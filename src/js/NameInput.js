@@ -2,7 +2,7 @@ import { $ } from './util.js';
 import Component from './Component.js';
 import AttemptNumberInput from './AttemptNumberInput.js';
 import isValidName from './validation.js';
-import INVALID_NAME_LENGTH_ERROR from './message.js';
+import { INVALID_NAME_LENGTH_ERROR } from './message.js';
 
 export default class NameInput extends Component {
   carNames;
