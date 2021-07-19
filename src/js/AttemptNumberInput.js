@@ -15,9 +15,30 @@ export default class AttemptNumberInput extends Component {
   }
 
   render() {
-    this.$target.insertAdjacentHTML('afterend', this.template());
+    this.$target.insertAdjacentHTML('beforeend',this.template());
   }
 
   setEvent() {
+    const {inputCount} = this.props
+    const $inputCount = $('#attempt-number-container input');
+    const $submitCountBtn = $('#attempt-number-container button');
+
+    this.addEvent('click', '#attempt-number-container button', () => {
+      inputCount(Number($inputCount.value));
+      $inputCount.disabled = true;
+      $submitCountBtn.disabled = true;
+    })
+
+    this.addEvent('keydown', '#attempt-number-container input', ({ key }) => {
+      if (key !== 'Enter') return;
+      const isValid = inputCount(Number($inputCount.value));
+      
+      if (isValid) {
+        $inputCount.disabled = true;
+        $submitCountBtn.disabled = true;
+        return;
+      }
+      $inputCount.value = '';
+    })
   }
 }

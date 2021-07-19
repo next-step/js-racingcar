@@ -1,8 +1,5 @@
 import { $ } from './util.js';
 import Component from './Component.js';
-import AttemptNumberInput from './AttemptNumberInput.js';
-import isValidName from './validation.js';
-import { INVALID_NAME_LENGTH_ERROR } from './message.js';
 
 export default class NameInput extends Component {
   carNames;
@@ -17,45 +14,40 @@ export default class NameInput extends Component {
               예시) EAST, WEST, SOUTH, NORTH
             </p>
             <div class="d-flex">
-              <input id="input-cars-name" data-cy="input-cars-name" type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-              <button id="submit-cars-name" type="button" class="btn btn-cyan">확인</button>
+              <input type="text" class="w-100 mr-2" placeholder="자동차 이름" />
+              <button type="button" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
         </form>  
     `
   }
 
-  input(carNames) {
-    const $submitCarNameBtn = $('#submit-cars-name');
-    const $inputCarName = $('#input-cars-name');
-
-    const inputNames = carNames.split(',').map(name => name.trim());
-
-    if (!isValidName(inputNames)) {
-      alert(INVALID_NAME_LENGTH_ERROR);
-      $inputCarName.value = '';
-      return;  
-    }
-    this.carNames = inputNames;
-    
-    $inputCarName.disabled = true;
-    $submitCarNameBtn.disabled = true;
-    new AttemptNumberInput('#car-name-container');
-  }
-
   setEvent() {
-    const $inputCarName = $('#input-cars-name');
+    const {inputNames} = this.props;
 
-    this.addEvent('click', '#submit-cars-name', () => {
-      this.input($inputCarName.value);
+    const $inputCarName = $('#car-name-container input');
+    const $submitCarNameBtn = $('#car-name-container button');
+
+    this.addEvent('click', '#car-name-container button', () => {
+      const isValid = inputNames($inputCarName.value);
+      if (isValid) {
+        $inputCarName.disabled = true;
+        $submitCarNameBtn.disabled = true;
+        return;
+      }
+      $inputCarName.value = '';  
     })
 
-    this.addEvent('keydown', '#input-cars-name', ({ key }) => {
+    this.addEvent('keydown', '#car-name-container input', ({ key }) => {
       if (key !== 'Enter') return;
-      this.input($inputCarName.value);
-    })
-    
+      const isValid = inputNames($inputCarName.value);
+      
+      if (isValid) {
+        $inputCarName.disabled = true;
+        $submitCarNameBtn.disabled = true;
+        return;
+      }
+      $inputCarName.value = '';
+    }) 
   }
-
-
 }

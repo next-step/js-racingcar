@@ -4,4 +4,8 @@ const isValidName = (carNames) => {
   return !Boolean(invalidCarNames.length) ? true : false;  
 }
 
-export default isValidName;
+const isValidNum = (number) => {
+  return number > 0 ;
+}
+
+export { isValidName, isValidNum }
