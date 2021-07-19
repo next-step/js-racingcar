@@ -5,8 +5,8 @@ export default class ListView {
 		this.gameBtn = document.querySelector('.game-start');
 		// 이하 공통적인 로직
 		this.controller.model.registerObserver(this);
+		this.update(this.controller.model);
 		this.addEvents();
-		this.update();
 	}
 	addEvents = () => {
 		this.gameBtn.addEventListener('click', this.controller.gameClickHandler);

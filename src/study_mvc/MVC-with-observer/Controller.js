@@ -13,12 +13,11 @@ export default class Controller {
 	inputChange = ({target}) => {
 		this.model.changeInput(target.value);
 	};
-	gameClickHandler = () => {
+	gameClickHandler = async () => {
 		if (this.model.gameBtn.title === 'game-start') {
 			this.model.setGameBtn({disabled: true, title: 'processing...'});
-			this.model.game(0, () => {
-				this.model.setGameBtn({disabled: false, title: 'gameEnd'});
-			});
+			await this.model.game();
+			this.model.setGameBtn({disabled: false, title: 'gameEnd'});
 		} else if (this.model.gameBtn.title === 'gameEnd') {
 			this.model.resetGame();
 		}

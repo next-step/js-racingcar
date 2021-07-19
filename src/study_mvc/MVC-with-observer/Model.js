@@ -1,33 +1,56 @@
 // 상태를 관리한다?
+const sleep = async (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export default class Model {
 	constructor() {
+		this.observers = [];
 		this.heading = 'hello';
 		this.input = {value: '', disabled: false, focus: true};
 
 		this.gameBtn = {disabled: false, title: 'game-start'};
 		this.result = [];
-		this.observers = [];
+	}
+
+	get heading() {
+		return this._heading;
 	}
 	set heading(args) {
 		this._heading = args;
-	}
-	get heading() {
-		return this._heading;
+		this.notifyAll();
 	}
 	get games() {
 		return this.heading.split('');
 	}
+	set input(args) {
+		this._input = args;
+		this.notifyAll();
+	}
+	get input() {
+		return this._input;
+	}
+	set gameBtn(args) {
+		this._gameBtn = args;
+		this.notifyAll();
+	}
+	get gameBtn() {
+		return this._gameBtn;
+	}
+	set result(args) {
+		this._result = args;
+		this.notifyAll();
+	}
+	get result() {
+		return this._result;
+	}
+
 	// observer는 view 객체
 	registerObserver = function (observer) {
 		this.observers.push(observer);
 	};
 	setInput = (input) => {
 		this.input = {...this.input, ...input};
-		this.notifyAll();
 	};
 	changeInput = (value) => {
 		this.input = {...this.input, value};
-		this.notifyAll();
 	};
 	notifyAll = function () {
 		const observers = this.observers;
@@ -43,32 +66,27 @@ export default class Model {
 
 		this.heading = value;
 		this.input = {value: '', focus: true, disabled: true};
-		this.notifyAll();
 	};
 	resetGame = () => {
 		this.result = [];
 		this.setInput({value: '', disabled: false, focus: true});
 		this.setGameBtn({disabled: false, title: 'game-start'});
-		this.notifyAll();
 	};
 	setGameBtn = (btnState) => {
 		this.gameBtn = {...btnState};
-		this.notifyAll();
 	};
 	showResult = (calback, n) => {
-		this.result.pop();
-		this.notifyAll();
-		this.result.push(this.games[n]);
-		this.notifyAll();
+		this.result = [...this.result.slice(0, this.result.length - 1)];
+		this.result = [...this.result, this.games[n]];
 		this.game(n + 1, calback);
 	};
-	game = (n, calback) => {
-		if (n === this.games.length) {
-			calback();
-			return;
+	game = async () => {
+		const round = this.games.length;
+		for (let i = 0; i < round; i++) {
+			this.result = [...this.result, 'loading...'];
+			await sleep(1000);
+			this.result = [...this.result.slice(0, this.result.length - 1)];
+			this.result = [...this.result, this.games[i]];
 		}
-		this.result.push('loading...');
-		this.notifyAll();
-		setTimeout(this.showResult.bind(this, calback, n), 1000);
 	};
 }

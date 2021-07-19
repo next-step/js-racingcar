@@ -8,7 +8,7 @@ export default class InputView {
 		// 해당 뷰를 컨트롤러 뷰에 등록한다.
 		// 이때 컨트롤러-모델은 1:1관계가 되고, model과 view는 1:n관계가 될 수 있다.
 		this.controller.model.registerObserver(this);
-		this.update();
+		this.update(this.controller.model);
 		this.addEvents();
 	}
 	addEvents = function () {
@@ -16,7 +16,7 @@ export default class InputView {
 		this.btn.addEventListener('click', this.controller.clickHandler);
 		this.input.addEventListener('keypress', this.controller.keyPressHandler);
 	};
-	update = function (model = this.controller.model) {
+	update = function (model) {
 		this.input.value = model.input.value;
 		this.input.disabled = model.input.disabled;
 		this.btn.disabled = model.input.disabled;

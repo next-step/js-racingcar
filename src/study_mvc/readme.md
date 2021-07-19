@@ -6,6 +6,21 @@
 
 ### MVC with Observer Patteurn
 
+#### 특징
+
+model은 `Observable interface`를 구현하고, view는 `Observer interface`를 구현하여 상태 관리하는 패턴
+
+```
+interface Observable {
+    notifyAll: ()=> viod;
+    registerObserver: (observer)=>void;
+}
+interface Observer {
+    update: (observable)=>void
+}
+
+```
+
 #### 장점
 
 -   view->controller->model--update 메서드-->view 와 같이 단방향의 데이터 흐름을 통해 상대적으로 단순한 구조의 mvc 패턴을 유지할 수 있다.
