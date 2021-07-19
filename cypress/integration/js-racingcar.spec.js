@@ -7,14 +7,25 @@ describe('js-racingcar', () => {
   })
 
   describe('자동차에 이름을 부여한다.', () => {
-    it('쉼표로 구분된 5자 이하의 이름들을 입력하면 시도횟수 입력창이 나타난다.', () => {
+    it('쉼표로 구분된 5자 이하의 이름들을 입력후 확인버튼을 클릭히면 시도횟수 입력창이 나타난다.', () => {
       const carNames = 'one, two, three, four';
-      cy.get('#input-cars-name')
+    
+      cy.get('[data-cy=input-cars-name]')
         .type(carNames);
 
       cy.get('#submit-cars-name')
         .click();
 
+      cy.get('#attempt-number-container')
+        .should('be.visible');
+    })
+
+    it('쉼표로 구분된 5자 이하의 이름들을 입력 후 Enter 키를 누르면 시도횟수 입력창이 나타난다.', () => {
+      const carNames = 'one, two, three, four';
+    
+      cy.get('[data-cy=input-cars-name]')
+        .type(carNames+'{enter}');
+      
       cy.get('#attempt-number-container')
         .should('be.visible');
     })
@@ -69,7 +80,9 @@ describe('js-racingcar', () => {
       
       cy.get('#input-cars-name').should('have.value', '');  
     })
+  })
 
+  describe('시도 횟수를 입력한다', () => {
 
   })
 })

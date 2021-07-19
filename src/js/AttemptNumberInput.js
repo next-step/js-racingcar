@@ -16,11 +16,8 @@ export default class AttemptNumberInput extends Component {
 
   render() {
     this.$target.insertAdjacentHTML('afterend', this.template());
-    this.setEvent();
   }
 
   setEvent() {
-    const $attemptNumberContainer = $('#attempt-number-container');
-    console.log($attemptNumberContainer);
   }
 }
