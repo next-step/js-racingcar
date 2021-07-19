@@ -2,19 +2,25 @@ export default class Controller {
 	constructor(model) {
 		this.model = model;
 	}
-	keyPressHandler = (input) => (e) => {
+
+	keyPressHandler = (e) => {
 		if (e.code.toLowerCase() !== 'enter') return;
-		if (!input.value) return;
-		this.model.submit(input);
+		this.model.submit();
 	};
-	clickHandler = (input) => () => {
-		if (!input.value) return;
-		this.model.submit(input);
+	clickHandler = () => {
+		this.model.submit();
 	};
-	gameClickHandler = (gameStarBtn) => () => {
-		gameStarBtn.disabled = true;
-		this.model.game(0, () => {
-			gameStarBtn.disabled = false;
-		});
+	inputChange = ({target}) => {
+		this.model.changeInput(target.value);
+	};
+	gameClickHandler = () => {
+		if (this.model.gameBtn.title === 'game-start') {
+			this.model.setGameBtn({disabled: true, title: 'processing...'});
+			this.model.game(0, () => {
+				this.model.setGameBtn({disabled: false, title: 'gameEnd'});
+			});
+		} else if (this.model.gameBtn.title === 'gameEnd') {
+			this.model.resetGame();
+		}
 	};
 }

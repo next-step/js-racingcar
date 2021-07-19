@@ -12,18 +12,16 @@ export default class InputView {
 		this.addEvents();
 	}
 	addEvents = function () {
-		this.btn.addEventListener(
-			'click',
-			this.controller.clickHandler(this.input)
-		);
-		this.input.addEventListener(
-			'keypress',
-			this.controller.keyPressHandler(this.input)
-		);
+		this.input.addEventListener('input', this.controller.inputChange);
+		this.btn.addEventListener('click', this.controller.clickHandler);
+		this.input.addEventListener('keypress', this.controller.keyPressHandler);
 	};
 	update = function (model = this.controller.model) {
-		this.input.value = '';
-		this.input.disabled = model.inputDisabled;
-		this.btn.disabled = model.inputDisabled;
+		this.input.value = model.input.value;
+		this.input.disabled = model.input.disabled;
+		this.btn.disabled = model.input.disabled;
+		model.input.focus && this.input.focus();
+		// this.input.disabled = model.inputDisabled;
+		// this.btn.disabled = model.inputDisabled;
 	};
 }
