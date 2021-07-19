@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import PubSub from '../../../../src/js/PubSub';
+import PubSub from '../../../../src/js/racingcar/PubSub.js';
 
 const pubsub = new PubSub();
 
