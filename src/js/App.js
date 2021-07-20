@@ -7,21 +7,27 @@ import {
   INVALID_NAME_LENGTH_ERROR,
   ATTEMPT_NUM_UNDER_MIN_ERROR} from './Constants/message.js';
 import Car from './Car.js';
+import CarRaceBoard from './Components/CarRace.js';
 
 export default class App extends Component {
   
   setup() {
     this.state = {
-      carLists: [],
+      carList: [],
       attemptNum: 0,
       currentCount: 0,
     }
   }
 
   mounted() {
-    new MakeCar('#input-container', {
+    this.makeCar = new MakeCar('#input-container', {
       inputNames: this.inputNames.bind(this),
       inputCount: this.inputCount.bind(this),
+      startRace: this.startRace.bind(this)
+    });
+
+    this.carRaceBoard = new CarRaceBoard('#car-race-container',{
+      carList: this.state.carList
     });
 
   }
@@ -29,7 +35,7 @@ export default class App extends Component {
   template() {
     return `
     <section id="input-container" class="d-flex justify-center mt-5"></section>
-    <section class="d-flex justify-center mt-5"></section>
+    <section id="car-race-container" class="d-flex justify-center mt-5"></section>
     <section class="d-flex justify-center mt-5"></section>
     `
   }
@@ -47,8 +53,8 @@ export default class App extends Component {
     const carInstances = inputCarNames
                   .map(name => new Car(name))
 
-    this.state.carLists = carInstances;
-
+    this.state.carList = carInstances;
+    
     return true;
   }
 
@@ -61,6 +67,11 @@ export default class App extends Component {
     this.state.attemptNum  = countAttempt
     
     return true;
+  }
+  
+  startRace() {
+    this.carRaceBoard.props = {carList: this.state.carList};
+    this.carRaceBoard.setState();
   }
 
   

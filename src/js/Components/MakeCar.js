@@ -30,7 +30,7 @@ export default class MakeCar extends Component {
   }
 
   setEvent() {
-    const {inputNames, inputCount} = this.props;
+    const {inputNames, inputCount, startRace} = this.props;
 
     const $inputCarName = $('#car-name-container input');
     const $inputCount = $('#attempt-number-container input');
@@ -65,6 +65,7 @@ export default class MakeCar extends Component {
       
       if (isValid) {
         $attemptNumberConatainer.disabled = true;
+        startRace();
         return;
       }
       $inputCount.value = '';
@@ -76,6 +77,7 @@ export default class MakeCar extends Component {
       
       if (isValid) {
         $attemptNumberConatainer.disabled = true;
+        startRace();
         return;
       }
       $inputCount.value = '';
