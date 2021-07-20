@@ -28,6 +28,18 @@
   display: inline-block;
 }
 
+.d-none {
+  display: none;
+}
+
+.f-column {
+  flex-direction: column;
+}
+
+.f-row {
+  flex-direction: row;
+}
+
 /* Layout - Top / Right / Bottom / Left */
 
 .mt-2 {
