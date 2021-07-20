@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/choibumsu/js-racingcar/issues"
   },
-  "homepage": "https://github.com/choibumsu/js-racingcar#readme"
+  "homepage": "https://github.com/choibumsu/js-racingcar#readme",
+  "dependencies": {
+    "cypress": "^8.0.0"
+  }
 }
