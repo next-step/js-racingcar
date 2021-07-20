@@ -1,4 +1,4 @@
-import { ERROR, EVENT } from '../../Constants/Constans.js';
+import { ERROR, EVENT, MESSAGE } from '../../Constants/Constans.js';
 import Component from '../../core/Component/Component.js';
 import { actions } from '../../modules/actions.js';
 import { canPlayGame } from '../../util/carUtil.js';
@@ -35,9 +35,7 @@ class CarWinnerArea extends Component {
     await this._sleep(2000);
 
     this.setup();
-    return showAlert(
-      `🏆 축하합니다. ${this.winner.map((winner) => winner).join(', ')}! 🏆`
-    );
+    return showAlert(MESSAGE.CONGRATULATIONS(this.winner));
   }
 
   setEvent() {
@@ -54,9 +52,7 @@ class CarWinnerArea extends Component {
     return this.winner.length > 0
       ? `
         <div>
-          <h2>🏆 최종 우승자: ${this.winner
-            .map((winner) => winner)
-            .join(', ')}🏆
+          <h2>${MESSAGE.WINNER(this.winner)}
           </h2>
           <div class="d-flex justify-center">
           ${
@@ -69,7 +65,7 @@ class CarWinnerArea extends Component {
         `
       : `
         <div>
-          <h2>🏆 우승의 주인공은 누가 될까요! 🏆</h2>
+          <h2>${MESSAGE.WHO_IS_WINNER}</h2>
           <div class="d-flex justify-center">
           ${
             this.isPlaying

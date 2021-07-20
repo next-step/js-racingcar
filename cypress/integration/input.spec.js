@@ -1,4 +1,4 @@
-import { ERROR } from "../../src/Constants/Constans";
+import { ERROR, MESSAGE } from "../../src/Constants/Constans";
 import { determineWinner } from "../../src/util/carUtil";
 
 const setAlias = () => {
@@ -62,9 +62,7 @@ describe('레이싱 테스트', () => {
     });
     cy.wrap(cars).then((cars) => {
       const winners = determineWinner(cars);
-      cy.get('h2').contains(
-        `🏆 최종 우승자: ${winners.join(', ')}🏆`
-      );
+      cy.get('h2').contains(MESSAGE.WINNER(winners));
     })
     
   });
@@ -91,7 +89,7 @@ describe('레이싱 테스트', () => {
       const winners = determineWinner(cars);
       cy.wait(2000);
       cy.on('window:alert', (txt) => {
-        expect(txt).to.contains(`🏆 축하합니다. ${winners.map((winner) => winner).join(', ')}! 🏆`)
+        expect(txt).to.contains(MESSAGE.CONGRATULATIONS(winners));
       })
 
     })
