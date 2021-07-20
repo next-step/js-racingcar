@@ -1,7 +1,8 @@
 const $ = (selector) => document.querySelector(selector);
 
 const getRandomInteger= (start, end) => {
-  return Math.floor(Math.ramdom * (end - start + 1)) + start;
+  const randValue = Math.floor(Math.random() * (end - start + 1)) + start; 
+  return randValue;
 }
 
 export {$, getRandomInteger}; 

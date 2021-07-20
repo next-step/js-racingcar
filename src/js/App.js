@@ -5,10 +5,14 @@ import {
   isValidNum } from './Utils/validation.js'; 
 import { 
   INVALID_NAME_LENGTH_ERROR,
-  ATTEMPT_NUM_UNDER_MIN_ERROR} from './Constants/message.js';
-import Car from './Car.js';
-import CarRaceBoard from './Components/CarRace.js';
+  ATTEMPT_NUM_UNDER_MIN_ERROR,
+  CELEBRATION_MESSAGE } from './Constants/message.js';
+import Car from './Core/Car.js';
+import CarRaceBoard from './Components/CarRaceBoard.js';
 import { RaceResult } from './Components/RaceResult.js';
+import { 
+  PROCESS_INTERVAL_MILLI_SECONDS, 
+  CELEBRATION_MESSAGE_INTERVAL_MILLI_SECONDS } from './Constants/constants.js';
 
 export default class App extends Component {
   
@@ -89,14 +93,14 @@ export default class App extends Component {
 
       this.state.currentCount++;
       this.init(this.state);
-    }, 1000)
+    }, PROCESS_INTERVAL_MILLI_SECONDS)
 
     setTimeout(() => {
       clearInterval(timeId); 
       this.state.isFinished = true;
       this.init(this.state);
       this.alertMessage();
-    }, 1000 * this.state.attemptNum);
+    }, PROCESS_INTERVAL_MILLI_SECONDS * this.state.attemptNum);
     
   }
 
@@ -122,7 +126,7 @@ export default class App extends Component {
   }
 
   alertMessage() {
-    setTimeout(() => alert('🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇'), 2000);
+    setTimeout(() => alert(CELEBRATION_MESSAGE), CELEBRATION_MESSAGE_INTERVAL_MILLI_SECONDS);
   }
 
   reset() { 

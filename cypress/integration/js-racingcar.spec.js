@@ -177,31 +177,6 @@ describe('js-racingcar', () => {
     })
   })
 
-  /*describe('0에서 9 사이에서 random 값을 구하고 그 값을 기준으로 경주를 진행한다', () => {
-    beforeEach(() => {
-      const carNames = 'one, two, three, four';
-      
-      cy.get('[data-cy="car-name-container"] input')
-        .type(carNames);
-
-      cy.get('[data-cy="car-name-container"] button')
-        .click();
-    })
-
-    context('random 값이 4이상인 경우 전진한다', () => {
-      it('random 값이 1이다', () => {
-        const nums = Array.from({ length: 6 }).map((v, i) => i)
-
-        for (let i = 0; i < 10; i++) {
-          expect(possibleScores).to.include(getRandomNumber());
-        }
-      })
-    })
-
-    context('random 값이 3이상인 경우 전진하지 않는다', () => {
-      
-    })
-  })*/
 })
 
 
