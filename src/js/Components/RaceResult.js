@@ -23,12 +23,18 @@ export class RaceResult extends Component {
   }
 
   setState() {
-    const { getWinner } = this.props;
+    const { getWinner, alertMessage } = this.props;
     if( getWinner() ) {
       this.render();
       this.setEvent();
     }
   }
 
-  
+  setEvent() {
+    const { getWinner, reset } = this.props;
+    if(!getWinner()) return;
+    this.addEvent('click','#result-container button', () => {
+      reset();
+    })
+  }
 }

@@ -33,6 +33,7 @@ export default class App extends Component {
 
     this.raceResult = new RaceResult('#race-result-container', {
       getWinner: this.getWinner.bind(this),
+      reset: this.reset.bind(this),
     });
 
   }
@@ -75,7 +76,7 @@ export default class App extends Component {
   }
   
   startRace() {
-    this.setState(this.state);
+    this.init(this.state);
     this.proceedRace();
   }
 
@@ -87,18 +88,19 @@ export default class App extends Component {
       });
 
       this.state.currentCount++;
-      this.setState(this.state);
+      this.init(this.state);
     }, 1000)
 
     setTimeout(() => {
       clearInterval(timeId); 
       this.state.isFinished = true;
-      this.setState(this.state);
+      this.init(this.state);
+      this.alertMessage();
     }, 1000 * this.state.attemptNum);
     
   }
 
-  setState(newState) {
+  init(newState) {
     this.carRaceBoard.setState(newState);
     this.raceResult.setState(newState);
   }
@@ -118,5 +120,13 @@ export default class App extends Component {
 
     return winnersName;
   }
-  
+
+  alertMessage() {
+    setTimeout(() => alert('🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇'), 2000);
+  }
+
+  reset() { 
+    this.setup();
+    this.setState(this.state);
+  }
 }
