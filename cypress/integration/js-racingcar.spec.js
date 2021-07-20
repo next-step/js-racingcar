@@ -3,8 +3,6 @@ import {
   ATTEMPT_NUM_UNDER_MIN_ERROR 
 } from '../../src/js/Constants/message.js';
 
-import { getRandomInteger } from '../../src/js/Utils/util.js'
-
 describe('js-racingcar', () => {
   beforeEach(() => {
     //페이지 접속
