@@ -1,5 +1,5 @@
-import View from '../core/View.js';
-import {$delegate} from '../helper.js';
+import View from '../../core/View.js';
+import {$delegate} from '../../helper.js';
 
 export default class ResultView extends View {
 	constructor(controller, $component) {

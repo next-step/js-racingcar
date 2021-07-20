@@ -1,5 +1,5 @@
-import View from '../core/View.js';
-import {$delegate, qs} from '../helper.js';
+import View from '../../core/View.js';
+import {$delegate, qs} from '../../helper.js';
 
 export default class CarRegisterView extends View {
 	constructor(controller, $component) {

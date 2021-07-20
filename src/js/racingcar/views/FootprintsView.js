@@ -1,6 +1,6 @@
-import View from '../core/View.js';
+import View from '../../core/View.js';
 
-export default class Footprints extends View {
+export default class FootprintsView extends View {
 	constructor(controller, $component) {
 		super(controller, $component);
 		this.update(this.controller.model);
