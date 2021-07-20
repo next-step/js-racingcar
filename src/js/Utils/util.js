@@ -1,13 +1,7 @@
 const $ = (selector) => document.querySelector(selector);
 
-const createElement = (tag, className) => {
-  const element = document.createElement(tag);
-
-  if (className) {
-    const classNames = className.split(' ');
-    classNames.forEach(name => element.classList.add(name));
-  }
-  return element;
+const getRandomInteger= (start, end) => {
+  return Math.floor(Math.ramdom * (end - start + 1)) + start;
 }
 
-export {$, createElement}; 
+export {$, getRandomInteger}; 

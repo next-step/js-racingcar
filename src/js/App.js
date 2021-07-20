@@ -8,6 +8,7 @@ import {
   ATTEMPT_NUM_UNDER_MIN_ERROR} from './Constants/message.js';
 import Car from './Car.js';
 import CarRaceBoard from './Components/CarRace.js';
+import { RaceResult } from './Components/RaceResult.js';
 
 export default class App extends Component {
   
@@ -16,11 +17,12 @@ export default class App extends Component {
       carList: [],
       attemptNum: 0,
       currentCount: 0,
+      isFinished: false,
     }
   }
 
   mounted() {
-    this.makeCar = new MakeCar('#input-container', {
+    new MakeCar('#input-container', {
       inputNames: this.inputNames.bind(this),
       inputCount: this.inputCount.bind(this),
       startRace: this.startRace.bind(this)
@@ -29,13 +31,17 @@ export default class App extends Component {
     this.carRaceBoard = new CarRaceBoard('#car-race-container',
     this.state);
 
+    this.raceResult = new RaceResult('#race-result-container', {
+      getWinner: this.getWinner.bind(this),
+    });
+
   }
 
   template() {
     return `
     <section id="input-container" class="d-flex justify-center mt-5"></section>
     <section id="car-race-container" class="d-flex justify-center mt-5"></section>
-    <section class="d-flex justify-center mt-5"></section>
+    <section id="race-result-container" class="d-flex justify-center mt-5"></section>
     `
   }
 
@@ -71,11 +77,10 @@ export default class App extends Component {
   startRace() {
     this.setState(this.state);
     this.proceedRace();
-
   }
 
   proceedRace() {
-    const carList  = this.state.carList;
+    const {carList}  = this.state;
     const timeId = setInterval(() => {
       carList.forEach(car => {
         car.goFoward();
@@ -85,10 +90,33 @@ export default class App extends Component {
       this.setState(this.state);
     }, 1000)
 
-    setTimeout(() => clearInterval(timeId), 1000 * this.state.attemptNum)
+    setTimeout(() => {
+      clearInterval(timeId); 
+      this.state.isFinished = true;
+      this.setState(this.state);
+    }, 1000 * this.state.attemptNum);
+    
   }
 
   setState(newState) {
     this.carRaceBoard.setState(newState);
+    this.raceResult.setState(newState);
   }
+
+  getWinner() {
+    const { isFinished, carList } = this.state;
+    
+    if (!isFinished) return;
+    
+    const maxFinishPos = carList.reduce((max, car) => {
+      return max > car.currentPos ? max : car.currentPos; 
+    }, 0);
+    
+    const winnersName = carList
+                        .filter(car => car.currentPos === maxFinishPos)
+                        .map(car => car.name);
+
+    return winnersName;
+  }
+  
 }

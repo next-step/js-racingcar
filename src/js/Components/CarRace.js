@@ -4,7 +4,6 @@ export default class CarRaceBoard extends Component {
   
   template() {
     const { carList = []} = this.props;
-    console.log(carList)
     return `
       <div class="mt-4 d-flex">
           ${carList.map(car => this.createRaceProcessTemplate(car)).join('')}
