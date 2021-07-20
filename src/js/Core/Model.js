@@ -14,6 +14,7 @@ export default class Model {
 	}
 	set state(args) {
 		this._state = args;
+		this.notifyAll();
 	}
 	notifyAll = () => {
 		const observers = this.observers;

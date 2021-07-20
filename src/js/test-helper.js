@@ -14,5 +14,5 @@ export const genMatrix = (row, col) => {
 
 export const getWinner = (matrix, candidates) => {
 	const game = new Game(candidates, matrix.length, matrix);
-	return game.winner;
+	return game.winners;
 };

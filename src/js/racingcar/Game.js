@@ -32,6 +32,24 @@ export default class Game {
 	set matrix(mat) {
 		this._matrix = mat;
 	}
+	getFootPrintsUntil = (seconds) => {
+		const res = [];
+		for (let col = 0; col < this.candidates.length; col++) {
+			const racier = [];
+			for (let row = 0; row < seconds; row++) {
+				if (Game.goOrStop(this.matrix[row][col])) {
+					racier.push('footprint');
+				}
+			}
+			res.push(racier);
+		}
+		return res;
+	};
+	getFootPrintsAndSpinnerUnit = (seconds) => {
+		const res = this.getFootPrintsUntil(seconds);
+		return res.map((footprints) => [...footprints, 'spinner']);
+	};
+
 	calScoresGroupByCandidates(matrix, candidates) {
 		const row = matrix.length,
 			col = matrix[0].length;
@@ -44,7 +62,7 @@ export default class Game {
 		}
 		return res;
 	}
-	get winner() {
+	get winners() {
 		const scores = this.calScoresGroupByCandidates(this.matrix, this.candidates);
 
 		let maxScore = max(scores);

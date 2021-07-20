@@ -20,7 +20,9 @@ export default class MatrixCreator {
 	 */
 	matrix(min = 0, max = 9) {
 		return Array.from(Array(this.row), () =>
-			Array(this.col).fill(Math.random() * (max - min) + min)
+			Array(this.col)
+				.fill(0)
+				.map(() => Math.floor(Math.random() * (max - min) + min)),
 		);
 	}
 }

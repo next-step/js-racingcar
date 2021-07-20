@@ -1,11 +1,25 @@
+import {qs} from '../helper.js';
+
 export default class View {
-	constructor(controller) {
+	constructor(controller, $component) {
 		this.controller = controller;
 		this.controller.model.registerObserver(this);
+		this.$target = qs(`[data-component='${$component}']`);
+		console.log(this.$target);
 		this.update(this.controller.model);
 		this.addEvents();
 	}
-
+	template = (model) => {};
 	addEvents = () => {};
-	update = (model) => {};
+	update = (model) => {
+		this.template(model);
+	};
+	show = () => {
+		this.$target.classList.remove('d-hidden');
+		return this.$target;
+	};
+	hidden = () => {
+		this.$target.classList.add('d-hidden');
+		return this.$target;
+	};
 }
