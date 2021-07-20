@@ -21,27 +21,27 @@
 
 #### 폴더구조 변경하기 truble shooting
 
-- 의미상 `cypress/integration/racingcar/pubsub.spec.js` 보다는 `cypress/racingcar/unit-test/pubsub.spec.js`로 관리하는게 더 명확하다고 생각되어 폴더를 이동했더니 다음과 같은 에러메시지를 반환했다.
+-   의미상 `cypress/integration/racingcar/pubsub.spec.js` 보다는 `cypress/racingcar/unit-test/pubsub.spec.js`로 관리하는게 더 명확하다고 생각되어 폴더를 이동했더니 다음과 같은 에러메시지를 반환했다.
 
-  ```
-  Can't run because no spec files were found.
-  
-  We searched for any files matching this glob pattern:
-  
-  cypress\racingcar\unit-test\pubsub.spec.js
-  
-  Relative to the project root folder:
-  
-  ```
+    ```
+    Can't run because no spec files were found.
 
-- 이는 cypress의 `integrationFolder` 설정의 `default`값이 `cypress/integration`이기 때문에 루트 폴더보다 바깥에 있는 racingcar 폴더를 찾지 못한다는 의미이다.
-  프로젝트 폴더에 cypress.json파일에 다음과같이 설정하고 나면 의도하는 폴더경로를 잘 불러올 수 있다.
+    We searched for any files matching this glob pattern:
 
-  ```json
-  {"integrationFolder": "cypress"}
-  ```
+    cypress\racingcar\unit-test\pubsub.spec.js
 
-- 추가사항-> 이유는 모르겠지만 `integrationFolder`를 변경한 후로 `testing-library`가 제공하는 자동완성 기능이 동작하지 않았다. 다시 테스트 하고자 하는 코드를 `integration`폴더 안에 삽입하고 난 뒤에야 해당 현상이 사라졌다. 아마 `thrid party` 라이브러리인 특성상 `defualt paths`에 대한 `config`를 변경해야할 것 같다. 현재는 임시로 `integration`폴더 안에서 `e2e-test`, `unit-test` 전부 작성중이다. 의미상 틀린 구조이므로 분리하고 싶지만 해당 버그(?)를 정확히 파악한 후 다뤄볼까 한다.
+    Relative to the project root folder:
+
+    ```
+
+-   이는 cypress의 `integrationFolder` 설정의 `default`값이 `cypress/integration`이기 때문에 루트 폴더보다 바깥에 있는 racingcar 폴더를 찾지 못한다는 의미이다.
+    프로젝트 폴더에 cypress.json파일에 다음과같이 설정하고 나면 의도하는 폴더경로를 잘 불러올 수 있다.
+
+    ```json
+    {"integrationFolder": "cypress"}
+    ```
+
+-   추가사항-> 이유는 모르겠지만 `integrationFolder`를 변경한 후로 `testing-library`가 제공하는 자동완성 기능이 동작하지 않았다. 다시 테스트 하고자 하는 코드를 `integration`폴더 안에 삽입하고 난 뒤에야 해당 현상이 사라졌다. 아마 `thrid party` 라이브러리인 특성상 `defualt paths`에 대한 `config`를 변경해야할 것 같다. 현재는 임시로 `integration`폴더 안에서 `e2e-test`, `unit-test` 전부 작성중이다. 의미상 틀린 구조이므로 분리하고 싶지만 해당 버그(?)를 정확히 파악한 후 다뤄볼까 한다.
 
 ### 테스트 코드 작성하면서 학습한 내용
 
@@ -51,29 +51,26 @@
 
 ### 랜덤 요소가 포함된 서비스의 테스트 방법론 고민
 
-- 가장 우선 비결정적 요소와 결정적요소를 분리하는 것으로 시작하였다.
+-   가장 우선 비결정적 요소와 결정적요소를 분리하는 것으로 시작하였다.
 
-- `자동차 이름`과 `시도횟수`를 입력 받고 난 뒤, 자동차 이름의 `columns`과, `n`초 후의 `최종 우승자` 문구와, `다시 시도하기` 버튼은 매번 동일하게 나타났다. 이는 결정적 요소로 분류하여 `e2e` 테스트 코드를 작성하였다.
+-   `자동차 이름`과 `시도횟수`를 입력 받고 난 뒤, 자동차 이름의 `columns`과, `n`초 후의 `최종 우승자` 문구와, `다시 시도하기` 버튼은 매번 동일하게 나타났다. 이는 결정적 요소로 분류하여 `e2e` 테스트 코드를 작성하였다.
 
-- `우승자`와 `경주 과정`의 경우 똑같은 `자동차 이름`과 `시도 횟수`를 인자로 사용하더라도 결과가 달라질 수 있는 비결정적 성격을 가지고 있다. 이를 테스트 가능하게 설계하기 위해서 **무엇을 테스트하고 싶은가** 를 생각해 보았다.
+-   `우승자`와 `경주 과정`의 경우 똑같은 `자동차 이름`과 `시도 횟수`를 인자로 사용하더라도 결과가 달라질 수 있는 비결정적 성격을 가지고 있다. 이를 테스트 가능하게 설계하기 위해서 **무엇을 테스트하고 싶은가** 를 생각해 보았다.
 
-- 테스트 하고 싶은 것
+-   테스트 하고 싶은 것
 
-  > 1. 매 경기마다 0~9사이의 랜덤한 숫자가 잘 생성되는가.
-  > 2. `자동차 이름`과 `시도횟수`에 따라 랜덤한 숫자들의 뭉치가 잘 생성 되는가.
-  > 3. 숫자뭉치가 주어진다면 조건(4이상 전진, 그 외 정지)에 맞게 우승자를 구할 수 있는가.
+    > 1. 매 경기마다 0~9사이의 랜덤한 숫자가 잘 생성되는가.
+    > 2. `자동차 이름`과 `시도횟수`에 따라 랜덤한 숫자들의 뭉치가 잘 생성 되는가.
+    > 3. 원하는시점의 자동차들의 경로가 의도대로 나타나는가.
+    > 4. 숫자뭉치가 주어진다면 조건(4이상 전진, 그 외 정지)에 맞게 우승자를 구할 수 있는가.
 
-  비결정적 요소를 쪼개다 보니, 3번 테스트의 경우 결정적 성격의 테스트가 도출되었고, 이는 우리가 **알고싶어하는 것**이다. 각각의 테스트는 유닛테스트 요소로 분리하여 `game`이라는 비즈니스 로직을 구현하였다. 랜덤한 숫자뭉치를 생성하는`Matrix class`와 우승자를 구할 수 있는 `Game Class`를 분리하여 우승자를 판단하는 테스트 코드 및 비즈니스 로직을 구현할 수 있었다. 
+    비결정적 요소를 쪼개다 보니, 3,4번 테스트의 경우 결정적 성격의 테스트가 도출되었고, 이는 우리가 **알고싶어하는 것**이다. 각각의 테스트는 유닛테스트 요소로 분리하여 `game`이라는 비즈니스 로직을 구현하였다. 랜덤한 숫자뭉치를 생성하는`Matrix class`와 우승자를 구할 수 있는 `Game Class`를 분리하여 우승자를 판단하는 테스트 코드 및 비즈니스 로직을 구현할 수 있었다.
 
 -   추가적인 생각
 
     랜덤한 값을 테스트 하기 위해, 엄밀한 요구사항인 **매 초당 랜덤한 값을 생성한다.**를 일괄 작업 후 **매 초당 랜덤으로 생성되었던 값을 반환한다.**로 변경하였다. 랜덤값을 다루기 위해 어쩔 수 없는 선택이라고 생각했으나, 소프트웨어적 허용(?)의 영역이라고 생각하여 이렇게 구현하였다. 이렇게 바라보니 랜덤으로 제공된다는 모든 서비스, 가챠, 상품들은 사실 이미 결정된 사항이고 노출시점만 제어하는게 아닌가 싶다는 생각이 들었다.
 
   <br/>
-
-
-
-
 
 ## 🔥 Projects!
 
@@ -121,8 +118,6 @@ live-server 폴더명
 ```
 
 <br>
-
-
 
 ## 👏 Contributing
 
