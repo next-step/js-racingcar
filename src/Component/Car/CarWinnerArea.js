@@ -62,7 +62,7 @@ class CarWinnerArea extends Component {
           ${
             this.isPlaying
               ? ''
-              : `<button type="button" class="btn btn-cyan">다시 시작하기</button>`
+              : `<button type="button" class="btn btn-cyan" id="start-btn">다시 시작하기</button>`
           }
           </div>
         </div>
@@ -74,7 +74,7 @@ class CarWinnerArea extends Component {
           ${
             this.isPlaying
               ? ''
-              : `<button type="button" class="btn btn-cyan">시작하기</button>`
+              : `<button type="button" class="btn btn-cyan" id="start-btn">시작하기</button>`
           }
           </div>
         </div> 

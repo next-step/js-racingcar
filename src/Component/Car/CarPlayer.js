@@ -11,7 +11,7 @@ class CarPlayer extends Component {
     return cars
       .map(
         ({ carName, carStates }) => `
-      <div class="mr-2">
+      <div class="mr-2" id="racing-track">
         <div class="car-player">${carName}</div>
         ${carStates.map((state) => stateTemplate(state)).join('')}
       </div>

@@ -9,7 +9,7 @@ class CarPlayArea extends Component {
 
   template() {
     return `
-        <div class="mt-4 d-flex">
+        <div class="mt-4 d-flex" id="racing-container">
         </div>
     `;
   }
