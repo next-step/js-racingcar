@@ -1,14 +1,17 @@
 /// <reference types="cypress" />
-const INVALID_NAME_ERROR_MESSAGE =
-	'유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.';
-const INVALID_ROUND_ERROR_MESSAGE =
-	'입력한 레이싱 횟수가 너무 적습니다. 레이싱 횟수는 1이상이어야 합니다.';
-const GEME_END_ALERT_MESSAGE = '🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇';
-const FINAL_WINNERS_TITLE = /최종 우승자/;
-const RESTART_BTN = /다시 시작하기/;
 
-const CAR_NAME_PLACEHOLDER = /자동차 이름/;
-const ROUND_PLACEHOLDER = /시도 횟수/;
+import {
+	CAR_NAME_PLACEHOLDER,
+	FINAL_WINNERS_TITLE,
+	RESTART_BTN,
+	ROUND_PLACEHOLDER,
+} from '../../../src/js/constants/testConstants/index.js';
+import {
+	INVALID_NAME_ERROR_MESSAGE,
+	GAME_END_ALERT_MESSAGE,
+	INVALID_ROUND_ERROR_MESSAGE,
+} from '../../../src/js/constants/messages/index.js';
+
 const findByPlaceholderText = (regex) => cy.findByPlaceholderText(regex);
 const findBtn = (regex) => cy.findByRole('button', {name: regex});
 const findRestartBtn = () => findBtn(RESTART_BTN);
@@ -36,7 +39,7 @@ const carNameInputTypeAndEnter = typeAndEnter(() => findByPlaceholderText(CAR_NA
 const roundInputTypeAndEnter = typeAndEnter(() => findByPlaceholderText(ROUND_PLACEHOLDER));
 describe('레이싱 카', () => {
 	beforeEach(() => {
-		cy.visit('https://next-step.github.io/js-racingcar/');
+		cy.visit('/');
 	});
 	context('자동차 이름 입력 테스트', () => {
 		it('placeholder가 자동차 이름인 input이 있다.', () => {
@@ -80,10 +83,10 @@ describe('레이싱 카', () => {
 		let assertAlertExpectation;
 		beforeEach(() => {
 			goodCarNames = '이신호,윤성민,임학수';
-			assertAlertExpectation = sholudAlertByMessage(GEME_END_ALERT_MESSAGE);
+			assertAlertExpectation = sholudAlertByMessage(GAME_END_ALERT_MESSAGE);
 		});
 
-		it(`자동차 이름:'이신호,윤성민,임학수', 시도횟수${3}를 입력하면, 3초후 최종우승자와 다시시작하기가 나오고 그다음 2초 후에 ${GEME_END_ALERT_MESSAGE} 알림`, () => {
+		it(`자동차 이름:'이신호,윤성민,임학수', 시도횟수${3}를 입력하면, 3초후 최종우승자와 다시시작하기가 나오고 그다음 2초 후에 ${GAME_END_ALERT_MESSAGE} 알림`, () => {
 			carNameInputTypeAndEnter(goodCarNames);
 			roundInputTypeAndEnter(3);
 			cy.wait(3000);
