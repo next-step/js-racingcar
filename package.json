@@ -6,6 +6,7 @@
 	"author": "sinholee <dltlsgh5@gmail.com>",
 	"license": "MIT",
 	"scripts": {
+		"test:racingcar": "yarn cypress run --spec 'cypress/integration/racingcar/**/*'",
 		"unit-test:racingcar": "yarn cypress run --spec 'cypress/integration/racingcar/unit-test/**/*'",
 		"e2e:racingcar": "yarn cypress run  --spec 'cypress/integration/racingcar/racingcar.spec.js'"
 	},
