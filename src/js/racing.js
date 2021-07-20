@@ -62,7 +62,7 @@ const racing = (() => {
             }
           });
 
-          if (!--turns) {
+          if (--turns < 0) {
             clearInterval(interval);
             resolve();
           }
