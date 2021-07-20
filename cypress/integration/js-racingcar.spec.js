@@ -176,6 +176,3 @@ describe('js-racingcar', () => {
   })
 
 })
-
-
-
