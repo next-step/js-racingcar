@@ -2,7 +2,6 @@ export default class Car {
   constructor(name) {
     this.name = name;
     this.currentPos = 0;
-    this.isFinished = false;
   }
 
   goFoward() {

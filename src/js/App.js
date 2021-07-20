@@ -26,9 +26,8 @@ export default class App extends Component {
       startRace: this.startRace.bind(this)
     });
 
-    this.carRaceBoard = new CarRaceBoard('#car-race-container',{
-      carList: this.state.carList
-    });
+    this.carRaceBoard = new CarRaceBoard('#car-race-container',
+    this.state);
 
   }
 
@@ -64,15 +63,32 @@ export default class App extends Component {
       alert(ATTEMPT_NUM_UNDER_MIN_ERROR);
       return false;
     }
-    this.state.attemptNum  = countAttempt
-    
+    this.state.attemptNum = countAttempt;
+  
     return true;
   }
   
   startRace() {
-    this.carRaceBoard.props = {carList: this.state.carList};
-    this.carRaceBoard.setState();
+    this.setState(this.state);
+    this.proceedRace();
+
   }
 
-  
+  proceedRace() {
+    const carList  = this.state.carList;
+    const timeId = setInterval(() => {
+      carList.forEach(car => {
+        car.goFoward();
+      });
+
+      this.state.currentCount++;
+      this.setState(this.state);
+    }, 1000)
+
+    setTimeout(() => clearInterval(timeId), 1000 * this.state.attemptNum)
+  }
+
+  setState(newState) {
+    this.carRaceBoard.setState(newState);
+  }
 }
