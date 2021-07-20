@@ -54,7 +54,7 @@ export const createEl = {
     playerName.textContent = name;
 
     const wrapper = document.createElement("div");
-    wrapper.className = "mr-2 d-flex f-column items-center";
+    wrapper.className = "mr-2 d-flex f-column items-center car-wrapper";
     wrapper.appendChild(playerName);
     wrapper.appendChild(createEl.spinner());
 

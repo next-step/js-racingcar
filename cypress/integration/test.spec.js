@@ -1,4 +1,6 @@
 import { ERROR_TEXT, CLASS_TYPE } from "../../src/js/constants";
+import { play, printResult } from "../../src/js/racing";
+import { helper as racingHelper } from "../../src/js/utils";
 
 const helper = {
   inputCars: () => {
@@ -74,4 +76,27 @@ describe("stadium 테스트", () => {
   it("car 생성 확인", () => {
     cy.get(".car-player").should("have.length", 5);
   });
+
+  it("1초마다 실행 확인", () => {
+    cy.stub(racingHelper, "isForward", () => true);
+    let turn = 10;
+    cy.clock();
+    while (turn--) {
+      cy.tick(1000);
+      cy.get(".car-wrapper:first .forward-icon").should(
+        "have.length",
+        10 - turn
+      );
+    }
+  });
+});
+
+describe("결과 확인", () => {
+  beforeEach(() => {
+    cy.visit("/");
+    helper.inputCars();
+    helper.inputTurns();
+  });
+
+  it("우승자 확인", () => {});
 });

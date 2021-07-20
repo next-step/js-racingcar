@@ -1,4 +1,4 @@
-import { ERROR_TEXT, CLASS_TYPE } from "./constants.js";
+import { ERROR_TEXT, CLASS_TYPE, INTERVAL_TIME } from "./constants.js";
 import { validator, createEl, helper } from "./utils.js";
 
 const racing = (() => {
@@ -66,10 +66,10 @@ const racing = (() => {
             clearInterval(interval);
             resolve();
           }
-        }, 1000);
+        }, INTERVAL_TIME);
       }),
 
-    printResult: (resultSection, resultText) => {
+    printResult: (resultSection) => {
       // 스피너 삭제
       cars.forEach((car) => {
         car.el.lastChild.remove();

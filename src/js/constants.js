@@ -8,3 +8,5 @@ export const ERROR_TEXT = {
 export const CLASS_TYPE = {
   DISPLAY_NONE: "d-none",
 };
+
+export const INTERVAL_TIME = 1000;
