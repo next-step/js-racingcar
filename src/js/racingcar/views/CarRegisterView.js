@@ -1,42 +1,37 @@
+import { DOM } from '../../constants/index.js';
 import View from '../../core/View.js';
-import {$delegate, qs} from '../../helper.js';
+import { qs } from '../../helper.js';
 
 export default class CarRegisterView extends View {
-	constructor(controller, $component) {
-		super(controller, $component);
-		this.update(this.controller.model);
-		this.addEvents();
+	constructor($component) {
+		super($component);
+		this.input = qs(DOM.CAR_NAMES_INPUT);
+		this.btn = qs(DOM.CAR_SUBMIT_BTN);
 	}
-	template = (model) => {
-		const {disabled, value, focus} = model.state.carRegister;
-		return `
-        <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
-        <p>
-            5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
-            예시) EAST, WEST, SOUTH, NORTH
-        </p>
-        <div class="d-flex">
-            <input type="text" class="w-100 mr-2" placeholder="자동차 이름" ${
-				value ? `value=${value}` : ''
-			} ${disabled ? 'disabled' : ''} ${focus ? 'autoFocus' : ''}/>
-            <button type="button" class="btn btn-cyan" ${disabled ? 'disabled' : ''}>확인</button>
-        </div>
-        `;
+	addEvents = (controller) => {
+		this.input.addEventListener('keyup', controller.handleCarRegisterKeyup);
+		this.btn.addEventListener('click', controller.handleCarRegisterSubmitClick);
 	};
-	addEvents = () => {
-		$delegate(this.$target, 'input', 'keypress', this.controller.handleCarRegisterKeypress);
-		$delegate(
-			this.$target,
-			'button',
-			'click',
-			this.controller.handleCarRegisterSubmitClick(() => qs('input', this.$target)),
-		);
-	};
+
 	update = (model) => {
-		if (model.state.carRegister.hidden) {
+		const { hidden, value, focus, disabled } = model.state.carRegister;
+		if (hidden) {
 			this.hidden();
 		} else {
-			this.show().innerHTML = this.template(model);
+			this.show();
+			this.updateBtn(disabled);
+			this.updateInput({ value, disabled, focus });
 		}
+	};
+	// 의존하는 model상태에 따라 변화가 생기는 dom객체 단위로 구분하여 관리하도록 함
+	updateInput = ({ value, disabled, focus }) => {
+		this.input.disabled = disabled;
+		if (value) {
+			this.input.value = value;
+		}
+		focus && this.input.focus();
+	};
+	updateBtn = (disabled) => {
+		this.btn.disabled = disabled;
 	};
 }

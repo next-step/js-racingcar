@@ -11,8 +11,15 @@
   <img src="https://img.shields.io/badge/language-js-yellow.svg?style=flat-square"/>
   <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"/>
 </p>
-
 ## 📝회고
+
+### MVC 패턴에 대한 고민
+
+- 처음에는 매 `notifyAll` 메서드가 호출될 때마다, `view` 를 새로 그리는 방식으로 접근했으나, `focus` 정보 등의 데이터를 유실하게 되므로 이를 최대한 유연하게 관리하기 위해 최대한 `innerHTML` 프로퍼티를 안쓰는 방향으로 리팩토링 하였다.
+- 기존에는 비즈니스 로직을 `controller` 안에다가 구현했었다. 모델은 `view`에 바인딩된 데이터(상태) 조작만 가능해야 한다고 생각했기 때문에다. 하지만 다시생각해보면, view에 바인딩된 **상태** 를 변경하기 위해 진행하는 과정이 결국 **비즈니스 로직** 이라는 생각이 들어 `game`진행과정을 계산하는 로직, `valid체크` 등의 비즈니스 로직을 모두 `model`로 이관하고 `controller`는 오직 `view`에서 이벤트리스닝을 하기 위한 이벤트콜백함수를 구현하는 로직만 남겼다.
+- 기존에는 `view` 객체에 `controller`를 주입하여 이벤트리스너를 바인딩 했었다. 그 이유는` view->controller->model->view`라는 단방향흐름을 명시적으로 지키고 싶었기 때문에다. 그러나 이럴경우` controller`에서 `input.value`를 `submit btn`을 클릭했을때 알 수 있는 방법이 없다,(클로저와 콜백함수를 이용하면 억지로 전달하는 방법을 이용했었지만 가독성이 떨어진다고 생각하기때문에 좋지않은 방법이다.) 이를 해결하고자 `view`를 `controller`에 주입하는 방식으로 바꿔 `controller에`서 자유롭게` view`객체가 가지고 있는 `dom`객체를 사용할 수 있게 되었다.
+- 하지만 위와같은 방법으로 구현하기 위해서는 `view`에서 이벤트리스너를 바인딩하기위해 `controller`를 인자로 넘겨야 하는 상황이 발생하였다. 개인적으로 어쨋든 서로의 의존성을 묶는 형태가 되어버린것 같다.
+- `mvc+observer`는 `model`과 `view` 사이에 강한 의존성을 갖는다고 한다. 구현해 보니 정말 그렇다고 느꼈는데, `model` 의 `state` 가 변할때마다 view가 의존적으로 변하기 때문이다. 이러한 의존성을 줄이고 느슨한 관계를 유지하는 방법이 `pubsub` 패턴을 이용한 `mvc`라고 알고있다. 다음 미션은 `pubsub` 방식으로 구현해볼 예정이다. 
 
 ### cypress run as command line
 
@@ -72,6 +79,7 @@
 
 -   ps 유닛테스트를 cypress로 통합하여 관리하려다 보니 테스트 수행 속도에 있어서 jest에 비해 현저히 느린 속도로 검사한다는 것을 알게 되었다. 또한 cli상에서의 디버그 방법론은 공식문서에 제대로 안나와 있어(내가 못찾는 것 일 수도...) 오히려 작업속도가 더디게 되는 상황이 발생했다.
     앞으로는 유닛테스트를 jest로 돌려야겠다는 생각이 들었다.
+    
     <br/>
 
 ## 🔥 Projects!

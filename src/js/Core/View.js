@@ -1,13 +1,8 @@
-import {qs} from '../helper.js';
+import { qs } from '../helper.js';
 
 export default class View {
-	constructor(controller, $component) {
-		this.controller = controller;
-		this.controller.model.registerObserver(this);
+	constructor($component) {
 		this.$target = qs(`[data-component='${$component}']`);
-		console.log(this.$target);
-		this.update(this.controller.model);
-		this.addEvents();
 	}
 	template = (model) => {};
 	addEvents = () => {};

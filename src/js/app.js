@@ -7,9 +7,16 @@ import FootprintsView from './racingcar/views/FootprintsView.js';
 
 const racingModel = new RacingModel();
 // model:contoller=1:1
-const racingController = new RacingController(racingModel);
 // controller:view= 1:n
-const carRegisterView = new CarRegisterView(racingController, 'car-register');
-const roundRegisterView = new RoundRegisterView(racingController, 'round-register');
-const gameFootPrintsView = new FootprintsView(racingController, 'game-footprints');
-const gameResultsView = new ResultView(racingController, 'game-result');
+const carRegisterView = new CarRegisterView('car-register');
+const roundRegisterView = new RoundRegisterView('round-register');
+const gameFootPrintsView = new FootprintsView('game-footprints');
+const gameResultsView = new ResultView('game-result');
+
+const views = {
+	carRegisterView,
+	roundRegisterView,
+	gameFootPrintsView,
+	gameResultsView,
+};
+const racingController = new RacingController(racingModel, views);

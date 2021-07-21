@@ -1,4 +1,4 @@
-import {CAR_NAME_MAX_LENGTH, MIN_ROUND} from './constants/index.js';
+import { CAR_NAME_MAX_LENGTH, MIN_ROUND } from './constants/index.js';
 
 export const max = (numberArry) => {
 	let maxCnt = 0;
@@ -8,7 +8,8 @@ export const max = (numberArry) => {
 	return maxCnt;
 };
 
-export const sleep = async (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+export const sleep = async (ms) =>
+	new Promise((resolve) => setTimeout(resolve, ms));
 
 const isLessOrEqualThanMaxLength = (carName) => {
 	return carName.length <= CAR_NAME_MAX_LENGTH;
@@ -18,8 +19,14 @@ const isMoreThanZero = (carName) => {
 };
 export const isCarNameValid = (carNamesBeforeBeingParsed) => {
 	const carNames = carNamesBeforeBeingParsed.split(',');
-	return carNames.every(isLessOrEqualThanMaxLength) && carNames.every(isMoreThanZero);
+	return (
+		carNames.every(isLessOrEqualThanMaxLength) && carNames.every(isMoreThanZero)
+	);
 };
 export const isRoundVaild = (roundInputValue) => {
 	return parseInt(roundInputValue) >= MIN_ROUND;
 };
+
+export const callAfterAllInit = (fn) => setTimeout(fn, 0);
+
+export const deepClone = (obj) => JSON.parse(JSON.stringify(obj));

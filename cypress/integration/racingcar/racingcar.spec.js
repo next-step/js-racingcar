@@ -13,10 +13,11 @@ import {
 } from '../../../src/js/constants/messages/index.js';
 
 const findByPlaceholderText = (regex) => cy.findByPlaceholderText(regex);
-const findBtn = (regex) => cy.findByRole('button', {name: regex});
+const findBtn = (regex) => cy.findByRole('button', { name: regex });
 const findRestartBtn = () => findBtn(RESTART_BTN);
 
-const findFinishTitle = () => cy.findByRole('heading', {level: 2, name: FINAL_WINNERS_TITLE});
+const findFinishTitle = () =>
+	cy.findByRole('heading', { level: 2, name: FINAL_WINNERS_TITLE });
 
 /**
  * 사용방법: message인자에 alert 문구를 등록하여, return되는 콜백함수를 alert이 발생할 이벤트then에 입력한다.
@@ -32,11 +33,18 @@ const sholudAlertByMessage = (message) => {
  * cypress 함수들이 손에 익지 않아 원하는 로직을 만들기 쉽지 않다.
  */
 const find확인BtnNextByPlaceHolder = (regex) =>
-	cy.findByPlaceholderText(regex).parent().findByRole('button', {name: /확인/});
+	cy
+		.findByPlaceholderText(regex)
+		.parent()
+		.findByRole('button', { name: /확인/ });
 
 const typeAndEnter = (f) => (type) => f().type(`${type}{enter}`);
-const carNameInputTypeAndEnter = typeAndEnter(() => findByPlaceholderText(CAR_NAME_PLACEHOLDER));
-const roundInputTypeAndEnter = typeAndEnter(() => findByPlaceholderText(ROUND_PLACEHOLDER));
+const carNameInputTypeAndEnter = typeAndEnter(() =>
+	findByPlaceholderText(CAR_NAME_PLACEHOLDER)
+);
+const roundInputTypeAndEnter = typeAndEnter(() =>
+	findByPlaceholderText(ROUND_PLACEHOLDER)
+);
 describe('레이싱 카', () => {
 	beforeEach(() => {
 		cy.visit('/');
@@ -46,14 +54,18 @@ describe('레이싱 카', () => {
 			findByPlaceholderText(CAR_NAME_PLACEHOLDER).should('exist');
 		});
 		context('에러 발생시키는 입력들', () => {
-			[' !@#$% 0 ', '       ', ', ,', 'asdddd', '이신호 짱짱'].forEach((inputValue) => {
-				it(`${inputValue}를 입력하면 "${INVALID_NAME_ERROR_MESSAGE}"메시지 알림`, () => {
-					const assertAlertExpectation = sholudAlertByMessage(INVALID_NAME_ERROR_MESSAGE);
-					find확인BtnNextByPlaceHolder(CAR_NAME_PLACEHOLDER)
-						.click()
-						.then(assertAlertExpectation);
-				});
-			});
+			[' !@#$% 0 ', '       ', ', ,', 'asdddd', '이신호 짱짱'].forEach(
+				(inputValue) => {
+					it(`${inputValue}를 입력하면 "${INVALID_NAME_ERROR_MESSAGE}"메시지 알림`, () => {
+						const assertAlertExpectation = sholudAlertByMessage(
+							INVALID_NAME_ERROR_MESSAGE
+						);
+						find확인BtnNextByPlaceHolder(CAR_NAME_PLACEHOLDER)
+							.click()
+							.then(assertAlertExpectation);
+					});
+				}
+			);
 		});
 	});
 
@@ -69,7 +81,9 @@ describe('레이싱 카', () => {
 		[-1, 0].forEach((round) => {
 			it(`${round} 입력시, ${INVALID_ROUND_ERROR_MESSAGE}`, () => {
 				carNameInputTypeAndEnter(goodCarNames);
-				const assertAlertExpectation = sholudAlertByMessage(INVALID_ROUND_ERROR_MESSAGE);
+				const assertAlertExpectation = sholudAlertByMessage(
+					INVALID_ROUND_ERROR_MESSAGE
+				);
 				roundInputTypeAndEnter(round).then(assertAlertExpectation);
 				find확인BtnNextByPlaceHolder(ROUND_PLACEHOLDER)
 					.click()
@@ -86,7 +100,7 @@ describe('레이싱 카', () => {
 			assertAlertExpectation = sholudAlertByMessage(GAME_END_ALERT_MESSAGE);
 		});
 
-		it(`자동차 이름:'이신호,윤성민,임학수', 시도횟수${3}를 입력하면, 3초후 최종우승자와 다시시작하기가 나오고 그다음 2초 후에 ${GAME_END_ALERT_MESSAGE} 알림`, () => {
+		it.only(`자동차 이름:'이신호,윤성민,임학수', 시도횟수${3}를 입력하면, 3초후 최종우승자와 다시시작하기가 나오고 그다음 2초 후에 ${GAME_END_ALERT_MESSAGE} 알림`, () => {
 			carNameInputTypeAndEnter(goodCarNames);
 			roundInputTypeAndEnter(3);
 			cy.wait(3000);
@@ -101,7 +115,9 @@ describe('레이싱 카', () => {
 			cy.wait(1000);
 			cy.wait(2000);
 			findRestartBtn().click();
-			findByPlaceholderText(CAR_NAME_PLACEHOLDER).should('exist').and('not.have.text');
+			findByPlaceholderText(CAR_NAME_PLACEHOLDER)
+				.should('exist')
+				.and('not.have.text');
 			// cy.findByPlaceholderText(ROUND_PLACEHOLDER).should('not.exist'); // 원인 모를 현상으로 findByPlaceholder 메서드만 엘리먼트가 없을때 에러를 반환한다.
 			cy.findByText(ROUND_PLACEHOLDER).should('not.exist');
 			findRestartBtn().should('not.exist');
