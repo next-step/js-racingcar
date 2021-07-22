@@ -9,7 +9,9 @@ export const ERROR = {
 };
 
 export const MESSAGE = {
-  WHO_IS_WINNER: "🏆 우승의 주인공은 누가 될까요! 🏆",
-  WINNER: (winner) => `🏆 최종 우승자: ${winner.map((winner) => winner).join(', ')}🏆`,
-  CONGRATULATIONS: (winner) => `🏆 축하합니다. ${winner.map((winner) => winner).join(', ')}! 🏆`
-}
+  WHO_IS_WINNER: '🏆 우승의 주인공은 누가 될까요! 🏆',
+  WINNER: (winner) =>
+    `🏆 최종 우승자: ${winner.map((winner) => winner).join(', ')}🏆`,
+  CONGRATULATIONS: (winner) =>
+    `🏆 축하합니다. ${winner.map((winner) => winner).join(', ')}! 🏆`,
+};

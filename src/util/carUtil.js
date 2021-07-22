@@ -9,7 +9,7 @@ export const determineCarMove = (cars) => {
   return Array(cars.length)
     .fill(0)
     .map(() => {
-      return getRandom() >= 3 ? '' : 'forward';
+      return getRandom() <= 3 ? '' : 'forward';
     });
 };
 
