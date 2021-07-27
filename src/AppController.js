@@ -37,7 +37,7 @@ export default class AppController {
   };
   raceEnd = (intervalId) => {
     clearInterval(intervalId);
-    this.view.renderCars($(".mt-4"), this.model.stoppedCars());
+    this.view.renderCars($(".mt-4"), this.model.stopRacingCars());
     this.view.renderWinners($(".winners"), this.model.getWinners());
   };
 }
