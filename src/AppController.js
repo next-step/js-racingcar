@@ -14,8 +14,8 @@ export default class AppController {
         return;
       }
       if (e.target.id === "number-btn") {
-        const newTryTimes = $('input[type="number"]').value;
-        this.model.setTryTimes(newTryTimes);
+        const newTryTime = $('input[type="number"]').value;
+        this.model.setTryTime(newTryTime);
         this.view.renderCars($(".mt-4"), this.model.getCars());
         this.raceStart();
         return;
@@ -30,7 +30,7 @@ export default class AppController {
   raceStart = () => {
     const intervalId = setInterval(() => {
       this.view.renderCars($(".mt-4"), this.model.racingCars());
-      if (this.model.isTryTimesExpired()) {
+      if (this.model.isTryTimeExpired()) {
         this.raceEnd(intervalId);
       }
     }, 1000);

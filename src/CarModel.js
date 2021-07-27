@@ -3,6 +3,8 @@ export default class CarModel {
     this.cars = [{ name: "", forwards: [0] }];
     this.tryTimes = 0;
   }
+
+  //CARS
   getCars = () => {
     return this.cars;
   };
@@ -31,17 +33,19 @@ export default class CarModel {
     return this.updateCars(stoppedCars);
   };
 
-  getTryTimes = () => {
-    return this.tryTimes;
+  //TRYTIME
+  getTryTime = () => {
+    return this.tryTime;
   };
-  setTryTimes = (newTryTimes) => {
-    this.tryTimes = newTryTimes;
+  setTryTime = (newTryTime) => {
+    this.tryTimes = newTryTime;
   };
-  isTryTimesExpired = () => {
+  isTryTimeExpired = () => {
     this.tryTimes -= 1;
     return this.tryTimes === 0 ? true : false;
   };
 
+  //WINNER
   getWinners = () => {
     const _cars = [...this.cars];
     _cars.sort((c1, c2) => {
