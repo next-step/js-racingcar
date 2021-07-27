@@ -30,6 +30,7 @@ export default class CarModel {
     });
     return this.updateCars(stoppedCars);
   };
+
   getTryTimes = () => {
     return this.tryTimes;
   };
@@ -40,20 +41,14 @@ export default class CarModel {
     this.tryTimes -= 1;
     return this.tryTimes === 0 ? true : false;
   };
+
   getWinners = () => {
-    const wins = [];
-    this.cars.forEach((car, idx) => {
-      if (wins.length === 0) {
-        wins.push(car);
-        return;
-      }
-      while (wins.length && wins[wins.length - 1].forwards.length < car.forwards.length) {
-        wins.pop();
-      }
-      wins.push(car);
-      if (wins.length !== 1 && wins[wins.length - 2].forwards.length > wins[wins.length - 1].forwards.length) {
-        wins.pop();
-      }
+    const _cars = [...this.cars];
+    _cars.sort((c1, c2) => {
+      return c2.forwards.length - c1.forwards.length;
+    });
+    const wins = _cars.filter((car) => {
+      return _cars[0].forwards.length === car.forwards.length;
     });
     return wins;
   };
