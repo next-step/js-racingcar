@@ -7,8 +7,8 @@ export default class CarView {
           예시) EAST, WEST, SOUTH, NORTH
         </p>
         <div class="d-flex">
-          <input type="text" class="w-100 mr-2" value=${value} placeholder="자동차 이름" data-cy="text-input" disabled/>
-          <button type="button" id="text-btn" class="btn btn-cyan" data-cy="text-button">확인</button>
+          <input type="text" class="w-100 mr-2" value=${value} placeholder="자동차 이름" data-cy="car-input" disabled/>
+          <button type="button" id="text-btn" class="btn btn-cyan" data-cy="car-button">확인</button>
         </div>
       </fieldset>`;
   };
