@@ -1,15 +1,27 @@
 export default class CarView {
-  constructor($app) {}
-  renderTryInput = ($target, pos) => {
+  renderTextInput = ($target, value = "") => {
+    $target.innerHTML = `<fieldset class="car-field">
+        <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
+        <p class="info">
+          5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
+          예시) EAST, WEST, SOUTH, NORTH
+        </p>
+        <div class="d-flex">
+          <input type="text" class="w-100 mr-2" value=${value} placeholder="자동차 이름" data-cy="text-input" disabled/>
+          <button type="button" id="text-btn" class="btn btn-cyan" data-cy="text-button">확인</button>
+        </div>
+      </fieldset>`;
+  };
+  renderTryInput = ($target, pos = "afterend") => {
     $target.insertAdjacentHTML(
       pos,
-      `<fieldset>
+      `<fieldset class="try-field">
           <p>시도할 횟수를 입력해주세요.</p>
           <div class="d-flex">
-          <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-          <button type="button" id="number-btn"class="btn btn-cyan">확인</button>
+          <input type="number" class="w-100 mr-2" placeholder="시도 횟수" data-cy="number-input"/>
+          <button type="button" id="number-btn"class="btn btn-cyan" data-cy="number-button">확인</button>
           </div>
-          </fieldset>`
+        </fieldset>`
     );
   };
   renderCars = ($target, cars) => {
@@ -19,13 +31,13 @@ export default class CarView {
             <div class="car-player">${name}</div>
             ${forwards
               .map((move) => {
-                if (move <= 3)
-                  return `<div class="d-flex justify-center mt-3">
+                return move <= 3
+                  ? `<div class="d-flex justify-center mt-3">
                 <div class="relative spinner-container">
                   <span class="material spinner"></span>
                 </div>
-              </div>`;
-                return `<div class="forward-icon mt-2">⬇️️</div>`;
+              </div>`
+                  : `<div class="forward-icon mt-2">⬇️️</div>`;
               })
               .join("")}
           </div>`;

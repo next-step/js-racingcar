@@ -1,4 +1,5 @@
-import { $ } from "./selectors.js";
+import { isValidNames } from "./utils/helpers.js";
+import { $ } from "./utils/selectors.js";
 
 export default class AppController {
   constructor(model, view) {
@@ -9,9 +10,12 @@ export default class AppController {
   init = () => {
     $("#app").addEventListener("click", (e) => {
       if (e.target.id === "text-btn") {
-        this.model.setCars($('input[type="text"]').value);
-        this.view.renderTryInput($("fieldset"), "afterend");
-        return;
+        const carNames = $('input[type="text"]').value;
+        if (isValidNames(carNames)) {
+          this.model.setCars(carNames);
+          this.view.renderTextInput($("#form"), carNames);
+          this.view.renderTryInput($(".car-field"));
+        }
       }
       if (e.target.id === "number-btn") {
         const newTryTime = $('input[type="number"]').value;

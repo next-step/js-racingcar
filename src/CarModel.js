@@ -8,8 +8,8 @@ export default class CarModel {
   getCars = () => {
     return this.cars;
   };
-  setCars = (newCars) => {
-    this.cars = [...newCars.split(",")].map((name) => {
+  setCars = (cars) => {
+    this.cars = cars.split(",").map((name) => {
       return { name, forwards: [0] };
     });
   };
