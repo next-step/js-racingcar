@@ -18,8 +18,8 @@ export default class CarView {
       `<fieldset class="try-field">
           <p>시도할 횟수를 입력해주세요.</p>
           <div class="d-flex">
-          <input type="number" class="w-100 mr-2" placeholder="시도 횟수" data-cy="number-input"/>
-          <button type="button" id="number-btn"class="btn btn-cyan" data-cy="number-button">확인</button>
+          <input type="number" class="w-100 mr-2" placeholder="시도 횟수" data-cy="trytime-input"/>
+          <button type="button" id="trytime-btn" class="btn btn-cyan" data-cy="trytime-button">확인</button>
           </div>
         </fieldset>`
     );

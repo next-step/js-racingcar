@@ -1,4 +1,4 @@
-import { isValidNames } from "./utils/helpers.js";
+import { isValidNames, isValidTryTime } from "./utils/helpers.js";
 import { $ } from "./utils/selectors.js";
 
 export default class AppController {
@@ -17,12 +17,14 @@ export default class AppController {
           this.view.renderTryInput($(".car-field"));
         }
       }
-      if (e.target.id === "number-btn") {
-        const newTryTime = $('input[type="number"]').value;
-        this.model.setTryTime(newTryTime);
-        this.view.renderCars($(".mt-4"), this.model.getCars());
-        this.raceStart();
-        return;
+      if (e.target.id === "trytime-btn") {
+        const tryTime = $('input[type="number"]').value;
+        if (isValidTryTime(tryTime)) {
+          console.log("er");
+          this.model.setTryTime(tryTime);
+          this.view.renderCars($(".mt-4"), this.model.getCars());
+          this.raceStart();
+        }
       }
       if (e.target.id === "reset-btn") {
         this.model.reset();
