@@ -27,18 +27,18 @@ export default class CarView {
   renderCars = ($target, cars) => {
     $target.innerHTML = cars
       .map(({ name, forwards }) => {
-        return `<div class="mr-2">
-            <div class="car-player">${name}</div>
+        return `<div class="mr-2" data-cy="car-container">
+            <div class="car-player" data-cy="car-player">${name}</div>
             ${forwards
-              .map((move) => {
-                return move <= 3
-                  ? `<div class="d-flex justify-center mt-3">
+              .map((forward) =>
+                forward <= 3
+                  ? `<div class="d-flex justify-center mt-3" data-cy="spinner">
                 <div class="relative spinner-container">
                   <span class="material spinner"></span>
                 </div>
               </div>`
-                  : `<div class="forward-icon mt-2">⬇️️</div>`;
-              })
+                  : `<div class="forward-icon mt-2" data-cy="forward">⬇️️</div>`
+              )
               .join("")}
           </div>`;
       })
@@ -47,11 +47,7 @@ export default class CarView {
 
   renderWinners = ($target, winners) => {
     $target.innerHTML = `<div>
-        <h2>🏆 최종 우승자:${winners
-          .map((winner) => {
-            return `${winner.name}`;
-          })
-          .join(",")} 🏆</h2>
+        <h2>🏆 최종 우승자:${winners.map((winner) => `${winner.name}`).join(",")} 🏆</h2>
         <div class="d-flex justify-center">
           <button type="button" id="reset-btn" class="btn btn-cyan">다시 시작하기</button>
         </div>

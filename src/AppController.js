@@ -20,7 +20,6 @@ export default class AppController {
       if (e.target.id === "trytime-btn") {
         const tryTime = $('input[type="number"]').value;
         if (isValidTryTime(tryTime)) {
-          console.log("er");
           this.model.setTryTime(tryTime);
           this.view.renderCars($(".mt-4"), this.model.getCars());
           this.raceStart();

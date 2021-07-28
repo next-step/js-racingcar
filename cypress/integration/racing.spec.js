@@ -6,6 +6,13 @@ describe("자동차 경주 게임", () => {
   });
 });
 
+/**
+ * 자동차 이름 입력 기능
+ *
+ * - 자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5자 이하만 가능하다.
+ * - 자동차 이름을 입력받은 다음에는 이름 입력폼이 비활성화되어야 한다
+ */
+
 describe("자동차 이름 입력 기능 ", () => {
   beforeEach(() => {
     cy.visit("/");
@@ -48,6 +55,12 @@ describe("자동차 이름 입력 기능 ", () => {
   });
 });
 
+// /**
+//  * 시도 횟수 입력 기능
+//  *
+//  * - 시도 횟수는 1번 이상이어야 한다.
+//  */
+
 describe("시도 횟수 입력 기능 ", () => {
   beforeEach(() => {
     cy.visit("/");
@@ -81,6 +94,55 @@ describe("시도 횟수 입력 기능 ", () => {
         .then(() => {
           cy.windowAlertStub(stub, MESSAGES.INVALID_TRYTIME);
         });
+    });
+  });
+});
+
+/**
+ * 자동차 경주 기능
+ *
+ * - 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.
+ * - 주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.
+ * - 전진 조건은 0에서 9 사이에서 random 값을 구한 후 random 값이 4 이상일 경우 전진하고, 3 이하의 값이면 멈춘다.
+ * - 자동차 경주 게임의 턴이 진행 될 때마다 1초의 텀(progressive 재생)을 두고 진행한다.
+ */
+
+describe("자동차 경주 기능", () => {
+  const names = "A,B,C,D";
+  const count = 5;
+  const carNames = names.split(",");
+  before(() => {});
+  beforeEach(() => {
+    cy.clock();
+    cy.visit("/");
+    cy.getCarInput().type(names);
+    cy.getCarButton().click();
+    cy.getTryTimeInput().type(count);
+    cy.getTryTimeButton().click();
+    cy.mockMathRandom([3, 2, 7, 8, 5, 2, 4]);
+  });
+  it("자동차 이름이 표시되어야 한다.", () => {
+    cy.getCarContainer()
+      .should("be.visible")
+      .find("[data-cy=car-player]")
+      .each(($el, idx) => cy.wrap($el).should("have.text", carNames[idx]));
+  });
+  describe("1초가 지나면", () => {
+    it("랜덤값(Mock)에 따라 스피너와 포워드가 표시되어야 한다.", () => {
+      cy.tick(1000);
+      cy.getNthCarStatus(0, "spinner").should("be.visible");
+      cy.getNthCarStatus(1, "spinner").should("be.visible");
+      cy.getNthCarStatus(2, "forward").should("be.visible");
+      cy.getNthCarStatus(3, "forward").should("be.visible");
+    });
+  });
+  describe("시도횟수만큼 시간이 지나면", () => {
+    it("랜덤값(Mock)이 4이상인 차들은 전진해야 한다.", () => {
+      cy.tick(1000 * count);
+      cy.getNthCarStatus(0, "forward").should("have.length", 2);
+      cy.getNthCarStatus(1, "forward").should("have.length", 3);
+      cy.getNthCarStatus(2, "forward").should("have.length", 4);
+      cy.getNthCarStatus(3, "forward").should("have.length", 2);
     });
   });
 });
