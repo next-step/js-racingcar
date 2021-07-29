@@ -28,6 +28,7 @@ export default class AppController {
       if (e.target.id === "reset-btn") {
         this.model.reset();
         this.view.renderReset($("#app"));
+        this.view.renderTextInput($("#form"));
         return;
       }
     });

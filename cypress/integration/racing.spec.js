@@ -111,7 +111,6 @@ describe("자동차 경주 기능", () => {
   const names = "A,B,C,D";
   const count = 5;
   const carNames = names.split(",");
-  before(() => {});
   beforeEach(() => {
     cy.clock();
     cy.visit("/");
@@ -143,6 +142,52 @@ describe("자동차 경주 기능", () => {
       cy.getNthCarStatus(1, "forward").should("have.length", 3);
       cy.getNthCarStatus(2, "forward").should("have.length", 4);
       cy.getNthCarStatus(3, "forward").should("have.length", 2);
+    });
+  });
+});
+
+/**
+ * 결과 표시 기능
+ *
+ * - 자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.
+ * - 우승자가 여러명일 경우 ,를 이용하여 구분한다.
+ * - 정상적으로 게임의 턴이 다 동작된 후에는 결과를 보여주고, 2초 후에 축하의 alert 메세지를 띄운다.
+ * - 다시 시작하기 버튼을 누르면 게임 상태를 처음으로 초기화한다.
+ */
+
+describe("결과 표시 기능", () => {
+  const names = "A,B,C,D";
+  const count = 5;
+  beforeEach(() => {
+    cy.clock();
+    cy.visit("/");
+    cy.getCarInput().type(names);
+    cy.getCarButton().click();
+    cy.getTryTimeInput().type(count);
+    cy.getTryTimeButton().click();
+    cy.mockMathRandom([3, 2, 7, 8]);
+    cy.tick(1000 * count);
+  });
+  describe("경기가 종료되면", () => {
+    it("우승자가 표시되고 2초뒤에 알림 메세지를 표시한다.", () => {
+      const stub = cy.stub();
+      cy.on("window:alert", stub);
+      cy.getWinnerSection().should("be.visible");
+      cy.tick(2000);
+      cy.windowAlertStub(stub, MESSAGES.CELEBERATE);
+    });
+  });
+  describe("우승자가 여러명이면", () => {
+    it(",를 이용하여 구분한다.", () => {
+      cy.getWinner().should("have.text", MESSAGES.WINNER("C,D"));
+    });
+  });
+  describe("다시 시작하기 버튼을 누르면", () => {
+    it("게임 상태가 초기화된다..", () => {
+      cy.getResetButton().click();
+      cy.getCarField().should("be.visible");
+      cy.getWinnerSection().should("not.exist");
+      cy.getTryField().should("not.exist");
     });
   });
 });

@@ -1,13 +1,16 @@
+import { MESSAGES } from "./utils/constants.js";
+
 export default class CarView {
   renderTextInput = ($target, value = "") => {
-    $target.innerHTML = `<fieldset class="car-field">
+    $target.innerHTML = `<fieldset class="car-field" data-cy="car-field">
         <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
         <p class="info">
           5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
           예시) EAST, WEST, SOUTH, NORTH
         </p>
         <div class="d-flex">
-          <input type="text" class="w-100 mr-2" value=${value} placeholder="자동차 이름" data-cy="car-input" disabled/>
+          <input type="text" class="w-100 mr-2" value="${value}" placeholder="자동차 이름" data-cy="car-input" 
+          ${value && "disabled"}/>
           <button type="button" id="text-btn" class="btn btn-cyan" data-cy="car-button">확인</button>
         </div>
       </fieldset>`;
@@ -15,7 +18,7 @@ export default class CarView {
   renderTryInput = ($target, pos = "afterend") => {
     $target.insertAdjacentHTML(
       pos,
-      `<fieldset class="try-field">
+      `<fieldset class="try-field" data-cy="try-field">
           <p>시도할 횟수를 입력해주세요.</p>
           <div class="d-flex">
           <input type="number" class="w-100 mr-2" placeholder="시도 횟수" data-cy="trytime-input"/>
@@ -46,33 +49,20 @@ export default class CarView {
   };
 
   renderWinners = ($target, winners) => {
-    $target.innerHTML = `<div>
-        <h2>🏆 최종 우승자:${winners.map((winner) => `${winner.name}`).join(",")} 🏆</h2>
+    $target.innerHTML = `<div data-cy="winner-section">
+        <h2 data-cy="winner">${MESSAGES.WINNER(winners.map((winner) => `${winner.name}`).join(","))}</h2>
         <div class="d-flex justify-center">
-          <button type="button" id="reset-btn" class="btn btn-cyan">다시 시작하기</button>
+          <button type="button" id="reset-btn" class="btn btn-cyan" data-cy="reset-button">다시 시작하기</button>
         </div>
       </div>`;
     setTimeout(() => {
-      alert("🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇");
+      alert(MESSAGES.CELEBERATE);
     }, 2000);
   };
 
   renderReset = ($target) => {
     $target.innerHTML = `<section class="d-flex justify-center mt-5">
-      <form>
-        <fieldset>
-          <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
-          <p>
-            5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
-            예시) EAST, WEST, SOUTH, NORTH
-          </p>
-          <div class="d-flex">
-            <input type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-            <button type="button" id="text-btn" class="btn btn-cyan">
-              확인
-            </button>
-          </div>
-        </fieldset>
+      <form id="form">
       </form>
     </section>
     <section class="d-flex justify-center mt-5">
