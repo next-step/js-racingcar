@@ -1,4 +1,5 @@
 import { MESSAGES } from "./utils/constants.js";
+import { winnerMessage } from "./utils/helpers.js";
 
 export default class CarView {
   renderTextInput = ($target, value = "") => {
@@ -50,7 +51,7 @@ export default class CarView {
 
   renderWinners = ($target, winners) => {
     $target.innerHTML = `<div data-cy="winner-section">
-        <h2 data-cy="winner">${MESSAGES.WINNER(winners.map((winner) => `${winner.name}`).join(","))}</h2>
+        <h2 data-cy="winner">${winnerMessage(winners.map((winner) => `${winner.name}`).join(","))}</h2>
         <div class="d-flex justify-center">
           <button type="button" id="reset-btn" class="btn btn-cyan" data-cy="reset-button">다시 시작하기</button>
         </div>

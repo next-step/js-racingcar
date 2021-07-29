@@ -1,4 +1,5 @@
 import { MESSAGES } from "../../src/utils/constants";
+import { winnerMessage } from "../../src/utils/helpers";
 
 describe("자동차 경주 게임", () => {
   before(() => {
@@ -179,7 +180,7 @@ describe("결과 표시 기능", () => {
   });
   describe("우승자가 여러명이면", () => {
     it(",를 이용하여 구분한다.", () => {
-      cy.getWinner().should("have.text", MESSAGES.WINNER("C,D"));
+      cy.getWinner().should("have.text", winnerMessage("C,D"));
     });
   });
   describe("다시 시작하기 버튼을 누르면", () => {

@@ -18,3 +18,4 @@ export const isValidTryTime = (tryTime) => {
   }
   return true;
 };
+export const winnerMessage = (winner) => `🏆 최종 우승자:${winner} 🏆`;
