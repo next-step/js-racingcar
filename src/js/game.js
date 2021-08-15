@@ -1,12 +1,16 @@
-import { ERROR_MESSAGE, CONGRATS_MESSAGE, INPUT_TYPE } from "./constants.js";
-import { $ } from "./utils.js";
+import {
+  ERROR_MESSAGE,
+  CONGRATS_MESSAGE,
+  INPUT_TYPE,
+} from "./utils/constants.js";
+import { $ } from "./utils/dom.js";
 
-export default function CarGame() {
+export default function CarGame($el) {
   const form = $("form");
   const names = $("#names");
   const namesInput = $("#names input");
   const nameCards = $("#nameCards");
-  const nameSubmitBtn = names.querySelector("button");
+  const nameSubmitBtn = $("button", names);
   const gameWinner = $("#winner");
 
   let carNames = [];
@@ -14,31 +18,35 @@ export default function CarGame() {
   let carsDistance = [];
   let winner = [];
 
-  namesInput.addEventListener("keyup", ({ target }) => {
-    carNames = target.value;
-    carNames = checkCarNames(carNames);
+  const SUBMIT_ACTION = {
+    submitNames: onCarNamesSubmit,
+    submitTimes: onGameTimesSubmit,
+  };
+
+  const $form = $("form", $el);
+  $form.addEventListener("click", e => {
+    e.preventDefault();
+    let action = e.target.dataset.action;
+
+    if (action) {
+      SUBMIT_ACTION[action]();
+    }
   });
 
   function onCarNamesSubmit() {
-    nameSubmitBtn.addEventListener("click", () => {
-      showGameTimesInput();
-      onGameTimesSubmit();
-      preventInput(INPUT_TYPE.NAME);
-    });
+    carNames = blankCheckedNames(namesInput.value);
+    showGameTimesInput();
+    handleDisableNames(true);
   }
 
-  function checkCarNames(names) {
+  function blankCheckedNames(names) {
     const namesArr = names.split(",");
-    const nameBlankCheck = namesArr
-      .map(name => name.replace(/(^\s*)|(\s*$)/gi, ""))
-      .filter(name => !!name);
-    const nameLengthCheck = nameBlankCheck.map(x => isNameUnderFiveWords(x));
-    return nameLengthCheck;
+    const blankFilterNames = namesArr.filter(Boolean).map(name => name.trim());
+    return blankFilterNames.map(name => isNameUnderFiveWords(name));
   }
 
   function isNameUnderFiveWords(name) {
-    const isUnderFiveWords = /^.{0,5}$/;
-    if (isUnderFiveWords.test(name)) {
+    if (name.length < 5) {
       return name;
     } else {
       alert(ERROR_MESSAGE.NAME_LENGTH_ERROR);
@@ -46,21 +54,17 @@ export default function CarGame() {
     }
   }
 
-  function preventInput(type) {
-    if (type === INPUT_TYPE.NAME) {
-      namesInput.disabled = true;
-      nameSubmitBtn.disabled = true;
-      return;
-    }
+  function handleDisableNames(bool = true) {
+    namesInput.disabled = bool;
+    nameSubmitBtn.disabled = bool;
+  }
 
-    if (type === INPUT_TYPE.GAMETIMES) {
-      const gameTimes = $("#times");
-      const gameTimesInput = $("#times input");
-      const gameTimesSubmitBtn = gameTimes.querySelector("button");
-      gameTimesInput.disabled = true;
-      gameTimesSubmitBtn.disabled = true;
-      return;
-    }
+  function handleDisableGameTimes(bool = true) {
+    const gameTimes = $("#times");
+    const gameTimesInput = $("#times input");
+    const gameTimesSubmitBtn = $("button", gameTimes);
+    gameTimesInput.disabled = bool;
+    gameTimesSubmitBtn.disabled = bool;
   }
 
   function showGameTimesInput() {
@@ -68,44 +72,44 @@ export default function CarGame() {
     gameTimesField.innerHTML = `
     <p>시도할 횟수를 입력해주세요.</p>
     <div id="times" class="d-flex">
-      <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-      <button type="button" class="btn btn-cyan">확인</button>
+      <input type="number" name="times" class="w-100 mr-2" placeholder="시도 횟수" autofocus autocomplete="off" />
+      <button type="submit" class="btn btn-cyan" data-action="submitTimes">확인</button>
     </div>
     `;
     form.appendChild(gameTimesField);
   }
 
   function onGameTimesSubmit() {
-    const gameTimes = $("#times");
     const gameTimesInput = $("#times input");
-    const gameTimesSubmitBtn = gameTimes.querySelector("button");
-    gameTimesSubmitBtn.addEventListener("click", () => {
-      times = gameTimesInput.value;
+    times = gameTimesInput.value;
 
-      if (times === "0") {
-        return alert(ERROR_MESSAGE.TIMES_ERROR);
-      }
+    if (times === "0") {
+      return alert(ERROR_MESSAGE.TIMES_ERROR);
+    }
 
-      preventInput(INPUT_TYPE.GAMETIMES);
-      showPlayCars();
-    });
+    handleDisableGameTimes(true);
+    showPlayCars();
   }
 
-  function showPlayCars() {
+  function makeDisplayCars() {
     const nameCard = document.createElement("div");
     nameCard.setAttribute("class", "mt-4 d-flex");
     const nameCardComponents = carNames
       .map(
         name => `
-        <div class="mr-2" data-name=${name}>
+        <div class="mr-2 car-container" data-name=${name}>
           <div class="car-player">${name}</div>
         </div>`
       )
       .join("");
     nameCard.innerHTML = `
-    ${nameCardComponents}
-    `;
+      ${nameCardComponents}
+      `;
     nameCards.appendChild(nameCard);
+  }
+
+  function showPlayCars() {
+    makeDisplayCars();
     playGames(times);
     pickWinner();
     showWinner();
@@ -119,21 +123,20 @@ export default function CarGame() {
 
   function calculateDistance() {
     let km = 0;
-    for (let i = 0; i < carNames.length; i++) {
+    carNames.forEach((carName, i) => {
       km = Math.floor(Math.random() * 10);
-      if (!carsDistance[i] && carsDistance !== 0) {
+      if (!carsDistance[i] && carsDistance[i] !== 0) {
         carsDistance[i] = 0;
       }
 
-      if (km >= 4) {
-        carsDistance[i]++;
-        showMovedCars(carNames[i]);
-      }
-    }
+      if (km < 4) return;
+      carsDistance[i]++;
+      showMovedCars(carName);
+    });
   }
 
   function showMovedCars(name) {
-    const carCard = $(`.mr-2[data-name="${name}"]`);
+    const carCard = $(`.car-container[data-name="${name}"]`);
     const moveIcon = document.createElement("div");
     moveIcon.setAttribute("class", "forward-icon mt-2");
     moveIcon.textContent = "⬇️";
@@ -141,14 +144,13 @@ export default function CarGame() {
   }
 
   function pickWinner() {
-    const maxDistance = carsDistance.reduce((previous, current) => {
-      return previous > current ? previous : current;
-    });
-    let index = carsDistance.indexOf(maxDistance);
-    while (index !== -1) {
-      winner.push(carNames[index]);
-      index = carsDistance.indexOf(maxDistance, index + 1);
-    }
+    const maxDistance = Math.max(...carsDistance);
+    const winnerNames = carsDistance.reduce((names, cur, idx) => {
+      if (cur !== maxDistance) return names;
+      names.push(carNames[idx]);
+      return names;
+    }, []);
+    winner.push(...winnerNames);
   }
 
   function showWinner() {
@@ -157,7 +159,7 @@ export default function CarGame() {
         <div>
           <h2>🏆 최종 우승자: ${winnersName} 🏆</h2>
           <div class="d-flex justify-center">
-            <button type="button" class="btn btn-cyan">다시 시작하기</button>
+            <button type="reset" class="btn btn-cyan">다시 시작하기</button>
           </div>
         </div>
     `;
@@ -169,27 +171,33 @@ export default function CarGame() {
   }
 
   function onGameReset(timerId) {
-    const gameTimes = $("#times");
-    const gameTimesInput = $("#times input");
-    const gameTimesSubmitBtn = gameTimes.querySelector("button");
-    const gameResetBtn = gameWinner.querySelector("button");
+    const gameResetBtn = $("button", gameWinner);
     gameResetBtn.addEventListener("click", () => {
-      nameCards.innerHTML = "";
+      handleDisableNames(false);
+      resetNameState();
+      handleDisableGameTimes(false);
+      resetGameTimeState();
+      resetState();
       form.lastElementChild.innerHTML = "";
-      gameWinner.innerHTML = "";
-      namesInput.disabled = false;
-      nameSubmitBtn.disabled = false;
-      gameTimesInput.disabled = false;
-      gameTimesSubmitBtn.disabled = false;
-      namesInput.value = "";
-      gameTimesInput.value = "";
-      carNames = [];
-      times = "";
-      carsDistance = [];
-      winner = [];
       clearTimeout(timerId);
     });
   }
 
-  onCarNamesSubmit();
+  function resetState() {
+    carNames = [];
+    times = "";
+    carsDistance = [];
+    winner = [];
+  }
+
+  function resetNameState() {
+    nameCards.innerHTML = "";
+    namesInput.value = "";
+  }
+
+  function resetGameTimeState() {
+    const gameTimesInput = $("#times input");
+    gameWinner.innerHTML = "";
+    gameTimesInput.value = "";
+  }
 }
