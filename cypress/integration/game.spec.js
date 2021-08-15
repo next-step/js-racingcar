@@ -1,4 +1,7 @@
-import { ERROR_MESSAGE, CONGRATS_MESSAGE } from "../../src/js/constants.js";
+import {
+  ERROR_MESSAGE,
+  CONGRATS_MESSAGE,
+} from "../../src/js/utils/constants.js";
 
 const onNameSubmit = (name = "가, 나, 다, 라") => {
   cy.get("#names").type(name);
@@ -31,9 +34,9 @@ describe("Test Game", () => {
   });
 
   it("사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다. 이동 회수는 1 이상이어야 한다.", () => {
+    checkAlertMessage(ERROR_MESSAGE.TIMES_ERROR);
     onNameSubmit("가, 나, 다, 라");
     onTimesSubmit(0);
-    checkAlertMessage(ERROR_MESSAGE.TIMES_ERROR);
     onTimesSubmit(5);
   });
 
@@ -43,7 +46,7 @@ describe("Test Game", () => {
     onTimesSubmit();
     cy.get("#nameCards").should("be.visible");
     carNames.forEach(name => {
-      cy.get(`.mr-2[data-name=${name}]`).should("contain.text", name);
+      cy.get(`.car-container[data-name=${name}]`).should("contain.text", name);
     });
   });
 
