@@ -1,0 +1,19 @@
+{
+	"name": "js-racingcar",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/SINHOLEE/js-racingcar",
+	"author": "sinholee <dltlsgh5@gmail.com>",
+	"license": "MIT",
+	"scripts": {
+		"test:racingcar": "yarn cypress run --spec 'cypress/integration/racingcar/**/*'",
+		"unit-test:racingcar": "yarn cypress run --spec 'cypress/integration/racingcar/unit-test/**/*'",
+		"e2e:racingcar": "yarn cypress run  --spec 'cypress/integration/racingcar/racingcar.spec.js'"
+	},
+	"devDependencies": {
+		"@testing-library/cypress": "^7.0.6",
+		"@testing-library/jest-dom": "^5.14.1",
+		"cypress": "^7.7.0",
+		"jest-dom": "^4.0.0"
+	}
+}
