@@ -1,0 +1,25 @@
+export default class ViewModel {
+    #watch;
+    #prevState = {};
+    #view;
+    constructor(view, watch) {
+        this.#view = view;
+        this.#watch = watch;
+    }
+    update(state) {
+        const newState = this.#watch(state);
+        const updatedKeys = new Set();
+        const updatedState = Object.keys(newState).reduce((p, k) => {
+            if (newState[k] !== this.#prevState[k]) {
+                updatedKeys.add(k);
+                p[k] = newState[k];
+            }
+            return p;
+        }, {});
+        if (updatedKeys.size) {
+            this.#prevState = state;
+            this.#view.onModelUpdated(updatedState, state);
+        }
+    }
+}
+//# sourceMappingURL=viewModel.js.map

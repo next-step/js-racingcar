@@ -10,6 +10,11 @@ body {
   height: 100%;
 }
 
+form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 .car-player {
   height: 36px;
   min-width: 64px;
