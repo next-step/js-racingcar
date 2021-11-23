@@ -1,13 +1,14 @@
 import el from '../util/dom.js';
-import { View } from '../viewConstructor.js';
+import View from './constructor.js';
 import Actions from '../store/action.js';
+import { Status } from '../constants.js';
 export default class FormAttempts extends View {
     static #template = `
   <form>
     <fieldset>
       <p>시도할 횟수를 입력해주세요.</p>
       <div class="d-flex">
-        <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
+        <input type="number" class="w-100 mr-2" placeholder="시도 횟수" min="1" />
         <button type="submit" class="btn btn-cyan">확인</button>
       </div>
     </fieldset>
@@ -25,7 +26,7 @@ export default class FormAttempts extends View {
     watch = ({ cars, totalAttempts, status }) => ({ cars, totalAttempts, status });
     onStoreUpdated({ cars, totalAttempts, status }) {
         if (status) {
-            this.$input.disabled = status === 'playing';
+            this.$input.disabled = status === Status.playing;
         }
         if (totalAttempts)
             return;
@@ -40,7 +41,7 @@ export default class FormAttempts extends View {
     onSubmit = (e) => {
         e.preventDefault();
         this.dispatch(Actions.setTotalAttempts, { totalAttempts: +this.$input.value });
-        this.$input.value = '';
+        this.$form.reset();
     };
     focus = () => {
         this.$input.focus();

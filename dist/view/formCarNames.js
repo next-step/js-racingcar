@@ -1,6 +1,7 @@
 import el from '../util/dom.js';
-import { View } from '../viewConstructor.js';
+import View from './constructor.js';
 import Actions from '../store/action.js';
+import { Status } from '../constants.js';
 export default class FormCarNames extends View {
     static #template = `
   <form>
@@ -28,7 +29,7 @@ export default class FormCarNames extends View {
     watch = ({ cars, status }) => ({ cars, status });
     onStoreUpdated({ cars, status }) {
         if (status) {
-            this.$input.disabled = status === 'playing';
+            this.$input.disabled = status === Status.playing;
         }
         if (!cars?.length) {
             this.focus();
@@ -36,8 +37,8 @@ export default class FormCarNames extends View {
     }
     onSubmit = (e) => {
         e.preventDefault();
-        this.dispatch(Actions.setCarName, { cars: this.$input.value.split(',') });
-        this.$input.value = '';
+        this.dispatch(Actions.setCarNames, { cars: this.$input.value.split(',') });
+        this.$form.reset();
     };
     focus = () => {
         this.$input.focus();

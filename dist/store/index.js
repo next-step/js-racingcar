@@ -1,4 +1,5 @@
-import reducer from './reducer.js';
+import worker from './worker.js';
+import { Status } from '../constants.js';
 export var StateKeys;
 (function (StateKeys) {
     StateKeys["cars"] = "cars";
@@ -16,7 +17,7 @@ export const initialState = {
     [StateKeys.scores]: [],
     [StateKeys.processing]: false,
     [StateKeys.winners]: [],
-    [StateKeys.status]: 'idle',
+    [StateKeys.status]: Status.idle,
 };
 export default class Store {
     #observers = new Set();
@@ -29,8 +30,8 @@ export default class Store {
     }
     dispatch(actionType, data = {}) {
         window.requestAnimationFrame(() => {
-            console.info(`%c[ %c${actionType}%c ] %cpayload:`, 'color: #ff5', 'color: #f77', 'color: #ff5', 'color: #7ff', data, this.#state);
-            reducer(actionType)(this, data);
+            console.info(`%c[[%c${actionType}%c]]`, 'color: #ee8', 'color: #8ee', 'color: #ee8', data);
+            worker(actionType)(this, data);
         });
     }
     observe(viewStore) {
@@ -56,12 +57,12 @@ export default class Store {
         return this.#state[prop];
     }
 }
-export const getStore = (() => {
-    let closuredStore;
+export const connectStore = (() => {
+    let closureStore;
     return (elem, state) => {
         if (elem && state)
-            closuredStore = new Store(elem, state);
-        return closuredStore;
+            closureStore = new Store(elem, state);
+        return closureStore;
     };
 })();
 //# sourceMappingURL=index.js.map

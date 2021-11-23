@@ -1,8 +1,9 @@
 import el from '../util/dom.js'
-import { View } from '../viewConstructor.js'
+import View from './constructor.js'
 import Actions from '../store/action.js'
-import { PartialState, State } from '../store/index.js'
+import { State } from '../store/index.js'
 
+type WatchState = Pick<State, 'winners'>
 export default class Winner extends View {
   static #template = `
   <section class="d-flex justify-center mt-5">
@@ -27,12 +28,12 @@ export default class Winner extends View {
     el(this, [$container])
   }
 
-  watch = ({ winners }: State) => {
+  watch = ({ winners }: State): WatchState => {
     return { winners }
   }
 
-  onStoreUpdated({ winners }: PartialState) {
-    if (!winners?.length) {
+  onStoreUpdated({ winners }: WatchState) {
+    if (!winners.length) {
       this.hide()
       return
     }

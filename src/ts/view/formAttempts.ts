@@ -1,7 +1,10 @@
 import el from '../util/dom.js'
-import { View } from '../viewConstructor.js'
+import View from './constructor.js'
 import Actions from '../store/action.js'
-import { PartialState, State } from '../store/index.js'
+import { State } from '../store/index.js'
+import { Status } from '../constants.js'
+
+type WatchState = Pick<State, 'cars' | 'totalAttempts' | 'status'>
 
 export default class FormAttempts extends View {
   static #template = `
@@ -9,7 +12,7 @@ export default class FormAttempts extends View {
     <fieldset>
       <p>시도할 횟수를 입력해주세요.</p>
       <div class="d-flex">
-        <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
+        <input type="number" class="w-100 mr-2" placeholder="시도 횟수" min="1" />
         <button type="submit" class="btn btn-cyan">확인</button>
       </div>
     </fieldset>
@@ -21,17 +24,17 @@ export default class FormAttempts extends View {
 
   constructor() {
     super()
-    this.$form = el(FormAttempts.#template)
+    this.$form = el(FormAttempts.#template) as HTMLFormElement
     this.$input = this.$form.querySelector('input') as HTMLInputElement
     this.$form.addEventListener('submit', this.onSubmit)
     el(this, [this.$form])
   }
 
-  watch = ({ cars, totalAttempts, status }: State) => ({ cars, totalAttempts, status })
+  watch = ({ cars, totalAttempts, status }: State): WatchState => ({ cars, totalAttempts, status })
 
-  onStoreUpdated({ cars, totalAttempts, status }: PartialState) {
+  onStoreUpdated({ cars, totalAttempts, status }: WatchState) {
     if (status) {
-      this.$input.disabled = status === 'playing'
+      this.$input.disabled = status === Status.playing
     }
 
     if (totalAttempts) return
@@ -46,7 +49,7 @@ export default class FormAttempts extends View {
   onSubmit = (e: Event) => {
     e.preventDefault()
     this.dispatch(Actions.setTotalAttempts, { totalAttempts: +this.$input.value })
-    this.$input.value = ''
+    this.$form.reset()
   }
 
   focus = () => {

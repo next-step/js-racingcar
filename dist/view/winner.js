@@ -1,5 +1,5 @@
 import el from '../util/dom.js';
-import { View } from '../viewConstructor.js';
+import View from './constructor.js';
 import Actions from '../store/action.js';
 export default class Winner extends View {
     static #template = `
@@ -26,7 +26,7 @@ export default class Winner extends View {
         return { winners };
     };
     onStoreUpdated({ winners }) {
-        if (!winners?.length) {
+        if (!winners.length) {
             this.hide();
             return;
         }

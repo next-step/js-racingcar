@@ -1,8 +1,8 @@
 enum Actions {
-  setCarName = 'setCarName',
+  setCarNames = 'setCarNames',
   setTotalAttempts = 'setTotalAttempts',
-  runGame = 'runGame',
-  gameFinished = 'gameFinished',
+  race = 'race',
+  raceFinished = 'raceFinished',
   notifyWinner = 'notifyWinner',
   reset = 'reset',
 }

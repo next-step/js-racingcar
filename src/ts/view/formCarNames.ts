@@ -1,7 +1,10 @@
 import el from '../util/dom.js'
-import { View } from '../viewConstructor.js'
+import View from './constructor.js'
 import Actions from '../store/action.js'
-import { PartialState, State } from '../store/index.js'
+import { State } from '../store/index.js'
+import { Status } from '../constants.js'
+
+type WatchState = Pick<State, 'cars' | 'status'>
 
 export default class FormCarNames extends View {
   static #template = `
@@ -24,17 +27,17 @@ export default class FormCarNames extends View {
 
   constructor() {
     super()
-    this.$form = el(FormCarNames.#template)
+    this.$form = el(FormCarNames.#template) as HTMLFormElement
     this.$input = this.$form.querySelector('input') as HTMLInputElement
     this.$form.addEventListener('submit', this.onSubmit)
     el(this, [this.$form])
   }
 
-  watch = ({ cars, status }: State) => ({ cars, status })
+  watch = ({ cars, status }: State): WatchState => ({ cars, status })
 
-  onStoreUpdated({ cars, status }: PartialState) {
+  onStoreUpdated({ cars, status }: WatchState) {
     if (status) {
-      this.$input.disabled = status === 'playing'
+      this.$input.disabled = status === Status.playing
     }
 
     if (!cars?.length) {
@@ -44,8 +47,8 @@ export default class FormCarNames extends View {
 
   onSubmit = (e: Event) => {
     e.preventDefault()
-    this.dispatch(Actions.setCarName, { cars: this.$input.value.split(',') })
-    this.$input.value = ''
+    this.dispatch(Actions.setCarNames, { cars: this.$input.value.split(',') })
+    this.$form.reset()
   }
 
   focus = () => {

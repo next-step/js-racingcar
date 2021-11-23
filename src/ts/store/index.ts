@@ -1,8 +1,8 @@
-import Connect from './connect.js'
-import App from '../view/app.js'
+import ViewStore from './viewStore.js'
+import App from '../index.js'
 import Actions from './action.js'
-import reducer from './reducer.js'
-import { AnyObj } from '../constants.js'
+import worker from './worker.js'
+import { AnyObj, Status } from '../constants.js'
 
 export enum StateKeys {
   cars = 'cars',
@@ -13,8 +13,6 @@ export enum StateKeys {
   winners = 'winners',
   status = 'status',
 }
-
-export type Status = 'idle' | 'playing' | 'finished'
 
 export type State = {
   cars: string[]
@@ -33,7 +31,7 @@ export const initialState: State = {
   [StateKeys.scores]: [],
   [StateKeys.processing]: false,
   [StateKeys.winners]: [],
-  [StateKeys.status]: 'idle',
+  [StateKeys.status]: Status.idle,
 }
 
 export type Dispatch = {
@@ -62,16 +60,8 @@ export default class Store {
 
   dispatch(actionType: keyof typeof Actions, data: AnyObj = {}) {
     window.requestAnimationFrame(() => {
-      console.info(
-        `%c[ %c${actionType}%c ] %cpayload:`,
-        'color: #ff5',
-        'color: #f77',
-        'color: #ff5',
-        'color: #7ff',
-        data,
-        this.#state,
-      )
-      reducer(actionType)(this, data)
+      console.info(`%c[[%c${actionType}%c]]`, 'color: #ee8', 'color: #8ee', 'color: #ee8', data)
+      worker(actionType)(this, data)
     })
   }
 
@@ -85,7 +75,7 @@ export default class Store {
 
   notify() {
     window.requestAnimationFrame(() => {
-      this.#observers.forEach((listener: Connect) => {
+      this.#observers.forEach((listener: ViewStore) => {
         listener.update(this.#state)
       })
     })
@@ -103,10 +93,10 @@ export default class Store {
   }
 }
 
-export const getStore = (() => {
-  let closuredStore: Store
+export const connectStore = (() => {
+  let closureStore: Store
   return (elem?: App, state?: State) => {
-    if (elem && state) closuredStore = new Store(elem, state)
-    return closuredStore
+    if (elem && state) closureStore = new Store(elem, state)
+    return closureStore
   }
 })()

@@ -1,9 +1,9 @@
 var Actions;
 (function (Actions) {
-    Actions["setCarName"] = "setCarName";
+    Actions["setCarNames"] = "setCarNames";
     Actions["setTotalAttempts"] = "setTotalAttempts";
-    Actions["runGame"] = "runGame";
-    Actions["gameFinished"] = "gameFinished";
+    Actions["race"] = "race";
+    Actions["raceFinished"] = "raceFinished";
     Actions["notifyWinner"] = "notifyWinner";
     Actions["reset"] = "reset";
 })(Actions || (Actions = {}));
