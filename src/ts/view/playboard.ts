@@ -14,9 +14,13 @@ export default class Playboard extends View {
   watch = ({ cars }: State): WatchState => ({ cars })
 
   onStoreUpdated({ cars }: WatchState) {
-    const $entries = cars.length
-      ? (cars.map((name, i) => el(`<racingcar-player name=${name} index=${i}>`)) as Player[])
-      : []
-    el(this, $entries)
+    if (!cars.length) this.hide()
+    else {
+      const $entries = cars.length
+        ? (cars.map((name, i) => el(`<racingcar-player name=${name} index=${i}>`)) as Player[])
+        : []
+      el(this, $entries)
+      this.show()
+    }
   }
 }

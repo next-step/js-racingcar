@@ -7,10 +7,15 @@ export default class Playboard extends View {
     }
     watch = ({ cars }) => ({ cars });
     onStoreUpdated({ cars }) {
-        const $entries = cars.length
-            ? cars.map((name, i) => el(`<racingcar-player name=${name} index=${i}>`))
-            : [];
-        el(this, $entries);
+        if (!cars.length)
+            this.hide();
+        else {
+            const $entries = cars.length
+                ? cars.map((name, i) => el(`<racingcar-player name=${name} index=${i}>`))
+                : [];
+            el(this, $entries);
+            this.show();
+        }
     }
 }
 //# sourceMappingURL=playboard.js.map

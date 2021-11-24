@@ -8,7 +8,7 @@ before(() => {
 const initialTest = () => {
   cy.get('racingcar-form-names').should('be.visible').find('input').first().should('be.focused')
   cy.getFormAttempts().should('not.be.visible')
-  cy.get('racingcar-playboard').should('not.be.visible')
+  cy.getPlayboard().should('not.be.visible')
   cy.getWinner().should('not.be.visible')
 }
 
@@ -45,6 +45,7 @@ describe('racing-car', () => {
   describe('시도횟수 입력', () => {
     it('2 입력하면 2초간 racing함 -> 이후 2초 대기시 축하alert 뜸', () => {
       cy.inputAttempts(2)
+      cy.getPlayboard().should('be.visible')
       cy.getWinner().should('not.be.visible')
       cy.wait(1000 * 2)
       cy.getWinner().should('be.visible')
@@ -61,6 +62,7 @@ describe('racing-car', () => {
 
     it('3 입력하면 3초간 racing함. 바로 이어서 다시 2 입력하면 경고창 뜨지 않고 racing함', () => {
       cy.inputAttempts(3)
+      cy.getPlayboard().should('be.visible')
       cy.getWinner().should('not.be.visible')
       cy.wait(1000 * 3)
       cy.getWinner().should('be.visible')
