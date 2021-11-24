@@ -4,9 +4,6 @@
 Cypress.Commands.add('getFormAttempts', () => {
   return cy.get('racingcar-form-attempts')
 })
-Cypress.Commands.add('getPlayboard', () => {
-  return cy.get('racingcar-playboard')
-})
 Cypress.Commands.add('getPlayers', () => {
   return cy.get('racingcar-player')
 })

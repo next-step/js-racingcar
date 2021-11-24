@@ -1,5 +1,5 @@
 import Actions from './action.js'
-import { AnyObj, Boundaries, ErrorMsgs, Status } from '../constants.js'
+import { AnyObj, Boundaries, CongratulationMsg, ErrorMsgs, Status } from '../constants.js'
 import Store, { StateKeys } from './index.js'
 import { promiseDelay, abortableDelay } from '../util/delay.js'
 import errorHandler from '../util/errorHandler.js'
@@ -56,7 +56,7 @@ const worker: { [key: string]: (store: Store, data: AnyObj) => void } = {
   },
 
   [Actions.notifyWinner]: store => {
-    window.alert(`${(store.get(StateKeys.winners) as string[]).join(', ')}님 축하합니다.`)
+    window.alert(`${(store.get(StateKeys.winners) as string[]).join(', ')}${CongratulationMsg}`)
   },
 
   [Actions.reset]: store => {
