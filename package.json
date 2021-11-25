@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "esbuild src/ts/index.ts --bundle --outfile=dist/index.js --watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.13.15",
+    "typescript": "^4.5.2"
+  }
+}
