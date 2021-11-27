@@ -140,7 +140,6 @@ class RacingController {
 
       this.state.cars.forEach((car) => car.move(this.currentProgressCount))
 
-      console.log(this.currentProgressCount, this.state)
       if (this.currentProgressCount < (this.state.gameCount || 0)) {
         requestAnimationFrame(() => {
           setTimeout(() => animate(), 1000)

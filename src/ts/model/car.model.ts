@@ -23,7 +23,6 @@ class Car {
       this.renderProgressArrow()
     }
 
-    console.log(this.#targetCount, currentCount)
     if (this.isGameEnded(currentCount)) {
       const arrowElement = this.#RoadElement.querySelector(
         '.d-flex'
