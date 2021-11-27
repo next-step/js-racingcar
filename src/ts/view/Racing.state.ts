@@ -51,7 +51,7 @@ function getCars(carNames: string) {
   const carNameArray = splitCarNames(carNames)
 
   for (const carName of carNameArray) {
-    if (carName.length > 5) {
+    if (carName.length > 5 || !carName.length) {
       throw new Error(ERROR_MESSAGES.NAME_LENGTH_INVALID_ERROR)
     }
 

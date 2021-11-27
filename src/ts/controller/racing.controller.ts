@@ -120,8 +120,10 @@ class RacingController {
       setStyle(this.state)
       onEventEnd()
     } catch (error) {
+      console.log(error)
+      console.log(error.message)
       onError()
-      alert(error)
+      alert(error.message)
     }
   }
 
