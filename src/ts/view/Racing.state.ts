@@ -13,7 +13,6 @@ export type State = {
     }
   | {
       _t: 'insert_game_count'
-      error?: string
     }
   | {
       _t: 'check_winner'
