@@ -1,17 +1,6 @@
 import ERROR_MESSAGES from '../constants/ErrorMessage'
 import Car from '../model/car.model'
 
-type ErrorMessageType = keyof typeof ERROR_MESSAGES
-type CarReducerInnerFuncResponse =
-  | {
-      success: true
-      cars: Car[]
-    }
-  | {
-      success: false
-      message: ErrorMessageType
-    }
-
 export type State = {
   cars: Car[]
   gameCount: number | null
@@ -20,15 +9,7 @@ export type State = {
       _t: 'idle'
     }
   | {
-      _t: 'idle'
-      error: ErrorMessageType
-    }
-  | {
       _t: 'insert_cars'
-    }
-  | {
-      _t: 'insert_cars'
-      error?: ErrorMessageType
     }
   | {
       _t: 'insert_game_count'
@@ -65,20 +46,33 @@ function splitCarNames(carNames: string) {
   return carNames.split(',').map((name) => name.trim())
 }
 
-function getCars(carNames: string): CarReducerInnerFuncResponse {
+function getCars(carNames: string) {
   const cars: Car[] = []
   const carNameArray = splitCarNames(carNames)
 
   for (const carName of carNameArray) {
     if (carName.length > 5) {
-      return { success: false, message: 'NAME_LENGTH_INVALID_ERROR' }
+      throw new Error(ERROR_MESSAGES.NAME_LENGTH_INVALID_ERROR)
     }
 
     cars.push(new Car(carName))
   }
 
-  return { success: true, cars }
+  return cars
 }
+
+function isGameCountValid(count: number) {
+  return count > 0
+}
+
+function getGameCount(count: number) {
+  if (!isGameCountValid(count)) {
+    throw new Error(ERROR_MESSAGES.GAME_COUNT_INVALID_ERROR)
+  }
+
+  return count
+}
+
 function reducer(prevState: State, action: Action): State {
   switch (action._t) {
     case 'SET_IDLE':
@@ -87,26 +81,17 @@ function reducer(prevState: State, action: Action): State {
       }
 
     case 'INSERT_CARS':
-      const getCarResponse = getCars(action.carNames)
-
-      if (!getCarResponse.success) {
-        return {
-          ...prevState,
-          error: getCarResponse.message,
-        }
-      }
-
       return {
         ...prevState,
         _t: 'insert_cars',
-        cars: getCarResponse.cars,
+        cars: getCars(action.carNames),
       }
 
     case 'INSERT_GAME_COUNT':
       return {
-        _t: 'insert_cars',
+        _t: 'insert_game_count',
         cars: prevState.cars,
-        gameCount: action.gameCount,
+        gameCount: getGameCount(action.gameCount),
       }
 
     case 'CHECK_WINNER':

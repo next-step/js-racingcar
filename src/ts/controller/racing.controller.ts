@@ -1,26 +1,147 @@
-import Car from '../model/car.model'
+import { $ } from '../utils/dom'
+import { Action, makeState, State } from '../view/Racing.state'
+import { setStyle } from '../view/Racing.view'
+
+export const ViewComponents = {
+  GameCountFieldset: $('game-count-fieldset', 'CLASSNAME'),
+  CarNameFieldset: $('car-name-fieldset', 'CLASSNAME'),
+  RacingRoadSection: $('racing-road-section', 'CLASSNAME'),
+  WinnerSection: $('winner-section', 'CLASSNAME'),
+  CarNameInput: $('car_name_input') as HTMLInputElement,
+  CarNameButton: $('car_name_button') as HTMLButtonElement,
+  GameCountInput: $('game_count_input') as HTMLInputElement,
+  GameCountButton: $('game_count_button') as HTMLButtonElement,
+  ResetButton: $('reset_button'),
+}
 
 class RacingController {
-  cars: Car[]
+  state: State
+  dispatch: (action: Action) => void
+
+  constructor() {
+    const { state, dispatch } = makeState({
+      _t: 'idle',
+      cars: [],
+      gameCount: null,
+    })
+
+    this.state = state
+    this.dispatch = dispatch
+
+    setStyle(state)
+    this.setEvent()
+  }
+
+  setEvent() {
+    const {
+      CarNameInput,
+      CarNameButton,
+      GameCountInput,
+      GameCountButton,
+      WinnerSection,
+    } = ViewComponents
+
+    const dispatchInsertCars = () =>
+      this.dispatchEvent({
+        makeAction: () => {
+          return {
+            _t: 'INSERT_CARS',
+            carNames: CarNameInput.value,
+          }
+        },
+        onError: () => {
+          CarNameInput.value = ''
+          CarNameInput.focus()
+        },
+        onEventEnd: () => {
+          GameCountInput.focus()
+        },
+      })
+
+    const dispatchInsertGameCount = () =>
+      this.dispatchEvent({
+        makeAction: () => {
+          return {
+            _t: 'INSERT_GAME_COUNT',
+            gameCount: Number(GameCountInput.value),
+          }
+        },
+        // onEventEnd: () => this.startGame(),
+        onError: () => {
+          GameCountInput.value = ''
+          GameCountInput.focus()
+        },
+      })
+
+    const dispatchResetGame = () =>
+      this.dispatchEvent({
+        makeAction: () => {
+          return {
+            _t: 'SET_IDLE',
+          }
+        },
+      })
+
+    const isPressEnter = (event: KeyboardEvent) => event.key === 'Enter'
+
+    CarNameButton.addEventListener('click', () => dispatchInsertCars())
+    GameCountButton.addEventListener('click', () => dispatchInsertGameCount())
+    WinnerSection.addEventListener('click', () => dispatchResetGame())
+
+    CarNameInput.addEventListener('keypress', (event) => {
+      if (isPressEnter(event)) {
+        dispatchInsertCars()
+      }
+    })
+    GameCountInput.addEventListener('keypress', (event) => {
+      if (isPressEnter(event)) {
+        dispatchInsertGameCount()
+      }
+    })
+  }
+
+  dispatchEvent({
+    makeAction,
+    onEventEnd = () => {},
+    onError = () => {},
+  }: {
+    makeAction: () => Action
+    onEventEnd?: () => void
+    onError?: () => void
+  }) {
+    try {
+      this.dispatch(makeAction())
+      setStyle(this.state)
+      onEventEnd()
+    } catch (error) {
+      onError()
+      alert(error)
+    }
+  }
 
   resetGame() {
-    this.cars = []
+    this.dispatch({ _t: 'SET_IDLE' })
   }
 
   startGame() {
-    while (true) {
-      this.cars.forEach((car) => {
-        car.move()
-      })
+    this.state.cars.forEach((car) => {
+      car.tryCount = this.state.gameCount as number
+    })
+    // while (true) {
+    //   this.state.cars.forEach((car) => {
+    //     car.move()
+    //   })
 
-      const isEnd = this.cars
-        .map((car) => car.getIsStopProgress())
-        .some((progress) => progress)
+    //   const isEnd = this.state.cars
+    //     .map((car) => car.getIsStopProgress())
+    //     .some((isStopProgress) => isStopProgress)
 
-      if (isEnd) {
-        break
-      }
-    }
+    //   if (isEnd) {
+    //     break
+    //   }
+    // }
+
+    console.log(this.state)
   }
 }
 

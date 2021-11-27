@@ -1,3 +1,3 @@
-const isBuildSuccess = true
+import RacingController from './controller/racing.controller'
 
-console.log(isBuildSuccess)
+new RacingController()
