@@ -12,9 +12,11 @@ export const ViewComponents = {
   GameCountInput: $('game_count_input') as HTMLInputElement,
   GameCountButton: $('game_count_button') as HTMLButtonElement,
   ResetButton: $('reset_button'),
+  RacingContainer: $('racing-road-container'),
 }
 
 class RacingController {
+  currentProgressCount: number
   state: State
   dispatch: (action: Action) => void
 
@@ -25,6 +27,7 @@ class RacingController {
       gameCount: null,
     })
 
+    this.currentProgressCount = 0
     this.state = state
     this.dispatch = dispatch
 
@@ -66,7 +69,7 @@ class RacingController {
             gameCount: Number(GameCountInput.value),
           }
         },
-        // onEventEnd: () => this.startGame(),
+        onEventEnd: () => this.startGame(),
         onError: () => {
           GameCountInput.value = ''
           GameCountInput.focus()
@@ -79,6 +82,9 @@ class RacingController {
           return {
             _t: 'SET_IDLE',
           }
+        },
+        onEventEnd: () => {
+          this.currentProgressCount = 0
         },
       })
 
@@ -125,23 +131,23 @@ class RacingController {
 
   startGame() {
     this.state.cars.forEach((car) => {
-      car.tryCount = this.state.gameCount as number
+      car.targetCount = this.state.gameCount || 0
+      car.renderRoad()
     })
-    // while (true) {
-    //   this.state.cars.forEach((car) => {
-    //     car.move()
-    //   })
 
-    //   const isEnd = this.state.cars
-    //     .map((car) => car.getIsStopProgress())
-    //     .some((isStopProgress) => isStopProgress)
+    const animate = () => {
+      this.currentProgressCount += 1
 
-    //   if (isEnd) {
-    //     break
-    //   }
-    // }
+      this.state.cars.forEach((car) => car.move(this.currentProgressCount))
 
-    console.log(this.state)
+      console.log(this.currentProgressCount, this.state)
+      if (this.currentProgressCount < (this.state.gameCount || 0)) {
+        requestAnimationFrame(() => {
+          setTimeout(() => animate(), 1000)
+        })
+      }
+    }
+    animate()
   }
 }
 
