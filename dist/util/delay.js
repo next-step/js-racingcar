@@ -1,16 +1,17 @@
 export const promiseDelay = (delay = 0) => {
-    const st = Date.now();
+    let st = null;
     return new Promise(resolve => {
-        const func = () => {
-            const ct = Date.now();
-            if (ct - delay <= st) {
-                window.requestAnimationFrame(func);
+        const step = timestamp => {
+            if (!st)
+                st = timestamp;
+            if (timestamp - st < delay) {
+                window.requestAnimationFrame(step);
             }
             else {
                 resolve(true);
             }
         };
-        window.requestAnimationFrame(func);
+        window.requestAnimationFrame(step);
     });
 };
 export const abortableDelay = () => {

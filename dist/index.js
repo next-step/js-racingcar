@@ -25,7 +25,7 @@ export default class App extends HTMLElement {
         super();
         const store = connectStore(this, initialState);
         el(this, [el(App.#template)]);
-        store.notify();
+        store.dispatch('init');
     }
 }
 /* 상위->하위 순서로 정의해줘야 제대로 동작함. */

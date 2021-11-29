@@ -7,6 +7,15 @@ import errorHandler from '../util/errorHandler.js'
 let abortAlert = () => {}
 
 const worker: { [key: string]: (store: Store, data: AnyObj) => void } = {
+  [Actions.init]: store => {
+    worker[Actions.reset](store, {})
+  },
+
+  [Actions.reset]: store => {
+    abortAlert()
+    store.setValue({ status: Status.idle, cars: [], totalAttempts: 0, trial: 0, scores: [], winners: [] })
+  },
+
   [Actions.setCarNames]: (store, { cars }) => {
     abortAlert()
     const carNames = cars.map((c: string) => c.trim()) as string[]
@@ -57,11 +66,6 @@ const worker: { [key: string]: (store: Store, data: AnyObj) => void } = {
 
   [Actions.notifyWinner]: store => {
     window.alert(`${(store.get(StateKeys.winners) as string[]).join(', ')}${CongratulationMsg}`)
-  },
-
-  [Actions.reset]: store => {
-    abortAlert()
-    store.setValue({ status: Status.idle, cars: [], totalAttempts: 0, trial: 0, scores: [], winners: [] })
   },
 }
 

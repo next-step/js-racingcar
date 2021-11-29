@@ -5,6 +5,13 @@ import { promiseDelay, abortableDelay } from '../util/delay.js';
 import errorHandler from '../util/errorHandler.js';
 let abortAlert = () => { };
 const worker = {
+    [Actions.init]: store => {
+        worker[Actions.reset](store, {});
+    },
+    [Actions.reset]: store => {
+        abortAlert();
+        store.setValue({ status: Status.idle, cars: [], totalAttempts: 0, trial: 0, scores: [], winners: [] });
+    },
     [Actions.setCarNames]: (store, { cars }) => {
         abortAlert();
         const carNames = cars.map((c) => c.trim());
@@ -51,10 +58,6 @@ const worker = {
     },
     [Actions.notifyWinner]: store => {
         window.alert(`${store.get(StateKeys.winners).join(', ')}${CongratulationMsg}`);
-    },
-    [Actions.reset]: store => {
-        abortAlert();
-        store.setValue({ status: Status.idle, cars: [], totalAttempts: 0, trial: 0, scores: [], winners: [] });
     },
 };
 const workerWithErrorCatcher = (dispatcher) => (store, data) => {

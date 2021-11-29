@@ -28,7 +28,7 @@ export default class App extends HTMLElement {
     super()
     const store = connectStore(this, initialState)
     el(this, [el(App.#template)])
-    store.notify()
+    store.dispatch('init')
   }
 }
 
