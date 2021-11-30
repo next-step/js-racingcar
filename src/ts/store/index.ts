@@ -1,5 +1,5 @@
 import ViewStore from './viewStore.js'
-import App from '../index.js'
+import App from '../app.js'
 import Actions from './action.js'
 import worker from './worker.js'
 import { AnyObj, Status } from '../constants.js'

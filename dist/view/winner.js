@@ -2,7 +2,7 @@ import el from '../util/dom.js';
 import View from './constructor.js';
 import Actions from '../store/action.js';
 export default class Winner extends View {
-    static #template = `
+    static #template = /* html */ `
   <section class="d-flex justify-center mt-5">
     <div>
       <h2>🏆 최종 우승자:  🏆</h2>
@@ -37,4 +37,5 @@ export default class Winner extends View {
         this.dispatch(Actions.reset);
     };
 }
+customElements.define('racingcar-winner', Winner);
 //# sourceMappingURL=winner.js.map

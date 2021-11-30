@@ -61,3 +61,5 @@ export default class FormCarNames extends View {
     this.focus()
   }
 }
+
+customElements.define('racingcar-form-names', FormCarNames)

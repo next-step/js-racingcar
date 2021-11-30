@@ -45,3 +45,5 @@ export default class Winner extends View {
     this.dispatch(Actions.reset)
   }
 }
+
+customElements.define('racingcar-winner', Winner)

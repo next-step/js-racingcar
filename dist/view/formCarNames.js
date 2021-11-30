@@ -3,7 +3,7 @@ import View from './constructor.js';
 import Actions from '../store/action.js';
 import { Status } from '../constants.js';
 export default class FormCarNames extends View {
-    static #template = `
+    static #template = /* html */ `
   <form>
     <fieldset>
       <p>
@@ -49,4 +49,5 @@ export default class FormCarNames extends View {
         this.focus();
     }
 }
+customElements.define('racingcar-form-names', FormCarNames);
 //# sourceMappingURL=formCarNames.js.map

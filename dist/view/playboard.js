@@ -18,4 +18,5 @@ export default class Playboard extends View {
         }
     }
 }
+customElements.define('racingcar-playboard', Playboard);
 //# sourceMappingURL=playboard.js.map

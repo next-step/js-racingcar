@@ -57,3 +57,5 @@ export default class FormAttempts extends View {
     return this
   }
 }
+
+customElements.define('racingcar-form-attempts', FormAttempts)

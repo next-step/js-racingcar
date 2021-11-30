@@ -14,3 +14,5 @@ export default class PlayerWaiting extends View {
     el(this, [PlayerWaiting.#template])
   }
 }
+
+customElements.define('racingcar-player-waiting', PlayerWaiting)

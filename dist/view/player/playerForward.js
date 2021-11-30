@@ -6,4 +6,5 @@ export default class PlayerForward extends View {
         this.textContent = '⬇️';
     }
 }
+customElements.define('racingcar-player-forward', PlayerForward);
 //# sourceMappingURL=playerForward.js.map

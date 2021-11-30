@@ -49,3 +49,5 @@ export default class Player extends View {
     el(this, this.#scoreElems)
   }
 }
+
+customElements.define('racingcar-player', Player)

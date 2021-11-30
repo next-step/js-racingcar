@@ -3,7 +3,7 @@ import View from './constructor.js';
 import Actions from '../store/action.js';
 import { Status } from '../constants.js';
 export default class FormAttempts extends View {
-    static #template = `
+    static #template = /* html */ `
   <form>
     <fieldset>
       <p>시도할 횟수를 입력해주세요.</p>
@@ -48,4 +48,5 @@ export default class FormAttempts extends View {
         return this;
     };
 }
+customElements.define('racingcar-form-attempts', FormAttempts);
 //# sourceMappingURL=formAttempts.js.map

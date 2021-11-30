@@ -17,10 +17,12 @@ export default class Playboard extends View {
     if (!cars.length) this.hide()
     else {
       const $entries = cars.length
-        ? (cars.map((name, i) => el(/* html */ `<racingcar-player name=${name} index=${i}>`)) as Player[])
+        ? (cars.map((name, i) => el(`<racingcar-player name=${name} index=${i}>`)) as Player[])
         : []
       el(this, $entries)
       this.show()
     }
   }
 }
+
+customElements.define('racingcar-playboard', Playboard)
