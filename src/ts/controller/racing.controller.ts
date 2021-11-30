@@ -3,16 +3,16 @@ import { Action, makeState, State } from '../view/Racing.state'
 import { setStyle } from '../view/Racing.view'
 
 export const ViewComponents = {
-  GameCountFieldset: $('game-count-fieldset', 'CLASSNAME'),
-  CarNameFieldset: $('car-name-fieldset', 'CLASSNAME'),
-  RacingRoadSection: $('racing-road-section', 'CLASSNAME'),
-  WinnerSection: $('winner-section', 'CLASSNAME'),
-  CarNameInput: $('car_name_input') as HTMLInputElement,
-  CarNameButton: $('car_name_button') as HTMLButtonElement,
-  GameCountInput: $('game_count_input') as HTMLInputElement,
-  GameCountButton: $('game_count_button') as HTMLButtonElement,
-  ResetButton: $('reset_button'),
-  RacingContainer: $('racing-road-container'),
+  GameCountFieldset: $({ selector: 'game-count-fieldset', type: 'CLASSNAME' }),
+  CarNameFieldset: $({ selector: 'car-name-fieldset', type: 'CLASSNAME' }),
+  RacingRoadSection: $({ selector: 'racing-road-section', type: 'CLASSNAME' }),
+  WinnerSection: $({ selector: 'winner-section', type: 'CLASSNAME' }),
+  CarNameInput: $({ selector: 'car_name_input' }) as HTMLInputElement,
+  CarNameButton: $({ selector: 'car_name_button' }) as HTMLButtonElement,
+  GameCountInput: $({ selector: 'game_count_input' }) as HTMLInputElement,
+  GameCountButton: $({ selector: 'game_count_button' }) as HTMLButtonElement,
+  ResetButton: $({ selector: 'reset_button' }),
+  RacingContainer: $({ selector: 'racing-road-container' }),
 }
 
 class RacingController {

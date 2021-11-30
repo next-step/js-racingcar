@@ -1,6 +1,8 @@
 type SelectorType = 'PLAIN' | 'ID' | 'CLASSNAME'
 
-export const $ = (selector: string, type: SelectorType = 'ID') => {
+type QuerySelectorProps = { selector: string; type?: SelectorType }
+
+export const $ = ({ selector, type = 'ID' }: QuerySelectorProps) => {
   if (type === 'ID') {
     return document.querySelector('#' + selector) as HTMLElement
   }
