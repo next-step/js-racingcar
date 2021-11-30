@@ -7,7 +7,7 @@ import { Status } from '../constants.js'
 type WatchState = Pick<State, 'cars' | 'totalAttempts' | 'status'>
 
 export default class FormAttempts extends View {
-  static #template = `
+  static #template = /* html */ `
   <form>
     <fieldset>
       <p>시도할 횟수를 입력해주세요.</p>

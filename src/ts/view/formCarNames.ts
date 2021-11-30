@@ -7,7 +7,7 @@ import { Status } from '../constants.js'
 type WatchState = Pick<State, 'cars' | 'status'>
 
 export default class FormCarNames extends View {
-  static #template = `
+  static #template = /* html */ `
   <form>
     <fieldset>
       <p>

@@ -10,7 +10,7 @@ import PlayerWaiting from './view/player/playerWaiting.js'
 import PlayerForward from './view/player/playerForward.js'
 
 export default class App extends HTMLElement {
-  static #template = `
+  static #template = /* html */ `
   <fragment>
     <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
     <section class="mt-5">

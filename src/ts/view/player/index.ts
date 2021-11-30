@@ -16,7 +16,7 @@ export default class Player extends View {
     super()
     this.className = 'mr-2'
     this.#index = Number(this.getAttribute('index'))
-    this.#nameEl = el(`<racingcar-player-name>${this.getAttribute('name')}</racingcar-player-name>`)
+    this.#nameEl = el(/* html */ `<racingcar-player-name>${this.getAttribute('name')}</racingcar-player-name>`)
   }
 
   watch = ({ trial, processing, scores }: State): WatchState => {

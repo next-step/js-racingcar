@@ -5,7 +5,7 @@ import { State } from '../store/index.js'
 
 type WatchState = Pick<State, 'winners'>
 export default class Winner extends View {
-  static #template = `
+  static #template = /* html */ `
   <section class="d-flex justify-center mt-5">
     <div>
       <h2>🏆 최종 우승자:  🏆</h2>
