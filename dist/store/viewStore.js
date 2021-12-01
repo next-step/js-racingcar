@@ -1,15 +1,13 @@
 import { connectStore } from './index.js';
 export default class ViewStore {
-    #watch;
     #prevState = {};
     #view;
-    constructor(view, watch) {
+    constructor(view) {
         this.#view = view;
-        this.#watch = watch;
         connectStore().register(this);
     }
     update(state) {
-        const newState = this.#watch(state);
+        const newState = this.#view.watch(state);
         const updatedKeys = new Set();
         const updatedState = Object.keys(newState).reduce((p, k) => {
             if (newState[k] !== this.#prevState[k]) {

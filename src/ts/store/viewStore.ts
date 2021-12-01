@@ -1,20 +1,18 @@
-import { StoreMapper, PartialState, State } from '../types.js'
+import { PartialState, State } from '../types.js'
 import View from '../view/constructor.js'
 import { connectStore } from './index.js'
 
 export default class ViewStore {
-  #watch: StoreMapper
   #prevState: PartialState = {}
   #view: View
 
-  constructor(view: View, watch: StoreMapper) {
+  constructor(view: View) {
     this.#view = view
-    this.#watch = watch
     connectStore().register(this)
   }
 
   update(state: State) {
-    const newState = this.#watch(state)
+    const newState = this.#view.watch!(state)
     const updatedKeys = new Set()
     const updatedState = Object.keys(newState).reduce<PartialState>((p, k: keyof State) => {
       if (newState[k] !== this.#prevState[k]) {

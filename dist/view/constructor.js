@@ -46,7 +46,7 @@ export default class View extends HTMLElement {
     }
     connectedCallback() {
         if (this.watch) {
-            this.viewStore = new ViewStore(this, this.watch);
+            this.viewStore = new ViewStore(this);
         }
     }
     disconnectedCallback() {
