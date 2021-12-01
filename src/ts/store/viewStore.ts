@@ -1,5 +1,6 @@
 import { StoreMapper, PartialState, State } from '../types.js'
 import View from '../view/constructor.js'
+import { connectStore } from './index.js'
 
 export default class ViewStore {
   #watch: StoreMapper
@@ -9,6 +10,7 @@ export default class ViewStore {
   constructor(view: View, watch: StoreMapper) {
     this.#view = view
     this.#watch = watch
+    connectStore().register(this)
   }
 
   update(state: State) {
@@ -26,5 +28,9 @@ export default class ViewStore {
       this.#prevState = state
       this.#view.onStoreUpdated(updatedState, state)
     }
+  }
+
+  deregister() {
+    connectStore().deregister(this)
   }
 }

@@ -1,3 +1,4 @@
+import { connectStore } from './index.js';
 export default class ViewStore {
     #watch;
     #prevState = {};
@@ -5,6 +6,7 @@ export default class ViewStore {
     constructor(view, watch) {
         this.#view = view;
         this.#watch = watch;
+        connectStore().register(this);
     }
     update(state) {
         const newState = this.#watch(state);
@@ -20,6 +22,9 @@ export default class ViewStore {
             this.#prevState = state;
             this.#view.onStoreUpdated(updatedState, state);
         }
+    }
+    deregister() {
+        connectStore().deregister(this);
     }
 }
 //# sourceMappingURL=viewStore.js.map

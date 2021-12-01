@@ -31,11 +31,11 @@ export default class Store {
     })
   }
 
-  observe(viewStore: any) {
+  register(viewStore: any) {
     this.#observers.add(viewStore)
   }
 
-  unobserve(viewStore: any) {
+  deregister(viewStore: any) {
     this.#observers.delete(viewStore)
   }
 

@@ -1,4 +1,3 @@
-import { connectStore } from '../store/index.js';
 import ViewStore from '../store/viewStore.js';
 import el from '../util/dom.js';
 import errorHandler from '../util/errorHandler.js';
@@ -14,12 +13,6 @@ export default class View extends HTMLElement {
     events = new Map();
     viewStore;
     onStoreUpdated(updatedState, totalState) { }
-    observe() {
-        if (this.watch) {
-            this.viewStore = new ViewStore(this, this.watch);
-            connectStore().observe(this.viewStore);
-        }
-    }
     on(eventType, handler) {
         let cb = this.events.get(handler);
         if (!cb) {
@@ -39,6 +32,10 @@ export default class View extends HTMLElement {
         this.dispatchEvent(event);
         return this;
     }
+    render(children) {
+        el(this, children instanceof Array ? children : [children]);
+        return this;
+    }
     hide() {
         this.style.display = 'none';
         return this;
@@ -48,16 +45,14 @@ export default class View extends HTMLElement {
         return this;
     }
     connectedCallback() {
-        this.observe();
+        if (this.watch) {
+            this.viewStore = new ViewStore(this, this.watch);
+        }
     }
     disconnectedCallback() {
         if (this.watch) {
-            connectStore().unobserve(this.viewStore);
+            this.viewStore.deregister();
         }
-    }
-    render(children) {
-        el(this, children instanceof Array ? children : [children]);
-        return this;
     }
 }
 //# sourceMappingURL=constructor.js.map

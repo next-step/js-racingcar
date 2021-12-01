@@ -24,10 +24,10 @@ export default class Store {
             worker(actionType)(this, data);
         });
     }
-    observe(viewStore) {
+    register(viewStore) {
         this.#observers.add(viewStore);
     }
-    unobserve(viewStore) {
+    deregister(viewStore) {
         this.#observers.delete(viewStore);
     }
     notify() {

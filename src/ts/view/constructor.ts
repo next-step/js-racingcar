@@ -1,5 +1,4 @@
 import { AnyObj, Elem, State } from '../types.js'
-import { connectStore } from '../store/index.js'
 import ViewStore from '../store/viewStore.js'
 import el from '../util/dom.js'
 import errorHandler from '../util/errorHandler.js'
@@ -17,13 +16,6 @@ export default class View extends HTMLElement {
   viewStore: ViewStore
   watch?(state: State): AnyObj
   onStoreUpdated(updatedState: any, totalState: State): void {}
-
-  observe() {
-    if (this.watch) {
-      this.viewStore = new ViewStore(this, this.watch)
-      connectStore().observe(this.viewStore)
-    }
-  }
 
   on(eventType: string, handler: (e: CustomEvent) => any) {
     let cb = this.events.get(handler)
@@ -44,6 +36,10 @@ export default class View extends HTMLElement {
     this.dispatchEvent(event)
     return this
   }
+  render(children: Elem | Elem[]) {
+    el(this, children instanceof Array ? children : [children])
+    return this
+  }
   hide() {
     this.style.display = 'none'
     return this
@@ -54,17 +50,14 @@ export default class View extends HTMLElement {
   }
 
   connectedCallback() {
-    this.observe()
+    if (this.watch) {
+      this.viewStore = new ViewStore(this, this.watch)
+    }
   }
 
   disconnectedCallback() {
     if (this.watch) {
-      connectStore().unobserve(this.viewStore)
+      this.viewStore.deregister()
     }
-  }
-
-  render(children: Elem | Elem[]) {
-    el(this, children instanceof Array ? children : [children])
-    return this
   }
 }
