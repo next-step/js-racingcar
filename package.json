@@ -1,0 +1,26 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "description": "racingcar",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimjanghu/js-racingcar.git"
+  },
+  "author": "kimjanghu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kimjanghu/js-racingcar/issues"
+  },
+  "homepage": "https://github.com/kimjanghu/js-racingcar#readme",
+  "devDependencies": {
+    "cypress": "^9.1.0",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.0"
+  }
+}
