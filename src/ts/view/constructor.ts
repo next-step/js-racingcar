@@ -1,6 +1,7 @@
-import { AnyObj } from '../constants.js'
-import { connectStore, State } from '../store/index.js'
+import { AnyObj, Elem, State } from '../types.js'
+import { connectStore } from '../store/index.js'
 import ViewStore from '../store/viewStore.js'
+import el from '../util/dom.js'
 import errorHandler from '../util/errorHandler.js'
 
 const eventErrorCatcher = (handler: any) => (e: CustomEvent) => {
@@ -60,5 +61,10 @@ export default class View extends HTMLElement {
     if (this.watch) {
       connectStore().unobserve(this.viewStore)
     }
+  }
+
+  render(children: Elem | Elem[]) {
+    el(this, children instanceof Array ? children : [children])
+    return this
   }
 }

@@ -1,6 +1,6 @@
-import Actions from './action.js'
-import { AnyObj, Boundaries, CongratulationMsg, ErrorMsgs, Status } from '../constants.js'
-import Store, { StateKeys } from './index.js'
+import { Actions, AnyObj, Status, StateKeys } from '../types.js'
+import { Boundaries, CongratulationMsg, ErrorMsgs } from '../constants.js'
+import Store from './index.js'
 import { promiseDelay, abortableDelay } from '../util/delay.js'
 import errorHandler from '../util/errorHandler.js'
 

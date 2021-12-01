@@ -1,5 +1,4 @@
 import View from '../constructor.js'
-import el from '../../util/dom.js'
 
 export default class PlayerWaiting extends View {
   static #template = /* html */ `
@@ -11,7 +10,7 @@ export default class PlayerWaiting extends View {
   constructor() {
     super()
     this.className = 'd-flex justify-center mt-3'
-    el(this, [PlayerWaiting.#template])
+    this.render(PlayerWaiting.#template)
   }
 }
 

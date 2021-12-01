@@ -1,9 +1,3 @@
-export var Status;
-(function (Status) {
-    Status["idle"] = "idle";
-    Status["playing"] = "playing";
-    Status["finished"] = "finished";
-})(Status || (Status = {}));
 export const Boundaries = {
     ForwardCutOff: 4,
     MaximumNameLength: 5,

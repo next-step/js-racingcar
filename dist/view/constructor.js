@@ -1,5 +1,6 @@
 import { connectStore } from '../store/index.js';
 import ViewStore from '../store/viewStore.js';
+import el from '../util/dom.js';
 import errorHandler from '../util/errorHandler.js';
 const eventErrorCatcher = (handler) => (e) => {
     try {
@@ -53,6 +54,10 @@ export default class View extends HTMLElement {
         if (this.watch) {
             connectStore().unobserve(this.viewStore);
         }
+    }
+    render(children) {
+        el(this, children instanceof Array ? children : [children]);
+        return this;
     }
 }
 //# sourceMappingURL=constructor.js.map

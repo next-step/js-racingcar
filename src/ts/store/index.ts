@@ -1,28 +1,7 @@
+import { AnyObj, Status, Actions, StateKeys, State, DispatchEvent, PartialState } from '../types.js'
 import ViewStore from './viewStore.js'
 import App from '../app.js'
-import Actions from './action.js'
 import worker from './worker.js'
-import { AnyObj, Status } from '../constants.js'
-
-export enum StateKeys {
-  cars = 'cars',
-  totalAttempts = 'totalAttempts',
-  trial = 'trial',
-  scores = 'scores',
-  processing = 'processing',
-  winners = 'winners',
-  status = 'status',
-}
-
-export type State = {
-  cars: string[]
-  totalAttempts: number
-  trial: number
-  scores: number[][]
-  processing: boolean
-  winners: string[]
-  status: Status
-}
 
 export const initialState: State = {
   [StateKeys.cars]: [],
@@ -33,19 +12,6 @@ export const initialState: State = {
   [StateKeys.winners]: [],
   [StateKeys.status]: Status.idle,
 }
-
-export type Dispatch = {
-  actionType: typeof Actions
-  data: AnyObj
-}
-
-export type DispatchEvent = CustomEvent & {
-  detail: Dispatch
-}
-
-export type StoreMapper = (store: any) => PartialState
-
-export type PartialState = Partial<State>
 
 export default class Store {
   #observers = new Set()

@@ -1,13 +1,3 @@
-export type AnyObj = { [key: string]: any }
-export type StrObj = { [key: string]: string }
-export type Elem = HTMLElement | string
-
-export enum Status {
-  idle = 'idle',
-  playing = 'playing',
-  finished = 'finished',
-}
-
 export const Boundaries = {
   ForwardCutOff: 4,
   MaximumNameLength: 5,

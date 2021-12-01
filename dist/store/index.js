@@ -1,15 +1,5 @@
+import { Status, StateKeys } from '../types.js';
 import worker from './worker.js';
-import { Status } from '../constants.js';
-export var StateKeys;
-(function (StateKeys) {
-    StateKeys["cars"] = "cars";
-    StateKeys["totalAttempts"] = "totalAttempts";
-    StateKeys["trial"] = "trial";
-    StateKeys["scores"] = "scores";
-    StateKeys["processing"] = "processing";
-    StateKeys["winners"] = "winners";
-    StateKeys["status"] = "status";
-})(StateKeys || (StateKeys = {}));
 export const initialState = {
     [StateKeys.cars]: [],
     [StateKeys.totalAttempts]: 0,

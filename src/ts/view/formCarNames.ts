@@ -1,25 +1,23 @@
 import el from '../util/dom.js'
 import View from './constructor.js'
-import Actions from '../store/action.js'
-import { State } from '../store/index.js'
-import { Status } from '../constants.js'
+import { State, Actions, Status } from '../types.js'
 
 type WatchState = Pick<State, 'cars' | 'status'>
 
 export default class FormCarNames extends View {
   static #template = /* html */ `
-  <form>
-    <fieldset>
-      <p>
-        5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
-        예시) EAST, WEST, SOUTH, NORTH
-      </p>
-      <div class="d-flex">
-        <input type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-        <button type="submit" class="btn btn-cyan">확인</button>
-      </div>
-    </fieldset>
-  </form>
+    <form>
+      <fieldset>
+        <p>
+          5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
+          예시) EAST, WEST, SOUTH, NORTH
+        </p>
+        <div class="d-flex">
+          <input type="text" class="w-100 mr-2" placeholder="자동차 이름" />
+          <button type="submit" class="btn btn-cyan">확인</button>
+        </div>
+      </fieldset>
+    </form>
   `
 
   $input
@@ -30,7 +28,7 @@ export default class FormCarNames extends View {
     this.$form = el(FormCarNames.#template) as HTMLFormElement
     this.$input = this.$form.querySelector('input') as HTMLInputElement
     this.$form.addEventListener('submit', this.onSubmit)
-    el(this, [this.$form])
+    this.render(this.$form)
   }
 
   watch = ({ cars, status }: State): WatchState => ({ cars, status })

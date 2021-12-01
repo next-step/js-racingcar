@@ -1,7 +1,7 @@
+import { State, Elem } from '../../types.js'
+import { Boundaries } from '../../constants.js'
 import el from '../../util/dom.js'
-import { State } from '../../store/index.js'
 import View from '../constructor.js'
-import { Boundaries, Elem } from '../../constants.js'
 
 type WatchState = Pick<State, 'trial' | 'processing'> & { scores: number[] }
 
@@ -26,7 +26,7 @@ export default class Player extends View {
   connectedCallback() {
     super.connectedCallback()
     this.#scoreElems = [this.#nameEl]
-    el(this, this.#scoreElems)
+    this.render(this.#scoreElems)
   }
 
   onStoreUpdated({ trial: newTrial, processing: newPending, scores: newStatus }: WatchState) {
@@ -46,7 +46,7 @@ export default class Player extends View {
     ) {
       this.#scoreElems.push(this.#forwardElString)
     }
-    el(this, this.#scoreElems)
+    this.render(this.#scoreElems)
   }
 }
 

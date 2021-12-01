@@ -1,6 +1,6 @@
+import { Boundaries } from '../../constants.js';
 import el from '../../util/dom.js';
 import View from '../constructor.js';
-import { Boundaries } from '../../constants.js';
 export default class Player extends View {
     #scoreElems;
     #index;
@@ -19,7 +19,7 @@ export default class Player extends View {
     connectedCallback() {
         super.connectedCallback();
         this.#scoreElems = [this.#nameEl];
-        el(this, this.#scoreElems);
+        this.render(this.#scoreElems);
     }
     onStoreUpdated({ trial: newTrial, processing: newPending, scores: newStatus }) {
         if (newTrial === 0) {
@@ -35,7 +35,7 @@ export default class Player extends View {
             newStatus.filter(num => num >= Boundaries.ForwardCutOff).length === this.#scoreElems.length) {
             this.#scoreElems.push(this.#forwardElString);
         }
-        el(this, this.#scoreElems);
+        this.render(this.#scoreElems);
     }
 }
 customElements.define('racingcar-player', Player);

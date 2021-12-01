@@ -1,6 +1,5 @@
-import Actions from './action.js';
-import { Boundaries, CongratulationMsg, ErrorMsgs, Status } from '../constants.js';
-import { StateKeys } from './index.js';
+import { Actions, Status, StateKeys } from '../types.js';
+import { Boundaries, CongratulationMsg, ErrorMsgs } from '../constants.js';
 import { promiseDelay, abortableDelay } from '../util/delay.js';
 import errorHandler from '../util/errorHandler.js';
 let abortAlert = () => { };

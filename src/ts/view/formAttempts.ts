@@ -1,22 +1,20 @@
 import el from '../util/dom.js'
 import View from './constructor.js'
-import Actions from '../store/action.js'
-import { State } from '../store/index.js'
-import { Status } from '../constants.js'
+import { State, Status, Actions } from '../types.js'
 
 type WatchState = Pick<State, 'cars' | 'totalAttempts' | 'status'>
 
 export default class FormAttempts extends View {
   static #template = /* html */ `
-  <form>
-    <fieldset>
-      <p>시도할 횟수를 입력해주세요.</p>
-      <div class="d-flex">
-        <input type="number" class="w-100 mr-2" placeholder="시도 횟수" min="1" />
-        <button type="submit" class="btn btn-cyan">확인</button>
-      </div>
-    </fieldset>
-  </form>
+    <form>
+      <fieldset>
+        <p>시도할 횟수를 입력해주세요.</p>
+        <div class="d-flex">
+          <input type="number" class="w-100 mr-2" placeholder="시도 횟수" min="1" />
+          <button type="submit" class="btn btn-cyan">확인</button>
+        </div>
+      </fieldset>
+    </form>
   `
 
   $input
@@ -27,7 +25,7 @@ export default class FormAttempts extends View {
     this.$form = el(FormAttempts.#template) as HTMLFormElement
     this.$input = this.$form.querySelector('input') as HTMLInputElement
     this.$form.addEventListener('submit', this.onSubmit)
-    el(this, [this.$form])
+    this.render(this.$form)
   }
 
   watch = ({ cars, totalAttempts, status }: State): WatchState => ({ cars, totalAttempts, status })

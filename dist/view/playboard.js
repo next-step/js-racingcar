@@ -13,8 +13,7 @@ export default class Playboard extends View {
             const $entries = cars.length
                 ? cars.map((name, i) => el(`<racingcar-player name=${name} index=${i}>`))
                 : [];
-            el(this, $entries);
-            this.show();
+            this.render($entries).show();
         }
     }
 }

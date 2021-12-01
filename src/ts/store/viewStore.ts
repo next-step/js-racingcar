@@ -1,4 +1,4 @@
-import { StoreMapper, PartialState, State } from './index.js'
+import { StoreMapper, PartialState, State } from '../types.js'
 import View from '../view/constructor.js'
 
 export default class ViewStore {
