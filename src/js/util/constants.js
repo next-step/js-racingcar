@@ -6,5 +6,8 @@ export const ALERT = {
 
 export const GAME = {
   MIN_PARTICIPANT: 1,
-  MAX_NAME_LENGTH: 5
+  MAX_NAME_LENGTH: 5,
+  MIN_MOVE_COUNT: 0,
+  MAX_MOVE_COUNT: 9,
+  MOVE_FLAG: 4
 };

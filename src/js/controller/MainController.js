@@ -4,6 +4,7 @@ import PlaySection from '../view/PlaySection.js';
 import WinnerSection from '../view/WinnerSection.js';
 import RacingcarModel from '../model/RacingcarModel.js';
 import { ALERT, GAME } from '../util/constants.js';
+import { moveCar } from '../util/service.js';
 
 export default class MainController {
   constructor({
@@ -67,6 +68,20 @@ export default class MainController {
     this.racingCarModel.setTryCount(Number(tryCount));
 
     this.playSection.show().renderRacingCar(this.racingCarModel.carNames);
+
+    this.playGames();
+  }
+
+  playGames() {
+    let count = 0;
+    while (count < this.racingCarModel.tryCount) {
+      const movedCarNames = this.racingCarModel.carNames.filter(() =>
+        moveCar()
+      );
+      this.racingCarModel.setMoveCount(movedCarNames);
+      count += 1;
+    }
+    console.log(this.racingCarModel.carInfo);
   }
 
   isValidCarName(carNames) {

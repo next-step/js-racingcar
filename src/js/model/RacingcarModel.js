@@ -15,6 +15,14 @@ export default class RacingcarModel {
     return this.#data.cars.map(({ carName }) => carName);
   }
 
+  get tryCount() {
+    return this.#data.tryCount;
+  }
+
+  get carInfo() {
+    return this.#data.cars;
+  }
+
   setCars(data) {
     this.#data = {
       ...this.#data,
@@ -36,7 +44,23 @@ export default class RacingcarModel {
     return this.#data;
   }
 
-  setWinner() {}
+  setMoveCount(movedCarNames) {
+    this.#data = {
+      ...this.#data,
+      cars: [...this.#data.cars].map((carInfo) => {
+        const { carName, count } = carInfo;
+        if (movedCarNames.includes(carName)) {
+          return {
+            ...carInfo,
+            count: count + 1
+          };
+        }
+        return {
+          ...carInfo
+        };
+      })
+    };
+  }
 
   resetGame() {
     this.#data = { ...INITIAL_DATA };
