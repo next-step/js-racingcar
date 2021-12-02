@@ -14,7 +14,7 @@ export const initialState: State = {
 }
 
 export default class Store {
-  #observers = new Set()
+  #subscribers = new Set()
   #state: State
 
   constructor(app: App, initialState: State) {
@@ -32,17 +32,17 @@ export default class Store {
   }
 
   register(viewStore: any) {
-    this.#observers.add(viewStore)
+    this.#subscribers.add(viewStore)
   }
 
   deregister(viewStore: any) {
-    this.#observers.delete(viewStore)
+    this.#subscribers.delete(viewStore)
   }
 
   notify() {
     window.requestAnimationFrame(() => {
-      this.#observers.forEach((listener: ViewStore) => {
-        listener.update(this.#state)
+      this.#subscribers.forEach((subscriber: ViewStore) => {
+        subscriber.update(this.#state)
       })
     })
   }
