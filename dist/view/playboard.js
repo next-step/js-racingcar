@@ -11,7 +11,7 @@ export default class Playboard extends View {
             this.hide();
         else {
             const $entries = cars.length
-                ? cars.map((name, i) => el(`<racingcar-player name=${name} index=${i}>`))
+                ? cars.map((name, i) => el(`<racingcar-player name="${name}" index=${i}>`))
                 : [];
             this.render($entries).show();
         }

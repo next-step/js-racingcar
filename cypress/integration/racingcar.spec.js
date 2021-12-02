@@ -19,7 +19,6 @@ describe('racing-car', () => {
   describe('이름 입력', () => {
     it('하나라도 5글자 초과시 경고', () => {
       cy.on('window:alert', text => {
-        console.log(text)
         expect(text).to.contains(ErrorMsgs.NAME_LENGTH_LIMIT)
       })
       cy.inputNames('abcdef,g,h')
