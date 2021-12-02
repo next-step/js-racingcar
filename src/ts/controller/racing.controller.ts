@@ -13,6 +13,7 @@ export const ViewComponents = {
   GameCountButton: $({ selector: 'game_count_button' }) as HTMLButtonElement,
   ResetButton: $({ selector: 'reset_button' }),
   RacingContainer: $({ selector: 'racing-road-container' }),
+  WinnerLabel: $({ selector: 'winner_label' }),
 }
 
 class RacingController {
@@ -42,6 +43,7 @@ class RacingController {
       GameCountInput,
       GameCountButton,
       WinnerSection,
+      RacingContainer,
     } = ViewComponents
 
     const dispatchInsertCars = () =>
@@ -85,6 +87,11 @@ class RacingController {
         },
         onEventEnd: () => {
           this.currentProgressCount = 0
+          CarNameInput.value = ''
+          GameCountInput.value = ''
+          RacingContainer.innerHTML = ''
+
+          CarNameInput.focus()
         },
       })
 
@@ -144,8 +151,31 @@ class RacingController {
         requestAnimationFrame(() => {
           setTimeout(() => animate(), 1000)
         })
+
+        return
       }
+
+      let maxMovementDistance = -1
+      const winners = this.state.cars
+        .map((car) => {
+          if (maxMovementDistance < car.moveDistance) {
+            maxMovementDistance = car.moveDistance
+          }
+          return { name: car.name, move: car.moveDistance }
+        })
+        .filter((car) => car.move === maxMovementDistance)
+        .map((car) => car.name)
+
+      this.dispatchEvent({
+        makeAction: () => ({ _t: 'SET_WINNER', winners }),
+        onEventEnd: () => {
+          ViewComponents.WinnerLabel.textContent = `🏆 최종 우승자: ${winners.join(
+            ', '
+          )} 🏆`
+        },
+      })
     }
+
     animate()
   }
 }

@@ -50,9 +50,9 @@ export const setStyle = (state: State) => {
       GameCountButton.disabled = true
       return
 
-    case 'check_winner':
+    case 'set_winner':
       WinnerSection.style.cssText = css`
-        display: block;
+        display: flex;
       `
       return
   }
