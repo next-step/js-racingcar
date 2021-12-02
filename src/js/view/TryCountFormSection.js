@@ -14,14 +14,34 @@ export default class TryCountFormSection extends View {
   constructor(el) {
     super(el);
     this.render();
+    this.bindEvents();
   }
 
   render() {
     this.$target.replaceChildren();
     this.$target.insertAdjacentHTML('beforeend', this.#template);
+    this.$tryCount = $('#tryCount');
   }
 
   init() {
-    $('#tryCount').value = '';
+    this.toggleDisableButton(false);
+    this.$tryCount.value = '';
+  }
+
+  focus() {
+    this.$tryCount.focus();
+  }
+
+  bindEvents() {
+    this.$target.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.emit('@submitTryCount', { data: this.$tryCount.value });
+    });
+  }
+
+  toggleDisableButton(flag) {
+    [$('input', this.$target), $('button', this.$target)].forEach((el) => {
+      el.disabled = flag;
+    });
   }
 }

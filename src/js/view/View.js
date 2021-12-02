@@ -10,7 +10,7 @@ export default class View {
   }
 
   emit(type, data) {
-    const event = new CustomEvent(type, data);
+    const event = new CustomEvent(type, { detail: data });
     this.$target.dispatchEvent(event);
     return this;
   }

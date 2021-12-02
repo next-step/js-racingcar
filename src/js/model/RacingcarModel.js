@@ -1,17 +1,44 @@
 const INITIAL_DATA = {
   cars: null,
-  attemptCount: 0,
+  tryCount: 0,
   winner: null
 };
 
 export default class RacingcarModel {
-  #data = { ...INITIAL_DATA };
+  #data;
 
-  setCars() {}
+  constructor() {
+    this.#data = { ...INITIAL_DATA };
+  }
 
-  setAttemptCount() {}
+  get carNames() {
+    return this.#data.cars.map(({ carName }) => carName);
+  }
+
+  setCars(data) {
+    this.#data = {
+      ...this.#data,
+      cars: data.map((carName) => {
+        return {
+          carName,
+          count: 0
+        };
+      })
+    };
+    return this.#data;
+  }
+
+  setTryCount(data) {
+    this.#data = {
+      ...this.#data,
+      tryCount: data
+    };
+    return this.#data;
+  }
 
   setWinner() {}
 
-  resetGame() {}
+  resetGame() {
+    this.#data = { ...INITIAL_DATA };
+  }
 }

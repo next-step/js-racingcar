@@ -7,19 +7,20 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('submitNames', (text) => {
+  cy.get('#carNames').clear();
+  cy.get('#carNames').type(text);
+  cy.get('#carNameFormSection').submit();
+});
+
+Cypress.Commands.add('submitTryCount', (number) => {
+  cy.get('#tryCount').clear();
+  cy.get('#tryCount').type(number);
+  cy.get('#tryCountFormSection').submit();
+});
+
+Cypress.Commands.add('checkCss', (selector, style, value, type = true) => {
+  const haveCss = type ? 'have.css' : 'have.not.css';
+  cy.get(selector).should(haveCss, style, value);
+});
