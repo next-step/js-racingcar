@@ -19,7 +19,7 @@ const worker: { [key: string]: (store: Store, data: AnyObj) => void } = {
   [Actions.setCarNames]: (store, { cars }) => {
     abortAlert()
     const carNames = cars.map((c: string) => c.trim()) as string[]
-    if (carNames.some(n => n.length > Boundaries.MaximumNameLength)) throw Error(ErrorMsgs.NAME_LENGTH_LIMIT)
+    if (carNames.some(n => n.length > Boundaries.MaximumNameLength)) throw Error(ErrorMsgs.NameLengthLimit)
     store.setValue({ cars: carNames, totalAttempts: 0, trial: 0, scores: [], winners: [] })
   },
 
