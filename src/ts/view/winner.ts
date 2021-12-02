@@ -1,6 +1,6 @@
 import { State, Actions } from '../types.js'
 import el from '../util/dom.js'
-import View from './constructor.js'
+import View from './abstract.js'
 
 type WatchState = Pick<State, 'winners'>
 export default class Winner extends View {

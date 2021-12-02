@@ -1,7 +1,7 @@
 import { State, Elem } from '../../types.js'
 import { Boundaries } from '../../constants.js'
 import el from '../../util/dom.js'
-import View from '../constructor.js'
+import View from '../abstract.js'
 
 type WatchState = Pick<State, 'trial' | 'processing'> & { scores: number[] }
 

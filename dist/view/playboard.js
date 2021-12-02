@@ -1,5 +1,5 @@
 import el from '../util/dom.js';
-import View from './constructor.js';
+import View from './abstract.js';
 export default class Playboard extends View {
     constructor() {
         super();

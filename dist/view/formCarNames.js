@@ -1,5 +1,5 @@
 import el from '../util/dom.js';
-import View from './constructor.js';
+import View from './abstract.js';
 import { Actions, Status } from '../types.js';
 export default class FormCarNames extends View {
     static #template = /* html */ `

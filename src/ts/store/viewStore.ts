@@ -1,5 +1,5 @@
 import { PartialState, State } from '../types.js'
-import View from '../view/constructor.js'
+import View from '../view/abstract.js'
 import { connectStore } from './index.js'
 
 export default class ViewStore {

@@ -39,7 +39,7 @@ export default class Store {
     this.#subscribers.delete(viewStore)
   }
 
-  notify() {
+  publish() {
     window.requestAnimationFrame(() => {
       this.#subscribers.forEach((subscriber: ViewStore) => {
         subscriber.update(this.#state)
@@ -50,7 +50,7 @@ export default class Store {
   setValue(state: PartialState) {
     window.requestAnimationFrame(() => {
       this.#state = { ...this.#state, ...state }
-      this.notify()
+      this.publish()
     })
   }
 

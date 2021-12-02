@@ -1,6 +1,6 @@
 import { Actions } from '../types.js';
 import el from '../util/dom.js';
-import View from './constructor.js';
+import View from './abstract.js';
 export default class Winner extends View {
     static #template = /* html */ `
     <section class="d-flex justify-center mt-5">

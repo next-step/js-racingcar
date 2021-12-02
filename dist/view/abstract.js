@@ -55,4 +55,4 @@ export default class View extends HTMLElement {
         }
     }
 }
-//# sourceMappingURL=constructor.js.map
+//# sourceMappingURL=abstract.js.map

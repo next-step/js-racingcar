@@ -1,5 +1,5 @@
 import el from '../util/dom.js'
-import View from './constructor.js'
+import View from './abstract.js'
 import { State, Status, Actions } from '../types.js'
 
 type WatchState = Pick<State, 'cars' | 'totalAttempts' | 'status'>

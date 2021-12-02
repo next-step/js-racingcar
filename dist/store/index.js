@@ -10,7 +10,7 @@ export const initialState = {
     [StateKeys.status]: Status.idle,
 };
 export default class Store {
-    #observers = new Set();
+    #subscribers = new Set();
     #state;
     constructor(app, initialState) {
         this.#state = initialState;
@@ -25,22 +25,22 @@ export default class Store {
         });
     }
     register(viewStore) {
-        this.#observers.add(viewStore);
+        this.#subscribers.add(viewStore);
     }
     deregister(viewStore) {
-        this.#observers.delete(viewStore);
+        this.#subscribers.delete(viewStore);
     }
-    notify() {
+    publish() {
         window.requestAnimationFrame(() => {
-            this.#observers.forEach((listener) => {
-                listener.update(this.#state);
+            this.#subscribers.forEach((subscriber) => {
+                subscriber.update(this.#state);
             });
         });
     }
     setValue(state) {
         window.requestAnimationFrame(() => {
             this.#state = { ...this.#state, ...state };
-            this.notify();
+            this.publish();
         });
     }
     get(prop) {

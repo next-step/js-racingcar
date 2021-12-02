@@ -1,4 +1,4 @@
-import View from '../constructor.js'
+import View from '../abstract.js'
 
 export default class PlayerForward extends View {
   constructor() {

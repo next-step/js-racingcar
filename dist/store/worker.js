@@ -15,7 +15,7 @@ const worker = {
         abortAlert();
         const carNames = cars.map((c) => c.trim());
         if (carNames.some(n => n.length > Boundaries.MaximumNameLength))
-            throw Error(ErrorMsgs.NAME_LENGTH_LIMIT);
+            throw Error(ErrorMsgs.NameLengthLimit);
         store.setValue({ cars: carNames, totalAttempts: 0, trial: 0, scores: [], winners: [] });
     },
     [Actions.setTotalAttempts]: async (store, { totalAttempts }) => {

@@ -1,6 +1,6 @@
 import { State } from '../types.js'
 import el from '../util/dom.js'
-import View from './constructor.js'
+import View from './abstract.js'
 import Player from './player/index.js'
 
 type WatchState = Pick<State, 'cars'>

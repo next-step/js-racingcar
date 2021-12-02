@@ -1,4 +1,4 @@
-import View from '../constructor.js';
+import View from '../abstract.js';
 export default class PlayerWaiting extends View {
     static #template = /* html */ `
     <div class="relative spinner-container">

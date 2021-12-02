@@ -11,7 +11,7 @@ const eventErrorCatcher = (handler: any) => (e: CustomEvent) => {
   }
 }
 
-export default class View extends HTMLElement {
+export default abstract class View extends HTMLElement {
   events = new Map()
   viewStore: ViewStore
   watch?(state: State): AnyObj
