@@ -1,4 +1,8 @@
 import { $ } from '../utils/dom'
+import { GameCountInputView } from '../view/components/GameCountInputView'
+import { RacingContainerView } from '../view/components/RacingContinerView'
+import { WinnerLabelView } from '../view/components/WinnerLabelView'
+import { CarNameInputView } from '../view/components/CarNameInputView'
 import { Action, makeState, State } from '../view/Racing.state'
 import { setStyle } from '../view/Racing.view'
 
@@ -17,6 +21,11 @@ export const ViewComponents = {
 }
 
 class RacingController {
+  $CarNameInputView
+  $GameCountInputView
+  $RacingContainerView
+  $WinnerLabelView
+
   currentProgressCount: number
   state: State
   dispatch: (action: Action) => void
@@ -32,6 +41,22 @@ class RacingController {
     this.state = state
     this.dispatch = dispatch
 
+    this.$CarNameInputView = new CarNameInputView({
+      root: ViewComponents.CarNameInput,
+    })
+
+    this.$GameCountInputView = new GameCountInputView({
+      root: ViewComponents.GameCountInput,
+    })
+
+    this.$RacingContainerView = new RacingContainerView({
+      root: ViewComponents.RacingContainer,
+    })
+
+    this.$WinnerLabelView = new WinnerLabelView({
+      root: ViewComponents.WinnerLabel,
+    })
+
     setStyle(state)
     this.setEvent()
   }
@@ -43,7 +68,6 @@ class RacingController {
       GameCountInput,
       GameCountButton,
       WinnerSection,
-      RacingContainer,
     } = ViewComponents
 
     const dispatchInsertCars = () =>
@@ -55,11 +79,10 @@ class RacingController {
           }
         },
         onError: () => {
-          CarNameInput.value = ''
-          CarNameInput.focus()
+          this.$CarNameInputView.reset()
         },
         onEventEnd: () => {
-          GameCountInput.focus()
+          this.$CarNameInputView.focus()
         },
       })
 
@@ -73,8 +96,7 @@ class RacingController {
         },
         onEventEnd: () => this.startGame(),
         onError: () => {
-          GameCountInput.value = ''
-          GameCountInput.focus()
+          this.$GameCountInputView.reset()
         },
       })
 
@@ -87,11 +109,9 @@ class RacingController {
         },
         onEventEnd: () => {
           this.currentProgressCount = 0
-          CarNameInput.value = ''
-          GameCountInput.value = ''
-          RacingContainer.innerHTML = ''
-
-          CarNameInput.focus()
+          this.$GameCountInputView.clear()
+          this.$RacingContainerView.reset()
+          this.$CarNameInputView.reset()
         },
       })
 
@@ -169,9 +189,7 @@ class RacingController {
       this.dispatchEvent({
         makeAction: () => ({ _t: 'SET_WINNER', winners }),
         onEventEnd: () => {
-          ViewComponents.WinnerLabel.textContent = `🏆 최종 우승자: ${winners.join(
-            ', '
-          )} 🏆`
+          this.$WinnerLabelView.render({ winners })
         },
       })
     }
