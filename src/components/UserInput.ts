@@ -91,7 +91,7 @@ export default class UserInput extends Component<
   }
 
   getInnerHTML() {
-    const state: UserInputState = this.state || defaultState;
+    const state: UserInputState = this.state ?? defaultState;
     return `
         <form>
           <fieldset>
