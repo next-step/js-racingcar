@@ -1,7 +1,7 @@
-import { ViewComponents } from "../controller/racing.controller";
-import { State } from "./Racing.state";
+import { ViewComponents } from '../controller/racing.controller'
+import { State } from './Racing.state'
 
-const css = String.raw;
+const css = String.raw
 
 export const setStyle = (state: State) => {
   const {
@@ -12,48 +12,48 @@ export const setStyle = (state: State) => {
     GameCountInput,
     GameCountButton,
     CarNameInput,
-  } = ViewComponents;
+  } = ViewComponents
   switch (state._t) {
-    case "idle":
+    case 'idle':
       GameCountFieldset.style.cssText = css`
         display: none;
-      `;
+      `
 
       RacingRoadSection.style.cssText = css`
         display: none;
-      `;
+      `
 
       WinnerSection.style.cssText = css`
         display: none;
-      `;
+      `
 
-      CarNameInput.disabled = false;
-      CarNameButton.disabled = false;
-      GameCountInput.disabled = false;
-      GameCountButton.disabled = false;
-      return;
+      CarNameInput.disabled = false
+      CarNameButton.disabled = false
+      GameCountInput.disabled = false
+      GameCountButton.disabled = false
+      return
 
-    case "insert_cars":
+    case 'insert_cars':
       GameCountFieldset.style.cssText = css`
         display: block;
-      `;
-      CarNameInput.disabled = true;
-      CarNameButton.disabled = true;
+      `
+      CarNameInput.disabled = true
+      CarNameButton.disabled = true
 
-      return;
+      return
 
-    case "insert_game_count":
+    case 'insert_game_count':
       RacingRoadSection.style.cssText = css`
         display: flex;
-      `;
-      GameCountInput.disabled = true;
-      GameCountButton.disabled = true;
-      return;
+      `
+      GameCountInput.disabled = true
+      GameCountButton.disabled = true
+      return
 
-    case "set_winner":
+    case 'set_winner':
       WinnerSection.style.cssText = css`
         display: flex;
-      `;
-      return;
+      `
+      return
   }
-};
+}
