@@ -19,7 +19,7 @@
 </p>
 
 <p align="middle">
-  <a href="https://next-step.github.io/js-racingcar/">🖥️ 데모 링크</a>
+  <a href="https://lsw1164.github.io/js-racingcar/">🖥️ 데모 링크</a>
 </p>
 
 ### 🎯 step1
