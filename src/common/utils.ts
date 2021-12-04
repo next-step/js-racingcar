@@ -1,9 +1,15 @@
 export async function delay(ms: number) {
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      resolve(1);
-    }, ms)
-  );
+  const startTime = Date.now();
+  return new Promise((resolve) => {
+    const callback = () => {
+      if (Date.now() - ms > startTime) {
+        resolve(1);
+      } else {
+        requestAnimationFrame(callback);
+      }
+    };
+    requestAnimationFrame(callback);
+  });
 }
 
 export function getRandom(min: number, max: number) {
