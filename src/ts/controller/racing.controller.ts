@@ -6,6 +6,7 @@ import { CarNameInputView } from '../view/components/CarNameInputView'
 import { Action, makeState, State } from '../view/Racing.state'
 import { setStyle } from '../view/Racing.view'
 import { CarContinerView } from '../view/components/CarContainerView'
+import { RacingStore } from '../store/Racing.store'
 
 export const ViewComponents = {
   GameCountFieldset: $({ selector: 'game-count-fieldset', type: 'CLASSNAME' }),
@@ -27,6 +28,7 @@ class RacingController {
   $RacingContainerView
   $WinnerLabelView
   $CarContinerViews: Map<string, CarContinerView>
+  store: RacingStore
 
   currentProgressCount: number
   state: State
@@ -39,6 +41,7 @@ class RacingController {
       gameCount: null,
     })
 
+    this.store = new RacingStore()
     this.state = state
     this.dispatch = dispatch
 
@@ -161,8 +164,9 @@ class RacingController {
   }
 
   startGame() {
+    this.store.gameCount = this.state.gameCount || 0
+
     this.state.cars.forEach((car) => {
-      car.targetCount = this.state.gameCount || 0
       this.$CarContinerViews.set(
         car.name,
         new CarContinerView({ root: ViewComponents.RacingContainer, car })
@@ -170,33 +174,38 @@ class RacingController {
     })
 
     const animate = () => {
-      let isGameEnd = false
-
       this.state.cars.forEach((car) => {
-        const moveResponse = car.move()
+        const { isProgress } = car.move()
         const $CarContainer = this.$CarContinerViews.get(car.name)
 
         if (!$CarContainer) {
           return
         }
 
-        if (moveResponse.move) {
+        if (isProgress) {
           $CarContainer.move()
-        }
-
-        if (moveResponse.type === 'end') {
-          $CarContainer.stop()
-          isGameEnd = true
         }
       })
 
-      if (!isGameEnd) {
+      this.store.progressRacingTurn()
+
+      if (!this.store.isGameEnd) {
         requestAnimationFrame(() => {
           setTimeout(() => animate(), 1000)
         })
 
         return
       }
+
+      this.state.cars.forEach((car) => {
+        const $CarContainer = this.$CarContinerViews.get(car.name)
+
+        if (!$CarContainer) {
+          return
+        }
+
+        $CarContainer.stop()
+      })
 
       let maxMovementDistance = -1
 
