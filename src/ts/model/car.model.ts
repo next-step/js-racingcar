@@ -1,81 +1,43 @@
-import { ViewComponents } from '../controller/racing.controller'
 import { getRamdomNumber } from '../utils/random'
 
+type GameStatus = 'playing' | 'end'
+type MoveResponse = { type: GameStatus; move: boolean }
 class Car {
   name: string
+
   #progressDistance: number
   #targetCount: number
-  #viewContiner: HTMLElement
-  #RoadElement: HTMLDivElement
+  #currentCount: number
 
   constructor(name: string) {
     this.name = name
     this.#progressDistance = 0
     this.#targetCount = 0
-    this.#viewContiner = ViewComponents.RacingContainer
+    this.#currentCount = 0
   }
 
-  move(currentCount: number) {
+  move(): MoveResponse {
     const isProgress = this.isProgress()
+    const status: GameStatus = this.isGameEnded() ? 'end' : 'playing'
 
     if (isProgress) {
       this.#progressDistance += 1
-      this.renderProgressArrow()
     }
 
-    if (this.isGameEnded(currentCount)) {
-      const arrowElement = this.#RoadElement.querySelector(
-        '.d-flex'
-      ) as HTMLElement
-
-      arrowElement.remove()
-    }
+    return { type: status, move: isProgress }
   }
 
-  createContainer() {
-    const RoadElement = document.createElement('div')
-    RoadElement.classList.add('mr-2')
-
-    RoadElement.innerHTML = `
-      <div class="car-player">${this.name}</div>
-      <div class="d-flex justify-center mt-3">
-        <div class="relative spinner-container">
-          <span class="material spinner"></span>
-        </div>
-      </div>
-    `
-
-    this.#RoadElement = RoadElement
+  isGameEnded() {
+    return this.#targetCount === this.#currentCount
   }
+  isProgress() {
+    this.#currentCount += 1
 
-  renderRoad() {
-    this.createContainer()
-    this.#viewContiner.insertAdjacentElement('beforeend', this.#RoadElement)
-  }
-
-  renderProgressArrow() {
-    const arrowElement = this.#RoadElement.querySelector(
-      '.d-flex'
-    ) as HTMLElement
-    arrowElement.outerHTML = `
-      <div class="forward-icon mt-2">⬇️️</div>
-      <div class="d-flex justify-center mt-3">
-          <div class="relative spinner-container">
-            <span class="material spinner"></span>
-          </div>
-        </div>
-    `
+    return getRamdomNumber({ min: 0, max: 9 }) >= 4
   }
 
   set targetCount(count: number) {
     this.#targetCount = count
-  }
-
-  isGameEnded(currentCount: number) {
-    return this.#targetCount === currentCount
-  }
-  isProgress() {
-    return getRamdomNumber({ min: 0, max: 9 }) >= 4
   }
 
   get moveDistance() {

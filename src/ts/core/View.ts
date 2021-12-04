@@ -1,6 +1,6 @@
 type ElementTypes = HTMLInputElement | HTMLButtonElement | HTMLElement
 
-interface ViewProps<T extends ElementTypes> {
+export interface ViewProps<T extends ElementTypes> {
   root: T
 }
 

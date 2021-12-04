@@ -5,6 +5,7 @@ import { WinnerLabelView } from '../view/components/WinnerLabelView'
 import { CarNameInputView } from '../view/components/CarNameInputView'
 import { Action, makeState, State } from '../view/Racing.state'
 import { setStyle } from '../view/Racing.view'
+import { CarContinerView } from '../view/components/CarContainerView'
 
 export const ViewComponents = {
   GameCountFieldset: $({ selector: 'game-count-fieldset', type: 'CLASSNAME' }),
@@ -25,6 +26,7 @@ class RacingController {
   $GameCountInputView
   $RacingContainerView
   $WinnerLabelView
+  $CarContinerViews: Map<string, CarContinerView>
 
   currentProgressCount: number
   state: State
@@ -37,7 +39,6 @@ class RacingController {
       gameCount: null,
     })
 
-    this.currentProgressCount = 0
     this.state = state
     this.dispatch = dispatch
 
@@ -56,6 +57,8 @@ class RacingController {
     this.$WinnerLabelView = new WinnerLabelView({
       root: ViewComponents.WinnerLabel,
     })
+
+    this.$CarContinerViews = new Map()
 
     setStyle(state)
     this.setEvent()
@@ -154,20 +157,40 @@ class RacingController {
 
   resetGame() {
     this.dispatch({ _t: 'SET_IDLE' })
+    this.$CarContinerViews = new Map()
   }
 
   startGame() {
     this.state.cars.forEach((car) => {
       car.targetCount = this.state.gameCount || 0
-      car.renderRoad()
+      this.$CarContinerViews.set(
+        car.name,
+        new CarContinerView({ root: ViewComponents.RacingContainer, car })
+      )
     })
 
     const animate = () => {
-      this.currentProgressCount += 1
+      let isGameEnd = false
 
-      this.state.cars.forEach((car) => car.move(this.currentProgressCount))
+      this.state.cars.forEach((car) => {
+        const moveResponse = car.move()
+        const $CarContainer = this.$CarContinerViews.get(car.name)
 
-      if (this.currentProgressCount < (this.state.gameCount || 0)) {
+        if (!$CarContainer) {
+          return
+        }
+
+        if (moveResponse.move) {
+          $CarContainer.move()
+        }
+
+        if (moveResponse.type === 'end') {
+          $CarContainer.stop()
+          isGameEnd = true
+        }
+      })
+
+      if (!isGameEnd) {
         requestAnimationFrame(() => {
           setTimeout(() => animate(), 1000)
         })
@@ -176,6 +199,7 @@ class RacingController {
       }
 
       let maxMovementDistance = -1
+
       const winners = this.state.cars
         .map((car) => {
           if (maxMovementDistance < car.moveDistance) {
