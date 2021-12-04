@@ -1,5 +1,5 @@
 import { AlertMsg, ClassName } from "../common/constants";
-import { class2Query } from "../common/utils";
+import { class2Query } from "../common/dom";
 import Component from "../core/Component";
 
 interface GameResultProps {
@@ -14,11 +14,12 @@ const defaultState: GameResultState = {
   canShowResult: false,
   winners: [],
 };
-export default class GameResult extends Component<GameResultProps> {
-  private state?: GameResultState;
+export default class GameResult extends Component<
+  GameResultProps,
+  GameResultState
+> {
   constructor($target: HTMLElement, props?: GameResultProps) {
-    super($target, props);
-    this.state = { ...defaultState };
+    super($target, props, defaultState);
   }
 
   reset() {

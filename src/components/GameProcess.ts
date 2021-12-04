@@ -1,5 +1,6 @@
 import { ClassName } from "../common/constants";
-import { class2Query, delay, getRandom } from "../common/utils";
+import { delay, getRandom } from "../common/utils";
+import { $$, class2Query } from "../common/dom";
 import Component from "../core/Component";
 import { Car, CarProps } from "./Car";
 
@@ -12,11 +13,9 @@ const defaultState: GameProcessState = {
   carProps: [],
   raceTimes: 0,
 };
-export default class GameProcess extends Component {
-  private state?: GameProcessState;
-  constructor($target: HTMLElement, props?: Object) {
-    super($target, props);
-    this.state = { ...defaultState };
+export default class GameProcess extends Component<{}, GameProcessState> {
+  constructor($target: HTMLElement) {
+    super($target, {}, defaultState);
   }
 
   reset() {
@@ -88,11 +87,7 @@ export default class GameProcess extends Component {
   }
 
   componentDidUpdate() {
-    const $cars = this.$target.querySelectorAll<HTMLElement>(
-      class2Query(ClassName.Car)
-    );
-
-    Array.from($cars).forEach(($car) => {
+    $$(class2Query(ClassName.Car), this.$target).forEach(($car) => {
       const idx: number = +$car.dataset.id!;
       const carProps = this.state!.carProps![idx] as CarProps;
       new Car($car, carProps);

@@ -1,24 +1,27 @@
-export default abstract class Component<T = {}> {
-  public $target: HTMLElement;
-  public props?: T;
+export default abstract class Component<P = {}, S = {}> {
+  protected $target: HTMLElement;
+  protected props?: P;
+  protected state?: S;
   private isMounted: boolean;
 
-  constructor($target: HTMLElement, props?: T) {
+  constructor($target: HTMLElement, props?: P, state?: S) {
     this.isMounted = false;
     this.$target = $target;
     this.props = props;
+    this.state = state;
     this.componentInit();
     this.render();
     this.isMounted = true;
   }
 
-  componentInit() {}
-  componentDidMount() {}
-  componentDidUpdate() {}
-  getInnerHTML() {
+  protected componentInit() {}
+  protected componentDidMount() {}
+  protected componentDidUpdate() {}
+  protected setState(newState: S) {}
+  protected getInnerHTML() {
     return "";
   }
-  render() {
+  protected render() {
     this.$target.innerHTML = this.getInnerHTML();
     if (this.isMounted) {
       this.componentDidUpdate();

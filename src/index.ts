@@ -1,5 +1,5 @@
 import "./css/index.css";
 import App from "./components/App";
-import { id2Query } from "./common/utils";
+import { $, id2Query } from "./common/dom";
 
-new App(document.querySelector(id2Query("app")) as HTMLElement);
+new App($(id2Query("app")));

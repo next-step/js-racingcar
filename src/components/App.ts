@@ -3,7 +3,8 @@ import Component from "../core/Component";
 import UserInput from "./UserInput";
 import GameProcess from "./GameProcess";
 import GameResult from "./GameResult";
-import { delay, id2Query } from "../common/utils";
+import { delay } from "../common/utils";
+import { $, id2Query } from "../common/dom";
 
 export default class App extends Component {
   private userInputComp?: UserInput;
@@ -34,20 +35,14 @@ export default class App extends Component {
     };
 
     this.userInputComp = new UserInput(
-      this.$target.querySelector(
-        id2Query(ID.UserInputComponent)
-      ) as HTMLElement,
+      $(id2Query(ID.UserInputComponent), this.$target),
       { onInputUserData }
     );
     this.gameProcessComp = new GameProcess(
-      this.$target.querySelector(
-        id2Query(ID.GameProcessComponent)
-      ) as HTMLElement
+      $(id2Query(ID.GameProcessComponent), this.$target)
     );
     this.gameResultComp = new GameResult(
-      this.$target.querySelector(
-        id2Query(ID.GameResultComponent)
-      ) as HTMLElement,
+      $(id2Query(ID.GameResultComponent), this.$target),
       { restart: () => this.restart() }
     );
   }

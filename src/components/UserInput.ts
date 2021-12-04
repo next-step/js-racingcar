@@ -1,6 +1,6 @@
 import Component from "../core/Component";
 import { AlertMsg, ID } from "../common/constants";
-import { id2Query } from "../common/utils";
+import { $, id2Query } from "../common/dom";
 
 interface UserInputState {
   carNameVal?: string;
@@ -21,11 +21,12 @@ const defaultState: UserInputState = {
   isSubmittedRaceTimes: false,
 };
 
-export default class UserInput extends Component<UserInputProps> {
-  private state: UserInputState;
+export default class UserInput extends Component<
+  UserInputProps,
+  UserInputState
+> {
   constructor($target: HTMLElement, props: UserInputProps) {
-    super($target, props);
-    this.state = { ...defaultState };
+    super($target, props, defaultState);
   }
   componentInit() {
     this.bindEvents();
@@ -42,8 +43,9 @@ export default class UserInput extends Component<UserInputProps> {
 
   bindEvents() {
     const onClickCarNameBtn = () => {
-      const $inputCar = this.$target.querySelector(
-        id2Query(ID.InputCarName)
+      const $inputCar = $(
+        id2Query(ID.InputCarName),
+        this.$target
       ) as HTMLInputElement;
       const carNames = $inputCar.value.split(",").map((name) => name.trim());
       if (!carNames.every((name) => this.isValidCarName(name))) {
@@ -58,8 +60,9 @@ export default class UserInput extends Component<UserInputProps> {
     };
 
     const onClickRaceTimesBtn = () => {
-      const $inputTimes = this.$target.querySelector(
-        id2Query(ID.InputRaceTimes)
+      const $inputTimes = $(
+        id2Query(ID.InputRaceTimes),
+        this.$target
       ) as HTMLInputElement;
       const raceTimes = +$inputTimes.value;
       if (raceTimes < 1) {
@@ -68,8 +71,8 @@ export default class UserInput extends Component<UserInputProps> {
       }
       this.setState({ isSubmittedRaceTimes: true, raceTimesVal: raceTimes });
 
-      if (Array.isArray(this.state.carNames)) {
-        this.props?.onInputUserData([...this.state.carNames], raceTimes);
+      if (Array.isArray(this.state?.carNames)) {
+        this.props?.onInputUserData([...this.state!.carNames], raceTimes);
       }
     };
 

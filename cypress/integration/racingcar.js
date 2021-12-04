@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import * as utils from "../../src/common/utils";
+import { id2Query, class2Query } from "../../src/common/dom";
 import { ID, ClassName, AlertMsg } from "../../src/common/constants";
 
 context("RacingCar", () => {
@@ -14,43 +14,43 @@ context("RacingCar", () => {
   const testCarNames = ["a", "b", "c"];
 
   const inputUserDate = () => {
-    cy.get(utils.id2Query(ID.InputCarName)).type(testCarNames.join(","));
-    cy.get(utils.id2Query(ID.BtnCarName)).click();
-    cy.get(utils.id2Query(ID.BtnCarName)).should("be.disabled");
+    cy.get(id2Query(ID.InputCarName)).type(testCarNames.join(","));
+    cy.get(id2Query(ID.BtnCarName)).click();
+    cy.get(id2Query(ID.BtnCarName)).should("be.disabled");
 
-    cy.get(utils.id2Query(ID.InputRaceTimes)).type(1);
-    cy.get(utils.id2Query(ID.BtnRaceTimes)).click();
-    cy.get(utils.id2Query(ID.BtnCarName)).should("be.disabled");
+    cy.get(id2Query(ID.InputRaceTimes)).type(1);
+    cy.get(id2Query(ID.BtnRaceTimes)).click();
+    cy.get(id2Query(ID.BtnCarName)).should("be.disabled");
   };
 
   describe("UserInput Component", () => {
     it("should fail if a car name is over 5", async () => {
-      cy.get(utils.id2Query(ID.InputCarName)).type("123456");
-      cy.get(utils.id2Query(ID.BtnCarName))
+      cy.get(id2Query(ID.InputCarName)).type("123456");
+      cy.get(id2Query(ID.BtnCarName))
         .click()
         .then(() => {
           expect(alertStub).to.be.calledWith(AlertMsg.InvalidCarName);
-          cy.get(utils.id2Query(ID.InputRaceTimes)).should("not.exist");
+          cy.get(id2Query(ID.InputRaceTimes)).should("not.exist");
         });
     });
 
     it("should fail if a car name is under 1", async () => {
-      cy.get(utils.id2Query(ID.InputCarName)).type(", ,");
-      cy.get(utils.id2Query(ID.BtnCarName))
+      cy.get(id2Query(ID.InputCarName)).type(", ,");
+      cy.get(id2Query(ID.BtnCarName))
         .click()
         .then(() => {
           expect(alertStub).to.be.calledWith(AlertMsg.InvalidCarName);
-          cy.get(utils.id2Query(ID.InputRaceTimes)).should("not.exist");
+          cy.get(id2Query(ID.InputRaceTimes)).should("not.exist");
         });
     });
 
     it("should fail if race times is under 1", () => {
-      cy.get(utils.id2Query(ID.InputCarName)).type(testCarNames.join(","));
-      cy.get(utils.id2Query(ID.BtnCarName)).click();
-      cy.get(utils.id2Query(ID.BtnCarName)).should("be.disabled");
+      cy.get(id2Query(ID.InputCarName)).type(testCarNames.join(","));
+      cy.get(id2Query(ID.BtnCarName)).click();
+      cy.get(id2Query(ID.BtnCarName)).should("be.disabled");
 
-      cy.get(utils.id2Query(ID.InputRaceTimes)).type(-1);
-      cy.get(utils.id2Query(ID.BtnRaceTimes))
+      cy.get(id2Query(ID.InputRaceTimes)).type(-1);
+      cy.get(id2Query(ID.BtnRaceTimes))
         .click()
         .then(() => {
           expect(alertStub).to.be.calledWith(AlertMsg.InvalidTryCnt);
@@ -66,8 +66,8 @@ context("RacingCar", () => {
     beforeEach(() => inputUserDate());
 
     it("should display car names", () => {
-      cy.get(utils.id2Query(ID.GameProcessComponent))
-        .find(utils.class2Query(ClassName.CarPlayer))
+      cy.get(id2Query(ID.GameProcessComponent))
+        .find(class2Query(ClassName.CarPlayer))
         .each(($carPlayer, i) => {
           expect($carPlayer.text()).to.equal(testCarNames[i]);
         });
@@ -80,16 +80,14 @@ context("RacingCar", () => {
       cy.wait(1000);
       const carProps = [];
       let maxForward = 0;
-      cy.get(utils.id2Query(ID.GameProcessComponent))
-        .find(utils.class2Query(ClassName.Car))
+      cy.get(id2Query(ID.GameProcessComponent))
+        .find(class2Query(ClassName.Car))
         .each(($car) => {
           const forward = $car.children(
-            utils.class2Query(ClassName.forwardIcon)
+            class2Query(ClassName.forwardIcon)
           ).length;
           maxForward = Math.max(maxForward, forward);
-          const name = $car
-            .children(utils.class2Query(ClassName.CarPlayer))
-            .text();
+          const name = $car.children(class2Query(ClassName.CarPlayer)).text();
           carProps.push({ forward, name });
         })
         .then(() => {
@@ -97,7 +95,7 @@ context("RacingCar", () => {
             .filter(({ forward }) => forward === maxForward)
             .map(({ name }) => name);
 
-          cy.get(utils.id2Query(ID.GameResultComponent))
+          cy.get(id2Query(ID.GameResultComponent))
             .find("h2")
             .then(($h2) =>
               expect($h2.text()).to.equal(
