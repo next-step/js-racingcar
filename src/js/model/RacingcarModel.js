@@ -23,6 +23,10 @@ export default class RacingcarModel {
     return this.#data.cars;
   }
 
+  get winner() {
+    return this.#data.winner;
+  }
+
   setCars(data) {
     this.#data = {
       ...this.#data,
@@ -59,6 +63,16 @@ export default class RacingcarModel {
           ...carInfo
         };
       })
+    };
+  }
+
+  setWinner(winnerCount) {
+    this.#data = {
+      ...this.#data,
+      winner: this.carInfo
+        .filter(({ count }) => count === winnerCount)
+        .map(({ carName }) => carName)
+        .join(', ')
     };
   }
 

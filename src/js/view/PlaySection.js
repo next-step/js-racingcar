@@ -1,5 +1,7 @@
 import { $ } from '../util/dom.js';
 import View from './View.js';
+import forward from './player/Forward.js';
+import spinner from './player/Spinner.js';
 
 export default class PlaySection extends View {
   #template = /* html */ `
@@ -12,6 +14,7 @@ export default class PlaySection extends View {
   }
 
   render() {
+    this.$target.innerHTML = '';
     this.$target.replaceChildren();
     this.$target.insertAdjacentHTML('beforeend', this.#template);
   }
@@ -27,9 +30,34 @@ export default class PlaySection extends View {
       })
       .join('');
 
+    this.$playWrapper.replaceChildren();
     this.$playWrapper.insertAdjacentHTML('beforeend', carNamesElements);
 
     this.$target.replaceChildren();
     this.$target.appendChild(this.$playWrapper);
+  }
+
+  renderSpinner(carName, status = true) {
+    const spinnerEl = spinner();
+    const parentEl = $(
+      `.racingcar[data-car-player="${carName}"]`,
+      this.$target
+    );
+
+    if (status) {
+      parentEl.insertAdjacentHTML('beforeend', spinnerEl);
+      return;
+    }
+
+    parentEl.removeChild($('.spinner-wrapper', parentEl));
+  }
+
+  renderRacingCarProgress(carName) {
+    const forwardEl = forward();
+    const parentEl = $(
+      `.racingcar[data-car-player="${carName}"]`,
+      this.$target
+    );
+    parentEl.insertAdjacentHTML('beforeend', forwardEl);
   }
 }

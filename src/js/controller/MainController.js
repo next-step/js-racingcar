@@ -4,7 +4,7 @@ import PlaySection from '../view/PlaySection.js';
 import WinnerSection from '../view/WinnerSection.js';
 import RacingcarModel from '../model/RacingcarModel.js';
 import { ALERT, GAME } from '../util/constants.js';
-import { moveCar } from '../util/service.js';
+import { delay, moveCar } from '../util/service.js';
 
 export default class MainController {
   constructor({
@@ -18,7 +18,7 @@ export default class MainController {
     this.playSection = new PlaySection(playSection);
     this.winnerSection = new WinnerSection(winnerSection);
 
-    this.racingCarModel = new RacingcarModel();
+    this.racingcarModel = new RacingcarModel();
 
     this.init();
     this.bindEvents();
@@ -39,6 +39,15 @@ export default class MainController {
     this.tryCountFormSection.on('@submitTryCount', ({ detail }) =>
       this.onSubmitTryCount(detail)
     );
+
+    this.winnerSection.on('@clickResetBtn', () => {
+      this.onClickResetBtn();
+    });
+  }
+
+  onClickResetBtn() {
+    this.init();
+    this.racingcarModel.resetGame();
   }
 
   onSubmitCarNames({ data }) {
@@ -56,32 +65,68 @@ export default class MainController {
 
     this.carNameFormSection.toggleDisableButton(true);
 
-    this.racingCarModel.setCars(carNames.split(',').map((name) => name.trim()));
+    this.racingcarModel.setCars(carNames.split(',').map((name) => name.trim()));
 
     this.tryCountFormSection.show().focus();
   }
 
-  onSubmitTryCount({ data }) {
+  async onSubmitTryCount({ data }) {
     const tryCount = data;
     this.tryCountFormSection.toggleDisableButton(true);
 
-    this.racingCarModel.setTryCount(Number(tryCount));
+    this.racingcarModel.setTryCount(Number(tryCount));
 
-    this.playSection.show().renderRacingCar(this.racingCarModel.carNames);
+    this.playSection.show().renderRacingCar(this.racingcarModel.carNames);
 
-    this.playGames();
+    await this.playGames();
+
+    await this.setWinner();
   }
 
-  playGames() {
-    let count = 0;
-    while (count < this.racingCarModel.tryCount) {
-      const movedCarNames = this.racingCarModel.carNames.filter(() =>
-        moveCar()
-      );
-      this.racingCarModel.setMoveCount(movedCarNames);
-      count += 1;
+  async playGames() {
+    for (const index in Array.from(
+      { length: this.racingcarModel.tryCount },
+      () => 0
+    )) {
+      this.racingcarModel.carNames.forEach((carName) => {
+        this.playSection.renderSpinner(carName);
+      });
+      await delay(1000);
+
+      this.racingcarModel.carNames.forEach((carName) => {
+        this.playSection.renderSpinner(carName, false);
+      });
+
+      const movedCarNames = this.racingcarModel.carNames.filter((carName) => {
+        const isMoved = moveCar();
+        isMoved && this.playSection.renderRacingCarProgress(carName);
+        return isMoved;
+      });
+      this.racingcarModel.setMoveCount(movedCarNames);
     }
-    console.log(this.racingCarModel.carInfo);
+
+    // while (count < this.racingcarModel.tryCount) {
+    //   const movedCarNames = this.racingcarModel.carNames.filter((carName) => {
+    //     const isMoved = moveCar();
+    //     isMoved && this.playSection.renderRacingCarProgress(carName);
+    //     return isMoved;
+    //   });
+    //   this.racingcarModel.setMoveCount(movedCarNames);
+    //   count += 1;
+    // }
+  }
+
+  async setWinner() {
+    const maxCount = Math.max(
+      ...this.racingcarModel.carInfo.map(({ count }) => count)
+    );
+
+    this.racingcarModel.setWinner(maxCount);
+
+    this.winnerSection.show().renderWinner(this.racingcarModel.winner);
+
+    await delay(2000);
+    this.winnerSection.triggerAlert();
   }
 
   isValidCarName(carNames) {
