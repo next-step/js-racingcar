@@ -38,7 +38,7 @@ export default class CarNameFormSection extends View {
     });
   }
 
-  toggleDisableButton(flag) {
+  setDisableButton(flag) {
     [$('input', this.$target), $('button', this.$target)].forEach((el) => {
       el.disabled = flag;
     });
