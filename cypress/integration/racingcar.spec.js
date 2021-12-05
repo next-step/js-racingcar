@@ -30,10 +30,34 @@ describe('racingcar stpe1', () => {
     it('참가자 유효성 체크', () => {
       cy.submitTryCount(3);
       cy.checkCss('#playSection', 'display', 'block');
-      cy.get('.car-player')
-        .should('have.length', 4)
-        .eq(0)
-        .should('have.text', 'terry');
+
+      ['terry', 'jerry', 'soul', 'pixar'].forEach((name, index) => {
+        cy.get('.car-player')
+          .should('have.length', 4)
+          .eq(index)
+          .should('have.text', name);
+      });
+    });
+
+    it('3초 뒤 결과 렌더링', () => {
+      cy.wait(3000);
+      cy.checkCss('#winnerSection', 'display', 'block');
+    });
+
+    it('2초 뒤 축하 메시지 alert', () => {
+      const alertStub = cy.stub();
+      cy.on('window:alert', alertStub);
+
+      cy.wait(2000).then(() => {
+        expect(alertStub.getCall(0)).to.be.calledWith(
+          ALERT.CONGRATULATION_TEXT
+        );
+      });
+    });
+
+    it('다시 시작 버튼 클릭 시 초기화', () => {
+      cy.clickResetBtn();
+      cy.resetGameView();
     });
   });
 });
