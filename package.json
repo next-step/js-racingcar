@@ -1,0 +1,15 @@
+{
+  "name": "js-racingcar",
+  "version": "0.0.1",
+  "main": "src/js/index.js",
+  "repository": "https://github.com/jho2301/js-racingcar.git",
+  "author": "jho2301 <jho2301@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "eslint": "^8.4.0",
+    "parcel": "^2.0.1",
+    "prettier": "^2.5.1"
+  }
+}
