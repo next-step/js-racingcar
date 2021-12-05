@@ -24,3 +24,14 @@ Cypress.Commands.add('checkCss', (selector, style, value, type = true) => {
   const haveCss = type ? 'have.css' : 'have.not.css';
   cy.get(selector).should(haveCss, style, value);
 });
+
+Cypress.Commands.add('clickResetBtn', () => {
+  cy.get('#winnerSection .btn').click();
+});
+
+Cypress.Commands.add('resetGameView', () => {
+  cy.checkCss('#carNameFormSection', 'display', 'block');
+  cy.checkCss('#tryCountFormSection', 'display', 'none');
+  cy.checkCss('#playSection', 'display', 'none');
+  cy.checkCss('#winnerSection', 'display', 'none');
+});
