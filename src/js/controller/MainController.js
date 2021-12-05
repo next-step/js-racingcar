@@ -63,7 +63,7 @@ export default class MainController {
       return;
     }
 
-    this.carNameFormSection.toggleDisableButton(true);
+    this.carNameFormSection.setDisableButton(true);
 
     this.racingcarModel.setCars(carNames.split(',').map((name) => name.trim()));
 
@@ -72,7 +72,7 @@ export default class MainController {
 
   async onSubmitTryCount({ data }) {
     const tryCount = data;
-    this.tryCountFormSection.toggleDisableButton(true);
+    this.tryCountFormSection.setDisableButton(true);
 
     this.racingcarModel.setTryCount(Number(tryCount));
 

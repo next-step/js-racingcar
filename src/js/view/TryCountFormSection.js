@@ -24,7 +24,7 @@ export default class TryCountFormSection extends View {
   }
 
   init() {
-    this.toggleDisableButton(false);
+    this.setDisableButton(false);
     this.$tryCount.value = '';
   }
 
@@ -39,7 +39,7 @@ export default class TryCountFormSection extends View {
     });
   }
 
-  toggleDisableButton(flag) {
+  setDisableButton(flag) {
     [$('input', this.$target), $('button', this.$target)].forEach((el) => {
       el.disabled = flag;
     });

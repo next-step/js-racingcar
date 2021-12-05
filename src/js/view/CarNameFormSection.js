@@ -23,7 +23,7 @@ export default class CarNameFormSection extends View {
   }
 
   init() {
-    this.toggleDisableButton(false);
+    this.setDisableButton(false);
     this.$carNames.value = '';
   }
 
@@ -38,7 +38,7 @@ export default class CarNameFormSection extends View {
     });
   }
 
-  toggleDisableButton(flag) {
+  setDisableButton(flag) {
     [$('input', this.$target), $('button', this.$target)].forEach((el) => {
       el.disabled = flag;
     });
