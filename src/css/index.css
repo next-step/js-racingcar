@@ -10,7 +10,12 @@ body {
   height: 100%;
 }
 
-.car-player {
+form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+racingcar-player-name {
   height: 36px;
   min-width: 64px;
   padding: 0 16px;
