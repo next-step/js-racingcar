@@ -8,11 +8,12 @@
   "scripts": {
     "start": "tsc-watch",
     "serve": "live-server .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:e2e": "cypress run --spec 'cypress/integration/racingcar/*' --config video=false"
   },
-  "dependencies": {
+  "devDependencies": {
     "live-server": "^1.2.1",
     "tsc-watch": "^4.5.0",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "cypress": "^9.1.1"
   }
 }
