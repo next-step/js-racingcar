@@ -1,0 +1,18 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/inhyuck/js-racingcar",
+  "author": "inhyuck <dev.inhyuck@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsc-watch",
+    "serve": "live-server .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "live-server": "^1.2.1",
+    "tsc-watch": "^4.5.0",
+    "typescript": "^4.5.2"
+  }
+}
