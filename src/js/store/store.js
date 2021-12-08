@@ -1,4 +1,3 @@
-import {MESSAGES, STORE_STATUS, EVENTS} from '../constants.js'
 import PubSub from "../lib/pubsub.js";
 
 export default class Store {
@@ -12,17 +11,17 @@ export default class Store {
     self.status = 'resting';
     self.events = new PubSub();
 
-    if(params.hasOwnProperty('actions')) self.actions = params.actions;
-    if(params.hasOwnProperty('mutations')) self.mutations = params.mutations;
+    if (params.hasOwnProperty('actions')) self.actions = params.actions;
+    if (params.hasOwnProperty('mutations')) self.mutations = params.mutations;
 
     self.state = new Proxy((params.state || {}), {
-      set: function(state, key, value) {
+      set: function (state, key, value) {
+        console.log('prev-state:', key, state[key]);
         state[key] = value;
-        console.log(`stateChange: ${key}: ${value}`);
-        console.log(self.events);
+        console.log('next-state:', key ,state[key]);
         self.events.publish('stateChange', self.state);
 
-        if(self.status !== 'mutation') console.warn(`You should use a mutation to set ${key}`);
+        if (self.status !== 'mutation') console.warn(`You should use a mutation to set ${key}`);
         self.status = 'resting';
 
         return true;
@@ -59,14 +58,13 @@ export default class Store {
    */
   commit(mutationKey, payload) {
 
-    if(typeof this.mutations[mutationKey] !== 'function') {
+    if (typeof this.mutations[mutationKey] !== 'function') {
       console.log(`Mutation "${mutationKey}" doesn't exist`);
       return false;
     }
 
     this.status = 'mutation';
-    this.state = Object.assign(this.state,
-      this.mutations[mutationKey](this.state, payload));
+    this.state = Object.assign(this.state, this.mutations[mutationKey](this.state, payload));
 
     return true;
   }
