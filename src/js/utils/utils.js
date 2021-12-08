@@ -1,5 +1,3 @@
-import {isForward} from "./service.js";
-
 export const $ = (selector) => document.querySelector(selector);
 export const $$ = (selector) => document.querySelectorAll(selector);
 
@@ -13,9 +11,5 @@ export const createRandomNumber = (min, max) => {
 
 export const isNumber = (num) => {
   return !Number.isNaN(num) && typeof num === 'number'
-};
-
-export const createProcessArray = (tryCounts) => {
-  return createRandomArray(tryCounts, 0, 9).map(number => isForward(number));
 };
 
