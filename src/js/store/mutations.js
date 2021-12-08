@@ -1,5 +1,5 @@
-import {validateCarName} from "../utils/service.js";
-import {isNumber} from "../utils/utils.js";
+import {createProcessArray, validateCarName} from "../utils/service.js";
+import { isNumber} from "../utils/utils.js";
 import {ERROR_MESSAGES} from "../constants.js";
 
 export default {
@@ -19,5 +19,9 @@ export default {
     if (tryCountsString.length === 0) throw Error(ERROR_MESSAGES.NO_TRY_COUNTS);
     if (isNumber(Number(tryCountsString))) state.tryCounts = Number(tryCountsString);
     else throw Error(ERROR_MESSAGES.TYPE_ONLY_NUMBER);
+  },
+
+  setProcessMatrix(state, payload) {
+    state.processMatrix = [...Array(state.carNames.length)].map(() => createProcessArray(state.tryCounts));
   },
 };

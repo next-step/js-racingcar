@@ -10,4 +10,8 @@ export default {
   setTryCounts(context, payload) {
     context.commit('setTryCounts', payload);
   },
+
+  setProcessMatrix(context, payload) {
+    context.commit('setProcessMatrix', payload);
+  }
 };
