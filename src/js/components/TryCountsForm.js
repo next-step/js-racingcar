@@ -7,22 +7,19 @@ export default class TryCountsForm extends Component {
   constructor() {
     super({ store });
     this.$tryCountsForm = el(TryCountsForm.#template);
-    this.$tryCountsInput =
-      this.$tryCountsForm.querySelector('.try-counts-input');
+    this.$tryCountsInput = this.$tryCountsForm.querySelector('.try-counts-input');
 
     this.bindEvent();
   }
 
   bindEvent() {
-    this.$tryCountsForm.addEventListener('submit', (event) =>
-      this.onSubmitTryCountForm(event)
-    );
+    this.$tryCountsForm.addEventListener('submit', (event) => this.onSubmitTryCountForm(event));
   }
 
   onSubmitTryCountForm(event) {
     event.preventDefault();
     store.dispatch('setTryCounts', {
-      tryCountsString: this.$tryCountsInput.value
+      tryCountsString: this.$tryCountsInput.value,
     });
     store.dispatch('setProcessMatrix');
   }

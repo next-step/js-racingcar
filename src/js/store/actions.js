@@ -13,5 +13,5 @@ export default {
 
   setProcessMatrix(context, payload) {
     context.commit('setProcessMatrix', payload);
-  }
+  },
 };

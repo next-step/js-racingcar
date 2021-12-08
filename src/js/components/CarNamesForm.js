@@ -13,16 +13,15 @@ export default class CarNamesForm extends Component {
   }
 
   bindEvent() {
-    this.$carNamesForm.addEventListener('submit', (event) =>
-      this.onSubmitCarNames(event)
-    );
+    this.$carNamesForm.addEventListener('submit', (event) => this.onSubmitCarNames(event));
   }
 
   onSubmitCarNames(event) {
     event.preventDefault();
     store.dispatch('setCarNames', {
-      carNames: this.$carNamesInput.value.split(',')
+      carNames: this.$carNamesInput.value.split(','),
     });
+    this.show();
   }
 
   render() {
@@ -30,7 +29,7 @@ export default class CarNamesForm extends Component {
   }
 
   static #template = `
-        <form>
+        <form> 
           <fieldset>
             <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
             <p>

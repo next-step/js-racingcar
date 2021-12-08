@@ -18,8 +18,7 @@ export default {
 
   setTryCounts(state, { tryCountsString }) {
     if (tryCountsString.length === 0) throw Error(ERROR_MESSAGES.NO_TRY_COUNTS);
-    if (isNumber(Number(tryCountsString)))
-      state.tryCounts = Number(tryCountsString);
+    if (isNumber(Number(tryCountsString))) state.tryCounts = Number(tryCountsString);
     else throw Error(ERROR_MESSAGES.TYPE_ONLY_NUMBER);
   },
 
@@ -27,5 +26,5 @@ export default {
     state.processMatrix = [...Array(state.carNames.length)].map(() =>
       createProcessArray(state.tryCounts)
     );
-  }
+  },
 };

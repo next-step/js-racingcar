@@ -1,4 +1,5 @@
 import PubSub from '../lib/pubsub.js';
+import { STORE_STATUS } from '../constants.js';
 
 export default class Store {
   constructor(params) {
@@ -8,7 +9,7 @@ export default class Store {
     self.mutations = {};
     self.state = {};
 
-    self.status = 'resting';
+    self.status = STORE_STATUS.RESTING;
     self.events = new PubSub();
 
     if (params.hasOwnProperty('actions')) self.actions = params.actions;
@@ -19,14 +20,16 @@ export default class Store {
         console.log('prev-state:', key, state[key]);
         state[key] = value;
         console.log('next-state:', key, state[key]);
+
         self.events.publish('stateChange', self.state);
 
-        if (self.status !== 'mutation')
+        if (self.status !== STORE_STATUS.MUTATION)
           console.warn(`You should use a mutation to set ${key}`);
-        self.status = 'resting';
+
+        self.status = STORE_STATUS.RESTING;
 
         return true;
-      }
+      },
     });
   }
 
@@ -43,7 +46,7 @@ export default class Store {
     }
 
     console.groupCollapsed(`ACTION: ${actionKey}`);
-    this.status = 'action';
+    this.status = STORE_STATUS.ACTION;
     this.actions[actionKey](this, payload);
     console.groupEnd();
 
@@ -62,11 +65,9 @@ export default class Store {
       return false;
     }
 
-    this.status = 'mutation';
-    this.state = Object.assign(
-      this.state,
-      this.mutations[mutationKey](this.state, payload)
-    );
+    this.status = STORE_STATUS.MUTATION;
+
+    this.state = Object.assign(this.state, this.mutations[mutationKey](this.state, payload));
 
     return true;
   }
