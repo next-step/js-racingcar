@@ -6,4 +6,8 @@ export default {
   setCarNames(context, payload) {
     context.commit('setCarNames', payload);
   },
+
+  setTryCounts(context, payload) {
+    context.commit('setTryCounts', payload);
+  },
 };
