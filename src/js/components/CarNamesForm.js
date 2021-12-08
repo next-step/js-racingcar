@@ -1,20 +1,24 @@
-import Component from "../lib/component.js";
+import Component from '../lib/component.js';
 import store from '../store/index.js';
-import el from "../utils/dom.js";
-import {$} from "../utils/utils.js";
+import el from '../utils/dom.js';
+import { $ } from '../utils/utils.js';
 
 export default class CarNamesForm extends Component {
   constructor() {
-    super({store});
+    super({ store });
     this.$carNamesForm = el(CarNamesForm.#template);
     this.$carNamesInput = this.$carNamesForm.querySelector('.car-name-input');
 
-    this.$carNamesForm.addEventListener('submit', event => this.onSubmitCarNames(event));
+    this.$carNamesForm.addEventListener('submit', (event) =>
+      this.onSubmitCarNames(event)
+    );
   }
 
   onSubmitCarNames(event) {
     event.preventDefault();
-    store.dispatch('setCarNames', {carNames: (this.$carNamesInput.value).split(',') });
+    store.dispatch('setCarNames', {
+      carNames: this.$carNamesInput.value.split(',')
+    });
   }
 
   render() {
@@ -41,5 +45,5 @@ export default class CarNamesForm extends Component {
             </div>
           </fieldset>
         </form>
-`
-};
+`;
+}

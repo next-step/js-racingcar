@@ -22,6 +22,6 @@ export default class PubSub {
    */
   publish(event, data = {}) {
     if (!this.events.hasOwnProperty(event)) return [];
-    return this.events[event].map(callback => callback(data));
+    return this.events[event].map((callback) => callback(data));
   }
-};
+}

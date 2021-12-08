@@ -1,24 +1,29 @@
-import Component from "../lib/component.js";
+import Component from '../lib/component.js';
 import store from '../store/index.js';
-import el from "../utils/dom.js";
-import {$} from "../utils/utils.js";
+import el from '../utils/dom.js';
+import { $ } from '../utils/utils.js';
 
 export default class TryCountsForm extends Component {
   constructor() {
-    super({store});
+    super({ store });
     this.$tryCountsForm = el(TryCountsForm.#template);
-    this.$tryCountsInput = this.$tryCountsForm.querySelector('.try-counts-input');
+    this.$tryCountsInput =
+      this.$tryCountsForm.querySelector('.try-counts-input');
 
     this.bindEvent();
   }
 
   bindEvent() {
-    this.$tryCountsForm.addEventListener('submit', (event) => this.onSubmitTryCountForm(event));
+    this.$tryCountsForm.addEventListener('submit', (event) =>
+      this.onSubmitTryCountForm(event)
+    );
   }
 
   onSubmitTryCountForm(event) {
     event.preventDefault();
-    store.dispatch('setTryCounts', {tryCountsString: this.$tryCountsInput.value});
+    store.dispatch('setTryCounts', {
+      tryCountsString: this.$tryCountsInput.value
+    });
     store.dispatch('setProcessMatrix');
   }
 
@@ -42,5 +47,5 @@ export default class TryCountsForm extends Component {
             </div>
           </fieldset>
         </form>
-`
-};
+`;
+}

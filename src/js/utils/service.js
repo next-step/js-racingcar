@@ -1,5 +1,5 @@
-import {ERROR_MESSAGES} from "../constants.js";
-import {createRandomArray} from "./utils.js";
+import { ERROR_MESSAGES } from '../constants.js';
+import { createRandomArray } from './utils.js';
 
 export const validateCarName = (carName) => {
   if (carName === '') throw Error(ERROR_MESSAGES.NO_CAR_NAMES);
@@ -7,11 +7,9 @@ export const validateCarName = (carName) => {
 };
 
 export const isForward = (num) => {
-  return (num >= 4)
-    ? 1
-    : 0;
+  return num >= 4 ? 1 : 0;
 };
 
 export const createProcessArray = (tryCounts) => {
-  return createRandomArray(tryCounts, 0, 9).map(number => isForward(number));
+  return createRandomArray(tryCounts, 0, 9).map((number) => isForward(number));
 };

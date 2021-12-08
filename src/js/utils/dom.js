@@ -5,19 +5,18 @@ const createElem = (elem) => {
   template.replaceChildren();
   template.insertAdjacentHTML('afterbegin', elem);
   return template.firstElementChild;
-}
+};
 
 const el = (parent, children) => {
   const parentElem = createElem(parent);
   if (children) {
     const frag = document.createDocumentFragment();
-    children.forEach(elem => {
+    children.forEach((elem) => {
       frag.appendChild(createElem(elem));
-    })
+    });
     parentElem.replaceChildren(frag);
   }
   return parentElem;
-}
+};
 
 export default el;
-
