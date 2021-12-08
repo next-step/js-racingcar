@@ -3,27 +3,31 @@ import PubSub from "../lib/pubsub.js";
 
 export default class Store {
   constructor(params) {
-    this.actions = {};
-    this.mutations = {};
-    this.state = {};
-    this.status = STORE_STATUS.RESTING;
+    const self = this;
 
-    this.events = new PubSub();
+    self.actions = {};
+    self.mutations = {};
+    self.state = {};
 
-    if (params.hasOwnProperty('actions')) this.actions = params.actions;
-    if (params.hasOwnProperty('mutations')) this.mutations = params.mutations;
+    self.status = 'resting';
+    self.events = new PubSub();
 
-    this.state = new Proxy((params.state || {} ), {
-      set: function (state, key, value) {
+    if(params.hasOwnProperty('actions')) self.actions = params.actions;
+    if(params.hasOwnProperty('mutations')) self.mutations = params.mutations;
+
+    self.state = new Proxy((params.state || {}), {
+      set: function(state, key, value) {
         state[key] = value;
+        console.log(`stateChange: ${key}: ${value}`);
+        console.log(self.events);
+        self.events.publish('stateChange', self.state);
 
-        console.log(`state-change: ${key}: ${value}`);
+        if(self.status !== 'mutation') console.warn(`You should use a mutation to set ${key}`);
+        self.status = 'resting';
 
-        this.events.publish(EVENTS.STATE_CHANGE, this.state);
-        if (this.status !== STORE_STATUS.MUTATION) console.warn(MESSAGES.SHOULD_USE_MUTATION);
-        this.status = STORE_STATUS.RESTING;
+        return true;
       }
-    })
+    });
   }
 
   /**
@@ -45,6 +49,7 @@ export default class Store {
 
     return true;
   }
+
 
   /**
    * @param mutationKey
