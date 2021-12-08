@@ -15,7 +15,8 @@ export type State = {
       _t: 'insert_game_count'
     }
   | {
-      _t: 'check_winner'
+      _t: 'set_winner'
+      winners: string[]
     }
 )
 
@@ -29,7 +30,8 @@ export type Action =
       gameCount: number
     }
   | {
-      _t: 'CHECK_WINNER'
+      _t: 'SET_WINNER'
+      winners: string[]
     }
   | {
       _t: 'SET_IDLE'
@@ -93,10 +95,11 @@ function reducer(prevState: State, action: Action): State {
         gameCount: getGameCount(action.gameCount),
       }
 
-    case 'CHECK_WINNER':
+    case 'SET_WINNER':
       return {
         ...prevState,
-        _t: 'check_winner',
+        _t: 'set_winner',
+        winners: action.winners,
       }
   }
 }

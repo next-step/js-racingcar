@@ -5,6 +5,7 @@ import {
   CAR_NAMES_ARRAY,
   WRONG_CAR_NAMES,
 } from '../support/constants'
+import { splitCarNames } from '../support/utils'
 
 describe('🏎️ 자동차 경주 게임', () => {
   beforeEach(() => {
@@ -14,6 +15,7 @@ describe('🏎️ 자동차 경주 게임', () => {
     cy.get('[id=game_count_input]').as('gameCountInput')
     cy.get('[id=game_count_button]').as('gameCountButton')
     cy.get('[id=game_count_button]').as('gameCountButton')
+    cy.get('[id=winner_label]').as('winnerLabel')
   })
 
   it('유효하지 않은 자동차 이름을 입력하면 경고메세지를 띄워준다.', () => {
@@ -75,5 +77,44 @@ describe('🏎️ 자동차 경주 게임', () => {
           .children('.forward-icon')
           .should('have.length.lessThan', 4)
       )
+  })
+
+  it('게임을 진행한 후 누가 우승했는지 알려준다.', () => {
+    cy.get('@carNameInput').type(CAR_NAMES)
+    cy.get('@carNameButton').click()
+    cy.get('@gameCountInput').type(2)
+    cy.get('@gameCountButton').click('')
+
+    cy.wait(2000)
+
+    const carNames = splitCarNames(CAR_NAMES)
+    const carState = carNames.map((carName) => ({ name: carName, move: 0 }))
+    let carNameIndex = 0
+    let maxMove = 0
+
+    cy.getPlayers()
+      .should('be.visible')
+      .each((player) => {
+        cy.wrap(player)
+          .parent()
+          .then((parent) => {
+            const arrowLength = parent.children('.forward-icon').length
+            carState[carNameIndex].move = arrowLength
+            if (maxMove < arrowLength) {
+              maxMove = arrowLength
+            }
+            carNameIndex += 1
+          })
+      })
+      .then(() => {
+        const winner = carState
+          .filter((car) => car.move === maxMove)
+          .map((car) => car.name)
+
+        cy.get('@winnerLabel').should(
+          'have.text',
+          `🏆 최종 우승자: ${winner.join(', ')} 🏆`
+        )
+      })
   })
 })
