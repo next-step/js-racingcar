@@ -9,6 +9,10 @@ export default class CarNamesForm extends Component {
     this.$carNamesForm = el(CarNamesForm.#template);
     this.$carNamesInput = this.$carNamesForm.querySelector('.car-name-input');
 
+    this.bindEvent();
+  }
+
+  bindEvent() {
     this.$carNamesForm.addEventListener('submit', (event) =>
       this.onSubmitCarNames(event)
     );
