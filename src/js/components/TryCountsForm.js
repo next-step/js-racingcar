@@ -4,6 +4,27 @@ import el from '../utils/dom.js';
 import { $ } from '../utils/utils.js';
 
 export default class TryCountsForm extends Component {
+  static #template = `
+        <form>
+          <fieldset>
+            <p>시도할 횟수를 입력해주세요.</p>
+            <div class="d-flex">
+              <input
+                type="number"
+                class="w-100 mr-2 try-counts-input"
+                placeholder="시도 횟수"
+              />
+              <button type="submit" class="btn btn-cyan try-counts-submit-btn">
+                확인
+              </button>
+            </div>
+          </fieldset>
+        </form>
+`;
+
+  $tryCountsForm;
+  $tryCountsInput;
+
   constructor() {
     super({ store });
     this.$tryCountsForm = el(TryCountsForm.#template);
@@ -27,22 +48,4 @@ export default class TryCountsForm extends Component {
   render() {
     $('#app section').insertAdjacentElement('beforeend', this.$tryCountsForm);
   }
-
-  static #template = `
-        <form>
-          <fieldset>
-            <p>시도할 횟수를 입력해주세요.</p>
-            <div class="d-flex">
-              <input
-                type="number"
-                class="w-100 mr-2 try-counts-input"
-                placeholder="시도 횟수"
-              />
-              <button type="submit" class="btn btn-cyan try-counts-submit-btn">
-                확인
-              </button>
-            </div>
-          </fieldset>
-        </form>
-`;
 }
