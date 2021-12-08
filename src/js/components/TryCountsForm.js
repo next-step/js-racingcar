@@ -19,6 +19,7 @@ export default class TryCountsForm extends Component {
   onSubmitTryCountForm(event) {
     event.preventDefault();
     store.dispatch('setTryCounts', {tryCountsString: this.$tryCountsInput.value});
+    store.dispatch('setProcessMatrix');
   }
 
   render() {
