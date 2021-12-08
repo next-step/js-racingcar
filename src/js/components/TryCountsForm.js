@@ -6,22 +6,23 @@ import {$} from "../utils/utils.js";
 export default class TryCountsForm extends Component {
   constructor() {
     super({store});
-    this.$tryCountForm = el(TryCountsForm.#template);
+    this.$tryCountsForm = el(TryCountsForm.#template);
+    this.$tryCountsInput = this.$tryCountsForm.querySelector('.try-counts-input');
 
     this.bindEvent();
   }
 
   bindEvent() {
-    this.$tryCountForm.addEventListener('submit', (event) => this.onSubmitTryCountForm(event));
+    this.$tryCountsForm.addEventListener('submit', (event) => this.onSubmitTryCountForm(event));
   }
 
   onSubmitTryCountForm(event) {
     event.preventDefault();
-    console.log('onSubmitTryCountForm');
+    store.dispatch('setTryCounts', {tryCountsString: this.$tryCountsInput.value});
   }
 
   render() {
-    $('#app section').insertAdjacentElement('beforeend', this.$tryCountForm);
+    $('#app section').insertAdjacentElement('beforeend', this.$tryCountsForm);
   }
 
   static #template = `
@@ -31,10 +32,10 @@ export default class TryCountsForm extends Component {
             <div class="d-flex">
               <input
                 type="number"
-                class="w-100 mr-2 try-count-input"
+                class="w-100 mr-2 try-counts-input"
                 placeholder="시도 횟수"
               />
-              <button type="submit" class="btn btn-cyan try-count-submit-btn">
+              <button type="submit" class="btn btn-cyan try-counts-submit-btn">
                 확인
               </button>
             </div>
