@@ -12,3 +12,8 @@ export const createRandomArray = (length, min, max) => {
 export const createRandomNumber = (min, max) => {
   return Math.floor(Math.random() * max) + min;
 };
+
+export const isNumber = (num) => {
+  return !Number.isNaN(num) && typeof num === 'number'
+};
+
