@@ -67,8 +67,8 @@ export default class Store {
 
     this.status = STORE_STATUS.MUTATION;
 
-    self.mutations[mutationKey](self.state, payload);
-    self.events.publish(mutationKey, self.state);
+    this.mutations[mutationKey](this.state, payload);
+    this.events.publish(mutationKey, this.state);
 
     return true;
   }
