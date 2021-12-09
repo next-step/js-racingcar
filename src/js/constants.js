@@ -16,3 +16,10 @@ export const ERROR_MESSAGES = {
 export const EVENTS = {
   STATE_CHANGE: 'stateChange',
 };
+
+export const ACTIONS = {
+  SET_CAR_NAMES: 'setCarNames',
+  SET_PROCESS_MATRIX: 'setProcessMatrix',
+  SET_WINNERS: 'setWinners',
+  SET_TRY_COUNTS: 'setTryCounts',
+};
