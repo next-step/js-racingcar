@@ -4,13 +4,13 @@ import {ComponentParam} from "../types/common.js";
 interface EventListenerModel {
     selector?: string,
     eventType: string,
-    callback: (event: Event) => {},
+    callback: (event: Event) => void,
 }
 
 interface ChildComponent {
     selector: string,
-    props: object,
-    renderComponent: ({$el, props}: ComponentParam) => {},
+    props?: object,
+    renderComponent: ({$el, props}: ComponentParam<object>) => void,
 }
 
 interface RenderParam {

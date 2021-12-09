@@ -1,35 +1,38 @@
 import {ComponentParam} from "./types/common.js";
 import RenderService from "./services/RenderService.js";
+import RacingBeforeStartForm from "./components/RacingBeforeStartForm.js";
 
-export default function App({$el}: ComponentParam) {
+interface State {
+    carNames: string[],
+    numberOfTry: number,
+}
+
+export default function App({$el}: ComponentParam<null>) {
+
+    const state: State = {
+        carNames: [],
+        numberOfTry: 0,
+    };
+
+    function typeBeforeStartInfo(carNames: string[], numberOfTry: number) {
+        console.log(carNames, numberOfTry);
+    }
 
     function render() {
         RenderService.render({
             $el,
             template: `
-                <section class="d-flex justify-center mt-5">
-                    <form>
-                        <fieldset>
-                            <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
-                                <p>
-                                    5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br/>
-                                    예시) EAST, WEST, SOUTH, NORTH
-                                </p>
-                                <div class="d-flex">
-                                    <input type="text" class="w-100 mr-2" placeholder="자동차 이름"/>
-                                    <button type="button" class="btn btn-cyan">확인</button>
-                                </div>
-                        </fieldset>
-                        <fieldset>
-                            <p>시도할 횟수를 입력해주세요.</p>
-                            <div class="d-flex">
-                                <input type="number" class="w-100 mr-2" placeholder="시도 횟수"/>
-                                <button type="button" class="btn btn-cyan">확인</button>
-                            </div>
-                        </fieldset>
-                    </form>
-                </section>
+                <div class="d-flex justify-center">
+                    <section data-component="racing-before-start-form"></section>
+                </div>
             `,
+            childComponents: [
+                {
+                    selector: '[data-component="racing-before-start-form"]',
+                    props: {typeBeforeStartInfo},
+                    renderComponent: RacingBeforeStartForm,
+                }
+            ]
         });
     }
 

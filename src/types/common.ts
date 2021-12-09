@@ -1,4 +1,4 @@
-export interface ComponentParam {
+export interface ComponentParam<Props> {
     $el: HTMLElement,
-    props?: object,
+    props?: Props,
 }
