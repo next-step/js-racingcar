@@ -20,6 +20,7 @@
   을 이용했습니다.
 - Pub/Sub 패턴을 적용한 `PubSub` 클래스에서 이벤트를 `subscribe` 하고, `publish` 합니다.
 - 흐름은 `dispatch(action) → commit → mutation(데이터 변경)` 이런 식 입니다. 
+- Component `render()` 에서 template literals 을 사용해 JSX 처럼 동작하게끔 구현했습니다.
 
 ## 🔥 구현해야하는 Projects 예시
 <p align="middle">
