@@ -6,9 +6,6 @@ export const validateCarName = (carName) => {
   if (carName.length > 5) throw Error(ERROR_MESSAGES.MAXIMUM_CAR_NAMES_LENGTH);
 };
 
-export const isForward = (num) => {
-  return num >= 4 ? 1 : 0;
-};
+export const isForward = (num) => (num >= 4 ? 1 : 0);
 
-export const createProcessArray = (tryCounts) =>
-  createRandomArray(tryCounts, 0, 9).map((number) => isForward(number));
+export const createProcessArray = (tryCounts) => createRandomArray(tryCounts, 0, 9).map((number) => isForward(number));
