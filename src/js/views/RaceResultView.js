@@ -1,4 +1,5 @@
 import View from './View.js';
+import { INFO_MESSAGES } from '../constants/index.js';
 
 class RaceResultView extends View {
   tag = "[RaceResultView]";
@@ -11,6 +12,12 @@ class RaceResultView extends View {
     if (target.type === "button") {
       this.emit("restart");
     }
+  }
+
+  congrats() {
+    setTimeout(() => {
+      window.alert(INFO_MESSAGES.CONGRATS);
+    }, 2000);
   }
   
   renderResult(result) {

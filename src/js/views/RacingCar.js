@@ -14,44 +14,43 @@ class RacingCar extends View {
     return this.#name;
   }
 
+  setRunCount(runCount) {
+    this.#runCount = runCount;
+    return this;
+  }
+
   getTotalDistance() {
     return this.#runningDistance.length;
   }
 
-  run(runCount) {
-    // console.log(`${this.tag} ${this.#name}: run!!`);
-    this.#runCount = runCount;
-
+  run() {
     if (this.isRunForward()) {
       this.#runningDistance.push("FORWARD");
     }
-    this.renderProgress();
+
+    this.replaceChildren();
+    this.insertAdjacentHTML("afterbegin", this.render());
   }
 
   isRunForward() {
     return Math.floor(Math.random() * 10) >= 4;
   }
 
-  renderProgress() {
-    // console.log(this.#runCount, this.#runningDistance);
-
-    this.replaceChildren();
-
+  render() {
     /* html */
-    const html = `
+    return `
     <div class="mr-2">
-      <div class="car-player">${this.#name}</div>
+      <div class="car-player">${this.getAttribute("name")}</div>
       ${this.#runningDistance.map(v =>
-        `<div class="forward-icon mt-2">⬇️️</div>`).join("")
+      `<div class="forward-icon mt-2">⬇️️</div>`).join("")
       }
-      ${this.#runCount <= 0 ? "" : this.printSpinner()}
+      ${this.printSpinner()}
     </div>
     `;
-
-    this.insertAdjacentHTML("afterbegin", html);
   }
 
   printSpinner() {
+    if (this.#runCount === 0) return "";
     /* html */
     return `
     <div class="d-flex justify-center mt-3">

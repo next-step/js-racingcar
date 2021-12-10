@@ -5,9 +5,9 @@ class Store {
   #cars;
 
   init() {
-    this.#runCount = 0;
+    this.#runCount = 0; //
     this.#observers = [];
-    this.#cars = [];
+    this.#cars = []; //
 
     return this;
   }
@@ -20,19 +20,19 @@ class Store {
     return this.#cars;
   }
 
-  getDetails(event) {
+  getDetails(event) { //
     switch (event) {
       case "start-racing":
         return {
           runCount: this.#runCount,
-          cars: this.#cars
+          carNames: this.#cars
         };
       default: return {};
     }
   }
 
   notifyObserver(event) {
-    this.#observers.forEach(observer => console.log(observer) || observer.emit(event, this.getDetails(event)));
+    this.#observers.forEach(observer => observer.emit(event, this.getDetails(event)));
   }
 
   registerCars(cars = []) {
