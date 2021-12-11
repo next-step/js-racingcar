@@ -32,3 +32,10 @@ Cypress.Commands.add("submitCarNames", (carNamesString) => {
     cy.wrap($form).submit();
   });
 });
+
+Cypress.Commands.add("submitTryCount", (tryCount) => {
+  cy.get(`.${CLASS_NAME.TRY_COUNT_FORM}`).then(($form) => {
+    cy.wrap($form).get(`input[name="${INPUT_NAME.TRY_COUNT}"]`).type(tryCount);
+    cy.wrap($form).submit();
+  });
+});
