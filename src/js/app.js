@@ -1,9 +1,10 @@
 import CarNamesForm from './components/CarNamesForm.js';
 import TryCountsForm from './components/TryCountsForm.js';
 import store from './store/index.js';
-import { show } from './utils/utils.js';
+import { delay, show } from './utils/utils.js';
 import WinnerBoard from './components/WinnerBoard.js';
 import { ACTIONS } from './constants.js';
+import CarProgress from './components/CarProgress.js';
 
 export class App {
   constructor() {
@@ -32,6 +33,8 @@ export class App {
 
   onSetWinners() {
     this.$winnerBoard.render();
-    show(this.$winnerBoard.$element);
+    this.onStartRacing();
+    await delay((store.state.tryCounts - 1) * 1000);
+    this.onFinishRacing();
   }
 }
