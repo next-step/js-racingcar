@@ -31,7 +31,22 @@ export class App {
     if (store.state.winners.length === 0) return;
   }
 
-  onSetWinners() {
+  onStartRacing() {
+    store.state.carNames.map((carName, index) => {
+      const carProgress = new CarProgress(carName, store.state.processMatrix[index]);
+      carProgress.render();
+      carProgress.start();
+    });
+  }
+
+  async onFinishRacing() {
+    show(this.$winnerBoard.$element);
+
+    await delay(2000);
+    alert('축하합니다');
+  }
+
+  async onSetWinners() {
     this.$winnerBoard.render();
     this.onStartRacing();
     await delay((store.state.tryCounts - 1) * 1000);
