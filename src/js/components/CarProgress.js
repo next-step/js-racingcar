@@ -4,7 +4,8 @@ import el from '../utils/dom.js';
 import { $, delay } from '../utils/utils.js';
 
 export default class CarProgress extends Component {
-  static #forwardIcon = `<div class="forward-icon mt-2">⬇️️</div>`;
+  static #forwardIcon = '<div class="forward-icon mt-2">⬇️️</div>';
+
   static #spinner = `
             <div class="d-flex justify-center mt-3">
                 <div class="relative spinner-container">

@@ -8,5 +8,4 @@ export const validateCarName = (carName) => {
 
 export const isForward = (num) => num >= 4;
 
-export const createProcessArray = (tryCounts) =>
-  createRandomArray(tryCounts, 0, 9).map((number) => isForward(number));
+export const createProcessArray = (tryCounts) => createRandomArray(tryCounts, 0, 9).map((number) => isForward(number));
