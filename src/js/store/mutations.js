@@ -8,7 +8,8 @@ export default {
   payload: payload
   */
   setCarNames(state, { carNames }) {
-    if ([...new Set(carNames)].length !== carNames.length) throw Error(ERROR_MESSAGES.DUPLICATED_CAR_NAMES);
+    if ([...new Set(carNames)].length !== carNames.length)
+      throw Error(ERROR_MESSAGES.DUPLICATED_CAR_NAMES);
 
     state.carNames = carNames.map((carName) => {
       validateCarName(carName);
@@ -23,7 +24,9 @@ export default {
   },
 
   setProcessMatrix(state, payload) {
-    state.processMatrix = [...Array(state.carNames.length)].map(() => createProcessArray(state.tryCounts));
+    state.processMatrix = [...Array(state.carNames.length)].map(() =>
+      createProcessArray(state.tryCounts)
+    );
   },
 
   setWinners(state, payload) {
