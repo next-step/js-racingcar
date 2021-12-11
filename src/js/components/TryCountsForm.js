@@ -18,6 +18,10 @@ export default class TryCountsForm extends Component {
     store.dispatch('setWinners');
   }
 
+  setDom() {
+    this.$tryCountsInput = this.$element.querySelector('.try-counts-input');
+  }
+
   bindEvent() {
     this.$element.addEventListener('submit', (event) => this.onSubmitTryCountForm(event));
   }
@@ -41,8 +45,7 @@ export default class TryCountsForm extends Component {
         </form>
     `);
 
-    this.$tryCountsInput = this.$element.querySelector('.try-counts-input');
-
+    this.setDom();
     this.bindEvent();
 
     $('.form-section').appendChild(this.$element);

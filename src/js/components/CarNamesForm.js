@@ -19,6 +19,10 @@ export default class CarNamesForm extends Component {
     });
   }
 
+  setDom() {
+    this.$carNamesInput = this.$element.querySelector('.car-name-input');
+  }
+
   render() {
     this.$element = el(`
         <form class="car-names-form">
@@ -42,8 +46,7 @@ export default class CarNamesForm extends Component {
         </form>
     `);
 
-    this.$carNamesInput = this.$element.querySelector('.car-name-input');
-
+    this.setDom();
     this.bindEvent();
 
     $('.form-section').appendChild(this.$element);
