@@ -4,23 +4,15 @@
     <meta charset="UTF-8" />
     <title>🏎️ 자동차 경주 게임</title>
     <link rel="stylesheet" href="./src/css/index.css" />
+    <script type="module" defer src="./src/js/index.js"></script>
   </head>
   <body>
     <div id="app">
       <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
 
-      <section class="d-flex justify-center mt-5">
+      <section class="js-racing-game-forms d-flex justify-center mt-5">
         <div>
-          <div>
-            <p>
-              5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
-              예시) EAST, WEST, SOUTH, NORTH
-            </p>
-            <form class="js-car-names-form d-flex">
-              <input type="text" class="w-100 mr-2" name="car-names" placeholder="자동차 이름" />
-              <button class="btn btn-cyan">확인</button>
-            </form>
-          </div>
+          <div class="js-car-names-form-container"></div>
           <div>
             <p>시도할 횟수를 입력해주세요.</p>
             <form class="js-try-count-form d-flex">
@@ -31,35 +23,37 @@
         </div>
       </section>
 
-      <section class="d-flex justify-center mt-5">
-        <div class="mt-4 d-flex">
-          <div class="js-racing-course mr-2">
+      <section class="js-racing-course d-flex justify-center mt-5">
+          <!-- <div class="js-racing-track mr-2">
             <div class="js-car-player car-player">EAST</div>
             <div class="forward-icon mt-2">⬇️️</div>
             <div class="forward-icon mt-2">⬇️️</div>
-          </div>
-          <div class="js-racing-course mr-2">
+          </div> -->
+
+          <!-- <div class="js-racing-track mr-2">
             <div class="car-player">WEST</div>
             <div class="forward-icon mt-2">⬇️️</div>
-          </div>
-          <div class="js-racing-course mr-2">
+          </div> -->
+
+          <!-- <div class="js-racing-track mr-2">
             <div class="car-player">SOUTH</div>
             <div class="d-flex justify-center mt-3">
               <div class="relative spinner-container">
                 <span class="material spinner"></span>
               </div>
             </div>
-          </div>
-          <div class="js-racing-course mr-2">
+          </div> -->
+
+          <!-- <div class="js-racing-track mr-2">
             <div class="car-player">NORTH</div>
             <div class="d-flex justify-center mt-3">
               <div class="relative spinner-container">
                 <span class="material spinner"></span>
               </div>
             </div>
-          </div>
-        </div>
+          </div> -->
       </section>
+
       <section class="d-flex justify-center mt-5">
         <div>
           <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
