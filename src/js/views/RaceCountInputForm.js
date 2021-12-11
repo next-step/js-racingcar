@@ -11,41 +11,33 @@ class RaceCountInputForm extends View {
       .on('keydown', this.keydownHandler);
   }
 
-  clickHandler = e => {
-    if (e.target.type === "button") {
-      // console.log(`${this.tag}: clickHandler => ${e.target.valueAsNumber}`);
-      if (!this.checkValid(e.target.value)) {
-        $("#inputRunCount").value = "";
-        $("#inputRunCount").focus();
-      }
-    }
+  clickHandler = ({ target }) => {
+    if (target.type !== "button") return;
+    this.runAfterValidation($("#inputRunCount"));
   }
 
-  keydownHandler = e => {
-    if (e.target.type === "number" && e.key === "Enter") {
-      // console.log(`${this.tag}: keydownHandler => ${e.target.valueAsNumber}`);
-      if (!this.checkValid(e.target.value)) {
-        e.target.value = "";
-        e.target.focus();
-      }
-    }
+  keydownHandler = ({ key, target }) => {
+    if (target.type !== "number" || key !== "Enter") return;
+    this.runAfterValidation(target);
   }
-
-  checkValid(count) {
-    // console.log(`${this.tag}: checkValid count => `, count)
-    if (!count || count <= 0) {
+  
+  runAfterValidation(target) {
+    if (!this.isValidCount(target.value)) {
       this.error(INVALID_COUNT);
-      return false;
+      target.value = "";
+      target.focus();
+      return;
     }
+    
+    this.emit("submit-run-count", { count: target.value });
 
-    this.emit("submit-run-count", { count });
-    this.disableField();
-    return true;
-  }
-
-  disableField() {
     $("#inputRunCount").setAttribute("disabled", true);
     $("#btnRunCount").setAttribute("disabled", true);
+  }
+
+  isValidCount(count) {
+    if (!count || count <= 0) return false;
+    return true;
   }
 
   render() {
@@ -61,6 +53,15 @@ class RaceCountInputForm extends View {
     `;
   }
 
+  static get observedAttributes(){
+    return ['class'];
+  }
+
+  attributeChangedCallback(attName, oldValue, newValue){
+    if (attName === "class" && newValue !== 'hide') {
+      $("#inputRunCount").focus();
+    }
+  }
 }
 
 customElements.define("race-count-form", RaceCountInputForm);

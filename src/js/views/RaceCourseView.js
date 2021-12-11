@@ -6,22 +6,21 @@ class RaceCourseView extends View {
   tag = "[RaceCourseView]";
 
   init() {
-    // console.log(`${this.tag}: init`)
     this.on("start-racing", this.onStart);
   }
 
   onStart = ({ detail: { runCount, carNames } }) => {
     this.renderCars(carNames);
 
-    let cars = $("racing-car");
-    if (!Array.isArray(cars)) {
-      cars = [cars];
+    let carElements = $("racing-car");
+    if (!Array.isArray(carElements) && carElements instanceof HTMLElement) {
+      carElements = [carElements];
     }
 
-    this.goToTheFinishLine(cars, runCount)
+    this.goToTheFinishLine(carElements, runCount)
       .then(() => {
         this.emit("finish-racing", {
-          result: cars.map(car => ({
+          result: carElements.map(car => ({
             name: car.name,
             totalDistance: car.getTotalDistance()
           }))
@@ -52,9 +51,8 @@ class RaceCourseView extends View {
   }
 
   renderCars(carNames = []) {
-    // console.log(`${this.tag}: ${carNames}`);
-    
     this.replaceChildren();
+
     /* html */
     const html = `
     <section class="d-flex justify-center mt-5">
@@ -64,8 +62,6 @@ class RaceCourseView extends View {
     </section>
     `;
     this.insertAdjacentHTML("afterbegin", html);
-
-    return this;
   }
 }
 

@@ -44,12 +44,12 @@ class RacingCar extends View {
       ${this.#runningDistance.map(v =>
       `<div class="forward-icon mt-2">⬇️️</div>`).join("")
       }
-      ${this.printSpinner()}
+      ${this.renderSpinner()}
     </div>
     `;
   }
 
-  printSpinner() {
+  renderSpinner() {
     if (this.#runCount === 0) return "";
     /* html */
     return `

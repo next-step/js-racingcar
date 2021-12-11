@@ -5,9 +5,9 @@ class Store {
   #cars;
 
   init() {
-    this.#runCount = 0; //
+    this.#runCount = 0;
     this.#observers = [];
-    this.#cars = []; //
+    this.#cars = [];
 
     return this;
   }
@@ -20,13 +20,13 @@ class Store {
     return this.#cars;
   }
 
-  getDetails(event) { //
+  getDetails(event) {
+    const carNames = this.#cars;
+    const runCount = this.#runCount;
+
     switch (event) {
       case "start-racing":
-        return {
-          runCount: this.#runCount,
-          carNames: this.#cars
-        };
+        return { runCount, carNames };
       default: return {};
     }
   }
