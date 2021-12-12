@@ -1,0 +1,26 @@
+{
+  "name": "js-racingcar",
+  "version": "0.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Tanney-102/js-racingcar.git",
+  "author": "Tanney <dhxodms89@gmail.com>",
+  "license": "MIT",
+
+  "scripts": {
+    "start": "live-server .",
+    "test:run": "cypress run",
+    "test:open": "cypress open"
+  },
+  
+  "devDependencies": {
+    "cypress": "^9.1.1",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1"
+  },
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}
