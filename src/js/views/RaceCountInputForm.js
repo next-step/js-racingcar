@@ -36,8 +36,7 @@ class RaceCountInputForm extends View {
   }
 
   isValidCount(count) {
-    if (!count || count <= 0) return false;
-    return true;
+    return count && count > 0
   }
 
   render() {

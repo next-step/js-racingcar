@@ -10,3 +10,8 @@ export const ERROR_MESSAGES = {
 export const INFO_MESSAGES = {
   [CONGRATS]: "🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇"
 }
+
+export const CAR_NAME = {
+  MIN_LENGTH: 1,
+  MAX_LENGTH: 5
+};

@@ -1,5 +1,5 @@
 import View from './View.js';
-import { INVALID_NAME_LENGTH } from '../constants/index.js';
+import { INVALID_NAME_LENGTH, CAR_NAME } from '../constants/index.js';
 import { $ } from '../utils/index.js';
 
 class RaceCarInputForm extends View {
@@ -37,10 +37,8 @@ class RaceCarInputForm extends View {
   isValidCarName(text) {
     if (!text || text.trim("") === "") return false;
       
-    if (this.splittedText(text).every(car => car.length >= 1 && car.length <= 5 && !!car.trim(""))) {
-      return true;
-    }
-    return false;
+    return this.splittedText(text)
+      .every(car => car.length >= CAR_NAME.MIN_LENGTH && car.length <= CAR_NAME.MAX_LENGTH && !!car.trim(""));
   }
 
   splittedText(text) {

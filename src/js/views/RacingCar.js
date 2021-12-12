@@ -40,7 +40,7 @@ class RacingCar extends View {
     /* html */
     return `
     <div class="mr-2">
-      <div class="car-player">${this.getAttribute("name")}</div>
+      <div class="car-player">${this.getAttribute("data-name")}</div>
       ${this.#runningDistance.map(v =>
       `<div class="forward-icon mt-2">⬇️️</div>`).join("")
       }

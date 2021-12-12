@@ -21,7 +21,7 @@ class RaceCourseView extends View {
       .then(() => {
         this.emit("finish-racing", {
           result: carElements.map(car => ({
-            name: car.name,
+            name: car.dataset.name,
             totalDistance: car.getTotalDistance()
           }))
         });
@@ -57,7 +57,7 @@ class RaceCourseView extends View {
     const html = `
     <section class="d-flex justify-center mt-5">
       <div class="mt-4 d-flex">
-      ${carNames.map(carName => `<racing-car name="${carName}"></racing-car>`).join("")}
+      ${carNames.map(carName => `<racing-car data-name="${carName}"></racing-car>`).join("")}
       </div>
     </section>
     `;
