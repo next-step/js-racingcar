@@ -1,0 +1,35 @@
+import Component from "../core/Component.js";
+import Car from "./Car.js";
+
+export default class PlayGround extends Component {
+  template() {
+    return /*html*/ `<div class="mt-4 d-flex car-wrapper"></div>`;
+  }
+
+  mounted() {
+    const $carWrapper = this.$target.querySelector(".car-wrapper");
+    const carCount = this.$props.carNames.length;
+
+    const cars = [...new Array(carCount)].map(
+      (_, idx) => `<div class="mr-2 car-container" id="${idx}"></div>`
+    );
+
+    $carWrapper.innerHTML = cars;
+
+    if (cars) {
+      const $carContainer = this.$target.querySelectorAll(".car-container");
+      this.$props.carNames.map((carName, index) => {
+        new Car($carContainer[index], {
+          carName,
+          processState: this.generateRandomNumber(),
+        });
+      });
+    }
+  }
+
+  generateRandomNumber() {
+    return Array.from({ length: this.$props.trialCount }).map(() =>
+      Math.floor(Math.random() * 9) + 1 > 4 ? 1 : 0
+    );
+  }
+}
