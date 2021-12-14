@@ -17,7 +17,7 @@ export class App {
     this.$winnerBoard.render();
 
     store.events.subscribe(ACTIONS.SET_CAR_NAMES, () => this.onSetCarNames());
-    store.events.subscribe(ACTIONS.SET_PROCESS_MATRIX, () => this.onSetProcessMatrix());
+    store.events.subscribe(ACTIONS.SET_PROGRESS_MATRIX, () => this.onSetProgressMatrix());
     store.events.subscribe(ACTIONS.SET_WINNERS, () => this.onSetWinners());
   }
 
@@ -27,13 +27,13 @@ export class App {
     this.$tryCountsForm.$tryCountsInput.focus();
   }
 
-  onSetProcessMatrix() {
+  onSetProgressMatrix() {
     if (store.state.winners.length === 0) return;
   }
 
   onStartRacing() {
     store.state.carNames.map((carName, index) => {
-      const carProgress = new CarProgress(carName, store.state.processMatrix[index]);
+      const carProgress = new CarProgress(carName, store.state.progressMatrix[index]);
       carProgress.render();
       carProgress.start();
     });

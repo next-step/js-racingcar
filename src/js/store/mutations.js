@@ -1,4 +1,4 @@
-import { createProcessArray, validateCarName } from '../utils/service.js';
+import { createProgressArray, validateCarName } from '../utils/service.js';
 import { isNumber, sumArray } from '../utils/utils.js';
 import { ERROR_MESSAGES } from '../constants.js';
 
@@ -8,7 +8,8 @@ export default {
   payload: payload
   */
   setCarNames(state, { carNames }) {
-    if ([...new Set(carNames)].length !== carNames.length) throw Error(ERROR_MESSAGES.DUPLICATED_CAR_NAMES);
+    if ([...new Set(carNames)].length !== carNames.length)
+      throw Error(ERROR_MESSAGES.DUPLICATED_CAR_NAMES);
 
     state.carNames = carNames.map((carName) => {
       validateCarName(carName);
@@ -22,22 +23,24 @@ export default {
     else throw Error(ERROR_MESSAGES.TYPE_ONLY_NUMBER);
   },
 
-  setProcessMatrix(state, payload) {
-    state.processMatrix = [...Array(state.carNames.length)].map(() => createProcessArray(state.tryCounts));
+  setProgressMatrix(state, payload) {
+    state.progressMatrix = [...Array(state.carNames.length)].map(() =>
+      createProgressArray(state.tryCounts)
+    );
   },
 
   setWinners(state, payload) {
-    let maxNumer = 0;
+    let maxNumber = 0;
     let winnersIndices = [];
 
-    state.processMatrix.forEach((processArray, index) => {
-      const curSum = sumArray(processArray);
+    state.progressMatrix.forEach((progressArray, index) => {
+      const curSum = sumArray(progressArray);
 
-      if (curSum < maxNumer) return;
-      if (curSum === maxNumer) return winnersIndices.push(index);
+      if (curSum < maxNumber) return;
+      if (curSum === maxNumber) return winnersIndices.push(index);
 
       winnersIndices = [];
-      maxNumer = curSum;
+      maxNumber = curSum;
       winnersIndices.push(index);
     });
 

@@ -13,8 +13,8 @@ export default {
     context.commit(ACTIONS.SET_TRY_COUNTS, payload);
   },
 
-  setProcessMatrix(context, payload) {
-    context.commit(ACTIONS.SET_PROCESS_MATRIX, payload);
+  setProgressMatrix(context, payload) {
+    context.commit(ACTIONS.SET_PROGRESS_MATRIX, payload);
   },
 
   setWinners(context, payload) {
