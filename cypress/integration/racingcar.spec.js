@@ -36,7 +36,19 @@ describe("racing-car", () => {
   });
 
   context("자동차 이름을 입력하면 출력한다", () => {
-    // it("이름은 5자 이하만 가능하다.", () => {});
-    // it("쉼표를 기준으로 이름을 구분한다.", () => {});
+    it("이름은 5자 이하만 가능하다.", () => {
+      // 5글자가 넘어가는 이름을 입력하면 에러가 발생한다.
+      cy.get(".carName-input").type("aaaaaa, b").type("{enter}");
+      cy.on("window:alert", (text) =>
+        expect(text).to.equal("이름이 5자 넘어가면 안됩니다.")
+      );
+    });
+    it("쉼표를 기준으로 이름을 구분하고 출력한다.", () => {
+      cy.get(".carName-input").type("a, b, c").type("{enter}");
+      cy.get(".trialCount-input").type(5).type("{enter}");
+
+      // car-wrapper 안에 car-container 여러개 & 그 안에 car-player이름
+      cy.get(".car-wrapper").children().should("have.length", 3);
+    });
   });
 });
