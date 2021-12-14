@@ -3,7 +3,7 @@ import TryCountsForm from './components/TryCountsForm.js';
 import store from './store/index.js';
 import { delay, show } from './utils/utils.js';
 import WinnerBoard from './components/WinnerBoard.js';
-import { ACTIONS } from './constants.js';
+import { ACTIONS, DONE_MESSAGE, ONE_SECOND } from './constants.js';
 import CarProgress from './components/CarProgress.js';
 
 export class App {
@@ -17,7 +17,6 @@ export class App {
     this.$winnerBoard.render();
 
     store.events.subscribe(ACTIONS.SET_CAR_NAMES, () => this.onSetCarNames());
-    store.events.subscribe(ACTIONS.SET_PROGRESS_MATRIX, () => this.onSetProgressMatrix());
     store.events.subscribe(ACTIONS.SET_WINNERS, () => this.onSetWinners());
   }
 
@@ -25,10 +24,6 @@ export class App {
     if (store.state.carNames.length === 0) return;
     show(this.$tryCountsForm.$element);
     this.$tryCountsForm.$tryCountsInput.focus();
-  }
-
-  onSetProgressMatrix() {
-    if (store.state.winners.length === 0) return;
   }
 
   onStartRacing() {
@@ -43,13 +38,13 @@ export class App {
     show(this.$winnerBoard.$element);
 
     await delay(2000);
-    alert('축하합니다');
+    alert(DONE_MESSAGE);
   }
 
   async onSetWinners() {
     this.$winnerBoard.render();
     this.onStartRacing();
-    await delay((store.state.tryCounts - 1) * 1000);
+    await delay((store.state.tryCounts - 1) * ONE_SECOND);
     this.onFinishRacing();
   }
 }
