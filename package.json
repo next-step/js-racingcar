@@ -8,7 +8,7 @@
   "scripts": {
     "start": "tsc-watch",
     "serve": "live-server .",
-    "test:e2e": "cypress run --spec 'cypress/integration/racingcar/*' --config video=false"
+    "test:e2e": "cypress run --spec 'cypress/integration/*' --config video=false"
   },
   "devDependencies": {
     "live-server": "^1.2.1",

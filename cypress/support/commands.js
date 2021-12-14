@@ -23,3 +23,12 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('typeCarNames', (carNamesText) => {
+    cy.get('[placeholder="자동차 이름"]').type(carNamesText);
+    return cy.get('[data-form="carNamesForm"]').submit();
+});
+
+Cypress.Commands.add('typeNumberOfTry', (numberOfTry) => {
+    cy.get('[placeholder="시도 횟수"]').type(numberOfTry);
+    return cy.get('[data-form="numberOfTryForm"]').submit();
+});
