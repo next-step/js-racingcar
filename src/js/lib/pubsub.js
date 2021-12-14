@@ -10,7 +10,7 @@ export default class PubSub {
    * @memberof PubSub
    */
   subscribe(event, callback) {
-    if (!this.events.hasOwnProperty(event)) this.events[event] = [];
+    if (!Reflect.has(this.events, event)) this.events[event] = [];
     return this.events[event].push(callback);
   }
 
@@ -21,7 +21,7 @@ export default class PubSub {
    * @memberof PunSub
    */
   publish(event, data = {}) {
-    if (!this.events.hasOwnProperty(event)) return [];
+    if (!Reflect.has(this.events, event)) return [];
     return this.events[event].map((callback) => callback(data));
   }
 }

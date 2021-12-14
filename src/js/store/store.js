@@ -15,8 +15,8 @@ export default class Store {
     self.status = STORE_STATUS.RESTING;
     self.events = new PubSub();
 
-    if (params.hasOwnProperty('actions')) self.actions = params.actions;
-    if (params.hasOwnProperty('mutations')) self.mutations = params.mutations;
+    if (Reflect.has(params, 'actions')) self.actions = params.actions;
+    if (Reflect.has(params, 'mutations')) self.mutations = params.mutations;
 
     self.state = new Proxy(params.state || {}, {
       set(state, key, value, receiver) {
