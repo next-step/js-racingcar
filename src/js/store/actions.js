@@ -20,4 +20,8 @@ export default {
   setWinners(context, payload) {
     context.commit(ACTIONS.SET_WINNERS, payload);
   },
+
+  initState(context, payload) {
+    context.commit(ACTIONS.INIT_STATE, payload);
+  },
 };

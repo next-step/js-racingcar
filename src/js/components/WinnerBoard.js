@@ -2,10 +2,21 @@ import Component from '../lib/component.js';
 import store from '../store/index.js';
 import el from '../utils/dom.js';
 import { $ } from '../utils/utils.js';
+import { ACTIONS } from '../constants.js';
 
 export default class WinnerBoard extends Component {
   constructor() {
     super({ store });
+  }
+
+  setDom() {
+    this.$retryButton = this.$element.querySelector('.btn-cyan');
+  }
+
+  setEvent() {
+    this.$retryButton.addEventListener('click', () => {
+      store.dispatch(ACTIONS.INIT_STATE, store);
+    });
   }
 
   render() {
@@ -19,6 +30,9 @@ export default class WinnerBoard extends Component {
             </div>
         </section>
     `);
+
+    this.setDom();
+    this.setEvent();
 
     $('.winner-board').replaceWith(this.$element);
   }

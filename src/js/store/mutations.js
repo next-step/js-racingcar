@@ -1,6 +1,7 @@
 import { createProgressArray, validateCarName } from '../utils/service.js';
 import { isNumber, sumArray } from '../utils/utils.js';
-import { ERROR_MESSAGES } from '../constants.js';
+import { ERROR_MESSAGES, STORE_STATUS } from '../constants.js';
+import initialState from './initialState.js';
 
 export default {
   /*
@@ -53,5 +54,13 @@ export default {
     });
 
     state.winners = winnersIndices.map((winnerIndex) => state.carNames[winnerIndex]);
+  },
+
+  initState(state, payload) {
+    Object.keys(state).forEach((key) => {
+      payload.status = STORE_STATUS.MUTATION;
+      state[key] = initialState[key];
+    });
+    payload.status = STORE_STATUS.RESTING;
   },
 };
