@@ -10,7 +10,7 @@ export default class WinnerBoard extends Component {
 
   render() {
     this.$element = el(`
-        <section class="d-flex justify-center mt-5 winner-board" style="display: none">
+        <section class="d-flex justify-center mt-5 winner-board" style="display: none" data-testid="winnerBoard">
             <div>
                 <h2>🏆 최종 우승자: ${store.state.winners.join(', ')} 🏆</h2>
                 <div class="d-flex justify-center">

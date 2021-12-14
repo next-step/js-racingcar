@@ -25,7 +25,7 @@ export default class CarNamesForm extends Component {
 
   render() {
     this.$element = el(`
-        <form class="car-names-form">
+        <form class="car-names-form" data-testid="carNamesForm">
             <fieldset>
                 <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
                 <p>
@@ -37,8 +37,9 @@ export default class CarNamesForm extends Component {
                             type="text"
                             class="w-100 mr-2 car-name-input"
                             placeholder="자동차 이름"
+                            data-testid="carNamesInput"
                     />
-                    <button type="submit" class="btn btn-cyan car-name-submit-btn">
+                    <button type="submit" class="btn btn-cyan car-name-submit-btn" data-testid="carNamesSubmitBtn">
                         확인
                     </button>
                 </div>

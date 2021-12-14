@@ -2,6 +2,7 @@ import Component from '../lib/component.js';
 import store from '../store/index.js';
 import el from '../utils/dom.js';
 import { $, delay } from '../utils/utils.js';
+import { ONE_SECOND } from '../constants.js';
 
 export default class CarProgress extends Component {
   static #forwardIcon = '<div class="forward-icon mt-2">⬇️️</div>';
@@ -23,7 +24,7 @@ export default class CarProgress extends Component {
   async start() {
     this.$innerProgressBoard.appendChild(el(CarProgress.#spinner));
     this.progressArray.map(async (isForward, index) => {
-      await delay(1000 * index);
+      await delay(ONE_SECOND * index);
 
       if (index === this.progressArray.length - 1) {
         this.$innerProgressBoard.lastChild.remove();
@@ -41,7 +42,7 @@ export default class CarProgress extends Component {
 
   render() {
     this.$element = el(`
-        <div class="mr-2 progress-board-inner" id=${this.carName}>
+        <div class="mr-2 progress-board-inner" id=${this.carName} data-testid="carProgress">
           <div class="car-player">${this.carName}</div>
         </div>
     `);
