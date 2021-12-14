@@ -15,7 +15,7 @@ export default class CarNamesForm extends Component {
   onSubmitCarNames(event) {
     event.preventDefault();
     store.dispatch('setCarNames', {
-      carNames: this.$carNamesInput.value.split(','),
+      carNames: this.$carNamesInput.value.split(',').map((carName) => carName.trim()),
     });
   }
 
