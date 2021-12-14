@@ -8,6 +8,8 @@ export default {
   payload: payload
   */
   setCarNames(state, { carNames }) {
+    if (carNames.includes('')) throw Error(ERROR_MESSAGES.NO_CAR_NAMES);
+
     if ([...new Set(carNames)].length !== carNames.length)
       throw Error(ERROR_MESSAGES.DUPLICATED_CAR_NAMES);
 
@@ -19,17 +21,23 @@ export default {
 
   setTryCounts(state, { tryCountsString }) {
     if (tryCountsString.length === 0) throw Error(ERROR_MESSAGES.NO_TRY_COUNTS);
-    if (isNumber(Number(tryCountsString))) state.tryCounts = Number(tryCountsString);
-    else throw Error(ERROR_MESSAGES.TYPE_ONLY_NUMBER);
+
+    if (isNumber(Number(tryCountsString))) {
+      const tryCounts = Number(tryCountsString);
+
+      if (tryCounts <= 0) throw Error(ERROR_MESSAGES.MINIMUM_TRY_COUNTS);
+
+      state.tryCounts = Number(tryCountsString);
+    } else throw Error(ERROR_MESSAGES.TYPE_ONLY_NUMBER);
   },
 
-  setProgressMatrix(state, payload) {
+  setProgressMatrix(state) {
     state.progressMatrix = [...Array(state.carNames.length)].map(() =>
       createProgressArray(state.tryCounts)
     );
   },
 
-  setWinners(state, payload) {
+  setWinners(state) {
     let maxNumber = 0;
     let winnersIndices = [];
 
