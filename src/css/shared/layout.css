@@ -74,6 +74,10 @@
   justify-content: space-evenly;
 }
 
+.direction-column {
+  flex-direction: column;
+}
+
 /* Box Alignment - Align Items*/
 .items-start {
   align-items: flex-start;

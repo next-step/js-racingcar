@@ -47,7 +47,12 @@ export default function RacingBeforeStartForm({$el, props}: ComponentParam<Props
         typeNumberOfTry(Number(numberOfTry));
     }
 
-    function typeNumberOfTry(numberOfTry) {
+    function typeNumberOfTry(numberOfTry: number) {
+        if (numberOfTry < 1) {
+            window.alert('시도횟수는 0보다 커야합니다.');
+            return;
+        }
+
         props.typeBeforeStartInfo(state.carNames, numberOfTry);
         disableFieldset({fieldName: 'numberOfTry'});
     }
