@@ -36,9 +36,22 @@ export default class App extends Component {
 
   getCarName(inputs) {
     const newCarNames = inputs.split(",");
+    let breakFlag = false;
+
+    newCarNames.forEach((carName) => {
+      if (carName.length > 5) {
+        alert("이름이 5자 넘어가면 안됩니다.");
+        breakFlag = true;
+      }
+    });
+
+    if (breakFlag) return false;
+
     this.setState({
       carNames: [...newCarNames],
     });
+
+    return true;
   }
 
   getTrialCount(inputs) {

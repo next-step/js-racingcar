@@ -15,16 +15,19 @@ export default class CarNameForm extends Component {
   }
 
   setEvent() {
-    const { getCarName } = this.$props;
     this.addEvent("click", ".carName-submitBtn", (e) => {
       e.preventDefault();
-      getCarName(document.querySelector(".carName-input").value);
-      document.getElementById("fieldset-carName").disabled = true;
+      this.submitCarName();
     });
     this.addEvent("keyup", ".carName-container", (e) => {
       if (e.key != "Enter") return;
-      getCarName(document.querySelector(".carName-input").value);
-      document.getElementById("fieldset-carName").disabled = true;
+      this.submitCarName();
     });
+  }
+
+  submitCarName() {
+    const { getCarName } = this.$props;
+    if (!getCarName(document.querySelector(".carName-input").value)) return;
+    document.getElementById("fieldset-carName").disabled = true;
   }
 }
