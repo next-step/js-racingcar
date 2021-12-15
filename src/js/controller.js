@@ -1,5 +1,13 @@
 import Car from "./model.js";
-import { setStyle, inputField } from "./view.js";
+import {
+  setStyle,
+  dom,
+  renderArrowElement,
+  renderWinner,
+  removeChildNodes,
+  renderRemoveProcess,
+} from "./view.js";
+import { isUpperFour, delay } from "./utils.js";
 import { CAR_INPUT_ERR_MESSAGE, TRY_COUNT_ERR_MESSAGE } from "./constants.js";
 
 export class RacingCar {
@@ -11,24 +19,23 @@ export class RacingCar {
   }
 
   init() {
-    inputField.carsNameButton.addEventListener("click", () => {
+    dom.carsNameButton.addEventListener("click", () => {
       this.onClickCarsName();
     });
-    inputField.tryCountButton.addEventListener("click", () =>
-      this.onClickTryCount()
-    );
+    dom.tryCountButton.addEventListener("click", () => this.onClickTryCount());
+    dom.resetButton.addEventListener("click", () => this.onClickReset());
   }
 
   validateCarsName() {
-    let isCorrectInput = true;
+    let isWrongInput = false;
 
-    if (this.#carsElement.length > 5) isCorrectInput = false;
+    if (this.#carsElement.length > 5) isWrongInput = true;
 
     this.#carsElement.find((carName) => {
-      if (carName.length > 5 || !carName) isCorrectInput = false;
+      if (carName.length > 5 || !carName) isWrongInput = true;
     });
 
-    return isCorrectInput;
+    return isWrongInput;
   }
 
   validateTryCount() {
@@ -37,11 +44,11 @@ export class RacingCar {
   }
 
   onClickCarsName() {
-    this.#carsElement = new FormData(inputField.raceForm)
+    this.#carsElement = new FormData(dom.raceForm)
       .get("cars-name-input")
       .split(",");
 
-    if (!this.validateCarsName()) {
+    if (this.validateCarsName()) {
       alert(CAR_INPUT_ERR_MESSAGE);
       return;
     }
@@ -53,7 +60,7 @@ export class RacingCar {
   }
 
   onClickTryCount() {
-    this.#tryCount = new FormData(inputField.raceForm).get("try-count-input");
+    this.#tryCount = new FormData(dom.raceForm).get("try-count-input");
 
     if (!this.validateTryCount()) {
       alert(TRY_COUNT_ERR_MESSAGE);
@@ -64,7 +71,27 @@ export class RacingCar {
     this.startRacing();
   }
 
-  startRacing() {
-    this.#carsElement.map((car) => car.progressRacing(this.#tryCount));
+  async startRacing() {
+    this.#carsElement.map((car) => this.progressRacing(car, this.#tryCount));
+  }
+
+  async progressRacing(car, tryCount) {
+    for (let i = 0; i < tryCount; i++) {
+      await delay(1000);
+      if (isUpperFour()) {
+        car.progressLength += 1;
+        renderArrowElement(car);
+      }
+    }
+    renderRemoveProcess(car);
+    renderWinner(this.#carsElement);
+  }
+
+  onClickReset() {
+    removeChildNodes(dom.raceStatus);
+    dom.raceStatus.classList.add("hide");
+    dom.tryCount.classList.add("hide");
+    dom.raceResultWrapper.classList.add("hide");
+    dom.raceForm.reset();
   }
 }
