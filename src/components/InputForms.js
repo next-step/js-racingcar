@@ -3,13 +3,6 @@ import CarNameForm from "./carNameForm.js";
 import TrialCountForm from "./trialCountForm.js";
 
 export default class InputForms extends Component {
-  // fieldset의 disabled 상태를 여기에 저장하는 게 좋을까?
-  setup() {
-    this.$state = {
-      isOK: false,
-    };
-  }
-
   template() {
     return /*html*/ `
     <form id="fieldset-input">
@@ -27,6 +20,7 @@ export default class InputForms extends Component {
     new CarNameForm($fieldSetCarName, {
       getCarName: this.$props.getCarName,
     });
+
     new TrialCountForm($fieldSetTrialCount, {
       getTrialCount: this.$props.getTrialCount,
     });

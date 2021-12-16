@@ -11,8 +11,8 @@ export default class Car extends Component {
     const $carPlayer = this.$target.querySelector(".car-player");
     const $forwardIcon = this.$target.querySelector(".forward-icon");
     $carPlayer.textContent = this.$props.carName;
-    $forwardIcon.textContent = this.$props.processState.filter(
-      (el) => 1 === el
-    ).length;
+    $forwardIcon.textContent = this.$props.processState.reduce(
+      (prev, curr) => prev + curr
+    );
   }
 }

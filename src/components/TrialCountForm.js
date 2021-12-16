@@ -1,4 +1,5 @@
 import Component from "../core/Component.js";
+import { eventType, errorMsgs } from "../constants.js";
 
 export default class TrialCountForm extends Component {
   template() {
@@ -15,8 +16,9 @@ export default class TrialCountForm extends Component {
       e.preventDefault();
       this.submitTrialCount();
     });
+
     this.addEvent("keyup", ".trialCount-container", (e) => {
-      if (e.key != "Enter") return;
+      if (e.key != eventType.ENTER) return;
       e.preventDefault();
       this.submitTrialCount();
     });
@@ -24,11 +26,20 @@ export default class TrialCountForm extends Component {
 
   submitTrialCount() {
     if (!this.checkCarName()) {
-      alert("자동차 이름을 입력하고 시도횟수를 입력해주세요.");
+      alert(errorMsgs.EMPTY_NAME);
       return;
     }
+
     const { getTrialCount } = this.$props;
-    getTrialCount(document.querySelector(".trialCount-input").value);
+    const inputTrialCount =
+      document.querySelector(".trialCount-input").valueAsNumber;
+
+    if (isNaN(inputTrialCount)) {
+      alert(errorMsgs.EMPTY_TRIAL_COUNT);
+      return;
+    }
+
+    getTrialCount(inputTrialCount);
     document.getElementById("fieldset-carName").disabled = true;
     document.getElementById("fieldset-trialCount").disabled = true;
   }

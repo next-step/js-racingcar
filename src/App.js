@@ -1,6 +1,7 @@
 import Component from "./core/Component.js";
 import InputForms from "./components/InputForms.js";
 import PlayGround from "./components/PlayGround.js";
+import { errorMsgs } from "./constants.js";
 
 export default class App extends Component {
   setup() {
@@ -18,6 +19,7 @@ export default class App extends Component {
 
   mounted() {
     const { getCarName, getTrialCount } = this;
+    const { carNames, trialCount } = this.$state;
     const $inputSection = this.$target.querySelector(".input-section");
     const $playGround = this.$target.querySelector(".playground");
 
@@ -26,11 +28,8 @@ export default class App extends Component {
       getTrialCount: getTrialCount.bind(this),
     });
 
-    if (this.$state.carNames !== [] && this.$state.trialCount !== 0) {
-      new PlayGround($playGround, {
-        carNames: this.$state.carNames,
-        trialCount: this.$state.trialCount,
-      });
+    if (carNames !== [] && trialCount !== 0) {
+      new PlayGround($playGround, { carNames, trialCount });
     }
   }
 
@@ -40,7 +39,12 @@ export default class App extends Component {
 
     newCarNames.forEach((carName) => {
       if (carName.length > 5) {
-        alert("이름이 5자 넘어가면 안됩니다.");
+        alert(errorMsgs.MAX_LENGTH_NAME);
+        breakFlag = true;
+      }
+
+      if (carName.length === 0) {
+        alert(errorMsgs.EMPTY_NAME);
         breakFlag = true;
       }
     });

@@ -1,4 +1,5 @@
 import Component from "../core/Component.js";
+import { eventType } from "../constants.js";
 
 export default class CarNameForm extends Component {
   template() {
@@ -19,15 +20,18 @@ export default class CarNameForm extends Component {
       e.preventDefault();
       this.submitCarName();
     });
+
     this.addEvent("keyup", ".carName-container", (e) => {
-      if (e.key != "Enter") return;
+      if (e.key != eventType.ENTER) return;
       this.submitCarName();
     });
   }
 
   submitCarName() {
     const { getCarName } = this.$props;
+
     if (!getCarName(document.querySelector(".carName-input").value)) return;
+
     document.getElementById("fieldset-carName").disabled = true;
   }
 }

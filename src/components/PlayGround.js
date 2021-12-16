@@ -10,9 +10,9 @@ export default class PlayGround extends Component {
     const $carWrapper = this.$target.querySelector(".car-wrapper");
     const carCount = this.$props.carNames.length;
 
-    const cars = [...new Array(carCount)].map(
-      (_, idx) => `<div class="mr-2 car-container" id="${idx}"></div>`
-    );
+    const cars = [...new Array(carCount)]
+      .map(() => `<div class="mr-2 car-container"></div>`)
+      .join("");
 
     $carWrapper.innerHTML = cars;
 
@@ -29,7 +29,7 @@ export default class PlayGround extends Component {
 
   generateRandomNumber() {
     return Array.from({ length: this.$props.trialCount }).map(() =>
-      Math.floor(Math.random() * 9) + 1 > 4 ? 1 : 0
+      Math.floor(Math.random() * 9 + 1) >= 4 ? 1 : 0
     );
   }
 }
