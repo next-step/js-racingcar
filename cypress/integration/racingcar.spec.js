@@ -70,4 +70,13 @@ describe("racing-car", () => {
       cy.get(".car-wrapper").children().should("have.length", 3);
     });
   });
+
+  context("우승자를 출력한다.", () => {
+    it("우승자 필드가 출력된다.", () => {
+      cy.get(".carName-input").type("a, b, c").type("{enter}");
+      cy.get(".trialCount-input").type(5).type("{enter}");
+      // 특정 class가 포함된 element가 존재하는지 확인
+      cy.get(".winner-section").should("be.visible");
+    });
+  });
 });
