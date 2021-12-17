@@ -1,3 +1,4 @@
+
 import { $ } from "./utils.js";
 
 export default class Car {
@@ -12,7 +13,6 @@ export default class Car {
   createCarElement() {
     const raceCarElement = document.createElement("div");
     raceCarElement.classList.add("mr-2");
-    raceCarElement.classList.add("race-status-child");
     raceCarElement.innerHTML = `
         <div class="car-player">${this.name}</div>
           <div class="d-flex justify-center mt-3">
