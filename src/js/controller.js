@@ -3,8 +3,8 @@ import {
   setStyle,
   dom,
   renderArrowElement,
-  renderWinner,
   removeChildNodes,
+  renderWinner,
   renderRemoveProcess,
 } from "./view.js";
 import { isUpperFour, delay } from "./utils.js";
