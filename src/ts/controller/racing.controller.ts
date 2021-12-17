@@ -223,6 +223,7 @@ class RacingController {
         makeAction: () => ({ _t: 'SET_WINNER', winners }),
         onEventEnd: () => {
           this.$WinnerLabelView.render({ winners })
+          setTimeout(() => alert('🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇'), 2000)
         },
       })
     }
