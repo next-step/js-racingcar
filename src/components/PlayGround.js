@@ -21,15 +21,9 @@ export default class PlayGround extends Component {
       this.$props.carNames.map((carName, index) => {
         new Car($carContainer[index], {
           carName,
-          processState: this.generateRandomNumber(),
+          processState: this.$props.progress[index],
         });
       });
     }
-  }
-
-  generateRandomNumber() {
-    return Array.from({ length: this.$props.trialCount }).map(() =>
-      Math.floor(Math.random() * 9 + 1) >= 4 ? 1 : 0
-    );
   }
 }

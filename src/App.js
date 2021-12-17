@@ -8,6 +8,8 @@ export default class App extends Component {
     this.$state = {
       carNames: [],
       trialCount: 0,
+      progress: [],
+      winners: [],
     };
   }
 
@@ -18,8 +20,8 @@ export default class App extends Component {
   }
 
   mounted() {
-    const { getCarName, getTrialCount } = this;
-    const { carNames, trialCount } = this.$state;
+    const { getCarName, getTrialCount, generateRandomArray } = this;
+    const { carNames, trialCount, progress } = this.$state;
     const $inputSection = this.$target.querySelector(".input-section");
     const $playGround = this.$target.querySelector(".playground");
 
@@ -29,7 +31,11 @@ export default class App extends Component {
     });
 
     if (carNames !== [] && trialCount !== 0) {
-      new PlayGround($playGround, { carNames, trialCount });
+      // progress에 2차원 배열 생성하기
+      for (let i = 0; i < carNames.length; i++) {
+        progress.push(generateRandomArray(trialCount));
+      }
+      new PlayGround($playGround, { carNames, trialCount, progress });
     }
   }
 
@@ -62,5 +68,11 @@ export default class App extends Component {
     this.setState({
       trialCount: inputs,
     });
+  }
+
+  generateRandomArray(amount) {
+    return Array.from({ length: amount }).map(() =>
+      Math.floor(Math.random() * 9 + 1) >= 4 ? 1 : 0
+    );
   }
 }
