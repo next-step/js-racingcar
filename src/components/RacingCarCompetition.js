@@ -35,10 +35,10 @@ export default class RacingCarCompetition extends View {
   }
 
   renderMove = (n) => {
-    const forward = `<div class="forward-icon mt-2">⬇️️</div>`
+    const forward = `<div class="forward-icon mt-2" data-cy="car-forward">⬇️️</div>`
     const spinner = `<div class="d-flex justify-center mt-3">
       <div class="relative spinner-container">
-        <span class="material spinner"></span>
+        <span class="material spinner" data-cy="car-spinner"></span>
       </div>
     </div>`
     return n >= 4 ? forward : spinner

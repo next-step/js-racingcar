@@ -30,9 +30,16 @@ export default class RacingCarInputTryCount extends View {
         ${carTryCount ? 'disabled' : ''}
         class="w-100 mr-2" 
         placeholder="시도 횟수"
-        min=0
+        min="0"
+        data-cy="car-try-input"
         />
-      <button type="button" class="btn btn-cyan btn-try-input">확인</button>
+      <button 
+        type="button" 
+        class="btn btn-cyan btn-try-input"
+        data-cy="car-try-btn"
+      >
+      확인
+      </button>
     </div>
     </fieldset>
     `

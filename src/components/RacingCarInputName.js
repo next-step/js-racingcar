@@ -28,8 +28,15 @@ export default class RacingCarInputName extends View {
           placeholder="자동차 이름" 
           value="${values ? values : ''}"
           ${disabled ? 'disabled' : ''}
+          data-cy="car-name-input"
         />
-        <button type="button" class="btn btn-cyan btn-car-name">확인</button>
+        <button 
+          type="button" 
+          class="btn btn-cyan btn-car-name"
+          data-cy="car-name-btn"
+          >
+          확인
+        </button>
       </div>
     `
   }
