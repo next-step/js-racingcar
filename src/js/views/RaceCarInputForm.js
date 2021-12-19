@@ -1,6 +1,6 @@
 import View from './View.js';
 import { INVALID_NAME_LENGTH, CAR_NAME } from '../constants/index.js';
-import { $ } from '../utils/index.js';
+import { $, splittedText } from '../utils/index.js';
 
 class RaceCarInputForm extends View {
   tag = "[RaceCarInputForm]";
@@ -28,7 +28,7 @@ class RaceCarInputForm extends View {
       return;
     }
     
-    this.emit("submit-car-names", { cars: this.splittedText(target.value) });
+    this.emit("submit-car-names", { cars: splittedText(target.value) });
 
     $("#inputCarNames").setAttribute("disabled", true);
     $("#btnCarNames").setAttribute("disabled", true);
@@ -37,12 +37,8 @@ class RaceCarInputForm extends View {
   isValidCarName(text) {
     if (!text || text.trim("") === "") return false;
       
-    return this.splittedText(text)
+    return splittedText(text)
       .every(car => car.length >= CAR_NAME.MIN_LENGTH && car.length <= CAR_NAME.MAX_LENGTH && !!car.trim(""));
-  }
-
-  splittedText(text) {
-    return text.split(',').map(v => v.trim(""));
   }
 
   render() {

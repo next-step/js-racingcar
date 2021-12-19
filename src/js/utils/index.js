@@ -5,3 +5,5 @@ export const $ = (selector, baseElement = document) => {
 
   return selectors[0];
 }
+
+export const splittedText = (text) => text.split(',').map(v => v.trim(""));

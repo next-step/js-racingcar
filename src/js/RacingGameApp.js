@@ -35,7 +35,7 @@ class RacingGameApp extends View {
     $("race-result-view")
       .renderResult(result)
       .show()
-      .congrats();
+      .congratulations();
   }
 
   onRestart = () => {

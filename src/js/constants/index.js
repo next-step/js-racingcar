@@ -1,6 +1,6 @@
 export const INVALID_NAME_LENGTH = "INVALID_NAME_LENGTH";
 export const INVALID_COUNT = "INVALID_COUNT";
-export const CONGRATS = "CONGRATS";
+export const CONGRATULATIONS = "CONGRATULATIONS";
 
 export const ERROR_MESSAGES = {
   [INVALID_NAME_LENGTH]: "유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.",
@@ -8,7 +8,7 @@ export const ERROR_MESSAGES = {
 };
 
 export const INFO_MESSAGES = {
-  [CONGRATS]: "🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇"
+  [CONGRATULATIONS]: "🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇"
 }
 
 export const CAR_NAME = {

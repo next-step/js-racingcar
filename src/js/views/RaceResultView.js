@@ -14,9 +14,9 @@ class RaceResultView extends View {
     }
   }
 
-  congrats() {
+  congratulations() {
     setTimeout(() => {
-      window.alert(INFO_MESSAGES.CONGRATS);
+      window.alert(INFO_MESSAGES.CONGRATULATIONS);
     }, 2000);
   }
   
