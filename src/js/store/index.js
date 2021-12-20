@@ -21,18 +21,18 @@ class Store {
   }
 
   getDetails(event) {
+    const carNames = this.#cars;
+    const runCount = this.#runCount;
+
     switch (event) {
       case "start-racing":
-        return {
-          runCount: this.#runCount,
-          cars: this.#cars
-        };
+        return { runCount, carNames };
       default: return {};
     }
   }
 
   notifyObserver(event) {
-    this.#observers.forEach(observer => console.log(observer) || observer.emit(event, this.getDetails(event)));
+    this.#observers.forEach(observer => observer.emit(event, this.getDetails(event)));
   }
 
   registerCars(cars = []) {

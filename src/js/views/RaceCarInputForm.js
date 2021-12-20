@@ -1,6 +1,6 @@
 import View from './View.js';
-import { INVALID_NAME_LENGTH } from '../constants/index.js';
-import { $ } from '../utils/index.js';
+import { INVALID_NAME_LENGTH, CAR_NAME } from '../constants/index.js';
+import { $, splittedText } from '../utils/index.js';
 
 class RaceCarInputForm extends View {
   tag = "[RaceCarInputForm]";
@@ -11,47 +11,34 @@ class RaceCarInputForm extends View {
       .on('keydown', this.keydownHandler);
   }
 
-  clickHandler = e => {
-    if (e.target.type === "button") {
-      // console.log(`${this.tag}: clickHandler => ${e.target.value}`);
-      if (!this.checkValid(e.target.value)) {
-        $("#inputCarNames").value = "";
-        $("#inputCarNames").focus();
-      }
-    }
+  clickHandler = ({ target }) => {
+    if (target.type !== "button") return;
+    this.runAfterValidation($("#inputCarNames"));
   }
 
-  keydownHandler = e => {
-    if (e.target.type === "text" && e.key === "Enter") {
-      // console.log(`${this.tag}: keydownHandler => ${e.target.value}`);
-      if (!this.checkValid(e.target.value)) {
-        e.target.value = "";
-        e.target.focus();
-      }
-    }
+  keydownHandler = ({ key, target }) => {
+    if (target.type !== "text" || key !== "Enter") return;
+    this.runAfterValidation(target);
   }
 
-  checkValid(text) {
-    if (!text || text.trim("") === "") {
+  runAfterValidation(target) {
+    if (!this.isValidCarName(target.value)) {
       this.error(INVALID_NAME_LENGTH);
-      return false;
+      target.focus();
+      return;
     }
-      
-    const cars = text.split(',');
+    
+    this.emit("submit-car-names", { cars: splittedText(target.value) });
 
-    if (cars.every(car => car.length >= 1 && car.length <= 5 && !!car.trim(""))) {
-      this.emit("submit-car-names", { cars: cars.map(v => v.trim("")) });
-      this.disableField();
-      return true;
-    } else {
-      this.error(INVALID_NAME_LENGTH);
-      return false;
-    }
-  }
-
-  disableField() {
     $("#inputCarNames").setAttribute("disabled", true);
     $("#btnCarNames").setAttribute("disabled", true);
+  }
+
+  isValidCarName(text) {
+    if (!text || text.trim("") === "") return false;
+      
+    return splittedText(text)
+      .every(car => car.length >= CAR_NAME.MIN_LENGTH && car.length <= CAR_NAME.MAX_LENGTH && !!car.trim(""));
   }
 
   render() {

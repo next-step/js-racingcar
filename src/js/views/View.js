@@ -6,7 +6,6 @@ export default class View extends HTMLElement {
   hiddenClassName = "hide";
 
   connectedCallback() {
-    // console.log(`${this.tag}: in connectedCallback`)
     this.replaceChildren();
     this.insertAdjacentHTML("afterbegin", this.render());
 
