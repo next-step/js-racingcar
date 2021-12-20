@@ -1,10 +1,15 @@
-class Component extends HTMLElement {
+type State = any;
+type Props = any;
+
+abstract class Component extends HTMLElement {
   template: string = '';
-  state: any;
-  props: any;
+  state: State = {};
+  props: Props = {};
 
   connectedCallback() {
     this.render();
+    this.setElements();
+    this.bindEvents();
   }
 
   render() {
@@ -13,15 +18,19 @@ class Component extends HTMLElement {
 
   onUpdate() {}
 
-  setState(newState: any) {
+  setState(newState: State) {
     this.state = { ...this.state, ...newState };
     this.onUpdate();
   }
 
-  setProps(newProps: any) {
+  setProps(newProps: Props) {
     this.props = { ...this.props, ...newProps };
     this.onUpdate();
   }
+
+  bindEvents() {}
+
+  setElements() {}
 }
 
 export default Component;
