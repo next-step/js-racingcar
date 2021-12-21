@@ -56,6 +56,7 @@ class TryAmountForm extends Component {
   enableForm() {
     this.$tryAmountInput!.disabled = false;
     this.$submit!.disabled = false;
+    this.$tryAmountForm?.reset();
   }
 }
 

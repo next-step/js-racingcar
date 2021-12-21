@@ -92,7 +92,10 @@ class Progress extends Component {
   endGame() {
     this.hasGameEnd = true;
     this.props.processNextPhase();
-    setTimeout(() => alert('축하합니다!'), 2000);
+    setTimeout(() => {
+      alert('축하합니다!');
+      this.hasGameEnd = false;
+    }, 2000);
   }
 }
 

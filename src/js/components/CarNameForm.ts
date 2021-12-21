@@ -69,6 +69,7 @@ class CarNameForm extends Component {
   enableForm() {
     this.$nameInput!.disabled = false;
     this.$nameSubmit!.disabled = false;
+    this.$nameForm?.reset();
   }
 }
 

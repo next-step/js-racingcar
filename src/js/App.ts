@@ -78,9 +78,11 @@ class App extends Component {
       },
     });
 
-    this.$tryAmountForm!.hidden = true;
-    this.$gameProgress!.hidden = true;
-    this.$gameResult!.hidden = true;
+    this.$gameResult?.setProps({
+      reset: this.reset.bind(this),
+    });
+
+    this.hideAll();
   }
 
   deriveChildren() {
@@ -90,7 +92,17 @@ class App extends Component {
     this.$gameResult = $('my-game-result', this) as Component;
   }
 
-  reset() {}
+  hideAll() {
+    this.$tryAmountForm!.hidden = true;
+    this.$gameProgress!.hidden = true;
+    this.$gameResult!.hidden = true;
+  }
+
+  reset() {
+    this.hideAll();
+    this.$nameForm?.setProps({ disabled: false });
+    this.$tryAmountForm?.setProps({ disabled: false });
+  }
 }
 
 customElements.define('my-app', App);
