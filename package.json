@@ -1,13 +1,14 @@
 {
   "name": "js-racingcar",
   "version": "0.0.1",
-  "main": "src/js/index.js",
+  "source": "index.html",
   "repository": "https://github.com/jho2301/js-racingcar.git",
   "author": "jho2301 <jho2301@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "parcel index.html",
-    "test": "cypress open"
+    "test": "cypress open",
+    "build": "parcel build"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.5.0",
