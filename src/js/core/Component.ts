@@ -8,7 +8,7 @@ abstract class Component extends HTMLElement {
 
   connectedCallback() {
     this.render();
-    this.setElements();
+    this.deriveChildren();
     this.bindEvents();
   }
 
@@ -30,7 +30,7 @@ abstract class Component extends HTMLElement {
 
   bindEvents() {}
 
-  setElements() {}
+  deriveChildren() {}
 }
 
 export default Component;

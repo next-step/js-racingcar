@@ -1,5 +1,5 @@
 import Component from './core/Component';
-import './components/NameForm';
+import './components/CarNameForm';
 import './components/TryAmountForm';
 import './components/GameResult';
 import './components/GameProgress';
@@ -7,6 +7,7 @@ import { $ } from './utils/querySelector';
 
 interface AppState {
   carNames: string[];
+  tryAmount: number;
 }
 
 class App extends Component {
@@ -35,25 +36,30 @@ class App extends Component {
 
   state: AppState = {
     carNames: [],
+    tryAmount: 0,
   };
 
   connectedCallback() {
     super.connectedCallback();
 
-    this.$nameForm!.setProps({
+    this.$nameForm?.setProps({
       setCarNames: (carNames: string[]) => this.setState.call(this, { carNames }),
+    });
+
+    this.$tryAmountForm?.setProps({
+      setTryAmount: (tryAmount: number) => this.setState.call(this, { tryAmount }),
     });
   }
 
-  setElements() {
-    this.$nameForm = $('my-name-form') as Component;
-    this.$tryAmountForm = $('my-try-amount-form') as Component;
-    this.$gameProcess = $('my-game-process') as Component;
-    this.$gameResult = $('my-game-result') as Component;
+  deriveChildren() {
+    this.$nameForm = $('my-name-form', this) as Component;
+    this.$tryAmountForm = $('my-try-amount-form', this) as Component;
+    this.$gameProcess = $('my-game-process', this) as Component;
+    this.$gameResult = $('my-game-result', this) as Component;
   }
 
   onUpdate() {
-    console.log(this.state.carNames);
+    console.log(this.state);
   }
 }
 

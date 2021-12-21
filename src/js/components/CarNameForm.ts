@@ -11,9 +11,9 @@ const isValidCarNames = (carNames: string[]) => {
   return carNames.every((carName) => carName.length <= MAX_CAR_NAME_LENGTH);
 };
 
-class NameForm extends Component {
+class CarNameForm extends Component {
   template = /*html*/ `
-    <form>
+    <form id="name-form">
       <p>
         5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
         예시) EAST, WEST, SOUTH, NORTH
@@ -27,8 +27,8 @@ class NameForm extends Component {
 
   $nameForm?: HTMLFormElement;
 
-  setElements(): void {
-    this.$nameForm = $('form') as HTMLFormElement;
+  deriveChildren(): void {
+    this.$nameForm = $('#name-form', this) as HTMLFormElement;
   }
 
   bindEvents(): void {
@@ -53,4 +53,4 @@ class NameForm extends Component {
   }
 }
 
-customElements.define('my-name-form', NameForm);
+customElements.define('my-name-form', CarNameForm);
