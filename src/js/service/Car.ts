@@ -1,3 +1,4 @@
+import { generateRandomNumber } from '../utils/random';
 export default class Car {
   carName: string;
   gameResult: number[] = [];
@@ -14,7 +15,3 @@ export default class Car {
     return this.gameResult.reduce((cur, prev) => cur + prev);
   }
 }
-
-const generateRandomNumber = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max + min + 1)) - min;
-};
