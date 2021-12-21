@@ -6,13 +6,11 @@ import Component from './core/Component';
 import Car from './service/Car';
 import { $ } from './utils/querySelector';
 
-const getScore = (gameResult: number[]) => gameResult.reduce((cur, prev) => cur + prev);
-
 const getWinners = (cars: Car[]) => {
-  const scores = cars.map((car) => getScore(car.gameResult));
+  const scores = cars.map((car) => car.getScore());
   const winnerScore = Math.max(...scores);
 
-  return cars.filter((car) => getScore(car.gameResult) === winnerScore).map((car) => car.carName);
+  return cars.filter((car) => car.getScore() === winnerScore).map((car) => car.carName);
 };
 
 interface AppState {

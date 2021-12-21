@@ -9,6 +9,10 @@ export default class Car {
   playGame(tryAmount: number) {
     this.gameResult = [...Array(tryAmount)].map(() => (generateRandomNumber(0, 9) > 4 ? 1 : 0));
   }
+
+  getScore() {
+    return this.gameResult.reduce((cur, prev) => cur + prev);
+  }
 }
 
 const generateRandomNumber = (min: number, max: number) => {
