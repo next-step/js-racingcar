@@ -1,10 +1,19 @@
-import Component from './core/Component';
 import './components/CarNameForm';
-import './components/TryAmountForm';
-import './components/GameResult';
 import './components/GameProgress';
-import { $ } from './utils/querySelector';
+import './components/GameResult';
+import './components/TryAmountForm';
+import Component from './core/Component';
 import Car from './service/Car';
+import { $ } from './utils/querySelector';
+
+const getScore = (gameResult: number[]) => gameResult.reduce((cur, prev) => cur + prev);
+
+const getWinners = (cars: Car[]) => {
+  const scores = cars.map((car) => getScore(car.gameResult));
+  const winnerScore = Math.max(...scores);
+
+  return cars.filter((car) => getScore(car.gameResult) === winnerScore).map((car) => car.carName);
+};
 
 interface AppState {
   cars: Car[];
@@ -63,9 +72,9 @@ class App extends Component {
     });
 
     this.$gameProgress?.setProps({
-      processNextPhase: (winners: string[]) => {
+      processNextPhase: () => {
+        this.$gameResult?.setProps({ winners: getWinners(this.state.cars) });
         this.$gameResult!.hidden = false;
-        this.$gameResult?.setProps({ winners });
       },
     });
 
@@ -80,6 +89,8 @@ class App extends Component {
     this.$gameProgress = $('my-game-progress', this) as Component;
     this.$gameResult = $('my-game-result', this) as Component;
   }
+
+  reset() {}
 }
 
 customElements.define('my-app', App);

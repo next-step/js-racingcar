@@ -3,21 +3,51 @@ import Car from '../service/Car';
 import { $ } from '../utils/querySelector';
 
 const spinnerTemplate = /*html*/ `
-    <div class="relative spinner-container">
-      <span class="material spinner"></span>
-    </div>
-  `;
+  <div class="relative spinner-container">
+   <span class="material spinner"></span>
+  </div>
+`;
 
 const progressTemplate = /*html */ `
-    <div class="forward-icon mt-2">⬇️️</div>
-  `;
+  <div class="forward-icon mt-2">⬇️️</div>
+`;
+
+const createSpinnerElement = () => {
+  const $spinner = document.createElement('div');
+
+  $spinner.classList.add('d-flex', 'justify-center', 'mt-3');
+  $spinner.insertAdjacentHTML('afterbegin', spinnerTemplate);
+
+  return $spinner;
+};
+
+const createCarNameElement = (carName: string) => {
+  const $carName = document.createElement('div');
+
+  $carName.classList.add('car-player');
+  $carName.innerText = carName;
+
+  return $carName;
+};
+
+const createCarContainerElement = (car: Car) => {
+  const $carContainer = document.createElement('div');
+  const $carName = createCarNameElement(car.carName);
+
+  $carContainer.append($carName);
+
+  $carContainer.classList.add('mr-2');
+
+  return $carContainer;
+};
 
 class Progress extends Component {
   template = /*html*/ `
-    <div class="js-container mt-4 d-flex"></div>
+  <div class="js-container mt-4 d-flex"></div>
   `;
 
   $container?: HTMLDivElement;
+  hasGameEnd: boolean = false;
 
   deriveChildren(): void {
     this.$container = $('.js-container', this) as HTMLDivElement;
@@ -28,31 +58,18 @@ class Progress extends Component {
   }
 
   renderRaceProgress() {
-    const { cars } = this.props;
+    const { cars = [] } = this.props;
 
-    if (!cars.length) {
-      this.$container!.innerHTML = '';
-      return;
-    }
-
+    this.$container!.innerHTML = '';
     cars.forEach((car: Car) => this.renderCarProgress(car));
   }
 
   renderCarProgress(car: Car) {
-    const $carContainer = document.createElement('div');
-    const $carName = document.createElement('div');
-    const $spinner = document.createElement('div');
-
-    $carContainer.classList.add('mr-2');
-    $carName.classList.add('car-player');
-    $carName.innerText = car.carName;
-    $spinner.classList.add('d-flex', 'justify-center', 'mt-3');
-    $spinner.insertAdjacentHTML('afterbegin', spinnerTemplate);
-
-    $carContainer.append($carName);
-    $carContainer.insertAdjacentElement('beforeend', $spinner);
-
+    const $carContainer = createCarContainerElement(car);
+    const $spinner = createSpinnerElement();
     let racePhase = 0;
+
+    $carContainer.insertAdjacentElement('beforeend', $spinner);
 
     const timerId = setInterval(() => {
       if (car.gameResult[racePhase] === 1) {
@@ -64,10 +81,18 @@ class Progress extends Component {
       if (racePhase === car.gameResult.length) {
         clearInterval(timerId);
         $spinner.remove();
+
+        if (!this.hasGameEnd) this.endGame();
       }
     }, 1000);
 
     this.$container?.append($carContainer);
+  }
+
+  endGame() {
+    this.hasGameEnd = true;
+    this.props.processNextPhase();
+    setTimeout(() => alert('축하합니다!'), 2000);
   }
 }
 
