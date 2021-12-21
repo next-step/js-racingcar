@@ -49,11 +49,11 @@ class Progress extends Component {
   $container?: HTMLDivElement;
   hasGameEnd: boolean = false;
 
-  deriveChildren(): void {
+  deriveChildren() {
     this.$container = $('.js-container', this) as HTMLDivElement;
   }
 
-  onUpdate(): void {
+  onUpdate() {
     this.renderRaceProgress();
   }
 

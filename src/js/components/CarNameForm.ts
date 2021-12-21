@@ -29,13 +29,13 @@ class CarNameForm extends Component {
   $nameInput?: HTMLInputElement;
   $nameSubmit?: HTMLButtonElement;
 
-  deriveChildren(): void {
+  deriveChildren() {
     this.$nameForm = $('#name-form', this) as HTMLFormElement;
     this.$nameInput = $('input[name="car-names"]', this) as HTMLInputElement;
     this.$nameSubmit = $('button[type="submit"]', this) as HTMLButtonElement;
   }
 
-  bindEvents(): void {
+  bindEvents() {
     this.$nameForm!.addEventListener('submit', this.onSubmit.bind(this));
   }
 
@@ -57,7 +57,7 @@ class CarNameForm extends Component {
     return this.$nameInput!.value.split(',').map((name) => name.trim());
   }
 
-  onUpdate(): void {
+  onUpdate() {
     this.props.disabled ? this.disableForm() : this.enableForm();
   }
 

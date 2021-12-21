@@ -14,18 +14,18 @@ class GameResult extends Component {
   $winner?: HTMLSpanElement;
   $gameResetButton?: HTMLButtonElement;
 
-  deriveChildren(): void {
+  deriveChildren() {
     this.$winner = $('#winner', this) as HTMLSpanElement;
     this.$gameResetButton = $('#game-reset') as HTMLButtonElement;
   }
 
-  onUpdate(): void {
+  onUpdate() {
     const { winners = [] } = this.props;
 
     this.$winner!.innerText = winners.join(', ');
   }
 
-  bindEvents(): void {
+  bindEvents() {
     this.$gameResetButton?.addEventListener('click', () => this.props.reset());
   }
 }

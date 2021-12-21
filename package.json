@@ -6,11 +6,13 @@
   "author": "jho2301 <jho2301@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "test": "cypress open"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
+    "cypress": "^9.1.1",
     "eslint": "^8.4.0",
     "parcel": "^2.0.1",
     "prettier": "^2.5.1"

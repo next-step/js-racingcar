@@ -20,13 +20,13 @@ class TryAmountForm extends Component {
   $tryAmountInput?: HTMLInputElement;
   $submit?: HTMLButtonElement;
 
-  deriveChildren(): void {
+  deriveChildren() {
     this.$tryAmountForm = $('#try-amount-form', this) as HTMLFormElement;
     this.$tryAmountInput = $('input[name="try-amount"]', this) as HTMLInputElement;
     this.$submit = $('button[type="submit"]', this) as HTMLButtonElement;
   }
 
-  bindEvents(): void {
+  bindEvents() {
     this.$tryAmountForm?.addEventListener('submit', this.onSubmit.bind(this));
   }
 
@@ -44,7 +44,7 @@ class TryAmountForm extends Component {
     this.props.processNextPhase();
   }
 
-  onUpdate(): void {
+  onUpdate() {
     this.props.disabled ? this.disableForm() : this.enableForm();
   }
 
