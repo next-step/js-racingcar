@@ -4,9 +4,10 @@ import './components/TryAmountForm';
 import './components/GameResult';
 import './components/GameProgress';
 import { $ } from './utils/querySelector';
+import Car from './service/Car';
 
 interface AppState {
-  carNames: string[];
+  cars: Car[];
   tryAmount: number;
 }
 
@@ -31,11 +32,11 @@ class App extends Component {
 
   $nameForm?: Component;
   $tryAmountForm?: Component;
-  $gameProcess?: Component;
+  $gameProgress?: Component;
   $gameResult?: Component;
 
   state: AppState = {
-    carNames: [],
+    cars: [],
     tryAmount: 0,
   };
 
@@ -43,23 +44,41 @@ class App extends Component {
     super.connectedCallback();
 
     this.$nameForm?.setProps({
-      setCarNames: (carNames: string[]) => this.setState.call(this, { carNames }),
+      setCars: (carNames: string[]) =>
+        this.setState.call(this, { cars: carNames.map((carName) => new Car(carName)) }),
+      processNextPhase: () => {
+        this.$nameForm?.setProps({ disabled: true });
+        this.$tryAmountForm!.hidden = false;
+      },
     });
 
     this.$tryAmountForm?.setProps({
       setTryAmount: (tryAmount: number) => this.setState.call(this, { tryAmount }),
+      processNextPhase: () => {
+        this.$tryAmountForm?.setProps({ disabled: true });
+        this.$gameProgress!.hidden = false;
+        this.state.cars.forEach((car) => car.playGame(this.state.tryAmount));
+        this.$gameProgress?.setProps({ cars: this.state.cars });
+      },
     });
+
+    this.$gameProgress?.setProps({
+      processNextPhase: (winners: string[]) => {
+        this.$gameResult!.hidden = false;
+        this.$gameResult?.setProps({ winners });
+      },
+    });
+
+    this.$tryAmountForm!.hidden = true;
+    this.$gameProgress!.hidden = true;
+    this.$gameResult!.hidden = true;
   }
 
   deriveChildren() {
     this.$nameForm = $('my-name-form', this) as Component;
     this.$tryAmountForm = $('my-try-amount-form', this) as Component;
-    this.$gameProcess = $('my-game-process', this) as Component;
+    this.$gameProgress = $('my-game-progress', this) as Component;
     this.$gameResult = $('my-game-result', this) as Component;
-  }
-
-  onUpdate() {
-    console.log(this.state);
   }
 }
 

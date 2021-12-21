@@ -20,15 +20,19 @@ class CarNameForm extends Component {
       </p>
       <div class="d-flex">
         <input name="car-names" type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-        <button class="btn btn-cyan">확인</button>
+        <button type="submit" class="btn btn-cyan">확인</button>
       </div>
     </form>
   `;
 
   $nameForm?: HTMLFormElement;
+  $nameInput?: HTMLInputElement;
+  $nameSubmit?: HTMLButtonElement;
 
   deriveChildren(): void {
     this.$nameForm = $('#name-form', this) as HTMLFormElement;
+    this.$nameInput = $('input[name="car-names"]', this) as HTMLInputElement;
+    this.$nameSubmit = $('button[type="submit"]', this) as HTMLButtonElement;
   }
 
   bindEvents(): void {
@@ -38,18 +42,33 @@ class CarNameForm extends Component {
   onSubmit(event: SubmitEvent) {
     event.preventDefault();
 
-    const carNames = this.getCarNames((event.currentTarget as HTMLFormElement).elements);
+    const carNames = this.getCarNames();
 
     if (!isValidCarNames(carNames)) {
       alert('유효하지 않은 자동차 이름입니다. 다시 입력 해주세요.');
       return;
     }
 
-    this.props.setCarNames(carNames);
+    this.props.setCars(carNames);
+    this.props.processNextPhase();
   }
 
-  getCarNames(elements: HTMLFormControlsCollection) {
-    return (elements as FormElement)['car-names'].value.split(',').map((name) => name.trim());
+  getCarNames() {
+    return this.$nameInput!.value.split(',').map((name) => name.trim());
+  }
+
+  onUpdate(): void {
+    this.props.disabled ? this.disableForm() : this.enableForm();
+  }
+
+  disableForm() {
+    this.$nameInput!.disabled = true;
+    this.$nameSubmit!.disabled = true;
+  }
+
+  enableForm() {
+    this.$nameInput!.disabled = false;
+    this.$nameSubmit!.disabled = false;
   }
 }
 
