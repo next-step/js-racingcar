@@ -5,6 +5,21 @@ interface FormElement extends HTMLFormControlsCollection {
   'try-amount': HTMLInputElement;
 }
 
+const MIN_TRY_AMOUNT = 1;
+const MAX_TRY_AMOUNT = 100;
+
+const ERROR_CODE = {
+  OUT_OF_RANGE: 'outtaRange',
+};
+
+const ERROR_MESSAGE = {
+  [ERROR_CODE.OUT_OF_RANGE]: `유효하지 않은 시도 횟수 입니다. ${MIN_TRY_AMOUNT}부터 ${MAX_TRY_AMOUNT} 사이의 값을 입력 해주세요.`,
+};
+
+const validateTryAmount = (tryAmount: number) => {
+  if (tryAmount < MIN_TRY_AMOUNT || tryAmount > MAX_TRY_AMOUNT) return ERROR_CODE.OUT_OF_RANGE;
+};
+
 class TryAmountForm extends Component {
   template = /*html*/ `
     <form id="try-amount-form">
@@ -34,9 +49,10 @@ class TryAmountForm extends Component {
     event.preventDefault();
 
     const tryAmount = this.$tryAmountInput!.valueAsNumber;
+    const errorCode = validateTryAmount(tryAmount);
 
-    if (tryAmount < 1) {
-      alert('유효하지 않은 시도 횟수 입니다. 다시 입력 해주세요.');
+    if (errorCode) {
+      alert(ERROR_MESSAGE[errorCode]);
       return;
     }
 

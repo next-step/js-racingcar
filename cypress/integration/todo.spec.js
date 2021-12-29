@@ -1,3 +1,5 @@
+// import { ERROR_MESSAGE: CAR_NAME_FORM_ERROR_MESSAGE } from '../../src/js/components/CarNameForm';
+
 /// <reference types="cypress" />
 
 beforeEach(() => {
@@ -20,6 +22,34 @@ describe('자동차 이름을 입력한다.', () => {
 
     cy.get('my-try-amount-form').should('be.visible');
   });
+
+  it('자동차를 10개 초과하여 등록 시, 에러메시지가 출력된다.', () => {
+    cy.window().then((window) => cy.stub(window, 'alert').as('alert'));
+
+    submitCarNames(
+      'car0',
+      'car1',
+      'car2',
+      'car3',
+      'car4',
+      'car5',
+      'car6',
+      'car7',
+      'car8',
+      'car9',
+      'car10'
+    );
+
+    cy.get('@alert').should('be.called');
+  });
+
+  it('중복된 자동차 이름 등록 시, 에러메시지가 출력된다.', () => {
+    cy.window().then((window) => cy.stub(window, 'alert').as('alert'));
+
+    submitCarNames('car0', 'car0');
+
+    cy.get('@alert').should('be.called');
+  });
 });
 
 describe('시도횟수를 입력한다.', () => {
@@ -31,6 +61,22 @@ describe('시도횟수를 입력한다.', () => {
     submitTryAmount(2);
 
     cy.get('my-game-progress').should('be.visible');
+  });
+
+  it('0 이하의 수 입력 시, 에러메시지가 출력된다.', () => {
+    cy.window().then((window) => cy.stub(window, 'alert').as('alert'));
+
+    submitTryAmount(0);
+
+    cy.get('@alert').should('be.called');
+  });
+
+  it('100을 초과하는 수 입력 시, 에러메시지가 출력된다.', () => {
+    cy.window().then((window) => cy.stub(window, 'alert').as('alert'));
+
+    submitTryAmount(101);
+
+    cy.get('@alert').should('be.called');
   });
 });
 

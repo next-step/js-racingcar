@@ -6,9 +6,30 @@ interface FormElement extends HTMLFormControlsCollection {
 }
 
 const MAX_CAR_NAME_LENGTH = 5;
+const MAX_CAR_AMOUNT = 10;
 
-const isValidCarNames = (carNames: string[]) => {
-  return carNames.every((carName) => carName.length <= MAX_CAR_NAME_LENGTH);
+const ERROR_CODE = {
+  EXCEED_MAX_CAR_NAME_LENGTH: 'exceedMaxCarNameLength',
+  TOO_MANY_CARS: 'tooManyCars',
+  DUPLICATED_NAME: 'duplicatedName',
+};
+
+export const ERROR_MESSAGE = {
+  [ERROR_CODE.EXCEED_MAX_CAR_NAME_LENGTH]: `최대 이름 길이를 초과하였습니다. ${MAX_CAR_NAME_LENGTH}글자 이내로 입력해주세요.`,
+  [ERROR_CODE.TOO_MANY_CARS]: `너무 많은 자동차를 입력하였습니다. ${MAX_CAR_AMOUNT}대 이하로 입력해주세요.`,
+  [ERROR_CODE.DUPLICATED_NAME]: `중복된 자동차 이름이 있습니다.`,
+};
+
+const validateCarNames = (carNames: string[]) => {
+  const exceedMaxCarNameLength = carNames.every((carName) => carName.length > MAX_CAR_NAME_LENGTH);
+  const tooManyCars = carNames.length > MAX_CAR_AMOUNT;
+  const duplicatedName = [...new Set(carNames)].length < carNames.length;
+
+  if (exceedMaxCarNameLength) return ERROR_CODE.EXCEED_MAX_CAR_NAME_LENGTH;
+  if (tooManyCars) return ERROR_CODE.TOO_MANY_CARS;
+  if (duplicatedName) return ERROR_CODE.DUPLICATED_NAME;
+
+  return null;
 };
 
 class CarNameForm extends Component {
@@ -43,9 +64,10 @@ class CarNameForm extends Component {
     event.preventDefault();
 
     const carNames = this.getCarNames();
+    const errorCode = validateCarNames(carNames);
 
-    if (!isValidCarNames(carNames)) {
-      alert('유효하지 않은 자동차 이름입니다. 다시 입력 해주세요.');
+    if (errorCode) {
+      alert(ERROR_MESSAGE[errorCode]);
       return;
     }
 
