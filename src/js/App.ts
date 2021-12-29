@@ -43,7 +43,17 @@ class App extends Component {
 
   connectedCallback() {
     super.connectedCallback();
+    this.hideAll();
+  }
 
+  deriveChildren() {
+    this.$nameForm = $('my-name-form', this) as Component;
+    this.$tryAmountForm = $('my-try-amount-form', this) as Component;
+    this.$gameProgress = $('my-game-progress', this) as Component;
+    this.$gameResult = $('my-game-result', this) as Component;
+  }
+
+  initProps(): void {
     this.$nameForm?.setProps({
       setCars: (carNames: string[]) =>
         this.setState.call(this, { cars: carNames.map((carName) => new Car(carName)) }),
@@ -73,15 +83,6 @@ class App extends Component {
     this.$gameResult?.setProps({
       reset: this.reset.bind(this),
     });
-
-    this.hideAll();
-  }
-
-  deriveChildren() {
-    this.$nameForm = $('my-name-form', this) as Component;
-    this.$tryAmountForm = $('my-try-amount-form', this) as Component;
-    this.$gameProgress = $('my-game-progress', this) as Component;
-    this.$gameResult = $('my-game-result', this) as Component;
   }
 
   hideAll() {

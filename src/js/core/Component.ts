@@ -9,12 +9,15 @@ abstract class Component extends HTMLElement {
   connectedCallback() {
     this.render();
     this.deriveChildren();
+    this.initProps();
     this.bindEvents();
   }
 
   render() {
     this.innerHTML = this.template;
   }
+
+  initProps() {}
 
   onUpdate() {}
 
