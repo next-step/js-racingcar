@@ -11,19 +11,19 @@ export default class TryTimes {
 				if (inputValue > 0) {
 					setTryTimes(inputValue);
 					this.$inputTryTimes.disabled = true;
-					this.$inputTryTimesButton = true;
+					this.$inputTryTimesButton.disabled = true;
 				} else {
 					alert(MESSAGE.TOO_SMALL_TRY_TIMES);
 				}
 			}
 		};
 
-		const onClickButton = (e) => {
+		const onClickButton = () => {
 			const inputValue = this.$inputTryTimes.valueAsNumber;
 			if (inputValue > 0) {
 				setTryTimes(inputValue);
 				this.$inputTryTimes.disabled = true;
-				this.$inputTryTimesButton = true;
+				this.$inputTryTimesButton.disabled = true;
       } else {
 				alert(MESSAGE.TOO_SMALL_TRY_TIMES);
       }

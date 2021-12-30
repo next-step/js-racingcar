@@ -16,7 +16,7 @@
               예시) EAST, WEST, SOUTH, NORTH
             </p>
             <div class="d-flex">
-              <input type="text" class="input-car-names w-100 mr-2" placeholder="자동차 이름" />
+              <input type="text" class="input-car-names w-100 mr-2" placeholder="자동차 이름" autofocus />
               <button type="button" class="input-car-names-confirm btn btn-cyan">확인</button>
             </div>
           </fieldset>
@@ -29,8 +29,8 @@
           </fieldset>
         </form>
       </section>
-      <section class="d-flex justify-center mt-5">
-        <div class="mt-4 d-flex">
+      <section class="show-process d-flex justify-center mt-5">
+        <!-- <div class="mt-4 d-flex">
           <div class="mr-2">
             <div class="car-player">EAST</div>
             <div class="forward-icon mt-2">⬇️️</div>
@@ -56,13 +56,13 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </section>
-      <section class="d-flex justify-center mt-5">
+      <section class="show-result d-flex justify-center mt-5 hidden">
         <div>
-          <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
+          <h2 class="winners"></h2>
           <div class="d-flex justify-center">
-            <button type="button" class="btn btn-cyan">다시 시작하기</button>
+            <button type="button" class="result-reset btn btn-cyan">다시 시작하기</button>
           </div>
         </div>
       </section>
