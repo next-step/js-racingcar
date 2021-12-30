@@ -13,11 +13,13 @@ export default class App {
 			$inputCarNames: document.querySelector(".input-car-names"),
 			$inputCarNamesButton: document.querySelector(".input-car-names-confirm"),
 			setCarNamesArray: (array) => {
-				this.validCarNames = array;
+        this.validCarNames = array;
+        this.tryTimes.showTryTimes();
 			},
 		});
 
-		this.tryTimes = new TryTimes({
+    this.tryTimes = new TryTimes({
+      $inputTryTimesContainer: document.querySelector(".input-try-times-container"),
 			$inputTryTimes: document.querySelector(".input-try-times"),
 			$inputTryTimesButton: document.querySelector(".input-try-times-confirm"),
 			setTryTimes: async (number) => {

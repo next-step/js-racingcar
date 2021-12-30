@@ -1,7 +1,8 @@
 import { MESSAGE, CONSTANT } from "./utils/constants.js";
 
 export default class TryTimes {
-	constructor({ $inputTryTimes, $inputTryTimesButton, setTryTimes }) {
+	constructor({ $inputTryTimesContainer, $inputTryTimes, $inputTryTimesButton, setTryTimes }) {
+		this.$inputTryTimesContainer = $inputTryTimesContainer;
 		this.$inputTryTimes = $inputTryTimes;
 		this.$inputTryTimesButton = $inputTryTimesButton;
 
@@ -31,5 +32,9 @@ export default class TryTimes {
 
 		this.$inputTryTimes.addEventListener("keydown", onConfirmTimes);
 		this.$inputTryTimesButton.addEventListener("click", onClickButton);
+	}
+
+	showTryTimes() {
+		this.$inputTryTimesContainer.classList.remove('hidden');
 	}
 }
