@@ -1,3 +1,4 @@
+
 import { RACE_NUMBER } from "./constants.js";
 
 export const $ = (type, selector) => {
