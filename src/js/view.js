@@ -12,7 +12,7 @@ export const dom = {
   resetButton: $(".", "reset"),
 };
 
-export const setStyle = (state) => {
+export const showElement = (state) => {
   switch (state) {
     case "inputCarsName":
       dom.tryCount.classList.remove("hide");

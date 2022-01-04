@@ -1,6 +1,6 @@
 import Car from "./model.js";
 import {
-  setStyle,
+  showElement,
   dom,
   renderArrowElement,
   removeChildNodes,
@@ -26,16 +26,12 @@ export class RacingCar {
     dom.resetButton.addEventListener("click", () => this.onClickReset());
   }
 
-  validateCarsName() {
-    let isWrongInput = false;
-
-    if (this.#carsElement.length > 5) isWrongInput = true;
-
-    this.#carsElement.find((carName) => {
-      if (carName.length > 5 || !carName) isWrongInput = true;
-    });
-
-    return isWrongInput;
+  wrongCarsName() {    
+    this.#carsElement.find((carName) => { 
+      if (carName.length > 5 || !carName) return true }
+    );
+    
+    return false
   }
 
   validateTryCount() {
@@ -48,7 +44,7 @@ export class RacingCar {
       .get("cars-name-input")
       .split(",");
 
-    if (this.validateCarsName()) {
+    if (this.wrongCarsName()) {
       alert(CAR_INPUT_ERR_MESSAGE);
       return;
     }
@@ -56,7 +52,7 @@ export class RacingCar {
     this.#carsElement = this.#carsElement.map((car) => new Car(car));
     this.#carsElement.map((car) => car.renderCarElement());
 
-    setStyle("inputCarsName");
+    showElement("inputCarsName");
   }
 
   onClickTryCount() {
@@ -67,7 +63,7 @@ export class RacingCar {
       return;
     }
 
-    setStyle("inputTryCount");
+    showElement("inputTryCount");
     this.startRacing();
   }
 
