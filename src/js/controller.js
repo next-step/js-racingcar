@@ -1,5 +1,13 @@
 import Car from "./model.js";
-import { setStyle, inputField } from "./view.js";
+import {
+  showElement,
+  dom,
+  renderArrowElement,
+  removeChildNodes,
+  renderWinner,
+  renderRemoveProcess,
+} from "./view.js";
+import { isUpperFour, delay } from "./utils.js";
 import { CAR_INPUT_ERR_MESSAGE, TRY_COUNT_ERR_MESSAGE } from "./constants.js";
 
 export class RacingCar {
@@ -11,24 +19,19 @@ export class RacingCar {
   }
 
   init() {
-    inputField.carsNameButton.addEventListener("click", () => {
+    dom.carsNameButton.addEventListener("click", () => {
       this.onClickCarsName();
     });
-    inputField.tryCountButton.addEventListener("click", () =>
-      this.onClickTryCount()
-    );
+    dom.tryCountButton.addEventListener("click", () => this.onClickTryCount());
+    dom.resetButton.addEventListener("click", () => this.onClickReset());
   }
 
-  validateCarsName() {
-    let isCorrectInput = true;
-
-    if (this.#carsElement.length > 5) isCorrectInput = false;
-
-    this.#carsElement.find((carName) => {
-      if (carName.length > 5 || !carName) isCorrectInput = false;
-    });
-
-    return isCorrectInput;
+  wrongCarsName() {    
+    this.#carsElement.find((carName) => { 
+      if (carName.length > 5 || !carName) return true }
+    );
+    
+    return false
   }
 
   validateTryCount() {
@@ -37,11 +40,11 @@ export class RacingCar {
   }
 
   onClickCarsName() {
-    this.#carsElement = new FormData(inputField.raceForm)
+    this.#carsElement = new FormData(dom.raceForm)
       .get("cars-name-input")
       .split(",");
 
-    if (!this.validateCarsName()) {
+    if (this.wrongCarsName()) {
       alert(CAR_INPUT_ERR_MESSAGE);
       return;
     }
@@ -49,22 +52,42 @@ export class RacingCar {
     this.#carsElement = this.#carsElement.map((car) => new Car(car));
     this.#carsElement.map((car) => car.renderCarElement());
 
-    setStyle("inputCarsName");
+    showElement("inputCarsName");
   }
 
   onClickTryCount() {
-    this.#tryCount = new FormData(inputField.raceForm).get("try-count-input");
+    this.#tryCount = new FormData(dom.raceForm).get("try-count-input");
 
     if (!this.validateTryCount()) {
       alert(TRY_COUNT_ERR_MESSAGE);
       return;
     }
 
-    setStyle("inputTryCount");
+    showElement("inputTryCount");
     this.startRacing();
   }
 
-  startRacing() {
-    this.#carsElement.map((car) => car.progressRacing(this.#tryCount));
+  async startRacing() {
+    this.#carsElement.map((car) => this.progressRacing(car, this.#tryCount));
+  }
+
+  async progressRacing(car, tryCount) {
+    for (let i = 0; i < tryCount; i++) {
+      await delay(1000);
+      if (isUpperFour()) {
+        car.progressLength += 1;
+        renderArrowElement(car);
+      }
+    }
+    renderRemoveProcess(car);
+    renderWinner(this.#carsElement);
+  }
+
+  onClickReset() {
+    removeChildNodes(dom.raceStatus);
+    dom.raceStatus.classList.add("hide");
+    dom.tryCount.classList.add("hide");
+    dom.raceResultWrapper.classList.add("hide");
+    dom.raceForm.reset();
   }
 }

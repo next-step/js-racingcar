@@ -14,10 +14,13 @@ describe("js-racingcar", () => {
       cy.get("[name=try-count-input]").should("be.visible");
     });
 
-    it("시도 횟수 입력 필드하면 레이신 결과가 나타난다", () => {
+    it("시도 횟수 입력 필드하면 레이싱 결과가 나타난다", () => {
       cy.get("[name=try-count-input]").type(CYPRESS_TEST.TRY_COUNT);
       cy.get(".try-count-btn").click();
       cy.get(".car-player").should("be.visible");
+      setTimeout(() => {
+        cy.get(".race-result").should("be.visible");
+      }, CYPRESS_TEST.TRY_COUNT * 1000);
       cy.reload();
     });
   });
