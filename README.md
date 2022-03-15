@@ -3,7 +3,7 @@
   <img width="200px;" src="https://user-images.githubusercontent.com/50367798/106415730-2645a280-6493-11eb-876c-ef7172652261.png"/>
 </p>
 <h2 align="middle">자동차 경주 게임</h2>
-<p align="middle">자바스크립트와 Cypress로 구현 하는 자동차 경주 게임</p>
+<p align="middle">자바스크립트와 Cypress로 구현하는 자동차 경주 게임</p>
 <p align="middle">
   <img src="https://img.shields.io/badge/version-1.0.0-blue?style=flat-square" alt="template version"/>
   <img src="https://img.shields.io/badge/language-html-red.svg?style=flat-square"/>
