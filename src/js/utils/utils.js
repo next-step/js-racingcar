@@ -1,5 +1,6 @@
 export const $ = (selector) => document.querySelector(selector);
 export const $$ = (selector) => document.querySelectorAll(selector);
+export const test$ = (selector) => `[data-testid="${selector}"]`;
 
 export const createRandomNumber = (min, max) => Math.floor(Math.random() * max) + min;
 
@@ -21,4 +22,15 @@ export const findIndexAll = (arr, val) => {
   const result = [];
   arr.forEach((item, index) => item === val && result.push(index));
   return result;
+};
+
+export const delay = async (ms) => {
+  const startTime = Date.now();
+  return new Promise((resolve) => {
+    const callback = () => {
+      if (Date.now() - ms <= startTime) return requestAnimationFrame(callback);
+      resolve(1);
+    };
+    requestAnimationFrame(callback);
+  });
 };

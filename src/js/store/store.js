@@ -3,28 +3,33 @@ import { STORE_STATUS } from '../constants.js';
 
 export default class Store {
   constructor(params) {
+    this.init(params);
+  }
+
+  init(params) {
     const self = this;
 
     self.actions = {};
     self.mutations = {};
-    self.state = {};
 
     self.status = STORE_STATUS.RESTING;
     self.events = new PubSub();
 
-    if (params.hasOwnProperty('actions')) self.actions = params.actions;
-    if (params.hasOwnProperty('mutations')) self.mutations = params.mutations;
+    if (Reflect.has(params, 'actions')) self.actions = params.actions;
+    if (Reflect.has(params, 'mutations')) self.mutations = params.mutations;
 
     self.state = new Proxy(params.state || {}, {
-      set(state, key, value) {
-        console.log('prev-state:', key, state[key]);
-        state[key] = value;
-        console.log('next-state:', key, state[key]);
-
-        self.events.publish('stateChange', self.state);
+      set(state, key, value, receiver) {
+        if (!Reflect.has(state, key)) throw Error(`This key(${key}) does not exist in the state.`);
 
         if (self.status !== STORE_STATUS.MUTATION)
-          console.warn(`You should use a mutation to set ${key}`);
+          throw Error(`You should use a mutation to set ${key}`);
+
+        console.log('prev-state:', key, Reflect.get(state, key, receiver));
+        Reflect.set(state, key, value, receiver);
+        console.log('next-state:', key, Reflect.get(state, key, receiver));
+
+        self.events.publish('stateChange', self.state);
 
         self.status = STORE_STATUS.RESTING;
 
@@ -66,6 +71,7 @@ export default class Store {
     }
 
     this.status = STORE_STATUS.MUTATION;
+    console.log(this.status);
 
     this.mutations[mutationKey](this.state, payload);
     this.events.publish(mutationKey, this.state);

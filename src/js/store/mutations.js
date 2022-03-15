@@ -1,6 +1,7 @@
-import { createProcessArray, validateCarName } from '../utils/service.js';
+import { createProgressArray, validateCarName } from '../utils/service.js';
 import { isNumber, sumArray } from '../utils/utils.js';
-import { ERROR_MESSAGES } from '../constants.js';
+import { ERROR_MESSAGES, STORE_STATUS } from '../constants.js';
+import initialState from './initialState.js';
 
 export default {
   /*
@@ -8,7 +9,10 @@ export default {
   payload: payload
   */
   setCarNames(state, { carNames }) {
-    if ([...new Set(carNames)].length !== carNames.length) throw Error(ERROR_MESSAGES.DUPLICATED_CAR_NAMES);
+    if (carNames.includes('')) throw Error(ERROR_MESSAGES.NO_CAR_NAMES);
+
+    if ([...new Set(carNames)].length !== carNames.length)
+      throw Error(ERROR_MESSAGES.DUPLICATED_CAR_NAMES);
 
     state.carNames = carNames.map((carName) => {
       validateCarName(carName);
@@ -18,29 +22,45 @@ export default {
 
   setTryCounts(state, { tryCountsString }) {
     if (tryCountsString.length === 0) throw Error(ERROR_MESSAGES.NO_TRY_COUNTS);
-    if (isNumber(Number(tryCountsString))) state.tryCounts = Number(tryCountsString);
-    else throw Error(ERROR_MESSAGES.TYPE_ONLY_NUMBER);
+
+    if (isNumber(Number(tryCountsString))) {
+      const tryCounts = Number(tryCountsString);
+
+      if (tryCounts <= 0) throw Error(ERROR_MESSAGES.MINIMUM_TRY_COUNTS);
+
+      state.tryCounts = Number(tryCountsString);
+    } else throw Error(ERROR_MESSAGES.TYPE_ONLY_NUMBER);
   },
 
-  setProcessMatrix(state, payload) {
-    state.processMatrix = [...Array(state.carNames.length)].map(() => createProcessArray(state.tryCounts));
+  setProgressMatrix(state) {
+    state.progressMatrix = [...Array(state.carNames.length)].map(() =>
+      createProgressArray(state.tryCounts)
+    );
   },
 
-  setWinners(state, payload) {
-    let maxNumer = 0;
+  setWinners(state) {
+    let maxNumber = 0;
     let winnersIndices = [];
 
-    state.processMatrix.forEach((processArray, index) => {
-      const curSum = sumArray(processArray);
+    state.progressMatrix.forEach((progressArray, index) => {
+      const curSum = sumArray(progressArray);
 
-      if (curSum < maxNumer) return;
-      if (curSum === maxNumer) return winnersIndices.push(index);
+      if (curSum < maxNumber) return;
+      if (curSum === maxNumber) return winnersIndices.push(index);
 
       winnersIndices = [];
-      maxNumer = curSum;
+      maxNumber = curSum;
       winnersIndices.push(index);
     });
 
     state.winners = winnersIndices.map((winnerIndex) => state.carNames[winnerIndex]);
+  },
+
+  initState(state, payload) {
+    Object.keys(state).forEach((key) => {
+      payload.status = STORE_STATUS.MUTATION;
+      state[key] = initialState[key];
+    });
+    payload.status = STORE_STATUS.RESTING;
   },
 };
