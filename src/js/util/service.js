@@ -9,3 +9,19 @@ export const moveCar = () => {
     randomNumber(GAME.MIN_MOVE_COUNT, GAME.MAX_MOVE_COUNT) >= GAME.MOVE_FLAG
   );
 };
+
+export const delay = (delay = 0) => {
+  return new Promise((resolve) => {
+    let startTime = new Date().getTime();
+
+    const callback = function () {
+      const currentTime = new Date().getTime();
+      if (currentTime - delay > startTime) {
+        resolve(true);
+      } else {
+        requestAnimationFrame(callback);
+      }
+    };
+    requestAnimationFrame(callback);
+  });
+};

@@ -23,7 +23,7 @@ export default class CarNameFormSection extends View {
   }
 
   init() {
-    this.toggleDisableButton(false);
+    this.setDisableButton(false);
     this.$carNames.value = '';
   }
 
