@@ -1,0 +1,19 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/inhyuck/js-racingcar",
+  "author": "inhyuck <dev.inhyuck@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsc-watch",
+    "serve": "live-server .",
+    "test:e2e": "cypress run --spec 'cypress/integration/*' --config video=false"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "tsc-watch": "^4.5.0",
+    "typescript": "^4.5.2",
+    "cypress": "^9.1.1"
+  }
+}

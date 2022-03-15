@@ -20,6 +20,10 @@
   display: block;
 }
 
+.d-none {
+  display: none;
+}
+
 .d-inline {
   display: inline;
 }
@@ -68,6 +72,10 @@
 }
 .justify-evenly {
   justify-content: space-evenly;
+}
+
+.direction-column {
+  flex-direction: column;
 }
 
 /* Box Alignment - Align Items*/
