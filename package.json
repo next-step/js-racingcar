@@ -1,0 +1,25 @@
+{
+    "name": "js-racingcar",
+    "version": "1.0.0",
+    "description": "js-racingcar",
+    "main": "index.js",
+    "dependencies": {},
+    "devDependencies": {
+        "cypress": "^9.5.3",
+        "eslint": "^8.12.0",
+        "prettier": "^2.6.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Minsiki/js-racingcar.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Minsiki/js-racingcar/issues"
+    },
+    "homepage": "https://github.com/Minsiki/js-racingcar#readme"
+}
