@@ -1,0 +1,14 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@nanu-github.com:nanuya/js-racingcar.git",
+  "author": "bomee.yoon",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^9.5.3"
+  },
+  "scripts": {
+    "test": "yarn cypress open"
+  }
+}
