@@ -98,4 +98,23 @@ describe('자동차 경주 게임', () => {
         expect(alertStub).to.be.called;
       });
   });
+
+  it('자동차 이름과 시도 횟수를 제출하면, 입력한 이름 개수만큼 자동차가 생성되어야 한다.', () => {
+    // given
+    cy.get('#racing-try-count').should('not.be.visible');
+    cy.get('#car-names-input').type('CHILL,HIP');
+    cy.get('#car-names-submit').click();
+    cy.get('#racing-try-count').should('be.visible');
+    cy.get('#try-count-input').type('5');
+
+    // when
+    cy.get('#try-count-submit').click();
+
+    // then
+    cy.get('.racing-car')
+      .should(racingCars => {
+        expect(racingCars).to.have.length(2);
+      })
+      .should('be.visible');
+  });
 });
