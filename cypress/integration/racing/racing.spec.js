@@ -24,6 +24,12 @@ describe('레이싱 테스트', () => {
         expect(message).to.equal(VALIDATE.ALERT_WRONG_RACING_CAR_NAME);
       })
     });
+
+    it('자동차 이름 유효성 검증을 통과하면 하위 UI가 보인다.', () => {
+      cy.get('[data-form=name-input]').type('raven, kiwi' + '{enter}').then(_ => {
+        cy.get('[data-form=count-form]').should('be.visible')
+      })
+    })
   })
 });
   

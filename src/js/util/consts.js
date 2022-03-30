@@ -7,3 +7,10 @@ export const VALIDATE = {
 
 export const CAR_NAME_TITLE = `5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
 예시) EAST, WEST, SOUTH, NORTH`
+
+
+export const TITLE = {
+  CAR_NAME: `5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
+  예시) EAST, WEST, SOUTH, NORTH`,
+  RACING_COUNT: `시도할 횟수를 입력해주세요.`
+};

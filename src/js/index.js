@@ -9,6 +9,6 @@ const app = selector('#app');
 render(app, Component.create(Form()))
 
 const carNameForm = selector('.car-name-form');
-carNameForm.addEventListener('submit', RacingFormEvent.carNameHandler)
+carNameForm?.addEventListener('submit', RacingFormEvent.carNameHandler)
 
 
