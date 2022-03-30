@@ -1,8 +1,6 @@
 import CarName from "./CarName.js";
 import InputText from "./InputText.js";
-import { CAR_NAME_TITLE } from "../../util/consts.js";
-import Racing from "../../Domain/Racing.js";
-import { selector } from "../../util/consts.js";
+import { CAR_NAME_TITLE } from "../../../util/consts.js";
 
 
 const Fieldset = () => {

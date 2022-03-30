@@ -1,18 +1,19 @@
-import { selector } from "../../util/consts.js";
-import Racing from "../../Domain/Racing.js";
+import Racing from "../../Model/Racing.js";
 import { VALIDATE } from "../../util/consts.js";
+import { Component, render } from "../../View/index.js";
+import Form from "../../View/Component/Form/Form.js";
 
-const Event = () => {
-  const carNameForm = selector('.car-name-form')
+export const RacingInitEvent = (event) => {
+  render(event.target, Component.create(Form()))
+}
+export class RacingFormEvent {
   
-  const carNameFormHandler = (event) => {
+  static carNameHandler(event) {
     event.preventDefault()
     const [input, button] = event.target
 
     if (Racing.validate.carNameLength(input.value)) return alert(VALIDATE.ALERT_WRONG_RACING_CAR_NAME)
+    
+    
   }
-  
-  carNameForm.addEventListener('submit', carNameFormHandler)
 }
-
-export default Event;
