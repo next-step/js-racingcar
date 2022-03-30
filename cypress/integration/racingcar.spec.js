@@ -45,7 +45,6 @@ describe('자동차 경주 게임', () => {
   });
 
   // ! 시도 횟수 관련 테스트
-  // - [x] 시도 횟수 입력창은 자동차 이름을 제출한 후에 표시된다.
   it('시도 횟수 입력창은 자동차 이름을 제출한 후에 표시된다.', () => {
     // given
     cy.get('#racing-try-count').should('not.be.visible');
@@ -58,8 +57,26 @@ describe('자동차 경주 게임', () => {
     cy.get('#racing-try-count').should('be.visible');
   });
 
-  // - [ ] 시도 횟수는 숫자여야 한다. 숫자가 아니라면 경고창을 호출한다. ("숫자만 입력해주세요.")
+  it('시도 횟수가 0 이하일 경우 경고창을 호출한다.', () => {
+    // given
+    cy.get('#racing-try-count').should('not.be.visible');
+    cy.get('#car-names-input').type('CHILL,HIP');
+    cy.get('#car-names-submit').click();
+    cy.get('#racing-try-count').should('be.visible');
 
-  // - [ ] 시도 횟수가 0이거나 음수일 경우 경고창을 호출한다. (경계값 검증하기)
+    // when
+    cy.get('#try-count-input').type('-1');
+
+    const alertStub = cy.stub();
+    cy.on('window:alert', alertStub);
+
+    // then
+    cy.get('#try-count-submit')
+      .click()
+      .then(() => {
+        expect(alertStub).to.be.called;
+      });
+  });
+
   // - [ ] 시도 횟수는 임의로 최대 15번까지 제한한다. 16 이상 입력시 경고창을 호출한다.
 });

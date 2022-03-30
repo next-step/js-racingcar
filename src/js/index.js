@@ -1,7 +1,10 @@
+const carNamesInput = document.querySelector('#car-names-input');
 const carNamesSubmit = document.querySelector('#car-names-submit');
 const racingTryCount = document.querySelector('#racing-try-count');
 const racingTrack = document.querySelector('#racing-track');
 const racingResult = document.querySelector('#racing-result');
+const tryCountInput = document.querySelector('#try-count-input');
+const tryCountSubmit = document.querySelector('#try-count-submit');
 
 racingTryCount.style.display = 'none';
 racingTrack.style.display = 'none';
@@ -19,7 +22,7 @@ function showRacingTryCount() {
 
 // * 자동차 이름 제출 함수
 function submitCarNames() {
-  const carNames = document.querySelector('#car-names-input').value.split(',');
+  const carNames = carNamesInput.value.split(',');
 
   // 자동차 이름 입력값 유효성 검사
   if (carNames.every(isValidCarName)) {
@@ -29,4 +32,19 @@ function submitCarNames() {
   showRacingTryCount();
 }
 
+// * 시도 횟수 제출 함수
+function submitTryCount() {
+  if (isInvalidTryCount()) {
+    alert('시도 횟수는 1 이상이어야 합니다.');
+  }
+
+  // todo: 실행 내용
+}
+
+// * 시도 횟수 검증 함수
+function isInvalidTryCount() {
+  return tryCountInput.value <= 0;
+}
+
 carNamesSubmit.addEventListener('click', submitCarNames);
+tryCountSubmit.addEventListener('click', submitTryCount);
