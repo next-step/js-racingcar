@@ -30,6 +30,12 @@ describe('레이싱 테스트', () => {
         cy.get('[data-form=count-form]').should('be.visible')
       })
     })
+
+    it('유효성 검증에 모두 통과하고 submit하면 자동차 이름 컴포넌트를 이용할 수 없다.', () => {
+      cy.get('[data-form=name-input]').type('raven, kiwi' + '{enter}').then(_ => {
+        cy.get('[data-form=count-form]').should('be.visible')
+      })
+    })
   })
 });
   

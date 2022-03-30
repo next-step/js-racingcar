@@ -8,7 +8,7 @@ import { Component } from './View/index.js';
 const app = selector('#app');
 render(app, Component.create(Form()))
 
-const carNameForm = selector('.car-name-form');
+const carNameForm = selector('.racing-form');
 carNameForm?.addEventListener('submit', RacingFormEvent.carNameHandler)
 
 

@@ -11,11 +11,12 @@ export class RacingFormEvent {
   
   static carNameHandler(event) {
     event.preventDefault()
-    const [input, button] = event.target
-
+    const [field, input, button] = event.target
+    
     if (Racing.validate.carNameLength(input.value)) return alert(VALIDATE.ALERT_WRONG_RACING_CAR_NAME)
     
-    const section = selector('.racing-info-section')
+    const section = selector('.racing-form')
     render(section, Component.create(Fieldset('count', '시도 횟수')))
+    
   }
 }
