@@ -21,13 +21,6 @@ class RacingCarGame {
               <button id="${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}" type="button" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
-          <fieldset>
-            <p>시도할 횟수를 입력해주세요.</p>
-            <div class="d-flex">
-              <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-              <button type="button" class="btn btn-cyan">확인</button>
-            </div>
-          </fieldset>
         </form>
       </section>
     `;
