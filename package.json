@@ -1,0 +1,27 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "description": "NEXT STEP js racingcar mission",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taeyoungs/js-racingcar.git"
+  },
+  "author": "Taeyoung Jang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taeyoungs/js-racingcar/issues"
+  },
+  "homepage": "https://github.com/taeyoungs/js-racingcar#readme",
+  "devDependencies": {
+    "cypress": "^9.5.3",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.1"
+  }
+}
