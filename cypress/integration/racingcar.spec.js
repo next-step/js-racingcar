@@ -78,5 +78,24 @@ describe('자동차 경주 게임', () => {
       });
   });
 
-  // - [ ] 시도 횟수는 임의로 최대 15번까지 제한한다. 16 이상 입력시 경고창을 호출한다.
+  it('시도 횟수가 10 보다 크면 경고창을 호출한다.', () => {
+    // given
+    cy.get('#racing-try-count').should('not.be.visible');
+    cy.get('#car-names-input').type('CHILL,HIP');
+    cy.get('#car-names-submit').click();
+    cy.get('#racing-try-count').should('be.visible');
+
+    // when
+    cy.get('#try-count-input').type('11');
+
+    const alertStub = cy.stub();
+    cy.on('window:alert', alertStub);
+
+    // then
+    cy.get('#try-count-submit')
+      .click()
+      .then(() => {
+        expect(alertStub).to.be.called;
+      });
+  });
 });

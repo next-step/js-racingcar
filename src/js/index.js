@@ -35,7 +35,7 @@ function submitCarNames() {
 // * 시도 횟수 제출 함수
 function submitTryCount() {
   if (isInvalidTryCount()) {
-    alert('시도 횟수는 1 이상이어야 합니다.');
+    alert('시도 횟수는 1번 이상, 10번 이하여야 합니다.');
   }
 
   // todo: 실행 내용
@@ -43,7 +43,7 @@ function submitTryCount() {
 
 // * 시도 횟수 검증 함수
 function isInvalidTryCount() {
-  return tryCountInput.value <= 0;
+  return tryCountInput.value < 1 || tryCountInput.value > 10;
 }
 
 carNamesSubmit.addEventListener('click', submitCarNames);
