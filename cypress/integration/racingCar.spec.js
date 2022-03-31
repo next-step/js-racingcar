@@ -43,16 +43,25 @@ describe('로또 미션 Cypress', () => {
     });
 
     context('유효한 자동차 이름 등록 테스트', () => {
-      it.only('(1) 자동차 이름을 등록하면 자동차 등록 버튼 비활성화, ', () => {
-        const mockRacingCar = ['벤틀리', '티코', '벤츠', 'BMW', '모닝'].join(
-          ','
-        );
+      const mockRacingCar = ['벤틀리', '티코', '벤츠', 'BMW', '모닝'];
 
-        cy.get('#car-name-input').type(mockRacingCar);
+      beforeEach(() => {
+        cy.get('#car-name-input').type(mockRacingCar.join(','));
         cy.get('#car-name-submit-btn').click();
+      });
+      it('(1) 자동차 이름을 등록하면 자동차 등록 버튼 비활성화, ', () => {
         cy.get('#car-name-submit-btn').should('be.disabled');
         cy.get('#racing-times-input').should('be.visible');
         cy.get('#racing-times-submit-btn').should('be.visible');
+      });
+
+      it('(2) 유저가 입력한 자동차 개수만큼 렌더링된다.', () => {
+        cy.get('#racing-times-input').type(3);
+        cy.get('#racing-times-submit-btn').click();
+        cy.get('#user-racing-car-process .car-player').should(
+          'have.length',
+          mockRacingCar.length
+        );
       });
     });
   });
