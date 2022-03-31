@@ -1,9 +1,16 @@
 import UserRacingInput from './components/UserRacingInput.js';
-
+import GameProcess from './components/GameProcess.js';
 const App = () => {
-  const state = {};
+  const state = {
+    isGameRunning: false,
+  };
 
-  UserRacingInput();
+  const startGame = ({ carNames, playTimes }) => {
+    state.isGameRunning = true;
+    state.isGameRunning && GameProcess({ carNames, playTimes });
+  };
+
+  UserRacingInput({ startGame });
 };
 
 App();

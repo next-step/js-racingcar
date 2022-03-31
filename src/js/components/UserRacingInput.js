@@ -1,7 +1,7 @@
 import { ERROR } from '../constants/message.js';
 import { MAX_RACING_CAR_NAME } from '../constants/unit.js';
 
-const UserRacingInput = () => {
+const UserRacingInput = ({ startGame }) => {
   // state
   const state = {
     isNameSubmitted: false,
@@ -45,13 +45,16 @@ const UserRacingInput = () => {
   const submitTimes = () => {
     const times = $el.querySelector('#racing-times-input').value;
 
+    if (!times) return;
+
     state.playTimes = Number(times);
 
     $el.querySelector('#racing-times-input').setAttribute('disabled', true);
     $el
       .querySelector('#racing-times-submit-btn')
       .setAttribute('disabled', true);
-    console.log(state);
+
+    startGame({ carNames: state.carNames, playTimes: state.playTimes });
   };
 
   const setEvent = () => {
