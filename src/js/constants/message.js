@@ -1,3 +1,4 @@
 export const ERROR = Object.freeze({
-  EMPTY_RACING_CAR_NAME: '자동차 이름을 입력해주세요!',
+  INVALID_LENGTH_RACING_CAR_NAME:
+    '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.',
 });

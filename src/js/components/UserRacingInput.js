@@ -1,4 +1,5 @@
 import { ERROR } from '../constants/message.js';
+import { MAX_RACING_CAR_NAME } from '../constants/unit.js';
 
 const UserRacingInput = () => {
   // state
@@ -18,15 +19,21 @@ const UserRacingInput = () => {
   $targetElement.insertAdjacentElement('afterbegin', $el);
   $el.querySelector('form').lastElementChild.style.opacity = 0;
 
-  const submitName = () => {
-    const inputNames = $el.querySelector('#car-name-input').value;
+  const isValidCarName = inputNames => {
+    return inputNames.every(
+      carName => carName.length > 0 && carName.length <= MAX_RACING_CAR_NAME
+    );
+  };
 
-    if (!inputNames) {
-      alert(ERROR.EMPTY_RACING_CAR_NAME);
+  const submitName = () => {
+    const inputNames = $el.querySelector('#car-name-input').value.split(',');
+
+    if (!isValidCarName(inputNames)) {
+      alert(ERROR.INVALID_LENGTH_RACING_CAR_NAME);
       return;
     }
 
-    state.carNames = inputNames.split(',');
+    state.carNames = inputNames;
     state.isNameSubmitted = true;
 
     $el.querySelector('#car-name-input').setAttribute('disabled', true);
