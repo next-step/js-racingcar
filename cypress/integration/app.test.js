@@ -1,5 +1,17 @@
 const BASE_URL = '../../index.html';
 
+const MAX_GAME_TRY_COUNT = 100;
+
+const ERROR_MESSAGE = {
+  REQUIRED_NAME: '자동차 이름을 입력해주세요!',
+  MUST_LESS_THAN: '자동차 이름은 5자 이하여야만 해요!',
+  NOT_ACCEPT_DUPLICATED: '자동차 이름은 중복될 수 없어요!',
+  NOT_ACCEPT_SPACE: '자동차 이름에는 공백이 포함될 수 없어요!',
+  REQUIRED_DIGIT: '숫자를 입력해주세요!',
+  MUST_MORE_THAN_ONE: '시도 횟수는 0보다 커야 해요!',
+  MUST_LESS_THAN_MAX_GAME_TRY_COUNT: `시도 횟수는 ${MAX_GAME_TRY_COUNT}보다 낮아야 해요!`,
+};
+
 describe('Racing Car Game', () => {
   beforeEach(() => {
     cy.visit(BASE_URL);
@@ -18,23 +30,119 @@ describe('Racing Car Game', () => {
   });
 
   describe('자동차 이름을 입력한 뒤 확인 버튼을 누른다.', () => {
-    it('자동차 이름 입력창이 비어 있다면 "자동차 이름을 입력해주세요!" 경고창을 출력한다.', () => {});
-    it('자동차 이름은 쉼표로 구분된다.', () => {});
-    it('자동차 이름의 처음과 마지막에 쉼표가 존재하면 제거한다.', () => {});
-
-    describe('입력된 자동차 이름들이 유효하지 않으면 에러를 출력한다.', () => {
-      it('자동차 이름이 비어 있다면 "자동차 이름을 입력해주세요!" 경고창을 출력한다.', () => {});
-      it('자동차 이름이 5자를 초과하면 "자동차 이름은 5자 이하여야만 해요!" 경고창을 출력한다.', () => {});
-      it('중복된 자동차 이름이 존재하면 "자동차 이름은 중복될 수 없어요!" 경고창을 출력한다.', () => {});
-      it('자동차 이름에 공백 문자가 존재하면 "자동차 이름에는 공백이 포함될 수 없어요!" 경고창을 출력한다.', () => {});
+    it('자동차 이름 입력창이 비어 있다면 "자동차 이름을 입력해주세요!" 경고창을 출력한다.', () => {
+      const alertStub = cy.stub();
+      cy.on('window:alert', alertStub);
+      cy.get('[data-props="car-names-confirm-button"]')
+        .click()
+        .then(() => {
+          expect(alertStub).to.be.calledWith(ERROR_MESSAGE.REQUIRED_NAME);
+        });
+    });
+    it('자동차 이름은 쉼표로 구분된다.', () => {
+      const carNames = 'EAST, WEST, SOUTH, NORTH';
+      cy.inputCarNames(carNames).then(() => {
+        expect(RacingGameService.registeredCars()).to.have.length(4);
+      });
+    });
+    it('자동차 이름의 처음과 마지막에 쉼표가 존재하면 제거한다.', () => {
+      const carNames = ',EAST, WEST, SOUTH, NORTH,';
+      cy.inputCarNames(carNames).then(() => {
+        expect(RacingGameService.registeredCars()).to.have.length(4);
+      });
     });
 
-    describe('입력된 자동차 이름들이 유효한 경우 시도 횟수 입력창을 표시한다.', () => {});
+    describe('입력된 자동차 이름들이 유효하지 않으면 에러를 출력한다.', () => {
+      it('자동차 이름이 하나라도 비어 있다면 "자동차 이름을 입력해주세요!" 경고창을 출력한다.', () => {
+        const carNames = 'EAST,, SOUTH, NORTH';
+        const alertStub = cy.stub();
+        cy.on('window:alert', alertStub);
+
+        cy.inputCarNames(carNames).then(() => {
+          expect(alertStub).to.be.calledWith(ERROR_MESSAGE.REQUIRED_NAME);
+        });
+      });
+      it('자동차 이름이 5자를 초과하면 "자동차 이름은 5자 이하여야만 해요!" 경고창을 출력한다.', () => {
+        const carNames = 'EAST, WEST, SOUTH, NORTH2222';
+        const alertStub = cy.stub();
+        cy.on('window:alert', alertStub);
+
+        cy.inputCarNames(carNames).then(() => {
+          expect(alertStub).to.be.calledWith(ERROR_MESSAGE.MUST_LESS_THAN);
+        });
+      });
+      it('중복된 자동차 이름이 존재하면 "자동차 이름은 중복될 수 없어요!" 경고창을 출력한다.', () => {
+        const carNames = 'EAST, EAST, SOUTH, NORTH';
+        const alertStub = cy.stub();
+        cy.on('window:alert', alertStub);
+
+        cy.inputCarNames(carNames).then(() => {
+          expect(alertStub).to.be.calledWith(ERROR_MESSAGE.NOT_ACCEPT_DUPLICATED);
+        });
+      });
+      it('자동차 이름에 공백 문자가 존재하면 "자동차 이름에는 공백이 포함될 수 없어요!" 경고창을 출력한다.', () => {
+        const carNames = 'E AST, WE ST, SO  UTH  ,   NORTH';
+        const alertStub = cy.stub();
+        cy.on('window:alert', alertStub);
+
+        cy.inputCarNames(carNames).then(() => {
+          expect(alertStub).to.be.calledWith(ERROR_MESSAGE.NOT_ACCEPT_SPACE);
+        });
+      });
+    });
+
+    describe('입력된 자동차 이름들이 유효한 경우 시도 횟수 입력창을 표시한다.', () => {
+      cy.inputCarNames('EAST, WEST, SOUTH, NORTH');
+      cy.$('[data-props="game-try-count-field"]').should('be.visible');
+    });
   });
 
   describe('시도 횟수를 입력한 뒤 확인 버튼을 누른다.', () => {
-    describe('입력된 시도 횟수가 유효하지 않으면 에러를 출력한다.', () => {});
-    describe('입력된 시도 횟수가 유효한 경우 에러를 출력한다.', () => {});
+    beforeEach(() => {
+      cy.inputCarNames('EAST, WEST, SOUTH, NORTH');
+    });
+
+    describe('입력된 시도 횟수가 유효하지 않으면 에러를 출력한다.', () => {
+      it('시도 횟수가 공백일 경우 "숫자를 입력해주세요!" 경고창을 출력한다.', () => {
+        const alertStub = cy.stub();
+        cy.on('window:alert', alertStub);
+
+        cy.get('[data-props="game-try-count-confirm-button"]')
+          .click()
+          .then(() => {
+            expect(alertStub).to.be.calledWith(ERROR_MESSAGE.REQUIRED_DIGIT);
+          });
+      });
+      it('시도 횟수가 음수일 경우 "시도 횟수는 0보다 커야 해요!" 경고창을 출력한다.', () => {
+        const alertStub = cy.stub();
+        cy.on('window:alert', alertStub);
+
+        cy.inputGameTryCount(0).then(() => {
+          expect(alertStub).to.be.calledWith(ERROR_MESSAGE.MUST_MORE_THAN_ONE);
+        });
+      });
+      it('시도 횟수가 문자일 경우 "숫자를 입력해주세요!" 경고창을 출력한다.', () => {
+        const alertStub = cy.stub();
+        cy.on('window:alert', alertStub);
+
+        cy.inputGameTryCount('오잉?!😳').then(() => {
+          expect(alertStub).to.be.calledWith(ERROR_MESSAGE.REQUIRED_DIGIT);
+        });
+      });
+      it(`시도 횟수가 ${MAX_GAME_TRY_COUNT}를 초과하면 "시도 횟수는 ${MAX_GAME_TRY_COUNT}보다 낮아야 해요!" 경고창을 출력한다.`, () => {
+        const alertStub = cy.stub();
+        cy.on('window:alert', alertStub);
+
+        cy.inputGameTryCount(MAX_GAME_TRY_COUNT + 1).then(() => {
+          expect(alertStub).to.be.calledWith(ERROR_MESSAGE.MUST_LESS_THAN_MAX_GAME_TRY_COUNT);
+        });
+      });
+    });
+    describe('입력된 시도 횟수가 유효한 경우 레이싱 게임 영역이 표시된다.', () => {
+      cy.inputCarNames('EAST, WEST, SOUTH, NORTH');
+      cy.inputGameTryCount(3);
+      cy.$('[data-props="game-section"]').should('be.visible');
+    });
   });
 
   describe('주어진 시도 횟수 동안 n대의 자동차는 난수 값에 따라 전진/또는 멈출 수 있다.', () => {
