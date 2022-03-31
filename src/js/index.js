@@ -1,3 +1,5 @@
+import CONSTANTS from './constants.js';
+
 const carNamesInput = document.querySelector('#car-names-input');
 const carNamesSubmit = document.querySelector('#car-names-submit');
 const racingTryCount = document.querySelector('#racing-try-count');
@@ -5,17 +7,6 @@ const racingTrack = document.querySelector('#racing-track');
 const racingResult = document.querySelector('#racing-result');
 const tryCountInput = document.querySelector('#try-count-input');
 const tryCountSubmit = document.querySelector('#try-count-submit');
-
-const CAR_NAME_MIN_LENGTH = 1;
-const CAR_NAME_MAX_LENGTH = 5;
-const TRY_COUNT_MIN_VALUE = 1;
-const TRY_COUNT_MAX_VALUE = 10;
-const MOVE_FORWARD_MIN_NUMBER = 4;
-const MOVE_FORWARD_MAX_NUMBER = 9;
-const RANDOM_NUMBER_MAX_VALUE = 10;
-const MILLISECONDS_PER_TRY = 1000;
-const INITIAL_TRY_COUNT = 1;
-const INCREMENT_PER_TRY = 1;
 
 racingTryCount.style.display = 'none';
 racingTrack.style.display = 'none';
@@ -25,7 +16,7 @@ const cars = {
   carNames: [],
 };
 
-let tryCount = INITIAL_TRY_COUNT;
+let tryCount = CONSTANTS.INITIAL_TRY_COUNT;
 
 const moveForwardTemplate =
   /* HTML */
@@ -82,17 +73,17 @@ function renderMoveForward(car) {
 }
 
 function getRandomNumber() {
-  return Math.random() * RANDOM_NUMBER_MAX_VALUE;
+  return Math.random() * CONSTANTS.RANDOM_NUMBER_MAX_VALUE;
 }
 
 function isMoveForwardNumber(randomNumber) {
-  return randomNumber >= MOVE_FORWARD_MIN_NUMBER && randomNumber <= MOVE_FORWARD_MAX_NUMBER;
+  return randomNumber >= CONSTANTS.MOVE_FORWARD_MIN_NUMBER && randomNumber <= CONSTANTS.MOVE_FORWARD_MAX_NUMBER;
 }
 
 function startRace() {
   renderRacingCars(cars.carNames);
 
-  let count = INITIAL_TRY_COUNT;
+  let count = CONSTANTS.INITIAL_TRY_COUNT;
 
   const timeIntervalId = setInterval(() => {
     renderLoading();
@@ -103,21 +94,21 @@ function startRace() {
       }
     });
 
-    count += INCREMENT_PER_TRY;
+    count += CONSTANTS.INCREMENT_PER_TRY;
 
     if (count > tryCount) {
       removeLoading();
       clearInterval(timeIntervalId);
     }
-  }, MILLISECONDS_PER_TRY);
+  }, CONSTANTS.MILLISECONDS_PER_TRY);
 }
 
 function isValidCarName(carName) {
-  return carName.length < CAR_NAME_MIN_LENGTH || carName.length > CAR_NAME_MAX_LENGTH;
+  return carName.length < CONSTANTS.CAR_NAME_MIN_LENGTH || carName.length > CONSTANTS.CAR_NAME_MAX_LENGTH;
 }
 
 function isInvalidTryCount() {
-  return tryCountInput.value < TRY_COUNT_MIN_VALUE || tryCountInput.value > TRY_COUNT_MAX_VALUE;
+  return tryCountInput.value < CONSTANTS.TRY_COUNT_MIN_VALUE || tryCountInput.value > CONSTANTS.TRY_COUNT_MAX_VALUE;
 }
 
 function submitCarNames() {
