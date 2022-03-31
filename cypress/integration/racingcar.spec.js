@@ -12,9 +12,6 @@ describe('자동차 경주 게임', () => {
     cy.get('#racing-result').should('not.be.visible');
   });
 
-  // ! 자동차 이름 제출 관련 테스트
-  // - [x] 앱을 처음 실행하면 자동차 이름을 입력할 창이 보여야 한다.
-  // - [x] 자동차 이름이 1자 미만, 5자 초과라면 경고창을 호출한다.
   it('자동차 이름을 입력하기 위한 input 과 button이 렌더링 되었는지 확인한다.', () => {
     cy.get('#car-names-input').should('be.visible');
     cy.get('#car-names-submit').should('be.visible');
@@ -44,7 +41,6 @@ describe('자동차 경주 게임', () => {
       });
   });
 
-  // ! 시도 횟수 관련 테스트
   it('시도 횟수 입력창은 자동차 이름을 제출한 후에 표시된다.', () => {
     // given
     cy.get('#racing-try-count').should('not.be.visible');
@@ -118,7 +114,6 @@ describe('자동차 경주 게임', () => {
       .should('be.visible');
   });
 
-  // ! 전진, 멈춤 동작 관련 테스트
   it('random 값이 4,5,6,7,8,9 라면 전진한다.', () => {
     // given
     cy.get('#racing-try-count').should('not.be.visible');
@@ -134,11 +129,17 @@ describe('자동차 경주 게임', () => {
       .should('be.visible');
 
     // when
-    // todo : 일단 로딩 창을 한번 보여줘야 된다.
+    // todo : 일단 로딩이 보여야 한다.
     cy.get('#CHILL').should('be.visible').next().should('have.class', 'draw-random-number');
 
     // todo : 랜덤 값을 어떻게 가져오지?
 
+    // then
+  });
+
+  it('random 값이 0 ~ 3 사이의 숫자라면 멈춘다.', () => {
+    // given
+    // when
     // then
   });
 });

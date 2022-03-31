@@ -12,6 +12,10 @@ const TRY_COUNT_MIN_VALUE = 1;
 const TRY_COUNT_MAX_VALUE = 10;
 const MOVE_FORWARD_MIN_NUMBER = 4;
 const MOVE_FORWARD_MAX_NUMBER = 9;
+const RANDOM_NUMBER_MAX_VALUE = 10;
+const MILLISECONDS_PER_TRY = 1000;
+const INITIAL_TRY_COUNT = 1;
+const INCREMENT_PER_TRY = 1;
 
 racingTryCount.style.display = 'none';
 racingTrack.style.display = 'none';
@@ -21,21 +25,25 @@ const cars = {
   carNames: [],
 };
 
-let tryCount = 0;
+let tryCount = INITIAL_TRY_COUNT;
 
 const moveForwardTemplate =
   /* HTML */
   `<div class="forward-icon mt-2">⬇️️</div>`;
 
-const loadingTemplate =
-  /* HTML */
-  `<div class="draw-random-number">
-    <div class="d-flex justify-center mt-3">
-      <div class="relative spinner-container">
-        <span class="material spinner"></span>
+const racingCarTemplate = carName => /* HTML */ `
+  <div class="mr-2 racing-car">
+    <div class="car-player" id=${carName}>${carName}</div>
+
+    <div class="draw-random-number">
+      <div class="d-flex justify-center mt-3">
+        <div class="relative spinner-container">
+          <span class="material spinner"></span>
+        </div>
       </div>
     </div>
-  </div>`;
+  </div>
+`;
 
 function showRacingTryCount() {
   racingTryCount.style.display = '';
@@ -49,14 +57,7 @@ function renderRacingCars(carNames) {
   const racingCarTemplates = [];
 
   carNames.forEach(carName => {
-    racingCarTemplates.push(
-      /* HTML */
-      `
-        <div class="mr-2 racing-car" id=${carName}>
-          <div class="car-player">${carName}</div>
-        </div>
-      `
-    );
+    racingCarTemplates.push(racingCarTemplate(carName));
   });
 
   racingTrack.firstElementChild.innerHTML = racingCarTemplates.join('');
@@ -64,21 +65,24 @@ function renderRacingCars(carNames) {
   showRacingTrack();
 }
 
-function renderLoading(car) {
-  document.querySelector(`#${car}`).insertAdjacentHTML('beforeend', loadingTemplate);
+function renderLoading() {
+  document.querySelectorAll('.draw-random-number').forEach(element => {
+    element.style.display = '';
+  });
 }
 
-function removeLoading(car) {
-  const carElement = document.querySelector(`#${car}`);
-  carElement.removeChild(carElement.lastElementChild);
+function removeLoading() {
+  document.querySelectorAll('.draw-random-number').forEach(element => {
+    element.style.display = 'none';
+  });
 }
 
 function renderMoveForward(car) {
-  document.querySelector(`#${car}`).insertAdjacentHTML('beforeend', moveForwardTemplate);
+  document.querySelector(`#${car}`).insertAdjacentHTML('afterend', moveForwardTemplate);
 }
 
 function getRandomNumber() {
-  return Math.random() * 10;
+  return Math.random() * RANDOM_NUMBER_MAX_VALUE;
 }
 
 function isMoveForwardNumber(randomNumber) {
@@ -86,33 +90,26 @@ function isMoveForwardNumber(randomNumber) {
 }
 
 function startRace() {
-  const carNames = ['CHILL'];
-  renderRacingCars(carNames);
-  /*
-   * 1. 로딩 화면을 1초간 보여준다.
-   * 2.
-   *  - 전진이면 로딩 화면을 삭제하고 화살표를 그린다.
-   *  - 정지면 로딩 화면을 삭제한다.
-   *
-   * 3. 1 ~ 2단계를 시도 횟수만큼 반복한다.
-   */
-  const car = 'CHILL';
-  let count = 1;
+  renderRacingCars(cars.carNames);
+
+  let count = INITIAL_TRY_COUNT;
 
   const timeIntervalId = setInterval(() => {
-    console.log(`count: ${count}, tryCount: ${tryCount}`);
-    renderLoading(car);
+    renderLoading();
 
-    setTimeout(() => {
-      removeLoading(car);
+    cars.carNames.forEach(car => {
       if (isMoveForwardNumber(getRandomNumber())) {
         renderMoveForward(car);
       }
-    }, 1000);
+    });
 
-    count += 1;
-    if (count > tryCount) clearInterval(timeIntervalId);
-  }, 1000);
+    count += INCREMENT_PER_TRY;
+
+    if (count > tryCount) {
+      removeLoading();
+      clearInterval(timeIntervalId);
+    }
+  }, MILLISECONDS_PER_TRY);
 }
 
 function isValidCarName(carName) {
