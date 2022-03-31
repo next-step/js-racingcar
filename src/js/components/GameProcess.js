@@ -1,4 +1,10 @@
 const GameProcess = ({ carNames, playTimes }) => {
+
+  const state = {
+    carNames,
+    playTimes,
+  };
+
   // element
   const $templateElement = document.getElementById('racing-car-list');
   const $targetElement = document.getElementById('app');
@@ -21,13 +27,18 @@ const GameProcess = ({ carNames, playTimes }) => {
     return $gameItem;
   };
 
-  carNames.forEach(carName => {
-    $el
-      .querySelector('#racing-car-list-items')
-      .insertAdjacentElement('beforeend', makeGameItems(carName));
-  });
+  const initProcess = () => {
+    state.carNames.forEach(carName => {
+      $el
+        .querySelector('#racing-car-list-items')
+        .insertAdjacentElement('beforeend', makeGameItems(carName));
+    });
 
-  $targetElement.insertAdjacentElement('beforeend', $el);
+    $targetElement.insertAdjacentElement('beforeend', $el);
+  };
+
+  initProcess();
+
 };
 
 export default GameProcess;
