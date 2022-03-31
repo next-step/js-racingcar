@@ -117,4 +117,28 @@ describe('자동차 경주 게임', () => {
       })
       .should('be.visible');
   });
+
+  // ! 전진, 멈춤 동작 관련 테스트
+  it('random 값이 4,5,6,7,8,9 라면 전진한다.', () => {
+    // given
+    cy.get('#racing-try-count').should('not.be.visible');
+    cy.get('#car-names-input').type('CHILL');
+    cy.get('#car-names-submit').click();
+    cy.get('#racing-try-count').should('be.visible');
+    cy.get('#try-count-input').type('5');
+    cy.get('#try-count-submit').click();
+    cy.get('.racing-car')
+      .should(racingCars => {
+        expect(racingCars).to.have.length(1);
+      })
+      .should('be.visible');
+
+    // when
+    // todo : 일단 로딩 창을 한번 보여줘야 된다.
+    cy.get('#CHILL').should('be.visible').next().should('have.class', 'draw-random-number');
+
+    // todo : 랜덤 값을 어떻게 가져오지?
+
+    // then
+  });
 });
