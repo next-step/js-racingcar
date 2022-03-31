@@ -27,11 +27,17 @@ describe('레이싱 테스트', () => {
 
     it('자동차 이름 유효성 검증을 통과하면 하위 UI가 보인다.', () => {
       cy.get('[data-form=name-input]').type('raven, kiwi' + '{enter}').then(_ => {
+        cy.get('[data-form=count-container]').should('be.visible')
+      })
+    })
+
+    it('유효성 검증에 모두 통과하고 submit하면 자동차 이름 컴포넌트가 disabled 상태가 된다.', () => {
+      cy.get('[data-form=name-input]').type('raven, kiwi' + '{enter}').then(_ => {
         cy.get('[data-form=count-form]').should('be.visible')
       })
     })
 
-    it('유효성 검증에 모두 통과하고 submit하면 자동차 이름 컴포넌트를 이용할 수 없다.', () => {
+    it('유효성 검증에 모두 통과하고 submit하면 자동차 이름이 그대로 남아 있다.', () => {
       cy.get('[data-form=name-input]').type('raven, kiwi' + '{enter}').then(_ => {
         cy.get('[data-form=count-form]').should('be.visible')
       })
