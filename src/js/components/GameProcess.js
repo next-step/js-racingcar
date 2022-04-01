@@ -6,8 +6,8 @@ const GameProcess = ({ carNames, playTimes }) => {
     playTimes,
   };
 
-  const $el = duplicateTemplate(TEMPLATE.RACING_CAR_LIST);
-  $el.id = ID.USER_RACING_CAR_PROCESS;
+  const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_LIST);
+  $currentElement.id = ID.USER_RACING_CAR_PROCESS;
 
   const makeGameItemsElement = carName => {
     const $gameItemElement = duplicateTemplate(TEMPLATE.CAR_PLAYER_ITEM);
@@ -23,7 +23,7 @@ const GameProcess = ({ carNames, playTimes }) => {
   const isStepForward = () => Math.floor(Math.random() * 10) > 4;
 
   const stepForward = carName => {
-    $el
+    $currentElement
       .querySelector(`#racing-${carName}`)
       .querySelector(CLASS.FORWARD_ICON_AREA)
       .insertAdjacentElement(
@@ -53,13 +53,13 @@ const GameProcess = ({ carNames, playTimes }) => {
 
   const initProcess = () => {
     state.carNames.forEach(carName => {
-      $el
+      $currentElement
         .querySelector(`#${ID.RACING_CAR_LIST_ITEMS}`)
         .insertAdjacentElement('beforeend', makeGameItemsElement(carName));
     });
 
     const $targetElement = document.getElementById('app');
-    $targetElement.insertAdjacentElement('beforeend', $el);
+    $targetElement.insertAdjacentElement('beforeend', $currentElement);
 
     playRacingGame();
   };

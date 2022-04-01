@@ -11,11 +11,11 @@ const UserRacingInput = ({ startGame }) => {
   };
 
   const $targetElement = document.getElementById('app');
-  const $el = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT);
-  $el.id = ID.USER_RACING_INPUT;
+  const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT);
 
-  $targetElement.insertAdjacentElement('afterbegin', $el);
-  $el.querySelector('form').lastElementChild.style.opacity = 0;
+  $currentElement.id = ID.USER_RACING_INPUT;
+  $targetElement.insertAdjacentElement('afterbegin', $currentElement);
+  $currentElement.querySelector('form').lastElementChild.style.opacity = 0;
 
   const isValidCarName = inputNames => {
     return inputNames.every(
@@ -43,7 +43,7 @@ const UserRacingInput = ({ startGame }) => {
       .getElementById(ID.CAR_NAME_SUBMIT_BTN)
       .setAttribute('disabled', true);
 
-    $el.querySelector('form').lastElementChild.style.opacity = 1;
+    $currentElement.querySelector('form').lastElementChild.style.opacity = 1;
 
     document.getElementById(ID.RACING_TIMES_INPUT).focus();
   };
@@ -67,7 +67,7 @@ const UserRacingInput = ({ startGame }) => {
   };
 
   const setEvent = () => {
-    $el.addEventListener('submit', e => {
+    $currentElement.addEventListener('submit', e => {
       e.preventDefault();
       !state.isNameSubmitted ? submitName() : submitTimes();
     });
