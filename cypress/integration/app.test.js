@@ -6,7 +6,6 @@ const ERROR_MESSAGE = {
   REQUIRED_NAME: '자동차 이름을 입력해주세요!',
   MUST_LESS_THAN: '자동차 이름은 5자 이하여야만 해요!',
   NOT_ACCEPT_DUPLICATED: '자동차 이름은 중복될 수 없어요!',
-  NOT_ACCEPT_SPACE: '자동차 이름에는 공백이 포함될 수 없어요!',
   REQUIRED_DIGIT: '숫자를 입력해주세요!',
   MUST_MORE_THAN_ONE: '시도 횟수는 0보다 커야 해요!',
   MUST_LESS_THAN_MAX_GAME_TRY_COUNT: `시도 횟수는 ${MAX_GAME_TRY_COUNT}보다 낮아야 해요!`,
@@ -78,15 +77,6 @@ describe('Racing Car Game', () => {
 
         cy.inputCarNames(carNames).then(() => {
           expect(alertStub).to.be.calledWith(ERROR_MESSAGE.NOT_ACCEPT_DUPLICATED);
-        });
-      });
-      it('자동차 이름에 공백 문자가 존재하면 "자동차 이름에는 공백이 포함될 수 없어요!" 경고창을 출력한다.', () => {
-        const carNames = 'E AST, WE ST, SO  UTH  ,   NORTH';
-        const alertStub = cy.stub();
-        cy.on('window:alert', alertStub);
-
-        cy.inputCarNames(carNames).then(() => {
-          expect(alertStub).to.be.calledWith(ERROR_MESSAGE.NOT_ACCEPT_SPACE);
         });
       });
     });
