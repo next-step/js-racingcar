@@ -17,14 +17,16 @@ export const $elements = stringHTML => {
   return root.firstElementChild;
 };
 
-export const $eventBindedComponent = getElement => args => {
-  try {
-    const [$element, $events = []] = getElement(args);
-    if (!isDOMElement($element)) throw new Error('첫 번째 인자로 DOM 요소를 선언해주세요.');
-    $events.forEach(({ type, callback }) => $addEvent($element, type, callback));
-    return $element;
-  } catch (error) {
-    alert(error.message);
-    return null;
-  }
-};
+export const $eventBindedComponent =
+  getElement =>
+  (...args) => {
+    try {
+      const [$element, $events = []] = getElement(args);
+      if (!isDOMElement($element)) throw new Error('첫 번째 인자로 DOM 요소를 선언해주세요.');
+      $events.forEach(({ type, callback }) => $addEvent($element, type, callback));
+      return $element;
+    } catch (error) {
+      alert(error.message);
+      return null;
+    }
+  };
