@@ -1,8 +1,5 @@
 export default class TrackView {
   constructor() {
-    this.racingTrack = document.querySelector('#racing-track');
-    this.racingResult = document.querySelector('#racing-result');
-
     this.moveForwardTemplate =
       /* HTML */
       `<div class="forward-icon mt-2">⬇️️</div>`;
@@ -33,7 +30,7 @@ export default class TrackView {
       racingCarTemplates.push(this.racingCarTemplate(carName));
     });
 
-    this.racingTrack.firstElementChild.innerHTML = racingCarTemplates.join('');
+    document.querySelector('#racing-track').firstElementChild.innerHTML = racingCarTemplates.join('');
 
     this.showRacingTrack();
   }
