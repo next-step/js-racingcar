@@ -1,9 +1,9 @@
-import { declareInterface } from '../../@helper/index.js';
+import { _interface_ } from '../../@helper/index.js';
 
-const RacingGameModelProps = {
+export const RacingGameModelProps = {
   cars: [],
   tryCount: 0,
   maxTryCount: 0,
 };
 
-export default declareInterface(RacingGameModelProps);
+export default () => ({ __proto__: _interface_(RacingGameModelProps) });

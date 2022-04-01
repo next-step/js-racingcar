@@ -1,8 +1,8 @@
-import { declareInterface } from '../../@helper/index.js';
+import { _interface_ } from '../../@helper/index.js';
 
-const CarModelProps = {
+export const CarModelProps = {
   name: '',
   moveCount: 0,
 };
 
-export default declareInterface(CarModelProps);
+export default () => ({ __proto__: _interface_(CarModelProps) });
