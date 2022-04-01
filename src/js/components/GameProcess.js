@@ -1,30 +1,22 @@
 import { duplicateTemplate } from '../utils/templateUtil.js';
-
+import { TEMPLATE, ID, CLASS } from '../constants/selector.js';
 const GameProcess = ({ carNames, playTimes }) => {
   const state = {
     carNames,
     playTimes,
   };
 
-  // element
-  const $el = duplicateTemplate('racing-car-list');
-  $el.id = 'user-racing-car-process';
-  const $targetElement = document.getElementById('app');
-
-  const makeForwardElement = () => {
-    return duplicateTemplate('racing-car-item-forward');
-  };
-
-  const makeSpinnerElement = () => {
-    return duplicateTemplate('racing-car-item-spinner');
-  };
+  const $el = duplicateTemplate(TEMPLATE.RACING_CAR_LIST);
+  $el.id = ID.USER_RACING_CAR_PROCESS;
 
   const makeGameItemsElement = carName => {
-    const $gameItemElement = duplicateTemplate('car-player-item');
+    const $gameItemElement = duplicateTemplate(TEMPLATE.CAR_PLAYER_ITEM);
     $gameItemElement.id = `racing-${carName}`;
-    $gameItemElement.querySelector('.car-player').textContent = carName;
+    $gameItemElement.querySelector(CLASS.CAR_PLAYER).textContent = carName;
 
-    $gameItemElement.append(makeSpinnerElement());
+    $gameItemElement.append(
+      duplicateTemplate(TEMPLATE.RACING_CAR_ITEM_SPINNER)
+    );
     return $gameItemElement;
   };
 
@@ -33,14 +25,17 @@ const GameProcess = ({ carNames, playTimes }) => {
   const stepForward = carName => {
     $el
       .querySelector(`#racing-${carName}`)
-      .querySelector(`.forward-icon-area`)
-      .insertAdjacentElement('afterend', makeForwardElement());
+      .querySelector(CLASS.FORWARD_ICON_AREA)
+      .insertAdjacentElement(
+        'afterend',
+        duplicateTemplate(TEMPLATE.RACING_CAR_ITEM_FORWARD)
+      );
   };
 
   const playRacingGame = () => {
     if (!state.playTimes) {
       document
-        .querySelectorAll('.spinner')
+        .querySelectorAll(CLASS.SPINNER)
         .forEach(el => el.classList.add('hidden'));
       return;
     }
@@ -59,12 +54,14 @@ const GameProcess = ({ carNames, playTimes }) => {
   const initProcess = () => {
     state.carNames.forEach(carName => {
       $el
-        .querySelector('#racing-car-list-items')
+        .querySelector(`#${ID.RACING_CAR_LIST_ITEMS}`)
         .insertAdjacentElement('beforeend', makeGameItemsElement(carName));
     });
 
-    playRacingGame();
+    const $targetElement = document.getElementById('app');
     $targetElement.insertAdjacentElement('beforeend', $el);
+
+    playRacingGame();
   };
 
   initProcess();

@@ -1,21 +1,19 @@
+import { duplicateTemplate } from '../utils/templateUtil.js';
 import { ERROR } from '../constants/message.js';
 import { MAX_RACING_CAR_NAME } from '../constants/unit.js';
+import { TEMPLATE, ID } from '../constants/selector.js';
 
 const UserRacingInput = ({ startGame }) => {
-  // state
   const state = {
     isNameSubmitted: false,
     carNames: [],
     playTimes: 0,
   };
 
-  // elements
-  const $templateElement = document.getElementById('racing-car-input');
   const $targetElement = document.getElementById('app');
-  const importedNode = document.importNode($templateElement.content, true);
-  const $el = importedNode.firstElementChild;
+  const $el = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT);
+  $el.id = ID.USER_RACING_INPUT;
 
-  $el.id = 'user-racing-input';
   $targetElement.insertAdjacentElement('afterbegin', $el);
   $el.querySelector('form').lastElementChild.style.opacity = 0;
 
@@ -26,7 +24,9 @@ const UserRacingInput = ({ startGame }) => {
   };
 
   const submitName = () => {
-    const inputNames = $el.querySelector('#car-name-input').value.split(',');
+    const inputNames = document
+      .getElementById(ID.CAR_NAME_INPUT)
+      .value.split(',');
 
     if (!isValidCarName(inputNames)) {
       alert(ERROR.INVALID_LENGTH_RACING_CAR_NAME);
@@ -36,22 +36,31 @@ const UserRacingInput = ({ startGame }) => {
     state.carNames = inputNames;
     state.isNameSubmitted = true;
 
-    $el.querySelector('#car-name-input').setAttribute('disabled', true);
-    $el.querySelector('#car-name-submit-btn').setAttribute('disabled', true);
+    document
+      .getElementById(TEMPLATE.CAR_NAME_INPUT)
+      .setAttribute('disabled', true);
+    document
+      .getElementById(ID.CAR_NAME_SUBMIT_BTN)
+      .setAttribute('disabled', true);
+
     $el.querySelector('form').lastElementChild.style.opacity = 1;
-    $el.querySelector('#racing-times-input').focus();
+
+    document.getElementById(ID.RACING_TIMES_INPUT).focus();
   };
 
   const submitTimes = () => {
-    const times = $el.querySelector('#racing-times-input').value;
+    const times = document.getElementById(ID.RACING_TIMES_INPUT).value;
 
     if (!times) return;
 
     state.playTimes = Number(times);
 
-    $el.querySelector('#racing-times-input').setAttribute('disabled', true);
-    $el
-      .querySelector('#racing-times-submit-btn')
+    document
+      .getElementById(ID.RACING_TIMES_INPUT)
+      .setAttribute('disabled', true);
+
+    document
+      .getElementById(ID.RACING_TIMES_SUBMIT_BTN)
       .setAttribute('disabled', true);
 
     startGame({ carNames: state.carNames, playTimes: state.playTimes });
