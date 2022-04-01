@@ -1,1 +1,1 @@
-export * from './InputSections.js';
+export * from './inputSections.actions.js';

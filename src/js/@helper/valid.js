@@ -10,4 +10,10 @@ export const isEmpty = data => {
   return false;
 };
 
+export const isFirstChar = (target, char) => target.charAt(0) === char;
+
+export const isLastChar = (target, char) => target.at(-1) === char;
+
+export const isDuplicatedArray = target => new Set(target).size !== target.length;
+
 export const isDOMElement = $element => $element instanceof Element;
