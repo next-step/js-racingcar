@@ -1,4 +1,4 @@
-export default const CONSTANTS = {
+export const Constants = {
   CAR_NAME_MIN_LENGTH: 1,
   CAR_NAME_MAX_LENGTH: 5,
   TRY_COUNT_MIN_VALUE: 1,
