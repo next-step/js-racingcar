@@ -3,11 +3,6 @@ export default class TrackView {
     this.racingTrack = document.querySelector('#racing-track');
     this.racingResult = document.querySelector('#racing-result');
 
-    // todo : 여기에서 display: none 하니까 페이지 로딩될때 영역이 살짝 보였다가 사라짐.
-    // todo : 애초에 index.html 상에 display: none 을 해야할듯.
-    this.racingTrack.style.display = 'none';
-    this.racingResult.style.display = 'none';
-
     this.moveForwardTemplate =
       /* HTML */
       `<div class="forward-icon mt-2">⬇️️</div>`;
