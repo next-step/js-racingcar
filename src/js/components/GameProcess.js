@@ -1,3 +1,5 @@
+import { duplicateTemplate } from '../utils/templateUtil.js';
+
 const GameProcess = ({ carNames, playTimes }) => {
   const state = {
     carNames,
@@ -5,32 +7,20 @@ const GameProcess = ({ carNames, playTimes }) => {
   };
 
   // element
-  const $templateElement = document.getElementById('racing-car-list');
-  const $targetElement = document.getElementById('app');
-  const importedNode = document.importNode($templateElement.content, true);
-  const $el = importedNode.firstElementChild;
+  const $el = duplicateTemplate('racing-car-list');
   $el.id = 'user-racing-car-process';
+  const $targetElement = document.getElementById('app');
 
   const makeForwardElement = () => {
-    const $templateElement = document.getElementById('racing-car-item-forward');
-    const importedNode = document.importNode($templateElement.content, true);
-    return importedNode.firstElementChild;
+    return duplicateTemplate('racing-car-item-forward');
   };
 
   const makeSpinnerElement = () => {
-    const $templateElement = document.getElementById('racing-car-item-spinner');
-    const importedNode = document.importNode($templateElement.content, true);
-    return importedNode.firstElementChild;
+    return duplicateTemplate('racing-car-item-spinner');
   };
 
   const makeGameItemsElement = carName => {
-    const $gameItemTemplate = document.getElementById('car-player-item');
-    const importedGameItem = document.importNode(
-      $gameItemTemplate.content,
-      true
-    );
-
-    const $gameItemElement = importedGameItem.firstElementChild;
+    const $gameItemElement = duplicateTemplate('car-player-item');
     $gameItemElement.id = `racing-${carName}`;
     $gameItemElement.querySelector('.car-player').textContent = carName;
 
