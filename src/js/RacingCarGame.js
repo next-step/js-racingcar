@@ -1,9 +1,51 @@
-import { DOM } from './constants.js';
+import { DOM, ERROR_MESSAGE } from './constants.js';
+import { $ } from './utils/dom.js';
 
 class RacingCarGame {
   constructor($target) {
     this.$target = $target;
+    this.render();
+    this.setEvent();
+  }
+
+  render() {
     this.$target.innerHTML = this.template();
+    this.mounted();
+  }
+
+  mounted() {
+    this.$carNamesInput = $(`#${DOM.CAR_NAMES_INPUT_ID}`);
+    this.$carNamesSubmitButton = $(`#${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}`);
+  }
+
+  setEvent() {
+    this.$carNamesSubmitButton.onclick = this.onClickSubmitButton.bind(this);
+  }
+
+  onClickSubmitButton() {
+    this.validateCarNames();
+  }
+
+  validateCarNames() {
+    const carNames = this.$carNamesInput.value;
+
+    try {
+      this.isEnteredCarNames(carNames);
+      this.isUnderFiveLetterCarNames(carNames);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  isEnteredCarNames(carNames) {
+    if (!carNames) throw new Error(ERROR_MESSAGE.CAR_NAMES_REQUIRED);
+  }
+
+  isUnderFiveLetterCarNames(carNames) {
+    const enteredCarNames = carNames.split(', ');
+    const carNamesUnderFiveLetters = enteredCarNames.filter(i => i.length <= 5);
+    if (carNamesUnderFiveLetters.length !== enteredCarNames.length)
+      throw new Error(ERROR_MESSAGE.INVALID_CAR_NAMES);
   }
 
   template() {
