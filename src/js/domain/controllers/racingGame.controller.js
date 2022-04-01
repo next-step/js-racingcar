@@ -7,8 +7,24 @@ export default class RacingGameController {
     this.#service = new RacingGameService();
   }
 
-  start(params) {
-    this.#service.setRacingGame(params);
+  setCars(cars) {
+    this.#service.setCars(cars);
+    return this;
+  }
+
+  setTryCount(count) {
+    this.#service.setTryCount(count);
+    return this;
+  }
+
+  setRacingGame({ cars, tryCount }) {
+    this.#service.setCars(cars);
+    this.#service.setTryCount(tryCount);
+  }
+
+  start() {
+    this.#service.startGame();
+    return this;
   }
 
   finish() {
@@ -17,5 +33,6 @@ export default class RacingGameController {
 
   reset() {
     this.#service.setRacingGame({ cars: [], tryCount: 0 });
+    return this;
   }
 }

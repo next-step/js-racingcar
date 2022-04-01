@@ -7,7 +7,7 @@ export default class RacingGameService {
   #racingGame;
 
   constructor() {
-    this.#racingGame = RacingGameModel;
+    this.#racingGame = RacingGameModel();
   }
 
   getWinnedCars() {
@@ -16,8 +16,13 @@ export default class RacingGameService {
     return winnedCars;
   }
 
-  setRacingGame({ cars, tryCount }) {
+  setCars(cars) {
     this.#racingGame.cars = cars;
-    this.#racingGame.tryCount = tryCount;
   }
+
+  setTryCount(tryCount) {
+    this.#racingGame.maxTryCount = tryCount;
+  }
+
+  startGame() {}
 }
