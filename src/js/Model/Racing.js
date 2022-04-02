@@ -5,6 +5,10 @@ class Racing {
     return {
       carNameLength(text = '') {
         return Validator.isEmpty(text) || Validator.isCorrectLength(text)
+      },
+
+      racingCount(text = '') {
+        return Validator.isCorrectCount(text)
       }
     }
   }
