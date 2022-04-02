@@ -1,9 +1,9 @@
 import View from '../views/index.js';
-import { inputCarNamesParsing } from '../actions/index.js';
-import { $, $elements, $eventBindedComponent } from '../../@helper/dom.js';
+import { inputCarNamesParsing, gameTryCountParsing } from '../actions/index.js';
+import { $, $elements, $eventBindedComponent } from '../../@helper/index.js';
 
-const Setup = $eventBindedComponent(([Car, RacingGame]) => {
-  const _template = $elements(View.InputSection);
+const Setup = $eventBindedComponent(({ Car, RacingGame }, [publisher]) => {
+  const _template = $elements(View.InputSection({ RacingGame }));
 
   const _events = [
     {
@@ -13,10 +13,12 @@ const Setup = $eventBindedComponent(([Car, RacingGame]) => {
 
         if (!event.target.matches('[data-props="car-names-confirm-button"]')) return;
         const { value: carNames } = $('[data-props="car-names-input"]');
+        const $gameTryCountSection = $('[data-props="game-try-count-field"]');
         try {
           const parsedCarNames = inputCarNamesParsing(carNames);
           const cars = parsedCarNames.map(carName => new Car().setName(carName));
           RacingGame.setCars(cars);
+          $gameTryCountSection.classList.remove('hidden');
         } catch (error) {
           alert(error.message);
         }
@@ -29,7 +31,14 @@ const Setup = $eventBindedComponent(([Car, RacingGame]) => {
 
         if (!event.target.matches('[data-props="game-try-count-confirm-button"]')) return;
         const { value: gameTryCount } = $('[data-props="game-try-count-input"]');
-        RacingGame.setTryCount(Number(gameTryCount));
+        try {
+          const validCount = gameTryCountParsing(gameTryCount);
+          RacingGame.setTryCount(validCount);
+          RacingGame.start();
+          publisher.notify();
+        } catch (error) {
+          alert(error.message);
+        }
       },
     },
   ];

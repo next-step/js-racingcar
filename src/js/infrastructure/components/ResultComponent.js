@@ -1,8 +1,8 @@
-import { $elements } from '../../@helper/dom.js';
+import { $elements } from '../../@helper/index.js';
 import View from '../views/index.js';
 
-const Result = () => {
-  const $template = $elements(View.ResultSection);
+const Result = ({ RacingGame }) => {
+  const $template = $elements(View.ResultSection({ RacingGame }));
   return $template;
 };
 
