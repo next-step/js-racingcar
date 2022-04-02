@@ -4,7 +4,9 @@ module.exports = {
     es2021: true,
     node: true,
   },
+  parser: 'eslint-parser',
   parserOptions: {
+    sourceType: 'module',
     ecmaVersion: 2021,
   },
   extends: ['eslint:recommended', 'airbnb-base', 'prettier'],

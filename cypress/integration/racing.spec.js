@@ -70,6 +70,7 @@ describe('자동차 경주 게임', () => {
       cy.get(`#${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}`).click();
 
       cy.get(`#${DOM.TRY_COUNT_INPUT_ID}`).type(2);
+      cy.get(`#${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}`).click();
       cy.get(`#${DOM.GAME_PROCESS_BOARD_ID}`).children().should('have.length', 4);
     });
   });

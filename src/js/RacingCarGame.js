@@ -1,9 +1,14 @@
-import { DOM, ERROR_MESSAGE } from './constants.js';
+import Car from './models/Car.mjs';
+
+import { carView } from './views/Car.js';
+
 import { $ } from './utils/dom.js';
+import { DOM, ERROR_MESSAGE } from './constants.js';
 
 class RacingCarGame {
   constructor($target) {
     this.$target = $target;
+    this.cars = [];
     this.render();
     this.setEvent();
   }
@@ -33,6 +38,7 @@ class RacingCarGame {
       this.isEnteredCarNames(carNames);
       this.isUnderFiveLetterCarNames(carNames);
       $(`#${DOM.TRY_COUNT_FIELD_SET_ID}`).innerHTML = this.tryCountTemplate();
+      carNames.split(', ').forEach(carName => this.cars.push(new Car(carName)));
       this.tryCountAddEvent();
     } catch (error) {
       alert(error.message);
@@ -97,6 +103,9 @@ class RacingCarGame {
 
     try {
       this.isOverThanZero(tryCount);
+      $(`#${DOM.GAME_PROCESS_BOARD_ID}`).innerHTML = this.cars
+        .map(car => carView(car.name))
+        .join('');
     } catch (error) {
       alert(error.message);
     }
