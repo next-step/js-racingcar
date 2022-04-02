@@ -5,6 +5,7 @@
   "repository": "https://github.com/youngminss/js-racingcar.git",
   "author": "Wie Youngmin <50790145+youngminss@users.noreply.github.com>",
   "scripts": {
+    "start": "live-server ./",
     "cy:open": "cypress open",
     "cy:run": "cypress run"
   },
