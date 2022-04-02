@@ -2,9 +2,6 @@ import { generateRandomNumbers } from '../../@helper/index.js';
 import { DICE_RANGE, MOVE_CONDITION } from '../../constants.js';
 import RacingGameModel from '../models/racingGame.model.js';
 
-/**
- * 게임에서는 랜덤으로 주사위를 굴릴 수 있어야 한다.
- */
 export default class RacingGameService {
   #racingGame;
 
