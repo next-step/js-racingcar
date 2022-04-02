@@ -62,6 +62,13 @@ function initApp() {
     $raceContainer.classList.remove("hidden");
     const names = getCarsNames();
     $raceContainer.innerHTML = drawCars(names);
+
+    function runRace(maxRound) {
+      for (let i = 0; i < maxRound; i += 1) {
+        $raceContainer.dataset.round = i + 1;
+      }
+    }
+    runRace(count);
   });
 }
 

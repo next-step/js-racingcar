@@ -31,9 +31,9 @@ describe('step1', () => {
                 cy.get('.car-player').eq(1).should('have.text', '자동차2');
                 cy.get('.car-player').eq(2).should('have.text', '자동차3');
             })
-            // it('경주가 진행되고 결과가 나온다.', () => {
-            //
-            // })
+            it('입력한 시도 횟수만큼 라운드가 진행된다', () => {
+                cy.get('.race').should('have.attr','data-round', '2');
+            })
         })
     })
 
