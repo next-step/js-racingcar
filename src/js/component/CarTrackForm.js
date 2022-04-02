@@ -1,10 +1,8 @@
 export class CarTrackForm {
-    cars = [];
-    constructor() {
+    racing;
+    constructor(racing) {
+        this.racing = racing;
         this.$element = document.querySelector("#car-track-area");
-        this.#renderer();
-        this.#mounted();
-        this.#setEvent();
     }
 
     #renderer() {
@@ -16,11 +14,12 @@ export class CarTrackForm {
     #setEvent() {}
 
     getCarTrackForm() {
+        console.log(this.racing.cars);
         return `<div class="mt-4 d-flex">
-        ${cars
+        ${this.racing.cars
             .map(
                 (car) => `
-            <div class="mr-2"> ${this.getPlayerTemplate(car.name)} </div>
+            <div class="mr-2"> ${this.getPlayerTemplate(car.value)} </div>
         `
             )
             .join("")}`;
@@ -40,5 +39,11 @@ export class CarTrackForm {
                         <span class="material spinner"></span>
                     </div>
                 </div>`;
+    }
+
+    initialize() {
+        this.#renderer();
+        this.#mounted();
+        this.#setEvent();
     }
 }
