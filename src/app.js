@@ -1,4 +1,11 @@
-import { COMMAND_GO, getCommand, getRandomNumber } from "./module/core.mjs";
+import {
+  COMMAND_GO,
+  getCarsNames,
+  getCommand,
+  getRandomNumber,
+  getTryCount,
+} from "./module/core.mjs";
+import { drawCars, forwardIcon } from "./module/templates.mjs";
 
 function initApp() {
   const $app = document.querySelector("#app");
@@ -13,37 +20,6 @@ function initApp() {
   );
   const $raceContainer = $app.querySelector(".race");
 
-  function getCarsNames() {
-    const carsNames = $carsNameInput.value.split(",");
-    if (
-      carsNames.length === 0 ||
-      carsNames.some((name) => name.trim() === "")
-    ) {
-      throw new Error("자동차 이름을 입력해주세요.");
-    }
-    return carsNames;
-  }
-
-  function getTryCount() {
-    const count = parseInt($tryCntInput.value);
-    if (!count) {
-      throw new Error("0이 아닌 숫자를 입력해주세요.");
-    }
-    return count;
-  }
-
-  function drawCars(names) {
-    return `<div class="mt-4 d-flex">
-            ${names
-              .map(
-                (name) =>
-                  `<div class="mr-2" aria-label="${name}"><div class="car-player">${name}</div></div>`
-              )
-              .join("")}
-        </div>`;
-  }
-
-  const forwardIcon = `<div class="forward-icon mt-2">⬇️️</div>`;
   function runRound(name) {
     const randomNumber = getRandomNumber(0, 9);
     const command = getCommand(randomNumber);
@@ -54,34 +30,33 @@ function initApp() {
     }
   }
 
-  $carsNameSubmit.addEventListener("click", () => {
-    const names = getCarsNames();
-
-    if (names instanceof Error) {
-      alert(names.message);
-      return;
+  function runRace(maxRound, names) {
+    for (let i = 0; i < maxRound; i += 1) {
+      $raceContainer.dataset.round = `${i + 1}`;
+      names.forEach((name) => runRound(name));
     }
-    $tryCntFieldSet.classList.remove("hidden");
+  }
+
+  $carsNameSubmit.addEventListener("click", () => {
+    try {
+      getCarsNames($carsNameInput.value);
+      $tryCntFieldSet.classList.remove("hidden");
+    } catch (e) {
+      alert(e.message);
+    }
   });
 
   $tryCntSubmit.addEventListener("click", () => {
-    const count = getTryCount();
+    try {
+      const count = getTryCount($tryCntInput.value);
+      $raceContainer.classList.remove("hidden");
+      const names = getCarsNames($carsNameInput.value);
+      $raceContainer.innerHTML = drawCars(names);
 
-    if (count instanceof Error) {
-      alert(count.message);
-      return;
+      runRace(count, names);
+    } catch (e) {
+      alert(e.message);
     }
-    $raceContainer.classList.remove("hidden");
-    const names = getCarsNames();
-    $raceContainer.innerHTML = drawCars(names);
-
-    function runRace(maxRound) {
-      for (let i = 0; i < maxRound; i += 1) {
-        $raceContainer.dataset.round = i + 1;
-        names.forEach((name) => runRound(name));
-      }
-    }
-    runRace(count);
   });
 }
 

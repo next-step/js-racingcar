@@ -58,4 +58,5 @@ describe('step1', () => {
         })
     })
 
+    // TODO: Error 상황에 대한 test 추가
 })
