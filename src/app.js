@@ -1,3 +1,5 @@
+import { COMMAND_GO, getCommand, getRandomNumber } from "./module/core.mjs";
+
 function initApp() {
   const $app = document.querySelector("#app");
   const $carsNameInput = $app.querySelector('[placeholder="자동차 이름"]');
@@ -34,12 +36,22 @@ function initApp() {
     return `<div class="mt-4 d-flex">
             ${names
               .map(
-                (name) => `<div class="mr-2">
-                <div class="car-player">${name}</div>
-            </div>`
+                (name) =>
+                  `<div class="mr-2" aria-label="${name}"><div class="car-player">${name}</div></div>`
               )
               .join("")}
         </div>`;
+  }
+
+  const forwardIcon = `<div class="forward-icon mt-2">⬇️️</div>`;
+  function runRound(name) {
+    const randomNumber = getRandomNumber(0, 9);
+    const command = getCommand(randomNumber);
+    if (command === COMMAND_GO) {
+      document
+        .querySelector(`[aria-label="${name}"]`)
+        .insertAdjacentHTML("beforeend", forwardIcon);
+    }
   }
 
   $carsNameSubmit.addEventListener("click", () => {
@@ -66,6 +78,7 @@ function initApp() {
     function runRace(maxRound) {
       for (let i = 0; i < maxRound; i += 1) {
         $raceContainer.dataset.round = i + 1;
+        names.forEach((name) => runRound(name));
       }
     }
     runRace(count);
