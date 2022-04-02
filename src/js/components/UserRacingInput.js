@@ -36,7 +36,7 @@ const UserRacingInput = ({ startGame }) => {
 
     updateState({ carNames: inputNames, isNameSubmitted: true });
 
-    $currentElement.querySelector('form').lastElementChild.style.opacity = 1;
+    removeTimesInputWillChangeHint();
 
     document.getElementById(ID.RACING_TIMES_INPUT).focus();
   };
@@ -61,16 +61,29 @@ const UserRacingInput = ({ startGame }) => {
     });
   };
 
+  const setTimesInputWillChangeHint = () => {
+    const $timesInput = $currentElement.querySelector('form').lastElementChild;
+    $timesInput.style.willChange = 'transform, opacity';
+    $timesInput.style.opacity = 0;
+  };
+
+  const removeTimesInputWillChangeHint = () => {
+    const $timesInput = $currentElement.querySelector('form').lastElementChild;
+    $timesInput.style.opacity = 1;
+    $timesInput.style.willChange = 'auto';
+  };
+
   const initUserInput = () => {
     $currentElement.id = ID.USER_RACING_INPUT;
     document
       .getElementById(ID.APP)
       .insertAdjacentElement('afterbegin', $currentElement);
-    $currentElement.querySelector('form').lastElementChild.style.opacity = 0;
+
+    setEvent();
+    setTimesInputWillChangeHint();
   };
 
   initUserInput();
-  setEvent();
 };
 
 export default UserRacingInput;
