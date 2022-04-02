@@ -1,15 +1,7 @@
+import { ERROR_MESSAGE, MAX_GAME_TRY_COUNT } from '../../src/js/constants.js';
+import { inputCarNamesParsing } from '../../src/js/infrastructure/actions/inputSection.action.js';
+
 const BASE_URL = '../../index.html';
-
-const MAX_GAME_TRY_COUNT = 100;
-
-const ERROR_MESSAGE = {
-  REQUIRED_NAME: '자동차 이름을 입력해주세요!',
-  MUST_LESS_THAN: '자동차 이름은 5자 이하여야만 해요!',
-  NOT_ACCEPT_DUPLICATED: '자동차 이름은 중복될 수 없어요!',
-  REQUIRED_DIGIT: '숫자를 입력해주세요!',
-  MUST_MORE_THAN_ONE: '시도 횟수는 0보다 커야 해요!',
-  MUST_LESS_THAN_MAX_GAME_TRY_COUNT: `시도 횟수는 ${MAX_GAME_TRY_COUNT}보다 낮아야 해요!`,
-};
 
 describe('Racing Car Game', () => {
   beforeEach(() => {
@@ -41,13 +33,13 @@ describe('Racing Car Game', () => {
     it('자동차 이름은 쉼표로 구분된다.', () => {
       const carNames = 'EAST, WEST, SOUTH, NORTH';
       cy.inputCarNames(carNames).then(() => {
-        expect(RacingGameService.registeredCars()).to.have.length(4);
+        expect(inputCarNamesParsing(carNames)).to.have.length(4);
       });
     });
     it('자동차 이름의 처음과 마지막에 쉼표가 존재하면 제거한다.', () => {
       const carNames = ',EAST, WEST, SOUTH, NORTH,';
       cy.inputCarNames(carNames).then(() => {
-        expect(RacingGameService.registeredCars()).to.have.length(4);
+        expect(inputCarNamesParsing(carNames)).to.have.length(4);
       });
     });
 
@@ -82,8 +74,10 @@ describe('Racing Car Game', () => {
     });
 
     describe('입력된 자동차 이름들이 유효한 경우 시도 횟수 입력창을 표시한다.', () => {
-      cy.inputCarNames('EAST, WEST, SOUTH, NORTH');
-      cy.$('[data-props="game-try-count-field"]').should('be.visible');
+      it('시도 횟수 입력창이 보여야 한다.', () => {
+        cy.inputCarNames('EAST, WEST, SOUTH, NORTH');
+        cy.$('[data-props="game-try-count-field"]').should('be.visible');
+      });
     });
   });
 
@@ -127,11 +121,6 @@ describe('Racing Car Game', () => {
           expect(alertStub).to.be.calledWith(ERROR_MESSAGE.MUST_LESS_THAN_MAX_GAME_TRY_COUNT);
         });
       });
-    });
-    describe('입력된 시도 횟수가 유효한 경우 레이싱 게임 영역이 표시된다.', () => {
-      cy.inputCarNames('EAST, WEST, SOUTH, NORTH');
-      cy.inputGameTryCount(3);
-      cy.$('[data-props="game-section"]').should('be.visible');
     });
   });
 
