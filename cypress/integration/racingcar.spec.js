@@ -22,7 +22,7 @@ describe('레이싱카 앱 테스트', () => {
 		const alertStub = cy.stub();
 		cy.on('window:alert', alertStub);
 
-		cy.get('#car-names-input').type('가나다라마바');
+		cy.get('#car-names-input').type('EASTTT, WEST, SOUTH, NORTH');
 		cy.get('#car-names-submit')
 			.click()
 			.then(() => {
