@@ -48,4 +48,21 @@ describe('자동차 경주 게임', () => {
       cy.get(`#${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}`).should('be.visible');
     });
   });
+
+  context('시도 횟수는 알맞게 입력되어야 합니다.', () => {
+    it('시도 횟수는 1보다 작으면 안됩니다.', () => {
+      const alertStub = cy.stub();
+      cy.on('window:alert', alertStub);
+
+      cy.get(`#${DOM.CAR_NAMES_INPUT_ID}`).type('EAST, WEST, SOUTH, NORTH');
+      cy.get(`#${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}`).click();
+
+      cy.get(`#${DOM.TRY_COUNT_INPUT_ID}`).type(0);
+      cy.get(`#${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}`)
+        .click()
+        .then(() => {
+          expect(alertStub.getCall(0)).to.be.calledWith(ERROR_MESSAGE.INVALID_TRY_COUNT);
+        });
+    });
+  });
 });

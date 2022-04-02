@@ -10,4 +10,5 @@ export const DOM = Object.freeze({
 export const ERROR_MESSAGE = Object.freeze({
   CAR_NAMES_REQUIRED: '자동차 이름을 입력해주세요.',
   INVALID_CAR_NAMES: '자동차 이름은 5글자 이하여야 합니다.',
+  INVALID_TRY_COUNT: '시도 횟수는 0보다 커야합니다.',
 });
