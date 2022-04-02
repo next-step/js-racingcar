@@ -3,9 +3,9 @@ import { CarNames } from "../domain/CarNames.js";
 export class CarNamesForm {
     $element;
 
-    constructor(racing, { onLoadTryForm }) {
-        this.racing = racing;
+    constructor({ onLoadTryForm }) {
         this.$element = document.querySelector("#car-names-area");
+        this.carNames = new CarNames();
         this.onLoadTryForm = onLoadTryForm;
 
         this.#renderer();
@@ -23,21 +23,21 @@ export class CarNamesForm {
     }
 
     #setEvent() {
-        this.$carNamesInput.addEventListener("keyup", (event) => this.#onKeyupCarNames(event));
+        this.$carNamesInput.addEventListener("keyup", () => this.#onKeyupCarNames());
         this.$carNamesSubmit.addEventListener("click", () => this.#onCarNamesSubmit());
     }
 
-    #onKeyupCarNames(event) {
-        if (event.key === "Enter") {
-            this.#onCarNamesSubmit();
-        }
+    #onKeyupCarNames() {
+        console.log(this.$carNamesInput.value);
     }
 
     #onCarNamesSubmit() {
-        this.racing.cars = new CarNames(this.$carNamesInput.value).cars;
-        if (this.racing.cars.length > 0) {
-            this.onLoadTryForm();
-        }
+        this.carNames.names = this.$carNamesInput.value;
+        this.onLoadTryForm();
+        // let carNamesState = this.carNames.getCarNamesState();
+        // if (!carNamesState.isComplte) {
+        //     alert(carNamesState.message);
+        // }
     }
 
     #getCarNamesTemplate() {
