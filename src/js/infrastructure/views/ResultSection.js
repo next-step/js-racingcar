@@ -1,5 +1,5 @@
-const ResultSection = /*html*/ `
-<section class="d-flex justify-center mt-5" data-props="result-section">
+const ResultSection = ({ RacingGame }) => /*html*/ `
+<section class="d-flex justify-center mt-5 d-none" data-props="result-section">
   <div>
     <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
     <div class="d-flex justify-center">

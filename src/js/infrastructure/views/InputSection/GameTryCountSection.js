@@ -1,5 +1,7 @@
-const GameTryCountFieldset = () => /*html*/ `
-<fieldset data-props="game-try-count-field">
+const GameTryCountFieldset = ({ RacingGame }) => {
+  const isHidden = RacingGame.getCars().length === 0 ? 'hidden' : '';
+  return /*html*/ `
+<fieldset class="${isHidden}" data-props="game-try-count-field">
   <p>시도할 횟수를 입력해주세요.</p>
   <div class="d-flex">
     <input type="number" class="w-100 mr-2" placeholder="시도 횟수" data-props="game-try-count-input" />
@@ -7,5 +9,6 @@ const GameTryCountFieldset = () => /*html*/ `
   </div>
 </fieldset>
 `;
+};
 
 export default GameTryCountFieldset;
