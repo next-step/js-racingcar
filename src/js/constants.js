@@ -2,6 +2,13 @@ export const MAX_NAME_DIGITS = 5;
 
 export const MAX_GAME_TRY_COUNT = 100;
 
+export const MOVE_CONDITION = 4;
+
+export const DICE_RANGE = {
+  MIN: 1,
+  MAX: 9,
+};
+
 export const ERROR_MESSAGE = {
   REQUIRED_NAME: '자동차 이름을 입력해주세요!',
   MUST_LESS_THAN: `자동차 이름은 ${MAX_NAME_DIGITS}자 이하여야만 해요!`,
