@@ -35,9 +35,7 @@ const GameProcess = ({ carNames, playTimes }) => {
 
   const playRacingGame = () => {
     if (!state.playTimes) {
-      document
-        .querySelectorAll(CLASS.SPINNER)
-        .forEach(el => el.classList.add('hidden'));
+      removeSpinnerWillChangeHint();
       return;
     }
 
@@ -52,6 +50,22 @@ const GameProcess = ({ carNames, playTimes }) => {
     }, 1000);
   };
 
+  const setSpinnerWillChangeHint = () => {
+    const $spinner = $currentElement.querySelectorAll(CLASS.SPINNER);
+    $spinner.forEach($el => {
+      $el.style.willChange = 'transform, opacity';
+      $el.style.opacity = 1;
+    });
+  };
+
+  const removeSpinnerWillChangeHint = () => {
+    const $spinner = $currentElement.querySelectorAll(CLASS.SPINNER);
+    $spinner.forEach($el => {
+      $el.style.willChange = 'auto';
+      $el.style.opacity = 0;
+    });
+  };
+
   const initProcess = () => {
     state.carNames.forEach(carName => {
       $currentElement
@@ -61,7 +75,7 @@ const GameProcess = ({ carNames, playTimes }) => {
 
     const $targetElement = document.getElementById('app');
     $targetElement.insertAdjacentElement('beforeend', $currentElement);
-
+    setSpinnerWillChangeHint();
     playRacingGame();
   };
 
