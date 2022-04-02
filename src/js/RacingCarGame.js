@@ -68,6 +68,10 @@ class RacingCarGame {
           <fieldset id="${DOM.TRY_COUNT_FIELD_SET_ID}"></fieldset>
         </form>
       </section>
+      <section class="d-flex justify-center mt-5">
+        <div id="${DOM.GAME_PROCESS_BOARD_ID}" class="mt-4 d-flex"></div>
+      </section>
+      <section id="${DOM.GAME_RESULT_SECTION_ID}" class="d-flex justify-center mt-5"></section>
     `;
   }
 

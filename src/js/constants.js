@@ -5,6 +5,8 @@ export const DOM = Object.freeze({
   TRY_COUNT_FIELD_SET_ID: 'try-count-field-set',
   TRY_COUNT_INPUT_ID: 'try-count-input',
   TRY_COUNT_SUBMIT_BUTTON_ID: 'try-count-submit-button',
+  GAME_PROCESS_BOARD_ID: 'game-process-board',
+  GAME_RESULT_SECTION_ID: 'game-result-section',
 });
 
 export const ERROR_MESSAGE = Object.freeze({
