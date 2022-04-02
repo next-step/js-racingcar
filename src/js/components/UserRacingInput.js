@@ -1,4 +1,4 @@
-import { duplicateTemplate } from '../utils/templateUtil.js';
+import { duplicateTemplate, makeDisableByID } from '../utils/templateUtil.js';
 import { ERROR } from '../constants/message.js';
 import { MAX_RACING_CAR_NAME } from '../constants/unit.js';
 import { TEMPLATE, ID } from '../constants/selector.js';
@@ -10,12 +10,7 @@ const UserRacingInput = ({ startGame }) => {
     playTimes: 0,
   };
 
-  const $targetElement = document.getElementById('app');
   const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT);
-
-  $currentElement.id = ID.USER_RACING_INPUT;
-  $targetElement.insertAdjacentElement('afterbegin', $currentElement);
-  $currentElement.querySelector('form').lastElementChild.style.opacity = 0;
 
   const isValidCarName = inputNames => {
     return inputNames.every(
@@ -33,15 +28,11 @@ const UserRacingInput = ({ startGame }) => {
       return;
     }
 
+    makeDisableByID(TEMPLATE.CAR_NAME_INPUT);
+    makeDisableByID(ID.CAR_NAME_SUBMIT_BTN);
+
     state.carNames = inputNames;
     state.isNameSubmitted = true;
-
-    document
-      .getElementById(TEMPLATE.CAR_NAME_INPUT)
-      .setAttribute('disabled', true);
-    document
-      .getElementById(ID.CAR_NAME_SUBMIT_BTN)
-      .setAttribute('disabled', true);
 
     $currentElement.querySelector('form').lastElementChild.style.opacity = 1;
 
@@ -55,13 +46,8 @@ const UserRacingInput = ({ startGame }) => {
 
     state.playTimes = Number(times);
 
-    document
-      .getElementById(ID.RACING_TIMES_INPUT)
-      .setAttribute('disabled', true);
-
-    document
-      .getElementById(ID.RACING_TIMES_SUBMIT_BTN)
-      .setAttribute('disabled', true);
+    makeDisableByID(ID.RACING_TIMES_INPUT);
+    makeDisableByID(ID.RACING_TIMES_SUBMIT_BTN);
 
     startGame({ carNames: state.carNames, playTimes: state.playTimes });
   };
@@ -73,6 +59,15 @@ const UserRacingInput = ({ startGame }) => {
     });
   };
 
+  const initUserInput = () => {
+    $currentElement.id = ID.USER_RACING_INPUT;
+    document
+      .getElementById(ID.APP)
+      .insertAdjacentElement('afterbegin', $currentElement);
+    $currentElement.querySelector('form').lastElementChild.style.opacity = 0;
+  };
+
+  initUserInput();
   setEvent();
 };
 
