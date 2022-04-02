@@ -7,12 +7,12 @@ export default class CarController {
     this.#service = new CarService();
   }
 
-  getOrigin() {
-    return this.#service.getOrigin();
-  }
-
   getName() {
     return this.#service.getName();
+  }
+
+  getMoveCount() {
+    return this.#service.getMoveCount();
   }
 
   setName(carName) {
@@ -20,8 +20,8 @@ export default class CarController {
     return this;
   }
 
-  setMoveCount(count) {
-    this.#service.setMoveCount(count);
+  initMoveCount() {
+    this.#service.initMoveCount();
     return this;
   }
 

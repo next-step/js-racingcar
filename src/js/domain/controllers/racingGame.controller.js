@@ -7,6 +7,14 @@ export default class RacingGameController {
     this.#service = new RacingGameService();
   }
 
+  getCars() {
+    return this.#service.getCars();
+  }
+
+  getTryCount() {
+    return this.#service.getTryCount();
+  }
+
   setCars(cars) {
     this.#service.setCars(cars);
     return this;

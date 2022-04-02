@@ -7,20 +7,20 @@ export default class CarService {
     this.#car = CarModel();
   }
 
-  getOrigin() {
-    return this.#car;
-  }
-
   getName() {
     return this.#car.name;
+  }
+
+  getMoveCount() {
+    return this.#car.moveCount;
   }
 
   setName(name) {
     this.#car.name = name;
   }
 
-  setMoveCount(count) {
-    this.#car.moveCount = count;
+  initMoveCount() {
+    this.#car.moveCount = 0;
   }
 
   increaseMoveCount() {
