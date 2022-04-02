@@ -68,20 +68,33 @@ describe('로또 미션 Cypress', () => {
         cy.get('#racing-times-input').type(3);
         cy.get('#racing-times-submit-btn').click();
 
-        cy.clock().then(clock => {
-          clock.tick(1000);
-          cy.get(`#racing-${mockRacingCar[0]} .forward-icon-area`)
-            .its('length')
-            .should('be.lte', 1);
-          clock.tick(1000);
-          cy.get(`#racing-${mockRacingCar[0]} .forward-icon-area`)
-            .its('length')
-            .should('be.lte', 2);
-          clock.tick(1000);
-          cy.get(`#racing-${mockRacingCar[0]} .forward-icon-area`)
-            .its('length')
-            .should('be.lte', 3);
-        });
+        cy.clock();
+        cy.tick(1000);
+        cy.get(`#racing-${mockRacingCar[0]} .forward-icon-area`)
+          .its('length')
+          .should('be.lte', 1);
+        cy.tick(1000);
+        cy.get(`#racing-${mockRacingCar[0]} .forward-icon-area`)
+          .its('length')
+          .should('be.lte', 2);
+        cy.tick(1000);
+        cy.get(`#racing-${mockRacingCar[0]} .forward-icon-area`)
+          .its('length')
+          .should('be.lte', 3);
+      });
+
+      it('(4) 게임이 끝나면 spinner가 사라진다.', () => {
+        cy.clock();
+        cy.get('#racing-times-input').type(3);
+        cy.get('#racing-times-submit-btn').click();
+        cy.tick(1000);
+        cy.get(`.spinner`).should('have.css', 'opacity', '1');
+        cy.tick(1000);
+        cy.get(`.spinner`).should('have.css', 'opacity', '1');
+        cy.tick(1000);
+        cy.get(`.spinner`).should('have.css', 'opacity', '1');
+        cy.tick(1000);
+        cy.get(`.spinner`).should('have.css', 'opacity', '0');
       });
     });
   });
