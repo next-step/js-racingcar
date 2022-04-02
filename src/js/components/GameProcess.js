@@ -6,7 +6,7 @@ const GameProcess = ({ carNames, playTimes }) => {
     playTimes,
   };
 
-  const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_LIST);
+  const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_LIST_SECTION);
   $currentElement.id = ID.USER_RACING_CAR_PROCESS;
 
   const makeGameItemsElement = carName => {

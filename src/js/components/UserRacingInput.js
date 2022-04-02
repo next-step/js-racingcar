@@ -1,7 +1,7 @@
 import { duplicateTemplate, makeDisableByID } from '../utils/templateUtil.js';
 import { ERROR } from '../constants/message.js';
 import { MAX_RACING_CAR_NAME } from '../constants/unit.js';
-import { TEMPLATE, ID } from '../constants/selector.js';
+import { ID, TEMPLATE } from '../constants/selector.js';
 
 const UserRacingInput = ({ startGame }) => {
   const state = {
@@ -10,7 +10,8 @@ const UserRacingInput = ({ startGame }) => {
     playTimes: 0,
   };
 
-  const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT);
+  const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT_SECTION);
+  $currentElement.id = ID.USER_RACING_INPUT_SECTION;
 
   const isValidCarName = inputNames => {
     return inputNames.every(
@@ -28,7 +29,7 @@ const UserRacingInput = ({ startGame }) => {
       return;
     }
 
-    makeDisableByID(TEMPLATE.CAR_NAME_INPUT);
+    makeDisableByID(ID.CAR_NAME_INPUT);
     makeDisableByID(ID.CAR_NAME_SUBMIT_BTN);
 
     state.carNames = inputNames;
