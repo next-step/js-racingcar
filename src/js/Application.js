@@ -1,26 +1,7 @@
-import { diff } from './@helper/index.js';
+import { diff, publisher } from './@helper/index.js';
 import { Car, RacingGame } from './domain/index.js';
 import { Setup, Game, Result } from './infrastructure/index.js';
 
-const publisher = () => {
-  const observers = {};
-  const subscribe = callback => {
-    Object.keys(callback).forEach(_key => {
-      observers[_key] = callback[_key];
-    });
-  };
-
-  const notify = () => {
-    Object.keys(observers).forEach(_key => {
-      observers[_key]();
-    });
-  };
-
-  return {
-    subscribe,
-    notify,
-  };
-};
 export default class Application {
   #racingGame;
   #publisher = publisher();
