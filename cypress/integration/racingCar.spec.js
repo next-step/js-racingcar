@@ -63,6 +63,26 @@ describe('로또 미션 Cypress', () => {
           mockRacingCar.length
         );
       });
+
+      it('(3) 1초마다 유저가 입력한 실행 횟수 미만으로 전진 아이콘(forward-icon)이 렌더링된다.', () => {
+        cy.get('#racing-times-input').type(3);
+        cy.get('#racing-times-submit-btn').click();
+
+        cy.clock().then(clock => {
+          clock.tick(1000);
+          cy.get(`#racing-${mockRacingCar[0]} .forward-icon-area`)
+            .its('length')
+            .should('be.lte', 1);
+          clock.tick(1000);
+          cy.get(`#racing-${mockRacingCar[0]} .forward-icon-area`)
+            .its('length')
+            .should('be.lte', 2);
+          clock.tick(1000);
+          cy.get(`#racing-${mockRacingCar[0]} .forward-icon-area`)
+            .its('length')
+            .should('be.lte', 3);
+        });
+      });
     });
   });
 });
