@@ -1,2 +1,2 @@
 export * from './inputSection.action.js';
-export * from './gameSection.actions.js';
+export * from './gameSection.action.js';
