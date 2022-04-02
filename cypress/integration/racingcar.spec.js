@@ -31,4 +31,11 @@ describe('레이싱카 앱 테스트', () => {
 				);
 			});
 	});
+
+	it('자동차의 이름을 입력하면 이름 입력 필드가 disabled되고 전진 횟수를 입력하는 필드가 나타난다.', () => {
+		cy.get('#car-names-input').type('EAST, WEST, SOUTH, NORTH');
+		cy.get('#car-names-submit').click();
+		cy.get('#car-names-input').should('be.disabled');
+		cy.get('#car-try-block').should('be.visible');
+	});
 });
