@@ -33,6 +33,7 @@ class RacingCarGame {
       this.isEnteredCarNames(carNames);
       this.isUnderFiveLetterCarNames(carNames);
       $(`#${DOM.TRY_COUNT_FIELD_SET_ID}`).innerHTML = this.tryCountTemplate();
+      this.tryCountAddEvent();
     } catch (error) {
       alert(error.message);
     }
@@ -78,6 +79,27 @@ class RacingCarGame {
         <button id="${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}" type="button" class="btn btn-cyan">확인</button>
       </div>
     `;
+  }
+
+  tryCountAddEvent() {
+    this.$tryCountInput = $(`#${DOM.TRY_COUNT_INPUT_ID}`);
+    this.$tryCountSubmitButton = $(`#${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}`);
+
+    this.$tryCountSubmitButton.onclick = this.onClickTryCountSubmitButton.bind(this);
+  }
+
+  onClickTryCountSubmitButton() {
+    const tryCount = this.$tryCountInput.value;
+
+    try {
+      this.isOverThanZero(tryCount);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  isOverThanZero(tryCount) {
+    if (tryCount <= 0) throw new Error(ERROR_MESSAGE.INVALID_TRY_COUNT);
   }
 }
 
