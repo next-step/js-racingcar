@@ -1,7 +1,7 @@
 import { duplicateTemplate } from '../utils/templateUtil.js';
 import { TEMPLATE, ID, CLASS } from '../constants/selector.js';
 const GameProcess = ({ carNames, playTimes }) => {
-  const state = {
+  let state = {
     carNames,
     playTimes,
   };
@@ -9,11 +9,12 @@ const GameProcess = ({ carNames, playTimes }) => {
   const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_LIST_SECTION);
   $currentElement.id = ID.USER_RACING_CAR_PROCESS;
 
+  const updateState = newState => (state = Object.assign(state, newState));
+
   const makeGameItemsElement = carName => {
     const $gameItemElement = duplicateTemplate(TEMPLATE.CAR_PLAYER_ITEM);
     $gameItemElement.id = `racing-${carName}`;
     $gameItemElement.querySelector(CLASS.CAR_PLAYER).textContent = carName;
-
     $gameItemElement.append(
       duplicateTemplate(TEMPLATE.RACING_CAR_ITEM_SPINNER)
     );
@@ -40,7 +41,7 @@ const GameProcess = ({ carNames, playTimes }) => {
       return;
     }
 
-    state.playTimes -= 1;
+    updateState({ playTimes: (state.playTimes -= 1) });
 
     setTimeout(() => {
       state.carNames.forEach(

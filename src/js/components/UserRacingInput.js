@@ -4,7 +4,7 @@ import { MAX_RACING_CAR_NAME } from '../constants/unit.js';
 import { ID, TEMPLATE } from '../constants/selector.js';
 
 const UserRacingInput = ({ startGame }) => {
-  const state = {
+  let state = {
     isNameSubmitted: false,
     carNames: [],
     playTimes: 0,
@@ -12,6 +12,8 @@ const UserRacingInput = ({ startGame }) => {
 
   const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT_SECTION);
   $currentElement.id = ID.USER_RACING_INPUT_SECTION;
+
+  const updateState = newState => (state = Object.assign(state, newState));
 
   const isValidCarName = inputNames => {
     return inputNames.every(
@@ -32,8 +34,7 @@ const UserRacingInput = ({ startGame }) => {
     makeDisableByID(ID.CAR_NAME_INPUT);
     makeDisableByID(ID.CAR_NAME_SUBMIT_BTN);
 
-    state.carNames = inputNames;
-    state.isNameSubmitted = true;
+    updateState({ carNames: inputNames, isNameSubmitted: true });
 
     $currentElement.querySelector('form').lastElementChild.style.opacity = 1;
 
@@ -45,7 +46,7 @@ const UserRacingInput = ({ startGame }) => {
 
     if (!times) return;
 
-    state.playTimes = Number(times);
+    updateState({ playTimes: Number(times) });
 
     makeDisableByID(ID.RACING_TIMES_INPUT);
     makeDisableByID(ID.RACING_TIMES_SUBMIT_BTN);
