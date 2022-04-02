@@ -1,5 +1,5 @@
-import { safeExecutor } from './util.js';
-import { isDOMElement, isNil } from './valid.js';
+import { safeExecutor } from '../util.js';
+import { isDOMElement, isNil } from '../valid.js';
 
 export const $ = (selector, target) => {
   if (isNil(target)) return document.querySelector(selector);
@@ -19,9 +19,9 @@ export const $elements = stringHTML => {
 
 export const $eventBindedComponent =
   getElement =>
-  (...args) => {
+  (props, ...args) => {
     try {
-      const [$element, $events = []] = getElement(args);
+      const [$element, $events = []] = getElement(props, args);
       if (!isDOMElement($element)) throw new Error('첫 번째 인자로 DOM 요소를 선언해주세요.');
       $events.forEach(({ type, callback }) => $addEvent($element, type, callback));
       return $element;

@@ -1,3 +1,3 @@
-export * from './dom.js';
+export * from './dom/index.js';
 export * from './util.js';
 export * from './valid.js';

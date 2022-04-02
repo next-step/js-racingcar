@@ -16,4 +16,10 @@ export const isLastChar = (target, char) => target.at(-1) === char;
 
 export const isDuplicatedArray = target => new Set(target).size !== target.length;
 
+export const isInteger = target => {
+  if (isEmpty(target) || isNaN(target)) return false;
+  if (!Number.isInteger(Number(target))) return false;
+  return true;
+};
+
 export const isDOMElement = $element => $element instanceof Element;

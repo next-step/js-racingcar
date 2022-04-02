@@ -1,3 +1,19 @@
+export const pipeline =
+  (...fns) =>
+  value =>
+    fns.reduce((_value, fn) => fn(_value), value);
+
+export const safeExecutor =
+  handler =>
+  (...args) => {
+    try {
+      handler(args);
+    } catch (error) {
+      alert(error.message);
+      return null;
+    }
+  };
+
 export const _interface_ = target =>
   new Proxy(JSON.parse(JSON.stringify(target)), {
     get(state, key, receiver) {
@@ -16,18 +32,5 @@ export const _interface_ = target =>
 
 export const removeSpaceArray = targets => targets.map(target => target.replace(/\s/gi, ''));
 
-export const pipeline =
-  (...fns) =>
-  value =>
-    fns.reduce((_value, fn) => fn(_value), value);
-
-export const safeExecutor =
-  handler =>
-  (...args) => {
-    try {
-      handler(args);
-    } catch (error) {
-      alert(error.message);
-      return null;
-    }
-  };
+export const generateRandomNumbers = ({ count: length, min = 1, max = 9 }) =>
+  Array.from({ length }).map(() => Math.floor(Math.random() * max) + min);
