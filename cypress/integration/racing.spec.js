@@ -64,5 +64,13 @@ describe('자동차 경주 게임', () => {
           expect(alertStub.getCall(0)).to.be.calledWith(ERROR_MESSAGE.INVALID_TRY_COUNT);
         });
     });
+
+    it('시도 횟수가 잘 입력되었다면 플레이어들이 게임 보드위에 표시되어야 합니다.', () => {
+      cy.get(`#${DOM.CAR_NAMES_INPUT_ID}`).type('EAST, WEST, SOUTH, NORTH');
+      cy.get(`#${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}`).click();
+
+      cy.get(`#${DOM.TRY_COUNT_INPUT_ID}`).type(2);
+      cy.get(`#${DOM.GAME_PROCESS_BOARD_ID}`).children().should('have.length', 4);
+    });
   });
 });
