@@ -2,6 +2,7 @@ import { duplicateTemplate, makeDisableByID } from '../utils/templateUtil.js';
 import { ERROR } from '../constants/message.js';
 import { MAX_RACING_CAR_NAME } from '../constants/unit.js';
 import { ID, TEMPLATE } from '../constants/selector.js';
+import ValidationError from '../utils/validation.js';
 
 const UserRacingInput = ({ startGame }) => {
   let state = {
@@ -16,9 +17,12 @@ const UserRacingInput = ({ startGame }) => {
   const updateState = newState => (state = Object.assign(state, newState));
 
   const isValidCarName = inputNames => {
-    return inputNames.every(
+    const isValid = inputNames.every(
       carName => carName.length > 0 && carName.length <= MAX_RACING_CAR_NAME
     );
+
+    if (!isValid)
+      throw new ValidationError(ERROR.INVALID_LENGTH_RACING_CAR_NAME);
   };
 
   const submitName = () => {
@@ -26,19 +30,20 @@ const UserRacingInput = ({ startGame }) => {
       .getElementById(ID.CAR_NAME_INPUT)
       .value.split(',');
 
-    if (!isValidCarName(inputNames)) {
-      alert(ERROR.INVALID_LENGTH_RACING_CAR_NAME);
-      return;
+    try {
+      isValidCarName(inputNames);
+      makeDisableByID(ID.CAR_NAME_INPUT);
+      makeDisableByID(ID.CAR_NAME_SUBMIT_BTN);
+
+      updateState({ carNames: inputNames, isNameSubmitted: true });
+
+      removeTimesInputWillChangeHint();
+
+      document.getElementById(ID.RACING_TIMES_INPUT).focus();
+    } catch (err) {
+      if (err instanceof ValidationError) alert(err.message);
+      console.log(err);
     }
-
-    makeDisableByID(ID.CAR_NAME_INPUT);
-    makeDisableByID(ID.CAR_NAME_SUBMIT_BTN);
-
-    updateState({ carNames: inputNames, isNameSubmitted: true });
-
-    removeTimesInputWillChangeHint();
-
-    document.getElementById(ID.RACING_TIMES_INPUT).focus();
   };
 
   const submitTimes = () => {
