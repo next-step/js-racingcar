@@ -1,8 +1,5 @@
 import { Car } from "./Car.js";
 
-const MIN_LENGTH = 1;
-const MAX_LENGTH = 5;
-
 export class CarNames {
     names = "";
     #cars;
@@ -10,6 +7,7 @@ export class CarNames {
     static NOT_EXIST_NAME = `자동차 이름을 입력해주세요.`;
 
     constructor(names) {
+        console.log(names);
         if (CarNames.validation(names)) {
             this.#cars = names.split(",").map((name) => new Car(name.trim()));
         }

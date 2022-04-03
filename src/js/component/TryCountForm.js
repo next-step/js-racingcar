@@ -20,7 +20,14 @@ export class TryCountForm {
     }
 
     #setEvent() {
+        this.tryCountInput.addEventListener("keyup", (event) => this.#onTryCountInputKeyup(event));
         this.tryCountsubmit.addEventListener("click", () => this.#onTryCountSubmit());
+    }
+
+    #onTryCountInputKeyup(event) {
+        if(event.key === "Enter") {
+            this.#onTryCountSubmit();
+        }
     }
 
     #onTryCountSubmit() {
