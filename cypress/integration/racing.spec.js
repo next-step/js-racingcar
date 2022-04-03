@@ -92,4 +92,22 @@ describe('자동차 경주 게임', () => {
         });
     });
   });
+
+  describe('시도 횟수 입력 화면 테스트', () => {
+    beforeEach(() => {
+      cy.carNamesInput().type('자동,자동차');
+      cy.carNamesSubmit().click();
+    });
+
+    it('횟수를 입력하지 않고 확인을 누르는 경우 경고창이 뜬다.', () => {
+      const alertStub = cy.stub();
+      cy.on('window:alert', alertStub);
+
+      cy.cycleSubmit()
+        .click()
+        .then(() => {
+          expect(alertStub).to.be.called;
+        });
+    });
+  });
 });
