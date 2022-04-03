@@ -1,4 +1,7 @@
-const $ = (el) => document.querySelector(el);
+import { $ } from './util/dom.js';
+import { ERR_MSG } from './util/constatns.js';
+import { style } from './util/style.js';
+import { isCheckCarNameLength, isRace } from './util/util.js';
 
 const $carNamesInput = $('#car-names-input');
 const $carNamesSubmit = $('#car-names-submit');
@@ -7,56 +10,49 @@ const $carTryInput = $('#car-try-input');
 const $carTrySubmit = $('#car-try-submit');
 const $carRacingBlock = $('#car-racing-block');
 
-function isCheckCarNameLength(carName) {
-	return carName.split(', ').every((item) => item.length < 6);
-}
-
-function isRace() {
-	// TODO: random number 생성을 따로 함수로 분리
-	const randomNum = Math.floor(Math.random() * 9) + 0;
-	return randomNum >= 4;
-}
-
-$carNamesSubmit.addEventListener('click', () => {
-	if (!$carNamesInput.value) {
-		// TODO: 에러 메세지를 상수화한다.
-		alert('자동차의 이름을 입력해주세요.');
-		return;
-	}
-
-	// TODO: 5라는 값을 상수화한다.
-	if (!isCheckCarNameLength($carNamesInput.value)) {
-		alert('자동차의 이름은 최대 5글자까지 입력 가능합니다.');
-		return;
-	}
-
-	$carNamesInput.disabled = true;
-	$carTryBlock.style.display = 'block';
-});
-
-$carTrySubmit.addEventListener('click', () => {
-	if (!$carTryInput.value) {
-		alert('시도할 횟수를 입력해주세요.');
-		return;
-	}
-
-	$carTryInput.disabled = true;
-	$carRacingBlock.style.display = 'flex';
-
-	const template = $carNamesInput.value
-		.split(', ')
+const playRacing = (carNames) =>
+	carNames
 		.map(
 			(name) =>
 				`<div class="mr-2">
-					<div class="car-player">${name}</div>
-					${Array(Number($carTryInput.value))
-						.fill(0)
-						.map(() =>
-							isRace() ? `<div class="forward-icon mt-2">⬇️️</div>` : null
-						)
-						.join('')}
-				</div>`
+				<div class="car-player">${name}</div>
+				${Array(Number($carTryInput.value))
+					.fill(0)
+					.map(() =>
+						isRace() ? `<div class="forward-icon mt-2">⬇️️</div>` : null
+					)
+					.join('')}
+			</div>`
 		)
 		.join('');
+
+const submitCarNames = () => {
+	if (!$carNamesInput.value) {
+		alert(ERR_MSG.EMPTY_CAR_NAME);
+		return;
+	}
+
+	if (!isCheckCarNameLength($carNamesInput.value)) {
+		alert(ERR_MSG.OVER_CAR_NAME_LENGTH);
+		return;
+	}
+
+	style.disabled($carNamesInput);
+	style.block($carTryBlock);
+};
+
+const submitTryNum = () => {
+	if (!$carTryInput.value) {
+		alert(ERR_MSG.EMPTY_TRY_NUM);
+		return;
+	}
+
+	style.disabled($carTryInput);
+	style.flex($carRacingBlock);
+
+	const template = playRacing($carNamesInput.value.split(', '));
 	$carRacingBlock.children[0].innerHTML = template;
-});
+};
+
+$carNamesSubmit.addEventListener('click', submitCarNames);
+$carTrySubmit.addEventListener('click', submitTryNum);
