@@ -1,11 +1,11 @@
 import Car from './models/Car.mjs';
 
 import { carGameResultView, racingCarGameView, tryCountFormView } from './views/index.js';
-import carNameValidator from './validators/carName.js';
+import { carNameValidator, tryCountValidator } from './validators/index.js';
 
 import { $ } from './utils/dom.js';
 import { pickRandomNumberBetweenZeroToNine } from './utils/index.js';
-import { DOM, ERROR_MESSAGE, GAME } from './constants.js';
+import { DOM, GAME } from './constants.js';
 
 class RacingCarGame {
   constructor($target) {
@@ -58,7 +58,7 @@ class RacingCarGame {
     const tryCount = this.$tryCountInput.value;
 
     try {
-      this.isOverThanZero(tryCount);
+      tryCountValidator.isOverThanZero(tryCount);
 
       this.cars.forEach(car => {
         car.gameResult = Array.from({ length: tryCount }).map(() =>
@@ -72,10 +72,6 @@ class RacingCarGame {
     } catch (error) {
       alert(error.message);
     }
-  }
-
-  isOverThanZero(tryCount) {
-    if (tryCount <= 0) throw new Error(ERROR_MESSAGE.INVALID_TRY_COUNT);
   }
 }
 

@@ -1,13 +1,17 @@
 import { GAME, ERROR_MESSAGE } from '../constants.js';
 
-export default {
+const carNameValidator = {
   isEnteredCarNames: carNames => {
     if (!carNames) throw new Error(ERROR_MESSAGE.CAR_NAMES_REQUIRED);
   },
-  isAllCarNamesHaveUnderFiveLetter(carNames) {
+  isAllCarNamesHaveUnderFiveLetter: carNames => {
     const enteredCarNames = carNames.split(', ');
-    const carNamesUnderFiveLetters = enteredCarNames.filter(i => i.length <= GAME.NAME_LIMIT);
+    const carNamesUnderFiveLetters = enteredCarNames.filter(
+      i => i.length <= GAME.CAR_NAME_MAX_LIMIT_LENGTH,
+    );
     if (carNamesUnderFiveLetters.length !== enteredCarNames.length)
       throw new Error(ERROR_MESSAGE.INVALID_CAR_NAMES);
   },
 };
+
+export default carNameValidator;
