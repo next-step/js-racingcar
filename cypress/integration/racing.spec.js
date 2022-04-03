@@ -6,7 +6,7 @@ Cypress.Commands.add('cycleInput', () => cy.get('#racing-cycle-input'));
 
 Cypress.Commands.add('cycleSubmit', () => cy.get('#racing-cycle-submit'));
 
-Cypress.Commands.add('racingScetion', () => cy.get('#racing'));
+Cypress.Commands.add('racingSection', () => cy.get('#racing'));
 
 Cypress.Commands.add('racingResult', () => cy.get('#result'));
 
@@ -33,7 +33,7 @@ describe('자동차 경주 게임', () => {
       cy.cycleSubmit().should('not.be.visible');
     });
     it('초기에 경기가 진행되는 현황은 보이지 않는다.', () => {
-      cy.racingScetion().should('not.exist');
+      cy.racingSection().should('not.exist');
     });
     it('초기에 경기의 우승 결과는 보이지 않는다.', () => {
       cy.racingResult().should('not.exist');
@@ -78,9 +78,6 @@ describe('자동차 경주 게임', () => {
     });
 
     it('정상적으로 입력된 경우 ', () => {
-      const alertStub = cy.stub();
-      cy.on('window:alert', alertStub);
-
       cy.carNamesInput().type('자동,자동차');
       cy.carNamesSubmit()
         .click()
@@ -139,6 +136,29 @@ describe('자동차 경주 게임', () => {
         .then(() => {
           expect(alertStub).to.be.called;
         });
+    });
+
+    it('정상적으로 입력된 경우 ', () => {
+      cy.cycleInput().type(22);
+      cy.cycleSubmit()
+        .click()
+        .then(() => {
+          cy.cycleInput().should('be.disabled');
+          cy.cycleSubmit().should('be.disabled');
+        });
+    });
+  });
+
+  describe('경기 시작', () => {
+    beforeEach(() => {
+      cy.carNamesInput().type('자동1,자동차2,자동3');
+      cy.carNamesSubmit().click();
+      cy.cycleInput().type(5);
+      cy.cycleSubmit().click();
+    });
+
+    it('경기 시작 후 입력된 자동차들이 표시된다.', () => {
+      cy.racingSection().should('be.visible');
     });
   });
 });

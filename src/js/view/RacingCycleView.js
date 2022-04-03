@@ -26,6 +26,10 @@ const RacingCycleView = (function () {
     return !(cycle >= 1 && cycle <= 100);
   }
 
+  function disabledCycleField() {
+    $racingCycleField.disabled = true;
+  }
+
   function handleCycleSubmit() {
     const cycle = $racingCycleInput.value;
     if (isEmptyCycle(cycle)) {
@@ -38,7 +42,7 @@ const RacingCycleView = (function () {
       return;
     }
 
-    console.log('s');
+    disabledCycleField();
   }
 
   function initialize() {
