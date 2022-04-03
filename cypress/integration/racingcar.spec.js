@@ -55,4 +55,13 @@ describe('레이싱카 앱 테스트', () => {
 				);
 			});
 	});
+
+	it('전진 횟수를 입력하면 횟수 입력 필드가 disabled되고 자동차 경주 블록이 나타난다.', () => {
+		cy.get('#car-names-input').type('EAST, WEST, SOUTH, NORTH');
+		cy.get('#car-names-submit').click();
+		cy.get('#car-try-input').type('3');
+		cy.get('#car-try-submit').click();
+		cy.get('#car-try-input').should('be.disabled');
+		cy.get('#car-racing-block').should('be.visible');
+	});
 });
