@@ -146,4 +146,6 @@
 - [ ] 이름과 횟수를 이용하여 결과 값 전달
 - [ ] 우승자 전달
 
-#### 구조 이미지
+#### 구조
+
+index.js(초기 이벤트 바인딩) => Controller/InputEvent => Model/Racing => Validator => View/Render => Controller/InputEvent(반복)

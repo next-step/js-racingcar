@@ -15,9 +15,7 @@ export const racingCountInputEvent = (function(){
     convertDisabledAttr(target)
 
     const racing = new Racing(cars.split(','))
-
     renderRacingArena(cars)
-    
     renderRacingGame(racing, value)
     
     removeSpinner(value)
