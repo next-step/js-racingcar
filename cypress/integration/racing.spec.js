@@ -109,5 +109,16 @@ describe('자동차 경주 게임', () => {
           expect(alertStub).to.be.called;
         });
     });
+
+    it('횟수는 숫자만 입력된다', () => {
+      cy.cycleInput().type('aet');
+      cy.cycleInput().should('have.value', '');
+
+      cy.cycleInput().type('한글');
+      cy.cycleInput().should('have.value', '');
+
+      cy.cycleInput().type(31);
+      cy.cycleInput().should('have.value', 31);
+    });
   });
 });
