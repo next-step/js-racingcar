@@ -1,7 +1,7 @@
 import { selectorAll } from "../../util/consts.js"
 
 
-const removeSpinner = () => {
+const removeSpinner = (value) => {
   setTimeout(
     selectorAll('.track-container')
       .forEach((tag) => tag.removeChild(tag.querySelector('.spinner-component')))

@@ -20,7 +20,7 @@ export const racingCountInputEvent = (function(){
     
     renderRacingGame(racing, value)
     
-    removeSpinner()
+    removeSpinner(value)
   }
 
   return {
