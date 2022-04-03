@@ -13,3 +13,4 @@ export const RANDOM_NUMBER = {
 export const CAR_GO_ABLE_NUMBER = 4;
 
 export const WAIT_TIME = 1000;
+
