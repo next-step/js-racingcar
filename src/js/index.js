@@ -10,6 +10,17 @@ function createRaceLapFieldset() {
   $form.appendChild($div.firstElementChild);
 }
 
+function raceLapSubmitAddEventListener() {
+  document.querySelector('#race-lap-submit').addEventListener('click', () => {
+    const $raceLapInput = document.querySelector('#race-lap-input');
+    const value = $raceLapInput.value.trim();
+
+    if (!value) {
+      alert('시도할 횟수를 입력해주세요.');
+    }
+  });
+}
+
 function disableCarNameInput() {
   document.querySelector('#car-name-input').setAttribute('disabled', 'true');
 }
@@ -43,4 +54,5 @@ $carNameSubmit.addEventListener('click', () => {
   disableCarNameSubmit();
 
   createRaceLapFieldset();
+  raceLapSubmitAddEventListener();
 });
