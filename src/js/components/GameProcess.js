@@ -1,5 +1,6 @@
 import { duplicateTemplate } from '../utils/templateUtil.js';
 import { TEMPLATE, ID, CLASS } from '../constants/selector.js';
+
 const GameProcess = ({ carNames, playTimes }) => {
   let state = {
     carNames,

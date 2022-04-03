@@ -1,5 +1,6 @@
 import UserRacingInput from './components/UserRacingInput.js';
 import GameProcess from './components/GameProcess.js';
+
 const App = () => {
   const state = {
     isGameRunning: false,
