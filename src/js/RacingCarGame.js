@@ -1,9 +1,10 @@
 import Car from './models/Car.mjs';
 
-import { carView } from './views/Car.js';
+import { carGameResultView } from './views/Car.js';
 
 import { $ } from './utils/dom.js';
-import { DOM, ERROR_MESSAGE } from './constants.js';
+import { DOM, ERROR_MESSAGE, GAME_RESULT } from './constants.js';
+import { pickRandomNumberBetweenZeroToNine } from './utils/index.js';
 
 class RacingCarGame {
   constructor($target) {
@@ -103,8 +104,15 @@ class RacingCarGame {
 
     try {
       this.isOverThanZero(tryCount);
+
+      this.cars.forEach(car => {
+        car.gameResult = Array.from({ length: tryCount }).map(() =>
+          pickRandomNumberBetweenZeroToNine() > 3 ? GAME_RESULT.ADVANCE : GAME_RESULT.STOP,
+        );
+      });
+
       $(`#${DOM.GAME_PROCESS_BOARD_ID}`).innerHTML = this.cars
-        .map(car => carView(car.name))
+        .map(car => carGameResultView(car.name, car.gameResult))
         .join('');
     } catch (error) {
       alert(error.message);

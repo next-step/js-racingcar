@@ -7,10 +7,16 @@ export const DOM = Object.freeze({
   TRY_COUNT_SUBMIT_BUTTON_ID: 'try-count-submit-button',
   GAME_PROCESS_BOARD_ID: 'game-process-board',
   GAME_RESULT_SECTION_ID: 'game-result-section',
+  CAR_FORWARD_ICON_CLASS: 'forward-icon',
 });
 
 export const ERROR_MESSAGE = Object.freeze({
   CAR_NAMES_REQUIRED: '자동차 이름을 입력해주세요.',
   INVALID_CAR_NAMES: '자동차 이름은 5글자 이하여야 합니다.',
   INVALID_TRY_COUNT: '시도 횟수는 0보다 커야합니다.',
+});
+
+export const GAME_RESULT = Object.freeze({
+  ADVANCE: 'advance',
+  STOP: 'stop',
 });
