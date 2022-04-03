@@ -32,7 +32,7 @@ const submitCarNames = () => {
 		return;
 	}
 
-	if (!isCheckCarNameLength($carNamesInput.value)) {
+	if (!isCheckCarNameLength($carNamesInput.value.split(', '))) {
 		alert(ERR_MSG.OVER_CAR_NAME_LENGTH);
 		return;
 	}

@@ -1,9 +1,7 @@
 import { MAX_CAR_NAME_LENGTH, RANDOM_NUM } from './constatns.js';
 
 export function isCheckCarNameLength(carName) {
-	return carName
-		.split(', ')
-		.every((item) => item.length <= MAX_CAR_NAME_LENGTH);
+	return carName.every((item) => item.length <= MAX_CAR_NAME_LENGTH);
 }
 
 export function isRace() {
