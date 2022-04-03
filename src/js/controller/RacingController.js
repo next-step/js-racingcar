@@ -1,5 +1,5 @@
 import { Constants } from '../constants/constants.js';
-import { Validator, getRandomNumber } from '../util/Utils.js';
+import { Validator, getRandomNumber, isMoveForwardNumber } from '../util/Utils.js';
 
 export default class RacingController {
   constructor(racingModel, inputView, trackView) {
@@ -19,7 +19,7 @@ export default class RacingController {
 
   submitCarNames() {
     const carNamesInput = document.querySelector('#car-names-input').value;
-    const carNames = carNamesInput.split(',');
+    const carNames = carNamesInput.split(',').map(name => name.trim());
 
     if (carNames.every(Validator.isValidCarName)) {
       alert('자동차 이름은 최소 1글자에서 최대 5글자까지 입력해주세요.');
@@ -51,7 +51,7 @@ export default class RacingController {
 
     const timeIntervalId = setInterval(() => {
       carNames.forEach(car => {
-        if (Validator.isMoveForwardNumber(getRandomNumber())) {
+        if (isMoveForwardNumber(getRandomNumber())) {
           this.trackView.renderMoveForward(car);
         }
       });
