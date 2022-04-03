@@ -75,4 +75,13 @@ describe('자동차 경주 게임', () => {
         expect(alertStub.getCall(0)).to.be.calledWith('시도할 횟수를 입력해주세요.');
       });
   });
+
+  it('시도할 횟수를 입력하면 시도 횟수 입력창과 버튼이 비활성화 된다.', () => {
+    cy.get('#car-name-input').type('EAST,WEST,SOUTH,NORTH');
+    cy.get('#car-name-submit').click();
+    cy.get('#race-lap-input').type('10');
+    cy.get('#race-lap-submit').click();
+    cy.get('#race-lap-input').should('be.disabled');
+    cy.get('#race-lap-submit').should('be.disabled');
+  });
 });
