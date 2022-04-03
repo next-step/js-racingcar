@@ -6,7 +6,8 @@ export const Component = {
   },
 
   combine(target, componentToMerge) {
-    target.textContent += componentToMerge
+    console.log(target, componentToMerge)
+    target += componentToMerge
   }
 }
 

@@ -1,10 +1,9 @@
 import { VALIDATE } from "../../util/consts.js";
-import { Component, render } from "../../View/index.js";
-import { selector } from "../../util/consts.js";
+
 
 import Racing from "../../Model/Racing.js";
-import RacingGame from "../../View/Component/Game/RacingGame.js";
 import convertDisabledAttr from "./commons/convertDisabledAttr.js";
+import renderRacingArena from "../../View/Render/renderRacingArena.js";
 
 export const racingCountInputEvent = (function(){
   const formHandler = (target, cars) => {
@@ -13,17 +12,11 @@ export const racingCountInputEvent = (function(){
     if (Racing.validate.racingCount(value)) return alert(VALIDATE.ALERT_LESS_RACING_COUNT)
 
     convertDisabledAttr(target)
-
+    renderRacingArena(cars)
+    
+    // 이벤트 전달
     const racing = new Racing(cars.split(','), value)
-    console.log(racing)
 
-    render(
-      selector('#app'),
-      Component.create(RacingGame(cars, 'wait'))
-    )
-    
-    // 컴포넌트 생성 및 이벤트 전달
-    
   }
 
   return {
