@@ -17,6 +17,7 @@ export function validationCarNames(str) {
     }
     return true;
 }
+
 export function getCarsNames(str) {
     if (validationCarNames(str)) {
         return str.split(',');
@@ -24,12 +25,18 @@ export function getCarsNames(str) {
     throw new Error(MSG_ERROR_NO_NAMES);
 }
 
-export function getTryCount(str) {
+export function validationTryCount(str) {
     const count = parseInt(str);
 
-    if (!count) {
-        throw new Error(MSG_ERROR_INVALID_NUMBER);
+    if (!count || isNaN(count)) {
+        return false;
     }
+    return true;
+}
 
-    return count;
+export function getTryCount(str) {
+    if (validationTryCount(str)) {
+        return parseInt(str);
+    }
+    throw new Error(MSG_ERROR_INVALID_NUMBER);
 }

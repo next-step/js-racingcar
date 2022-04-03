@@ -51,8 +51,9 @@ function initApp() {
   $tryCntSubmit.addEventListener("click", () => {
     try {
       const count = getTryCount($tryCntInput.value);
-      $raceContainer.classList.remove("hidden");
       const names = getCarsNames($carsNameInput.value);
+
+      $raceContainer.classList.remove("hidden");
       $raceContainer.innerHTML = drawCars(names);
 
       runRace(count, names);
