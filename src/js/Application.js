@@ -13,15 +13,17 @@ export default class Application {
   }
 
   render() {
+    const props = {
+      Car,
+      RacingGame: this.#racingGame,
+      notify: this.#publisher.notify,
+    };
+
     const $root = document.body;
     const $old = $root.firstChild;
     const $new = document.createElement('div');
     $new.setAttribute('id', 'app');
-    $new.replaceChildren(
-      Setup({ Car, RacingGame: this.#racingGame }, this.#publisher),
-      Game({ RacingGame: this.#racingGame }, this.#publisher),
-      Result({ RacingGame: this.#racingGame }, this.#publisher),
-    );
+    $new.replaceChildren(Setup(props), Game(props), Result(props));
 
     diff($root, $old, $new);
   }

@@ -4,6 +4,7 @@ import {
   isFirstChar,
   isLastChar,
   isDuplicatedArray,
+  $,
 } from '../../@helper/index.js';
 import { ERROR_MESSAGE, MAX_NAME_DIGITS } from '../../constants.js';
 
@@ -34,4 +35,9 @@ export const inputCarNamesParsing = carNames => {
   );
 
   return splitedCarNames(carNames);
+};
+
+export const showGameTryCountSection = () => {
+  const $gameTryCountSection = $('[data-props="game-try-count-field"]');
+  $gameTryCountSection.classList.remove('hidden');
 };

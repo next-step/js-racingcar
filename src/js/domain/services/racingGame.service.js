@@ -9,18 +9,20 @@ export default class RacingGameService {
     this.#racingGame = RacingGameModel();
   }
 
-  getWinnedCars() {
-    const winnedCount = Math.max(...this.#racingGame.cars.map(car => car.moveCount));
-    const winnedCars = this.#racingGame.cars.filter(car => car.moveCount === winnedCount);
-    return winnedCars;
-  }
-
   getCars() {
     return this.#racingGame.cars;
   }
 
   getTryCount() {
-    return this.#racingGame.maxTryCount;
+    return this.#racingGame.tryCount;
+  }
+
+  getWinnedCars() {
+    if (this.isFinished()) return null;
+
+    const winnedCount = Math.max(...this.#racingGame.cars.map(car => car.getMoveCount));
+    const winnedCars = this.#racingGame.cars.filter(car => car.getMoveCount === winnedCount);
+    return winnedCars;
   }
 
   setCars(cars) {
@@ -28,7 +30,11 @@ export default class RacingGameService {
   }
 
   setTryCount(tryCount) {
-    this.#racingGame.maxTryCount = tryCount;
+    this.#racingGame.tryCount = tryCount;
+  }
+
+  isFinished() {
+    return this.#racingGame.cars.every(car => car.getMoveCount() !== 0);
   }
 
   readyCars() {
@@ -37,7 +43,7 @@ export default class RacingGameService {
 
   startGame() {
     const randomNumberRange = {
-      count: this.#racingGame.maxTryCount,
+      count: this.#racingGame.tryCount,
       min: DICE_RANGE.MIN,
       max: DICE_RANGE.MAX,
     };

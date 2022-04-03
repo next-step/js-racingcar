@@ -35,7 +35,7 @@ export default class RacingGameController {
     return this;
   }
 
-  finish() {
+  gameFinishedResult() {
     return this.#service.getWinnedCars();
   }
 
