@@ -2,6 +2,10 @@ Cypress.Commands.add('carNamesInput', () => cy.get('#car-names-input'));
 
 Cypress.Commands.add('carNamesSubmit', () => cy.get('#car-names-submit'));
 
+Cypress.Commands.add('cycleInput', () => cy.get('#racing-cycle-input'));
+
+Cypress.Commands.add('cycleSubmit', () => cy.get('#racing-cycle-submit'));
+
 Cypress.Commands.add('racingScetion', () => cy.get('#racing'));
 
 Cypress.Commands.add('racingResult', () => cy.get('#result'));
@@ -23,6 +27,10 @@ describe('자동차 경주 게임', () => {
     it('자동차 이름 입력이 가능한 화면이 보인다.', () => {
       cy.carNamesInput().should('be.visible');
       cy.carNamesSubmit().should('be.visible');
+    });
+    it('자동차 이름을 입력을 통과하기전 횟수 입력 화면이 보이지 않는다.', () => {
+      cy.cycleInput().should('not.be.visible');
+      cy.cycleSubmit().should('not.be.visible');
     });
     it('초기에 경기가 진행되는 현황은 보이지 않는다.', () => {
       cy.racingScetion().should('not.exist');
@@ -79,6 +87,8 @@ describe('자동차 경주 게임', () => {
         .then(() => {
           cy.carNamesInput().should('be.disabled');
           cy.carNamesSubmit().should('be.disabled');
+          cy.cycleInput().should('be.visible');
+          cy.cycleSubmit().should('be.visible');
         });
     });
   });
