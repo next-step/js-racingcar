@@ -60,4 +60,19 @@ describe('자동차 경주 게임', () => {
     cy.get('#race-lap-input').should('be.visible');
     cy.get('#race-lap-submit').should('be.visible');
   });
+
+  it('시도할 횟수를 빈값으로 입력하면 경고창이 출력된다.', () => {
+    const alertStub = cy.stub();
+
+    cy.on('window:alert', alertStub);
+
+    cy.get('#car-name-input').type('EAST,WEST,SOUTH,NORTH');
+    cy.get('#car-name-submit').click();
+    cy.get('#race-lap-input').clear();
+    cy.get('#race-lap-submit')
+      .click()
+      .then(() => {
+        expect(alertStub.getCall(0)).to.be.calledWith('시도할 횟수를 입력해주세요.');
+      });
+  });
 });
