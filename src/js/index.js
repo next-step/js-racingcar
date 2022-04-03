@@ -2,6 +2,22 @@ import { templateRaceLapFieldset } from './template.js';
 
 const $carNameSubmit = document.querySelector('#car-name-submit');
 
+function disableCarNameInput() {
+  document.querySelector('#car-name-input').setAttribute('disabled', 'true');
+}
+
+function disableCarNameSubmit() {
+  document.querySelector('#car-name-submit').setAttribute('disabled', 'true');
+}
+
+function disableRaceLapInput() {
+  document.querySelector('#race-lap-input').setAttribute('disabled', 'true');
+}
+
+function disableRaceLapSubmit() {
+  document.querySelector('#race-lap-submit').setAttribute('disabled', 'true');
+}
+
 function createRaceLapFieldset() {
   const $div = document.createElement('div');
   $div.innerHTML = templateRaceLapFieldset();
@@ -17,16 +33,12 @@ function raceLapSubmitAddEventListener() {
 
     if (!value) {
       alert('시도할 횟수를 입력해주세요.');
+      return;
     }
+
+    disableRaceLapInput();
+    disableRaceLapSubmit();
   });
-}
-
-function disableCarNameInput() {
-  document.querySelector('#car-name-input').setAttribute('disabled', 'true');
-}
-
-function disableCarNameSubmit() {
-  document.querySelector('#car-name-submit').setAttribute('disabled', 'true');
 }
 
 $carNameSubmit.addEventListener('click', () => {
