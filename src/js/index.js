@@ -2,6 +2,7 @@ const $ = (el) => document.querySelector(el);
 
 const $button = $('#car-names-submit');
 const $carTryBlock = $('#car-try-block');
+const $carTrySubmit = $('#car-try-submit');
 
 function isCheckCarNameLength(carName) {
 	return carName.split(', ').every((item) => item.length < 6);
@@ -23,4 +24,11 @@ $button.addEventListener('click', () => {
 
 	$input.disabled = true;
 	$carTryBlock.style.display = 'block';
+});
+
+$carTrySubmit.addEventListener('click', () => {
+	const $carTryInput = $('#car-try-input');
+	if (!$carTryInput.value) {
+		alert('시도할 횟수를 입력해주세요.');
+	}
 });
