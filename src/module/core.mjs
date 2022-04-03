@@ -1,3 +1,5 @@
+import {MSG_ERROR_INVALID_NUMBER, MSG_ERROR_NO_NAMES} from "./constants.js";
+
 export const getRandomNumber = (min, max) =>
   Math.floor(Math.random() * (max + 1 - min) + min);
 
@@ -10,7 +12,7 @@ export function getCarsNames(str) {
         carsNames.length === 0 ||
         carsNames.some((name) => name.trim() === "")
     ) {
-        throw new Error("자동차 이름을 입력해주세요.");
+        throw new Error(MSG_ERROR_NO_NAMES);
     }
     return carsNames;
 }
@@ -18,7 +20,7 @@ export function getCarsNames(str) {
 export function getTryCount(str) {
     const count = parseInt(str);
     if (!count) {
-        throw new Error("0이 아닌 숫자를 입력해주세요.");
+        throw new Error(MSG_ERROR_INVALID_NUMBER);
     }
     return count;
 }
