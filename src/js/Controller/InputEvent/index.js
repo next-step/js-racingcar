@@ -1,7 +1,8 @@
 import { racingCarInputEvent } from "./racingCarInputEvent.js";
+import { racingCountInputEvent } from "./racingCountInputEvent.js";
 import { selector } from "../../util/consts.js";
 
-const init = () => {
+export const init = () => {
   const carForm = selector('.racing-form')
   carForm.addEventListener('submit', event => event.preventDefault())
 
@@ -12,4 +13,11 @@ const init = () => {
   carNameInput.addEventListener('keypress', racingCarInputEvent.racingCarNameKeyboardEvent)
 }
 
-export default init;
+export const racingCountEvent = (value) => {
+  const racingCountButton = selector('.racing-count-button');
+  racingCountButton.addEventListener('click', (event) => racingCountInputEvent.racingCountClickEvent(event, value))
+  
+  const racingCountInput = selector('.racing-count-input')
+  racingCountInput.addEventListener('keypress', (event) => racingCountInputEvent.racingCountKeyboardEvent(event, value))
+}
+

@@ -4,15 +4,15 @@ export const Component = {
     this.fragment.textContent = component
     return this.fragment.textContent
   },
+
+  combine(target, componentToMerge) {
+    target.textContent += componentToMerge
+  }
 }
+
 
 export const render = (target, component) => {
   target.innerHTML += component
-  return {
-    init() {
-
-    }
-  }
 }
 
 

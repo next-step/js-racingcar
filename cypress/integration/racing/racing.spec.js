@@ -5,7 +5,7 @@ describe('레이싱 테스트', () => {
     cy.visit('/')
   })
   
-  describe('레이싱 게임 input 테스트', () => {
+  describe('레이싱 폼 테스트', () => {
     beforeEach(() => {
       Cypress.Commands.add('submitCarName', (inputValue) => {
         cy.get('[data-form=name-input]').type(inputValue + '{enter}')
@@ -72,5 +72,9 @@ describe('레이싱 테스트', () => {
       })
     })
   })
+
+  // describe('레이싱 게임 테스트', () => {
+  //   it()
+  // })
 });
   

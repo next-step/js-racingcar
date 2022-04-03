@@ -4,42 +4,47 @@ import { selector } from "../../util/consts.js";
 
 import Racing from "../../Model/Racing.js";
 import RacingGame from "../../View/Component/Game/RacingGame.js";
+import convertDisabledAttr from "./commons/convertDisabledAttr.js";
 
 export const racingCountInputEvent = (function(){
-  const formHandler = (target) => {
-    const [input, button] = target
-    const { value } = input
+  const formHandler = (target, cars) => {
+    const { value } = target.input
 
     if (Racing.validate.racingCount(value)) return alert(VALIDATE.ALERT_LESS_RACING_COUNT)
 
-    // 중복 리팩토링 요망
-    input.disabled = true
-    button.disabled = true
-    input.setAttribute('value', value)
+    convertDisabledAttr(target)
 
-    const carNameInput = selector('.car-name-input')
+    const racing = new Racing(cars.split(','), value)
+    console.log(racing)
 
     render(
       selector('#app'),
-      Component.create(RacingGame(carNameInput.value, 'wait'))
+      Component.create(RacingGame(cars, 'wait'))
     )
     
-    // 이벤트 전달
+    // 컴포넌트 생성 및 이벤트 전달
     
   }
 
   return {
-    racingCountClickEvent(event) {
+    // 중복제거 => 이걸 상속 받게 클래스로 만들까?
+    racingCountClickEvent(event, cars) {
       if (event.target) {
-        const target = [event.target.previousElementSibling, event.target]
-        formHandler(target)
+        const target = {
+          input: event.target.previousElementSibling,
+          button: event.target
+        }
+        formHandler(target, cars)
       }
     },
   
-    racingCountKeyboardEvent(event) {
+    racingCountKeyboardEvent(event, cars) {
       if (event.target && event.key === 'Enter') {
-        const target = [event.target, event.target.nextElementSibling]
-        formHandler(target)
+        const target = {
+          input: event.target,
+          button: event.target.nextElementSibling
+        }
+        formHandler(target, cars)
       }
     },
   }
