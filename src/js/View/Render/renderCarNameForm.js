@@ -1,5 +1,5 @@
 import { selector } from "../../util/consts.js";
-import { render, Component } from "../index.js"
+import { render, Component } from "../render.js"
 import Form from "../Component/Form/Form.js";
 
 const renderCarNameForm = () => {

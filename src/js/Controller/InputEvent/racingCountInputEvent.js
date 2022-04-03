@@ -4,6 +4,7 @@ import Racing from "../../Model/Racing.js";
 import convertDisabledAttr from "./commons/convertDisabledAttr.js";
 import renderRacingArena from "../../View/Render/renderRacingArena.js";
 import renderRacingGame from "../../View/Render/renderRacing.js";
+import removeSpinner from "../../View/Render/removeSpinner.js";
 
 export const racingCountInputEvent = (function(){
   const formHandler = (target, cars) => {
@@ -12,14 +13,17 @@ export const racingCountInputEvent = (function(){
     if (Racing.validate.racingCount(value)) return alert(VALIDATE.ALERT_LESS_RACING_COUNT)
 
     convertDisabledAttr(target)
-    renderRacingArena(cars)
 
     const racing = new Racing(cars.split(','))
+
+    renderRacingArena(cars)
+    
     renderRacingGame(racing, value)
+    
+    removeSpinner()
   }
 
   return {
-    // 중복제거 => 이걸 상속 받게 클래스로 만들까?
     racingCountClickEvent(event, cars) {
       if (event.target) {
         const target = {

@@ -1,6 +1,6 @@
 import Go from "../Component/Game/Go.js";
 import { selectorAll } from "../../util/consts.js";
-import { Component, render } from "../index.js";
+import { Component, render } from "../render.js";
 
 const renderArrow = (index) => {
   render(
@@ -10,9 +10,7 @@ const renderArrow = (index) => {
 }
 
 const renderDelay = (index, i) => {
-  setTimeout(() => {
-    renderArrow(index)
-  }, 1000 * (i + 1));
+  setTimeout(renderArrow, 1000 * (i + 1), index)
 }
 
 const setUpRacing = (racing, i) => {
@@ -22,7 +20,7 @@ const setUpRacing = (racing, i) => {
 )}
 
 const renderRacingGame = (racing, value) => {
-  Array.from({ length: value }).forEach((e, i) => setUpRacing(racing, i));
+    Array.from({ length: value }).forEach((e, i) => setUpRacing(racing, i))
 }
 
 export default renderRacingGame;

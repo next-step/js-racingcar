@@ -11,3 +11,5 @@ export const TITLE = {
   예시) EAST, WEST, SOUTH, NORTH`,
   RACING_COUNT: `시도할 횟수를 입력해주세요.`
 };
+
+export const WINNING_NUMBER = 4

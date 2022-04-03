@@ -16,7 +16,9 @@ export const racingCarInputEvent = (function(){
     if (Racing.validate.carNameLength(value)) return alert(VALIDATE.ALERT_WRONG_RACING_CAR_NAME)
 
     convertDisabledAttr(target)
+
     renderCountForm()
+    
     racingCountEvent(value)
   }
 
