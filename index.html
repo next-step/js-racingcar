@@ -28,12 +28,14 @@
             </div>
           </fieldset>
           <fieldset id="racing-cycle-field" class="hide">
-            <p>시도할 횟수를 입력해주세요.</p>
+            <p>시도할 횟수를 입력해주세요. (1~100)</p>
             <div class="d-flex">
               <input
                 id="racing-cycle-input"
                 type="number"
                 class="w-100 mr-2"
+                min="1"
+                max="100"
                 placeholder="시도 횟수"
               />
               <button

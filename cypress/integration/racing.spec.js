@@ -120,5 +120,25 @@ describe('자동차 경주 게임', () => {
       cy.cycleInput().type(31);
       cy.cycleInput().should('have.value', 31);
     });
+
+    it('횟수는 1에서 100을 벗어난 경우 경고창이 뜬다.', () => {
+      const alertStub = cy.stub();
+      cy.on('window:alert', alertStub);
+
+      cy.cycleInput().type(-12);
+      cy.cycleSubmit()
+        .click()
+        .then(() => {
+          expect(alertStub).to.be.called;
+        });
+
+      cy.cycleInput().clear();
+      cy.cycleInput().type(101);
+      cy.cycleSubmit()
+        .click()
+        .then(() => {
+          expect(alertStub).to.be.called;
+        });
+    });
   });
 });
