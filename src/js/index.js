@@ -3,11 +3,18 @@ const $ = (el) => document.querySelector(el);
 const $carNamesInput = $('#car-names-input');
 const $carNamesSubmit = $('#car-names-submit');
 const $carTryBlock = $('#car-try-block');
+const $carTryInput = $('#car-try-input');
 const $carTrySubmit = $('#car-try-submit');
 const $carRacingBlock = $('#car-racing-block');
 
 function isCheckCarNameLength(carName) {
 	return carName.split(', ').every((item) => item.length < 6);
+}
+
+function isRace() {
+	// TODO: random number 생성을 따로 함수로 분리
+	const randomNum = Math.floor(Math.random() * 9) + 0;
+	return randomNum >= 4;
 }
 
 $carNamesSubmit.addEventListener('click', () => {
@@ -28,8 +35,6 @@ $carNamesSubmit.addEventListener('click', () => {
 });
 
 $carTrySubmit.addEventListener('click', () => {
-	const $carTryInput = $('#car-try-input');
-
 	if (!$carTryInput.value) {
 		alert('시도할 횟수를 입력해주세요.');
 		return;
@@ -37,17 +42,21 @@ $carTrySubmit.addEventListener('click', () => {
 
 	$carTryInput.disabled = true;
 	$carRacingBlock.style.display = 'flex';
-	$carRacingBlock.children[0].innerHTML = `
-		${$carNamesInput.value
-			.split(', ')
-			.map(
-				(name) =>
-					`<div class="mr-2">
+
+	const template = $carNamesInput.value
+		.split(', ')
+		.map(
+			(name) =>
+				`<div class="mr-2">
 					<div class="car-player">${name}</div>
-					<div class="forward-icon mt-2">⬇️️</div>
-					<div class="forward-icon mt-2">⬇️️</div>
+					${Array(Number($carTryInput.value))
+						.fill(0)
+						.map(() =>
+							isRace() ? `<div class="forward-icon mt-2">⬇️️</div>` : null
+						)
+						.join('')}
 				</div>`
-			)
-			.join('')}
-		`;
+		)
+		.join('');
+	$carRacingBlock.children[0].innerHTML = template;
 });
