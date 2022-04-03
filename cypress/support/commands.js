@@ -18,3 +18,7 @@ Cypress.Commands.add('alertCarNamesInput', () => {
       expect(alertStub.getCall(0)).to.be.calledWith(ALERT_MESSAGES.INVALID_CAR_NAMES);
     });
 });
+
+Cypress.Commands.add('getInputRaceTimesSection', () => {
+  cy.get('[data-cy="input-race-times-section"]');
+});

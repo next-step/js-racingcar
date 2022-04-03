@@ -9,14 +9,24 @@ describe('자동차 경주 게임', () => {
       cy.alertCarNamesInput();
     });
 
-    it('자동차 이름 길이가 1미만인 이름을 입력한다.', () => {
+    it('자동차 이름 길이가 1 미만인 이름을 입력한다.', () => {
+      cy.getCarNameInput().clear();
       cy.getCarNameInput().type('EAST, , SOUTH, NORTH');
       cy.alertCarNamesInput();
     });
 
-    it('자동차 이름 길이가 5초과인 이름을 입력한다.', () => {
+    it('자동차 이름 길이가 5 초과인 이름을 입력한다.', () => {
+      cy.getCarNameInput().clear();
       cy.getCarNameInput().type('EAST, WEST, SOUTH, NORTHHHHHHHH');
       cy.alertCarNamesInput();
+    });
+
+    it('길이가 모두 1 ~ 5 사이인 자동차 이름을 입력한다.', () => {
+      cy.getCarNameInput().clear();
+      cy.getCarNameInput().type('EAST, WEST, SOUTH, NORTH');
+      cy.getCarNameSubmitButton().click();
+
+      cy.getInputRaceTimesSection().should('be.visible');
     });
   });
 });

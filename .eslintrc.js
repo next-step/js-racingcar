@@ -8,7 +8,7 @@ module.exports = {
     ecmaVersion: 2021,
     sourceType: 'module',
   },
-  plugins: [],
+  plugins: ['prettier'],
   rules: {
     'no-new': 0,
     'no-alert': 0,
