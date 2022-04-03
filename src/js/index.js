@@ -10,6 +10,14 @@ function createRaceLapFieldset() {
   $form.appendChild($div.firstElementChild);
 }
 
+function disableCarNameInput() {
+  document.querySelector('#car-name-input').setAttribute('disabled', 'true');
+}
+
+function disableCarNameSubmit() {
+  document.querySelector('#car-name-submit').setAttribute('disabled', 'true');
+}
+
 $carNameSubmit.addEventListener('click', () => {
   const $carNameInput = document.querySelector('#car-name-input');
   const value = $carNameInput.value.trim();
@@ -30,6 +38,9 @@ $carNameSubmit.addEventListener('click', () => {
     alert('자동차 이름은 쉼표를 기준으로 5자 이하만 가능합니다.');
     return;
   }
+
+  disableCarNameInput();
+  disableCarNameSubmit();
 
   createRaceLapFieldset();
 });
