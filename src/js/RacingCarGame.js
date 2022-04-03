@@ -2,6 +2,7 @@ import Car from './models/Car.mjs';
 
 import { carGameResultView } from './views/Car.js';
 import { racingCarGameView } from './views/RacingCarGame.js';
+import { tryCountFormView } from './views/TryCount.js';
 
 import { $ } from './utils/dom.js';
 import { pickRandomNumberBetweenZeroToNine } from './utils/index.js';
@@ -39,7 +40,7 @@ class RacingCarGame {
     try {
       this.isEnteredCarNames(carNames);
       this.isUnderFiveLetterCarNames(carNames);
-      $(`#${DOM.TRY_COUNT_FIELD_SET_ID}`).innerHTML = this.tryCountTemplate();
+      $(`#${DOM.TRY_COUNT_FIELD_SET_ID}`).innerHTML = tryCountFormView();
       carNames.split(', ').forEach(carName => this.cars.push(new Car(carName)));
       this.tryCountAddEvent();
     } catch (error) {
@@ -56,16 +57,6 @@ class RacingCarGame {
     const carNamesUnderFiveLetters = enteredCarNames.filter(i => i.length <= 5);
     if (carNamesUnderFiveLetters.length !== enteredCarNames.length)
       throw new Error(ERROR_MESSAGE.INVALID_CAR_NAMES);
-  }
-
-  tryCountTemplate() {
-    return String.raw`
-      <p>시도할 횟수를 입력해주세요.</p>
-      <div class="d-flex">
-        <input id="${DOM.TRY_COUNT_INPUT_ID}" type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-        <button id="${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}" type="button" class="btn btn-cyan">확인</button>
-      </div>
-    `;
   }
 
   tryCountAddEvent() {
