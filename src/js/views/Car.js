@@ -1,10 +1,10 @@
-import { DOM, GAME_RESULT } from '../constants.js';
+import { DOM, GAME } from '../constants.js';
 
 export function carGameResultView(name, gameResult) {
   return String.raw`
     <div data-car-name="${name}" class="mr-2">
       <div class="car-player">${name}</div>
-      ${gameResult.map(result => (result === GAME_RESULT.ADVANCE ? carAdvanceView() : '')).join('')}
+      ${gameResult.map(result => (result === GAME.ADVANCE ? carAdvanceView() : '')).join('')}
     </div>
   `;
 }

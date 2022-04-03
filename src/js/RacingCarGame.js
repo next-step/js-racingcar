@@ -1,10 +1,11 @@
 import Car from './models/Car.mjs';
 
 import { carGameResultView } from './views/Car.js';
+import { racingCarGameView } from './views/RacingCarGame.js';
 
 import { $ } from './utils/dom.js';
-import { DOM, ERROR_MESSAGE, GAME_RESULT } from './constants.js';
 import { pickRandomNumberBetweenZeroToNine } from './utils/index.js';
+import { DOM, ERROR_MESSAGE, GAME } from './constants.js';
 
 class RacingCarGame {
   constructor($target) {
@@ -15,7 +16,7 @@ class RacingCarGame {
   }
 
   render() {
-    this.$target.innerHTML = this.template();
+    this.$target.innerHTML = racingCarGameView();
     this.mounted();
   }
 
@@ -57,31 +58,6 @@ class RacingCarGame {
       throw new Error(ERROR_MESSAGE.INVALID_CAR_NAMES);
   }
 
-  template() {
-    return String.raw`
-      <section class="d-flex justify-center mt-5">
-        <form>
-          <fieldset>
-            <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
-            <p>
-              5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
-              예시) EAST, WEST, SOUTH, NORTH
-            </p>
-            <div class="d-flex">
-              <input id="${DOM.CAR_NAMES_INPUT_ID}" type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-              <button id="${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}" type="button" class="btn btn-cyan">확인</button>
-            </div>
-          </fieldset>
-          <fieldset id="${DOM.TRY_COUNT_FIELD_SET_ID}"></fieldset>
-        </form>
-      </section>
-      <section class="d-flex justify-center mt-5">
-        <div id="${DOM.GAME_PROCESS_BOARD_ID}" class="mt-4 d-flex"></div>
-      </section>
-      <section id="${DOM.GAME_RESULT_SECTION_ID}" class="d-flex justify-center mt-5"></section>
-    `;
-  }
-
   tryCountTemplate() {
     return String.raw`
       <p>시도할 횟수를 입력해주세요.</p>
@@ -107,7 +83,7 @@ class RacingCarGame {
 
       this.cars.forEach(car => {
         car.gameResult = Array.from({ length: tryCount }).map(() =>
-          pickRandomNumberBetweenZeroToNine() > 3 ? GAME_RESULT.ADVANCE : GAME_RESULT.STOP,
+          pickRandomNumberBetweenZeroToNine() > 3 ? GAME.ADVANCE : GAME.STOP,
         );
       });
 
