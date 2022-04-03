@@ -1,8 +1,6 @@
 import Car from './models/Car.mjs';
 
-import { carGameResultView } from './views/Car.js';
-import { racingCarGameView } from './views/RacingCarGame.js';
-import { tryCountFormView } from './views/TryCount.js';
+import { carGameResultView, racingCarGameView, tryCountFormView } from './views/index.js';
 import carNameValidator from './validators/carName.js';
 
 import { $ } from './utils/dom.js';
