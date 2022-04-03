@@ -19,4 +19,5 @@ export const ERROR_MESSAGE = Object.freeze({
 export const GAME = Object.freeze({
   ADVANCE: 'advance',
   STOP: 'stop',
+  NAME_LIMIT: 5,
 });
