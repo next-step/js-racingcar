@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import {MSG_ERROR_INVALID_NUMBER, MSG_ERROR_NO_NAMES} from "../../src/module/constants";
+import {MSG_ERROR_INVALID_NUMBER, MSG_ERROR_NO_NAMES} from "../../src/module/constants.mjs";
 
 describe('step1', () => {
     before(() => {

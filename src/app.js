@@ -4,8 +4,10 @@ import {
   getCommand,
   getRandomNumber,
   getTryCount,
+  validationCarNames,
 } from "./module/core.mjs";
 import { drawCars, forwardIcon } from "./module/templates.mjs";
+import { MSG_ERROR_NO_NAMES } from "./module/constants.mjs";
 
 function initApp() {
   const $app = document.querySelector("#app");
@@ -39,12 +41,11 @@ function initApp() {
   }
 
   $carsNameSubmit.addEventListener("click", () => {
-    try {
-      getCarsNames($carsNameInput.value);
+    if (validationCarNames($carsNameInput.value)) {
       $tryCntFieldSet.classList.remove("hidden");
-    } catch (e) {
-      alert(e.message);
+      return;
     }
+    alert(MSG_ERROR_NO_NAMES);
   });
 
   $tryCntSubmit.addEventListener("click", () => {
