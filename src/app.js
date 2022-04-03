@@ -23,6 +23,7 @@ function initApp() {
   function runRound(name) {
     const randomNumber = getRandomNumber(0, 9);
     const command = getCommand(randomNumber);
+
     if (command === COMMAND_GO) {
       document
         .querySelector(`[aria-label="${name}"]`)
@@ -33,7 +34,7 @@ function initApp() {
   function runRace(maxRound, names) {
     for (let i = 0; i < maxRound; i += 1) {
       $raceContainer.dataset.round = `${i + 1}`;
-      names.forEach((name) => runRound(name));
+      names.forEach(runRound);
     }
   }
 
