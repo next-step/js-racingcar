@@ -10,6 +10,10 @@ describe('레이싱 테스트', () => {
       Cypress.Commands.add('submitCarName', (inputValue) => {
         cy.get('[data-form=name-input]').type(inputValue + '{enter}')
       })
+
+      Cypress.Commands.add('submitCount', (count) => {
+        cy.get('[data-form=count-input]').type(count + '{enter}')
+      })
     })
 
     it('자동차 이름이 공란이라면 alert창을 띄운다.', () => {
@@ -51,6 +55,20 @@ describe('레이싱 테스트', () => {
       cy.get('[data-form=count-input]').type('{enter}').then(_ => {
         const message = alert.getCall(0).lastArg;
         expect(message).to.equal(VALIDATE.ALERT_LESS_RACING_COUNT);
+      })
+    })
+
+    it('유효성 검증에 모두 통과하고 submit하면 Content Component가 보인다.', () => {
+      cy.submitCarName('raven, kiwi')
+      cy.submitCount(5)
+      cy.get('.racing-arena').should('be.visible')
+    })
+
+    it('유효성 검증에 모두 통과하고 submit하면 시도할 횟수 컴포넌트를 이용할 수 없다.', () => {
+      cy.submitCarName('raven, kiwi')
+      cy.submitCount(5).then(_ => {
+        cy.get('[data-form=count-input]').should('be.disabled').and('have.value', '5')
+        cy.get('[data-form=count-button]').should('be.disabled')
       })
     })
   })

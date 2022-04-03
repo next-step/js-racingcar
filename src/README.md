@@ -15,9 +15,9 @@
 - [x] 자동차 이름 유효성 검증을 통과하면 하위 시도 UI가 보인다.
 - [x] 시도할 횟수를 입력하지 않으면 alert창 (입력한 레이싱 횟수가 너무 적습니다. 레이싱 횟수는 1이상이어야 합니다.)이 나온다.
 - [x] 마지막 부분은 콤마가 없어야 한다.
-- [ ] 유효성 검증에 모두 통과하고 submit하면 Content Component가 보인다.
-- [ ] 유효성 검증에 모두 통과하고 submit하면 자동차 이름 컴포넌트를 이용할 수 없다.
-- [ ] 시도 횟수에 제한이 없다.
+- [x] 유효성 검증에 모두 통과하고 submit하면 Content Component가 보인다.
+- [x] 유효성 검증에 모두 통과하고 submit하면 자동차 이름 및 시도할 횟수 컴포넌트를 이용할 수 없다.
+- [x] 시도 횟수에 제한이 없다.
 
 ### Content
 
@@ -103,21 +103,21 @@
 ```
 
 ```JSX
-<Content>
-  <Racing>
-    <Arrow/>
-    <Arrow/>
-  </Racing>
-  <Racing>
-    <Arrow/>
-  </Racing>
-  <Racing>
-    <WaitSpinner/>
-  </Racing>
-  <Racing>
-    <WaitSpinner/>
-  </Racing>
-</Content>
+<RacingGame>
+  <Track>
+    <Go/>
+    <Go/>
+  </Track>
+  <Track>
+    <Go/>
+  </Track>
+  <Track>
+    <Wait/>
+  </Track>
+  <Track>
+    <Wait/>
+  </Track>
+</RacingGame>
 ```
 
 ```HTML

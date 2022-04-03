@@ -1,6 +1,9 @@
-import Racing from "../../Model/Racing.js";
 import { VALIDATE } from "../../util/consts.js";
 import { Component, render } from "../../View/index.js";
+import { selector } from "../../util/consts.js";
+
+import Racing from "../../Model/Racing.js";
+import RacingGame from "../../View/Component/Game/RacingGame.js";
 
 export const racingCountInputEvent = (function(){
   const formHandler = (target) => {
@@ -9,11 +12,20 @@ export const racingCountInputEvent = (function(){
 
     if (Racing.validate.racingCount(value)) return alert(VALIDATE.ALERT_LESS_RACING_COUNT)
 
-    console.log('pass')
+    // 중복 리팩토링 요망
+    input.disabled = true
+    button.disabled = true
+    input.setAttribute('value', value)
 
-    // count input & button disabled 부착
+    const carNameInput = selector('.car-name-input')
+
+    render(
+      selector('#app'),
+      Component.create(RacingGame(carNameInput.value, 'wait'))
+    )
+    
     // 이벤트 전달
-    // 하위 레이싱 컴포넌트 렌더링
+    
   }
 
   return {
