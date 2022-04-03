@@ -1,3 +1,6 @@
+import CarsInput from "./CarsInput.js";
+import CountInput from "./CountInput.js";
+
 function App() {
   return `
  
@@ -9,17 +12,10 @@ function App() {
                 5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
                 예시) EAST, WEST, SOUTH, NORTH
               </p>
-              <div class="d-flex">
-                <input type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-                <button type="button" class="btn btn-cyan">확인</button>
-              </div>
+              <div id="cars-input-component"></div>
             </fieldset>
             <fieldset>
-              <p>시도할 횟수를 입력해주세요.</p>
-              <div class="d-flex">
-                <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-                <button type="button" class="btn btn-cyan">확인</button>
-              </div>
+              <div id="count-input-component"></div>
             </fieldset>
           </form>
         </section>
@@ -64,5 +60,12 @@ function App() {
         `;
 }
 
+/** Start Rendering App */
 const appTarget = document.querySelector("#app");
 appTarget.innerHTML = App();
+
+/** Layout Components */
+const carsInputTarget = document.querySelector("#cars-input-component");
+carsInputTarget.innerHTML = CarsInput();
+const countInputTarget = document.querySelector("#count-input-component");
+countInputTarget.innerHTML = CountInput();

@@ -3,23 +3,34 @@ describe("STEP 1", function () {
     cy.visit("http://127.0.0.1:5500/index.html");
   });
 
+  const CARS_INPUT_FIELD_SELECTOR = "#cars-input-component div input";
+  const COUNT_INPUT_FIELD_SELECTOR = "#count-input-component div input";
+
   context("최초 화면 렌더링에 관련된 테스트", () => {
     it("최초 랜더 시, 자동차 이름을 입력할 수 있는 입력창이 보여진다. ", function () {
-      cy.get("#cars-input").should("be.visible");
+      cy.get(CARS_INPUT_FIELD_SELECTOR).should("be.visible");
     });
 
     it("시도할 횟수를 입력할 수 있는 입력창이 보여진다. ", function () {
-      cy.get("#count-input").should("be.visible");
+      cy.get(COUNT_INPUT_FIELD_SELECTOR).should("be.visible");
     });
 
     it("자동차 이름을 입력하지 않을 경우 적절한 placeholder가 보여진다. ", function () {
-      cy.get("#cars-input").clear();
-      cy.get("#cars-input").should("have.attr", "placeholder", "자동차 이름");
+      cy.get(CARS_INPUT_FIELD_SELECTOR).clear();
+      cy.get(CARS_INPUT_FIELD_SELECTOR).should(
+        "have.attr",
+        "placeholder",
+        "자동차 이름"
+      );
     });
 
     it("시도할 횟수에 아무것도 입력하지 않을 경우 적절한 placeholder가 보여진다. ", function () {
-      cy.get("#count-input").clear();
-      cy.get("#count-input").should("have.attr", "placeholder", "시도 횟수");
+      cy.get(COUNT_INPUT_FIELD_SELECTOR).clear();
+      cy.get(COUNT_INPUT_FIELD_SELECTOR).should(
+        "have.attr",
+        "placeholder",
+        "시도 횟수"
+      );
     });
   });
 
@@ -27,7 +38,7 @@ describe("STEP 1", function () {
     it("자동차 이름을 쉼표로 구분하여 입력할 경우 입력된 자동차가 화면에 보여진다. ", function () {
       const inputExample = "호랑이,거북이,고양이,원숭이,부엉이";
       const inputExampleArray = inputExample.split(",");
-      cy.get("#cars-input").type(inputExample);
+      cy.get(CARS_INPUT_FIELD_SELECTOR).type(inputExample);
       cy.get(".car-player").each((element, index) => {
         const expectedString = inputExampleArray[index];
         expect(element.text()).to.equal(expectedString);
