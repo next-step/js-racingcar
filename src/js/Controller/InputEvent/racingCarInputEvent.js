@@ -1,9 +1,8 @@
 import Racing from "../../Model/Racing.js";
-import { VALIDATE } from "../../util/consts.js";
 import renderCountForm from "../../View/Render/renderCountForm.js";
-
-
 import convertDisabledAttr from "./commons/convertDisabledAttr.js";
+
+import { VALIDATE } from "../../util/consts.js";
 import { racingCountEvent } from "./index.js";
 
 
@@ -18,7 +17,7 @@ export const racingCarInputEvent = (function(){
     convertDisabledAttr(target)
 
     renderCountForm()
-    
+
     racingCountEvent(value)
   }
 

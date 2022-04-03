@@ -1,10 +1,10 @@
-import { VALIDATE } from "../../util/consts.js";
-
 import Racing from "../../Model/Racing.js";
 import convertDisabledAttr from "./commons/convertDisabledAttr.js";
 import renderRacingArena from "../../View/Render/renderRacingArena.js";
 import renderRacingGame from "../../View/Render/renderRacing.js";
 import removeSpinner from "../../View/Render/removeSpinner.js";
+
+import { VALIDATE } from "../../util/consts.js";
 
 export const racingCountInputEvent = (function(){
   const formHandler = (target, cars) => {

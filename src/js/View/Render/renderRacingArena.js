@@ -1,8 +1,9 @@
+import RacingGameArena from "../Component/Game/RacingGame.js";
+import Track from "../Component/Game/Track.js";
+
 import { selector } from "../../util/consts.js";
 import { render, Component } from "../render.js"
 
-import RacingGameArena from "../Component/Game/RacingGame.js";
-import Track from "../Component/Game/Track.js";
 
 
 const renderRacingArena = (cars) => {

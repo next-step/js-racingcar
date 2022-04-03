@@ -1,5 +1,6 @@
-import { WINNING_NUMBER } from "../util/consts.js";
 import Validator from "./Validator.js";
+
+import { WINNING_NUMBER } from "../util/consts.js";
 
 class Racing {
   #cars
@@ -10,8 +11,8 @@ class Racing {
 
   start() {
     return Array.from({length: this.#cars.length})
-      .map((e) => e = this.generateRandomNumber().next().value)
-      .map((e) => e >= WINNING_NUMBER )
+      .map(e => e = this.generateRandomNumber().next().value)
+      .map(e => e >= WINNING_NUMBER )
   }
 
   *generateRandomNumber() {

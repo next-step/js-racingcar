@@ -1,4 +1,5 @@
 import Go from "../Component/Game/Go.js";
+
 import { selectorAll } from "../../util/consts.js";
 import { Component, render } from "../render.js";
 
