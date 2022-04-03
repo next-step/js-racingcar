@@ -1,9 +1,9 @@
 import { VALIDATE } from "../../util/consts.js";
 
-
 import Racing from "../../Model/Racing.js";
 import convertDisabledAttr from "./commons/convertDisabledAttr.js";
 import renderRacingArena from "../../View/Render/renderRacingArena.js";
+import renderRacingGame from "../../View/Render/renderRacing.js";
 
 export const racingCountInputEvent = (function(){
   const formHandler = (target, cars) => {
@@ -13,10 +13,9 @@ export const racingCountInputEvent = (function(){
 
     convertDisabledAttr(target)
     renderRacingArena(cars)
-    
-    // 이벤트 전달
-    const racing = new Racing(cars.split(','), value)
 
+    const racing = new Racing(cars.split(','))
+    renderRacingGame(racing, value)
   }
 
   return {

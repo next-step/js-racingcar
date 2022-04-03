@@ -2,15 +2,19 @@ import Validator from "./Validator.js";
 
 class Racing {
   #cars
-  #count
 
-  constructor(cars, count) {
-    this.#cars = cars,
-    this.#count = count
+  constructor(cars) {
+    this.#cars = cars
   }
 
-  racingStart(callback) {
+  start() {
+    return Array.from({length: this.#cars.length})
+      .map((e) => e = this.generateRandomNumber().next().value)
+      .map((e) => e >= 4 )
+  }
 
+  *generateRandomNumber() {
+    while (true) yield Math.floor(Math.random() * 10)
   }
 
   static get validate() {

@@ -6,7 +6,6 @@ export const Component = {
   },
 
   combine(target, componentToMerge) {
-    console.log(target, componentToMerge)
     target += componentToMerge
   }
 }
