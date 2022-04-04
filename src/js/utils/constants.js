@@ -27,4 +27,8 @@ export const CLASS_NAME = {
 export const NUM = {
   MIN_VALUE: 0,
   MAX_VALUE: 9,
+  MIN_COUNT: 0,
+  MAX_COUNT: 20,
+  MAX_LENGTH: 5,
+  ADVANCE_STANDARD: 4,
 };

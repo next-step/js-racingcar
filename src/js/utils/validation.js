@@ -1,24 +1,22 @@
+import { NUM } from './constants.js';
+
 export function isInvalidCarName(name) {
   const carName = name.trim();
 
   const isEmptyString = !carName;
-  const isMaxLength = carName.length > 5;
+  const isMaxLength = carName.length > NUM.MAX_LENGTH;
 
   return isEmptyString || isMaxLength;
 }
 
 export function isOverMaxCount(count) {
-  return count > 20;
+  return count > NUM.MAX_COUNT;
 }
 
 export function isUnderMinCount(count) {
-  return count <= 0;
-}
-
-export function isStop(num) {
-  return num <= 3;
+  return count <= NUM.MIN_COUNT;
 }
 
 export function isAdvance(num) {
-  return num >= 4;
+  return num >= NUM.ADVANCE_STANDARD;
 }

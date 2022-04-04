@@ -1,10 +1,8 @@
 import { CLASS_NAME, MESSAGE, SELECTOR } from '../utils/constants.js';
 import { wait } from '../utils/helper.js';
 import {
-  isAdvance,
   isInvalidCarName,
   isOverMaxCount,
-  isStop,
   isUnderMinCount,
 } from '../utils/validation.js';
 import Racing from './Racing.js';
