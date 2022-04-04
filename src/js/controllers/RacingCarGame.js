@@ -21,14 +21,16 @@ class RacingCarGame {
 
   mounted() {
     this.$carNamesInput = $(`#${DOM.CAR_NAMES_INPUT_ID}`);
-    this.$carNamesSubmitButton = $(`#${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}`);
+    this.$carNamesForm = $(`#${DOM.CAR_NAMES_FORM}`);
+    this.$carNamesInput.focus();
   }
 
   setEvent() {
-    this.$carNamesSubmitButton.onclick = this.onClickSubmitButton.bind(this);
+    this.$carNamesForm.onsubmit = this.onClickSubmitButton.bind(this);
   }
 
-  onClickSubmitButton() {
+  onClickSubmitButton(event) {
+    event.preventDefault();
     const carNames = this.$carNamesInput.value;
 
     if (!this.validateCarNames(carNames)) return;
@@ -44,6 +46,7 @@ class RacingCarGame {
       carNameValidator.isAllCarNamesHaveUnderFiveLetter(carNames);
     } catch (error) {
       alert(error.message);
+      this.$carNamesInput.focus();
       return false;
     }
     return true;
@@ -55,15 +58,18 @@ class RacingCarGame {
   }
 
   renderTryCountFormView() {
-    $(`#${DOM.TRY_COUNT_FIELD_SET_ID}`).innerHTML = tryCountFormView();
+    $(`#${DOM.TRY_COUNT_FORM_ID}`).innerHTML = tryCountFormView();
+    this.$tryCountInput = $(`#${DOM.TRY_COUNT_INPUT_ID}`);
+    this.$tryCountInput.focus();
   }
 
   tryCountAddEvent() {
-    $(`#${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}`).onclick = this.onClickTryCountSubmitButton.bind(this);
+    $(`#${DOM.TRY_COUNT_FORM_ID}`).onsubmit = this.onClickTryCountSubmitButton.bind(this);
   }
 
-  onClickTryCountSubmitButton() {
-    this.racingCarGameModel.tryCount = $(`#${DOM.TRY_COUNT_INPUT_ID}`).value;
+  onClickTryCountSubmitButton(event) {
+    event.preventDefault();
+    this.racingCarGameModel.tryCount = this.$tryCountInput.value;
 
     if (!this.validateTryCount()) return;
 
@@ -77,6 +83,7 @@ class RacingCarGame {
       tryCountValidator.isOverThanZero(this.racingCarGameModel.tryCount);
     } catch (error) {
       alert(error.message);
+      this.$tryCountInput.focus();
       return false;
     }
     return true;

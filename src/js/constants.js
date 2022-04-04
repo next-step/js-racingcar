@@ -1,8 +1,9 @@
 export const DOM = Object.freeze({
   RACING_CAR_GAME_APP_ID: 'app',
+  CAR_NAMES_FORM: 'car-names-form',
   CAR_NAMES_INPUT_ID: 'car-names-input',
   CAR_NAMES_SUBMIT_BUTTON_ID: 'car-names-submit-button',
-  TRY_COUNT_FIELD_SET_ID: 'try-count-field-set',
+  TRY_COUNT_FORM_ID: 'try-count-form',
   TRY_COUNT_INPUT_ID: 'try-count-input',
   TRY_COUNT_SUBMIT_BUTTON_ID: 'try-count-submit-button',
   GAME_PROCESS_BOARD_ID: 'game-process-board',
