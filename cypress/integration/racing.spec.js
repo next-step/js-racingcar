@@ -65,6 +65,20 @@ describe('자동차 경주 게임', () => {
         });
     });
 
+    it('시도 횟수는 필수로 입력되어야 합니다.', () => {
+      const alertStub = cy.stub();
+      cy.on('window:alert', alertStub);
+
+      cy.get(`#${DOM.CAR_NAMES_INPUT_ID}`).type('EAST, WEST, SOUTH, NORTH');
+      cy.get(`#${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}`).click();
+
+      cy.get(`#${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}`)
+        .click()
+        .then(() => {
+          expect(alertStub.getCall(0)).to.be.calledWith(ERROR_MESSAGE.TRY_COUNT_REQUIRED);
+        });
+    });
+
     it('시도 횟수가 잘 입력되었다면 플레이어들이 게임 보드위에 표시되어야 합니다.', () => {
       cy.get(`#${DOM.CAR_NAMES_INPUT_ID}`).type('EAST, WEST, SOUTH, NORTH');
       cy.get(`#${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}`).click();
