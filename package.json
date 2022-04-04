@@ -1,0 +1,24 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "description": "자동차 경주 게임 입니다.",
+  "main": "index.js",
+  "devDependencies": {
+    "cypress": "^9.5.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bereal1995/js-racingcar.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bereal1995/js-racingcar/issues"
+  },
+  "homepage": "https://github.com/bereal1995/js-racingcar#readme"
+}
