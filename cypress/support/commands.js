@@ -23,3 +23,22 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+// Cypress.Commands.add('resetForm', () => {
+//   cy.get('.js-car-name').clear();
+//   cy.get('.js-play-time-container')
+// });
+
+Cypress.Commands.add('submitCarName', (name) => {
+  cy.get('.js-car-name').type(name);
+  cy.get('button[name="carName"]').click();
+});
+
+Cypress.Commands.add('submitPlayTimes', (times) => {
+  cy.get('.js-play-time-container').type(times);
+  cy.get('button[name="playTimes"]').click();
+});
+
+Cypress.Commands.add('getCarName', () => {
+  cy.get('.js-car-name').invoke('val');
+});
