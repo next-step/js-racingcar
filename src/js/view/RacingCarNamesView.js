@@ -39,19 +39,21 @@ const RacingCarNamesView = (function () {
     $carNameField.disabled = true;
   }
 
+  function carNameList() {
+    return $carNamesInput.value.split(CAR_NAME_SEPARATOR);
+  }
+
   function initialize() {
     $carNamesInput.value = null;
   }
 
   function handleCarNameSubmit() {
-    const carNameList = $carNamesInput.value.split(CAR_NAME_SEPARATOR);
-
-    if (isExistEmptyCarName(carNameList)) {
+    if (isExistEmptyCarName(carNameList())) {
       notificationEmptyCarName();
       return;
     }
 
-    if (isExistInvalidCarName(carNameList)) {
+    if (isExistInvalidCarName(carNameList())) {
       notificationInvalidCarName();
       return;
     }
@@ -68,6 +70,7 @@ const RacingCarNamesView = (function () {
 
   return {
     initialize,
+    carNameList,
   };
 })();
 export default RacingCarNamesView;

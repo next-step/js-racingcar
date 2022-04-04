@@ -6,7 +6,7 @@ Cypress.Commands.add('cycleInput', () => cy.get('#racing-cycle-input'));
 
 Cypress.Commands.add('cycleSubmit', () => cy.get('#racing-cycle-submit'));
 
-Cypress.Commands.add('racingSection', () => cy.get('#racing'));
+Cypress.Commands.add('racingCars', () => cy.get('#racing > div.mr-2'));
 
 Cypress.Commands.add('racingResult', () => cy.get('#result'));
 
@@ -32,8 +32,8 @@ describe('자동차 경주 게임', () => {
       cy.cycleInput().should('not.be.visible');
       cy.cycleSubmit().should('not.be.visible');
     });
-    it('초기에 경기가 진행되는 현황은 보이지 않는다.', () => {
-      cy.racingSection().should('not.exist');
+    it('초기에 자동차들은 보이지 않는다.', () => {
+      cy.racingCars().should('not.exist');
     });
     it('초기에 경기의 우승 결과는 보이지 않는다.', () => {
       cy.racingResult().should('not.exist');
@@ -157,8 +157,9 @@ describe('자동차 경주 게임', () => {
       cy.cycleSubmit().click();
     });
 
-    it('경기 시작 후 입력된 자동차들이 표시된다.', () => {
-      cy.racingSection().should('be.visible');
+    it('경기 시작 후 입력된 수만큼 자동차가 표시된다.', () => {
+      cy.racingCars().should('be.visible');
+      cy.get('.car-player').should('have.length', 3);
     });
   });
 });

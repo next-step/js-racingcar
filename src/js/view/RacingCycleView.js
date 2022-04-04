@@ -1,3 +1,5 @@
+import RacingSectionView from './RacingSectionView.js';
+
 const MIN_CYCLE = 1;
 const MAX_CYCLE = 100;
 
@@ -43,9 +45,10 @@ const RacingCycleView = (function () {
     }
 
     disabledCycleField();
+    RacingSectionView.ready();
   }
 
-  function initialize() {
+  function eventBindings() {
     $racingCycleSubmit.addEventListener('click', handleCycleSubmit);
   }
 
@@ -53,7 +56,7 @@ const RacingCycleView = (function () {
     $racingCycleField.classList.remove('hide');
   }
 
-  initialize();
+  eventBindings();
 
   return { showView };
 })();
