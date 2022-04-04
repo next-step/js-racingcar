@@ -41,3 +41,7 @@ Cypress.Commands.add('alertRaceTimesInput', () => {
       expect(alertStub.getCall(0)).to.be.calledWith(ALERT_MESSAGES.INVALID_RACE_TIEMS);
     });
 });
+
+Cypress.Commands.add('getCarsContainer', () => {
+  cy.get('[data-cy="cars-container"]');
+});

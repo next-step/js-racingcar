@@ -1,12 +1,12 @@
 import { $ } from '../utils/dom.js';
 import { validateCarNames, validateRaceTimes } from '../validation.js';
 
-export default function UserInputForm({ initState, setCars }) {
+export default function UserInputForm({ initState, setCars, setRaceTimes }) {
   this.$carNameInput = $('.input-car-name');
   this.$carNameSubmitButton = $('.submit-car-name');
   this.$raceTimesInputSection = $('.input-race-times-section');
   this.$raceTimesInput = $('.input-race-times');
-  this.$raceTimeSubmitButton = $('.submit-race-times');
+  this.$raceTimesSubmitButton = $('.submit-race-times');
 
   this.state = initState;
   this.setState = (newState) => {
@@ -15,11 +15,16 @@ export default function UserInputForm({ initState, setCars }) {
   };
 
   this.render = () => {
-    const { cars } = this.state;
+    const { cars, raceTimes } = this.state;
 
     this.$carNameInput.disabled = cars.length !== 0;
     this.$carNameSubmitButton.disabled = cars.length !== 0;
     this.$raceTimesInputSection.classList.toggle('hidden', cars.length === 0);
+    if (cars.length !== 0) {
+      this.$raceTimesInput.focus();
+    }
+    this.$raceTimesInput.disabled = raceTimes > 0;
+    this.$raceTimesSubmitButton.disabled = raceTimes > 0;
   };
   this.render();
 
@@ -48,19 +53,17 @@ export default function UserInputForm({ initState, setCars }) {
 
   this.handleSubmitRaceTimes = () => {
     const raceTimes = parseInt(this.$raceTimesInput.value, 10);
-
     try {
       validateRaceTimes(raceTimes);
     } catch (error) {
       alert(error.message);
       return;
     }
-
-    console.log(raceTimes);
+    setRaceTimes(raceTimes);
   };
 
   this.$carNameInput.addEventListener('keyup', this.handleCarNameInput);
   this.$carNameSubmitButton.addEventListener('click', this.handleSubmitCarNames);
   this.$raceTimesInput.addEventListener('keyup', this.handleRaceTimesInput);
-  this.$raceTimeSubmitButton.addEventListener('click', this.handleSubmitRaceTimes);
+  this.$raceTimesSubmitButton.addEventListener('click', this.handleSubmitRaceTimes);
 }

@@ -8,7 +8,7 @@ export const validateCarNames = (carNames) => {
 };
 
 export const validateRaceTimes = (raceTimes) => {
-  if (raceTimes < MIN_RACE_TIMES) {
+  if (raceTimes < MIN_RACE_TIMES || Number.isNaN(raceTimes)) {
     throw new Error(ALERT_MESSAGES.INVALID_RACE_TIEMS);
   }
 };

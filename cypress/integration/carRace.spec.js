@@ -26,6 +26,8 @@ describe('자동차 경주 게임', () => {
       cy.getCarNameInput().type('EAST, WEST, SOUTH, NORTH');
       cy.getCarNameSubmitButton().click();
 
+      cy.getCarNameInput().should('be.disabled');
+      cy.getCarNameSubmitButton().should('be.disabled');
       cy.getInputRaceTimesSection().should('be.visible');
     });
   });
@@ -34,6 +36,16 @@ describe('자동차 경주 게임', () => {
     it('자동차 경주 시도 횟수를 1 미만으로 입력한다.', () => {
       cy.getRaceTimesInput().type(-1);
       cy.alertRaceTimesInput();
+    });
+
+    it('1 이상의 자동차 경주 시도 횟수를 입력한다.', () => {
+      cy.getRaceTimesInput().clear();
+      cy.getRaceTimesInput().type(1);
+      cy.getRaceTimesSubmitButton().click();
+
+      cy.getRaceTimesInput().should('be.disabled');
+      cy.getRaceTimesSubmitButton().should('be.disabled');
+      cy.getCarsContainer().should('be.visible');
     });
   });
 });
