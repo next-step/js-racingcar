@@ -5,3 +5,4 @@ export const ALERT_MESSAGES = {
   INVALID_RACE_TIEMS: `입력한 레이싱 횟수가 너무 적습니다. 레이싱 횟수는 ${MIN_RACE_TIMES}이상이어야 합니다.`,
   CONGRATULATION: '🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇',
 };
+
