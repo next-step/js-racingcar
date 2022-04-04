@@ -25,19 +25,26 @@ const RacingSectionView = (function () {
     $section.replaceChildren(settingCars(RacingCarNamesView.carNameList()));
   }
 
-  function runningLap(cars) {
-    cars.forEach((car) => {
-      car.run();
+  function runningLap($cars) {
+    $cars.forEach(($car) => {
+      $car.run();
+    });
+  }
+
+  function runningLapByCycle({ cycle, $cars }) {
+    new Array(Number(cycle)).fill().forEach(() => runningLap($cars));
+  }
+
+  function cars() {
+    const $lines = $section.querySelectorAll('div.mr-2');
+    return [...$lines].map(($line) => {
+      const carName = $line.querySelector('.car-player');
+      return new Car({ name: carName, target: $line });
     });
   }
 
   function start(cycle) {
-    const $lines = $section.querySelectorAll('div.mr-2');
-    const cars = [...$lines].map(($line) => {
-      const carName = $line.querySelector('.car-player');
-      return new Car({ name: carName, target: $line });
-    });
-    new Array(Number(cycle)).fill().forEach(() => runningLap(cars));
+    runningLapByCycle({ cycle, $cars: cars() });
   }
 
   return { ready, start };
