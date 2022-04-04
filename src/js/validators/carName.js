@@ -7,7 +7,7 @@ const carNameValidator = {
   isAllCarNamesHaveUnderFiveLetter: carNames => {
     const enteredCarNames = carNames.split(', ');
     const carNamesUnderFiveLetters = enteredCarNames.filter(
-      i => i.length <= GAME.CAR_NAME_MAX_LIMIT_LENGTH,
+      carName => carName.length <= GAME.CAR_NAME_MAX_LIMIT_LENGTH,
     );
     if (carNamesUnderFiveLetters.length !== enteredCarNames.length)
       throw new Error(ERROR_MESSAGE.INVALID_CAR_NAMES);
