@@ -3,7 +3,6 @@ import { TEMPLATE, ID, CLASS } from '../constants/selector.js';
 
 const GameProcess = ({ carNames, playTimes }) => {
   let state = {
-    carNames,
     playTimes,
   };
 
@@ -43,9 +42,7 @@ const GameProcess = ({ carNames, playTimes }) => {
     updateState({ playTimes: (state.playTimes -= 1) });
 
     setTimeout(() => {
-      state.carNames.forEach(
-        carName => isStepForward() && stepForward(carName)
-      );
+      carNames.forEach(carName => isStepForward() && stepForward(carName));
 
       requestAnimationFrame(playRacingGame);
     }, 1000);
@@ -68,7 +65,7 @@ const GameProcess = ({ carNames, playTimes }) => {
   };
 
   const initProcess = () => {
-    state.carNames.forEach(carName => {
+    carNames.forEach(carName => {
       $currentElement
         .querySelector(`#${ID.RACING_CAR_LIST_ITEMS}`)
         .insertAdjacentElement('beforeend', makeGameItemsElement(carName));
