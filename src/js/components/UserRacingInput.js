@@ -14,7 +14,7 @@ const UserRacingInput = ({ startGame }) => {
   const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT_SECTION);
   $currentElement.id = ID.USER_RACING_INPUT_SECTION;
 
-  const updateState = newState => (state = Object.assign(state, newState));
+  const updateState = newState => Object.assign(state, newState);
 
   const isValidCarName = inputNames => {
     const isValid = inputNames.every(
