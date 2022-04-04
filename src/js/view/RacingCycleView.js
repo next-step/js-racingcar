@@ -46,6 +46,7 @@ const RacingCycleView = (function () {
 
     disabledCycleField();
     RacingSectionView.ready();
+    RacingSectionView.start(cycle);
   }
 
   function eventBindings() {

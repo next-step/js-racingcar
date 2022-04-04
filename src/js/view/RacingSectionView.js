@@ -1,7 +1,8 @@
 import RacingCarNamesView from './RacingCarNamesView.js';
+import { Car } from '../Car.js';
 
 const RacingSectionView = (function () {
-  const $section = document.querySelector('#racing');
+  const $section = document.querySelector('section > div.mt-4.d-flex');
 
   function player(carName) {
     return `<div class="car-player">${carName}</div>`;
@@ -16,18 +17,29 @@ const RacingSectionView = (function () {
 
   function settingCars(carNameList) {
     const $result = new DocumentFragment();
-    carNameList.forEach((carName) => {
-      $result.appendChild(carSetting(carName));
-    });
+    $result.append(...carNameList.map((carName) => carSetting(carName)));
     return $result;
   }
 
   function ready() {
-    const $result = document.createElement('div');
-    $result.classList.add('mt-4', 'd-flex');
-    $section.appendChild(settingCars(RacingCarNamesView.carNameList()));
+    $section.replaceChildren(settingCars(RacingCarNamesView.carNameList()));
   }
 
-  return { ready };
+  function runningLap(cars) {
+    cars.forEach((car) => {
+      car.run();
+    });
+  }
+
+  function start(cycle) {
+    const $lines = $section.querySelectorAll('div.mr-2');
+    const cars = [...$lines].map(($line) => {
+      const carName = $line.querySelector('.car-player');
+      return new Car({ name: carName, target: $line });
+    });
+    new Array(Number(cycle)).fill().forEach(() => runningLap(cars));
+  }
+
+  return { ready, start };
 })();
 export default RacingSectionView;
