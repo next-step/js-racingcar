@@ -14,7 +14,8 @@
   },
   "env": {
     "browser": true,
-    "cypress/globals": true
+    "cypress/globals": true,
+    "es6": true
   },
   "ignorePatterns": ["node_modules/"],
   "rules": {
