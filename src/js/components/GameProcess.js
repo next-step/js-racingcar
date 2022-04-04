@@ -25,8 +25,7 @@ const GameProcess = ({ carNames, playTimes }) => {
 
   const stepForward = carName => {
     $currentElement
-      .querySelector(`#racing-${carName}`)
-      .querySelector(CLASS.FORWARD_ICON_AREA)
+      .querySelector(`#racing-${carName} ${CLASS.FORWARD_ICON_AREA}`)
       .insertAdjacentElement(
         'afterend',
         duplicateTemplate(TEMPLATE.RACING_CAR_ITEM_FORWARD)
