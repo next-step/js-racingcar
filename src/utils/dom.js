@@ -1,9 +1,9 @@
 const $ = (name, element = document) => {
-  element.querySelector(name);
+  return element.querySelector(name);
 };
 
 const $$ = (name, element = document) => {
-  element.querySelectorAll(name);
+  return element.querySelectorAll(name);
 };
 
 export { $, $$ };
