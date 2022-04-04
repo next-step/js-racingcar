@@ -6,7 +6,7 @@ Cypress.Commands.add('cycleInput', () => cy.get('#racing-cycle-input'));
 
 Cypress.Commands.add('cycleSubmit', () => cy.get('#racing-cycle-submit'));
 
-Cypress.Commands.add('racingCars', () => cy.get('#racing > div.mr-2'));
+Cypress.Commands.add('racingCars', () => cy.get('div.mr-2'));
 
 Cypress.Commands.add('racingResult', () => cy.get('#result'));
 
