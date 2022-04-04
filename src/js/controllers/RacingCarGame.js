@@ -73,6 +73,7 @@ class RacingCarGame {
 
   validateTryCount() {
     try {
+      tryCountValidator.isEnteredTryCount(this.racingCarGameModel.tryCount);
       tryCountValidator.isOverThanZero(this.racingCarGameModel.tryCount);
     } catch (error) {
       alert(error.message);
