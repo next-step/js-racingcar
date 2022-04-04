@@ -1,3 +1,5 @@
+import { ERROR } from '../../src/js/constants/message.js';
+
 describe('로또 미션 Cypress', () => {
   beforeEach(() => {
     cy.visit('/');
@@ -20,7 +22,7 @@ describe('로또 미션 Cypress', () => {
           .click()
           .then(() => {
             expect(alertStub).to.be.calledWith(
-              '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.'
+              ERROR.INVALID_LENGTH_RACING_CAR_NAME
             );
           });
       });
@@ -36,7 +38,7 @@ describe('로또 미션 Cypress', () => {
           .click()
           .then(() => {
             expect(alertStub).to.be.calledWith(
-              '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.'
+              ERROR.INVALID_LENGTH_RACING_CAR_NAME
             );
           });
       });
