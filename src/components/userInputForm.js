@@ -1,5 +1,5 @@
 import { $ } from '../utils/dom.js';
-import { validateCarNames } from '../validation.js';
+import { validateCarNames, validateRaceTimes } from '../validation.js';
 
 export default function UserInputForm({ initState, setCars }) {
   this.$carNameInput = $('.input-car-name');
@@ -40,6 +40,27 @@ export default function UserInputForm({ initState, setCars }) {
     }
   };
 
-  this.$carNameSubmitButton.addEventListener('click', this.handleSubmitCarNames);
+  this.handleRaceTimesInput = (e) => {
+    if (e.code === 'Enter') {
+      this.handleSubmitRaceTimes();
+    }
+  };
+
+  this.handleSubmitRaceTimes = () => {
+    const raceTimes = parseInt(this.$raceTimesInput.value, 10);
+
+    try {
+      validateRaceTimes(raceTimes);
+    } catch (error) {
+      alert(error.message);
+      return;
+    }
+
+    console.log(raceTimes);
+  };
+
   this.$carNameInput.addEventListener('keyup', this.handleCarNameInput);
+  this.$carNameSubmitButton.addEventListener('click', this.handleSubmitCarNames);
+  this.$raceTimesInput.addEventListener('keyup', this.handleRaceTimesInput);
+  this.$raceTimeSubmitButton.addEventListener('click', this.handleSubmitRaceTimes);
 }

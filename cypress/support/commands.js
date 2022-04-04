@@ -22,3 +22,22 @@ Cypress.Commands.add('alertCarNamesInput', () => {
 Cypress.Commands.add('getInputRaceTimesSection', () => {
   cy.get('[data-cy="input-race-times-section"]');
 });
+
+Cypress.Commands.add('getRaceTimesInput', () => {
+  cy.get('[data-cy="input-race-times"]');
+});
+
+Cypress.Commands.add('getRaceTimesSubmitButton', () => {
+  cy.get('[data-cy="submit-race-times"]');
+});
+
+Cypress.Commands.add('alertRaceTimesInput', () => {
+  const alertStub = cy.stub();
+  cy.on('window:alert', alertStub);
+
+  cy.getRaceTimesSubmitButton()
+    .click()
+    .then(() => {
+      expect(alertStub.getCall(0)).to.be.calledWith(ALERT_MESSAGES.INVALID_RACE_TIEMS);
+    });
+});

@@ -29,4 +29,11 @@ describe('자동차 경주 게임', () => {
       cy.getInputRaceTimesSection().should('be.visible');
     });
   });
+
+  context('사용자는 몇 번의 이동을 할 것인지를 입력할 수 있다.', () => {
+    it('자동차 경주 시도 횟수를 1 미만으로 입력한다.', () => {
+      cy.getRaceTimesInput().type(-1);
+      cy.alertRaceTimesInput();
+    });
+  });
 });
