@@ -1,5 +1,28 @@
 const STOP = 'STOP';
 const MOVING = 'MOVING';
+const MOVABLE_RANGE_MIN_NUMBER = 0;
+const MOVABLE_RANGE_MAX_NUMBER = 9;
+const MOVABLE_NUMBER = 4;
+
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function moveTemplate() {
+  const $template = document.createElement('template');
+  $template.innerHTML = `<div class="forward-icon mt-2">⬇️️</div>`;
+  return $template.content.firstChild;
+}
+
+function stopTemplate() {
+  const $template = document.createElement('template');
+  $template.innerHTML = `<div class="d-flex justify-center mt-3">
+                      <div class="relative spinner-container">
+                        <span class="material spinner"></span>
+                      </div>
+                    </div>`;
+  return $template.content.firstChild;
+}
 
 export class Car {
   #name;
@@ -11,46 +34,45 @@ export class Car {
   constructor({ name, target }) {
     this.#name = name;
     this.#target = target;
-    this.#handleStop();
+    this.#status = STOP;
+    this.#stop();
   }
 
   #handleMove() {
     if (this.#status === STOP) {
-      const $stop = this.#target.querySelector('div.mt-3');
-      this.#target.replaceChild(Car.#move(), $stop);
-    } else {
-      this.#target.appendChild(Car.#move());
+      this.#removeStop();
     }
 
+    this.#move();
     this.#status = MOVING;
   }
 
   #handleStop() {
     if (this.#status !== STOP) {
-      this.#target.appendChild(Car.#stop());
+      this.#stop();
     }
 
     this.#status = STOP;
   }
 
-  static #move() {
-    const $template = document.createElement('template');
-    $template.innerHTML = `<div class="forward-icon mt-2">⬇️️</div>`;
-    return $template.content.firstChild;
+  #move() {
+    this.#target.appendChild(moveTemplate());
   }
 
-  static #stop() {
-    const $template = document.createElement('template');
-    $template.innerHTML = `<div class="d-flex justify-center mt-3">
-                      <div class="relative spinner-container">
-                        <span class="material spinner"></span>
-                      </div>
-                    </div>`;
-    return $template.content.firstChild;
+  #stop() {
+    this.#target.appendChild(stopTemplate());
+  }
+
+  #removeStop() {
+    const $stop = this.#target.querySelector('div.mt-3');
+    this.#target.removeChild($stop);
   }
 
   static #isEnableMove() {
-    return Math.floor(Math.random() * (9 - 2) + 1) >= 4;
+    return (
+      randomNumber(MOVABLE_RANGE_MIN_NUMBER, MOVABLE_RANGE_MAX_NUMBER) >=
+      MOVABLE_NUMBER
+    );
   }
 
   run() {
