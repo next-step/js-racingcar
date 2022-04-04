@@ -1,3 +1,5 @@
+import { ERR_MSG } from '../../src/js/util/constatns';
+
 describe('레이싱카 앱 테스트', () => {
 	beforeEach(() => {
 		cy.visit('../index.html');
@@ -11,10 +13,7 @@ describe('레이싱카 앱 테스트', () => {
 		cy.get('#car-names-submit')
 			.click()
 			.then(() => {
-				// TODO: 에러 메세지를 상수화한다.
-				expect(alertStub.getCall(0)).to.be.calledWith(
-					'자동차의 이름을 입력해주세요.'
-				);
+				expect(alertStub.getCall(0)).to.be.calledWith(ERR_MSG.EMPTY_CAR_NAME);
 			});
 	});
 
@@ -27,7 +26,7 @@ describe('레이싱카 앱 테스트', () => {
 			.click()
 			.then(() => {
 				expect(alertStub.getCall(0)).to.be.calledWith(
-					'자동차의 이름은 최대 5글자까지 입력 가능합니다.'
+					ERR_MSG.OVER_CAR_NAME_LENGTH
 				);
 			});
 	});
@@ -50,9 +49,7 @@ describe('레이싱카 앱 테스트', () => {
 		cy.get('#car-try-submit')
 			.click()
 			.then(() => {
-				expect(alertStub.getCall(0)).to.be.calledWith(
-					'시도할 횟수를 입력해주세요.'
-				);
+				expect(alertStub.getCall(0)).to.be.calledWith(ERR_MSG.EMPTY_TRY_NUM);
 			});
 	});
 
