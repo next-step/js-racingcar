@@ -3,14 +3,13 @@ import { CarModel, RacingCarGameModel } from '../models/index.js';
 import { carNameValidator, tryCountValidator } from '../validators/index.js';
 
 import { $ } from '../utils/dom.js';
-import { pickRandomNumberBetweenZeroToNine } from '../utils/index.js';
+import { pickNumberInRange } from '../utils/number.js';
 import { DOM, GAME } from '../constants.js';
 
 class RacingCarGame {
   constructor($target) {
     this.$target = $target;
     this.racingCarGameModel = new RacingCarGameModel();
-    this.cars = [];
     this.render();
     this.setEvent();
   }
@@ -85,7 +84,10 @@ class RacingCarGame {
   progressRacingResult() {
     this.racingCarGameModel.cars.forEach(car => {
       car.gameResult = Array.from({ length: this.racingCarGameModel.tryCount }).map(() =>
-        pickRandomNumberBetweenZeroToNine() > GAME.CAR_FORWARD_STANDARD ? GAME.ADVANCE : GAME.STOP,
+        pickNumberInRange(GAME.CAR_FORWARD_MIN_CONDITION, GAME.CAR_FORWARD_MAX_CONDITION) >=
+        GAME.CAR_FORWARD_STANDARD
+          ? GAME.ADVANCE
+          : GAME.STOP,
       );
     });
   }
