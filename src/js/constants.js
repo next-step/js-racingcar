@@ -21,4 +21,5 @@ export const GAME = Object.freeze({
   STOP: 'stop',
   CAR_NAME_MAX_LIMIT_LENGTH: 5,
   TRY_COUNT_MIN_LIMIT: 0,
+  CAR_FORWARD_STANDARD: 3,
 });
