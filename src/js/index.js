@@ -51,7 +51,7 @@ const submitTryNum = () => {
 	style.flex($carRacingBlock);
 
 	const template = playRacing($carNamesInput.value.split(', '));
-	$carRacingBlock.children[0].innerHTML = template;
+	$carRacingBlock.innerHTML = `<div class="mt-4 d-flex">${template}</div>`;
 };
 
 $carNamesSubmit.addEventListener('click', submitCarNames);
