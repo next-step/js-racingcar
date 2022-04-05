@@ -1,7 +1,7 @@
 import { $ } from './util/dom.js';
 import { ERR_MSG } from './util/constatns.js';
 import { style } from './util/style.js';
-import { isCheckCarNameLength, isRace } from './util/util.js';
+import { isCheckCarNameLength, isMoveCar } from './util/util.js';
 
 const $carNamesInput = $('#car-names-input');
 const $carNamesSubmit = $('#car-names-submit');
@@ -19,7 +19,7 @@ const playRacing = (carNames) =>
 				${Array(Number($carTryInput.value))
 					.fill(0)
 					.map(() =>
-						isRace() ? `<div class="forward-icon mt-2">⬇️️</div>` : null
+						isMoveCar() ? `<div class="forward-icon mt-2">⬇️️</div>` : null
 					)
 					.join('')}
 			</div>`
