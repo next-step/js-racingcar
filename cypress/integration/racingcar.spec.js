@@ -10,7 +10,6 @@ describe('레이싱카 앱 테스트', () => {
 			const alertStub = cy.stub();
 			cy.on('window:alert', alertStub);
 
-			cy.get('#car-names-input').clear();
 			cy.get('#car-names-submit')
 				.click()
 				.then(() => {
@@ -31,6 +30,8 @@ describe('레이싱카 앱 테스트', () => {
 					);
 				});
 		});
+
+		// it('자동차의 이름이 중복되면 경고창을 띄워준다.', () => {});
 
 		it('자동차의 이름 입력을 완료하면 필드가 비활성화 된다.', () => {
 			cy.get('#car-names-input').type('EAST, WEST, SOUTH, NORTH');
