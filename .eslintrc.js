@@ -12,6 +12,7 @@ module.exports = {
   rules: {
     'no-new': 0,
     'no-alert': 0,
+    'no-plusplus': 0,
     'import/extensions': 0,
     'import/prefer-default-export': 0,
   },
