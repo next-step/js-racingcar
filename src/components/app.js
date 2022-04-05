@@ -30,6 +30,14 @@ export default function App() {
 
   this.$gameResult = new GameResult({
     initState: this.state,
+    handleResetGame: () => {
+      this.setState({
+        ...this.state,
+        cars: INITAL.CARS,
+        raceTimes: INITAL.RACE_TIMES,
+        raceFinishedFlag: INITAL.RACE_FINISHED_FLAG,
+      });
+    },
   });
 
   this.setState = (newState) => {

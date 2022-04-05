@@ -18,6 +18,10 @@ export default function UserInputForm({ initState, setCars, setRaceTimes }) {
   this.render = () => {
     const { cars, raceTimes } = this.state;
 
+    if (cars.length < MIN_CARS_NUMBER && raceTimes < MIN_RACE_TIMES) {
+      this.$carNameInput.value = '';
+      this.$raceTimesInput.value = '';
+    }
     this.$carNameInput.disabled = cars.length >= MIN_CARS_NUMBER;
     this.$carNameSubmitButton.disabled = cars.length >= MIN_CARS_NUMBER;
     this.$raceTimesInputSection.classList.toggle('hidden', cars.length < MIN_CARS_NUMBER);
@@ -27,10 +31,13 @@ export default function UserInputForm({ initState, setCars, setRaceTimes }) {
     this.$raceTimesInput.disabled = raceTimes >= MIN_RACE_TIMES;
     this.$raceTimesSubmitButton.disabled = raceTimes >= MIN_RACE_TIMES;
   };
+
   this.render();
 
+  this.getCarNames = () => this.$carNameInput.value.split(',').map((carName) => carName.trim());
+
   this.handleSubmitCarNames = () => {
-    const carNames = this.$carNameInput.value.split(',').map((carName) => carName.trim());
+    const carNames = this.getCarNames();
     try {
       validateCarNames(carNames);
     } catch (error) {
@@ -52,8 +59,10 @@ export default function UserInputForm({ initState, setCars, setRaceTimes }) {
     }
   };
 
+  this.getRaceTimes = () => parseInt(this.$raceTimesInput.value, 10);
+
   this.handleSubmitRaceTimes = () => {
-    const raceTimes = parseInt(this.$raceTimesInput.value, 10);
+    const raceTimes = this.getRaceTimes();
     try {
       validateRaceTimes(raceTimes);
     } catch (error) {

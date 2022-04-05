@@ -29,6 +29,7 @@ export default function GameProcess({ initState, handleRaceResult }) {
   };
 
   this.processReady = (cars) => {
+    this.$carsContainer.innerHTML = '';
     this.$cars = cars.map(
       (car) =>
         new Car({
