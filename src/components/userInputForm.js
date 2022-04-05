@@ -1,5 +1,6 @@
 import { $ } from '../utils/dom.js';
 import { validateCarNames, validateRaceTimes } from '../validation.js';
+import { MIN_CARS_NUMBER, MIN_RACE_TIMES } from '../constants/validation.js';
 
 export default function UserInputForm({ initState, setCars, setRaceTimes }) {
   this.$carNameInput = $('.input-car-name');
@@ -17,14 +18,14 @@ export default function UserInputForm({ initState, setCars, setRaceTimes }) {
   this.render = () => {
     const { cars, raceTimes } = this.state;
 
-    this.$carNameInput.disabled = cars.length !== 0;
-    this.$carNameSubmitButton.disabled = cars.length !== 0;
-    this.$raceTimesInputSection.classList.toggle('hidden', cars.length === 0);
-    if (cars.length !== 0) {
+    this.$carNameInput.disabled = cars.length >= MIN_CARS_NUMBER;
+    this.$carNameSubmitButton.disabled = cars.length >= MIN_CARS_NUMBER;
+    this.$raceTimesInputSection.classList.toggle('hidden', cars.length < MIN_CARS_NUMBER);
+    if (cars.length >= MIN_CARS_NUMBER) {
       this.$raceTimesInput.focus();
     }
-    this.$raceTimesInput.disabled = raceTimes > 0;
-    this.$raceTimesSubmitButton.disabled = raceTimes > 0;
+    this.$raceTimesInput.disabled = raceTimes >= MIN_RACE_TIMES;
+    this.$raceTimesSubmitButton.disabled = raceTimes >= MIN_RACE_TIMES;
   };
   this.render();
 

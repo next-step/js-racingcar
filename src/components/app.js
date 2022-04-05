@@ -7,6 +7,7 @@ export default function App() {
   this.state = {
     cars: INITAL.CARS,
     raceTimes: INITAL.RACE_TIMES,
+    isNotFirstRace: INITAL.IS_NOT_FIRST_RACE,
   };
 
   this.$userInputForm = new UserInputForm({
@@ -22,8 +23,14 @@ export default function App() {
 
   this.$gameProcess = new GameProcess({
     initState: this.state,
+    handleRaceResult: (newState) => {
+      this.setState({ ...this.state, ...newState });
+    },
   });
-  this.$gameResult = new GameResult();
+
+  this.$gameResult = new GameResult({
+    initState: this.state,
+  });
 
   this.setState = (newState) => {
     this.state = newState;
@@ -32,5 +39,6 @@ export default function App() {
   this.render = () => {
     this.$userInputForm.setState(this.state);
     this.$gameProcess.setState(this.state);
+    this.$gameResult.setState(this.setState);
   };
 }
