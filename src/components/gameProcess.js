@@ -17,9 +17,9 @@ export default function GameProcess({ initState, handleRaceResult }) {
   };
 
   this.render = () => {
-    const { cars, raceTimes, isNotFirstRace } = this.state;
+    const { cars, raceTimes, raceFinishedFlag } = this.state;
 
-    if (isNotFirstRace) return;
+    if (raceFinishedFlag) return;
 
     this.$carsContainer.classList.toggle('hidden', cars.length < MIN_CARS_NUMBER || raceTimes < MIN_RACE_TIMES);
     if (cars.length >= MIN_CARS_NUMBER && raceTimes >= MIN_RACE_TIMES) {
@@ -52,7 +52,10 @@ export default function GameProcess({ initState, handleRaceResult }) {
           $car.finish();
         });
         clearInterval(intervalId);
-        handleRaceResult({ cars: this.$cars.map(($car) => $car.state), isNotFirstRace: !this.state.isNotFirstRace });
+        handleRaceResult({
+          cars: this.$cars.map(($car) => $car.state),
+          raceFinishedFlag: !this.state.raceFinishedFlag,
+        });
       }
     }, WAIT_TIME);
   };

@@ -2,7 +2,7 @@ export const INITAL = {
   RACE_TIMES: 0,
   CARS: [],
   CAR_GO_COUNT: 0,
-  IS_NOT_FIRST_RACE: false,
+  RACE_FINISHED_FLAG: false,
 };
 
 export const RANDOM_NUMBER = {

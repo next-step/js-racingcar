@@ -7,7 +7,7 @@ export default function App() {
   this.state = {
     cars: INITAL.CARS,
     raceTimes: INITAL.RACE_TIMES,
-    isNotFirstRace: INITAL.IS_NOT_FIRST_RACE,
+    raceFinishedFlag: INITAL.RACE_FINISHED_FLAG,
   };
 
   this.$userInputForm = new UserInputForm({
@@ -39,6 +39,6 @@ export default function App() {
   this.render = () => {
     this.$userInputForm.setState(this.state);
     this.$gameProcess.setState(this.state);
-    this.$gameResult.setState(this.setState);
+    this.$gameResult.setState(this.state);
   };
 }
