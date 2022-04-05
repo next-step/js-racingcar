@@ -1,6 +1,6 @@
-import { CarNameLengthException } from "../exception/CarNameLengthException.js";
+import CarNameLengthException from "../exception/CarNameLengthException.js";
 
-export class Car {
+export default class Car {
     #name;
     #forwardCount = 0;
 
@@ -10,13 +10,16 @@ export class Car {
     static FORWARD_VALUE = 4;
 
     constructor(name) {
-        console.log(name);
         Car.validate(name);
         this.#name = name;
     }
 
     get value() {
         return this.#name;
+    }
+
+    get forwardCount() {
+        return this.#forwardCount;
     }
 
     static validate(name) {

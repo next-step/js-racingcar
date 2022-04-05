@@ -1,19 +1,15 @@
-export class CarTrackForm {
-    racing;
-    
+export default class CarTrackForm {    
     constructor(racing, props) {
         this.racing = racing;
         this.$element = document.querySelector("#car-track-area");
         this.onForwarding = props.onForwarding;
+
+        this.#renderer();
     }
 
     #renderer() {
         this.$element.innerHTML = this.getCarTrackForm();
     }
-
-    #mounted() {}
-
-    #setEvent() {}
 
     getCarTrackForm() {
         return `<div class="mt-4 d-flex">
@@ -43,12 +39,6 @@ export class CarTrackForm {
                         <span class="material spinner"></span>
                     </div>
                 </div>`;
-    }
-
-    initialize() {
-        this.#renderer();
-        this.#mounted();
-        this.#setEvent();
     }
 
     onForward(index) {

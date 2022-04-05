@@ -1,3 +1,3 @@
-import { RacingApp } from "./component/RacingApp.js";
+import RacingApp from "./component/RacingApp.js";
 
 new RacingApp();

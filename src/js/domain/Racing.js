@@ -1,11 +1,9 @@
-export class Racing {
+export default class Racing {
     #cars;
     #tryCount;
 
     static MAX_RANDOM_VALUE = 10;
     static FORWARD_VALUE = 3;
-
-    constructor() {}
 
     get cars() {
         return this.#cars;

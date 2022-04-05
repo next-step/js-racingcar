@@ -1,8 +1,6 @@
-import { CarNames } from "../domain/CarNames.js";
+import CarNames from "../domain/CarNames.js";
 
-export class CarNamesForm {
-    $element;
-
+export default class CarNamesForm {
     constructor(racing, { onLoadTryForm }) {
         this.racing = racing;
         this.$element = document.querySelector("#car-names-area");
@@ -10,7 +8,6 @@ export class CarNamesForm {
 
         this.#renderer();
         this.#mounted();
-        this.#setEvent();
     }
 
     #renderer() {
@@ -20,9 +17,7 @@ export class CarNamesForm {
     #mounted() {
         this.$carNamesInput = document.querySelector("#car-names-input");
         this.$carNamesSubmit = document.querySelector("#car-names-submit");
-    }
 
-    #setEvent() {
         this.$carNamesInput.addEventListener("keyup", (event) => this.#onKeyupCarNames(event));
         this.$carNamesSubmit.addEventListener("click", () => this.#onCarNamesSubmit());
     }
