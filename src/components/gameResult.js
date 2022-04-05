@@ -37,3 +37,4 @@ export default function GameResult({ initState, handleResetGame }) {
 
   this.$gameResetButton.addEventListener('click', handleResetGame);
 }
+

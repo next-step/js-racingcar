@@ -47,3 +47,4 @@ export default function App() {
     this.$gameResult.setState(this.state);
   };
 }
+

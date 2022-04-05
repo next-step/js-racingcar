@@ -64,3 +64,4 @@ export default function GameProcess({ initState, handleRaceResult }) {
     }, WAIT_TIME);
   };
 }
+

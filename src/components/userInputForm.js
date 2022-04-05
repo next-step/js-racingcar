@@ -75,3 +75,4 @@ export default function UserInputForm({ initState, setCars, setRaceTimes }) {
   this.$raceTimesInput.addEventListener('keyup', this.handleUserInputByKeypress);
   this.$raceTimesSubmitButton.addEventListener('click', this.handleSubmitRaceTimes);
 }
+
