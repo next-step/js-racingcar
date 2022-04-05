@@ -5,4 +5,3 @@ export const CAR_NAME = {
 
 export const MIN_CARS_NUMBER = 1;
 export const MIN_RACE_TIMES = 1;
-

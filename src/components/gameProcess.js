@@ -4,7 +4,6 @@ import { WAIT_TIME } from '../constants/common.js';
 import Car from './car.js';
 import Template from '../template.js';
 
-export default function GameProcess({ initState, handleRaceResult }) {
   this.$gameProcess = $('.game-process-container');
   this.$carsContainer = $('.cars-container');
   this.$cars = null;
