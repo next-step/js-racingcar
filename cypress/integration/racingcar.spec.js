@@ -27,7 +27,7 @@ describe('레이싱카 앱 테스트', () => {
 				.click()
 				.then(() => {
 					expect(alertStub.getCall(0)).to.be.calledWith(
-						ERR_MSG.OVER_CAR_NAME_LENGTH
+						ERR_MSG.OVER_CAR_NAME_MAX_LENGTH
 					);
 				});
 		});
