@@ -36,6 +36,7 @@ describe('레이싱카 앱 테스트', () => {
 			cy.get('#car-names-input').type('EAST, WEST, SOUTH, NORTH');
 			cy.get('#car-names-submit').click();
 			cy.get('#car-names-input').should('be.disabled');
+			cy.get('#car-names-submit').should('be.disabled');
 		});
 	});
 
@@ -69,6 +70,7 @@ describe('레이싱카 앱 테스트', () => {
 			cy.get('#car-try-input').type('3');
 			cy.get('#car-try-submit').click();
 			cy.get('#car-try-input').should('be.disabled');
+			cy.get('#car-try-submit').should('be.disabled');
 		});
 	});
 

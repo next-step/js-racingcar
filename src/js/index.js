@@ -37,6 +37,7 @@ const submitCarNames = () => {
 	}
 
 	$carNamesInput.disabled = true;
+	$carNamesSubmit.disabled = true;
 	$carTryBlock.style.display = 'block';
 };
 
@@ -47,6 +48,7 @@ const submitTryNum = () => {
 	}
 
 	$carTryInput.disabled = true;
+	$carTrySubmit.disabled = true;
 	$carRacingBlock.style.display = 'flex';
 
 	const template = playRacing($carNamesInput.value.split(', '));
