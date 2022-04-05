@@ -71,3 +71,4 @@ Cypress.Commands.add('getGameResultContainer', () => {
 Cypress.Commands.add('getGameResetButton', () => {
   cy.get('[data-cy="game-reset-btn');
 });
+
