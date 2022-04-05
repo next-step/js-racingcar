@@ -13,7 +13,7 @@ export default function App() {
   this.$userInputForm = new UserInputForm({
     initState: this.state,
     setCars: (carNames) => {
-      const newCars = carNames.map((carName, id) => ({ id, carName, goCount: 0 }));
+      const newCars = carNames.map((carName, id) => ({ id, carName, goCount: INITAL.CAR_GO_COUNT }));
       this.setState({ ...this.state, cars: newCars });
     },
     setRaceTimes: (raceTimes) => {

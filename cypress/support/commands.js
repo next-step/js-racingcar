@@ -45,3 +45,27 @@ Cypress.Commands.add('alertRaceTimesInput', () => {
 Cypress.Commands.add('getCarsContainer', () => {
   cy.get('[data-cy="cars-container"]');
 });
+
+Cypress.Commands.add('enrollCorrectCarName', (carName) => {
+  cy.getCarNameInput().type(carName);
+  cy.getCarNameSubmitButton().click();
+
+  cy.getCarNameInput().should('be.disabled');
+  cy.getCarNameSubmitButton().should('be.disabled');
+});
+
+Cypress.Commands.add('enrollCorrectRaceTimes', (raceTimes) => {
+  cy.getRaceTimesInput().type(raceTimes);
+  cy.getRaceTimesSubmitButton().click();
+
+  cy.getRaceTimesInput().should('be.disabled');
+  cy.getRaceTimesSubmitButton().should('be.disabled');
+});
+
+Cypress.Commands.add('getGameResultContainer', () => {
+  cy.get('[data-cy="game-result-container"]');
+});
+
+Cypress.Commands.add('getGameResultButton', () => {
+  cy.get('[data-cy="game-reset-btn');
+});
