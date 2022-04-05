@@ -1,6 +1,5 @@
 import { $ } from './util/dom.js';
 import { ERR_MSG } from './util/constatns.js';
-import { style } from './util/style.js';
 import { isCheckCarNameLength, isMoveCar } from './util/util.js';
 
 const $carNamesInput = $('#car-names-input');
@@ -37,8 +36,8 @@ const submitCarNames = () => {
 		return;
 	}
 
-	style.disabled($carNamesInput);
-	style.block($carTryBlock);
+	$carNamesInput.disabled = true;
+	$carTryBlock.style.display = 'block';
 };
 
 const submitTryNum = () => {
@@ -47,8 +46,8 @@ const submitTryNum = () => {
 		return;
 	}
 
-	style.disabled($carTryInput);
-	style.flex($carRacingBlock);
+	$carTryInput.disabled = true;
+	$carRacingBlock.style.display = 'flex';
 
 	const template = playRacing($carNamesInput.value.split(', '));
 	$carRacingBlock.innerHTML = `<div class="mt-4 d-flex">${template}</div>`;
