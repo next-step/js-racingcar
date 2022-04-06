@@ -12,6 +12,7 @@ const GameProcess = ({ state, consumeTime }) => {
     $gameItemElement.append(
       duplicateTemplate(TEMPLATE.RACING_CAR_ITEM_SPINNER)
     );
+    setSpinnerWillChangeHint();
     return $gameItemElement;
   };
 
@@ -66,7 +67,6 @@ const GameProcess = ({ state, consumeTime }) => {
 
     const $targetElement = document.getElementById('app');
     $targetElement.insertAdjacentElement('beforeend', $currentElement);
-    setSpinnerWillChangeHint();
     playRacingGame();
   };
 
