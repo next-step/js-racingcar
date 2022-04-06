@@ -1,7 +1,7 @@
 import { CarModel, RacingCarGameModel } from '../models/index.js';
-import { carNameValidator, tryCountValidator } from '../validators/index.js';
 import { TryCountFormView, RacingCarGameView, RacingCarGameResultView } from '../views/index.js';
 
+import { carNameValidator, tryCountValidator } from '../validators/index.js';
 import { $ } from '../utils/dom.js';
 import { pickNumberInRange } from '../utils/number.js';
 import { DOM, GAME } from '../constants.js';
