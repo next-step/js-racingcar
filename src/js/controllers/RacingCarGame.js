@@ -51,7 +51,9 @@ class RacingCarGame {
   }
 
   generateCars(carNames) {
-    const cars = carNames.split(', ').map(carName => new CarModel(carName));
+    const cars = carNames
+      .split(GAME.CAR_NAME_SPLITTER)
+      .map(carName => new CarModel(carName.trim()));
     this.racingCarGameModel.cars = cars;
   }
 
