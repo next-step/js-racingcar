@@ -4,33 +4,35 @@ export default class State {
   static instance;
   #gameConfiguration;
 
+  constructor() {
+    this.#gameConfiguration = GameConfiguration.createGameConfiguration({
+      carNames: [],
+      playTimes: 0,
+    });
+  }
+
   static getInstance() {
     if (!this.instance) this.instance = new State();
     return this.instance;
   }
 
-  setGames = ({ carNames, playTimes }) => {
-    this.#gameConfiguration = GameConfiguration.createGameConfiguration({
-      carNames,
-      playTimes,
-    });
-
+  setGames = () => {
+    this.#gameConfiguration.makePlayResult();
     this.startGame();
   };
 
   startGame = () => {
     GameProcess({
       state: this,
-      consumeTime: this.consumeTime,
+      consumeTime: this.#gameConfiguration.consumeTime,
     });
   };
 
-  get consumeTime() {
-    return this.#gameConfiguration.consumeTime;
-  }
-
-  get consumeTime() {
-    return this.#gameConfiguration.consumeTime;
+  get updateGameConfiguration() {
+    return {
+      updateCarNames: this.#gameConfiguration.updateCarNames,
+      updatePlayTimes: this.#gameConfiguration.updatePlayTimes,
+    };
   }
 
   get leftPlayTime() {

@@ -4,12 +4,8 @@ import { MAX_RACING_CAR_NAME } from '../constants/unit.js';
 import { ID, TEMPLATE } from '../constants/selector.js';
 import ValidationError from '../utils/validation.js';
 
-const UserRacingInput = ({ setGames }) => {
-  const gameConfiguration = {
-    isNameSubmitted: false,
-    carNames: [],
-    playTimes: 0,
-  };
+const UserRacingInput = ({ setGames, updateGameConfiguration }) => {
+  let isNameSubmitted = false;
   const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT_SECTION);
 
   $currentElement.id = ID.USER_RACING_INPUT_SECTION;
@@ -33,8 +29,9 @@ const UserRacingInput = ({ setGames }) => {
       makeDisableByID(ID.CAR_NAME_INPUT);
       makeDisableByID(ID.CAR_NAME_SUBMIT_BTN);
 
-      gameConfiguration.carNames = inputNames;
-      gameConfiguration.isNameSubmitted = true;
+      updateGameConfiguration.updateCarNames(inputNames);
+
+      isNameSubmitted = true;
 
       removeTimesInputWillChangeHint();
 
@@ -50,18 +47,18 @@ const UserRacingInput = ({ setGames }) => {
 
     if (!times) return;
 
-    gameConfiguration.playTimes = times;
+    updateGameConfiguration.updatePlayTimes(times);
 
     makeDisableByID(ID.RACING_TIMES_INPUT);
     makeDisableByID(ID.RACING_TIMES_SUBMIT_BTN);
 
-    setGames(gameConfiguration);
+    setGames();
   };
 
   const setEvent = () => {
     $currentElement.addEventListener('submit', e => {
       e.preventDefault();
-      !gameConfiguration.isNameSubmitted ? submitName() : submitTimes();
+      !isNameSubmitted ? submitName() : submitTimes();
     });
   };
 
