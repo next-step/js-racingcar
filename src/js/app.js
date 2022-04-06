@@ -7,6 +7,7 @@ import {
   CAR_ADVANCE_CONDITION_NUMBER,
   CAR_NAMES_MIN_LENGTH,
   RACE_LAP_MIN_LENGTH,
+  RACE_LAP_MAX_LENGTH,
 } from './constant.js';
 import {
   templateRaceAdvance,
@@ -62,6 +63,7 @@ const app = () => {
   function validateRaceLap() {
     const value = $raceLapInput.value.trim();
     const isRaceLapMinLengthUnder = value < RACE_LAP_MIN_LENGTH;
+    const isRaceLapMaxLengthOver = value > RACE_LAP_MAX_LENGTH;
 
     if (!value) {
       alert(MESSAGES.RACE_LAP_EMPTY);
@@ -70,6 +72,11 @@ const app = () => {
 
     if (isRaceLapMinLengthUnder) {
       alert(MESSAGES.RACE_LAP_MIN_LENGTH_UNDER);
+      return false;
+    }
+
+    if (isRaceLapMaxLengthOver) {
+      alert(MESSAGES.RACE_LAP_MAX_LENGTH_OVER);
       return false;
     }
 

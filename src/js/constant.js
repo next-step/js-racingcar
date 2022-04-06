@@ -4,6 +4,7 @@ export const CAR_NAME_MAX_LENGTH = 5;
 export const CAR_ADVANCE_CONDITION_NUMBER = 4;
 export const CAR_NAMES_MIN_LENGTH = 2;
 export const RACE_LAP_MIN_LENGTH = 1;
+export const RACE_LAP_MAX_LENGTH = 10;
 
 export const MESSAGES = Object.freeze({
   CAR_NAME_EMPTY: '자동차 이름을 입력해주세요.',
@@ -12,6 +13,7 @@ export const MESSAGES = Object.freeze({
   CAR_NAMES_MIN_LENGTH_UNDER: `자동차 이름은 ${CAR_NAMES_MIN_LENGTH}개 이상 입력해주세요.`,
   RACE_LAP_EMPTY: '시도할 횟수를 입력해주세요.',
   RACE_LAP_MIN_LENGTH_UNDER: `시도 횟수는 최소 ${RACE_LAP_MIN_LENGTH}번 이상이여야 합니다.`,
+  RACE_LAP_MAX_LENGTH_OVER: `시도 횟수는 ${RACE_LAP_MAX_LENGTH}번 이하여야 합니다.`,
 });
 
 export const SELECTORS = Object.freeze({
