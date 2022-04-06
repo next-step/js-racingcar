@@ -1,5 +1,5 @@
-import RacingCarGameResultView from './RacingCarGameResultView.js';
-import RacingCarGameView from './RacingCarGameView.js';
-import TryCountFormView from './TryCountFormView.js';
+import RacingCarGameResultView from './RacingCarGameResult.js';
+import RacingCarGameView from './RacingCarGame.js';
+import TryCountFormView from './TryCountForm.js';
 
 export { TryCountFormView, RacingCarGameView, RacingCarGameResultView };
