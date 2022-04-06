@@ -96,4 +96,10 @@ describe('자동차 경주 게임', () => {
       cy.get(`[data-player=${carName}]`).should('be.visible');
     });
   });
+
+  it('레이싱이 시작되면 플레이어에 전진 아이콘이 노출된다.', () => {
+    submitCarNamesForm(carNames);
+    submitRaceLapForm(lap);
+    cy.get(SELECTORS.FORWARD_ICON).should('be.visible');
+  });
 });
