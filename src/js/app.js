@@ -5,6 +5,7 @@ import {
   CAR_NAME_REGEXP,
   CAR_NAME_MAX_LENGTH,
   CAR_ADVANCE_CONDITION_NUMBER,
+  CAR_NAMES_MIN_LENGTH,
 } from './constant.js';
 import {
   templateRaceAdvance,
@@ -97,6 +98,7 @@ const app = () => {
     const carNames = value.split(CAR_NAME_DIVIDER);
     const isCarNamesUnMatchRegExp = !CAR_NAME_REGEXP.test(value);
     const isCarNameMaxLengthOver = carNames.find((carName) => carName.trim().length > CAR_NAME_MAX_LENGTH);
+    const isCarNamesMinLengthUnder = carNames.length < CAR_NAMES_MIN_LENGTH;
 
     if (!value) {
       alert(MESSAGES.CAR_NAME_EMPTY);
@@ -110,6 +112,11 @@ const app = () => {
 
     if (isCarNameMaxLengthOver) {
       alert(MESSAGES.CAR_NAME_LENGTH_OVER);
+      return false;
+    }
+
+    if (isCarNamesMinLengthUnder) {
+      alert(MESSAGES.CAR_NAMES_LENGTH_UNDER);
       return false;
     }
 
