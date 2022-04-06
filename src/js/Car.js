@@ -1,5 +1,7 @@
-const STOP = 'STOP';
-const MOVING = 'MOVING';
+const CarStatus = Object.freeze({
+  STOP: 'STOP',
+  MOVING: 'MOVING',
+});
 const MOVABLE_RANGE_MIN_NUMBER = 0;
 const MOVABLE_RANGE_MAX_NUMBER = 9;
 const MOVABLE_NUMBER = 4;
@@ -34,25 +36,25 @@ export class Car {
   constructor({ name, target }) {
     this.#name = name;
     this.#target = target;
-    this.#status = STOP;
+    this.#status = CarStatus.STOP;
     this.#stop();
   }
 
   #handleMove() {
-    if (this.#status === STOP) {
+    if (this.#status === CarStatus.STOP) {
       this.#removeStop();
     }
 
     this.#move();
-    this.#status = MOVING;
+    this.#status = CarStatus.MOVING;
   }
 
   #handleStop() {
-    if (this.#status !== STOP) {
+    if (this.#status !== CarStatus.STOP) {
       this.#stop();
     }
 
-    this.#status = STOP;
+    this.#status = CarStatus.STOP;
   }
 
   #move() {
