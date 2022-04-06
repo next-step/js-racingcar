@@ -18,5 +18,6 @@ export const SELECTORS = Object.freeze({
   RACE_LAP_INPUT: '#race-lap-input',
   RACE_LAP_SUBMIT_BUTTON: '#race-lap-submit-button',
   RACE_TRACK: '#race-track',
+  FORWARD_ICON: '.forward-icon',
   SPINNER: '.spinner-container',
 });
