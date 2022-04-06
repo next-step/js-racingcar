@@ -24,11 +24,7 @@ export default class TrackView {
   }
 
   renderRacingCars(carNames) {
-    const racingCarTemplates = [];
-
-    carNames.forEach(carName => {
-      racingCarTemplates.push(this.racingCarTemplate(carName));
-    });
+    const racingCarTemplates = carNames.map(carName => this.racingCarTemplate(carName));
 
     document.querySelector('#racing-track').firstElementChild.innerHTML = racingCarTemplates.join('');
 
