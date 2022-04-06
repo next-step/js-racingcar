@@ -3,7 +3,6 @@ import { DOM, ERROR_MESSAGE } from '../../src/js/constants';
 describe('자동차 경주 게임', () => {
   beforeEach(() => {
     cy.visit('/');
-    cy.reload();
   });
 
   context('처음 화면에 들어갔을 때', () => {
