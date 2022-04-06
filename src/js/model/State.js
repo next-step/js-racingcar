@@ -5,10 +5,7 @@ export default class State {
   #gameConfiguration;
 
   constructor() {
-    this.#gameConfiguration = GameConfiguration.createGameConfiguration({
-      carNames: [],
-      playTimes: 0,
-    });
+    this.#gameConfiguration = GameConfiguration.createGameConfiguration();
   }
 
   static getInstance() {
