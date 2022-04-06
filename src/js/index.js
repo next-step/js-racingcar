@@ -14,7 +14,7 @@ const playRacing = (carNames) =>
 		.map(
 			(name) =>
 				`<div class="mr-2">
-				<div class="car-player">${name}</div>
+				<div data-cy="${name}" class="car-player">${name}</div>
 				${Array(Number($carTryInput.value))
 					.fill(0)
 					.map(() =>

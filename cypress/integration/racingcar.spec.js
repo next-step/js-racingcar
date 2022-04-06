@@ -72,6 +72,10 @@ describe('레이싱카 앱 테스트', () => {
 			cy.get('#car-racing-block').should('be.visible');
 		});
 
-		// it('입력한 자동차의 이름대로 자동차가 생성된다.', () => {});
+		it('입력한 자동차의 이름대로 자동차가 생성된다.', () => {
+			['EAST', 'WEST', 'SOUTH', 'NORTH'].forEach((name) => {
+				cy.get(`[data-cy='${name}']`).should('have.text', name);
+			});
+		});
 	});
 });
