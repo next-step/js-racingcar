@@ -11,6 +11,7 @@ export default function Template() {
   this.spinnerElementMaker = () => {
     this.$spinnerElement = document.createElement('div');
     this.$spinnerElement.className = 'd-flex justify-center mt-3';
+    this.$spinnerElement.dataset.cy = 'spinner-icon';
 
     this.$spinnerElement.innerHTML = String.raw`
       <div class="relative spinner-container">
