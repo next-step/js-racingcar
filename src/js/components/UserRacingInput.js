@@ -5,7 +5,7 @@ import { ID, TEMPLATE } from '../constants/selector.js';
 import ValidationError from '../utils/validation.js';
 
 const UserRacingInput = ({ setGames }) => {
-  const state = {
+  const gameConfiguration = {
     isNameSubmitted: false,
     carNames: [],
     playTimes: 0,
@@ -33,8 +33,8 @@ const UserRacingInput = ({ setGames }) => {
       makeDisableByID(ID.CAR_NAME_INPUT);
       makeDisableByID(ID.CAR_NAME_SUBMIT_BTN);
 
-      state.carNames = inputNames;
-      state.isNameSubmitted = true;
+      gameConfiguration.carNames = inputNames;
+      gameConfiguration.isNameSubmitted = true;
 
       removeTimesInputWillChangeHint();
 
@@ -50,18 +50,18 @@ const UserRacingInput = ({ setGames }) => {
 
     if (!times) return;
 
-    state.playTimes = Number(times);
+    gameConfiguration.playTimes = Number(times);
 
     makeDisableByID(ID.RACING_TIMES_INPUT);
     makeDisableByID(ID.RACING_TIMES_SUBMIT_BTN);
 
-    setGames(state);
+    setGames(gameConfiguration);
   };
 
   const setEvent = () => {
     $currentElement.addEventListener('submit', e => {
       e.preventDefault();
-      !state.isNameSubmitted ? submitName() : submitTimes();
+      !gameConfiguration.isNameSubmitted ? submitName() : submitTimes();
     });
   };
 
