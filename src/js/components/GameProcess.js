@@ -1,15 +1,9 @@
 import { duplicateTemplate } from '../utils/templateUtil.js';
 import { TEMPLATE, ID, CLASS } from '../constants/selector.js';
 
-const GameProcess = ({ carNames, playTimes }) => {
-  let state = {
-    playTimes,
-  };
-
+const GameProcess = ({ state, consumeTime }) => {
   const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_LIST_SECTION);
   $currentElement.id = ID.USER_RACING_CAR_PROCESS;
-
-  const updateState = newState => Object.assign(state, newState);
 
   const makeGameItemsElement = carName => {
     const $gameItemElement = duplicateTemplate(TEMPLATE.CAR_PLAYER_ITEM);
@@ -20,8 +14,6 @@ const GameProcess = ({ carNames, playTimes }) => {
     );
     return $gameItemElement;
   };
-
-  const isStepForward = () => Math.floor(Math.random() * 10) > 4;
 
   const stepForward = carName => {
     $currentElement
@@ -38,11 +30,13 @@ const GameProcess = ({ carNames, playTimes }) => {
       return;
     }
 
-    updateState({ playTimes: (state.playTimes -= 1) });
+    consumeTime();
+
+    for (const [key, value] of Object.entries(state.racingCarList)) {
+      value[state.playTimes] && stepForward(key);
+    }
 
     setTimeout(() => {
-      carNames.forEach(carName => isStepForward() && stepForward(carName));
-
       requestAnimationFrame(playRacingGame);
     }, 1000);
   };
@@ -64,7 +58,7 @@ const GameProcess = ({ carNames, playTimes }) => {
   };
 
   const initProcess = () => {
-    carNames.forEach(carName => {
+    state.carNames.forEach(carName => {
       $currentElement
         .querySelector(`#${ID.RACING_CAR_LIST_ITEMS}`)
         .insertAdjacentElement('beforeend', makeGameItemsElement(carName));

@@ -1,12 +1,9 @@
 import UserRacingInput from './components/UserRacingInput.js';
-import GameProcess from './components/GameProcess.js';
+import State from './model/State.js';
 
 const App = () => {
-  const startGame = ({ carNames, playTimes }) => {
-    GameProcess({ carNames, playTimes });
-  };
-
-  UserRacingInput({ startGame });
+  const state = State.getInstance();
+  UserRacingInput({ setGames: state.setGames });
 };
 
 App();

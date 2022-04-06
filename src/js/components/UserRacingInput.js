@@ -4,14 +4,14 @@ import { MAX_RACING_CAR_NAME } from '../constants/unit.js';
 import { ID, TEMPLATE } from '../constants/selector.js';
 import ValidationError from '../utils/validation.js';
 
-const UserRacingInput = ({ startGame }) => {
+const UserRacingInput = ({ setGames }) => {
   let state = {
     isNameSubmitted: false,
     carNames: [],
     playTimes: 0,
   };
-
   const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT_SECTION);
+
   $currentElement.id = ID.USER_RACING_INPUT_SECTION;
 
   const updateState = newState => Object.assign(state, newState);
@@ -56,7 +56,7 @@ const UserRacingInput = ({ startGame }) => {
     makeDisableByID(ID.RACING_TIMES_INPUT);
     makeDisableByID(ID.RACING_TIMES_SUBMIT_BTN);
 
-    startGame({ carNames: state.carNames, playTimes: state.playTimes });
+    setGames(state);
   };
 
   const setEvent = () => {
