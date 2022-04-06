@@ -1,8 +1,8 @@
 import GameProcess from '../components/GameProcess.js';
-
+import GameConfiguration from './GameConfiguration.js';
 export default class State {
   static instance;
-
+  #gameConfiguration;
   #carNames;
   #racingCarList;
   #playTimes;
@@ -13,6 +13,11 @@ export default class State {
   }
 
   setGames = ({ carNames, playTimes }) => {
+    this.#gameConfiguration = GameConfiguration.createGameConfiguration({
+      carNames,
+      playTimes,
+    });
+
     this.#carNames = carNames;
     this.#playTimes = playTimes;
 
