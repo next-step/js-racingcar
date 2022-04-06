@@ -15,23 +15,85 @@ import {
 } from './template.js';
 import racingCar from './racingcar.js';
 
-const app = {
-  [`$app`]: document.querySelector(SELECTORS.APP),
-  [`$form`]: document.querySelector(SELECTORS.FORM),
-  [`$carNamesInput`]: document.querySelector(SELECTORS.CAR_NAME_INPUT),
-  [`$carNamesSubmitButton`]: document.querySelector(SELECTORS.CAR_NAME_SUBMIT_BUTTON),
-  [`$raceLapInput`]: undefined,
-  [`$raceLapSubmitButton`]: undefined,
-  [`$raceTrack`]: undefined,
+const app = () => {
+  const $app = document.querySelector(SELECTORS.APP);
+  const $form = document.querySelector(SELECTORS.FORM);
+  const $carNamesInput = document.querySelector(SELECTORS.CAR_NAME_INPUT);
+  const $carNamesSubmitButton = document.querySelector(SELECTORS.CAR_NAME_SUBMIT_BUTTON);
+  let $raceLapInput;
+  let $raceLapSubmitButton;
+  let $raceTrack;
 
-  racingCar,
+  function renderRaceTrack() {
+    $app.insertAdjacentHTML('beforeend', templateRaceTrack());
+    $raceTrack = document.querySelector(SELECTORS.RACE_TRACK);
+  }
 
-  initialize() {
-    this.$carNamesSubmitButton.addEventListener('click', this.submitCarNamesForm.bind(this));
-  },
+  function renderRacePlayer({ name }) {
+    $raceTrack.insertAdjacentHTML('beforeend', templateRacePlayer(name));
+  }
 
-  validateCarNames() {
-    const value = this.$carNamesInput.value.trim();
+  function renderRacing({ name, data }) {
+    const $player = document.querySelector(`[data-player=${name}]`);
+    const $spinner = $player.querySelector(SELECTORS.SPINNER);
+    const isAdvanceCondition = data > CAR_ADVANCE_CONDITION_NUMBER;
+    const isNotHasSpinner = !$spinner;
+
+    if (isAdvanceCondition) {
+      $spinner?.remove();
+      $player.insertAdjacentHTML('beforeend', templateRaceAdvance());
+    } else if (isNotHasSpinner) {
+      $player.insertAdjacentHTML('beforeend', templateRaceSpinner());
+    }
+  }
+
+  function racing() {
+    racingCar.racing().forEach(renderRacing);
+
+    const findRacingFinishedPlayer = ({ data }) => {
+      return data.filter((number) => number > CAR_ADVANCE_CONDITION_NUMBER).length >= racingCar.getLap();
+    };
+    const isRacingFinished = racingCar.getCars().findIndex(findRacingFinishedPlayer) > -1;
+
+    if (!isRacingFinished) racing();
+  }
+
+  function validateRaceLap() {
+    const value = $raceLapInput.value.trim();
+
+    if (!value) {
+      alert(MESSAGES.RACE_LAP_EMPTY);
+      return false;
+    }
+
+    return true;
+  }
+
+  function disableRaceLapForm() {
+    $raceLapInput.setAttribute('disabled', true);
+    $raceLapSubmitButton.setAttribute('disabled', true);
+  }
+
+  function submitRaceLapForm() {
+    const value = $raceLapInput.value.trim();
+
+    if (!validateRaceLap()) return;
+    disableRaceLapForm();
+    racingCar.setLap(value);
+    renderRaceTrack();
+    racingCar.getCars().forEach(renderRacePlayer);
+    racing();
+  }
+
+  function renderRaceLapForm() {
+    $form.insertAdjacentHTML('beforeend', templateRaceLapFieldset());
+    $raceLapInput = document.querySelector(SELECTORS.RACE_LAP_INPUT);
+    $raceLapSubmitButton = document.querySelector(SELECTORS.RACE_LAP_SUBMIT_BUTTON);
+    $raceLapSubmitButton.addEventListener('click', submitRaceLapForm);
+  }
+
+  function validateCarNames() {
+    const value = $carNamesInput.value.trim();
     const carNames = value.split(CAR_NAME_DIVIDER);
     const isCarNamesUnMatchRegExp = !CAR_NAME_REGEXP.test(value);
     const isCarNameMaxLengthOver = carNames.find((carName) => carName.trim().length > CAR_NAME_MAX_LENGTH);
@@ -52,90 +114,30 @@ const app = {
     }
 
     return true;
-  },
+  }
 
-  disableCarNamesForm() {
-    this.$carNamesInput.setAttribute('disabled', true);
-    this.$carNamesSubmitButton.setAttribute('disabled', true);
-  },
+  function disableCarNamesForm() {
+    $carNamesInput.setAttribute('disabled', true);
+    $carNamesSubmitButton.setAttribute('disabled', true);
+  }
 
-  submitCarNamesForm() {
-    const value = this.$carNamesInput.value.trim();
+  function submitCarNamesForm() {
+    const value = $carNamesInput.value.trim();
     const carNames = value.split(CAR_NAME_DIVIDER);
 
-    if (!this.validateCarNames()) return;
-    this.disableCarNamesForm();
-    this.renderRaceLapForm();
-    carNames.forEach(this.racingCar.addCar);
-  },
+    if (!validateCarNames()) return;
+    disableCarNamesForm();
+    renderRaceLapForm();
+    carNames.forEach(racingCar.addCar);
+  }
 
-  validateRaceLap() {
-    const value = this.$raceLapInput.value.trim();
+  function initialize() {
+    $carNamesSubmitButton.addEventListener('click', submitCarNamesForm);
+  }
 
-    if (!value) {
-      alert(MESSAGES.RACE_LAP_EMPTY);
-      return false;
-    }
-
-    return true;
-  },
-
-  disableRaceLapForm() {
-    this.$raceLapInput.setAttribute('disabled', true);
-    this.$raceLapSubmitButton.setAttribute('disabled', true);
-  },
-
-  submitRaceLapForm() {
-    const value = this.$raceLapInput.value.trim();
-
-    if (!this.validateRaceLap()) return;
-    this.disableRaceLapForm();
-    this.racingCar.setLap(value);
-    this.renderRaceTrack();
-    this.racingCar.getCars().forEach(this.renderRacePlayer.bind(this));
-    this.racing();
-  },
-
-  renderRaceLapForm() {
-    this.$form.insertAdjacentHTML('beforeend', templateRaceLapFieldset());
-    this.$raceLapInput = document.querySelector(SELECTORS.RACE_LAP_INPUT);
-    this.$raceLapSubmitButton = document.querySelector(SELECTORS.RACE_LAP_SUBMIT_BUTTON);
-    this.$raceLapSubmitButton.addEventListener('click', this.submitRaceLapForm.bind(this));
-  },
-
-  renderRaceTrack() {
-    this.$app.insertAdjacentHTML('beforeend', templateRaceTrack());
-    this.$raceTrack = document.querySelector(SELECTORS.RACE_TRACK);
-  },
-
-  renderRacePlayer({ name }) {
-    this.$raceTrack.insertAdjacentHTML('beforeend', templateRacePlayer(name));
-  },
-
-  renderRacing({ name, data }) {
-    const $player = document.querySelector(`[data-player=${name}]`);
-    const $spinner = $player.querySelector(SELECTORS.SPINNER);
-    const isAdvanceCondition = data > CAR_ADVANCE_CONDITION_NUMBER;
-    const isNotHasSpinner = !$spinner;
-
-    if (isAdvanceCondition) {
-      $spinner?.remove();
-      $player.insertAdjacentHTML('beforeend', templateRaceAdvance());
-    } else if (isNotHasSpinner) {
-      $player.insertAdjacentHTML('beforeend', templateRaceSpinner());
-    }
-  },
-
-  racing() {
-    this.racingCar.racing().forEach(this.renderRacing);
-
-    const findRacingFinishedPlayer = ({ data }) => {
-      return data.filter((number) => number > CAR_ADVANCE_CONDITION_NUMBER).length >= this.racingCar.getLap();
-    };
-    const isRacingFinished = this.racingCar.getCars().findIndex(findRacingFinishedPlayer) > -1;
-
-    if (!isRacingFinished) this.racing();
-  },
+  return {
+    initialize,
+  };
 };
 
-export default app;
+export default app();
