@@ -26,7 +26,7 @@ const GameProcess = ({ state, consumeTime }) => {
   };
 
   const playRacingGame = () => {
-    if (!state.playTimes) {
+    if (!state.leftPlayTime) {
       removeSpinnerWillChangeHint();
       return;
     }
@@ -34,7 +34,7 @@ const GameProcess = ({ state, consumeTime }) => {
     consumeTime();
 
     for (const [key, value] of Object.entries(state.racingCarList)) {
-      value[state.playTimes] && stepForward(key);
+      value[state.leftPlayTime] && stepForward(key);
     }
 
     setTimeout(() => {
@@ -48,7 +48,7 @@ const GameProcess = ({ state, consumeTime }) => {
       $el.style.willChange = 'transform, opacity';
       $el.style.opacity = 1;
     });
-  };
+  };  
 
   const removeSpinnerWillChangeHint = () => {
     const $spinner = $currentElement.querySelectorAll(CLASS.SPINNER);

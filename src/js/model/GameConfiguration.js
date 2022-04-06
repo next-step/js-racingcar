@@ -1,6 +1,7 @@
 export default class GameConfiguration {
   #carNames;
   #playTimes;
+  #racingCarList;
 
   constructor({ carNames, playTimes }) {
     this.#carNames = carNames;
@@ -13,7 +14,7 @@ export default class GameConfiguration {
   }
 
   #makePlayResult() {
-    this.carNames.reduce((acc, cur) => {
+    this.#racingCarList = this.carNames.reduce((acc, cur) => {
       acc[cur] = Array.from({ length: this.playTimes }, () =>
         this.#isStepForward()
       );
@@ -25,11 +26,19 @@ export default class GameConfiguration {
     return Math.floor(Math.random() * 10) > 4 ? 1 : 0;
   }
 
+  consumeTime = () => {
+    this.#playTimes -= 1;
+  };
+
   get carNames() {
     return this.#carNames;
   }
 
   get playTimes() {
     return this.#playTimes;
+  }
+
+  get racingCarList() {
+    return this.#racingCarList;
   }
 }

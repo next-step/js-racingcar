@@ -3,9 +3,6 @@ import GameConfiguration from './GameConfiguration.js';
 export default class State {
   static instance;
   #gameConfiguration;
-  #carNames;
-  #racingCarList;
-  #playTimes;
 
   static getInstance() {
     if (!this.instance) this.instance = new State();
@@ -18,16 +15,6 @@ export default class State {
       playTimes,
     });
 
-    this.#carNames = carNames;
-    this.#playTimes = playTimes;
-
-    this.#racingCarList = this.#carNames.reduce((acc, cur) => {
-      acc[cur] = Array.from({ length: this.#playTimes }, () =>
-        this.#isStepForward()
-      );
-      return acc;
-    }, {});
-
     this.startGame();
   };
 
@@ -38,23 +25,23 @@ export default class State {
     });
   };
 
-  consumeTime = () => {
-    this.#playTimes -= 1;
-  };
+  get consumeTime() {
+    return this.#gameConfiguration.consumeTime;
+  }
 
-  #isStepForward() {
-    return Math.floor(Math.random() * 10) > 4 ? 1 : 0;
+  get consumeTime() {
+    return this.#gameConfiguration.consumeTime;
+  }
+
+  get leftPlayTime() {
+    return this.#gameConfiguration.playTimes;
   }
 
   get carNames() {
-    return Object.keys(this.#racingCarList);
-  }
-
-  get playTimes() {
-    return this.#playTimes;
+    return this.#gameConfiguration.carNames;
   }
 
   get racingCarList() {
-    return this.#racingCarList;
+    return this.#gameConfiguration.racingCarList;
   }
 }
