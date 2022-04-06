@@ -147,7 +147,7 @@ describe('자동차 경주 게임', () => {
 
       cy.getCarsContainer().should('be.visible');
       cy.getGameResultContainer().should('not.be.visible');
-      cy.getCarsContainer().find('[data-cy="cars"]').should('have.length', 4);
+      cy.getCarsContainer().find('[data-cy="car"]').should('have.length', 4);
 
       cy.tick(5 * 1000);
 

@@ -5,6 +5,7 @@ export default function Car({ $target, $spinner, $forward, initState }) {
 
   this.$car = document.createElement('div');
   this.$car.className = 'car mr-2';
+  this.$car.dataset.cy = 'car';
   this.$carPlayer = document.createElement('div');
   this.$carPlayer.className = 'car-player';
   this.$carPlayer.textContent = this.state.carName;
