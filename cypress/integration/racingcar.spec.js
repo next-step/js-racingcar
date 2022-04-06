@@ -24,7 +24,7 @@ describe('자동차 경주 게임 테스트 케이스', () => {
   });
 
   it('첫화면 렌더링 시에, 자동차이름, 시도횟수 관련 폼 확인', () => {
-    cy.get('#app form').should('not.be.visible');
+    cy.get('#racing-name').should('be.visible');
   });
 
   context('자동차 이름을 잘못 입력한 경우', () => {
@@ -35,16 +35,22 @@ describe('자동차 경주 게임 테스트 케이스', () => {
       cy.get('#racing-name button')
         .click()
         .then(() => {
-          expect(alertStub.getCall(0)).to.be.callWith(ERROR.NAME_EMPTY);
+          expect(alertStub.getCall(0)).to.be.calledWith(ERROR.NAME_EMPTY);
         });
     });
     it('자동차 이름을 다섯글자 초과로 입력했을 때', () => {
       const alertStub = cy.stub();
-      cy.get('#racing-name input').type('가나다라마바');
-      cy.get('#racing-name button')
-        .click()
+      cy.on('window:alert', alertStub);
+
+      cy.get('#racing-name input')
+        .type('가나다라마바사')
         .then(() => {
-          expect(alertStub.getCall(0)).to.be.callWith(ERROR.NAME_MAX_LENGTH);
+          cy.get('#racing-name button')
+            .click()
+            .then(() => {
+              expect(alertStub.getCall(0)).to.be.calledWith(ERROR.NAME_MAX_LENGTH);
+              cy.get('#racing-count').should('be.not.visible');
+            });
         });
     });
   });
@@ -57,6 +63,7 @@ describe('자동차 경주 게임 테스트 케이스', () => {
         .then(() => {
           cy.get('#racing-name button').should('be.disabled');
           cy.get('#racing-name input').should('be.disabled');
+          cy.get('#racing-count').should('be.visible');
         });
     });
   });

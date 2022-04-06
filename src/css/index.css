@@ -31,7 +31,6 @@ body {
   justify-content: center;
 }
 
-fieldset {
-  border: none;
-  padding: 0;
+.hidden {
+  display: none;
 }
