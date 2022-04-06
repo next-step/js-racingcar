@@ -52,7 +52,7 @@ describe('자동차 경주 게임', () => {
     cy.on('window:alert', alertStub);
 
     submitCarNamesForm('EAST,WEST,SOUTH,JAVASCRIPT').then(() => {
-      expect(alertStub.getCall(0)).to.be.calledWith(MESSAGES.CAR_NAME_LENGTH_OVER);
+      expect(alertStub.getCall(0)).to.be.calledWith(MESSAGES.CAR_NAME_MAX_LENGTH_OVER);
     });
   });
 
@@ -62,7 +62,7 @@ describe('자동차 경주 게임', () => {
     cy.on('window:alert', alertStub);
 
     submitCarNamesForm('EAST').then(() => {
-      expect(alertStub.getCall(0)).to.be.calledWith(MESSAGES.CAR_NAMES_LENGTH_UNDER);
+      expect(alertStub.getCall(0)).to.be.calledWith(MESSAGES.CAR_NAMES_MIN_LENGTH_UNDER);
     });
   });
 

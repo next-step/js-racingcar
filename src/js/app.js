@@ -111,12 +111,12 @@ const app = () => {
     }
 
     if (isCarNameMaxLengthOver) {
-      alert(MESSAGES.CAR_NAME_LENGTH_OVER);
+      alert(MESSAGES.CAR_NAME_MAX_LENGTH_OVER);
       return false;
     }
 
     if (isCarNamesMinLengthUnder) {
-      alert(MESSAGES.CAR_NAMES_LENGTH_UNDER);
+      alert(MESSAGES.CAR_NAMES_MIN_LENGTH_UNDER);
       return false;
     }
 
