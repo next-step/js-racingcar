@@ -76,12 +76,37 @@ describe('자동차 경주 게임', () => {
       cy.getSpinners().should('be.visible');
       cy.tick(1000);
       cy.getSpinners().should('be.visible');
-      cy.tick(3000);
+      cy.tick(3 * 1000);
       cy.getSpinners().should('not.exist');
     });
 
     it('경주가 끝나면 결과가 보여진다.', () => {
       cy.getGameResultContainer().should('be.visible');
+    });
+  });
+
+  context('자동차 경주 완료 이후 축하 메시지에 대한 테스트', () => {
+    before(() => {
+      cy.visit('index.html');
+    });
+
+    it('자동차 이름을 정상적으로 제출한다.', () => {
+      cy.enrollCorrectCarName('EAST, WEST, SOUTH, NORTH');
+    });
+
+    it('자동차 경주 횟수를 제출하고 게임이 완료된 후 2초 뒤에 축하메시지가 보여진다.', () => {
+      cy.clock();
+
+      cy.getGameResultContainer().should('not.be.visible');
+      cy.enrollCorrectRaceTimes(5);
+      cy.tick(5 * 1000);
+      cy.getGameResultContainer().should('be.visible');
+
+      const alertStub = cy.stub();
+      cy.on('window:alert', alertStub);
+      cy.tick(2000).then(() => {
+        expect(alertStub.getCall(0)).to.be.calledWith(ALERT_MESSAGES.CONGRATULATION);
+      });
     });
   });
 });
