@@ -26,30 +26,28 @@ class RacingCarGame {
   }
 
   setEvent() {
-    this.$carNamesForm.onsubmit = this.onClickSubmitButton.bind(this);
+    this.$carNamesForm.onsubmit = this.generateCarFromCarNameInput.bind(this);
   }
 
-  onClickSubmitButton(event) {
+  generateCarFromCarNameInput(event) {
     event.preventDefault();
     const carNames = this.$carNamesInput.value;
 
-    if (!this.validateCarNames(carNames)) return;
-
-    this.generateCars(carNames);
-    this.renderTryCountFormView();
-    this.tryCountAddEvent();
-  }
-
-  validateCarNames(carNames) {
     try {
-      carNameValidator.isEnteredCarNames(carNames);
-      carNameValidator.isAllCarNamesHaveUnderFiveLetter(carNames);
+      this.validateCarNames(carNames);
     } catch (error) {
       alert(error.message);
       this.$carNamesInput.focus();
-      return false;
+      return;
     }
-    return true;
+
+    this.generateCars(carNames);
+    this.renderTryCountFormView();
+  }
+
+  validateCarNames(carNames) {
+    carNameValidator.isEnteredCarNames(carNames);
+    carNameValidator.isAllCarNamesHaveUnderFiveLetter(carNames);
   }
 
   generateCars(carNames) {
@@ -61,32 +59,32 @@ class RacingCarGame {
     $(`#${DOM.TRY_COUNT_FORM_ID}`).innerHTML = tryCountFormView();
     this.$tryCountInput = $(`#${DOM.TRY_COUNT_INPUT_ID}`);
     this.$tryCountInput.focus();
+    this.tryCountAddEvent();
   }
 
   tryCountAddEvent() {
-    $(`#${DOM.TRY_COUNT_FORM_ID}`).onsubmit = this.onClickTryCountSubmitButton.bind(this);
+    $(`#${DOM.TRY_COUNT_FORM_ID}`).onsubmit = this.progressRacingFromTryCount.bind(this);
   }
 
-  onClickTryCountSubmitButton(event) {
+  progressRacingFromTryCount(event) {
     event.preventDefault();
     this.racingCarGameModel.tryCount = this.$tryCountInput.value;
 
-    if (!this.validateTryCount()) return;
+    try {
+      this.validateTryCount();
+    } catch (error) {
+      alert(error.message);
+      this.$tryCountInput.focus();
+      return;
+    }
 
     this.progressRacingResult();
     this.renderGameResultView();
   }
 
   validateTryCount() {
-    try {
-      tryCountValidator.isEnteredTryCount(this.racingCarGameModel.tryCount);
-      tryCountValidator.isOverThanZero(this.racingCarGameModel.tryCount);
-    } catch (error) {
-      alert(error.message);
-      this.$tryCountInput.focus();
-      return false;
-    }
-    return true;
+    tryCountValidator.isEnteredTryCount(this.racingCarGameModel.tryCount);
+    tryCountValidator.isOverThanZero(this.racingCarGameModel.tryCount);
   }
 
   progressRacingResult() {
