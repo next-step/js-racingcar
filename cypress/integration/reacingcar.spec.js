@@ -86,4 +86,16 @@ describe('자동차 경주 게임', () => {
     cy.get(SELECTORS.RACE_LAP_INPUT).should('be.disabled');
     cy.get(SELECTORS.RACE_LAP_SUBMIT_BUTTON).should('be.disabled');
   });
+
+  it('시도할 횟수를 제출하면 플레이어 목록이 노출된다.', () => {
+    cy.get(SELECTORS.CAR_NAME_INPUT).type('EAST,WEST,SOUTH,NORTH');
+    cy.get(SELECTORS.CAR_NAME_SUBMIT_BUTTON).click();
+    cy.get(SELECTORS.RACE_LAP_INPUT).type('10');
+    cy.get(SELECTORS.RACE_LAP_SUBMIT_BUTTON).click();
+
+    cy.get('[data-player=EAST]').should('be.visible');
+    cy.get('[data-player=WEST]').should('be.visible');
+    cy.get('[data-player=SOUTH]').should('be.visible');
+    cy.get('[data-player=NORTH]').should('be.visible');
+  });
 });
