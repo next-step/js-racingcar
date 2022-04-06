@@ -26,7 +26,7 @@ export function getCarsNames(str) {
 }
 
 export function validationTryCount(str) {
-    const count = parseInt(str);
+    const count = parseInt(str, 10);
 
     if (!count || isNaN(count)) {
         return false;
