@@ -16,8 +16,6 @@ import {
 import racingCar from './racingcar.js';
 
 const app = () => {
-  const $app = document.querySelector(SELECTORS.APP);
-  const $form = document.querySelector(SELECTORS.FORM);
   const $carNamesInput = document.querySelector(SELECTORS.CAR_NAME_INPUT);
   const $carNamesSubmitButton = document.querySelector(SELECTORS.CAR_NAME_SUBMIT_BUTTON);
   let $raceLapInput;
@@ -25,6 +23,7 @@ const app = () => {
   let $raceTrack;
 
   function renderRaceTrack() {
+    const $app = document.querySelector(SELECTORS.APP);
     $app.insertAdjacentHTML('beforeend', templateRaceTrack());
     $raceTrack = document.querySelector(SELECTORS.RACE_TRACK);
   }
@@ -86,6 +85,7 @@ const app = () => {
   }
 
   function renderRaceLapForm() {
+    const $form = document.querySelector(SELECTORS.FORM);
     $form.insertAdjacentHTML('beforeend', templateRaceLapFieldset());
     $raceLapInput = document.querySelector(SELECTORS.RACE_LAP_INPUT);
     $raceLapSubmitButton = document.querySelector(SELECTORS.RACE_LAP_SUBMIT_BUTTON);
