@@ -109,4 +109,56 @@ describe('자동차 경주 게임', () => {
       });
     });
   });
+
+  context.only('자동차 경주 재시작 테스트', () => {
+    before(() => {
+      cy.visit('index.html');
+    });
+
+    it('첫 번째 자동차 경주를 완료한다.', () => {
+      cy.clock();
+      cy.enrollCorrectCarName('EAST, WEST, SOUTH, NORTH');
+      cy.enrollCorrectRaceTimes(5).tick(5 * 1000);
+      cy.getGameResetButton().should('be.disabled');
+
+      const alertStub = cy.stub();
+      cy.on('window:alert', alertStub);
+      cy.tick(2000).then(() => {
+        expect(alertStub.getCall(0)).to.be.calledWith(ALERT_MESSAGES.CONGRATULATION);
+      });
+
+      cy.getGameResetButton().should('not.be.disabled').click();
+    });
+
+    it('두 번째 자동차 경주를 시작한다.', () => {
+      cy.getInputRaceTimesSection().should('not.be.visible');
+      cy.getCarsContainer().should('not.be.visible');
+      cy.getGameResultContainer().should('not.be.visible');
+
+      cy.getCarNameInput().should('be.empty');
+      cy.getCarNameSubmitButton().should('not.be.disabled');
+      cy.enrollCorrectCarName('EAST, WEST, SOUTH, NORTH');
+
+      cy.clock();
+      cy.getInputRaceTimesSection().should('be.visible');
+      cy.getRaceTimesInput().should('be.empty');
+      cy.getRaceTimesSubmitButton().should('not.be.disabled');
+      cy.enrollCorrectRaceTimes(5);
+
+      cy.getCarsContainer().should('be.visible');
+      cy.getGameResultContainer().should('not.be.visible');
+      cy.getCarsContainer().find('[data-cy="cars"]').should('have.length', 4);
+
+      cy.tick(5 * 1000);
+
+      cy.getGameResultContainer().should('be.visible');
+      cy.getGameResetButton().should('be.disabled');
+      const alertStub = cy.stub();
+      cy.on('window:alert', alertStub);
+      cy.tick(2000).then(() => {
+        expect(alertStub.getCall(0)).to.be.calledWith(ALERT_MESSAGES.CONGRATULATION);
+      });
+      cy.getGameResetButton().should('not.be.disabled');
+    });
+  });
 });

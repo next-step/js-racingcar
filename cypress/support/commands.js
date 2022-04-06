@@ -68,6 +68,6 @@ Cypress.Commands.add('getGameResultContainer', () => {
   cy.get('[data-cy="game-result-container"]');
 });
 
-Cypress.Commands.add('getGameResultButton', () => {
+Cypress.Commands.add('getGameResetButton', () => {
   cy.get('[data-cy="game-reset-btn');
 });
