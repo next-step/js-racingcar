@@ -103,6 +103,17 @@ describe('자동차 경주 게임', () => {
     });
   });
 
+  it('시도할 횟수는 최소 10번 이하여야한다.', () => {
+    const alertStub = cy.stub();
+
+    cy.on('window:alert', alertStub);
+
+    submitCarNamesForm(carNames);
+    submitRaceLapForm(11).then(() => {
+      expect(alertStub.getCall(0)).to.be.calledWith(MESSAGES.RACE_LAP_MAX_LENGTH_OVER);
+    });
+  });
+
   it('시도할 횟수를 제출하면 시도 횟수 입력창과 버튼이 비활성화 된다.', () => {
     submitCarNamesForm(carNames);
     submitRaceLapForm(lap);
