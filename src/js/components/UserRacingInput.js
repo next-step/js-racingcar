@@ -5,7 +5,7 @@ import { ID, TEMPLATE } from '../constants/selector.js';
 import ValidationError from '../utils/validation.js';
 
 const UserRacingInput = ({ setGames }) => {
-  let state = {
+  const state = {
     isNameSubmitted: false,
     carNames: [],
     playTimes: 0,
@@ -13,8 +13,6 @@ const UserRacingInput = ({ setGames }) => {
   const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT_SECTION);
 
   $currentElement.id = ID.USER_RACING_INPUT_SECTION;
-
-  const updateState = newState => Object.assign(state, newState);
 
   const isValidCarName = inputNames => {
     const isValid = inputNames.every(
@@ -35,7 +33,8 @@ const UserRacingInput = ({ setGames }) => {
       makeDisableByID(ID.CAR_NAME_INPUT);
       makeDisableByID(ID.CAR_NAME_SUBMIT_BTN);
 
-      updateState({ carNames: inputNames, isNameSubmitted: true });
+      state.carNames = inputNames;
+      state.isNameSubmitted = true;
 
       removeTimesInputWillChangeHint();
 
@@ -51,7 +50,7 @@ const UserRacingInput = ({ setGames }) => {
 
     if (!times) return;
 
-    updateState({ playTimes: Number(times) });
+    state.playTimes = Number(times);
 
     makeDisableByID(ID.RACING_TIMES_INPUT);
     makeDisableByID(ID.RACING_TIMES_SUBMIT_BTN);
