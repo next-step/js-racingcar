@@ -56,6 +56,16 @@ describe('자동차 경주 게임', () => {
     });
   });
 
+  it('자동차 이름은 2개 이상 입력해야한다.', () => {
+    const alertStub = cy.stub();
+
+    cy.on('window:alert', alertStub);
+
+    submitCarNamesForm('EAST').then(() => {
+      expect(alertStub.getCall(0)).to.be.calledWith(MESSAGES.CAR_NAMES_LENGTH_UNDER);
+    });
+  });
+
   it('자동차 이름을 입력하면 자동차 이름 입력창과 버튼이 비활성화 된다.', () => {
     submitCarNamesForm(carNames);
     cy.get(SELECTORS.CAR_NAME_INPUT).should('be.disabled');
