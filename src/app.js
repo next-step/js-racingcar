@@ -11,6 +11,7 @@ import { MSG_ERROR_NO_NAMES } from "./module/constants.mjs";
 
 function initApp() {
   const $app = document.querySelector("#app");
+  if (!$app) return;
   const $carsNameInput = $app.querySelector('[placeholder="자동차 이름"]');
   const $carsNameSubmit = $app.querySelector(
     '[placeholder="자동차 이름"] + button'
@@ -35,7 +36,6 @@ function initApp() {
 
   function runRace(maxRound, names) {
     for (let i = 0; i < maxRound; i += 1) {
-      $raceContainer.dataset.round = `${i + 1}`;
       names.forEach(runRound);
     }
   }

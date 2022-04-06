@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import {MSG_ERROR_INVALID_NUMBER, MSG_ERROR_NO_NAMES} from "../../src/module/constants.mjs";
+import {initApp} from "../../src/app";
 
 describe('step1', () => {
     before(() => {
@@ -54,11 +55,6 @@ describe('step1', () => {
                 cy.get('.car-player').eq(1).should('have.text', '자동차2');
                 cy.get('.car-player').eq(2).should('have.text', '자동차3');
             })
-
-            it('입력한 시도 횟수만큼 라운드가 진행된다', () => {
-                cy.get('.race').should('have.attr','data-round', '2');
-            })
-
         })
     })
 
