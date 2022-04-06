@@ -9,13 +9,7 @@ export const getCommand = (number) => (number >= 4 ? COMMAND_GO : COMMAND_STOP);
 export function validationCarNames(str) {
     const carsNames = str.split(",");
 
-    if (
-        carsNames.length === 0 ||
-        carsNames.some((name) => name.trim() === "")
-    ) {
-        return false;
-    }
-    return true;
+    return !(carsNames.length === 0 || carsNames.some((name) => name.trim() === ""));
 }
 
 export function getCarsNames(str) {
