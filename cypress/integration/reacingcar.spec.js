@@ -1,6 +1,19 @@
-import { SELECTORS, MESSAGES } from '../../src/js/constant.js';
+import { SELECTORS, MESSAGES, CAR_NAME_DIVIDER } from '../../src/js/constant.js';
 
 describe('자동차 경주 게임', () => {
+  const carNames = 'EAST,WEST,SOUTH,NORTH';
+  const lap = 10;
+
+  const submitCarNamesForm = (value) => {
+    cy.get(SELECTORS.CAR_NAME_INPUT).type(value);
+    return cy.get(SELECTORS.CAR_NAME_SUBMIT_BUTTON).click();
+  };
+
+  const submitRaceLapForm = (value) => {
+    cy.get(SELECTORS.RACE_LAP_INPUT).type(value);
+    return cy.get(SELECTORS.RACE_LAP_SUBMIT_BUTTON).click();
+  };
+
   beforeEach(() => {
     cy.visit('../../index.html');
   });
@@ -28,12 +41,9 @@ describe('자동차 경주 게임', () => {
 
     cy.on('window:alert', alertStub);
 
-    cy.get(SELECTORS.CAR_NAME_INPUT).type('EAST/WEST/SOUTH/NORTH');
-    cy.get(SELECTORS.CAR_NAME_SUBMIT_BUTTON)
-      .click()
-      .then(() => {
-        expect(alertStub.getCall(0)).to.be.calledWith(MESSAGES.CAR_NAME_NOT_MATCH_REGEXP);
-      });
+    submitCarNamesForm('EAST/WEST/SOUTH/NORTH').then(() => {
+      expect(alertStub.getCall(0)).to.be.calledWith(MESSAGES.CAR_NAME_NOT_MATCH_REGEXP);
+    });
   });
 
   it('자동차 이름은 쉼표를 기준으로 5자 이하만 가능하다.', () => {
@@ -41,24 +51,19 @@ describe('자동차 경주 게임', () => {
 
     cy.on('window:alert', alertStub);
 
-    cy.get(SELECTORS.CAR_NAME_INPUT).type('EAST,WEST,SOUTH,JAVASCRIPT');
-    cy.get(SELECTORS.CAR_NAME_SUBMIT_BUTTON)
-      .click()
-      .then(() => {
-        expect(alertStub.getCall(0)).to.be.calledWith(MESSAGES.CAR_NAME_LENGTH_OVER);
-      });
+    submitCarNamesForm('EAST,WEST,SOUTH,JAVASCRIPT').then(() => {
+      expect(alertStub.getCall(0)).to.be.calledWith(MESSAGES.CAR_NAME_LENGTH_OVER);
+    });
   });
 
   it('자동차 이름을 입력하면 자동차 이름 입력창과 버튼이 비활성화 된다.', () => {
-    cy.get(SELECTORS.CAR_NAME_INPUT).type('EAST,WEST,SOUTH,NORTH');
-    cy.get(SELECTORS.CAR_NAME_SUBMIT_BUTTON).click();
+    submitCarNamesForm(carNames);
     cy.get(SELECTORS.CAR_NAME_INPUT).should('be.disabled');
     cy.get(SELECTORS.CAR_NAME_SUBMIT_BUTTON).should('be.disabled');
   });
 
   it('자동차 이름을 입력하면 시도 횟수 입력창과 버튼이 노출된다.', () => {
-    cy.get(SELECTORS.CAR_NAME_INPUT).type('EAST,WEST,SOUTH,NORTH');
-    cy.get(SELECTORS.CAR_NAME_SUBMIT_BUTTON).click();
+    submitCarNamesForm(carNames);
     cy.get(SELECTORS.RACE_LAP_INPUT).should('be.visible');
     cy.get(SELECTORS.RACE_LAP_SUBMIT_BUTTON).should('be.visible');
   });
@@ -68,8 +73,7 @@ describe('자동차 경주 게임', () => {
 
     cy.on('window:alert', alertStub);
 
-    cy.get(SELECTORS.CAR_NAME_INPUT).type('EAST,WEST,SOUTH,NORTH');
-    cy.get(SELECTORS.CAR_NAME_SUBMIT_BUTTON).click();
+    submitCarNamesForm(carNames);
     cy.get(SELECTORS.RACE_LAP_INPUT).clear();
     cy.get(SELECTORS.RACE_LAP_SUBMIT_BUTTON)
       .click()
@@ -79,23 +83,17 @@ describe('자동차 경주 게임', () => {
   });
 
   it('시도할 횟수를 제출하면 시도 횟수 입력창과 버튼이 비활성화 된다.', () => {
-    cy.get(SELECTORS.CAR_NAME_INPUT).type('EAST,WEST,SOUTH,NORTH');
-    cy.get(SELECTORS.CAR_NAME_SUBMIT_BUTTON).click();
-    cy.get(SELECTORS.RACE_LAP_INPUT).type('10');
-    cy.get(SELECTORS.RACE_LAP_SUBMIT_BUTTON).click();
+    submitCarNamesForm(carNames);
+    submitRaceLapForm(lap);
     cy.get(SELECTORS.RACE_LAP_INPUT).should('be.disabled');
     cy.get(SELECTORS.RACE_LAP_SUBMIT_BUTTON).should('be.disabled');
   });
 
   it('시도할 횟수를 제출하면 플레이어 목록이 노출된다.', () => {
-    cy.get(SELECTORS.CAR_NAME_INPUT).type('EAST,WEST,SOUTH,NORTH');
-    cy.get(SELECTORS.CAR_NAME_SUBMIT_BUTTON).click();
-    cy.get(SELECTORS.RACE_LAP_INPUT).type('10');
-    cy.get(SELECTORS.RACE_LAP_SUBMIT_BUTTON).click();
-
-    cy.get('[data-player=EAST]').should('be.visible');
-    cy.get('[data-player=WEST]').should('be.visible');
-    cy.get('[data-player=SOUTH]').should('be.visible');
-    cy.get('[data-player=NORTH]').should('be.visible');
+    submitCarNamesForm(carNames);
+    submitRaceLapForm(lap);
+    carNames.split(CAR_NAME_DIVIDER).forEach((carName) => {
+      cy.get(`[data-player=${carName}]`).should('be.visible');
+    });
   });
 });
