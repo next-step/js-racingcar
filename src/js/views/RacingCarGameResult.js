@@ -13,13 +13,13 @@ class RacingCarGameResultView {
 
   carRacingResultTemplate(name, gameResult) {
     return String.raw`
-    	<div class="mr-2">
-				<div class="car-player">${name}</div>
-    	  ${gameResult
+      <div class="mr-2">
+        <div class="car-player">${name}</div>
+        ${gameResult
           .map(result => (result === GAME.ADVANCE ? this.carAdvanceTemplate() : ''))
           .join('')}
-			</div>
-  `;
+      </div>
+    `;
   }
 
   carAdvanceTemplate() {
