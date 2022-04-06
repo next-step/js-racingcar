@@ -46,11 +46,11 @@ const UserRacingInput = ({ setGames }) => {
   };
 
   const submitTimes = () => {
-    const times = document.getElementById(ID.RACING_TIMES_INPUT).value;
+    const times = document.getElementById(ID.RACING_TIMES_INPUT).valueAsNumber;
 
     if (!times) return;
 
-    gameConfiguration.playTimes = Number(times);
+    gameConfiguration.playTimes = times;
 
     makeDisableByID(ID.RACING_TIMES_INPUT);
     makeDisableByID(ID.RACING_TIMES_SUBMIT_BTN);
