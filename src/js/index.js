@@ -14,14 +14,11 @@ const playRacing = (carNames) =>
 		.map(
 			(name) =>
 				`<div class="mr-2">
-				<div data-cy="${name}" class="car-player">${name}</div>
-				${Array(Number($carTryInput.value))
-					.fill(0)
-					.map(() =>
-						isMoveCar() ? `<div class="forward-icon mt-2">⬇️️</div>` : null
-					)
-					.join('')}
-			</div>`
+					<div data-cy="${name}" class="car-player">${name}</div>
+					${Array.from({ length: Number($carTryInput.value) }, () =>
+						isMoveCar() ? `<div  class="forward-icon mt-2">⬇️️</div>` : null
+					).join('')}
+				</div>`
 		)
 		.join('');
 
