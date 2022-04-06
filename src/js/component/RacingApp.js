@@ -3,6 +3,7 @@ import Winner from "../domain/Winner.js";
 import CarNamesForm from "./CarNamesForm.js";
 import CarTrackForm from "./CarTrackForm.js";
 import TryCountForm from "./TryCountForm.js";
+import WinnerForm from "./WinnerForm.js";
 
 export default class RacingApp {
     constructor() {
@@ -12,8 +13,17 @@ export default class RacingApp {
             onLoadTryForm: () => this.tryCountForm.display(),
         });
         this.tryCountForm = new TryCountForm(this.racing, {
-            onLoadCarTrackForm: () => this.onPlayRacing(),
+            onLoadCarTrackForm: () => {
+                this.onDisableButton();
+                this.onPlayRacing();
+
+            },
         });
+    }
+
+    onDisableButton() {
+        this.carNamesForm.disabled();
+        this.tryCountForm.disabled();
     }
 
     onPlayRacing() {
@@ -27,7 +37,8 @@ export default class RacingApp {
             if(count === +this.racing.tryCount) {
                 clearInterval(interval);
                 this.carTrackForm.removeSpinner();
-                Winner.getWinner(this.racing.cars);
+                new WinnerForm(Winner.getWinners(this.racing.cars), {});
+                return;
             }
             this.racing.cars.forEach((car, i) => {
                 if(this.getForwardState()) {

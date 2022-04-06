@@ -29,6 +29,7 @@ export default  class TryCountForm {
 
     #onTryCountSubmit() {
         this.racing.tryCount = new TryCount(this.tryCountInput.value).value;
+        
         this.onLoadCarTrackForm();
     }
 
@@ -40,6 +41,11 @@ export default  class TryCountForm {
             <button id="try-count-submit" type="button" class="btn btn-cyan">확인</button>
         </div>
         `;
+    }
+
+    disabled() {
+        this.tryCountInput.setAttribute("disabled", "disabled");
+        this.tryCountsubmit.setAttribute("disabled", "disabled");
     }
 
     display() {

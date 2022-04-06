@@ -1,4 +1,5 @@
-export default class CarTrackForm {    
+export default class CarTrackForm {
+        
     constructor(racing, props) {
         this.racing = racing;
         this.$element = document.querySelector("#car-track-area");

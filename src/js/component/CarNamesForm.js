@@ -47,4 +47,9 @@ export default class CarNamesForm {
         </div>
         `;
     }
+
+    disabled() {
+        this.$carNamesInput.setAttribute("disabled", "disabled");
+        this.$carNamesSubmit.setAttribute("disabled", "disabled");
+    }
 }
