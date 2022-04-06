@@ -11,12 +11,12 @@ class RacingCarGame {
     this.$target = $target;
     this.racingCarGameModel = new RacingCarGameModel();
     this.render();
+    this.mounted();
     this.setEvent();
   }
 
   render() {
     this.$target.innerHTML = racingCarGameView();
-    this.mounted();
   }
 
   mounted() {
