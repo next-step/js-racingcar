@@ -138,8 +138,28 @@ describe('자동차 경주 게임', () => {
         });
     });
 
-    it('정상적으로 입력된 경우 ', () => {
-      cy.cycleInput().type(22);
+    it('정상적으로 입력된 경우 (1)', () => {
+      cy.cycleInput().type(1);
+      cy.cycleSubmit()
+        .click()
+        .then(() => {
+          cy.cycleInput().should('be.disabled');
+          cy.cycleSubmit().should('be.disabled');
+        });
+    });
+
+    it('정상적으로 입력된 경우 (100)', () => {
+      cy.cycleInput().type(100);
+      cy.cycleSubmit()
+        .click()
+        .then(() => {
+          cy.cycleInput().should('be.disabled');
+          cy.cycleSubmit().should('be.disabled');
+        });
+    });
+
+    it('정상적으로 입력된 경우', () => {
+      cy.cycleInput().type(12);
       cy.cycleSubmit()
         .click()
         .then(() => {
