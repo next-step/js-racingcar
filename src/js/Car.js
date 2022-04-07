@@ -28,9 +28,7 @@ function stopTemplate() {
 
 export class Car {
   #name;
-
   #status;
-
   #target;
 
   constructor({ name, target }) {
