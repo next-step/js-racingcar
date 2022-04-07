@@ -1,4 +1,7 @@
-import { NOT_ALLOWED_NAME_LENGTH } from '../../../src/racingcar/constatns/messages';
+import {
+  NOT_ALLOWED_NAME_LENGTH,
+  NOT_ALLOWED_TRY_COUNT,
+} from '../../../src/racingcar/constatns/messages';
 
 before(() => cy.visit('../../dist/index.html'));
 
@@ -8,6 +11,8 @@ const $tryCountSection = () => cy.get('[data-target="racingcar-try-count-section
 
 const $tryCountInput = () => cy.get('[data-target="racingcar-try-count-input"]');
 const $tryCountButton = () => cy.get('[data-target="racingcar-try-count-button"]');
+
+const $playCars = () => cy.get('[data-target="racingcar-play-cars"]');
 
 afterEach(() => {
   cy.reload();
@@ -82,14 +87,71 @@ describe('자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5
 });
 
 describe.only('사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.', () => {
-  context('1회 의상', () => {
-    it('1회', () => {});
-    it('3회', () => {});
+  beforeEach(() => {
+    $namingInput().type('BMW');
+    $namingButton().click();
   });
 
-  context('0회 이하', () => {
-    it('0회', () => {});
-    it('-1회', () => {});
+  const typeTryCountAndClick = (tryCount) => {
+    $tryCountInput().type(tryCount);
+    $tryCountButton().click();
+    $playCars().should('be.visible');
+  };
+
+  const typeTryCountAndEnter = (tryCount) => {
+    $tryCountInput().type(tryCount + '{enter}');
+    $playCars().should('be.visible');
+  };
+
+  const typeTryCountAndClickGotAlert = (tryCount) => {
+    $tryCountInput().type(tryCount);
+    $tryCountButton().click();
+    cy.on('window:alert', (msg) => {
+      expect(msg).to.contains(NOT_ALLOWED_TRY_COUNT);
+    });
+  };
+
+  const typeTryCountAndEnterGotAlert = (tryCount) => {
+    $tryCountInput().type(tryCount + '{enter}');
+    cy.on('window:alert', (msg) => {
+      expect(msg).to.contains(NOT_ALLOWED_TRY_COUNT);
+    });
+  };
+
+  context('1회 이상을 입력하고 버튼을 클릭한다.', () => {
+    it('1회', () => {
+      typeTryCountAndClick(1);
+    });
+    it('3회', () => {
+      typeTryCountAndClick(3);
+    });
+  });
+
+  context('1회 이상을 입력하고 엔터를 입력한다.', () => {
+    it('1회', () => {
+      typeTryCountAndEnter(1);
+    });
+    it('3회', () => {
+      typeTryCountAndEnter(3);
+    });
+  });
+
+  context('0회 이하를 입력하고 버튼을 클릭한다.', () => {
+    it('0회', () => {
+      typeTryCountAndClickGotAlert(0);
+    });
+    it('-1회', () => {
+      typeTryCountAndClickGotAlert(-1);
+    });
+  });
+
+  context('0회 이하를 입력하고 엔터를 입력한다.', () => {
+    it('0회', () => {
+      typeTryCountAndEnterGotAlert(0);
+    });
+    it('-1회', () => {
+      typeTryCountAndEnterGotAlert(-1);
+    });
   });
 });
 
