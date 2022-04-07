@@ -1,8 +1,6 @@
 import { CARD_STATE } from '../constants/index.js';
 
 const initState = {
-  carNames: [],
-  count: 0,
   carBoard: [],
 };
 

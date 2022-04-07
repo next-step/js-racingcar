@@ -17,19 +17,20 @@ class App {
   sendChallengeCount = (e) => {
     e.preventDefault();
     const challengeCount = this.$countInput.value;
-    const carBoard = createCarBoard({ names: this.store.state.carNames, count: challengeCount });
+    const carNames = this.$nameInput.value.split(',');
+    const carBoard = createCarBoard({ names: carNames, count: challengeCount });
 
     this.$countInput.disabled = true;
     $('#racing-count button').disabled = true;
     $('#racing-board').classList.remove('hidden');
-    this.store.setState({ challengeCount, carBoard });
+    this.store.setState({ carBoard });
     this.carBoardRender();
   };
 
   sendCarNames = (e) => {
     e.preventDefault();
 
-    const $countArticle = $('#racing-count');
+    const $racingCount = $('#racing-count');
     const carNames = this.$nameInput.value.split(',');
     const { errorMessage } = validNames(carNames);
     if (errorMessage) {
@@ -39,8 +40,7 @@ class App {
 
     $('#racing-name button').disabled = true;
     this.$nameInput.disabled = true;
-    $countArticle.classList.remove('hidden');
-    this.store.setState({ carNames });
+    $racingCount.classList.remove('hidden');
     $('#racing-count input').focus();
   };
 
