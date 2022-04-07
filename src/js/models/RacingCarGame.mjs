@@ -1,26 +1,10 @@
 class RacingCarGame {
-  #cars;
-  #tryCount;
+  cars;
+  tryCount;
 
   constructor() {
-    this.#cars = [];
-    this.#tryCount = 0;
-  }
-
-  get cars() {
-    return this.#cars;
-  }
-
-  get tryCount() {
-    return this.#tryCount;
-  }
-
-  set cars(cars) {
-    this.#cars = cars;
-  }
-
-  set tryCount(tryCount) {
-    this.#tryCount = tryCount;
+    this.cars = [];
+    this.tryCount = 0;
   }
 }
 
