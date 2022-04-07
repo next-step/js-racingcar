@@ -1,6 +1,6 @@
 import Racing from '../../Model/Racing.js';
 import renderCountForm from '../../View/Render/renderCountForm.js';
-import convertDisabledAttr from './commons/convertDisabledAttr.js';
+import disable from '../../util/disable.js';
 
 import { VALIDATE } from '../../util/consts.js';
 import { racingCountEvent } from './index.js';
@@ -12,7 +12,7 @@ export const racingCarInputEvent = (function () {
     if (Racing.validate.carNameLength(value))
       return alert(VALIDATE.ALERT_WRONG_RACING_CAR_NAME);
 
-    convertDisabledAttr(target);
+    disable(target);
 
     renderCountForm();
 

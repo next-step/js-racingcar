@@ -16,8 +16,7 @@
 
 2. 컨트롤러
 
-- [ ] 컨트롤러와 이벤트의 결합이 애매하게 되어 있다
-- [ ] 완전히 포함시키던가 완전히 분리할 수 있는 방법을 찾아보시면 좋겠네요. (사실 세진님의 의도를 파악하지 못한 것도 있다?)
+- [ ] 컨트롤러와 이벤트를 완전히 포함 or 완전히 분리
 
 3. Render의 예외나 명시적인 부분이 보여 고려해보기
 
@@ -25,9 +24,9 @@
 
 ### 세부 수정사항
 
-- [ ] convertDisabledAttr / 네이밍 고려
-- [ ] Default parameter 수정
-- [ ] InputText 네이밍 수정
+- [x] convertDisabledAttr / 네이밍 고려 => ./src/util/disable.js 수정
+- [x] Default parameter 수정
+- [x] InputText 네이밍 수정
 
 ## 기능 명세
 

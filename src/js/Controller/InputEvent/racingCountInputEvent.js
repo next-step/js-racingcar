@@ -1,5 +1,5 @@
 import Racing from '../../Model/Racing.js';
-import convertDisabledAttr from './commons/convertDisabledAttr.js';
+import disable from '../../util/disable.js';
 import renderRacingArena from '../../View/Render/renderRacingArena.js';
 import renderRacingGame from '../../View/Render/renderRacing.js';
 import removeSpinner from '../../View/Render/removeSpinner.js';
@@ -12,7 +12,7 @@ export const racingCountInputEvent = (function () {
 
     if (Racing.validate.racingCount(value))
       return alert(VALIDATE.ALERT_LESS_RACING_COUNT);
-    convertDisabledAttr(target);
+    disable(target);
 
     const racing = new Racing(cars.split(','));
     renderRacingArena(cars);
