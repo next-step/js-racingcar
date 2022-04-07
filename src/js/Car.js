@@ -2,9 +2,6 @@ const CarStatus = Object.freeze({
   STOP: 'STOP',
   MOVING: 'MOVING',
 });
-const MOVABLE_RANGE_MIN_NUMBER = 0;
-const MOVABLE_RANGE_MAX_NUMBER = 9;
-const MOVABLE_NUMBER = 4;
 
 function randomNumber(min, max) {
   return Math.random() * (max - min) + min;
@@ -69,6 +66,10 @@ export class Car {
   }
 
   static #isEnableMove() {
+    const MOVABLE_RANGE_MIN_NUMBER = 0;
+    const MOVABLE_RANGE_MAX_NUMBER = 9;
+    const MOVABLE_NUMBER = 4;
+
     return (
       randomNumber(MOVABLE_RANGE_MIN_NUMBER, MOVABLE_RANGE_MAX_NUMBER) >=
       MOVABLE_NUMBER
