@@ -10,34 +10,39 @@ export default class RacingApp {
         this.racing = new Racing();
 
         this.carNamesForm = new CarNamesForm(this.racing, {
-            onLoadTryForm: () => this.tryCountForm.display(),
+            onLoadTryForm: () => {
+                this.tryCountForm.renderer();
+                this.tryCountForm.mounted();
+            },
         });
         this.tryCountForm = new TryCountForm(this.racing, {
             onLoadCarTrackForm: () => {
-                this.onDisableButton();
                 this.onPlayRacing();
-
             },
         });
-    }
+        this.carTrackForm = new CarTrackForm(this.racing, {
+            onForwarding: () => this.racing.forwardTry(),
+        });
 
-    onDisableButton() {
-        this.carNamesForm.disabled();
-        this.tryCountForm.disabled();
+        this.winnierForm = new WinnerForm({
+            onReplay: () => this.onReplay()
+        })
     }
 
     onPlayRacing() {
-        this.carTrackForm = new CarTrackForm(this.racing, {
-            onForwarding: () => this.racing.forwardTry()
-        });
+        this.onDisableButton();
+        this.carTrackForm.renderer();
 
         let count = 0;
         let interval = setInterval(() => {
             count++;
-            if(count === +this.racing.tryCount) {
+            if(count === Number(this.racing.tryCount)) {
                 clearInterval(interval);
                 this.carTrackForm.removeSpinner();
-                new WinnerForm(Winner.getWinners(this.racing.cars), {});
+                this.winnierForm.winners = Winner.getWinners(this.racing.cars);
+                this.winnierForm.renderer();
+                this.winnierForm.mounted();
+                this.winnierForm.onAlertWinner();
                 return;
             }
             this.racing.cars.forEach((car, i) => {
@@ -49,7 +54,19 @@ export default class RacingApp {
         }, 1000);
     }
 
+    onDisableButton() {
+        this.carNamesForm.disabled();
+        this.tryCountForm.disabled();
+    }
+
     getForwardState() {
         return (Math.floor(Math.random() * Racing.MAX_RANDOM_VALUE)) < Racing.FORWARD_VALUE;
     }
+
+    onReplay() {
+        this.carNamesForm.reset();
+        this.tryCountForm.reset();
+        this.carTrackForm.reset();
+        this.winnierForm.reset();
+    }   
 }

@@ -4,11 +4,9 @@ export default class CarTrackForm {
         this.racing = racing;
         this.$element = document.querySelector("#car-track-area");
         this.onForwarding = props.onForwarding;
-
-        this.#renderer();
     }
 
-    #renderer() {
+    renderer() {
         this.$element.innerHTML = this.getCarTrackForm();
     }
 
@@ -52,5 +50,10 @@ export default class CarTrackForm {
         document.querySelectorAll(".spinner-area").forEach((spinner) => {
             spinner.remove();
         })
+    }
+
+    reset() {
+        this.$element.innerHTML = "";
+        this.racing.cars = [];
     }
 }

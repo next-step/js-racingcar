@@ -5,15 +5,12 @@ export default  class TryCountForm {
         this.racing = racing;
         this.$element = document.querySelector("#try-count-area");
         this.onLoadCarTrackForm = onLoadCarTrackForm;
-        this.#renderer();
-        this.#mounted();
     }
 
-    #renderer() {
-        this.$element.classList.add("d-none");
+    renderer() {
         this.$element.innerHTML = this.#getTryCountTemplate();
     }
-    #mounted() {
+    mounted() {
         this.tryCountInput = document.querySelector("#try-count-input");
         this.tryCountsubmit = document.querySelector("#try-count-submit");
         
@@ -50,5 +47,10 @@ export default  class TryCountForm {
 
     display() {
         this.$element.classList.remove("d-none");
+    }
+
+    reset() {
+        this.$element.innerHTML = "";
+        this.racing.tryCount = 0;
     }
 }

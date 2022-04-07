@@ -52,4 +52,11 @@ export default class CarNamesForm {
         this.$carNamesInput.setAttribute("disabled", "disabled");
         this.$carNamesSubmit.setAttribute("disabled", "disabled");
     }
+
+    reset() {
+        this.$carNamesInput.value = "";
+
+        this.$carNamesInput.removeAttribute("disabled");
+        this.$carNamesSubmit.removeAttribute("disabled");
+    }
 }
