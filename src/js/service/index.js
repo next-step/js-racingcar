@@ -1,4 +1,4 @@
-import { ERROR } from '../constants/index.js';
+import { CARD_STATE, ERROR } from '../constants/index.js';
 
 const validName = (name) => {
   const notBlankName = name.replace(/\s/g, '');
@@ -19,4 +19,20 @@ export const validNames = (names) => {
   if (validNamesArr.length > 0) return { errorMessage: validNamesArr[0] };
 
   return { errorMessage: null };
+};
+
+const createForwardState = () => {
+  const random = Math.floor(Math.random() * 10);
+  return random > 3 ? CARD_STATE.GO : CARD_STATE.STOP;
+};
+
+export const createCarBoard = ({ names, count }) => {
+  const carBoard = names.map((name) => {
+    return {
+      name,
+      stateList: Array.from({ length: count }, () => createForwardState()),
+    };
+  });
+
+  return carBoard;
 };
