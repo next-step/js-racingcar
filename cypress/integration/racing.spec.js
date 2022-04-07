@@ -78,7 +78,7 @@ describe('자동차 경주 게임', () => {
     });
 
     it('정상적으로 입력된 경우 ', () => {
-      cy.carNamesInput().type('자동,자동차');
+      cy.carNamesInput().type('3글자,4글자아,5글자아아');
       cy.carNamesSubmit()
         .click()
         .then(() => {
