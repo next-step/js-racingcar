@@ -1,65 +1,37 @@
 import RacingSectionView from './RacingSectionView.js';
+import RacingCycle from '../RacingCycle.js';
 
-const MIN_CYCLE = 1;
-const MAX_CYCLE = 100;
+const $racingCycleField = document.querySelector('#racing-cycle-field');
+const $racingCycleInput = $racingCycleField.querySelector(
+  '#racing-cycle-input'
+);
+const $racingCycleSubmit = $racingCycleField.querySelector(
+  '#racing-cycle-submit'
+);
 
-const RacingCycleView = (function () {
-  const $racingCycleField = document.querySelector('#racing-cycle-field');
-  const $racingCycleInput = $racingCycleField.querySelector(
-    '#racing-cycle-input'
-  );
-  const $racingCycleSubmit = $racingCycleField.querySelector(
-    '#racing-cycle-submit'
-  );
-
-  function notificationEmptyCycle() {
-    alert('횟수를 입력하세요.');
-  }
-
-  function notificationInvalidCycle() {
-    alert(`횟수를 ${MIN_CYCLE} ~ ${MAX_CYCLE} 사이 값을 입력하세요.`);
-  }
-
-  function isEmptyCycle(cycle) {
-    return cycle === undefined || cycle === null || !cycle;
-  }
-
-  function isInvalidCycle(cycle) {
-    return !(cycle >= 1 && cycle <= 100);
-  }
-
-  function disabledCycleField() {
+class RacingCycleView {
+  static #disabledCycleField() {
     $racingCycleField.disabled = true;
   }
 
-  function handleCycleSubmit() {
+  static #handleCycleSubmit() {
     const cycle = $racingCycleInput.value;
-    if (isEmptyCycle(cycle)) {
-      notificationEmptyCycle();
-      return;
+    if (RacingCycle.validate(cycle)) {
+      RacingCycleView.#disabledCycleField();
+      RacingSectionView.ready();
+      RacingSectionView.start(cycle);
     }
-
-    if (isInvalidCycle(cycle)) {
-      notificationInvalidCycle();
-      return;
-    }
-
-    disabledCycleField();
-    RacingSectionView.ready();
-    RacingSectionView.start(cycle);
   }
 
-  function eventBindings() {
-    $racingCycleSubmit.addEventListener('click', handleCycleSubmit);
-  }
-
-  function showView() {
+  static showView() {
     $racingCycleField.classList.remove('hide');
   }
 
-  eventBindings();
-
-  return { showView };
-})();
-
+  static eventBindings() {
+    $racingCycleSubmit.addEventListener(
+      'click',
+      RacingCycleView.#handleCycleSubmit
+    );
+  }
+}
 export default RacingCycleView;
