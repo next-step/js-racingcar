@@ -1,3 +1,5 @@
+import { NOT_ALLOWED_NAME_LENGTH } from '../../../src/racingcar/constatns/messages';
+
 before(() => cy.visit('../../dist/index.html'));
 
 const $namingInput = () => cy.get('[data-target="racingcar-naming-input"]');
@@ -22,27 +24,56 @@ describe.only('자동차 이름은 쉼표(,)를 기준으로 구분하며 이름
     $tryCountSection().should('be.visible');
   };
 
+  const typeNameAndClickGotAlert = (name) => {
+    $namingInput().type(name);
+    $namingButton().click();
+    cy.on('window:alert', (msg) => {
+      expect(msg).to.contains(NOT_ALLOWED_NAME_LENGTH);
+    });
+  };
+
+  const typeName다ndEnterGotAlert = (name) => {
+    $namingInput().type(name + '{enter}');
+    cy.on('window:alert', (msg) => {
+      expect(msg).to.contains(NOT_ALLOWED_NAME_LENGTH);
+    });
+  };
+
   context('5자 이하의 이름을 입력하고 확인버튼을 클릭한다.', () => {
     it('1개의 자동차', () => {
-      typeNameAndClick('MASERATI');
+      typeNameAndClick('BMW');
     });
     it('3개의 자동차', () => {
-      typeNameAndClick('BMW, AUDI, MERCEDES');
+      typeNameAndClick('BMW, AUDI, K9');
     });
   });
 
   context('5자 이하의 이름을 입력하고 엔터를 입력한다.', () => {
     it('1개의 자동차', () => {
-      typeNameAndEnter('MASERATI');
+      typeNameAndEnter('BMW');
     });
     it('3개의 자동차', () => {
-      typeNameAndEnter('BMW, AUDI, MERCEDES');
+      typeNameAndEnter('BMW, AUDI, K9');
     });
   });
 
   context('5자 초과의 이름을 입력하고 확인버튼을 클릭한다.', () => {
     it('1개의 자동차', () => {
-      typeNameAndClick('MASERATI');
+      typeNameAndClickGotAlert('MASERATI');
+    });
+
+    it('3개의 자동차', () => {
+      typeNameAndClickGotAlert('BMW, MERCEDES, K9');
+    });
+  });
+
+  context('5자 초과의 이름을 입력하고 엔터를 입력한다.', () => {
+    it('1개의 자동차', () => {
+      typeName다ndEnterGotAlert('MASERATI');
+    });
+
+    it('3개의 자동차', () => {
+      typeName다ndEnterGotAlert('BMW, MERCEDES, K9');
     });
   });
 });
