@@ -1,6 +1,8 @@
 import RacingCarNamesView from './RacingCarNamesView.js';
 import { Car } from '../Car.js';
 
+const $section = document.querySelector('section > div.mt-4.d-flex');
+
 function moveTemplate() {
   const $template = document.createElement('template');
   $template.innerHTML = `<div class="forward-icon mt-2">⬇️️</div>`;
@@ -17,65 +19,12 @@ function stopTemplate() {
   return $template.content.firstChild;
 }
 
-const RacingSectionView = (function () {
-  const $section = document.querySelector('section > div.mt-4.d-flex');
+function player(carName) {
+  return `<div class="car-player">${carName}</div>`;
+}
 
-  function player(carName) {
-    return `<div class="car-player">${carName}</div>`;
-  }
-
-  function carSetting(carName) {
-    const $car = document.createElement('div');
-    $car.classList.add('mr-2');
-    $car.innerHTML = player(carName);
-    return $car;
-  }
-
-  function settingCars(carNameList) {
-    const $result = new DocumentFragment();
-    $result.append(...carNameList.map((carName) => carSetting(carName)));
-    return $result;
-  }
-
-  function ready() {
-    $section.replaceChildren(settingCars(RacingCarNamesView.carNameList()));
-  }
-
-  function removeStopPositionAllCar() {
-    $section
-      .querySelectorAll('div.mt-3')
-      .forEach(($stopPosition) => $stopPosition.remove());
-  }
-
-  function movePosition(car) {
-    car.$target.appendChild(moveTemplate());
-  }
-
-  function stopPosition(car) {
-    car.$target.appendChild(stopTemplate());
-  }
-
-  function changeCarPosition(car) {
-    if (car.isMoveStatus()) {
-      movePosition(car);
-      return;
-    }
-    stopPosition(car);
-  }
-
-  function runningLap(carList) {
-    removeStopPositionAllCar();
-    carList.forEach((car) => {
-      car.run();
-      changeCarPosition(car);
-    });
-  }
-
-  function runningLapByCycle({ cycle, carList }) {
-    new Array(Number(cycle)).fill().forEach(() => runningLap(carList));
-  }
-
-  function cars() {
+class RacingSectionView {
+  static #cars() {
     const $lines = $section.querySelectorAll('div.mr-2');
     return [...$lines].map(($line) => {
       const carName = $line.querySelector('.car-player');
@@ -83,10 +32,64 @@ const RacingSectionView = (function () {
     });
   }
 
-  function start(cycle) {
-    runningLapByCycle({ cycle, carList: cars() });
+  static #carSetting(carName) {
+    const $car = document.createElement('div');
+    $car.classList.add('mr-2');
+    $car.innerHTML = player(carName);
+    return $car;
   }
 
-  return { ready, start };
-})();
+  static #settingCars(carNameList) {
+    const $result = new DocumentFragment();
+    $result.append(...carNameList.map((carName) => this.#carSetting(carName)));
+    return $result;
+  }
+
+  static #removeStopPositionAllCar() {
+    $section
+      .querySelectorAll('div.mt-3')
+      .forEach(($stopPosition) => $stopPosition.remove());
+  }
+
+  static #movePosition(car) {
+    car.$target.appendChild(moveTemplate());
+  }
+
+  static #stopPosition(car) {
+    car.$target.appendChild(stopTemplate());
+  }
+
+  static #changeCarPosition(car) {
+    if (car.isMoveStatus()) {
+      this.#movePosition(car);
+      return;
+    }
+    this.#stopPosition(car);
+  }
+
+  static #runningLap(carList) {
+    this.#removeStopPositionAllCar();
+    carList.forEach((car) => {
+      car.run();
+      this.#changeCarPosition(car);
+    });
+  }
+
+  static #runningLapByCycle({ cycle, carList }) {
+    new Array(Number(cycle)).fill().forEach(() => this.#runningLap(carList));
+  }
+
+  static start(cycle) {
+    this.#runningLapByCycle({
+      cycle,
+      carList: this.#cars(),
+    });
+  }
+
+  static ready() {
+    $section.replaceChildren(
+      this.#settingCars(RacingCarNamesView.carNameList())
+    );
+  }
+}
 export default RacingSectionView;
