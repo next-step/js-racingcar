@@ -1,11 +1,13 @@
-import RacingStarter from "./components/RacingStarter.js";
+import RacingInputView from "./views/RacingInputView.js";
+import RacingGame from "./models/RacingGame.js";
+import { SELECTOR } from "./constant/index.js";
 
-const app = () => {
-  const $app = document.querySelector("#app");
-  const renderInitView = () => {
+const App = {
+  render: () => {
+    const $app = document.querySelector("#app");
     /*html */
     $app.innerHTML = `<section class="d-flex justify-center mt-5" >
-    <form id ="racing-starter-form">
+    <form id ="racing-form">
     </form>
   </section>
   <section class="d-flex justify-center mt-5">
@@ -20,15 +22,28 @@ const app = () => {
       </div>
     </div>
   </section>`;
-  };
 
-  renderInitView();
+    RacingInputView.renderNameInput();
+  },
+  addEvent: function () {
+    const $racingInputContainer = document.querySelector("#racing-form");
+    $racingInputContainer.addEventListener("click", ({ target }) => {
+      if (target.closest("#name-submit-button")) {
+        this.readyToStartGame();
+      }
+    });
 
-  const $racingStarterContainer = document.querySelector(
-    "#racing-starter-form"
-  );
+    $racingInputContainer.addEventListener("submit", e => {
+      e.preventDefault();
+      this.readyToStartGame();
+    });
+  },
 
-  new RacingStarter({ $target: $racingStarterContainer });
+  readyToStartGame() {
+    const name = document.querySelector(SELECTOR.NAME_INPUT).value;
+    RacingGame.start({ carName: name });
+  },
 };
 
-app();
+App.render();
+App.addEvent();
