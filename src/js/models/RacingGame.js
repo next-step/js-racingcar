@@ -1,17 +1,19 @@
-import { ERROR_MESSAGE } from "../constant/index.js";
+import RacingInputView from "../views/RacingInputView.js";
+import { splitCarName } from "../utils/textUtils.js";
+import { CAR_NAME_MAX_LENGTH, ERROR_MESSAGE } from "../constant/index.js";
 
 const RacingGame = {
   start: function ({ carName }) {
-    const DELIMITER = ",";
-    const splitCarNames = carName.split(DELIMITER);
+    const splitCarNames = splitCarName(carName);
     if (!this.validateCarNames(splitCarNames)) {
       alert(ERROR_MESSAGE.NAME_LENGTH);
       return;
     }
+
+    RacingInputView.renderTryCountInput();
   },
   validateCarNames: function (names) {
-    const MAX_NAME_LENGTH = 5;
-    return names.every(name => name.length <= MAX_NAME_LENGTH);
+    return names.every(name => name.length <= CAR_NAME_MAX_LENGTH);
   },
 };
 
