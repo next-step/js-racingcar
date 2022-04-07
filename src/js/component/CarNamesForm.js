@@ -1,16 +1,18 @@
-import { CarNames } from "../domain/CarNames.js";
+import CarNames from "../domain/CarNames.js";
 
-export class CarNamesForm {
-    $element;
-
+<<<<<<< HEAD
     constructor({ onLoadTryForm }) {
+=======
+export default class CarNamesForm {
+    constructor(racing, { onLoadTryForm }) {
+        this.racing = racing;
+>>>>>>> minsiki
         this.$element = document.querySelector("#car-names-area");
         this.carNames = new CarNames();
         this.onLoadTryForm = onLoadTryForm;
 
         this.#renderer();
         this.#mounted();
-        this.#setEvent();
     }
 
     #renderer() {
@@ -20,10 +22,13 @@ export class CarNamesForm {
     #mounted() {
         this.$carNamesInput = document.querySelector("#car-names-input");
         this.$carNamesSubmit = document.querySelector("#car-names-submit");
-    }
 
+<<<<<<< HEAD
     #setEvent() {
         this.$carNamesInput.addEventListener("keyup", () => this.#onKeyupCarNames());
+=======
+        this.$carNamesInput.addEventListener("keyup", (event) => this.#onKeyupCarNames(event));
+>>>>>>> minsiki
         this.$carNamesSubmit.addEventListener("click", () => this.#onCarNamesSubmit());
     }
 
@@ -51,5 +56,10 @@ export class CarNamesForm {
             <button id="car-names-submit" type="button" class="btn btn-cyan">확인</button>
         </div>
         `;
+    }
+
+    disabled() {
+        this.$carNamesInput.setAttribute("disabled", "disabled");
+        this.$carNamesSubmit.setAttribute("disabled", "disabled");
     }
 }
