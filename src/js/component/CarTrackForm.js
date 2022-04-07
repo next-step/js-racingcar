@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-export class CarTrackForm {
-    cars = [];
-    constructor() {
-        this.$element = document.querySelector("#car-track-area");
-        this.#renderer();
-        this.#mounted();
-        this.#setEvent();
-=======
 export default class CarTrackForm {
         
     constructor(racing, props) {
@@ -15,7 +6,6 @@ export default class CarTrackForm {
         this.onForwarding = props.onForwarding;
 
         this.#renderer();
->>>>>>> minsiki
     }
 
     #renderer() {
@@ -24,17 +14,13 @@ export default class CarTrackForm {
 
     getCarTrackForm() {
         return `<div class="mt-4 d-flex">
-        ${cars
+        ${this.racing.cars
             .map(
                 (car) => `
-<<<<<<< HEAD
-            <div class="mr-2"> ${this.getPlayerTemplate(car.name)} </div>
-=======
             <div class="car mr-2"> 
                 ${this.getPlayerTemplate(car.value)} 
                 ${this.getSpinnerTemplate()}
             </div>
->>>>>>> minsiki
         `
             )
             .join("")}`;
@@ -55,8 +41,6 @@ export default class CarTrackForm {
                     </div>
                 </div>`;
     }
-<<<<<<< HEAD
-=======
 
     onForward(index) {
         document.querySelectorAll(".car")[index]
@@ -69,5 +53,4 @@ export default class CarTrackForm {
             spinner.remove();
         })
     }
->>>>>>> minsiki
 }

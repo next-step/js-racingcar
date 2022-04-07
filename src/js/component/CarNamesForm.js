@@ -1,14 +1,9 @@
 import CarNames from "../domain/CarNames.js";
 
-<<<<<<< HEAD
-    constructor({ onLoadTryForm }) {
-=======
 export default class CarNamesForm {
     constructor(racing, { onLoadTryForm }) {
         this.racing = racing;
->>>>>>> minsiki
         this.$element = document.querySelector("#car-names-area");
-        this.carNames = new CarNames();
         this.onLoadTryForm = onLoadTryForm;
 
         this.#renderer();
@@ -23,26 +18,21 @@ export default class CarNamesForm {
         this.$carNamesInput = document.querySelector("#car-names-input");
         this.$carNamesSubmit = document.querySelector("#car-names-submit");
 
-<<<<<<< HEAD
-    #setEvent() {
-        this.$carNamesInput.addEventListener("keyup", () => this.#onKeyupCarNames());
-=======
         this.$carNamesInput.addEventListener("keyup", (event) => this.#onKeyupCarNames(event));
->>>>>>> minsiki
         this.$carNamesSubmit.addEventListener("click", () => this.#onCarNamesSubmit());
     }
 
-    #onKeyupCarNames() {
-        console.log(this.$carNamesInput.value);
+    #onKeyupCarNames(event) {
+        if (event.key === "Enter") {
+            this.#onCarNamesSubmit();
+        }
     }
 
     #onCarNamesSubmit() {
-        this.carNames.names = this.$carNamesInput.value;
-        this.onLoadTryForm();
-        // let carNamesState = this.carNames.getCarNamesState();
-        // if (!carNamesState.isComplte) {
-        //     alert(carNamesState.message);
-        // }
+        this.racing.cars = new CarNames(this.$carNamesInput.value).cars;
+        if (this.racing.cars.length > 0) {
+            this.onLoadTryForm();
+        }
     }
 
     #getCarNamesTemplate() {

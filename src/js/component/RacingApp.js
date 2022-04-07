@@ -1,23 +1,12 @@
-<<<<<<< HEAD
-import { CarNamesForm } from "./CarNamesForm.js";
-import { TryCountForm } from "./TryCountForm.js";
-=======
 import Racing from "../domain/Racing.js";
 import Winner from "../domain/Winner.js";
 import CarNamesForm from "./CarNamesForm.js";
 import CarTrackForm from "./CarTrackForm.js";
 import TryCountForm from "./TryCountForm.js";
 import WinnerForm from "./WinnerForm.js";
->>>>>>> minsiki
 
 export default class RacingApp {
     constructor() {
-<<<<<<< HEAD
-        this.tryCountForm = new TryCountForm();
-        this.carNamesForm = new CarNamesForm({
-            onLoadTryForm: () => this.tryCountForm.toggleDisplay(),
-        });
-=======
         this.racing = new Racing();
 
         this.carNamesForm = new CarNamesForm(this.racing, {
@@ -58,7 +47,6 @@ export default class RacingApp {
                 }
             })
         }, 1000);
->>>>>>> minsiki
     }
 
     getForwardState() {

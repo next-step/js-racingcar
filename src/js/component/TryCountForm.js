@@ -1,14 +1,10 @@
-<<<<<<< HEAD
-export class TryCountForm {
-    constructor() {
-=======
 import TryCount from "../domain/TryCount.js";
 
 export default  class TryCountForm {
     constructor(racing, { onLoadCarTrackForm }) {
         this.racing = racing;
->>>>>>> minsiki
         this.$element = document.querySelector("#try-count-area");
+        this.onLoadCarTrackForm = onLoadCarTrackForm;
         this.#renderer();
         this.#mounted();
     }
@@ -32,13 +28,9 @@ export default  class TryCountForm {
     }
 
     #onTryCountSubmit() {
-<<<<<<< HEAD
-        console.log(this.tryCountInput);
-=======
         this.racing.tryCount = new TryCount(this.tryCountInput.value).value;
         
         this.onLoadCarTrackForm();
->>>>>>> minsiki
     }
 
     #getTryCountTemplate() {
@@ -51,10 +43,6 @@ export default  class TryCountForm {
         `;
     }
 
-<<<<<<< HEAD
-    toggleDisplay() {
-        this.$element.classList.toggle("d-none");
-=======
     disabled() {
         this.tryCountInput.setAttribute("disabled", "disabled");
         this.tryCountsubmit.setAttribute("disabled", "disabled");
@@ -62,6 +50,5 @@ export default  class TryCountForm {
 
     display() {
         this.$element.classList.remove("d-none");
->>>>>>> minsiki
     }
 }
