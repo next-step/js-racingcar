@@ -4,7 +4,7 @@ import {
   ERROR_MESSAGE,
 } from "../../src/js/constant/index.js";
 import { splitCarName } from "../../src/js/utils/textUtils.js";
-import { validateCarNames } from "../../src/js/models/RacingGame.js";
+import Validator from "../../src/js/models/Validator.js";
 
 const clickNameSubmitButton = () => cy.get(SELECTOR.NAME_SUBMIT_BUTTON).click();
 const generateNameWithRepeat = repeat => {
@@ -39,7 +39,7 @@ describe("자동차 경주 게임 테스트", () => {
       cy.get(SELECTOR.NAME_INPUT).should($name => {
         const name = $name.val();
         const carNames = splitCarName(name);
-        expect(validateCarNames(carNames)).to.be.false;
+        expect(Validator.validateCarNames(carNames)).to.be.false;
       });
     });
 

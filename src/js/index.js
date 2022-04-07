@@ -1,6 +1,8 @@
 import RacingInputView from "./views/RacingInputView.js";
 import RacingGame from "./models/RacingGame.js";
-import { SELECTOR } from "./constant/index.js";
+import Validator from "./models/Validator.js";
+import { splitCarName } from "./utils/textUtils.js";
+import { SELECTOR, ERROR_MESSAGE } from "./constant/index.js";
 
 const App = {
   render: () => {
@@ -40,8 +42,13 @@ const App = {
   },
 
   readyToStartGame() {
-    const name = document.querySelector(SELECTOR.NAME_INPUT).value;
-    RacingGame.start({ carName: name });
+    const { value } = document.querySelector(SELECTOR.NAME_INPUT);
+    const splitCarNames = splitCarName(value);
+    if (!Validator.validateCarNames(splitCarNames)) {
+      alert(ERROR_MESSAGE.NAME_LENGTH);
+      return;
+    }
+    RacingInputView.renderTryCountInput();
   },
 };
 

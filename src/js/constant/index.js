@@ -7,5 +7,6 @@ export const ERROR_MESSAGE = {
 
 export const SELECTOR = {
   NAME_INPUT: "#input-name",
+  TRY_INPUT: "#input-try",
   NAME_SUBMIT_BUTTON: "#name-submit-button",
 };
