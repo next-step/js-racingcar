@@ -110,7 +110,7 @@ describe('자동차 경주 게임', () => {
     });
   });
 
-  context.only('자동차 경주 재시작 테스트', () => {
+  context('자동차 경주 재시작 테스트', () => {
     before(() => {
       cy.visit('index.html');
     });

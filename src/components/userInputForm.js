@@ -34,10 +34,22 @@ export default function UserInputForm({ initState, setCars, setRaceTimes }) {
 
   this.render();
 
-  this.getCarNames = () => this.$carNameInput.value.split(',').map((carName) => carName.trim());
+  this.runSubmitterByUserInputName = (name) => {
+    if (name === 'carName') {
+      this.handleSubmitCarNames();
+      return;
+    }
+
+    this.handleSubmitRaceTimes();
+  };
+
+  this.handleUserInputByKeypress = (e) => {
+    if (e.code !== 'Enter') return;
+    this.runSubmitterByUserInputName(e.target?.name);
+  };
 
   this.handleSubmitCarNames = () => {
-    const carNames = this.getCarNames();
+    const carNames = this.$carNameInput.value.split(',').map((carName) => carName.trim());
     try {
       validateCarNames(carNames);
     } catch (error) {
@@ -47,22 +59,8 @@ export default function UserInputForm({ initState, setCars, setRaceTimes }) {
     setCars(carNames);
   };
 
-  this.handleCarNameInput = (e) => {
-    if (e.code === 'Enter') {
-      this.handleSubmitCarNames();
-    }
-  };
-
-  this.handleRaceTimesInput = (e) => {
-    if (e.code === 'Enter') {
-      this.handleSubmitRaceTimes();
-    }
-  };
-
-  this.getRaceTimes = () => parseInt(this.$raceTimesInput.value, 10);
-
   this.handleSubmitRaceTimes = () => {
-    const raceTimes = this.getRaceTimes();
+    const raceTimes = parseInt(this.$raceTimesInput.value, 10);
     try {
       validateRaceTimes(raceTimes);
     } catch (error) {
@@ -72,8 +70,8 @@ export default function UserInputForm({ initState, setCars, setRaceTimes }) {
     setRaceTimes(raceTimes);
   };
 
-  this.$carNameInput.addEventListener('keyup', this.handleCarNameInput);
+  this.$carNameInput.addEventListener('keyup', this.handleUserInputByKeypress);
   this.$carNameSubmitButton.addEventListener('click', this.handleSubmitCarNames);
-  this.$raceTimesInput.addEventListener('keyup', this.handleRaceTimesInput);
+  this.$raceTimesInput.addEventListener('keyup', this.handleUserInputByKeypress);
   this.$raceTimesSubmitButton.addEventListener('click', this.handleSubmitRaceTimes);
 }

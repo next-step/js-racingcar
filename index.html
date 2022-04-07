@@ -18,8 +18,14 @@
           </section>
           <section>
             <div class="d-flex">
-              <input data-cy="input-car-name" type="text" class="input-car-name w-100 mr-2" placeholder="자동차 이름" />
-              <button data-cy="submit-car-name" type="submit" class="submit-car-name btn btn-cyan">확인</button>
+              <input
+                data-cy="input-car-name"
+                class="input-car-name w-100 mr-2"
+                type="text"
+                name="carName"
+                placeholder="자동차 이름"
+              />
+              <button data-cy="submit-car-name" class="submit-car-name btn btn-cyan" type="submit">확인</button>
             </div>
           </section>
           <section data-cy="input-race-times-section" class="input-race-times-section hidden">
@@ -27,11 +33,12 @@
             <div class="d-flex">
               <input
                 data-cy="input-race-times"
-                type="number"
                 class="input-race-times w-100 mr-2"
+                type="number"
+                name="raceTimes"
                 placeholder="시도 횟수"
               />
-              <button data-cy="submit-race-times" type="submit" class="submit-race-times btn btn-cyan">확인</button>
+              <button data-cy="submit-race-times" class="submit-race-times btn btn-cyan" type="submit">확인</button>
             </div>
           </section>
         </div>
