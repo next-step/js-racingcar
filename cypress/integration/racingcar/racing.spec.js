@@ -6,13 +6,16 @@ const $namingInput = () => cy.get('[data-target="racingcar-naming-input"]');
 const $namingButton = () => cy.get('[data-target="racingcar-naming-button"]');
 const $tryCountSection = () => cy.get('[data-target="racingcar-try-count-section"]');
 
+const $tryCountInput = () => cy.get('[data-target="racingcar-try-count-input"]');
+const $tryCountButton = () => cy.get('[data-target="racingcar-try-count-button"]');
+
 afterEach(() => {
   cy.reload();
 });
 
 describe('자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {});
 
-describe.only('자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5자 이하만 가능하다.', () => {
+describe('자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5자 이하만 가능하다.', () => {
   const typeNameAndClick = (name) => {
     $namingInput().type(name);
     $namingButton().click();
@@ -78,7 +81,17 @@ describe.only('자동차 이름은 쉼표(,)를 기준으로 구분하며 이름
   });
 });
 
-describe('사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.', () => {});
+describe.only('사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.', () => {
+  context('1회 의상', () => {
+    it('1회', () => {});
+    it('3회', () => {});
+  });
+
+  context('0회 이하', () => {
+    it('0회', () => {});
+    it('-1회', () => {});
+  });
+});
 
 describe('주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.', () => {});
 
