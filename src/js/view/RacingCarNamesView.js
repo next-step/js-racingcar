@@ -3,39 +3,39 @@ import CarNames from '../CarNames.js';
 
 const CAR_NAME_SEPARATOR = ',';
 
-const RacingCarNamesView = (function () {
-  const $carNameField = document.querySelector('#car-names-field');
-  const $carNamesSubmit = $carNameField.querySelector('#car-names-submit');
-  const $carNamesInput = $carNameField.querySelector('#car-names-input');
+const $carNameField = document.querySelector('#car-names-field');
+const $carNamesSubmit = $carNameField.querySelector('#car-names-submit');
+const $carNamesInput = $carNameField.querySelector('#car-names-input');
 
-  function disabledCarNameField() {
+class RacingCarNamesView {
+  static #disabledCarNameField() {
     $carNameField.disabled = true;
   }
 
-  function carNameList() {
-    return $carNamesInput.value.split(CAR_NAME_SEPARATOR);
-  }
-
-  function initialize() {
+  static #initializeCarName() {
     $carNamesInput.value = null;
   }
 
-  function handleCarNameSubmit() {
-    if (CarNames.validate(carNameList())) {
-      disabledCarNameField();
+  static #handleCarNameSubmit() {
+    if (CarNames.validate(RacingCarNamesView.carNameList())) {
+      RacingCarNamesView.#disabledCarNameField();
       RacingCycleView.showView();
     }
   }
 
-  function eventBindings() {
-    $carNamesSubmit.addEventListener('click', handleCarNameSubmit);
+  static carNameList() {
+    return $carNamesInput.value.split(CAR_NAME_SEPARATOR);
   }
 
-  eventBindings();
+  static eventBindings() {
+    $carNamesSubmit.addEventListener(
+      'click',
+      RacingCarNamesView.#handleCarNameSubmit
+    );
+  }
 
-  return {
-    initialize,
-    carNameList,
-  };
-})();
+  static initialize() {
+    RacingCarNamesView.#initializeCarName();
+  }
+}
 export default RacingCarNamesView;
