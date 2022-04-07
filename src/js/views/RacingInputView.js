@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../constant/index.js";
+import { SELECTOR, ERROR_MESSAGE } from "../constant/index.js";
 
 const RacingInputView = {
   renderNameInput: function () {
@@ -18,11 +18,13 @@ const RacingInputView = {
   },
 
   renderTryCountInput: function () {
+    const $tryCountInput = document.querySelector(SELECTOR.TRY_INPUT);
+    if ($tryCountInput) return;
     const $template = `
     <fieldset>
         <p>시도할 횟수를 입력해주세요.</p>
         <div class="d-flex">
-          <input type="number" class="w-100 mr-2" placeholder="시도 횟수" autocomplete="off"/>
+          <input type="number" class="w-100 mr-2"id ="input-try" placeholder="시도 횟수" autocomplete="off"/>
           <button type="button" class="btn btn-cyan" id="try-submit-button">확인</button>
         </div>
       </fieldset>
