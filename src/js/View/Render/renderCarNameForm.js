@@ -1,11 +1,10 @@
-import Form from "../Component/Form/Form.js";
+import Form from '../Component/Form/Form.js';
 
-import { selector } from "../../util/consts.js";
-import { render, Component } from "../render.js"
+import { Component, render } from '../Component/Component.js';
+import { selector } from '../../util/consts.js';
 
 const renderCarNameForm = () => {
-  const app = selector('#app');
-  render(app, Component.create(Form()))
-}
+  render(selector('#app'), Component.create(Form()));
+};
 
 export default renderCarNameForm;

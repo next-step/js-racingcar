@@ -6,7 +6,7 @@ class Validator {
   }
 
   static isCorrectLength(text) {
-    return text.split(',').some((e) => e.length > MAX_CARNAME_LENGTH);
+    return text.split(',').some((e) => e.trim().length > MAX_CARNAME_LENGTH);
   }
 
   static isCorrectCount(text) {

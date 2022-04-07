@@ -10,9 +10,9 @@ class Racing {
   }
 
   start() {
-    return Array.from({ length: this.#cars.length })
-      .map((e) => (e = this.generateRandomNumber().next().value))
-      .map((e) => e >= WINNING_NUMBER);
+    return Array.from({ length: this.#cars.length }).map(
+      () => this.generateRandomNumber().next().value >= WINNING_NUMBER
+    );
   }
 
   *generateRandomNumber() {

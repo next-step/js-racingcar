@@ -1,11 +1,13 @@
-import { selectorAll } from "../../util/consts.js"
+import { selectorAll } from '../../util/consts.js';
 
+export const removeSpinner = () => {
+  selectorAll('.spinner-component').forEach((tag) => tag.remove());
+};
 
-const removeSpinner = (value) => {
-  setTimeout(() => 
-    selectorAll('.track-container')
-      .forEach((tag) => tag.removeChild(tag.querySelector('.spinner-component')))
-  , 1000 * value)
-}
-
-export default removeSpinner
+export const gameOver = (ms) => {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve(ms);
+    }, ms * 1000)
+  );
+};

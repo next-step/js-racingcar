@@ -1,27 +1,26 @@
-import Go from "../Component/Game/Go.js";
+import Go from '../Component/Game/Go.js';
 
-import { selectorAll } from "../../util/consts.js";
-import { Component, render } from "../render.js";
+import { selectorAll } from '../../util/consts.js';
+import { Component, render } from '../Component/Component.js';
 
-const renderArrow = (index) => {
-  render(
-    selectorAll('.racing-track')[index],
-    Component.create(Go())
-  );
-}
+const renderArrow = (index, time) => {
+  setTimeout(() => {
+    render(selectorAll('.racing-track')[index], Component.create(Go()));
+  }, (time + 1) * 1000);
+};
 
-const renderDelay = (index, i) => {
-  setTimeout(renderArrow, 1000 * (i + 1), index)
-}
+const setUpRacing = (racing) => {
+  return racing.start().map((condition) => condition);
+};
 
-const setUpRacing = (racing, i) => {
-  racing.start().forEach((condition, index) => {
-    if (condition) renderDelay(index, i)
-  }
-)}
+const racingGameResult = (racing, value) => {
+  return Array.from({ length: value }).map((e, i) => setUpRacing(racing, i));
+};
 
 const renderRacingGame = (racing, value) => {
-    Array.from({ length: value }).forEach((e, i) => setUpRacing(racing, i))
-}
+  racingGameResult(racing, value).forEach((stepResult, time) => {
+    stepResult.forEach((car, index) => car && renderArrow(index, time));
+  });
+};
 
 export default renderRacingGame;

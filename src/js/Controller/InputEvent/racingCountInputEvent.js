@@ -2,12 +2,12 @@ import Racing from '../../Model/Racing.js';
 import disable from '../../util/disable.js';
 import renderRacingArena from '../../View/Render/renderRacingArena.js';
 import renderRacingGame from '../../View/Render/renderRacing.js';
-import removeSpinner from '../../View/Render/removeSpinner.js';
 
 import { VALIDATE } from '../../util/consts.js';
+import { gameOver, removeSpinner } from '../../View/Render/removeSpinner.js';
 
 export const racingCountInputEvent = (function () {
-  const formHandler = (target, cars) => {
+  const formHandler = async (target, cars) => {
     const { value } = target.input;
 
     if (Racing.validate.racingCount(value))
@@ -16,9 +16,10 @@ export const racingCountInputEvent = (function () {
 
     const racing = new Racing(cars.split(','));
     renderRacingArena(cars);
-    renderRacingGame(racing, value);
 
-    removeSpinner(value);
+    renderRacingGame(racing, Number(value));
+
+    gameOver(value).then(removeSpinner);
   };
 
   return {
