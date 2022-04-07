@@ -1,3 +1,3 @@
-import Application from './Application.js';
+import './components/index.js';
 
-new Application();
+document.body.insertAdjacentHTML('afterbegin', '<racing-app id="app"/>');
