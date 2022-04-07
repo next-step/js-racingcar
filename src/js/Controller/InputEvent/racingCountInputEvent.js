@@ -9,7 +9,7 @@ import { VALIDATE } from "../../util/consts.js";
 export const racingCountInputEvent = (function(){
   const formHandler = (target, cars) => {
     const { value } = target.input
-
+    
     if (Racing.validate.racingCount(value)) return alert(VALIDATE.ALERT_LESS_RACING_COUNT)
 
     convertDisabledAttr(target)
