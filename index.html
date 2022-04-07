@@ -24,12 +24,21 @@
                 placeholder="자동차 이름"
                 data-target="racingcar-naming-input"
               />
-              <button type="button" id="racingcar-naming-button" class="btn btn-cyan">
+              <button
+                type="button"
+                id="racingcar-naming-button"
+                class="btn btn-cyan"
+                data-target="racingcar-naming-button"
+              >
                 확인
               </button>
             </div>
           </section>
-          <section class="d-none" data-target="racingcar-try-count-section">
+          <section
+            id="racingcar-try-count-section"
+            class="d-none"
+            data-target="racingcar-try-count-section"
+          >
             <p>시도할 횟수를 입력해주세요.</p>
             <div class="d-flex">
               <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
