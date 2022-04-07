@@ -1,6 +1,22 @@
 import RacingCarNamesView from './RacingCarNamesView.js';
 import { Car } from '../Car.js';
 
+function moveTemplate() {
+  const $template = document.createElement('template');
+  $template.innerHTML = `<div class="forward-icon mt-2">⬇️️</div>`;
+  return $template.content.firstChild;
+}
+
+function stopTemplate() {
+  const $template = document.createElement('template');
+  $template.innerHTML = `<div class="d-flex justify-center mt-3">
+                      <div class="relative spinner-container">
+                        <span class="material spinner"></span>
+                      </div>
+                    </div>`;
+  return $template.content.firstChild;
+}
+
 const RacingSectionView = (function () {
   const $section = document.querySelector('section > div.mt-4.d-flex');
 
@@ -25,14 +41,38 @@ const RacingSectionView = (function () {
     $section.replaceChildren(settingCars(RacingCarNamesView.carNameList()));
   }
 
-  function runningLap($cars) {
-    $cars.forEach(($car) => {
-      $car.run();
+  function removeStopPositionAllCar() {
+    $section
+      .querySelectorAll('div.mt-3')
+      .forEach(($stopPosition) => $stopPosition.remove());
+  }
+
+  function movePosition(car) {
+    car.$target.appendChild(moveTemplate());
+  }
+
+  function stopPosition(car) {
+    car.$target.appendChild(stopTemplate());
+  }
+
+  function changeCarPosition(car) {
+    if (car.isMoveStatus()) {
+      movePosition(car);
+      return;
+    }
+    stopPosition(car);
+  }
+
+  function runningLap(carList) {
+    removeStopPositionAllCar();
+    carList.forEach((car) => {
+      car.run();
+      changeCarPosition(car);
     });
   }
 
-  function runningLapByCycle({ cycle, $cars }) {
-    new Array(Number(cycle)).fill().forEach(() => runningLap($cars));
+  function runningLapByCycle({ cycle, carList }) {
+    new Array(Number(cycle)).fill().forEach(() => runningLap(carList));
   }
 
   function cars() {
@@ -44,7 +84,7 @@ const RacingSectionView = (function () {
   }
 
   function start(cycle) {
-    runningLapByCycle({ cycle, $cars: cars() });
+    runningLapByCycle({ cycle, carList: cars() });
   }
 
   return { ready, start };
