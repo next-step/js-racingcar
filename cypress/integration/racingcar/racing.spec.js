@@ -13,12 +13,38 @@ const $tryCountInput = () => cy.get('[data-target="racingcar-try-count-input"]')
 const $tryCountButton = () => cy.get('[data-target="racingcar-try-count-button"]');
 
 const $playCars = () => cy.get('[data-target="racingcar-play-cars"]');
+const $carPlayer = () => cy.get('[data-target="racingcar-car-player"]');
 
 afterEach(() => {
   cy.reload();
 });
 
-describe('자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {});
+describe('자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
+  const playCars = (name, tryCount) => {
+    $namingInput().type(name);
+    $namingButton().click();
+
+    $tryCountInput().type(tryCount);
+    $tryCountButton().click();
+  };
+
+  context('입력한 자동차 이름과 출력된 자동차 이름이 같다.', () => {
+    it('1대', () => {
+      const names = 'BMW';
+      playCars(names, 3);
+      $carPlayer().should('have.text', names);
+    });
+
+    it('3대', () => {
+      const names = 'BMW, AUDI, K9';
+      playCars(names, 3);
+
+      $carPlayer().each(($ele, idx) => {
+        expect($ele).to.have.text(names.split(', ')[idx]);
+      });
+    });
+  });
+});
 
 describe('자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5자 이하만 가능하다.', () => {
   const typeNameAndClick = (name) => {
@@ -48,45 +74,45 @@ describe('자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5
   };
 
   context('5자 이하의 이름을 입력하고 확인버튼을 클릭한다.', () => {
-    it('1개의 자동차', () => {
+    it('1대의 자동차', () => {
       typeNameAndClick('BMW');
     });
-    it('3개의 자동차', () => {
+    it('3대의 자동차', () => {
       typeNameAndClick('BMW, AUDI, K9');
     });
   });
 
   context('5자 이하의 이름을 입력하고 엔터를 입력한다.', () => {
-    it('1개의 자동차', () => {
+    it('1대의 자동차', () => {
       typeNameAndEnter('BMW');
     });
-    it('3개의 자동차', () => {
+    it('3대의 자동차', () => {
       typeNameAndEnter('BMW, AUDI, K9');
     });
   });
 
   context('5자 초과의 이름을 입력하고 확인버튼을 클릭한다.', () => {
-    it('1개의 자동차', () => {
+    it('1대의 자동차', () => {
       typeNameAndClickGotAlert('MASERATI');
     });
 
-    it('3개의 자동차', () => {
+    it('3대의 자동차', () => {
       typeNameAndClickGotAlert('BMW, MERCEDES, K9');
     });
   });
 
   context('5자 초과의 이름을 입력하고 엔터를 입력한다.', () => {
-    it('1개의 자동차', () => {
+    it('1대의 자동차', () => {
       typeName다ndEnterGotAlert('MASERATI');
     });
 
-    it('3개의 자동차', () => {
+    it('3대의 자동차', () => {
       typeName다ndEnterGotAlert('BMW, MERCEDES, K9');
     });
   });
 });
 
-describe.only('사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.', () => {
+describe('사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.', () => {
   beforeEach(() => {
     $namingInput().type('BMW');
     $namingButton().click();
