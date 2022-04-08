@@ -34,10 +34,12 @@ const App = {
     $racingInputContainer.addEventListener("click", ({ target }) => {
       if (target.closest(SELECTOR.NAME_SUBMIT_BUTTON)) {
         this.setCarNames();
+        target.disabled = true;
       }
 
       if (target.closest(SELECTOR.TRY_SUBMIT_BUTTON)) {
         this.setTryCount();
+        target.disabled = true;
       }
     });
 
