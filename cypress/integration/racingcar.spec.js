@@ -3,7 +3,7 @@ import {
   CAR_NAME_MAX_LENGTH,
   ERROR_MESSAGE,
 } from "../../src/js/constant/index.js";
-import { splitCarName } from "../../src/js/utils/textUtils.js";
+import { splitCarName } from "../../src/js/utils/index.js";
 import Validator from "../../src/js/models/Validator.js";
 
 const clickNameSubmitButton = () => cy.get(SELECTOR.NAME_SUBMIT_BUTTON).click();
