@@ -1,5 +1,13 @@
+import { MAX_TIMES_TO_PLAY, MESSAGE } from '../../const/index.js';
 import SELECTOR from '../../const/selector.js';
 import { $, hide, focus, disabled } from '../../utils/dom.js';
+
+const validatePlayTimes = (playTimes) => {
+  if (!playTimes) throw new Error(MESSAGE.PLZ_INSERT_PLAY_TIMES);
+
+  if (playTimes > MAX_TIMES_TO_PLAY)
+    throw new Error(MESSAGE.PLZ_CHECK_MAX_TIMES_TO_PLAY);
+};
 
 const PlayTimesForm = ($el, store) => {
   const $fieldset = $(SELECTOR.FIELDSET, $el);
@@ -15,8 +23,14 @@ const PlayTimesForm = ($el, store) => {
 
   const onSubmitPlayTimes = (event) => {
     event.preventDefault();
-    disabled($fieldset, true);
-    mutatePlayTimes();
+    try {
+      validatePlayTimes(Number($times.value));
+      disabled($fieldset, true);
+      mutatePlayTimes();
+    } catch (error) {
+      alert(error.message);
+      $times.focus();
+    }
   };
 
   const init = () => {
