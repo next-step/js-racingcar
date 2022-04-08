@@ -16,13 +16,13 @@
 
 2. 컨트롤러
 
-- [ ] 컨트롤러와 이벤트를 완전히 포함 or 완전히 분리
+- [x] 컨트롤러와 이벤트를 완전히 포함 or 완전히 분리
 
 3. Component
 
 - [ ] render 함수의 예외나 명시적인 부분이 보여 고려해보기
 
-4. setTimeout Promise로 변화해보기
+4. setTimeout Promise로 변경해보기
 
 - [x]
 

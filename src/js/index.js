@@ -1,8 +1,5 @@
-import renderCarNameForm from './View/Render/renderCarNameForm.js'
+import Event from './Controller/Event/index.js';
+import renderCarNameForm from './View/Render/renderCarNameForm.js';
 
-import { init } from './Controller/InputEvent/index.js';
-
-renderCarNameForm()
-init()
-
-
+renderCarNameForm();
+Event.init();
