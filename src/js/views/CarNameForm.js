@@ -43,9 +43,8 @@ const CarNameForm = ($el, store) => {
 
   const onSubmitCarName = (event) => {
     event.preventDefault();
-
     try {
-      validateCarName($carName.textContent.trim());
+      validateCarName($carName.value.trim());
       mutateCarNames();
       disabled($fieldset, true);
     } catch (error) {
