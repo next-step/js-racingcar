@@ -12,7 +12,7 @@ const App = () => {
     carNames: [],
     times: 0,
     init: true,
-    randomNumbers: [],
+    movements: [],
   });
 
   CarNameForm($(SELECTOR.CAR_NAME_FORM), store);

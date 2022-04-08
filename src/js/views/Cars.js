@@ -26,15 +26,15 @@ const removeChild = ($el) => {
 };
 
 const MIN_NUMBER_TO_MOVE = 4;
-const getMovingResults = (times, minNumberToMove = MIN_NUMBER_TO_MOVE) =>
+const getRandomMovingResults = (times, minNumberToMove = MIN_NUMBER_TO_MOVE) =>
   range(times)
     .map(() => generateRandomNumbersUntil())
     .map((n) => n >= minNumberToMove);
 
-const generateRandomNumbers = (carNames, times) =>
+const generateMovements = (carNames, times) =>
   carNames.map((carName) => ({
     carName,
-    forwards: getMovingResults(times),
+    forwards: getRandomMovingResults(times),
   }));
 
 const Cars = ($el, store) => {
@@ -53,7 +53,7 @@ const Cars = ($el, store) => {
   const mutateRandomNumbers = () => {
     const { carNames, times } = store.getState();
     store.setState({
-      randomNumbers: generateRandomNumbers(carNames, times),
+      movements: generateMovements(carNames, times),
     });
   };
 
@@ -75,7 +75,7 @@ const Cars = ($el, store) => {
       actions: [() => hide($el, true)],
     });
     store.subscribe({
-      key: 'randomNumbers',
+      key: 'movements',
       actions: [renderForward],
     });
   };
