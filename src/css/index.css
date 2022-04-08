@@ -37,6 +37,10 @@ fieldset {
   transition: 0.3s ease-in-out;
 }
 
+section {
+  transition: 0.3s ease-in-out;
+}
+
 .hidden {
   opacity: 0;
   visibility: hidden;

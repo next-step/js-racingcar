@@ -1,3 +1,10 @@
+export const CONTROLL_KEY = {
+  CAR_NAMES: 'car-names',
+  GAME: 'move-forward',
+  RESULT: 'result',
+  RESET: 'reset',
+};
+
 export const MAX_NAME_DIGITS = 5;
 
 export const MAX_GAME_TRY_COUNT = 100;

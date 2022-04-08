@@ -1,4 +1,4 @@
-import './index.js';
+import './components/index.js';
 
 export default class App extends HTMLElement {
   #template = /*html*/ `
@@ -17,9 +17,13 @@ export default class App extends HTMLElement {
 
   disconnectedCallback() {}
 
-  attributeChangedCallback(name, oldValue, newValue) {}
+  attributeChangedCallback(name, oldValue, newValue) {
+    console.log(name, oldValue, newValue);
+  }
 
-  adoptedCallback() {}
+  static get observedAttributes() {
+    return [CONTROLL_KEY.CAR_NAMES, 'try-count', 'winner'];
+  }
 }
 
 customElements.define('racing-app', App);

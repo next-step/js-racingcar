@@ -3,6 +3,8 @@ import { inputCarNamesParsing } from '../../src/js/infrastructure/actions/inputS
 
 const BASE_URL = '../../index.html';
 
+// TODO: https://glebbahmutov.com/blog/form-validation-in-cypress/
+
 describe('Racing Car Game', () => {
   beforeEach(() => {
     cy.visit(BASE_URL);
@@ -10,13 +12,13 @@ describe('Racing Car Game', () => {
 
   describe('최초 렌더링 시', () => {
     it('자동차 이름 입력창만 보여야 한다.', () => {
-      cy.$('[data-props="car-names-field"]').should('be.visible');
-      cy.$('[data-props="game-try-count-field"]').should('not.be.visible');
-      cy.$('[data-props="game-section"]').should('not.be.visible');
-      cy.$('[data-props="result-section"]').should('not.be.visible');
+      cy.$('[name="car-names-field"]').should('be.visible');
+      cy.$('[name="game-try-count-field"]').should('not.be.visible');
+      cy.$('[name="game-section"]').should('not.be.visible');
+      cy.$('[name="result-section"]').should('not.be.visible');
     });
     it('자동차 이름 입력창의 값은 비어 있어야 한다.', () => {
-      cy.$('[data-props="car-names-input"]').should('have.text', '');
+      cy.$('[name="car-names"]').should('have.text', '');
     });
   });
 
@@ -24,7 +26,7 @@ describe('Racing Car Game', () => {
     it('자동차 이름 입력창이 비어 있다면 "자동차 이름을 입력해주세요!" 경고창을 출력한다.', () => {
       const alertStub = cy.stub();
       cy.on('window:alert', alertStub);
-      cy.get('[data-props="car-names-confirm-button"]')
+      cy.get('[name="car-names-confirm"]')
         .click()
         .then(() => {
           expect(alertStub).to.be.calledWith(ERROR_MESSAGE.REQUIRED_NAME);
@@ -76,7 +78,7 @@ describe('Racing Car Game', () => {
     describe('입력된 자동차 이름들이 유효한 경우 시도 횟수 입력창을 표시한다.', () => {
       it('시도 횟수 입력창이 보여야 한다.', () => {
         cy.inputCarNames('EAST, WEST, SOUTH, NORTH');
-        cy.$('[data-props="game-try-count-field"]').should('be.visible');
+        cy.$('[name="game-try-count-field"]').should('be.visible');
       });
     });
   });
@@ -91,7 +93,7 @@ describe('Racing Car Game', () => {
         const alertStub = cy.stub();
         cy.on('window:alert', alertStub);
 
-        cy.get('[data-props="game-try-count-confirm-button"]')
+        cy.get('[name="game-try-count-confirm"]')
           .click()
           .then(() => {
             expect(alertStub).to.be.calledWith(ERROR_MESSAGE.REQUIRED_DIGIT);
