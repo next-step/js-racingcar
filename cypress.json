@@ -1,0 +1,14 @@
+{
+  "video": false,
+  "baseUrl": "http://localhost:8080",
+  "cypress-watch-and-reload": {
+    "watch": [
+      "src/js/*.js",
+      "src/js/controllers/*.js",
+      "src/js/models/*.js",
+      "src/js/utils/*.js",
+      "src/js/validators/*.js",
+      "src/js/views/*.js"
+    ]
+  }
+}
