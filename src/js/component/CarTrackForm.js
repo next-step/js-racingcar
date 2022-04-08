@@ -6,7 +6,7 @@ export default class CarTrackForm {
         this.onForwarding = props.onForwarding;
     }
 
-    renderer() {
+    render() {
         this.$element.innerHTML = this.getCarTrackForm();
     }
 

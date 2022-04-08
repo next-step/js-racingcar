@@ -7,7 +7,7 @@ export default  class TryCountForm {
         this.onLoadCarTrackForm = onLoadCarTrackForm;
     }
 
-    renderer() {
+    render() {
         this.$element.innerHTML = this.#getTryCountTemplate();
     }
     mounted() {
@@ -25,9 +25,13 @@ export default  class TryCountForm {
     }
 
     #onTryCountSubmit() {
-        this.racing.tryCount = new TryCount(this.tryCountInput.value).value;
+        try {
+            this.racing.tryCount = new TryCount(this.tryCountInput.value).value;
+            this.onLoadCarTrackForm();
+        } catch (error) {
+            alert(error.message);
+        }
         
-        this.onLoadCarTrackForm();
     }
 
     #getTryCountTemplate() {

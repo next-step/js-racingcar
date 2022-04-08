@@ -1,7 +1,7 @@
-import CarNames from "../domain/CarNames.js";
+import Car from "../domain/Car.js";
 
 export default class CarNameLengthException extends Error {
     constructor() {
-        super(CarNames.OUT_OF_NAME_LENGTH);
+        super(Car.OUT_OF_NAME_LENGTH);
     }
 }

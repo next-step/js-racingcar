@@ -1,3 +1,5 @@
+const DELAY = 2000;
+
 export default class WinnerForm {
     winners;
     constructor(props) {
@@ -5,7 +7,7 @@ export default class WinnerForm {
         this.$element = document.querySelector("#winner-area");
     }
 
-    renderer() {
+    render() {
         this.$element.innerHTML = this.#getWinnerTemplate();
     }
 
@@ -30,7 +32,7 @@ export default class WinnerForm {
     onAlertWinner() {
         setTimeout(() => {
             alert("축하합니다");
-        }, 2000);
+        }, DELAY);
     }
 
     reset() {

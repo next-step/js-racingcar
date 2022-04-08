@@ -6,11 +6,11 @@ export default class CarNamesForm {
         this.$element = document.querySelector("#car-names-area");
         this.onLoadTryForm = onLoadTryForm;
 
-        this.#renderer();
+        this.#render();
         this.#mounted();
     }
 
-    #renderer() {
+    #render() {
         this.$element.innerHTML = this.#getCarNamesTemplate();
     }
 
@@ -29,9 +29,11 @@ export default class CarNamesForm {
     }
 
     #onCarNamesSubmit() {
-        this.racing.cars = new CarNames(this.$carNamesInput.value).cars;
-        if (this.racing.cars.length > 0) {
+        try {
+            this.racing.cars = new CarNames(this.$carNamesInput.value).cars;
             this.onLoadTryForm();
+        } catch(error) {
+            alert(error.message);
         }
     }
 

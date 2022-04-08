@@ -5,13 +5,15 @@ import CarTrackForm from "./CarTrackForm.js";
 import TryCountForm from "./TryCountForm.js";
 import WinnerForm from "./WinnerForm.js";
 
+const INTERVAL = 1000;
+
 export default class RacingApp {
     constructor() {
         this.racing = new Racing();
 
         this.carNamesForm = new CarNamesForm(this.racing, {
             onLoadTryForm: () => {
-                this.tryCountForm.renderer();
+                this.tryCountForm.render();
                 this.tryCountForm.mounted();
             },
         });
@@ -31,7 +33,7 @@ export default class RacingApp {
 
     onPlayRacing() {
         this.onDisableButton();
-        this.carTrackForm.renderer();
+        this.carTrackForm.render();
 
         let count = 0;
         let interval = setInterval(() => {
@@ -40,7 +42,7 @@ export default class RacingApp {
                 clearInterval(interval);
                 this.carTrackForm.removeSpinner();
                 this.winnierForm.winners = Winner.getWinners(this.racing.cars);
-                this.winnierForm.renderer();
+                this.winnierForm.render();
                 this.winnierForm.mounted();
                 this.winnierForm.onAlertWinner();
                 return;
@@ -51,7 +53,7 @@ export default class RacingApp {
                     this.carTrackForm.onForward(i);
                 }
             })
-        }, 1000);
+        }, INTERVAL);
     }
 
     onDisableButton() {
