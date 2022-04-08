@@ -26,7 +26,7 @@ const CarNameForm = ($el, store) => {
     mutateCarNames();
   };
 
-  const validCarName = (target) => {
+  const getValidCarName = (target) => {
     const carName = target.value.replace(carNamePattern, '');
     const carNames = getCarNames(carName);
     const lastName = last(carNames)?.trim();
@@ -46,7 +46,7 @@ const CarNameForm = ($el, store) => {
   };
 
   const onKeyUpCarName = ({ target }) => {
-    target.value = validCarName(target);
+    target.value = getValidCarName(target);
   };
 
   const init = () => {
