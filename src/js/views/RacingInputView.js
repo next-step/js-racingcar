@@ -1,7 +1,7 @@
 import { SELECTOR, ERROR_MESSAGE } from "../constant/index.js";
 
 const RacingInputView = {
-  renderNameInput: function () {
+  renderNameInput() {
     const $template = ` <fieldset>
     <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
     <p>
@@ -17,7 +17,7 @@ const RacingInputView = {
     this.renderInContainer($template);
   },
 
-  renderTryCountInput: function () {
+  renderTryCountInput() {
     const $tryCountInput = document.querySelector(SELECTOR.TRY_INPUT);
     if ($tryCountInput) return;
     const $template = `
@@ -33,7 +33,7 @@ const RacingInputView = {
     this.renderInContainer($template);
   },
 
-  renderInContainer: $template => {
+  renderInContainer($template) {
     const $racingInputContainer = document.querySelector("#racing-form");
     $racingInputContainer.insertAdjacentHTML("beforeend", $template);
   },
