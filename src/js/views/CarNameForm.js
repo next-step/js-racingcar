@@ -6,9 +6,11 @@ import { carNamePattern } from '../../verification/regex.js';
 
 const getCarNames = (carName) => splitStringWithComma(carName).filter(Boolean);
 
-const validateCarName = (carName) => {
+const checkCarName = (carName) => {
   if (!carName?.length) throw new Error(MESSAGE.PLZ_INSERT_CAR_NAME);
+};
 
+const validateCarName = (carName) => {
   if (carName?.length > MAX_LENGTH_FOR_CAR_NAME)
     throw new Error(MESSAGE.PLZ_CHECK_MAX_LENGTH_FOR_CAR_NAME);
 };
@@ -44,7 +46,7 @@ const CarNameForm = ($el, store) => {
   const onSubmitCarName = (event) => {
     event.preventDefault();
     try {
-      validateCarName($carName.value.trim());
+      checkCarName($carName.value.trim());
       mutateCarNames();
       disabled($fieldset, true);
     } catch (error) {
