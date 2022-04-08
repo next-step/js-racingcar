@@ -24,13 +24,22 @@
 
 4. setTimeout Promise로 변경해보기
 
-- [x]
+- [x] GameOver => then을 통한 promise 사용으로 리팩터링
+
+5. TODO 주석 활용
+
+- TODO
+- FIXME
+- COMPLETE
+- MEMO
+- BUG
 
 ### 세부 수정사항
 
 - [x] convertDisabledAttr / 네이밍 고려 => ./src/util/disable.js 수정
 - [x] Default parameter 수정
 - [x] InputText 네이밍 수정
+- [x] Event Target 명시적으로 수정
 
 ## 기능 명세
 

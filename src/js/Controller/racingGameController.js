@@ -24,7 +24,7 @@ const Controller = {
     Event.racingCountEvent(value);
   },
 
-  async racingCount(target, cars) {
+  racingCount(target, cars) {
     const { value } = target.input;
 
     if (Racing.validate.racingCount(value))

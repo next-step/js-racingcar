@@ -10,6 +10,8 @@ export const Component = {
   },
 };
 
+// TODO
+// FIXME
 export const render = (target, component) => {
   target.innerHTML += component;
 };
