@@ -26,7 +26,7 @@ const removeChild = ($el) => {
 };
 
 const MIN_NUMBER_TO_MOVE = 4;
-const randomNumbers = (times, minNumberToMove = MIN_NUMBER_TO_MOVE) =>
+const getMovingResults = (times, minNumberToMove = MIN_NUMBER_TO_MOVE) =>
   range(times)
     .map(() => generateRandomNumbersUntil())
     .map((n) => n >= minNumberToMove);
@@ -34,7 +34,7 @@ const randomNumbers = (times, minNumberToMove = MIN_NUMBER_TO_MOVE) =>
 const generateRandomNumbers = (carNames, times) =>
   carNames.map((carName) => ({
     carName,
-    forwards: randomNumbers(times),
+    forwards: getMovingResults(times),
   }));
 
 const Cars = ($el, store) => {
