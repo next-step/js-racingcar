@@ -1,4 +1,4 @@
-import Car from "../views/Car.js";
+import Car from "../views/CarView.js";
 import { MIN_NUMBER_FOR_MOVING } from "../constant/index.js";
 
 const RacingGame = {

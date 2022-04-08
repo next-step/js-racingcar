@@ -1,5 +1,5 @@
 import { SELECTOR, ERROR_MESSAGE } from "../constant/index.js";
-class Car {
+class CarView {
   #carsInfo;
   constructor(carsInfo) {
     this.$target = document.querySelector(SELECTOR.CAR_CONTAINER);
@@ -56,4 +56,4 @@ class Car {
   }
 }
 
-export default Car;
+export default CarView;
