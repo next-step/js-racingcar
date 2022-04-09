@@ -6,14 +6,14 @@ export const getRandomNumber = (min, max) =>
 export const [COMMAND_GO, COMMAND_STOP] = ["go", "stop"];
 export const getCommand = (number) => (number >= 4 ? COMMAND_GO : COMMAND_STOP);
 
-export function validationCarNames(str) {
+export function isEmpty(str) {
     const carsNames = str.split(",");
 
     return !(carsNames.length === 0 || carsNames.some((name) => name.trim() === ""));
 }
 
 export function getCarsNames(str) {
-    if (validationCarNames(str)) {
+    if (isEmpty(str)) {
         return str.split(',');
     }
     throw new Error(MSG_ERROR_NO_NAMES);
@@ -22,15 +22,12 @@ export function getCarsNames(str) {
 export function validationTryCount(str) {
     const count = parseInt(str, 10);
 
-    if (!count || isNaN(count)) {
-        return false;
-    }
-    return true;
+    return !(!count || isNaN(count));
 }
 
 export function getTryCount(str) {
     if (validationTryCount(str)) {
-        return parseInt(str);
+        return parseInt(str, 10);
     }
     throw new Error(MSG_ERROR_INVALID_NUMBER);
 }

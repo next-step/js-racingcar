@@ -4,7 +4,7 @@ import {
   getCommand,
   getRandomNumber,
   getTryCount,
-  validationCarNames,
+  isEmpty,
 } from "./module/core.mjs";
 import { drawCars, forwardIcon } from "./module/templates.mjs";
 import { MSG_ERROR_NO_NAMES } from "./module/constants.mjs";
@@ -41,7 +41,7 @@ function initApp() {
   }
 
   $carsNameSubmit.addEventListener("click", () => {
-    if (validationCarNames($carsNameInput.value)) {
+    if (isEmpty($carsNameInput.value)) {
       $tryCntFieldSet.classList.remove("hidden");
       return;
     }
