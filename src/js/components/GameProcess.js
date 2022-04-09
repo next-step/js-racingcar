@@ -1,5 +1,6 @@
 import { duplicateTemplate } from '../utils/templateUtil.js';
 import { TEMPLATE, ID, CLASS } from '../constants/selector.js';
+import { MILLISECONDS } from '../constants/unit.js';
 
 const GameProcess = ({ state, consumeTime }) => {
   const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_LIST_SECTION);
@@ -39,7 +40,7 @@ const GameProcess = ({ state, consumeTime }) => {
 
     setTimeout(() => {
       requestAnimationFrame(playRacingGame);
-    }, 1000);
+    }, MILLISECONDS);
   };
 
   const setSpinnerWillChangeHint = () => {
@@ -48,7 +49,7 @@ const GameProcess = ({ state, consumeTime }) => {
       $el.style.willChange = 'transform, opacity';
       $el.style.opacity = 1;
     });
-  };  
+  };
 
   const removeSpinnerWillChangeHint = () => {
     const $spinner = $currentElement.querySelectorAll(CLASS.SPINNER);
