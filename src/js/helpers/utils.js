@@ -1,3 +1,9 @@
+export const $template = html => {
+  const template = document.createElement('template');
+  template.insertAdjacentHTML('afterbegin', html);
+  return template.firstElementChild;
+};
+
 export const pipe =
   (...fns) =>
   value =>
@@ -19,3 +25,6 @@ export const split = (target, separator = ',') => {
 export const removeSpace = targetArray => {
   return targetArray.map(element => element.replace(/\s/gi, ''));
 };
+
+export const generateRandomNumbers = ({ count: length, min = 1, max = 9 }) =>
+  Array.from({ length }).map(() => Math.floor(Math.random() * max) + min);
