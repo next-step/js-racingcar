@@ -112,19 +112,16 @@ describe('자동차 경주 게임', () => {
     it('게임화면이 초기화면으로 돌아가야 합니다.', () => {
       cy.get(`#${DOM.CAR_NAMES_INPUT_ID}`).type('EAST, WEST, SOUTH, NORTH');
       cy.get(`#${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}`).click();
-
       cy.get(`#${DOM.TRY_COUNT_INPUT_ID}`).type(2);
       cy.get(`#${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}`).click();
-
       cy.get(`#${DOM.GAME_RESTART_BUTTON_ID}`).click();
 
-      cy.get(`#${DOM.TRY_COUNT_INPUT_ID}`).should('not.be.visible');
-      cy.get(`#${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}`).should('not.be.visible');
-
+      cy.get(`#${DOM.CAR_NAMES_INPUT_ID}`).should('have.value', '');
+      cy.get(`#${DOM.TRY_COUNT_INPUT_ID}`).should('not.exist');
+      cy.get(`#${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}`).should('not.exist');
       cy.get(`#${DOM.GAME_PROCESS_BOARD_ID}`).should('not.be.visible');
-
-      cy.get(`#${DOM.GAME_WINNERS_TEXT_ID}`).should('not.be.visible');
-      cy.get(`#${DOM.GAME_RESTART_BUTTON_ID}`).should('not.be.visible');
+      cy.get(`#${DOM.GAME_WINNERS_TEXT_ID}`).should('not.exist');
+      cy.get(`#${DOM.GAME_RESTART_BUTTON_ID}`).should('not.exist');
     });
   });
 });
