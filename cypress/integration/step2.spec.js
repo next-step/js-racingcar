@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import {MSG_ERROR_INVALID_NUMBER, MSG_ERROR_NO_NAMES} from "../../src/module/constants.mjs";
+import {MSG_ERROR_INVALID_NUMBER, MSG_ERROR_NO_NAMES} from "../../src/constants.mjs";
 import {initApp} from "../../src/app";
 
 describe('step2', () => {
@@ -14,7 +14,14 @@ describe('step2', () => {
 
 
     describe('자동차 경주 게임을 완료한 후', () => {
+        before(() => {
+            cy.get('[placeholder="자동차 이름"]').type('자동차1,자동차2');
+            cy.get('[placeholder="자동차 이름"] + button:contains("확인")').click();
+            cy.get('[placeholder="시도 횟수"]').type('2');
+            cy.get('[placeholder="시도 횟수"] + button:contains("확인")').click();
+        })
         it('우승자를 알려준다.', () => {
+            cy.get('.result').should('be.visible');
         })
     })
 

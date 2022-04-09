@@ -4,10 +4,10 @@ import {
   getCommand,
   getRandomNumber,
   getTryCount,
-  isEmpty,
-} from "./module/core.mjs";
-import { drawCars, forwardIcon } from "./module/templates.mjs";
-import { MSG_ERROR_NO_NAMES } from "./module/constants.mjs";
+} from "./js/racing.mjs";
+import { drawCars, forwardIcon } from "./js/templates.mjs";
+import { MSG_ERROR_NO_NAMES } from "./constants.mjs";
+import { isEmpty } from "./js/validation.mjs";
 
 function initApp() {
   const $app = document.querySelector("#app");
