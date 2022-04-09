@@ -2,12 +2,6 @@ import {
   NOT_ALLOWED_NAME_LENGTH,
   NOT_ALLOWED_TRY_COUNT,
 } from '../../../src/racingcar/constatns/messages';
-import Car from '../../../src/racingcar/models/Car';
-import carsStore from '../../../src/racingcar/store/cars';
-import { playCars } from '../../../src/racingcar/views/makeCars';
-import { WAIT_TIMES } from '../../../src/utils';
-import { playRandomNumber } from '../../../src/utils/randoms';
-import { stringsToArray } from '../../../src/utils/strings';
 
 before(() => cy.visit('../../dist/index.html'));
 
@@ -128,12 +122,12 @@ describe('사용자는 몇 번의 이동을 할 것인지를 입력할 수 있�
   const typeTryCountAndClick = (tryCount) => {
     $tryCountInput().type(tryCount);
     $tryCountButton().click();
-    $startCars().should('be.visible');
+    $playCars().should('be.visible');
   };
 
   const typeTryCountAndEnter = (tryCount) => {
     $tryCountInput().type(tryCount + '{enter}');
-    $startCars().should('be.visible');
+    $playCars().should('be.visible');
   };
 
   const typeTryCountAndClickGotAlert = (tryCount) => {
