@@ -1,6 +1,6 @@
 import { $ } from './util/dom.js';
 import { ERR_MSG } from './util/constatns.js';
-import { isCheckCarNameLength, isMoveCar } from './util/util.js';
+import { toStrArray, isCheckCarNameLength, isMoveCar } from './util/util.js';
 
 const $carNamesInput = $('#car-names-input');
 const $carNamesSubmit = $('#car-names-submit');
@@ -28,7 +28,8 @@ const submitCarNames = () => {
 		return;
 	}
 
-	if (!isCheckCarNameLength($carNamesInput.value.split(', '))) {
+	const carNamesArr = toStrArray($carNamesInput.value);
+	if (!isCheckCarNameLength(carNamesArr)) {
 		alert(ERR_MSG.OVER_CAR_NAME_MAX_LENGTH);
 		return;
 	}
@@ -48,7 +49,8 @@ const submitTryNum = () => {
 	$carTrySubmit.disabled = true;
 	$carRacingBlock.style.display = 'flex';
 
-	const template = playRacingView($carNamesInput.value.split(', '));
+	const carNamesArr = toStrArray($carNamesInput.value);
+	const template = playRacingView(carNamesArr);
 	$carRacingBlock.innerHTML = `<div class="mt-4 d-flex">${template}</div>`;
 };
 
