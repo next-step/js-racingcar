@@ -4,8 +4,9 @@ import {
   getCommand,
   getRandomNumber,
   getTryCount,
+  getWinners,
 } from "./js/racing.mjs";
-import { drawCars, forwardIcon } from "./js/templates.mjs";
+import { drawCars, forwardIcon, TemplateRaceResult } from "./js/templates.mjs";
 import { MSG_ERROR_NO_NAMES } from "./constants.mjs";
 import { isEmpty } from "./js/validation.mjs";
 
@@ -32,12 +33,22 @@ function initApp() {
         .querySelector(`[aria-label="${name}"]`)
         .insertAdjacentHTML("beforeend", forwardIcon);
     }
+    return command;
   }
 
   function runRace(maxRound, names) {
+    const raceResult = names.reduce(
+      (acc, curr) => ({ ...acc, [curr]: [] }),
+      {}
+    );
+
     for (let i = 0; i < maxRound; i += 1) {
-      names.forEach(runRound);
+      names.forEach((name) => {
+        raceResult[name].push(runRound(name));
+      });
     }
+
+    return raceResult;
   }
 
   $carsNameSubmit.addEventListener("click", () => {
@@ -53,10 +64,13 @@ function initApp() {
       const count = getTryCount($tryCntInput.value);
       const names = getCarsNames($carsNameInput.value);
 
-      $raceContainer.classList.remove("hidden");
       $raceContainer.innerHTML = drawCars(names);
 
-      runRace(count, names);
+      const raceResult = runRace(count, names);
+      const winners = getWinners(raceResult);
+
+      const $result = document.querySelector(".result");
+      $result.innerHTML = TemplateRaceResult(winners);
     } catch (e) {
       alert(e.message);
     }

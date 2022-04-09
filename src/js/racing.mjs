@@ -20,3 +20,11 @@ export function getTryCount(str) {
     }
     throw new Error(MSG_ERROR_INVALID_NUMBER);
 }
+
+export const getWinners = (raceResult) => {
+    const winnerScore = Math.max(Object.values(raceResult));
+
+    return Object.keys(raceResult).filter(
+        (key) => raceResult[key] === winnerScore
+    );
+};
