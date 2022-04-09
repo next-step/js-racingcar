@@ -70,7 +70,17 @@ function initApp() {
       const raceResult = runRace(count, names);
       const winners = getWinners(raceResult);
 
-      $result.innerHTML = TemplateRaceResult(winners);
+      $result.appendChild(
+        TemplateRaceResult(winners, {
+          onResetButtonClick: () => {
+            $carsNameInput.value = "";
+            $tryCntFieldSet.classList.add("hidden");
+            $tryCntInput.value = "";
+            $raceContainer.innerHTML = "";
+            $result.innerHTML = "";
+          },
+        })
+      );
     } catch (e) {
       alert(e.message);
     }
