@@ -1,3 +1,7 @@
+import ValidationError from '../utils/validation.js';
+import { ERROR } from '../constants/message.js';
+import { MAX_RACING_CAR_NAME } from '../constants/unit.js';
+
 export default class GameConfiguration {
   #carNames;
   #playTimes;
@@ -16,13 +20,29 @@ export default class GameConfiguration {
     }, {});
   }
 
+  #isValidCarName = inputNames => {
+    const isValid = inputNames.every(
+      carName => carName.length > 0 && carName.length <= MAX_RACING_CAR_NAME
+    );
+
+    if (!isValid)
+      throw new ValidationError(ERROR.INVALID_LENGTH_RACING_CAR_NAME);
+  };
+
   #isStepForward() {
     return Math.floor(Math.random() * 10) > 4 ? 1 : 0;
   }
 
   updateCarNames = carNames => {
-    this.#carNames = carNames;
+    try {
+      this.#isValidCarName(carNames);
+      this.#carNames = carNames;
+    } catch (err) {
+      if (err instanceof ValidationError) alert(err.message);
+      console.log(err);
+    }
   };
+
   updatePlayTimes = playTimes => {
     this.#playTimes = playTimes;
   };
