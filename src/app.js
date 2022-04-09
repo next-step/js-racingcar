@@ -23,6 +23,7 @@ function initApp() {
     '[placeholder="시도 횟수"] + button'
   );
   const $raceContainer = $app.querySelector(".race");
+  const $result = $app.querySelector(".result");
 
   function runRound(name) {
     const randomNumber = getRandomNumber(0, 9);
@@ -69,7 +70,6 @@ function initApp() {
       const raceResult = runRace(count, names);
       const winners = getWinners(raceResult);
 
-      const $result = document.querySelector(".result");
       $result.innerHTML = TemplateRaceResult(winners);
     } catch (e) {
       alert(e.message);

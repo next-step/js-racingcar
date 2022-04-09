@@ -22,9 +22,15 @@ export function getTryCount(str) {
 }
 
 export const getWinners = (raceResult) => {
-    const winnerScore = Math.max(Object.values(raceResult));
+    const goCounts = Object
+        .keys(raceResult)
+        .reduce((acc, key) => {
+            acc[key] = raceResult[key].filter(command => command === COMMAND_GO).length;
+            return acc;
+        }, {})
+    const winnerScore = Math.max(...Object.values(goCounts));
 
-    return Object.keys(raceResult).filter(
-        (key) => raceResult[key] === winnerScore
+    return Object.keys(goCounts).filter(
+        (key) => goCounts[key] === winnerScore
     );
 };
