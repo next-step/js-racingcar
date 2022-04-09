@@ -2,6 +2,12 @@ import {
   NOT_ALLOWED_NAME_LENGTH,
   NOT_ALLOWED_TRY_COUNT,
 } from '../../../src/racingcar/constatns/messages';
+import Car from '../../../src/racingcar/models/Car';
+import carsStore from '../../../src/racingcar/store/cars';
+import { playCars } from '../../../src/racingcar/views/makeCars';
+import { WAIT_TIMES } from '../../../src/utils';
+import { playRandomNumber } from '../../../src/utils/randoms';
+import { stringsToArray } from '../../../src/utils/strings';
 
 before(() => cy.visit('../../dist/index.html'));
 
@@ -13,31 +19,32 @@ const $tryCountInput = () => cy.get('[data-target="racingcar-try-count-input"]')
 const $tryCountButton = () => cy.get('[data-target="racingcar-try-count-button"]');
 
 const $playCars = () => cy.get('[data-target="racingcar-play-cars"]');
+const $cars = () => cy.get('[data-target="racingcar-cars"]');
 const $carPlayer = () => cy.get('[data-target="racingcar-car-player"]');
 
 afterEach(() => {
   cy.reload();
 });
 
+const startCars = (names, tryCounts) => {
+  $namingInput().type(names);
+  $namingButton().click();
+
+  $tryCountInput().type(tryCounts);
+  $tryCountButton().click();
+};
+
 describe('자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
-  const playCars = (name, tryCount) => {
-    $namingInput().type(name);
-    $namingButton().click();
-
-    $tryCountInput().type(tryCount);
-    $tryCountButton().click();
-  };
-
   context('입력한 자동차 이름과 출력된 자동차 이름이 같다.', () => {
     it('1대', () => {
       const names = 'BMW';
-      playCars(names, 3);
+      startCars(names, 3);
       $carPlayer().should('have.text', names);
     });
 
     it('3대', () => {
       const names = 'BMW, AUDI, K9';
-      playCars(names, 3);
+      startCars(names, 3);
 
       $carPlayer().each(($ele, idx) => {
         expect($ele).to.have.text(names.split(', ')[idx]);
@@ -121,12 +128,12 @@ describe('사용자는 몇 번의 이동을 할 것인지를 입력할 수 있�
   const typeTryCountAndClick = (tryCount) => {
     $tryCountInput().type(tryCount);
     $tryCountButton().click();
-    $playCars().should('be.visible');
+    $startCars().should('be.visible');
   };
 
   const typeTryCountAndEnter = (tryCount) => {
     $tryCountInput().type(tryCount + '{enter}');
-    $playCars().should('be.visible');
+    $startCars().should('be.visible');
   };
 
   const typeTryCountAndClickGotAlert = (tryCount) => {
@@ -181,6 +188,6 @@ describe('사용자는 몇 번의 이동을 할 것인지를 입력할 수 있�
   });
 });
 
-describe('주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.', () => {});
+describe.skip('주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.', () => {});
 
-describe('전진하는 조건은 0에서 9 사이에서 random 값을 구한 후 random 값이 4 이상일 경우 전진하고, 3 이하의 값이면 멈춘다.', () => {});
+describe.skip('전진하는 조건은 0에서 9 사이에서 random 값을 구한 후 random 값이 4 이상일 경우 전진하고, 3 이하의 값이면 멈춘다.', () => {});
