@@ -1,4 +1,4 @@
-import { GO_FLAG_NUMBER, MAX_RANDOM_NUMBER } from '../constatns';
+import { GO_FLAG_NUMBER } from '../constatns';
 
 export default class Car {
   #name;
@@ -17,13 +17,7 @@ export default class Car {
     return this.#name;
   }
 
-  move() {
-    if (Car.#isGo()) this.#moved++;
-  }
-
-  static #isGo() {
-    return Math.floor(Math.random() * MAX_RANDOM_NUMBER + 1) >= GO_FLAG_NUMBER
-      ? true
-      : false;
+  move(playRandomNumber) {
+    if (playRandomNumber >= GO_FLAG_NUMBER) this.#moved++;
   }
 }

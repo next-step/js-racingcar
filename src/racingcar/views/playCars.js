@@ -1,9 +1,11 @@
-import { wait } from '../../utils';
+import { wait, WAIT_TIMES } from '../../utils';
 import { $ } from '../../utils/dom';
 import Cars from '../components/Cars';
 import { MIN_NAME_LENGTH, MAX_NAME_LENGTH, MIN_TRY_COUNT } from '../constatns';
 import { NOT_ALLOWED_NAME_LENGTH, NOT_ALLOWED_TRY_COUNT } from '../constatns/messages';
-import carsStore from '../store/cars';
+import { stringsToArray } from '../../utils/strings';
+import carsStore from '../store/carsStore';
+import { randomNumber } from '../../utils/randoms';
 
 const $makeCars = $('#racingcar-make-cars');
 const $tryCountSection = $('#racingcar-try-count-section');
@@ -40,10 +42,12 @@ const handleMakeCarsKeyup = (e) => {
 };
 
 const setCarNames = () => {
-  const names = $namingInput.value.split(',').map((name) => name.trim());
+  const names = stringsToArray($namingInput.value);
 
   if (validateName(names)) {
     $tryCountSection.classList.remove('d-none');
+    $namingInput.disabled = true;
+
     carsStore.SET_CAR_NAMES(names);
   } else {
     alert(NOT_ALLOWED_NAME_LENGTH);
@@ -61,9 +65,11 @@ const setTryCounts = () => {
 
   if (validateTryCount(counts)) {
     $playCars.classList.remove('d-none');
+    $tryCountInput.disabled = true;
+
     carsStore.SET_TRY_COUNTS(counts);
 
-    playCars();
+    playCars($cars);
   } else {
     alert(NOT_ALLOWED_TRY_COUNT);
   }
@@ -73,16 +79,19 @@ const validateTryCount = (counts) => {
   return counts >= MIN_TRY_COUNT;
 };
 
-const playCars = async () => {
+const playCars = async ($target) => {
   carsStore.SET_CARS(carsStore.GET_CAR_NAMES());
 
   while (carsStore.GET_WINNERS().length === 0) {
-    carsStore.MOVE_CARS();
-    carsStore.FIND_AND_SET_WINNERS();
-    $cars.replaceChildren(Cars(carsStore.GET_CARS()));
-
-    await wait(500);
+    moveCar($target);
+    await wait(WAIT_TIMES);
   }
 };
 
-export { makeCarsEventListener };
+const moveCar = ($target) => {
+  carsStore.MOVE_CARS(randomNumber());
+  carsStore.FIND_AND_SET_WINNERS();
+  $target.replaceChildren(Cars(carsStore.GET_CARS()));
+};
+
+export { makeCarsEventListener, playCars };

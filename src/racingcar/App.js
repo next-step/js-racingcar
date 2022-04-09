@@ -1,4 +1,4 @@
-import { makeCarsEventListener } from './views/makeCars';
+import { makeCarsEventListener } from './views/playCars';
 
 const App = () => {
   makeCarsEventListener();

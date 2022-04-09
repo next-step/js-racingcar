@@ -1,4 +1,4 @@
-import carsStore from '../store/cars';
+import carsStore from '../store/carsStore';
 
 const Cars = (cars) => {
   const template = document.createElement('template');
@@ -16,8 +16,7 @@ const Cars = (cars) => {
                     </div>
                 `;
 
-      acc.push(player.replace(/ +/g, ' '));
-      console.log(acc);
+      acc.push(player);
       return acc;
     }, [])
     .join('');
