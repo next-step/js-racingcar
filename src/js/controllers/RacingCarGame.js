@@ -96,7 +96,7 @@ class RacingCarGame {
     this.racingCarGameProgressSectionView.renderRacingGameResultTemplate(
       this.racingCarGameModel.cars,
     );
-    this.racingCarGameEndView.renderEndSection(this.racingCarGameModel.cars.map(car => car.name));
+    this.racingCarGameEndView.renderEndSection(this.racingCarGameModel.winnerCars);
   }
 
   validateTryCount() {
