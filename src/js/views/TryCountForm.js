@@ -20,6 +20,10 @@ class TryCountFormView {
     this.$tryCountInput.focus();
   }
 
+  reset() {
+    this.$target.innerHTML = null;
+  }
+
   template() {
     return String.raw`
       <p>시도할 횟수를 입력해주세요.</p>

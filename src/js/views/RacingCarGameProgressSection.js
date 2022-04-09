@@ -5,6 +5,10 @@ class RacingCarGameProgressSectionView {
     this.$target = target;
   }
 
+  reset() {
+    this.$target.innerHTML = null;
+  }
+
   renderRacingGameResultTemplate(cars) {
     this.$target.innerHTML = cars
       .map(car => this.carRacingResultTemplate(car.name, car.gameResult))

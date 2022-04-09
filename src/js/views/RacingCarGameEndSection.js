@@ -5,6 +5,10 @@ class RacingCarGameEndSectionView {
     this.$target = target;
   }
 
+  reset() {
+    this.$target.innerHTML = null;
+  }
+
   renderEndSection(winners) {
     this.$target.innerHTML = String.raw`
       <div>

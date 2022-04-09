@@ -39,6 +39,9 @@ class RacingCarGame {
       event.preventDefault();
       this.onSubmitRacingGame(event.submitter);
     });
+    $(`#${DOM.RACING_CAR_GAME_APP_ID}`).addEventListener('click', event =>
+      this.onClickRacingGame(event.target),
+    );
   }
 
   onSubmitRacingGame(submitter) {
@@ -49,6 +52,13 @@ class RacingCarGame {
 
     if (submitter === $(`#${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}`)) {
       this.generateCarFromCarNameInput();
+      return;
+    }
+  }
+
+  onClickRacingGame(target) {
+    if (target === $(`#${DOM.GAME_RESTART_BUTTON_ID}`)) {
+      this.restartGame();
       return;
     }
   }
@@ -113,6 +123,13 @@ class RacingCarGame {
           : GAME.STOP,
       );
     });
+  }
+
+  restartGame() {
+    this.racingCarGameEndView.reset();
+    this.racingCarGameProgressSectionView.reset();
+    this.tryCountFormView.reset();
+    this.racingCarGameView.reset();
   }
 }
 

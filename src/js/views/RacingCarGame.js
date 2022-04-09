@@ -20,6 +20,11 @@ class RacingCarGameView {
     this.$carNamesInput.focus();
   }
 
+  reset() {
+    this.$carNamesInput.value = '';
+    this.$carNamesInput.focus();
+  }
+
   template() {
     return String.raw`
       <section class="d-flex justify-center mt-5">
