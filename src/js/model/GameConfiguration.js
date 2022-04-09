@@ -1,6 +1,7 @@
 import ValidationError from '../utils/validation.js';
 import { ERROR } from '../constants/message.js';
 import { MAX_RACING_CAR_NAME } from '../constants/unit.js';
+import { MovingStrategy, RandomMovingStrategy } from './MovingStrategy.js';
 
 export default class GameConfiguration {
   #carNames;
@@ -14,7 +15,7 @@ export default class GameConfiguration {
   makePlayResult() {
     this.#racingCarList = this.carNames.reduce((acc, cur) => {
       acc[cur] = Array.from({ length: this.playTimes }, () =>
-        this.#isStepForward()
+        this.#isStepForward(new RandomMovingStrategy())
       );
       return acc;
     }, {});
@@ -29,8 +30,10 @@ export default class GameConfiguration {
       throw new ValidationError(ERROR.INVALID_LENGTH_RACING_CAR_NAME);
   };
 
-  #isStepForward() {
-    return Math.floor(Math.random() * 10) > 4 ? 1 : 0;
+  #isStepForward(movingStrategy) {
+    if (!(movingStrategy instanceof MovingStrategy))
+      throw Error('MovingStrategy 안스턴스 인자만 받을 수 있습니다.');
+    return movingStrategy.isMoveable() ? 1 : 0;
   }
 
   updateCarNames = carNames => {
