@@ -44,13 +44,14 @@ describe('step2', () => {
             it('콤마를 이용하여 구분하여 보여준다.', () => {
                 cy.get('.winners').should('have.text', '자동차1, 자동차2, 자동차3');
             })
+            it('다시 시작하기 버튼이 노출된다.', () => {
+                cy.get('button:contains("다시 시작하기")').should('be.visible');
+            })
         })
     })
 
     // given
     describe('자동차 경주 게임이 완료되면', () => {
-        it('다시 시작하기 버튼이 노출된다.', () => {
-        })
 
         // when
         context('다시 시작하기 버튼을 누르면', () => {
