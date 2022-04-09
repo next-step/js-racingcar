@@ -42,6 +42,22 @@ describe('로또 미션 Cypress', () => {
             );
           });
       });
+
+      it('(2) 빈 자동차 이름 등록 테스트', () => {
+        const alertStub = cy.stub();
+        cy.on('window:alert', alertStub);
+
+        const mockRacingCar = ['람보르기니가야르도', ''].join(',');
+
+        cy.get('#car-name-input').type(mockRacingCar);
+        cy.get('#car-name-submit-btn')
+          .click()
+          .then(() => {
+            expect(alertStub).to.be.calledWith(
+              ERROR.INVALID_LENGTH_RACING_CAR_NAME
+            );
+          });
+      });
     });
 
     context('유효한 자동차 이름 등록 테스트', () => {
