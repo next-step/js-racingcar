@@ -9,7 +9,7 @@ const $carTryInput = $('#car-try-input');
 const $carTrySubmit = $('#car-try-submit');
 const $carRacingBlock = $('#car-racing-block');
 
-const playRacing = (carNames) =>
+const playRacingView = (carNames) =>
 	carNames
 		.map(
 			(name) =>
@@ -48,7 +48,7 @@ const submitTryNum = () => {
 	$carTrySubmit.disabled = true;
 	$carRacingBlock.style.display = 'flex';
 
-	const template = playRacing($carNamesInput.value.split(', '));
+	const template = playRacingView($carNamesInput.value.split(', '));
 	$carRacingBlock.innerHTML = `<div class="mt-4 d-flex">${template}</div>`;
 };
 
