@@ -1,3 +1,3 @@
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-export { wait };
+const WAIT_TIMES = 500;
+export { wait, WAIT_TIMES };
