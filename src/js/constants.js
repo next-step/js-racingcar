@@ -7,7 +7,9 @@ export const DOM = Object.freeze({
   TRY_COUNT_INPUT_ID: 'try-count-input',
   TRY_COUNT_SUBMIT_BUTTON_ID: 'try-count-submit-button',
   GAME_PROCESS_BOARD_ID: 'game-process-board',
-  GAME_SECTION_ID: 'game-result-section',
+  GAME_END_SECTION_ID: 'game-end-section',
+  GAME_WINNERS_TEXT_ID: 'game-winners-text',
+  GAME_RESTART_BUTTON_ID: 'game-restart-button',
   CAR_FORWARD_ICON_CLASS: 'forward-icon',
 });
 

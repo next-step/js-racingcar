@@ -15,7 +15,7 @@ describe('자동차 경주 게임', () => {
     });
   });
 
-  context('자동차 이름은 알맞게 입력되어야 합니다.', () => {
+  context('자동차 이름이 입력될 때', () => {
     it('최소 한 대의 자동차가 입력되어야 합니다.', () => {
       const alertStub = cy.stub();
       cy.on('window:alert', alertStub);
@@ -48,7 +48,7 @@ describe('자동차 경주 게임', () => {
     });
   });
 
-  context('시도 횟수는 알맞게 입력되어야 합니다.', () => {
+  context('시도 횟수가 입력될 때', () => {
     it('시도 횟수는 1보다 작으면 안됩니다.', () => {
       const alertStub = cy.stub();
       cy.on('window:alert', alertStub);
@@ -85,6 +85,26 @@ describe('자동차 경주 게임', () => {
       cy.get(`#${DOM.TRY_COUNT_INPUT_ID}`).type(2);
       cy.get(`#${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}`).click();
       cy.get(`#${DOM.GAME_PROCESS_BOARD_ID}`).children().should('have.length', 4);
+    });
+  });
+
+  context('게임 진행이 끝났을 때', () => {
+    it('최종 우승자를 보여주는 텍스트가 보여야 합니다.', () => {
+      cy.get(`#${DOM.CAR_NAMES_INPUT_ID}`).type('EAST, WEST, SOUTH, NORTH');
+      cy.get(`#${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}`).click();
+
+      cy.get(`#${DOM.TRY_COUNT_INPUT_ID}`).type(2);
+      cy.get(`#${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}`).click();
+      cy.get(`#${DOM.GAME_WINNERS_TEXT_ID}`).should('be.visible');
+    });
+
+    it('게임을 다시 시작할 수 있는 버튼이 보여야 합니다.', () => {
+      cy.get(`#${DOM.CAR_NAMES_INPUT_ID}`).type('EAST, WEST, SOUTH, NORTH');
+      cy.get(`#${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}`).click();
+
+      cy.get(`#${DOM.TRY_COUNT_INPUT_ID}`).type(2);
+      cy.get(`#${DOM.TRY_COUNT_SUBMIT_BUTTON_ID}`).click();
+      cy.get(`#${DOM.GAME_RESTART_BUTTON_ID}`).should('be.visible');
     });
   });
 });
