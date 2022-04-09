@@ -27,10 +27,22 @@ describe('step2', () => {
 
     // given
     describe('자동차 경주 게임을 완료한 후', () => {
+
         // when
         context('우승자가 여러명 이라면', () => {
+            before(() => {
+                cy.visit('../../index.html')
+                cy.window().then((w) => {
+                    cy.stub(w.Math, 'random').returns(0.9);
+                })
+                cy.get('[placeholder="자동차 이름"]').type('자동차1,자동차2,자동차3');
+                cy.get('[placeholder="자동차 이름"] + button:contains("확인")').click();
+                cy.get('[placeholder="시도 횟수"]').type('2');
+                cy.get('[placeholder="시도 횟수"] + button:contains("확인")').click();
+            })
             // then
             it('콤마를 이용하여 구분하여 보여준다.', () => {
+                cy.get('.winners').should('have.text', '자동차1, 자동차2, 자동차3');
             })
         })
     })
