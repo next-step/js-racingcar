@@ -2,7 +2,7 @@ import { CarModel, RacingCarGameModel } from '../models/index.js';
 import {
   TryCountFormView,
   RacingCarGameView,
-  RacingCarGameResultView,
+  RacingCarGameProgressSectionView,
   RacingCarGameEndSectionView,
 } from '../views/index.js';
 
@@ -28,7 +28,9 @@ class RacingCarGame {
 
   mounted() {
     this.tryCountFormView = new TryCountFormView($(`#${DOM.TRY_COUNT_FORM_ID}`));
-    this.racingCarGameResultView = new RacingCarGameResultView($(`#${DOM.GAME_PROCESS_BOARD_ID}`));
+    this.racingCarGameProgressSectionView = new RacingCarGameProgressSectionView(
+      $(`#${DOM.GAME_PROCESS_BOARD_ID}`),
+    );
     this.racingCarGameEndView = new RacingCarGameEndSectionView($(`#${DOM.GAME_END_SECTION_ID}`));
   }
 
@@ -91,7 +93,9 @@ class RacingCarGame {
     }
 
     this.progressRacingResult();
-    this.racingCarGameResultView.renderRacingGameResultTemplate(this.racingCarGameModel.cars);
+    this.racingCarGameProgressSectionView.renderRacingGameResultTemplate(
+      this.racingCarGameModel.cars,
+    );
     this.racingCarGameEndView.renderEndSection(this.racingCarGameModel.cars.map(car => car.name));
   }
 

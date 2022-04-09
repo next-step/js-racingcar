@@ -1,6 +1,6 @@
 import { DOM, GAME } from '../constants.js';
 
-class RacingCarGameResultView {
+class RacingCarGameProgressSectionView {
   constructor(target) {
     this.$target = target;
   }
@@ -27,4 +27,4 @@ class RacingCarGameResultView {
   }
 }
 
-export default RacingCarGameResultView;
+export default RacingCarGameProgressSectionView;
