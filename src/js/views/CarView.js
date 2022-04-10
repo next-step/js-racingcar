@@ -7,8 +7,7 @@ class CarView {
   }
 
   renderArrow() {
-    this.$car.lastElementChild.remove();
-
+    this.hideSpinner();
     /*html*/
     const $template = `<div class="forward-icon mt-2">⬇️️</div>`;
     this.$car.insertAdjacentHTML("beforeend", $template);
@@ -28,7 +27,6 @@ class CarView {
   }
 
   hideSpinner() {
-    this.$car = document.querySelector(`#car-${this.name}`);
     this.$car.lastElementChild.remove();
   }
 }
