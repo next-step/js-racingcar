@@ -11,6 +11,7 @@ const RacingInitialView = {
   </div>
   </div>`;
   },
+
   render({ carsInfo }) {
     const $target = document.querySelector(SELECTOR.CAR_CONTAINER);
     /*html*/

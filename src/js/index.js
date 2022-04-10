@@ -7,10 +7,12 @@ import { SELECTOR, ERROR_MESSAGE } from "./constant/index.js";
 const App = {
   carNames: null,
   tryCount: 0,
+
   init() {
     this.render();
     this.addEvent();
   },
+
   render() {
     const $app = document.querySelector("#app");
     /*html */
@@ -26,6 +28,7 @@ const App = {
 
     RacingInputView.renderNameInput();
   },
+
   addEvent() {
     const $racingInputContainer = document.querySelector("#racing-form");
     $racingInputContainer.addEventListener("click", ({ target }) => {

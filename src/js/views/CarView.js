@@ -5,6 +5,7 @@ class CarView {
     this.$car = document.querySelector(`#car-${name}`);
     this.name = name;
   }
+
   renderArrow() {
     this.$car.lastElementChild.remove();
 
