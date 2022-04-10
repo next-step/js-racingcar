@@ -2,7 +2,6 @@ import { $, $getElement } from '../../dom.js';
 import { FORWRAD, RANDOM_MAX, RANDOM_MIN } from '../../constants.js';
 
 import GoRacingCar from '../../components/RacingCar/GoRacingCar.js';
-import SpinnerRacingcar from '../../components/RacingCar/SpinnerRacingCar.js';
 import { getRandom } from '../../utils.js';
 
 class RacingCar {
