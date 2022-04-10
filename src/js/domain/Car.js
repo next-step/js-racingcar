@@ -1,6 +1,8 @@
 import CarNameLengthException from "../exception/CarNameLengthException.js";
+import { getUUID } from "../utils/index.js";
 
 export default class Car {
+    #id;
     #name;
     #forwardCount = 0;
     
@@ -13,6 +15,7 @@ export default class Car {
     constructor(name) {
         Car.validate(name);
         this.#name = name;
+        this.#id = getUUID();
     }
 
     get value() {
@@ -21,6 +24,10 @@ export default class Car {
 
     get forwardCount() {
         return this.#forwardCount;
+    }
+
+    get id() {
+        return this.#id;
     }
 
     static validate(name) {

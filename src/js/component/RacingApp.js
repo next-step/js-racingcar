@@ -44,10 +44,10 @@ export default class RacingApp {
 
                 return;
             }
-            this.racing.cars.forEach((car, i) => {
+            this.racing.cars.forEach((car) => {
                 if(Racing.getForwardState()) {
                     car.setForwardCount();
-                    this.carTrackForm.onForward(i);
+                    this.carTrackForm.onForward(car);
                 }
             })
         }, INTERVAL);

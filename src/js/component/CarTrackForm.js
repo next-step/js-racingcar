@@ -16,7 +16,7 @@ export default class CarTrackForm {
             .map(
                 (car) => `
             <div class="car mr-2"> 
-                ${this.getPlayerTemplate(car.value)} 
+                ${this.getPlayerTemplate(car)} 
                 ${this.getSpinnerTemplate()}
             </div>
         `
@@ -24,8 +24,8 @@ export default class CarTrackForm {
             .join("")}`;
     }
 
-    getPlayerTemplate(player) {
-        return `<div class="car-player">${player}</div>`;
+    getPlayerTemplate(car) {
+        return `<div id="${car.id}" class="car-player">${car.value}</div>`;
     }
 
     getForwardTemplate() {
@@ -40,9 +40,8 @@ export default class CarTrackForm {
                 </div>`;
     }
 
-    onForward(index) {
-        document.querySelectorAll(".car")[index]
-        .querySelector(".car-player")
+    onForward(car) {
+        document.getElementById(car.id)
         .insertAdjacentHTML("afterend", this.getForwardTemplate());
     }
 
