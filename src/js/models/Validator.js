@@ -6,8 +6,8 @@ const Validator = {
   },
 
   validateDuplicateCarNames(names) {
-    const nameCount = names.length;
-    const uniqueNameCount = new Set(...names).size;
+    const nameCount = names.filter(name => name !== "").length;
+    const uniqueNameCount = new Set(names).size;
     return nameCount === uniqueNameCount;
   },
 };
