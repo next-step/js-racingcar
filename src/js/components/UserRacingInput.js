@@ -1,7 +1,9 @@
 import { duplicateTemplate, makeDisableByID } from '../utils/templateUtil.js';
 import { ID, TEMPLATE } from '../constants/selector.js';
 
-const UserRacingInput = ({ setGames, updateGameConfiguration, startGame }) => {
+const UserRacingInput = ({ userRacingInputState, startGame }) => {
+  const state = userRacingInputState;
+
   let isNameSubmitted = false;
   const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT_SECTION);
 
@@ -15,7 +17,7 @@ const UserRacingInput = ({ setGames, updateGameConfiguration, startGame }) => {
     makeDisableByID(ID.CAR_NAME_INPUT);
     makeDisableByID(ID.CAR_NAME_SUBMIT_BTN);
 
-    updateGameConfiguration.updateCarNames(inputNames);
+    state.updateCarNames(inputNames);
 
     isNameSubmitted = true;
 
@@ -29,13 +31,13 @@ const UserRacingInput = ({ setGames, updateGameConfiguration, startGame }) => {
 
     if (!times) return;
 
-    updateGameConfiguration.updatePlayTimes(times);
+    state.updatePlayTimes(times);
 
     makeDisableByID(ID.RACING_TIMES_INPUT);
     makeDisableByID(ID.RACING_TIMES_SUBMIT_BTN);
 
-    setGames();
-    startGame();
+    state.makePlayResult();
+    startGame(state.gameProcessSettingData);
   };
 
   const setEvent = () => {

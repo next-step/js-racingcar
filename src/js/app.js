@@ -1,23 +1,20 @@
 // components
 import UserRacingInput from './components/UserRacingInput.js';
 import GameProcess from './components/GameProcess.js';
+
 // models
 import GameProcessModel from './model/GameProcessModel.js';
-
-import State from './model/State.js';
+import GameConfiguration from './model/GameConfiguration.js';
 
 const App = async () => {
-  const state = State.getInstance();
-
-  const startGame = () => {
+  const startGame = data => {
     GameProcess({
-      gameProcessState: new GameProcessModel(state.gameProcessState),
+      gameProcessState: new GameProcessModel(data),
     });
   };
 
   UserRacingInput({
-    setGames: state.setGames,
-    updateGameConfiguration: state.updateGameConfiguration,
+    userRacingInputState: new GameConfiguration(),
     startGame,
   });
 };
