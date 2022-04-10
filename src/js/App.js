@@ -1,4 +1,6 @@
 import UserInput from "./components/UserInput.js";
+import GameProcess from "./components/GameProcess.js";
+import GameResult from "./components/GameResult.js";
 
 class App {
   constructor() {
@@ -23,45 +25,8 @@ class App {
       <section id="user-input-component">
       </section>
       <section id="game-process-component">
-        <div class="d-flex justify-center mt-5">
-          <div class="mt-4 d-flex">
-            <div class="mr-2">
-              <div class="car-player">EAST</div>
-              <div class="forward-icon mt-2">⬇️️</div>
-              <div class="forward-icon mt-2">⬇️️</div>
-            </div>
-            <div class="mr-2">
-              <div class="car-player">WEST</div>
-              <div class="forward-icon mt-2">⬇️️</div>
-            </div>
-            <div class="mr-2">
-              <div class="car-player">SOUTH</div>
-              <div class="d-flex justify-center mt-3">
-                <div class="relative spinner-container">
-                  <span class="material spinner"></span>
-                </div>
-              </div>
-            </div>
-            <div class="mr-2">
-              <div class="car-player">NORTH</div>
-              <div class="d-flex justify-center mt-3">
-                <div class="relative spinner-container">
-                  <span class="material spinner"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
       <section id="game-result-component">
-        <div class="d-flex justify-center mt-5">
-          <div>
-            <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
-            <div class="d-flex justify-center">
-              <button type="button" class="btn btn-cyan">다시 시작하기</button>
-            </div>
-          </div>
-        </div>
       </section>
   
       `;
@@ -78,6 +43,8 @@ class App {
       "#game-result-component"
     );
     new UserInput(this.#userInputComponentTarget, this.#onSubmitUserInputForm);
+    new GameProcess(this.#gameProcessComponentTarget);
+    new GameResult(this.#gameResultComponentTarget);
 
     this.#gameProcessComponentTarget.hidden = true;
     this.#gameResultComponentTarget.hidden = true;
