@@ -1,5 +1,5 @@
-import GameProcess from '../components/GameProcess.js';
 import GameConfiguration from './GameConfiguration.js';
+
 export default class State {
   static instance;
   #gameConfiguration;
@@ -15,14 +15,6 @@ export default class State {
 
   setGames = () => {
     this.#gameConfiguration.makePlayResult();
-    this.startGame();
-  };
-
-  startGame = () => {
-    GameProcess({
-      state: this,
-      consumeTime: this.#gameConfiguration.consumeTime,
-    });
   };
 
   get updateGameConfiguration() {
@@ -32,15 +24,15 @@ export default class State {
     };
   }
 
-  get leftPlayTime() {
-    return this.#gameConfiguration.playTimes;
+  get consumeTime() {
+    return this.#gameConfiguration.consumeTime;
   }
 
-  get carNames() {
-    return this.#gameConfiguration.carNames;
-  }
-
-  get racingCarList() {
-    return this.#gameConfiguration.racingCarList;
+  get gameProcessState() {
+    return {
+      leftPlayTime: this.#gameConfiguration.playTimes,
+      carNames: this.#gameConfiguration.carNames,
+      racingCarList: this.#gameConfiguration.racingCarList,
+    };
   }
 }
