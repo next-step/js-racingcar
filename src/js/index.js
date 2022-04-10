@@ -7,6 +7,10 @@ import { SELECTOR, ERROR_MESSAGE } from "./constant/index.js";
 const App = {
   carNames: null,
   tryCount: 0,
+  init() {
+    this.render();
+    this.addEvent();
+  },
   render() {
     const $app = document.querySelector("#app");
     /*html */
@@ -18,14 +22,7 @@ const App = {
     <div class="mt-4 d-flex" id="car-container">
     </div>
   </section>
-  <section class="d-flex justify-center mt-5">
-    <div>
-      <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
-      <div class="d-flex justify-center">
-        <button type="button" class="btn btn-cyan">다시 시작하기</button>
-      </div>
-    </div>
-  </section>`;
+ `;
 
     RacingInputView.renderNameInput();
   },
@@ -81,11 +78,8 @@ const App = {
         movements: randomMovementsByCar[idx],
       })
     );
-    console.log("origin", carsInfo);
-
     RacingGame.start(carsInfo);
   },
 };
 
-App.render();
-App.addEvent();
+App.init();
