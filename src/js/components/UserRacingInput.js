@@ -1,7 +1,7 @@
 import { duplicateTemplate, makeDisableByID } from '../utils/templateUtil.js';
 import { ID, TEMPLATE } from '../constants/selector.js';
 
-const UserRacingInput = ({ setGames, updateGameConfiguration }) => {
+const UserRacingInput = ({ setGames, updateGameConfiguration, startGame }) => {
   let isNameSubmitted = false;
   const $currentElement = duplicateTemplate(TEMPLATE.RACING_CAR_INPUT_SECTION);
 
@@ -35,6 +35,7 @@ const UserRacingInput = ({ setGames, updateGameConfiguration }) => {
     makeDisableByID(ID.RACING_TIMES_SUBMIT_BTN);
 
     setGames();
+    startGame();
   };
 
   const setEvent = () => {
