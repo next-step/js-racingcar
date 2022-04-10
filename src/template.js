@@ -27,4 +27,3 @@ export default function Template() {
 
   this.init();
 }
-
