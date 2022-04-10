@@ -18,7 +18,9 @@ export default class RacingApp {
             },
         });
         this.tryCountForm = new TryCountForm(this.racing, {
-            onLoadCarTrackForm: () => {
+            onLoadCarTrackForm: () => {        
+                this.onDisableButton();
+                this.carTrackForm.render();
                 this.onPlayRacing();
             },
         });
@@ -32,23 +34,18 @@ export default class RacingApp {
     }
 
     onPlayRacing() {
-        this.onDisableButton();
-        this.carTrackForm.render();
-
         let count = 0;
-        let interval = setInterval(() => {
+        const interval = setInterval(() => {
             count++;
             if(count === Number(this.racing.tryCount)) {
                 clearInterval(interval);
                 this.carTrackForm.removeSpinner();
-                this.winnierForm.winners = Winner.getWinners(this.racing.cars);
-                this.winnierForm.render();
-                this.winnierForm.mounted();
-                this.winnierForm.onAlertWinner();
+                this.winnierForm.onLoadWinners(this.racing.cars);
+
                 return;
             }
             this.racing.cars.forEach((car, i) => {
-                if(this.getForwardState()) {
+                if(Racing.getForwardState()) {
                     car.setForwardCount();
                     this.carTrackForm.onForward(i);
                 }
@@ -59,10 +56,6 @@ export default class RacingApp {
     onDisableButton() {
         this.carNamesForm.disabled();
         this.tryCountForm.disabled();
-    }
-
-    getForwardState() {
-        return (Math.floor(Math.random() * Racing.MAX_RANDOM_VALUE)) < Racing.FORWARD_VALUE;
     }
 
     onReplay() {

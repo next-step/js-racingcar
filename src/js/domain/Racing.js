@@ -24,4 +24,8 @@ export default class Racing {
     set tryCount(tryCount) {
         this.#tryCount = tryCount;
     }
+
+    static getForwardState() {
+        return (Math.floor(Math.random() * Racing.MAX_RANDOM_VALUE)) < Racing.FORWARD_VALUE;
+    }
 }
