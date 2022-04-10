@@ -45,7 +45,8 @@ describe("STEP 1", function () {
     it("자동차 이름을 쉼표로 구분하여 입력할 경우 입력된 자동차가 화면에 보여진다. ", function () {
       const inputExample = "호랑이,거북이,고양이,원숭이,부엉이";
       const inputExampleArray = inputExample.split(",");
-      cy.get(CARS_INPUT_FIELD_SELECTOR).type(inputExample);
+      cy.get(CARS_INPUT_FIELD_SELECTOR).type(inputExample).type("{enter}");
+      cy.get(COUNT_INPUT_FIELD_SELECTOR).type(5).type("{enter}");
       cy.get(".car-player").each((element, index) => {
         const expectedString = inputExampleArray[index];
         expect(element.text()).to.equal(expectedString);

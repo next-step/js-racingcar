@@ -43,8 +43,8 @@ class App {
       "#game-result-component"
     );
     new UserInput(this.#userInputComponentTarget, this.#onSubmitUserInputForm);
-    new GameProcess(this.#gameProcessComponentTarget);
-    new GameResult(this.#gameResultComponentTarget);
+    //new GameProcess(this.#gameProcessComponentTarget, this.#carNames);
+    //new GameResult(this.#gameResultComponentTarget);
 
     this.#gameProcessComponentTarget.hidden = true;
     this.#gameResultComponentTarget.hidden = true;
@@ -60,6 +60,13 @@ class App {
     this.#carNames = carNames.split(",");
     this.#count = count;
     this.#gameProcessComponentTarget.hidden = false;
+
+    // GameProcess 컴포넌트 생성
+    new GameProcess(
+      this.#gameProcessComponentTarget,
+      this.#carNames,
+      this.#count
+    );
   };
 
   #updateCarPlayerLabels = (carsArray) => {
