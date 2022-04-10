@@ -1,1 +1,0 @@
-class Template extends HTMLElement {}

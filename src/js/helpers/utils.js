@@ -1,9 +1,3 @@
-export const $template = html => {
-  const template = document.createElement('template');
-  template.insertAdjacentHTML('afterbegin', html);
-  return template.firstElementChild;
-};
-
 export const pipe =
   (...fns) =>
   value =>
