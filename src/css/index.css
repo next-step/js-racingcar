@@ -34,10 +34,9 @@ body {
 fieldset {
   border: none;
   padding: 0;
-  transition: 0.3s ease-in-out;
 }
 
-section {
+:is(section, form) {
   transition: 0.3s ease-in-out;
 }
 
@@ -53,7 +52,3 @@ section {
 .btn:disabled {
   cursor: not-allowed;
 }
-/* 
-.btn[disabled]:hover {
-  background-color: blue !important;
-} */
