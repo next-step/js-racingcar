@@ -42,9 +42,6 @@ export default function App() {
 
   this.setState = (newState) => {
     this.state = newState;
-    this.render();
-  };
-  this.render = () => {
     this.$userInputForm.setState(this.state);
     this.$gameProcess.setState(this.state);
     this.$gameResult.setState(this.state);
