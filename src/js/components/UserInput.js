@@ -1,12 +1,9 @@
 export default class UserInput {
   constructor(target, onSubmit) {
     this.#render(target);
-    this.#setVisibility(this.#hasCarName);
+    this.#setVisibility();
     this.#setEvent(onSubmit);
   }
-
-  #hasCarName = false;
-  #hasCount = false;
 
   #carNames;
   #count;
@@ -38,7 +35,8 @@ export default class UserInput {
         `;
   };
 
-  #setVisibility = (hasCarName) => {
+  #setVisibility = () => {
+    const hasCarName = this.#carNames ? true : false;
     const carsInputFieldElement = document.querySelector(
       "#cars-input-form > fieldset"
     );
@@ -55,27 +53,27 @@ export default class UserInput {
     const carsInputForm = document.querySelector("#cars-input-form");
     carsInputForm.addEventListener("submit", (event) => {
       event.preventDefault();
-
-      const formData = new FormData(carsInputForm);
-      const carNames = formData.get("cars-input");
-
-      this.#hasCarName = carNames ? true : false;
-      this.#carNames = carNames;
-
-      this.#setVisibility(this.#hasCarName);
+      this.#submitCars(carsInputForm);
     });
 
     const countInputForm = document.querySelector("#count-input-form");
     countInputForm.addEventListener("submit", (event) => {
       event.preventDefault();
+      this.#submitCount();
 
-      const formData = new FormData(countInputForm);
-      const count = formData.get("count-input");
-
-      this.#hasCount = count ? true : false;
-      this.#count = count;
-
+      // 컴포넌트 최종 form submit
       onSubmit(this.#carNames, this.#count);
     });
+  };
+
+  #submitCars = (form) => {
+    const formData = new FormData(form);
+    this.#carNames = formData.get("cars-input");
+    this.#setVisibility();
+  };
+
+  #submitCount = (form) => {
+    const formData = new FormData(form);
+    this.#count = formData.get("count-input");
   };
 }
