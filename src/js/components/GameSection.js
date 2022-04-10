@@ -8,7 +8,7 @@ const spinner = /*html*/ `
   </div>
 </div>`;
 
-const GameSectionTemplate = cars => {
+const $GameSection = cars => {
   if (cars.length < 1) return $template(`/*html*/<section></section>`);
   return $template(/*html*/ `
 <section class="d-flex justify-center mt-5" name="game-section">
@@ -49,7 +49,7 @@ export default class GameSection extends HTMLElement {
     if (winners) return;
     this.#cars = carNames.split(',').map(carName => ({ name: carName, moveCount: 0 }));
     this.#tryCount = tryCount;
-    this.insertAdjacentElement('afterbegin', GameSectionTemplate(this.#cars));
+    this.insertAdjacentElement('afterbegin', $GameSection(this.#cars));
     this.start();
   }
 
@@ -63,12 +63,23 @@ export default class GameSection extends HTMLElement {
     let index = 1;
     let maxMoveCount = 1;
     const timerId = setInterval(() => {
+      index++;
+      const dice = generateRandomNumbers(randomNumberRange);
+      this.#cars.forEach((car, indexNumber) => {
+        const $car = document.getElementById(car.name);
+        if (dice[indexNumber] >= 4) {
+          car.moveCount = car.moveCount + 1;
+          $car.insertBefore($template(moveFoward), $car.lastElementChild);
+        }
+        if (maxMoveCount < car.moveCount) maxMoveCount = car.moveCount;
+      });
+
       if (this.#tryCount <= index) {
         clearInterval(timerId);
         console.log(maxMoveCount, this.#cars);
         const result = this.#cars
-          .reduce((acc, cur) => {
-            if (maxMoveCount === cur.moveCount) acc.push(cur.name);
+          .reduce((acc, { name, moveCount }) => {
+            if (maxMoveCount === moveCount) acc.push(name);
             return acc;
           }, [])
           .join(', ');
@@ -79,16 +90,6 @@ export default class GameSection extends HTMLElement {
           $car.lastElementChild.remove();
         });
       }
-      index++;
-      const dice = generateRandomNumbers(randomNumberRange);
-      this.#cars.forEach((v, n) => {
-        const $car = document.getElementById(v.name);
-        if (dice[n] >= 4) {
-          v.moveCount = v.moveCount + 1;
-          $car.insertBefore($template(moveFoward), $car.lastElementChild);
-        }
-        if (maxMoveCount < v.moveCount) maxMoveCount = v.moveCount;
-      });
     }, 1000);
   }
 }

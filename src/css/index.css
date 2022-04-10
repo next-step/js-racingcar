@@ -49,3 +49,11 @@ section {
 .d-none {
   display: none;
 }
+
+.btn:disabled {
+  cursor: not-allowed;
+}
+/* 
+.btn[disabled]:hover {
+  background-color: blue !important;
+} */

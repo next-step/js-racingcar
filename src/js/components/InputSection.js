@@ -48,12 +48,14 @@ export default class InputSection extends HTMLElement {
   checkInputCarNames = event => {
     if (!event.target.matches('[name="car-names-confirm"]')) return;
     event.preventDefault();
-    const { value } = document.querySelector('[name="car-names"]');
-    const parsedCarNames = validator(CONTROLL_KEY.CAR_NAMES, value);
+    const $carNames = document.querySelector('[name="car-names"]');
+    const parsedCarNames = validator(CONTROLL_KEY.CAR_NAMES, $carNames.value);
     if (isNull(parsedCarNames)) return;
     document.querySelector('[name="game-try-count-field"]').classList.remove('hidden');
     this.#carNames = parsedCarNames;
     setTimeout(() => {
+      $carNames.setAttribute('disabled', true);
+      document.querySelector('[name="car-names-confirm"]').setAttribute('disabled', true);
       document.getElementById('game-try-count').focus();
     }, 100);
   };
@@ -63,6 +65,9 @@ export default class InputSection extends HTMLElement {
     document
       .querySelector('racing-app')
       .setAttribute('try-count', event.target.elements['game-try-count'].valueAsNumber);
+
+    document.querySelector('[name="game-try-count"]').setAttribute('disabled', true);
+    document.querySelector('[name="game-try-count-confirm"]').setAttribute('disabled', true);
     document.querySelector('racing-app').setAttribute('car-names', this.#carNames);
   };
 }
