@@ -19,6 +19,6 @@
 
 .btn:disabled,
 .btn-cyan:hover:disabled {
-  background-color: #00bcd4 !important;
+  background-color: #aaaaaa !important;
   cursor: unset;
 }

@@ -1,5 +1,5 @@
 import Store from './store/index.js';
-import { createCarBoard, validNames } from './service/index.js';
+import { createCarBoard, checkCarNamesIsValid } from './service/index.js';
 import { $ } from './utils/index.js';
 import { getCardBoardTemplate } from './view/Template.js';
 
@@ -32,7 +32,7 @@ class App {
 
     const $racingCount = $('#racing-count');
     const carNames = this.$nameInput.value.split(',');
-    const { errorMessage } = validNames(carNames);
+    const { errorMessage } = checkCarNamesIsValid(carNames);
     if (errorMessage) {
       alert(errorMessage);
       return;

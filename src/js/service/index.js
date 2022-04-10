@@ -1,29 +1,25 @@
-import { CARD_STATE, ERROR } from '../constants/index.js';
+import { CAR_STATE, ERROR, NUMBER } from '../constants/index.js';
 
-const validName = (name) => {
-  const notBlankName = name.replace(/\s/g, '');
-  if (!notBlankName) {
+const checkCarNameIsValid = (carName) => {
+  if (!carName.trim()) {
     return ERROR.NAME_EMPTY;
   }
 
-  if (name.length > 5) {
+  if (carName.length > NUMBER.NAME_MAX_LENGTH) {
     return ERROR.NAME_MAX_LENGTH;
   }
 
   return null;
 };
 
-export const validNames = (names) => {
-  const validNamesArr = names.map((name) => validName(name)).filter((name) => name);
-
-  if (validNamesArr.length > 0) return { errorMessage: validNamesArr[0] };
-
-  return { errorMessage: null };
+export const checkCarNamesIsValid = (carNames) => {
+  const errorMessages = carNames.map((carName) => checkCarNameIsValid(carName)).filter((errorMessage) => errorMessage !== null);
+  return { errorMessage: errorMessages.length !== 0 ? errorMessages[0] : null };
 };
 
 const createForwardState = () => {
   const random = Math.floor(Math.random() * 10);
-  return random > 3 ? CARD_STATE.GO : CARD_STATE.STOP;
+  return random > NUMBER.MAX_STOP_VALUE ? CAR_STATE.GO : CAR_STATE.STOP;
 };
 
 export const createCarBoard = ({ names, count }) => {

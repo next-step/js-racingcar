@@ -1,4 +1,4 @@
-import { CARD_STATE } from '../constants/index.js';
+import { CAR_STATE } from '../constants/index.js';
 
 const initState = {
   carBoard: [],
@@ -8,8 +8,6 @@ class Store {
   constructor() {
     this.state = { ...initState };
   }
-
-  render() {}
 
   setState(newState) {
     this.state = { ...this.state, ...newState };
