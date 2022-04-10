@@ -2,7 +2,7 @@ import RacingInputView from "./views/RacingInputView.js";
 import RacingGame from "./models/RacingGame.js";
 import Validator from "./models/Validator.js";
 import { splitCarName, generateNumberInRange } from "./utils/index.js";
-import { SELECTOR, ERROR_MESSAGE } from "./constant/index.js";
+import { SELECTOR, ERROR_MESSAGE, MOVEMENT } from "./constant/index.js";
 
 const App = {
   carNames: null,
@@ -52,10 +52,17 @@ const App = {
   setCarNames() {
     const { value } = document.querySelector(SELECTOR.NAME_INPUT);
     const splitCarNames = splitCarName(value);
+
     if (!Validator.validateCarNames(splitCarNames)) {
       alert(ERROR_MESSAGE.NAME_LENGTH);
       return;
     }
+
+    if (!Validator.validateDuplicateCarNames(splitCarNames)) {
+      alert(ERROR_MESSAGE.NAME_DUPLICATE);
+      return;
+    }
+
     this.carNames = splitCarNames;
 
     RacingInputView.renderTryCountInput();
@@ -71,7 +78,7 @@ const App = {
   readyToStartGame() {
     const randomMovementsByCar = this.carNames.map(_ =>
       Array.from({ length: this.tryCount }).map(_ =>
-        generateNumberInRange({ min: 0, max: 9 })
+        generateNumberInRange({ min: MOVEMENT.MIN, max: MOVEMENT.MAX })
       )
     );
 
