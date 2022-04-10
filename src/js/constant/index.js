@@ -12,4 +12,5 @@ export const SELECTOR = {
   NAME_SUBMIT_BUTTON: "#name-submit-button",
   TRY_SUBMIT_BUTTON: "#try-submit-button",
   CAR_CONTAINER: "#car-container",
+  CAR_NAME: ".car-name",
 };

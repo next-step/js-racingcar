@@ -7,6 +7,9 @@ import { splitCarName } from "../../src/js/utils/index.js";
 import Validator from "../../src/js/models/Validator.js";
 
 const clickNameSubmitButton = () => cy.get(SELECTOR.NAME_SUBMIT_BUTTON).click();
+const clickTryCountSubmitButton = () =>
+  cy.get(SELECTOR.TRY_SUBMIT_BUTTON).click();
+
 const generateNameWithRepeat = repeat => {
   const invalidName = "멍".repeat(repeat);
   return `${invalidName},야옹,짹짹,어흥`;
@@ -19,9 +22,9 @@ describe("자동차 경주 게임 테스트", () => {
 
   context("자동차 정보 입력 테스트", () => {
     it("자동차 이름은 쉼표로 구분하여 입력한다", () => {
-      const NAME = "멍멍,야옹,짹짹,어흥";
+      const name = "멍멍,야옹,짹짹,어흥";
 
-      cy.get(SELECTOR.NAME_INPUT).type(NAME);
+      cy.get(SELECTOR.NAME_INPUT).type(name);
       cy.get(SELECTOR.NAME_INPUT).should($name => {
         const name = $name.val();
         const commaCount = name.match(/,/g).filter(name => name !== "").length;
@@ -51,6 +54,24 @@ describe("자동차 경주 게임 테스트", () => {
       cy.get(SELECTOR.NAME_INPUT).type(inputName);
       clickNameSubmitButton().then(() => {
         expect(alertStub).to.be.calledWith(ERROR_MESSAGE.NAME_LENGTH);
+      });
+    });
+  });
+
+  context("자동차 경주 현황 출력 테스트", () => {
+    it("입력된 자동차 이름 수만큼 경주 현황판이 보여진다", () => {
+      const carName = "멍멍,야옹,짹짹,어흥";
+      const tryCount = 3;
+      const splitNamesCount = splitCarName(carName).length;
+
+      cy.get(SELECTOR.NAME_INPUT).type(carName);
+      clickNameSubmitButton();
+
+      cy.get(SELECTOR.TRY_INPUT).type(tryCount);
+      clickTryCountSubmitButton();
+
+      cy.get(SELECTOR.CAR_NAME).should($car => {
+        expect($car).to.have.length(splitNamesCount);
       });
     });
   });
