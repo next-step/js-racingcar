@@ -1,3 +1,5 @@
+import { ALERT_STRING } from "../../src/js/constant.js";
+
 describe("STEP 1", function () {
   beforeEach(() => {
     cy.visit("http://127.0.0.1:5500/index.html");
@@ -51,6 +53,21 @@ describe("STEP 1", function () {
         const expectedString = inputExampleArray[index];
         expect(element.text()).to.equal(expectedString);
       });
+    });
+
+    it("5자를 초과하는 자동차 이름이 하나 이상 입력될 경우 경고창이 띄워진다. ", function () {
+      const inputExample = "Squirrel,Otter,Hamster,Goose,Horse";
+      const alertStub = cy.stub();
+      cy.on("window:alert", alertStub);
+
+      cy.get(CARS_INPUT_FIELD_SELECTOR)
+        .type(inputExample)
+        .type("{enter}")
+        .then(() => {
+          expect(alertStub.getCall(0)).to.be.calledWith(
+            ALERT_STRING.INVALID_CAR_NAME
+          );
+        });
     });
   });
 });

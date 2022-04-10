@@ -57,7 +57,7 @@ class App {
 
   /** Handler Functions */
   #onSubmitUserInputForm = (carNames, count) => {
-    this.#carNames = carNames.split(",");
+    this.#carNames = carNames;
     this.#count = count;
     this.#gameProcessComponentTarget.hidden = false;
 

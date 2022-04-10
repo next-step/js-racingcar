@@ -1,3 +1,6 @@
+import { isAllCarNameValid } from "../validation.js";
+import { ALERT_STRING } from "../constant.js";
+
 export default class UserInput {
   constructor(target, onSubmit) {
     this.#render(target);
@@ -68,7 +71,14 @@ export default class UserInput {
 
   #submitCars = (form) => {
     const formData = new FormData(form);
-    this.#carNames = formData.get("cars-input");
+    const carNames = formData.get("cars-input").split(",");
+    const isValid = isAllCarNameValid(carNames);
+    if (!isValid) {
+      window.alert(ALERT_STRING.INVALID_CAR_NAME);
+      form.reset();
+      return;
+    }
+    this.#carNames = carNames;
     this.#setVisibility();
   };
 
