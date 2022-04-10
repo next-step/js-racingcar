@@ -3,16 +3,12 @@ describe("STEP 1", function () {
     cy.visit("http://127.0.0.1:5500/index.html");
   });
 
-  const CARS_INPUT_FIELD_SELECTOR = "#cars-input-component div input";
-  const COUNT_INPUT_FIELD_SELECTOR = "#count-input-component div input";
+  const CARS_INPUT_FIELD_SELECTOR = "#cars-input-form fieldset input";
+  const COUNT_INPUT_FIELD_SELECTOR = "#count-input-form fieldset input";
 
-  context("최초 화면 렌더링에 관련된 테스트", () => {
+  context("화면 렌더링에 관련된 테스트", () => {
     it("최초 랜더 시, 자동차 이름을 입력할 수 있는 입력창이 보여진다. ", function () {
       cy.get(CARS_INPUT_FIELD_SELECTOR).should("be.visible");
-    });
-
-    it("시도할 횟수를 입력할 수 있는 입력창이 보여진다. ", function () {
-      cy.get(COUNT_INPUT_FIELD_SELECTOR).should("be.visible");
     });
 
     it("자동차 이름을 입력하지 않을 경우 적절한 placeholder가 보여진다. ", function () {
@@ -24,7 +20,18 @@ describe("STEP 1", function () {
       );
     });
 
+    it("자동차 이름 입력에 성공하면, 시도할 횟수를 입력할 수 있는 입력창이 보여진다. ", function () {
+      cy.get(COUNT_INPUT_FIELD_SELECTOR).should("be.not.visible");
+      const inputExample = "호랑이,거북이,고양이,원숭이,부엉이";
+      cy.get(CARS_INPUT_FIELD_SELECTOR).type(inputExample).type("{enter}");
+
+      cy.get(COUNT_INPUT_FIELD_SELECTOR).should("be.visible");
+    });
+
     it("시도할 횟수에 아무것도 입력하지 않을 경우 적절한 placeholder가 보여진다. ", function () {
+      const inputExample = "호랑이,거북이,고양이,원숭이,부엉이";
+      cy.get(CARS_INPUT_FIELD_SELECTOR).type(inputExample).type("{enter}");
+
       cy.get(COUNT_INPUT_FIELD_SELECTOR).clear();
       cy.get(COUNT_INPUT_FIELD_SELECTOR).should(
         "have.attr",
