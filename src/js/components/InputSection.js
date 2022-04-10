@@ -1,75 +1,84 @@
-import validator from '../Validation.js';
-import { isNull, $template } from '../helpers/index.js';
+import Template from '../Template.js';
 import { CONTROLL_KEY, MAX_GAME_TRY_COUNT } from '../constants.js';
+import { pipeline } from '../factory/index.js';
+import { isNull, $element } from '../helpers/index.js';
 
-const InputSectionTemplate = $template(/*html*/ `
+const template = /*html*/ `
 <section class="d-flex justify-center mt-5">
   <div>
-    <form name="car-names-field">
+    <form id="car-names-form">
       <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
       <p>
         5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
         예시 : EAST, WEST, SOUTH, NORTH
       </p>
       <div class="d-flex">
-        <input type="text" class="w-100 mr-2" name="car-names" placeholder="예시) EAST, WEST, SOUTH, NORTH" autofocus required />
-        <button type="click" class="btn btn-cyan" name="car-names-confirm">확인</button>
+        <input type="text" class="w-100 mr-2" id="car-names" name="car-names" placeholder="예시) EAST, WEST, SOUTH, NORTH" autofocus required />
+        <button type="submit" class="btn btn-cyan" id="car-names-confirm">확인</button>
       </div>
     </form>
-    <form class="hidden" name="game-try-count-field">
+    <form class="hidden" id="game-try-count-form">
       <p>시도할 횟수를 입력해주세요.</p>
       <div class="d-flex">
         <input type="number" class="w-100 mr-2" id="game-try-count" name="game-try-count" placeholder="시도 횟수" required min="1" max="${MAX_GAME_TRY_COUNT}" />
-        <button type="submit" class="btn btn-cyan" name="game-try-count-confirm">확인</button>
+        <button type="submit" class="btn btn-cyan" id="game-try-count-confirm">확인</button>
       </div>
     </form>
   </div>
-</section>`);
+</section>`;
 
-export default class InputSection extends HTMLElement {
+export default class InputSection extends Template {
   #carNames;
+  #handler = [];
 
   constructor() {
     super();
-  }
-
-  connectedCallback() {
-    this.insertAdjacentElement('afterbegin', InputSectionTemplate);
-
-    this.addEventListener('click', this.checkInputCarNames);
-    this.addEventListener('submit', this.checkInputTryCount);
-  }
-
-  disconnectedCallback() {
-    this.removeEventListener('click', this.checkInputCarNames);
-    this.removeEventListener('submit', this.checkInputTryCount);
+    this.insertAdjacentElement('afterbegin', $element(template));
   }
 
   checkInputCarNames = event => {
-    if (!event.target.matches('[name="car-names-confirm"]')) return;
+    if (!event.target.matches('#car-names-form')) return;
     event.preventDefault();
-    const $carNames = document.querySelector('[name="car-names"]');
-    const parsedCarNames = validator(CONTROLL_KEY.CAR_NAMES, $carNames.value);
+
+    const parsedCarNames = pipeline(
+      CONTROLL_KEY.CAR_NAMES,
+      event.target.elements['car-names'].value,
+    );
+
     if (isNull(parsedCarNames)) return;
-    document.querySelector('[name="game-try-count-field"]').classList.remove('hidden');
+
     this.#carNames = parsedCarNames;
-    setTimeout(() => {
-      $carNames.setAttribute('disabled', true);
-      document.querySelector('[name="car-names-confirm"]').setAttribute('disabled', true);
-      document.getElementById('game-try-count').focus();
-    }, 100);
+    pipeline(CONTROLL_KEY.CAR_NAMES_AFTER);
   };
 
   checkInputTryCount = event => {
+    if (!event.target.matches('#game-try-count-form')) return;
     event.preventDefault();
-    document
-      .querySelector('racing-app')
-      .setAttribute('try-count', event.target.elements['game-try-count'].valueAsNumber);
 
-    document.querySelector('[name="game-try-count"]').setAttribute('disabled', true);
-    document.querySelector('[name="game-try-count-confirm"]').setAttribute('disabled', true);
-    document.querySelector('racing-app').setAttribute('car-names', this.#carNames);
+    this.dispatch('inputted', {
+      carNames: this.#carNames,
+      tryCount: event.target.elements['game-try-count'].valueAsNumber,
+    });
+
+    pipeline(CONTROLL_KEY.TRY_COUNT_AFTER);
   };
+
+  connectedCallback() {
+    this.#handler = this.bindHandler([
+      {
+        type: 'submit',
+        callback: this.checkInputCarNames,
+      },
+      {
+        type: 'submit',
+        callback: this.checkInputTryCount,
+      },
+    ]);
+  }
+
+  disconnectedCallback() {
+    this.#handler();
+  }
 }
 
 customElements.define('input-section', InputSection);

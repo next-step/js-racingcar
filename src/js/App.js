@@ -1,32 +1,55 @@
 import './components/index.js';
-import { CONTROLL_KEY } from './constants.js';
-import { $template } from './helpers/index.js';
+import Template from './Template.js';
+import { $element, $setAttributes } from './helpers/index.js';
 
-const AppTemplate = $template(/*html*/ `
+const template = /*html*/ `
 <fragment>
   <input-section></input-section>
-  <game-section></game-section>
-  <result-section></result-section>
-</fragment>`);
+  <game-section car-names="" try-count=""></game-section>
+  <result-section winners=""></result-section>
+</fragment>`;
 
-export default class App extends HTMLElement {
+export default class App extends Template {
+  #handler = [];
+
   constructor() {
     super();
+    this.insertAdjacentElement('afterbegin', $element(template));
   }
 
   connectedCallback() {
-    this.insertAdjacentElement('afterbegin', AppTemplate);
+    this.#handler = this.bindHandler([
+      {
+        type: 'inputted',
+        callback: this.inputtedHandler,
+      },
+      {
+        type: 'winners',
+        callback: this.winnersHandler,
+      },
+      {
+        type: 'reset',
+        callback: () => this.firstElementChild.replaceWith($element(template)),
+      },
+    ]);
   }
 
-  disconnectedCallback() {}
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    this.replaceChildren(AppTemplate);
+  disconnectedCallback() {
+    this.#handler();
   }
 
-  static get observedAttributes() {
-    return [CONTROLL_KEY.CAR_NAMES, 'try-count', 'winners'];
-  }
+  inputtedHandler = ({ detail }) => {
+    const attrs = [
+      { attr: 'car-names', value: detail.carNames },
+      { attr: 'try-count', value: detail.tryCount },
+    ];
+    $setAttributes({ target: 'game-section', attrs });
+  };
+
+  winnersHandler = ({ detail }) => {
+    const attrs = [{ attr: 'winners', value: detail.winners }];
+    $setAttributes({ target: 'result-section', attrs });
+  };
 }
 
 customElements.define('racing-app', App);

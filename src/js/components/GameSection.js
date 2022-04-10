@@ -1,5 +1,24 @@
-import { DICE_RANGE } from '../constants.js';
-import { $template, generateRandomNumbers } from '../helpers/index.js';
+import Template from '../Template.js';
+import { CONTROLL_KEY, DICE_RANGE } from '../constants.js';
+import { pipeline } from '../factory/index.js';
+import { $element, generateRandomNumbers } from '../helpers/index.js';
+
+const template = /*html*/ `
+<section class="d-flex justify-center mt-5 hidden"></section>`;
+
+const panel = cars => /*html*/ `
+<div class="mt-4 d-flex">${cars
+  .map(
+    car => `
+      <div class="mr-2" id="${car.name}">
+        <div class="car-player">${car.name}</div>
+        ${Array(car.moveCount)
+          .map(() => moveFoward)
+          .join('')}
+        ${spinner}
+      </div>`,
+  )
+  .join('')}</div>`;
 
 const spinner = /*html*/ `
 <div class="d-flex justify-center mt-3">
@@ -8,51 +27,19 @@ const spinner = /*html*/ `
   </div>
 </div>`;
 
-const $GameSection = cars => {
-  if (cars.length < 1) return $template(`/*html*/<section></section>`);
-  return $template(/*html*/ `
-<section class="d-flex justify-center mt-5" name="game-section">
-  <div class="mt-4 d-flex">
-    ${cars
-      .map(
-        car => `
-    <div class="mr-2" id="${car.name}">
-      <div class="car-player">${car.name}</div>
-      ${Array(car.moveCount)
-        .map(_ => moveFoward)
-        .join('')}
-      ${spinner}
-    </div>`,
-      )
-      .join('')}
-  </div>
-</section>`);
-};
-
 const moveFoward = /*html*/ `
-<div class="forward-icon mt-2">⬇️️</div>
-`;
+<div class="forward-icon mt-2">⬇️️</div>`;
 
-export default class GameSection extends HTMLElement {
-  #cars = [];
-  #tryCount = 0;
+export default class GameSection extends Template {
+  #cars;
+  #tryCount;
 
   constructor() {
     super();
+    this.insertAdjacentElement('afterbegin', $element(template));
   }
 
-  connectedCallback() {
-    const carNames = document.querySelector('racing-app').getAttribute('car-names');
-    const tryCount = document.querySelector('racing-app').getAttribute('try-count');
-    const winners = document.querySelector('racing-app').getAttribute('winners');
-    if (!carNames) return;
-    if (winners) return;
-    this.#cars = carNames.split(',').map(carName => ({ name: carName, moveCount: 0 }));
-    this.#tryCount = tryCount;
-    this.insertAdjacentElement('afterbegin', $GameSection(this.#cars));
-    this.start();
-  }
-
+  // TODO: functional, Promise + requestAnimationFrame
   start() {
     const randomNumberRange = {
       count: this.#cars.length,
@@ -60,8 +47,9 @@ export default class GameSection extends HTMLElement {
       max: DICE_RANGE.MAX,
     };
 
-    let index = 1;
+    let index = 0;
     let maxMoveCount = 1;
+
     const timerId = setInterval(() => {
       index++;
       const dice = generateRandomNumbers(randomNumberRange);
@@ -69,28 +57,42 @@ export default class GameSection extends HTMLElement {
         const $car = document.getElementById(car.name);
         if (dice[indexNumber] >= 4) {
           car.moveCount = car.moveCount + 1;
-          $car.insertBefore($template(moveFoward), $car.lastElementChild);
+          $car.insertBefore($element(moveFoward), $car.lastElementChild);
         }
         if (maxMoveCount < car.moveCount) maxMoveCount = car.moveCount;
       });
 
       if (this.#tryCount <= index) {
         clearInterval(timerId);
-        console.log(maxMoveCount, this.#cars);
         const result = this.#cars
           .reduce((acc, { name, moveCount }) => {
             if (maxMoveCount === moveCount) acc.push(name);
             return acc;
           }, [])
           .join(', ');
-        document.querySelector('racing-app').setAttribute('winners', result);
-        document.querySelector('[name="result-section"]').classList.remove('hidden');
-        this.#cars.forEach((v, n) => {
+        this.dispatch('winners', { winners: result });
+        this.#cars.forEach(v => {
           const $car = document.getElementById(v.name);
           $car.lastElementChild.remove();
         });
       }
     }, 1000);
+  }
+
+  static get observedAttributes() {
+    return ['try-count'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (!newValue) return this.firstElementChild.classList.add('hidden');
+
+    this.#cars = pipeline(CONTROLL_KEY.GAME_BEFORE, this.getAttribute('car-names'));
+    this.#tryCount = this.getAttribute('try-count');
+
+    this.firstElementChild.classList.remove('hidden');
+    this.firstElementChild.insertAdjacentElement('afterbegin', $element(panel(this.#cars)));
+
+    this.start();
   }
 }
 
