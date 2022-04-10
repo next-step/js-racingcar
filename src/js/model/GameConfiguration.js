@@ -1,7 +1,10 @@
 import ValidationError from '../utils/validation.js';
-import { ERROR } from '../constants/message.js';
-import { MAX_RACING_CAR_NAME } from '../constants/unit.js';
-import { MovingStrategy, RandomMovingStrategy } from './MovingStrategy.js';
+import {
+  CarNameConfigurationStrategy,
+  ConfigurationStrategy,
+  PlayTimeConfigurationStrategy,
+  StepForwardConfigurationStrategy,
+} from './GameConfigurationStrategy.js';
 
 export default class GameConfiguration {
   #carNames;
@@ -15,30 +18,29 @@ export default class GameConfiguration {
   makePlayResult() {
     this.#racingCarList = this.carNames.reduce((acc, cur) => {
       acc[cur] = Array.from({ length: this.playTimes }, () =>
-        this.#isStepForward(new RandomMovingStrategy())
+        this.#isStepForward(new StepForwardConfigurationStrategy())
       );
       return acc;
     }, {});
   }
 
-  #isValidCarName = inputNames => {
-    const isValid = inputNames.every(
-      carName => carName.length > 0 && carName.length <= MAX_RACING_CAR_NAME
-    );
+  #isValidCarName = carNameConfigurationStrategy => {
+    if (!(carNameConfigurationStrategy instanceof ConfigurationStrategy))
+      throw Error('ConfigurationStrategy 인스턴스의 인자만 받을 수 있습니다.');
 
-    if (!isValid)
-      throw new ValidationError(ERROR.INVALID_LENGTH_RACING_CAR_NAME);
+    return carNameConfigurationStrategy.isValidCarName();
   };
 
   #isStepForward(movingStrategy) {
-    if (!(movingStrategy instanceof MovingStrategy))
-      throw Error('MovingStrategy 안스턴스 인자만 받을 수 있습니다.');
+    if (!(movingStrategy instanceof ConfigurationStrategy))
+      throw Error('ConfigurationStrategy 인스턴스의 인자만 받을 수 있습니다.');
+
     return movingStrategy.isMoveable() ? 1 : 0;
   }
 
   updateCarNames = carNames => {
     try {
-      this.#isValidCarName(carNames);
+      this.#isValidCarName(new CarNameConfigurationStrategy(carNames));
       this.#carNames = carNames;
     } catch (err) {
       if (err instanceof ValidationError) alert(err.message);
@@ -47,6 +49,12 @@ export default class GameConfiguration {
   };
 
   updatePlayTimes = playTimes => {
+    const playTimesInstance = new PlayTimeConfigurationStrategy(playTimes);
+    playTimesInstance.isValidPlayTime();
+
+    if (!(playTimesInstance instanceof ConfigurationStrategy))
+      throw Error('ConfigurationStrategy  인스턴스의 인자만 받을 수 있습니다.');
+
     this.#playTimes = playTimes;
   };
 
