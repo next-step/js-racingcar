@@ -4,27 +4,19 @@ import ValidationError from '../utils/validation.js';
 
 class ConfigurationStrategy {
   build() {
-    throw new Error(
-      'ConfigurationStrategy는 추상 클래스입니다. 별도의 구현을 통한 접근이 필요합니다.'
-    );
+    throw new Error(ERROR.ABSTRACT_CLASS);
   }
 
   isMoveable() {
-    throw new Error(
-      'ConfigurationStrategy는 추상 클래스입니다. 별도의 구현을 통한 접근이 필요합니다.'
-    );
+    throw new Error(ERROR.ABSTRACT_CLASS);
   }
 
   isValidCarName() {
-    throw new Error(
-      'ConfigurationStrategy는 추상 클래스입니다. 별도의 구현을 통한 접근이 필요합니다.'
-    );
+    throw new Error(ERROR.ABSTRACT_CLASS);
   }
 
   isValidPlayTime() {
-    throw new Error(
-      'ConfigurationStrategy는 추상 클래스입니다. 별도의 구현을 통한 접근이 필요합니다.'
-    );
+    throw new Error(ERROR.ABSTRACT_CLASS);
   }
 }
 
@@ -82,8 +74,7 @@ class PlayTimeConfigurationStrategy extends ConfigurationStrategy {
   isValidPlayTime() {
     const isValid =
       Number.isInteger(this.#playTimes) && !Number.isNaN(this.#playTimes);
-    if (!isValid)
-      throw new ValidationError('시도할 횟수는 숫자로 입력하여 주세요!');
+    if (!isValid) throw new ValidationError(ERROR.INVALID_TYPE_PLAY_TIME);
   }
 }
 
