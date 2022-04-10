@@ -1,5 +1,10 @@
 import { CarModel, RacingCarGameModel } from '../models/index.js';
-import { TryCountFormView, RacingCarGameView, RacingCarGameResultView } from '../views/index.js';
+import {
+  TryCountFormView,
+  RacingCarGameView,
+  RacingCarGameProgressSectionView,
+  RacingCarGameEndSectionView,
+} from '../views/index.js';
 
 import { carNameValidator, tryCountValidator } from '../validators/index.js';
 import { $ } from '../utils/dom.js';
@@ -23,7 +28,10 @@ class RacingCarGame {
 
   mounted() {
     this.tryCountFormView = new TryCountFormView($(`#${DOM.TRY_COUNT_FORM_ID}`));
-    this.racingCarGameResultView = new RacingCarGameResultView($(`#${DOM.GAME_PROCESS_BOARD_ID}`));
+    this.racingCarGameProgressSectionView = new RacingCarGameProgressSectionView(
+      $(`#${DOM.GAME_PROCESS_BOARD_ID}`),
+    );
+    this.racingCarGameEndView = new RacingCarGameEndSectionView($(`#${DOM.GAME_END_SECTION_ID}`));
   }
 
   setEvent() {
@@ -31,6 +39,9 @@ class RacingCarGame {
       event.preventDefault();
       this.onSubmitRacingGame(event.submitter);
     });
+    $(`#${DOM.RACING_CAR_GAME_APP_ID}`).addEventListener('click', event =>
+      this.onClickRacingGame(event.target),
+    );
   }
 
   onSubmitRacingGame(submitter) {
@@ -41,6 +52,13 @@ class RacingCarGame {
 
     if (submitter === $(`#${DOM.CAR_NAMES_SUBMIT_BUTTON_ID}`)) {
       this.generateCarFromCarNameInput();
+      return;
+    }
+  }
+
+  onClickRacingGame(target) {
+    if (target === $(`#${DOM.GAME_RESTART_BUTTON_ID}`)) {
+      this.restartGame();
       return;
     }
   }
@@ -85,7 +103,10 @@ class RacingCarGame {
     }
 
     this.progressRacingResult();
-    this.racingCarGameResultView.renderRacingGameResultTemplate(this.racingCarGameModel.cars);
+    this.racingCarGameProgressSectionView.renderRacingGameResultTemplate(
+      this.racingCarGameModel.cars,
+    );
+    this.racingCarGameEndView.renderEndSection(this.racingCarGameModel.winnerCars);
   }
 
   validateTryCount() {
@@ -102,6 +123,13 @@ class RacingCarGame {
           : GAME.STOP,
       );
     });
+  }
+
+  restartGame() {
+    this.racingCarGameEndView.reset();
+    this.racingCarGameProgressSectionView.reset();
+    this.tryCountFormView.reset();
+    this.racingCarGameView.reset();
   }
 }
 

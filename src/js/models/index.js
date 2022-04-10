@@ -1,4 +1,4 @@
-import CarModel from './CarModel.mjs';
-import RacingCarGameModel from './RacingCarGameModel.mjs';
+import CarModel from './Car.mjs';
+import RacingCarGameModel from './RacingCarGame.mjs';
 
 export { CarModel, RacingCarGameModel };
