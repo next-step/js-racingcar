@@ -8,10 +8,12 @@ export const generateNumberInRange = ({ min, max }) => {
   return number;
 };
 
-export const updateInterval = ({ fn, interval, times }) => {
+export const updateInterval = ({ fn, endFn, interval, times }) => {
   const timer = count => {
     setTimeout(() => {
-      if (count >= times) return;
+      if (count >= times) {
+        return endFn();
+      }
 
       fn();
       timer(count + 1);

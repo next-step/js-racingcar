@@ -22,6 +22,7 @@ const RacingGame = {
   showGameStatus({ target, times }) {
     updateInterval({
       fn: target.renderArrow.bind(target),
+      endFn: target.hideSpinner.bind(target),
       interval: MOVE_INTERVAL,
       times: times,
     });
