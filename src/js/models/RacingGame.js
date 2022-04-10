@@ -1,20 +1,38 @@
-import Car from "../views/CarView.js";
-import { MIN_NUMBER_FOR_MOVING } from "../constant/index.js";
+import RacingInitialView from "../views/RacingInitialView.js";
+import CarView from "../views/CarView.js";
+import { MOVE_INTERVAL, MIN_NUMBER_FOR_MOVING } from "../constant/index.js";
+import { updateInterval } from "../utils/index.js";
 
 const RacingGame = {
-  judgedCarsInfo: null,
-  start(carsInfo) {
-    this.judgedCarsInfo = this.judgeMovement(carsInfo);
-    const car = new Car(carsInfo);
+  cars: null,
 
-    car.render();
+  start(carsInfo) {
+    this.cars = this.judgeMovement(carsInfo);
+
+    RacingInitialView.render({ carsInfo: this.cars });
+
+    this.cars.forEach(car => {
+      const { name, movement } = car;
+      const carView = new CarView({ name: name });
+
+      this.showGameStatus({ target: carView, times: movement });
+    });
   },
-  judgeMovement(carsInfo) {
-    return carsInfo.map(({ name, movements }) => {
-      const judgedMovements = movements.filter(
+
+  showGameStatus({ target, times }) {
+    updateInterval({
+      fn: target.renderArrow.bind(target),
+      interval: MOVE_INTERVAL,
+      times: times,
+    });
+  },
+
+  judgeMovement(cars) {
+    return cars.map(({ name, movements }) => {
+      const judgedMovement = movements.filter(
         movement => movement >= MIN_NUMBER_FOR_MOVING
       ).length;
-      return Object.freeze({ name, movement: judgedMovements });
+      return Object.freeze({ name, movement: judgedMovement });
     });
   },
 };
