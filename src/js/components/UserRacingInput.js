@@ -1,7 +1,13 @@
 import { duplicateTemplate, makeDisableByID } from '../utils/templateUtil.js';
 import { ID, TEMPLATE } from '../constants/selector.js';
+import { instanceCheck } from '../utils/typeCheck.js';
+import UserRacingInputModel from '../model/UserRacingInputModel.js';
 
-const UserRacingInput = ({ userRacingInputState, startGame }) => {
+const UserRacingInput = ({
+  userRacingInputState,
+  _ = instanceCheck(userRacingInputState, UserRacingInputModel),
+  startGame,
+}) => {
   const state = userRacingInputState;
 
   let isNameSubmitted = false;
@@ -37,7 +43,7 @@ const UserRacingInput = ({ userRacingInputState, startGame }) => {
     makeDisableByID(ID.RACING_TIMES_SUBMIT_BTN);
 
     state.makePlayResult();
-    startGame(state.gameProcessSettingData);
+    startGame(state.createProcessSettingData());
   };
 
   const setEvent = () => {

@@ -4,9 +4,9 @@ import GameProcess from './components/GameProcess.js';
 
 // models
 import GameProcessModel from './model/GameProcessModel.js';
-import GameConfiguration from './model/GameConfiguration.js';
+import UserRacingInputModel from './model/UserRacingInputModel.js';
 
-const App = async () => {
+const App = () => {
   const startGame = data => {
     GameProcess({
       gameProcessState: new GameProcessModel(data),
@@ -14,7 +14,7 @@ const App = async () => {
   };
 
   UserRacingInput({
-    userRacingInputState: new GameConfiguration(),
+    userRacingInputState: new UserRacingInputModel(),
     startGame,
   });
 };

@@ -49,15 +49,24 @@ export default class UserRacingInputModel {
     }
   };
 
-  consumeTime = () => {
-    this.#playTimes -= 1;
-  };
-
-  get gameProcessSettingData() {
-    return {
-      leftPlayTime: this.#playTimes,
+  createProcessSettingData() {
+    const gameProcessSettingData = {
+      playTimes: this.#playTimes,
       carNames: this.#carNames,
       racingCarList: this.#racingCarList,
     };
+
+    return new GameProcessSettingData(gameProcessSettingData);
+  }
+}
+
+class GameProcessSettingData extends UserRacingInputModel {
+  constructor(gameProcessSettingData) {
+    super();
+    this.playTimes = gameProcessSettingData.playTimes;
+    this.leftPlayTime = gameProcessSettingData.playTimes;
+    this.carNames = gameProcessSettingData.carNames;
+    this.racingCarList = gameProcessSettingData.racingCarList;
+    console.log(this);
   }
 }

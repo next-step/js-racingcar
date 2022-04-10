@@ -4,9 +4,9 @@ export default class GameProcessModel {
   #carNames;
   #racingCarList;
 
-  constructor({ consumeTime, leftPlayTime, carNames, racingCarList }) {
+  constructor({ consumeTime, playTimes, carNames, racingCarList }) {
     this.#consumeTime = consumeTime;
-    this.#leftPlayTime = leftPlayTime;
+    this.#leftPlayTime = playTimes;
     this.#carNames = carNames;
     this.#racingCarList = racingCarList;
   }
