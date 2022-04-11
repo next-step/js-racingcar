@@ -27,10 +27,15 @@ const carsStore = {
   GET_WINNERS() {
     return this.winners;
   },
-  FIND_AND_SET_WINNERS() {
-    this.winners = carsStore
-      .GET_CARS()
-      .filter((car) => car.moved === this.GET_TRY_COUNTS());
+  SET_WINNERS() {
+    const topMoved = Math.max.apply(
+      null,
+      carsStore.GET_CARS().map((car) => car.moved),
+    );
+
+    this.winners = carsStore.GET_CARS().filter((car) => {
+      car.moved === topMoved;
+    });
   },
   MOVE_CARS() {
     return this.GET_CARS().forEach((car) => car.move());

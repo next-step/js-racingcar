@@ -5,7 +5,6 @@ import { MIN_NAME_LENGTH, MAX_NAME_LENGTH, MIN_TRY_COUNT } from '../constatns/va
 import { NOT_ALLOWED_NAME_LENGTH, NOT_ALLOWED_TRY_COUNT } from '../constatns/messages';
 import { splitAndTrim } from '../../utils/strings';
 import carsStore from '../store/carsStore';
-import { randomNumber } from '../../utils/randoms';
 
 const $makeCars = $('#racingcar-make-cars');
 const $tryCountSection = $('#racingcar-try-count-section');
@@ -28,6 +27,7 @@ const handleMakeCarsClick = (e) => {
 
   if (e.target.id === 'racingcar-try-count-button') {
     setTryCounts();
+    playCars($cars);
   }
 };
 
@@ -38,6 +38,7 @@ const handleMakeCarsKeyup = (e) => {
 
   if (e.target.id === 'racingcar-try-count-input' && e.key === 'Enter') {
     setTryCounts();
+    playCars($cars);
   }
 };
 
@@ -68,8 +69,6 @@ const setTryCounts = () => {
     disable($tryCountInput);
 
     carsStore.SET_TRY_COUNTS(tryCounts);
-
-    playCars($cars);
   } else {
     alert(NOT_ALLOWED_TRY_COUNT);
   }
@@ -82,16 +81,14 @@ const validateTryCount = (tryCounts) => {
 const playCars = async ($target) => {
   carsStore.SET_CARS();
 
-  while (carsStore.GET_WINNERS().length === 0) {
-    moveCar($target);
+  for (const _ of [...Array(carsStore.GET_TRY_COUNTS())]) {
+    carsStore.MOVE_CARS();
+    $target.replaceChildren(MakeCars(carsStore.GET_CARS()));
+
     await wait(WAIT_TIMES);
   }
+
+  carsStore.SET_WINNERS();
 };
 
-const moveCar = ($target) => {
-  carsStore.MOVE_CARS();
-  carsStore.FIND_AND_SET_WINNERS();
-  $target.replaceChildren(MakeCars(carsStore.GET_CARS()));
-};
-
-export { makeCarsEventListener, playCars };
+export { makeCarsEventListener };
