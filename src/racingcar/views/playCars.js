@@ -1,5 +1,5 @@
 import { wait, WAIT_TIMES } from '../../utils';
-import { $ } from '../../utils/dom';
+import { $, show, disable } from '../../utils/dom';
 import MakeCars from '../components/MakeCars';
 import { MIN_NAME_LENGTH, MAX_NAME_LENGTH, MIN_TRY_COUNT } from '../constatns/values';
 import { NOT_ALLOWED_NAME_LENGTH, NOT_ALLOWED_TRY_COUNT } from '../constatns/messages';
@@ -45,8 +45,10 @@ const setCarNames = () => {
   const carNames = splitAndTrim($namingInput.value);
 
   if (validateCarNames(carNames)) {
+    show($tryCountSection);
+    disable($namingInput);
 
-    carsStore.SET_CAR_NAMES(names);
+    carsStore.SET_CAR_NAMES(carNames);
   } else {
     alert(NOT_ALLOWED_NAME_LENGTH);
   }
@@ -61,11 +63,12 @@ const validateCarNames = (names) => {
 const setTryCounts = () => {
   const tryCounts = $tryCountInput.value;
 
-  if (validateTryCount(counts)) {
-    $playCars.classList.remove('d-none');
-    $tryCountInput.disabled = true;
+  if (validateTryCount(tryCounts)) {
 
-    carsStore.SET_TRY_COUNTS(counts);
+    show($playCars);
+    disable($tryCountInput);
+
+    carsStore.SET_TRY_COUNTS(tryCounts);
 
     playCars($cars);
   } else {
