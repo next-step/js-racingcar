@@ -26,7 +26,7 @@ describe('자동차 경주 게임', () => {
     it('길이가 모두 1 ~ 5 사이인 자동차 이름을 입력한다.', () => {
       cy.getCarNameInput().clear();
       cy.enrollCorrectCarName('EAST, WEST, SOUTH, NORTH');
-      cy.getInputRaceTimesSection().should('be.visible');
+      cy.getRaceTimesForm().should('be.visible');
     });
   });
 
@@ -37,7 +37,7 @@ describe('자동차 경주 게임', () => {
 
     it('자동차 이름을 정상적으로 입력한다.', () => {
       cy.enrollCorrectCarName('EAST, WEST, SOUTH, NORTH');
-      cy.getInputRaceTimesSection().should('be.visible');
+      cy.getRaceTimesForm().should('be.visible');
     });
 
     it('자동차 경주 시도 횟수를 1 미만으로 입력한다.', () => {
@@ -131,7 +131,7 @@ describe('자동차 경주 게임', () => {
     });
 
     it('두 번째 자동차 경주를 시작한다.', () => {
-      cy.getInputRaceTimesSection().should('not.be.visible');
+      cy.getRaceTimesForm().should('not.be.visible');
       cy.getCarsContainer().should('not.be.visible');
       cy.getGameResultContainer().should('not.be.visible');
 
@@ -140,7 +140,7 @@ describe('자동차 경주 게임', () => {
       cy.enrollCorrectCarName('EAST, WEST, SOUTH, NORTH');
 
       cy.clock();
-      cy.getInputRaceTimesSection().should('be.visible');
+      cy.getRaceTimesForm().should('be.visible');
       cy.getRaceTimesInput().should('be.empty');
       cy.getRaceTimesSubmitButton().should('not.be.disabled');
       cy.enrollCorrectRaceTimes(5);
@@ -162,4 +162,3 @@ describe('자동차 경주 게임', () => {
     });
   });
 });
-
