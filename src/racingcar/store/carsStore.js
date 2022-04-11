@@ -19,7 +19,7 @@ const carsStore = {
     return (this.car_names = _car_names);
   },
   GET_TRY_COUNTS() {
-    return +this.tryCounts;
+    return Number(this.tryCounts);
   },
   SET_TRY_COUNTS(_tryCounts) {
     this.tryCounts = _tryCounts;
