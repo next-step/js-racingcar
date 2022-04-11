@@ -1,5 +1,6 @@
 import RacingCarNamesView from './RacingCarNamesView.js';
 import { Car } from '../Car.js';
+import RandomMovingStrategy from '../RandomMovingStrategy.js';
 
 const $section = document.querySelector('section > div.mt-4.d-flex');
 
@@ -70,7 +71,7 @@ class RacingSectionView {
   static #runningLap(carList) {
     this.#removeStopPositionAllCar();
     carList.forEach((car) => {
-      car.run();
+      car.run(new RandomMovingStrategy());
       this.#changeCarPosition(car);
     });
   }
