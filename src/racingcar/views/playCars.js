@@ -83,12 +83,16 @@ const playCars = async ($target) => {
 
   for (const _ of [...Array(carsStore.GET_TRY_COUNTS())]) {
     carsStore.MOVE_CARS();
-    $target.replaceChildren(MakeCars(carsStore.GET_CARS()));
+    showTracks();
 
     await wait(WAIT_TIMES);
   }
 
   carsStore.SET_WINNERS();
+};
+
+const showTracks = () => {
+  $target.replaceChildren(MakeCars(carsStore.GET_CARS()));
 };
 
 export { makeCarsEventListener };
