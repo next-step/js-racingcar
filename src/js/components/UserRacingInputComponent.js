@@ -25,6 +25,8 @@ const UserRacingInput = ({
 
   const successSubmitName = () => {
     isNameSubmitted = true;
+    makeDisableByID(ID.CAR_NAME_INPUT);
+    makeDisableByID(ID.CAR_NAME_SUBMIT_BTN);
     removeTimesInputWillChangeHint();
     document.getElementById(ID.RACING_TIMES_INPUT).focus();
   };
