@@ -1,5 +1,5 @@
 import { $ } from '../utils/dom.js';
-import { ALERT_MESSAGES } from "../constants/alertMessages.js";
+import { ALERT_MESSAGES } from '../constants/alertMessages.js';
 
 export default function GameResult({ initState, handleResetGame }) {
   this.$gameResultContainer = $('.game-result-container');
