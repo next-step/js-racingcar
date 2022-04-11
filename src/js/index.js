@@ -1,6 +1,4 @@
-import RacingCarNamesView from './view/RacingCarNamesView.js';
-import RacingCycleView from './view/RacingCycleView.js';
+import RacingGameView from './view/RacingGameView.js';
 
-RacingCarNamesView.eventBindings();
-RacingCycleView.eventBindings();
-RacingCarNamesView.initialize();
+RacingGameView.eventBindings();
+RacingGameView.initialize();
