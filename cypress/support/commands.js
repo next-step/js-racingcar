@@ -25,8 +25,8 @@ Cypress.Commands.add('alertCarNamesInput', (alertMessage) => {
     });
 });
 
-Cypress.Commands.add('getInputRaceTimesSection', () => {
-  cy.get('[data-cy="input-race-times-section"]');
+Cypress.Commands.add('getRaceTimesForm', () => {
+  cy.get('[data-cy="race-times-form"]');
 });
 
 Cypress.Commands.add('getRaceTimesInput', () => {
