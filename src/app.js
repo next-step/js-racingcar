@@ -17,15 +17,11 @@ import { isEmpty } from "./core/validation.mjs";
 function initApp() {
   const $app = document.querySelector("#app");
   if (!$app) return;
-  const $carsNameInput = $app.querySelector('[placeholder="자동차 이름"]');
-  const $carsNameSubmit = $app.querySelector(
-    '[placeholder="자동차 이름"] + button'
-  );
+  const $carsNameInput = $app.querySelector(".car-name-input");
+  const $carsNameSubmit = $app.querySelector(".car-name-input + button");
   const $tryCntFieldSet = $app.querySelector(".try-count");
-  const $tryCntInput = $app.querySelector('[placeholder="시도 횟수"]');
-  const $tryCntSubmit = $app.querySelector(
-    '[placeholder="시도 횟수"] + button'
-  );
+  const $tryCntInput = $app.querySelector(".try-count-input");
+  const $tryCntSubmit = $app.querySelector(".try-count-input + button");
   const $raceContainer = $app.querySelector(".race");
   const $result = $app.querySelector(".result");
 
