@@ -6,13 +6,10 @@ import {
   getTryCount,
   getWinners,
 } from "./core/racing.mjs";
-import {
-  drawCars,
-  forwardIcon,
-  TemplateRaceResult,
-} from "./core/templates.mjs";
+import { carListTemplate, forwardIconTemplate } from "./core/templates.mjs";
 import { MSG_ERROR_NO_NAMES } from "./core/constants.mjs";
 import { isEmpty } from "./core/validation.mjs";
+import { RaceResultComponent } from "./core/components.mjs";
 
 function initApp() {
   const $app = document.querySelector("#app");
@@ -32,7 +29,7 @@ function initApp() {
     if (command === COMMAND_GO) {
       document
         .querySelector(`[aria-label="${name}"]`)
-        .insertAdjacentHTML("beforeend", forwardIcon);
+        .insertAdjacentHTML("beforeend", forwardIconTemplate);
     }
     return command;
   }
@@ -65,13 +62,13 @@ function initApp() {
       const count = getTryCount($tryCntInput.value);
       const names = getCarsNames($carsNameInput.value);
 
-      $raceContainer.innerHTML = drawCars(names);
+      $raceContainer.innerHTML = carListTemplate(names);
 
       const raceResult = runRace(count, names);
       const winners = getWinners(raceResult);
 
       $result.appendChild(
-        TemplateRaceResult(winners, {
+        RaceResultComponent(winners, {
           onResetButtonClick: () => {
             $carsNameInput.value = "";
             $tryCntFieldSet.classList.add("hidden");
