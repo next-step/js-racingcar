@@ -33,7 +33,7 @@ const carsStore = {
       .filter((car) => car.moved === this.GET_TRY_COUNTS());
   },
   MOVE_CARS() {
-    return this.GET_CARS().forEach((car) => car.move(randomNumber()));
+    return this.GET_CARS().forEach((car) => car.move());
   },
 };
 

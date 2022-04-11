@@ -1,5 +1,5 @@
+import { randomNumber } from '../../utils/randoms';
 import { GO_FLAG_NUMBER } from '../constatns/values';
-
 export default class Car {
   #name;
   #moved;
@@ -17,7 +17,7 @@ export default class Car {
     return this.#name;
   }
 
-  move(playRandomNumber) {
-    if (playRandomNumber >= GO_FLAG_NUMBER) this.#moved++;
+  move() {
+    if (randomNumber() >= GO_FLAG_NUMBER) this.#moved++;
   }
 }
