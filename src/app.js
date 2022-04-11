@@ -5,10 +5,14 @@ import {
   getRandomNumber,
   getTryCount,
   getWinners,
-} from "./js/racing.mjs";
-import { drawCars, forwardIcon, TemplateRaceResult } from "./js/templates.mjs";
-import { MSG_ERROR_NO_NAMES } from "./constants.mjs";
-import { isEmpty } from "./js/validation.mjs";
+} from "./core/racing.mjs";
+import {
+  drawCars,
+  forwardIcon,
+  TemplateRaceResult,
+} from "./core/templates.mjs";
+import { MSG_ERROR_NO_NAMES } from "./core/constants.mjs";
+import { isEmpty } from "./core/validation.mjs";
 
 function initApp() {
   const $app = document.querySelector("#app");

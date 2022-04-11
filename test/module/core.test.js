@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import {getCommand} from "../../src/js/racing.mjs";
+import {getCommand} from "../../src/core/racing.mjs";
 
 describe('racing.mjs', () => {
     describe('getCommand', () => {
