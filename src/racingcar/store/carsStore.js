@@ -32,9 +32,7 @@ const carsStore = {
       carsStore.GET_CARS().map((car) => car.moved),
     );
 
-    this.winners = carsStore.GET_CARS().filter((car) => {
-      car.moved === topMoved;
-    });
+    this.winners = carsStore.GET_CARS().filter((car) => car.moved === topMoved);
   },
   MOVE_CARS() {
     return this.GET_CARS().forEach((car) => car.move());

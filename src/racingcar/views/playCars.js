@@ -88,11 +88,16 @@ const playCars = async ($target) => {
     await wait(WAIT_TIMES);
   }
 
-  carsStore.SET_WINNERS();
+  setWinners($target);
 };
 
 const showTracks = ($target) => {
   $target.replaceChildren(MakeCars(carsStore.GET_CARS()));
+};
+
+const setWinners = ($target) => {
+  carsStore.SET_WINNERS();
+  showTracks($target);
 };
 
 export { makeCarsEventListener };
