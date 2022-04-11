@@ -17,9 +17,12 @@ class RacingCarNamesView {
   }
 
   static #handleCarNameSubmit() {
-    if (CarNames.validate(RacingCarNamesView.carNameList())) {
+    try {
+      CarNames.validate(RacingCarNamesView.carNameList());
       RacingCarNamesView.#disabledCarNameField();
       RacingCycleView.showView();
+    } catch (e) {
+      alert(e.message);
     }
   }
 
