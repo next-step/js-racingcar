@@ -4,7 +4,8 @@ const MakeCars = (cars) => {
   const template = document.createElement('template');
 
   template.innerHTML = cars
-    .map((car) => `
+    .map(
+      (car) => `
         <div class="mr-2">
           <div class="racingcar-car-player" data-target="racingcar-car-player">
             ${car.name}
@@ -12,7 +13,9 @@ const MakeCars = (cars) => {
           ${forward.repeat(car.moved)}
           ${!carsStore.GET_WINNERS().length ? spinner : ''}
         </div>
-    `).join('');
+    `,
+    )
+    .join('');
 
   return template.content;
 };

@@ -1,7 +1,7 @@
 import { wait, WAIT_TIMES } from '../../utils';
 import { $ } from '../../utils/dom';
-import Cars from '../components/Cars';
-import { MIN_NAME_LENGTH, MAX_NAME_LENGTH, MIN_TRY_COUNT } from '../constatns';
+import MakeCars from '../components/MakeCars';
+import { MIN_NAME_LENGTH, MAX_NAME_LENGTH, MIN_TRY_COUNT } from '../constatns/values';
 import { NOT_ALLOWED_NAME_LENGTH, NOT_ALLOWED_TRY_COUNT } from '../constatns/messages';
 import { stringsToArray } from '../../utils/strings';
 import carsStore from '../store/carsStore';
@@ -91,7 +91,7 @@ const playCars = async ($target) => {
 const moveCar = ($target) => {
   carsStore.MOVE_CARS(randomNumber());
   carsStore.FIND_AND_SET_WINNERS();
-  $target.replaceChildren(Cars(carsStore.GET_CARS()));
+  $target.replaceChildren(MakeCars(carsStore.GET_CARS()));
 };
 
 export { makeCarsEventListener, playCars };

@@ -1,4 +1,4 @@
-import { GO_FLAG_NUMBER } from '../constatns';
+import { GO_FLAG_NUMBER } from '../constatns/values';
 
 export default class Car {
   #name;
