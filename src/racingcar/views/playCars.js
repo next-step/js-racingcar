@@ -83,7 +83,7 @@ const playCars = async ($target) => {
 
   for (const _ of [...Array(carsStore.GET_TRY_COUNTS())]) {
     carsStore.MOVE_CARS();
-    showTracks();
+    showTracks($target);
 
     await wait(WAIT_TIMES);
   }
@@ -91,7 +91,7 @@ const playCars = async ($target) => {
   carsStore.SET_WINNERS();
 };
 
-const showTracks = () => {
+const showTracks = ($target) => {
   $target.replaceChildren(MakeCars(carsStore.GET_CARS()));
 };
 
