@@ -7,9 +7,9 @@ const MakeCars = (cars) => {
     .map(
       (car) => `
         <div class="mr-2">
-          <div class="racingcar-car-player" data-target="racingcar-car-player">
-            ${car.name}
-          </div>
+          <div 
+            class="racingcar-car-player"
+            data-target="racingcar-car-player">${car.name}</div>
           ${forward.repeat(car.moved)}
           ${!carsStore.GET_WINNERS().length ? spinner : ''}
         </div>

@@ -3,7 +3,7 @@ import { $ } from '../../utils/dom';
 import MakeCars from '../components/MakeCars';
 import { MIN_NAME_LENGTH, MAX_NAME_LENGTH, MIN_TRY_COUNT } from '../constatns/values';
 import { NOT_ALLOWED_NAME_LENGTH, NOT_ALLOWED_TRY_COUNT } from '../constatns/messages';
-import { stringsToArray } from '../../utils/strings';
+import { splitAndTrim } from '../../utils/strings';
 import carsStore from '../store/carsStore';
 import { randomNumber } from '../../utils/randoms';
 
@@ -42,7 +42,7 @@ const handleMakeCarsKeyup = (e) => {
 };
 
 const setCarNames = () => {
-  const names = stringsToArray($namingInput.value);
+  const names = splitAndTrim($namingInput.value);
 
   if (validateName(names)) {
     $tryCountSection.classList.remove('d-none');

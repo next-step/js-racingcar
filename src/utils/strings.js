@@ -1,3 +1,3 @@
-const stringsToArray = (str) => str.split(',').map((name) => name.trim());
+const splitAndTrim = (str) => str.split(',').map((name) => name.trim());
 
-export { stringsToArray };
+export { splitAndTrim };
