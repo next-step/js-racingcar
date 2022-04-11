@@ -42,11 +42,9 @@ const handleMakeCarsKeyup = (e) => {
 };
 
 const setCarNames = () => {
-  const names = splitAndTrim($namingInput.value);
+  const carNames = splitAndTrim($namingInput.value);
 
-  if (validateName(names)) {
-    $tryCountSection.classList.remove('d-none');
-    $namingInput.disabled = true;
+  if (validateCarNames(carNames)) {
 
     carsStore.SET_CAR_NAMES(names);
   } else {
@@ -54,14 +52,14 @@ const setCarNames = () => {
   }
 };
 
-const validateName = (names) => {
+const validateCarNames = (names) => {
   return names.every(
     (name) => MIN_NAME_LENGTH <= name.length && name.length <= MAX_NAME_LENGTH,
   );
 };
 
 const setTryCounts = () => {
-  const counts = $tryCountInput.value;
+  const tryCounts = $tryCountInput.value;
 
   if (validateTryCount(counts)) {
     $playCars.classList.remove('d-none');
@@ -75,8 +73,8 @@ const setTryCounts = () => {
   }
 };
 
-const validateTryCount = (counts) => {
-  return counts >= MIN_TRY_COUNT;
+const validateTryCount = (tryCounts) => {
+  return tryCounts >= MIN_TRY_COUNT;
 };
 
 const playCars = async ($target) => {
