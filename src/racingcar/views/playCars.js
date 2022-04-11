@@ -89,7 +89,7 @@ const playCars = async ($target) => {
 };
 
 const moveCar = ($target) => {
-  carsStore.MOVE_CARS(randomNumber());
+  carsStore.MOVE_CARS();
   carsStore.FIND_AND_SET_WINNERS();
   $target.replaceChildren(MakeCars(carsStore.GET_CARS()));
 };
