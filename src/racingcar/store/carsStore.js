@@ -9,8 +9,8 @@ const carsStore = {
   GET_CARS() {
     return this.cars;
   },
-  SET_CARS(_car_names) {
-    this.cars = _car_names.map((name) => new Car(name));
+  SET_CARS() {
+    this.cars = this.GET_CAR_NAMES().map((name) => new Car(name));
   },
   GET_CAR_NAMES() {
     return this.car_names;

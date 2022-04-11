@@ -64,7 +64,6 @@ const setTryCounts = () => {
   const tryCounts = $tryCountInput.value;
 
   if (validateTryCount(tryCounts)) {
-
     show($playCars);
     disable($tryCountInput);
 
@@ -81,7 +80,7 @@ const validateTryCount = (tryCounts) => {
 };
 
 const playCars = async ($target) => {
-  carsStore.SET_CARS(carsStore.GET_CAR_NAMES());
+  carsStore.SET_CARS();
 
   while (carsStore.GET_WINNERS().length === 0) {
     moveCar($target);
