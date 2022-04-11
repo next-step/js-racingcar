@@ -1,6 +1,6 @@
 import carsStore from '../store/carsStore';
 
-const Cars = (cars) => {
+const MakeCars = (cars) => {
   const template = document.createElement('template');
 
   template.innerHTML = cars
@@ -27,4 +27,4 @@ const spinner = `
                 </div>
             `;
 
-export default Cars;
+export default MakeCars;
