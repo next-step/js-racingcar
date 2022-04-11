@@ -2,8 +2,8 @@ import ValidationError from '../utils/validation.js';
 import {
   CarNameConfigurationStrategy,
   PlayTimeConfigurationStrategy,
-  StepForwardConfigurationStrategy,
 } from './GameConfigurationStrategy.js';
+import { RandomMovingStrategy } from './MovingStrategy.js';
 
 export default class UserRacingInputModel {
   #carNames;
@@ -20,15 +20,12 @@ export default class UserRacingInputModel {
   makePlayResult() {
     this.#racingCarList = this.#carNames.reduce((acc, cur) => {
       acc[cur] = Array.from({ length: this.#playTimes }, () =>
-        this.#isStepForward(StepForwardConfigurationStrategy.build())
+        RandomMovingStrategy.build().isMoveable()
       );
       return acc;
     }, {});
   }
 
-  #isStepForward(movingStrategy) {
-    return movingStrategy.isMoveable() ? 1 : 0;
-  }
 
   updateCarNames = (carNames, resolve) => {
     try {

@@ -7,26 +7,12 @@ class ConfigurationStrategy {
     throw new Error(ERROR.ABSTRACT_CLASS);
   }
 
-  isMoveable() {
-    throw new Error(ERROR.ABSTRACT_CLASS);
-  }
-
   isValidCarName() {
     throw new Error(ERROR.ABSTRACT_CLASS);
   }
 
   isValidPlayTime() {
     throw new Error(ERROR.ABSTRACT_CLASS);
-  }
-}
-
-class StepForwardConfigurationStrategy extends ConfigurationStrategy {
-  static build() {
-    return new StepForwardConfigurationStrategy();
-  }
-
-  isMoveable() {
-    return Math.random() * 10 > 4;
   }
 }
 
@@ -81,6 +67,5 @@ class PlayTimeConfigurationStrategy extends ConfigurationStrategy {
 export {
   ConfigurationStrategy,
   CarNameConfigurationStrategy,
-  StepForwardConfigurationStrategy,
   PlayTimeConfigurationStrategy,
 };
