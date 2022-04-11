@@ -20,12 +20,33 @@ afterEach(() => {
   cy.reload();
 });
 
-const startCars = (names, tryCounts) => {
-  $namingInput().type(names);
+const typeNameAndClick = (name) => {
+  $namingInput().type(name);
   $namingButton().click();
+};
 
-  $tryCountInput().type(tryCounts);
+const typeNameAndEnter = (name) => {
+  $namingInput().type(name + '{enter}');
+};
+
+const typeTryCountAndClick = (tryCount) => {
+  $tryCountInput().type(tryCount);
   $tryCountButton().click();
+};
+
+const typeTryCountAndEnter = (tryCount) => {
+  $tryCountInput().type(tryCount + '{enter}');
+};
+
+const startCars = (names, tryCounts) => {
+  typeNameAndClick(names);
+  typeTryCountAndClick(tryCounts);
+};
+
+const alertMessageContainsCheck = (alertMessage) => {
+  cy.on('window:alert', (msg) => {
+    expect(msg).to.contains(alertMessage);
+  });
 };
 
 describe('자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
@@ -48,67 +69,49 @@ describe('자동차에 이름을 부여할 수 있다. 전진하는 자동차를
 });
 
 describe('자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5자 이하만 가능하다.', () => {
-  const typeNameAndClick = (name) => {
-    $namingInput().type(name);
-    $namingButton().click();
-    $tryCountSection().should('be.visible');
-  };
-
-  const typeNameAndEnter = (name) => {
-    $namingInput().type(name + '{enter}');
-    $tryCountSection().should('be.visible');
-  };
-
-  const typeNameAndClickGotAlert = (name) => {
-    $namingInput().type(name);
-    $namingButton().click();
-    cy.on('window:alert', (msg) => {
-      expect(msg).to.contains(NOT_ALLOWED_NAME_LENGTH);
-    });
-  };
-
-  const typeName다ndEnterGotAlert = (name) => {
-    $namingInput().type(name + '{enter}');
-    cy.on('window:alert', (msg) => {
-      expect(msg).to.contains(NOT_ALLOWED_NAME_LENGTH);
-    });
-  };
-
   context('5자 이하의 이름을 입력하고 확인버튼을 클릭한다.', () => {
     it('1대의 자동차', () => {
       typeNameAndClick('BMW');
+      $tryCountSection().should('be.visible');
     });
     it('3대의 자동차', () => {
       typeNameAndClick('BMW, AUDI, K9');
+      $tryCountSection().should('be.visible');
     });
   });
 
   context('5자 이하의 이름을 입력하고 엔터를 입력한다.', () => {
     it('1대의 자동차', () => {
       typeNameAndEnter('BMW');
+      $tryCountSection().should('be.visible');
     });
     it('3대의 자동차', () => {
       typeNameAndEnter('BMW, AUDI, K9');
+      $tryCountSection().should('be.visible');
     });
   });
 
   context('5자 초과의 이름을 입력하고 확인버튼을 클릭한다.', () => {
     it('1대의 자동차', () => {
-      typeNameAndClickGotAlert('MASERATI');
+      typeNameAndClick('MASERATI');
+      alertMessageContainsCheck(NOT_ALLOWED_NAME_LENGTH);
     });
 
     it('3대의 자동차', () => {
-      typeNameAndClickGotAlert('BMW, MERCEDES, K9');
+      typeNameAndClick('BMW, MERCEDES, K9');
+      alertMessageContainsCheck(NOT_ALLOWED_NAME_LENGTH);
     });
   });
 
   context('5자 초과의 이름을 입력하고 엔터를 입력한다.', () => {
     it('1대의 자동차', () => {
-      typeName다ndEnterGotAlert('MASERATI');
+      typeNameAndEnter('MASERATI');
+      alertMessageContainsCheck(NOT_ALLOWED_NAME_LENGTH);
     });
 
     it('3대의 자동차', () => {
-      typeName다ndEnterGotAlert('BMW, MERCEDES, K9');
+      typeNameAndEnter('BMW, MERCEDES, K9');
+      alertMessageContainsCheck(NOT_ALLOWED_NAME_LENGTH);
     });
   });
 });
@@ -119,65 +122,47 @@ describe('사용자는 몇 번의 이동을 할 것인지를 입력할 수 있�
     $namingButton().click();
   });
 
-  const typeTryCountAndClick = (tryCount) => {
-    $tryCountInput().type(tryCount);
-    $tryCountButton().click();
-    $playCars().should('be.visible');
-  };
-
-  const typeTryCountAndEnter = (tryCount) => {
-    $tryCountInput().type(tryCount + '{enter}');
-    $playCars().should('be.visible');
-  };
-
-  const typeTryCountAndClickGotAlert = (tryCount) => {
-    $tryCountInput().type(tryCount);
-    $tryCountButton().click();
-    cy.on('window:alert', (msg) => {
-      expect(msg).to.contains(NOT_ALLOWED_TRY_COUNT);
-    });
-  };
-
-  const typeTryCountAndEnterGotAlert = (tryCount) => {
-    $tryCountInput().type(tryCount + '{enter}');
-    cy.on('window:alert', (msg) => {
-      expect(msg).to.contains(NOT_ALLOWED_TRY_COUNT);
-    });
-  };
-
   context('1회 이상을 입력하고 버튼을 클릭한다.', () => {
     it('1회', () => {
       typeTryCountAndClick(1);
+      $playCars().should('be.visible');
     });
     it('3회', () => {
       typeTryCountAndClick(3);
+      $playCars().should('be.visible');
     });
   });
 
   context('1회 이상을 입력하고 엔터를 입력한다.', () => {
     it('1회', () => {
       typeTryCountAndEnter(1);
+      $playCars().should('be.visible');
     });
     it('3회', () => {
       typeTryCountAndEnter(3);
+      $playCars().should('be.visible');
     });
   });
 
   context('0회 이하를 입력하고 버튼을 클릭한다.', () => {
     it('0회', () => {
-      typeTryCountAndClickGotAlert(0);
+      typeTryCountAndClick(0);
+      alertMessageContainsCheck(NOT_ALLOWED_TRY_COUNT);
     });
     it('-1회', () => {
-      typeTryCountAndClickGotAlert(-1);
+      typeTryCountAndClick(-1);
+      alertMessageContainsCheck(NOT_ALLOWED_TRY_COUNT);
     });
   });
 
   context('0회 이하를 입력하고 엔터를 입력한다.', () => {
     it('0회', () => {
-      typeTryCountAndEnterGotAlert(0);
+      typeTryCountAndEnter(0);
+      alertMessageContainsCheck(NOT_ALLOWED_TRY_COUNT);
     });
     it('-1회', () => {
-      typeTryCountAndEnterGotAlert(-1);
+      typeTryCountAndEnter(-1);
+      alertMessageContainsCheck(NOT_ALLOWED_TRY_COUNT);
     });
   });
 });
