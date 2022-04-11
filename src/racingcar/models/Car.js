@@ -1,5 +1,9 @@
-import { randomNumber } from '../../utils/randoms';
-import { GO_FLAG_NUMBER } from '../constatns/values';
+import { getRandomNumber } from '../../utils/randoms';
+import {
+  GO_FLAG_NUMBER,
+  MAX_RANDOM_NUMBER,
+  MIN_RANDOM_NUMBER,
+} from '../constatns/values';
 export default class Car {
   #name;
   #moved;
@@ -18,6 +22,7 @@ export default class Car {
   }
 
   move() {
-    if (randomNumber() >= GO_FLAG_NUMBER) this.#moved++;
+    if (getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER) >= GO_FLAG_NUMBER)
+      this.#moved++;
   }
 }

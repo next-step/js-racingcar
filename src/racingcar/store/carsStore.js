@@ -1,5 +1,4 @@
 import Car from '../models/Car';
-import { randomNumber } from '../../utils/randoms';
 
 const carsStore = {
   cars: [],
