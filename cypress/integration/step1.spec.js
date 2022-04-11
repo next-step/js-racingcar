@@ -6,7 +6,9 @@ describe("STEP 1", function () {
   });
 
   const CARS_INPUT_FIELD_SELECTOR = "#cars-input-form fieldset input";
+  const CARS_INPUT_FIELDSET_SELECTOR = "#cars-input-form fieldset";
   const COUNT_INPUT_FIELD_SELECTOR = "#count-input-form fieldset input";
+  const COUNT_INPUT_FIELDSET_SELECTOR = "#count-input-form fieldset";
 
   context("화면 렌더링에 관련된 테스트", () => {
     it("최초 랜더 시, 자동차 이름을 입력할 수 있는 입력창이 보여진다. ", function () {
@@ -43,18 +45,7 @@ describe("STEP 1", function () {
     });
   });
 
-  context("자동차 이름 입력 테스트", () => {
-    it("자동차 이름을 쉼표로 구분하여 입력할 경우 입력된 자동차가 화면에 보여진다. ", function () {
-      const inputExample = "호랑이,거북이,고양이,원숭이,부엉이";
-      const inputExampleArray = inputExample.split(",");
-      cy.get(CARS_INPUT_FIELD_SELECTOR).type(inputExample).type("{enter}");
-      cy.get(COUNT_INPUT_FIELD_SELECTOR).type(5).type("{enter}");
-      cy.get(".car-player").each((element, index) => {
-        const expectedString = inputExampleArray[index];
-        expect(element.text()).to.equal(expectedString);
-      });
-    });
-
+  context("자동차 이름, 시도 횟수 입력 테스트", () => {
     it("5자를 초과하는 자동차 이름이 하나 이상 입력될 경우 경고창이 띄워진다. ", function () {
       const inputExample = "Squirrel,Otter,Hamster,Goose,Horse";
       const alertStub = cy.stub();
@@ -68,6 +59,34 @@ describe("STEP 1", function () {
             ALERT_STRING.INVALID_CAR_NAME
           );
         });
+    });
+
+    it("자동차 입력을 완료한 경우 입력을 수정할 수 없도록 입력창이 비활성화된다. ", function () {
+      const inputExample = "호랑이,거북이,고양이,원숭이,부엉이";
+      cy.get(CARS_INPUT_FIELD_SELECTOR).type(inputExample).type("{enter}");
+      cy.get(CARS_INPUT_FIELDSET_SELECTOR)
+        .invoke("prop", "disabled")
+        .should("eq", true);
+    });
+
+    it("숫자 입력을 완료한 경우 입력을 수정할 수 없도록 입력창이 비활성화된다. ", function () {
+      const inputExample = "호랑이,거북이,고양이,원숭이,부엉이";
+      cy.get(CARS_INPUT_FIELD_SELECTOR).type(inputExample).type("{enter}");
+      cy.get(COUNT_INPUT_FIELD_SELECTOR).type(5).type("{enter}");
+      cy.get(COUNT_INPUT_FIELDSET_SELECTOR)
+        .invoke("prop", "disabled")
+        .should("eq", true);
+    });
+
+    it("자동차 이름, 시도 횟수를 모두 입력할 경우 입력된 자동차가 화면에 보여진다. ", function () {
+      const inputExample = "호랑이,거북이,고양이,원숭이,부엉이";
+      const inputExampleArray = inputExample.split(",");
+      cy.get(CARS_INPUT_FIELD_SELECTOR).type(inputExample).type("{enter}");
+      cy.get(COUNT_INPUT_FIELD_SELECTOR).type(5).type("{enter}");
+      cy.get(".car-player").each((element, index) => {
+        const expectedString = inputExampleArray[index];
+        expect(element.text()).to.equal(expectedString);
+      });
     });
   });
 });

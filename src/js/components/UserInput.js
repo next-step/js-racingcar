@@ -40,15 +40,20 @@ export default class UserInput {
 
   #setVisibility = () => {
     const hasCarName = this.#carNames ? true : false;
+    const hasCount = this.#count ? true : false;
     const carsInputFieldElement = document.querySelector(
       "#cars-input-form > fieldset"
     );
     const countInputFormElement = document.querySelector("#count-input-form");
+    const countInputFieldElement = countInputFormElement.lastElementChild;
     if (hasCarName) {
       countInputFormElement.hidden = false;
       carsInputFieldElement.setAttribute("disabled", true);
     } else {
       countInputFormElement.hidden = true;
+    }
+    if (hasCount) {
+      countInputFieldElement.setAttribute("disabled", true);
     }
   };
 
@@ -62,7 +67,7 @@ export default class UserInput {
     const countInputForm = document.querySelector("#count-input-form");
     countInputForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      this.#submitCount();
+      this.#submitCount(countInputForm);
 
       // 컴포넌트 최종 form submit
       onSubmit(this.#carNames, this.#count);
@@ -85,5 +90,6 @@ export default class UserInput {
   #submitCount = (form) => {
     const formData = new FormData(form);
     this.#count = formData.get("count-input");
+    this.#setVisibility();
   };
 }
