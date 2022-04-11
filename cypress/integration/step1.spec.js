@@ -89,4 +89,14 @@ describe("STEP 1", function () {
       });
     });
   });
+
+  context("자동차 전진 테스트", () => {
+    it("입력한 횟수만큼 모든 자동차가 움직인다. ", function () {
+      const inputExample = "호랑이,거북이,고양이,원숭이,부엉이";
+      const inputCount = 5;
+      cy.get(CARS_INPUT_FIELD_SELECTOR).type(inputExample).type("{enter}");
+      cy.get(COUNT_INPUT_FIELD_SELECTOR).type(inputCount).type("{enter}");
+      cy.get("#car .car-path").should("have.length", inputCount);
+    });
+  });
 });
