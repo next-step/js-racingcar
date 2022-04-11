@@ -4,24 +4,23 @@ import {
   getCommand,
   getRandomNumber,
   getTryCount,
-  validationCarNames,
-} from "./module/core.mjs";
-import { drawCars, forwardIcon } from "./module/templates.mjs";
-import { MSG_ERROR_NO_NAMES } from "./module/constants.mjs";
+  getWinners,
+} from "./core/racing.mjs";
+import { carListTemplate, forwardIconTemplate } from "./core/templates.mjs";
+import { MSG_ERROR_NO_NAMES } from "./core/constants.mjs";
+import { isEmpty } from "./core/validation.mjs";
+import { RaceResultComponent } from "./core/components.mjs";
 
 function initApp() {
   const $app = document.querySelector("#app");
   if (!$app) return;
-  const $carsNameInput = $app.querySelector('[placeholder="자동차 이름"]');
-  const $carsNameSubmit = $app.querySelector(
-    '[placeholder="자동차 이름"] + button'
-  );
+  const $carsNameInput = $app.querySelector(".car-name-input");
+  const $carsNameSubmit = $app.querySelector(".car-name-input + button");
   const $tryCntFieldSet = $app.querySelector(".try-count");
-  const $tryCntInput = $app.querySelector('[placeholder="시도 횟수"]');
-  const $tryCntSubmit = $app.querySelector(
-    '[placeholder="시도 횟수"] + button'
-  );
+  const $tryCntInput = $app.querySelector(".try-count-input");
+  const $tryCntSubmit = $app.querySelector(".try-count-input + button");
   const $raceContainer = $app.querySelector(".race");
+  const $result = $app.querySelector(".result");
 
   function runRound(name) {
     const randomNumber = getRandomNumber(0, 9);
@@ -30,18 +29,28 @@ function initApp() {
     if (command === COMMAND_GO) {
       document
         .querySelector(`[aria-label="${name}"]`)
-        .insertAdjacentHTML("beforeend", forwardIcon);
+        .insertAdjacentHTML("beforeend", forwardIconTemplate);
     }
+    return command;
   }
 
   function runRace(maxRound, names) {
+    const raceResult = names.reduce(
+      (acc, curr) => ({ ...acc, [curr]: [] }),
+      {}
+    );
+
     for (let i = 0; i < maxRound; i += 1) {
-      names.forEach(runRound);
+      names.forEach((name) => {
+        raceResult[name].push(runRound(name));
+      });
     }
+
+    return raceResult;
   }
 
   $carsNameSubmit.addEventListener("click", () => {
-    if (validationCarNames($carsNameInput.value)) {
+    if (isEmpty($carsNameInput.value)) {
       $tryCntFieldSet.classList.remove("hidden");
       return;
     }
@@ -53,10 +62,22 @@ function initApp() {
       const count = getTryCount($tryCntInput.value);
       const names = getCarsNames($carsNameInput.value);
 
-      $raceContainer.classList.remove("hidden");
-      $raceContainer.innerHTML = drawCars(names);
+      $raceContainer.innerHTML = carListTemplate(names);
 
-      runRace(count, names);
+      const raceResult = runRace(count, names);
+      const winners = getWinners(raceResult);
+
+      $result.appendChild(
+        RaceResultComponent(winners, {
+          onResetButtonClick: () => {
+            $carsNameInput.value = "";
+            $tryCntFieldSet.classList.add("hidden");
+            $tryCntInput.value = "";
+            $raceContainer.innerHTML = "";
+            $result.innerHTML = "";
+          },
+        })
+      );
     } catch (e) {
       alert(e.message);
     }

@@ -16,28 +16,22 @@
               예시) EAST, WEST, SOUTH, NORTH
             </p>
             <div class="d-flex">
-              <input type="text" class="w-100 mr-2" placeholder="자동차 이름" />
+              <input type="text" class="w-100 mr-2 car-name-input" placeholder="자동차 이름" />
               <button type="button" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
           <fieldset class="try-count hidden">
             <p>시도할 횟수를 입력해주세요.</p>
             <div class="d-flex">
-              <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
+              <input type="number" class="w-100 mr-2 try-count-input" placeholder="시도 횟수" />
               <button type="button" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
         </form>
       </section>
-      <section class="d-flex justify-center mt-5 hidden race">
+      <section class="d-flex justify-center mt-5 race">
       </section>
-      <section class="d-flex justify-center mt-5 hidden result">
-        <div>
-          <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
-          <div class="d-flex justify-center">
-            <button type="button" class="btn btn-cyan">다시 시작하기</button>
-          </div>
-        </div>
+      <section class="d-flex justify-center mt-5 result">
       </section>
     </div>
     <script type="module" src="./src/app.js"></script>

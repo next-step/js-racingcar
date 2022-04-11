@@ -1,4 +1,4 @@
-export function drawCars(names) {
+export function carListTemplate(names) {
   return `<div class="mt-4 d-flex">
             ${names
               .map(
@@ -9,4 +9,5 @@ export function drawCars(names) {
         </div>`;
 }
 
-export const forwardIcon = `<div class="forward-icon mt-2">⬇️️</div>`;
+export const forwardIconTemplate = `<div class="forward-icon mt-2">⬇️️</div>`;
+
