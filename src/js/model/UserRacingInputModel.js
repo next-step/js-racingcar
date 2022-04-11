@@ -30,26 +30,29 @@ export default class UserRacingInputModel {
     return movingStrategy.isMoveable() ? 1 : 0;
   }
 
-  updateCarNames = carNames => {
+  updateCarNames = (carNames, resolve) => {
     try {
       CarNameConfigurationStrategy.build()
         .inputNames(carNames)
         .isValidCarName();
 
       this.#carNames = carNames;
+      resolve();
     } catch (err) {
       if (err instanceof ValidationError) alert(err.message);
       console.log(err);
     }
   };
 
-  updatePlayTimes = playTimes => {
+  updatePlayTimes = (playTimes, resolve) => {
     try {
       PlayTimeConfigurationStrategy.build()
         .playTimes(playTimes)
         .isValidPlayTime();
 
       this.#playTimes = playTimes;
+
+      resolve();
     } catch (err) {
       if (err instanceof ValidationError) alert(err.message);
       console.log(err);

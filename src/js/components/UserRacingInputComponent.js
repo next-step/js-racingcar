@@ -20,31 +20,28 @@ const UserRacingInput = ({
       .getElementById(ID.CAR_NAME_INPUT)
       .value.split(',');
 
-    makeDisableByID(ID.CAR_NAME_INPUT);
-    makeDisableByID(ID.CAR_NAME_SUBMIT_BTN);
+    state.updateCarNames(inputNames, successSubmitName);
+  };
 
-    state.updateCarNames(inputNames);
-
+  const successSubmitName = () => {
     isNameSubmitted = true;
-
     removeTimesInputWillChangeHint();
-
     document.getElementById(ID.RACING_TIMES_INPUT).focus();
   };
 
   const submitTimes = () => {
     const times = document.getElementById(ID.RACING_TIMES_INPUT).valueAsNumber;
+    state.updatePlayTimes(times, successSubmitTimes);
+  };
 
-    if (!times) return;
-
-    state.updatePlayTimes(times);
-
+  const successSubmitTimes = () => {
     makeDisableByID(ID.RACING_TIMES_INPUT);
     makeDisableByID(ID.RACING_TIMES_SUBMIT_BTN);
 
     state.makePlayResult();
     startGame(state.createProcessSettingData());
   };
+
 
   const setEvent = () => {
     $currentElement.addEventListener('submit', e => {
