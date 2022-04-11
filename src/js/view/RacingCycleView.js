@@ -16,10 +16,13 @@ class RacingCycleView {
 
   static #handleCycleSubmit() {
     const cycle = $racingCycleInput.value;
-    if (RacingCycle.validate(cycle)) {
+    try {
+      RacingCycle.validate(cycle);
       RacingCycleView.#disabledCycleField();
       RacingSectionView.ready();
       RacingSectionView.start(cycle);
+    } catch (e) {
+      alert(e.message);
     }
   }
 
