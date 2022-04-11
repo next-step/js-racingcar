@@ -4,7 +4,19 @@ export default class GameProcessModel {
   #carNames;
   #racingCarList;
 
-  constructor({ consumeTime, playTimes, carNames, racingCarList }) {
+  static instance;
+
+  static getInstance() {
+    if (!this.instance) this.instance = new GameProcessModel();
+    return this.instance;
+  }
+
+  setGameConfigurationData({
+    consumeTime,
+    playTimes,
+    carNames,
+    racingCarList,
+  }) {
     this.#consumeTime = consumeTime;
     this.#leftPlayTime = playTimes;
     this.#carNames = carNames;

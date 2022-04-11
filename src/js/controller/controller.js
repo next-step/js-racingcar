@@ -10,21 +10,25 @@ import GameProcessModel from '../model/GameProcessModel.js';
 import UserRacingInputModel from '../model/UserRacingInputModel.js';
 
 export default class MainController {
-  constructor() {}
+  constructor() {
+    this.userRacingInputModel = UserRacingInputModel.getInstance();
+    this.gameProcessModel = GameProcessModel.getInstance();
+  }
 
-  initFirstView() {
+  initFirstView = () => {
     UserRacingInputComponent({
-      userRacingInputState: new UserRacingInputModel(),
-      startGame: this.startGameAndShow,
+      userRacingInputState: this.userRacingInputModel,
+      startGame: this.setGameConfigurationAndStart,
     });
-  }
+  };
 
-  startGameAndShow(
+  setGameConfigurationAndStart = (
     gameConfigurationData,
-    _ = instanceCheck(gameConfigurationData, GameProcessModel)
-  ) {
+    _ = instanceCheck(gameConfigurationData, UserRacingInputModel)
+  ) => {
+    this.gameProcessModel.setGameConfigurationData(gameConfigurationData);
     GameProcessComponent({
-      gameProcessState: new GameProcessModel(data),
+      gameProcessState: this.gameProcessModel,
     });
-  }
+  };
 }

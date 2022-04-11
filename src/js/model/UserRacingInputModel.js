@@ -10,6 +10,13 @@ export default class UserRacingInputModel {
   #playTimes;
   #racingCarList;
 
+  static instance;
+
+  static getInstance() {
+    if (!this.instance) this.instance = new UserRacingInputModel();
+    return this.instance;
+  }
+
   makePlayResult() {
     this.#racingCarList = this.#carNames.reduce((acc, cur) => {
       acc[cur] = Array.from({ length: this.#playTimes }, () =>
@@ -67,6 +74,5 @@ class GameProcessSettingData extends UserRacingInputModel {
     this.leftPlayTime = gameProcessSettingData.playTimes;
     this.carNames = gameProcessSettingData.carNames;
     this.racingCarList = gameProcessSettingData.racingCarList;
-    console.log(this);
   }
 }
