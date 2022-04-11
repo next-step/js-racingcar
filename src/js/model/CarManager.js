@@ -1,7 +1,7 @@
 import { MAX_FORWARD_CONDITION } from '../constants/car.js';
 import { ERROR_ATTEMPT_COUNT_INPUT } from '../constants/message.js';
 import { Car } from './Car.js';
-import { CarDto } from './CarDTO.js';
+import { CarDto } from './CarDto.js';
 
 // 매니저: 공통 필드 관리, carList를 통한 우승자 계산
 export class CarManager {
