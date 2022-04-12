@@ -14,6 +14,9 @@ describe('자동차 경주 게임', () => {
     });
 
     it('자동차 이름을 입력하기 위한 input 과 button이 렌더링 되었는지 확인한다.', () => {
+      // given
+      // when
+      // then
       cy.get('#car-names-input').should('be.visible');
       cy.get('#car-names-submit').should('be.visible');
     });
@@ -21,10 +24,14 @@ describe('자동차 경주 게임', () => {
 
   describe('자동차 이름 입력창에 대한 테스트', () => {
     it('자동차 이름을 입력하지 않으면 경고창 메시지를 보여준다.', () => {
+      // given
       const alertStub = cy.stub();
       cy.on('window:alert', alertStub);
 
       cy.get('#car-names-input').clear();
+
+      // when
+      // then
       cy.get('#car-names-submit')
         .click()
         .then(() => {
@@ -33,10 +40,14 @@ describe('자동차 경주 게임', () => {
     });
 
     it('자동차 이름이 6글자 이상이면 경고창 메시지를 보여준다.', () => {
+      // given
       const alertStub = cy.stub();
       cy.on('window:alert', alertStub);
 
       cy.get('#car-names-input').type('EVERYDAY');
+
+      // when
+      // then
       cy.get('#car-names-submit')
         .click()
         .then(() => {
@@ -139,10 +150,7 @@ describe('자동차 경주 게임', () => {
 
       // then
       cy.get('#CHILL').should('be.visible').next().should('have.class', 'draw-random-number');
-
       cy.wait(5000);
-
-      // todo : 시도 횟수가 5회이므로, 화살표는 최대 5개까지 추가될 수 있다.
       cy.get('#CHILL').siblings('.forward-icon').should('have.length.lessThan', 5);
     });
   });
