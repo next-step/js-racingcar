@@ -1,5 +1,6 @@
 import RacingCycleView from './RacingCycleView.js';
 import CarNames from '../CarNames.js';
+import AbstractView from './AbstractView.js';
 
 const CAR_NAME_SEPARATOR = ',';
 
@@ -7,9 +8,13 @@ const $carNameField = document.querySelector('#car-names-field');
 const $carNamesSubmit = $carNameField.querySelector('#car-names-submit');
 const $carNamesInput = $carNameField.querySelector('#car-names-input');
 
-class RacingCarNamesView {
+class RacingCarNamesView extends AbstractView {
   static #disabledCarNameField() {
     $carNameField.disabled = true;
+  }
+
+  static #enabledCarNameField() {
+    $carNameField.disabled = false;
   }
 
   static #initializeCarName() {
@@ -39,6 +44,7 @@ class RacingCarNamesView {
 
   static initialize() {
     RacingCarNamesView.#initializeCarName();
+    RacingCarNamesView.#enabledCarNameField();
   }
 }
 export default RacingCarNamesView;

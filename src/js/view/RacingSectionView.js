@@ -1,8 +1,9 @@
 import RacingCarNamesView from './RacingCarNamesView.js';
 import RandomMovingStrategy from '../RandomMovingStrategy.js';
 import Game from '../Game.js';
+import AbstractView from './AbstractView.js';
 
-const $section = document.querySelector('section > div.mt-4.d-flex');
+const $section = document.querySelector('#game');
 const $resultSection = document.querySelector('#result');
 const $restart = $resultSection.querySelector('#restart');
 const $winner = $resultSection.querySelector('#winner');
@@ -23,7 +24,7 @@ function stopTemplate() {
   return $template.content.firstChild;
 }
 
-class RacingSectionView {
+class RacingSectionView extends AbstractView {
   static #settingCar(car) {
     const $template = document.createElement('template');
     $template.innerHTML = `<div class="mr-2" id="${car.line}"><div class="car-player">${car.name}</div></div>`;
@@ -31,7 +32,9 @@ class RacingSectionView {
   }
 
   static #settingCarToLine(cars) {
-    const $result = new DocumentFragment();
+    const $template = document.createElement('template');
+    $template.innerHTML = '<div class="mt-4 d-flex"></div>';
+    const $result = $template.content.firstChild;
     $result.append(...cars.map((car) => this.#settingCar(car)));
     $section.replaceChildren($result);
   }
@@ -76,12 +79,30 @@ class RacingSectionView {
 
   static #showWinner(winner) {
     $winner.textContent = winner;
+    RacingSectionView.#showResult();
+  }
+
+  static #showGame() {
+    $section.classList.remove('hide');
+  }
+
+  static #initializeGame() {
+    $section.replaceChildren('');
+    $section.classList.add('hide');
+  }
+
+  static #showResult() {
     $resultSection.classList.remove('hide');
+  }
+
+  static #hideResult() {
+    $resultSection.classList.add('hide');
   }
 
   static ready() {
     Game.readyCars(RacingCarNamesView.carNameList());
     this.#settingCarToLine(Game.cars);
+    RacingSectionView.#showGame();
   }
 
   static start(cycle) {
@@ -90,7 +111,12 @@ class RacingSectionView {
       carList: Game.cars,
     });
     RacingSectionView.#showWinner(Game.winner);
-    Game.end();
+  }
+
+  static initialize() {
+    Game.initialize();
+    RacingSectionView.#initializeGame();
+    RacingSectionView.#hideResult();
   }
 
   static eventBindings(onInitialize) {

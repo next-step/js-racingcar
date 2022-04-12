@@ -1,5 +1,6 @@
 import RacingSectionView from './RacingSectionView.js';
 import RacingCycle from '../RacingCycle.js';
+import AbstractView from './AbstractView.js';
 
 const $racingCycleField = document.querySelector('#racing-cycle-field');
 const $racingCycleInput = $racingCycleField.querySelector(
@@ -9,9 +10,17 @@ const $racingCycleSubmit = $racingCycleField.querySelector(
   '#racing-cycle-submit'
 );
 
-class RacingCycleView {
+class RacingCycleView extends AbstractView {
   static #disabledCycleField() {
     $racingCycleField.disabled = true;
+  }
+
+  static #enabledCycleField() {
+    $racingCycleField.disabled = false;
+  }
+
+  static #initializeCycle() {
+    $racingCycleInput.value = null;
   }
 
   static #handleCycleSubmit() {
@@ -28,6 +37,16 @@ class RacingCycleView {
 
   static showView() {
     $racingCycleField.classList.remove('hide');
+  }
+
+  static #hideView() {
+    $racingCycleField.classList.add('hide');
+  }
+
+  static initialize() {
+    RacingCycleView.#enabledCycleField();
+    RacingCycleView.#initializeCycle();
+    RacingCycleView.#hideView();
   }
 
   static eventBindings(onInitialize) {

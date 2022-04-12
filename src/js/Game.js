@@ -9,7 +9,7 @@ export default class Game {
     );
   }
 
-  static end() {
+  static initialize() {
     Game.#cars = null;
   }
 
