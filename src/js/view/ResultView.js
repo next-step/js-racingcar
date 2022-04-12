@@ -3,4 +3,8 @@ export default function ResultView() {
   this.showRacingResult = () => {
     document.querySelector('#racing-result').style.display = '';
   };
+
+  this.showRacingWinners = (winners = []) => {
+    document.querySelector('#winners').innerHTML = winners.join(', ');
+  };
 }

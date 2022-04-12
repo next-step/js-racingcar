@@ -78,15 +78,13 @@ export default class RacingController {
     const forwardCountMax = Math.max(...forwardCountPerCar);
 
     const winners = [];
-
     for (let index = 0; index < forwardCountPerCar.length; index += 1) {
       if (forwardCountPerCar[index] === forwardCountMax) {
         winners.push(carNames[index]);
       }
     }
 
-    document.querySelector('#winners').innerHTML = winners.join(', ');
-
+    this.resultView.showRacingWinners(winners);
     this.resultView.showRacingResult();
   }
 }
