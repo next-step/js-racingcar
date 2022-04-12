@@ -9,15 +9,21 @@ const $carTryInput = $('#car-try-input');
 const $carTrySubmit = $('#car-try-submit');
 const $carRacingBlock = $('#car-racing-block');
 
-const playRacingView = (carNames) =>
+const getRacingGameProcess = (tryCount) => {
+	const template = Array.from({ length: Number(tryCount) }, () =>
+		isMoveCar() ? `<div  class="forward-icon mt-2">⬇️️</div>` : null
+	).join('');
+
+	return template;
+};
+
+const createForwardArrowTemplate = (carNames) =>
 	carNames
 		.map(
 			(name) =>
 				`<div class="mr-2">
 					<div data-cy="${name}" class="car-player">${name}</div>
-					${Array.from({ length: Number($carTryInput.value) }, () =>
-						isMoveCar() ? `<div  class="forward-icon mt-2">⬇️️</div>` : null
-					).join('')}
+					${getRacingGameProcess($carTryInput.value)}
 				</div>`
 		)
 		.join('');
@@ -31,6 +37,11 @@ const submitCarNames = () => {
 	const carNamesArr = toNameArray($carNamesInput.value);
 	if (!isCheckCarNameLength(carNamesArr)) {
 		alert(ERR_MSG.OVER_CAR_NAME_MAX_LENGTH);
+		return;
+	}
+
+	if (carNamesArr.includes($carTryInput.value)) {
+		window.confirm('중복된 자동차의 이름이 있습니다. 그래도 진행하시겠습니까?');
 		return;
 	}
 
@@ -50,7 +61,7 @@ const submitTryNum = () => {
 	$carRacingBlock.style.display = 'flex';
 
 	const carNamesArr = toNameArray($carNamesInput.value);
-	const template = playRacingView(carNamesArr);
+	const template = createForwardArrowTemplate(carNamesArr);
 	$carRacingBlock.innerHTML = `<div class="mt-4 d-flex">${template}</div>`;
 };
 
