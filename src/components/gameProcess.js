@@ -2,11 +2,13 @@ import { $ } from '../utils/dom.js';
 import { MIN_CARS_NUMBER, MIN_RACE_TIMES } from '../constants/validation.js';
 import { WAIT_TIME } from '../constants/common.js';
 import Car from './car.js';
+import Template from '../template.js';
 
 export default function GameProcess({ initState, handleRaceResult }) {
   this.$gameProcess = $('.game-process-container');
   this.$carsContainer = $('.cars-container');
   this.$cars = null;
+  this.$template = new Template();
 
   this.state = initState;
   this.setState = (newState) => {
@@ -14,7 +16,7 @@ export default function GameProcess({ initState, handleRaceResult }) {
     this.render();
   };
 
-  this.render = async () => {
+  this.render = () => {
     const { cars, raceTimes, raceFinishedFlag } = this.state;
 
     if (raceFinishedFlag) return;
@@ -23,32 +25,11 @@ export default function GameProcess({ initState, handleRaceResult }) {
 
     if (this.isPossibleGameProcess(cars, raceTimes)) {
       this.processReady(cars);
-      await this.processRun().then((newState) => handleRaceResult(newState));
+      this.processRun().then((newState) => handleRaceResult(newState));
     }
   };
 
   this.isPossibleGameProcess = (cars, raceTimes) => cars.length >= MIN_CARS_NUMBER && raceTimes >= MIN_RACE_TIMES;
-
-  this.getSpinnerElement = () => {
-    const $spinnerElement = document.createElement('div');
-    $spinnerElement.className = 'd-flex justify-center mt-3';
-    $spinnerElement.dataset.cy = 'spinner-icon';
-    $spinnerElement.innerHTML = String.raw`
-      <div class="relative spinner-container">
-        <span class="material spinner"></span>
-      </div>
-    `;
-
-    return $spinnerElement;
-  };
-
-  this.getForwardElement = () => {
-    const $forwardElement = document.createElement('div');
-    $forwardElement.className = 'forward-icon mt-2';
-    $forwardElement.textContent = '⬇️';
-
-    return $forwardElement;
-  };
 
   this.processReady = (cars) => {
     this.$carsContainer.innerHTML = '';
@@ -56,8 +37,7 @@ export default function GameProcess({ initState, handleRaceResult }) {
       (car) =>
         new Car({
           $target: this.$carsContainer,
-          $spinner: this.getSpinnerElement(),
-          $forward: this.getForwardElement(),
+          $template: this.$template,
           initState: { id: car.id, carName: car.carName, goCount: car.goCount },
         })
     );
