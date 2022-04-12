@@ -1,10 +1,7 @@
 export const $ = (selector, container = document) =>
   container.querySelector(selector);
 
-export const hide = ($el, hide) => {
-  const key = hide ? 'add' : 'remove';
-  $el.classList[key]('hide');
-};
+export const hide = ($el, hide) => $el.classList.toggle('hide', !hide);
 
 /**
  *
