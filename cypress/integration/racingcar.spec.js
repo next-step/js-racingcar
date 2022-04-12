@@ -154,7 +154,7 @@ describe('자동차 경주 게임', () => {
       // then
       cy.get('#CHILL').should('be.visible').next().should('have.class', 'draw-random-number');
       cy.wait(5000);
-      cy.get('#CHILL').siblings('.forward-icon').should('have.length.lessThan', TRY_COUNT_INPUT);
+      cy.get('#CHILL').siblings('.forward-icon').should('have.length.lte', TRY_COUNT_INPUT);
     });
   });
 
@@ -172,6 +172,7 @@ describe('자동차 경주 게임', () => {
 
       // then : 우승자 화면이 보여야 한다.
       cy.get('#racing-result').should('be.visible');
+      cy.get('#winners').should('have.text', 'CHILL');
     });
   });
 });
