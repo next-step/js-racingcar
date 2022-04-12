@@ -40,7 +40,7 @@ const PlayTimesForm = ($el, store) => {
 
     store.subscribe({
       key: 'init',
-      actions: [
+      listeners: [
         () => {
           hide($el, true);
           disabled($el, false);
@@ -50,7 +50,7 @@ const PlayTimesForm = ($el, store) => {
 
     store.subscribe({
       key: 'carNames',
-      actions: [
+      listeners: [
         () => {
           hide($el, false);
           focus($times);

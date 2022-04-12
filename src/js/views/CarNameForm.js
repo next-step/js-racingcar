@@ -65,7 +65,7 @@ const CarNameForm = ($el, store) => {
 
     store.subscribe({
       key: 'init',
-      actions: [() => disabled($el, false)],
+      listeners: [() => disabled($el, false)],
     });
   };
 

@@ -5,7 +5,7 @@ const PlayResult = ($el, store) => {
 
   store.subscribe({
     key: 'init',
-    actions: [() => hide($el, true)],
+    listeners: [() => hide($el, true)],
   });
 };
 

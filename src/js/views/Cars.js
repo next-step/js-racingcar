@@ -69,14 +69,14 @@ const Cars = ($el, store) => {
   const init = () => {
     hide($el, true);
 
-    store.subscribe({ key: 'times', actions: [render, mutateRandomNumbers] });
+    store.subscribe({ key: 'times', listeners: [render, mutateRandomNumbers] });
     store.subscribe({
       key: 'init',
-      actions: [() => hide($el, true)],
+      listeners: [() => hide($el, true)],
     });
     store.subscribe({
       key: 'movements',
-      actions: [renderForward],
+      listeners: [renderForward],
     });
   };
 
