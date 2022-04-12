@@ -114,13 +114,15 @@ describe('자동차 경주 게임', () => {
       .should('be.visible');
   });
 
-  it('random 값이 4,5,6,7,8,9 라면 전진한다.', () => {
+  it('시도 횟수가 5번이라면 최대 5번 전진할 수 있다.', () => {
     // given
     cy.get('#racing-try-count').should('not.be.visible');
     cy.get('#car-names-input').type('CHILL');
     cy.get('#car-names-submit').click();
     cy.get('#racing-try-count').should('be.visible');
     cy.get('#try-count-input').type('5');
+
+    // when
     cy.get('#try-count-submit').click();
     cy.get('.racing-car')
       .should(racingCars => {
@@ -128,18 +130,12 @@ describe('자동차 경주 게임', () => {
       })
       .should('be.visible');
 
-    // when
-    // todo : 일단 로딩이 보여야 한다.
+    // then
     cy.get('#CHILL').should('be.visible').next().should('have.class', 'draw-random-number');
 
-    // todo : 랜덤 값을 어떻게 가져오지?
+    cy.wait(5000);
 
-    // then
-  });
-
-  it('random 값이 0 ~ 3 사이의 숫자라면 멈춘다.', () => {
-    // given
-    // when
-    // then
+    // todo : 시도 횟수가 5회이므로, 화살표는 최대 5개까지 추가될 수 있다.
+    cy.get('#CHILL').siblings('.forward-icon').should('have.length.lessThan', 5);
   });
 });
