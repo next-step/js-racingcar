@@ -30,11 +30,12 @@ class RacingCycleView {
     $racingCycleField.classList.remove('hide');
   }
 
-  static eventBindings() {
+  static eventBindings(onInitialize) {
     $racingCycleSubmit.addEventListener(
       'click',
       RacingCycleView.#handleCycleSubmit
     );
+    RacingSectionView.eventBindings(onInitialize);
   }
 }
 export default RacingCycleView;

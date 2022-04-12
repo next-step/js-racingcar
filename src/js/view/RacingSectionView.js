@@ -1,8 +1,11 @@
 import RacingCarNamesView from './RacingCarNamesView.js';
-import { Car } from '../Car.js';
 import RandomMovingStrategy from '../RandomMovingStrategy.js';
+import Game from '../Game.js';
 
 const $section = document.querySelector('section > div.mt-4.d-flex');
+const $resultSection = document.querySelector('#result');
+const $restart = $resultSection.querySelector('#restart');
+const $winner = $resultSection.querySelector('#winner');
 
 function moveTemplate() {
   const $template = document.createElement('template');
@@ -20,30 +23,17 @@ function stopTemplate() {
   return $template.content.firstChild;
 }
 
-function player(carName) {
-  return `<div class="car-player">${carName}</div>`;
-}
-
 class RacingSectionView {
-  static #cars() {
-    const $lines = $section.querySelectorAll('div.mr-2');
-    return [...$lines].map(($line) => {
-      const carName = $line.querySelector('.car-player');
-      return new Car({ name: carName, target: $line });
-    });
+  static #settingCar(car) {
+    const $template = document.createElement('template');
+    $template.innerHTML = `<div class="mr-2" id="${car.line}"><div class="car-player">${car.name}</div></div>`;
+    return $template.content.firstChild;
   }
 
-  static #carSetting(carName) {
-    const $car = document.createElement('div');
-    $car.classList.add('mr-2');
-    $car.innerHTML = player(carName);
-    return $car;
-  }
-
-  static #settingCars(carNameList) {
+  static #settingCarToLine(cars) {
     const $result = new DocumentFragment();
-    $result.append(...carNameList.map((carName) => this.#carSetting(carName)));
-    return $result;
+    $result.append(...cars.map((car) => this.#settingCar(car)));
+    $section.replaceChildren($result);
   }
 
   static #removeStopPositionAllCar() {
@@ -52,12 +42,16 @@ class RacingSectionView {
       .forEach(($stopPosition) => $stopPosition.remove());
   }
 
+  static #carLine(car) {
+    return $section.querySelector(`#${car.line}`);
+  }
+
   static #movePosition(car) {
-    car.$target.appendChild(moveTemplate());
+    RacingSectionView.#carLine(car).appendChild(moveTemplate());
   }
 
   static #stopPosition(car) {
-    car.$target.appendChild(stopTemplate());
+    RacingSectionView.#carLine(car).appendChild(stopTemplate());
   }
 
   static #changeCarPosition(car) {
@@ -80,17 +74,27 @@ class RacingSectionView {
     new Array(Number(cycle)).fill().forEach(() => this.#runningLap(carList));
   }
 
-  static start(cycle) {
-    this.#runningLapByCycle({
-      cycle,
-      carList: this.#cars(),
-    });
+  static #showWinner(winner) {
+    $winner.textContent = winner;
+    $resultSection.classList.remove('hide');
   }
 
   static ready() {
-    $section.replaceChildren(
-      this.#settingCars(RacingCarNamesView.carNameList())
-    );
+    Game.readyCars(RacingCarNamesView.carNameList());
+    this.#settingCarToLine(Game.cars);
+  }
+
+  static start(cycle) {
+    this.#runningLapByCycle({
+      cycle,
+      carList: Game.cars,
+    });
+    RacingSectionView.#showWinner(Game.winner);
+    Game.end();
+  }
+
+  static eventBindings(onInitialize) {
+    $restart.addEventListener('click', onInitialize);
   }
 }
 export default RacingSectionView;
