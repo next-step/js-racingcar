@@ -10,9 +10,15 @@ const getCarBoardItemTemplate = ({ name, stateList }) => {
 };
 
 export const getCardBoardTemplate = (carBoard) => {
+  if (!carBoard || carBoard.length < 1) return '';
+
   return `
     <div class="mt-4 d-flex">
       ${carBoard.map((cardBoardItem) => getCarBoardItemTemplate(cardBoardItem)).join('')}
     </div>
   `;
+};
+
+export const getWinnerNamesTemplate = (winnerList) => {
+  return `🏆 최종 우승자: ${winnerList.join(', ')} 🏆`;
 };

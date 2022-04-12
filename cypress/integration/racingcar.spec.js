@@ -1,3 +1,4 @@
+import { getWinnerNamesTemplate } from '../../src/js/view/Template.js';
 import { ERROR } from './../../src/js/constants/index.js';
 
 const carNamesT1 = '제우스, 오너, 페이커, 구마유시, 케리아';
@@ -50,11 +51,11 @@ describe('자동차 경주 게임 테스트 케이스', () => {
           const count = $player[0].parentElement.childElementCount;
 
           if (count === max) {
-            winners.push($player.text().trim());
+            winners.push($player[0].textContent.trim());
           }
           if (count > max) {
             max = count;
-            winners = [$player.text().trim()];
+            winners = [$player[0].textContent.trim()];
           }
           cy.wrap(winners).as('winners');
 
@@ -62,7 +63,7 @@ describe('자동차 경주 게임 테스트 케이스', () => {
         })
         .then(() => {
           cy.get('#racing-result').should('be.visible');
-          cy.get('racing-result h2').should('have.text', winners.join(', '));
+          cy.get('#racing-result h2').contains(winners.join(', '));
         });
     });
   });

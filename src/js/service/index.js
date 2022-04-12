@@ -1,4 +1,4 @@
-import { CAR_STATE, ERROR, CAR_NAME, MAX_RANDOM_NUMBER } from '../constants/index.js';
+import { CAR_STATE, ERROR, CAR_NAME } from '../constants/index.js';
 
 const checkCarNameIsValid = (carName) => {
   if (!carName.trim()) {
@@ -18,7 +18,7 @@ export const checkCarNamesIsValid = (carNames) => {
 };
 
 const createForwardState = () => {
-  const random = Math.floor(Math.random() * MAX_RANDOM_NUMBER);
+  const random = Math.floor(Math.random() * CAR_STATE.MAX_RANDOM_NUMBER);
   return random > CAR_STATE.MAX_STOP_VALUE ? CAR_STATE.GO : CAR_STATE.STOP;
 };
 
@@ -31,4 +31,21 @@ export const createCarBoard = ({ names, count }) => {
   });
 
   return carBoard;
+};
+
+export const getWinners = (carBoard) => {
+  let winners = [];
+  let max = 0;
+  for (const carState of carBoard) {
+    const count = carState.stateList.filter((state) => state === 'go').length;
+    if (count === max) {
+      winners.push(carState.name);
+    }
+    if (count > max) {
+      max = count;
+      winners = [carState.name];
+    }
+  }
+
+  return winners;
 };
