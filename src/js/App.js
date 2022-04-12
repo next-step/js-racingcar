@@ -24,10 +24,6 @@ export default class App extends Template {
         callback: this.inputtedHandler,
       },
       {
-        type: 'winners',
-        callback: this.winnersHandler,
-      },
-      {
         type: 'reset',
         callback: () => this.firstElementChild.replaceWith($element(template)),
       },
@@ -44,11 +40,6 @@ export default class App extends Template {
       { attr: 'try-count', value: detail.tryCount },
     ];
     $setAttributes({ target: 'game-section', attrs });
-  };
-
-  winnersHandler = ({ detail }) => {
-    const attrs = [{ attr: 'winners', value: detail.winners }];
-    $setAttributes({ target: 'result-section', attrs });
   };
 }
 
