@@ -157,4 +157,21 @@ describe('자동차 경주 게임', () => {
       cy.get('#CHILL').siblings('.forward-icon').should('have.length.lessThan', TRY_COUNT_INPUT);
     });
   });
+
+  describe('자동차 경주 게임이 완료됐을 때의 테스트', () => {
+    it('경주가 끝나면 누가 우승했는지를 알려준다.', () => {
+      // given
+      const TRY_COUNT_INPUT = 5;
+      const MILLISECOND = 1000;
+      cy.get('#car-names-input').type('CHILL');
+      cy.get('#car-names-submit').click();
+      cy.get('#try-count-input').type(TRY_COUNT_INPUT);
+      cy.get('#try-count-submit').click();
+      cy.wait(TRY_COUNT_INPUT * MILLISECOND);
+      // when : 경주가 끝났을 때
+
+      // then : 우승자 화면이 보여야 한다.
+      cy.get('#racing-result').should('be.visible');
+    });
+  });
 });
