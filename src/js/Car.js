@@ -8,15 +8,18 @@ const CarStatus = Object.freeze({
 export class Car {
   #name;
   #status;
-  #target;
+  #line;
+  #distance;
 
-  constructor({ name, target }) {
+  constructor({ name, line }) {
     this.#name = name;
-    this.#target = target;
+    this.#line = line;
+    this.#distance = 0;
     this.#stop();
   }
 
   #move() {
+    this.#distance += 1;
     this.#status = CarStatus.MOVING;
   }
 
@@ -24,8 +27,16 @@ export class Car {
     this.#status = CarStatus.STOP;
   }
 
-  get $target() {
-    return this.#target;
+  get name() {
+    return this.#name;
+  }
+
+  get line() {
+    return this.#line;
+  }
+
+  get movingDistance() {
+    return this.#distance;
   }
 
   isMoveStatus() {
