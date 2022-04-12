@@ -21,7 +21,7 @@ const setRacingNumber = (carNames, clickEvent) => {
     .then(() => clickEvent);
 };
 
-describe('example to-do app', () => {
+describe('자동차 이름 입력하기', () => {
   beforeEach(() => {
     cy.visit(BASE_URL);
   });
@@ -43,6 +43,12 @@ describe('example to-do app', () => {
     cy.get('.num-form').each((numForm) => {
       expect(numForm).to.be.visible;
     });
+  });
+});
+
+describe('자동차 레이싱 횟수 입력하기', () => {
+  beforeEach(() => {
+    cy.visit(BASE_URL);
   });
 
   it('시도 횟수 입력란를 입력하지 않으면 경고문을 보여준다.', () => {
