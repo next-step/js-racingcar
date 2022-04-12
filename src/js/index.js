@@ -1,5 +1,5 @@
 import { $ } from './util/dom.js';
-import { ERR_MSG } from './util/constatns.js';
+import { ERR_MSG } from './util/constants.js';
 import { toNameArray, isCheckCarNameLength, isMoveCar } from './util/util.js';
 
 const $carNamesInput = $('#car-names-input');

@@ -1,4 +1,4 @@
-import { MAX_CAR_NAME_LENGTH, RANDOM_NUM } from './constatns.js';
+import { MAX_CAR_NAME_LENGTH, RANDOM_NUM } from './constants.js';
 
 export function toNameArray(str) {
 	return str.split(',').map((item) => item.trim());
