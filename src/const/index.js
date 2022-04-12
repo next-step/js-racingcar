@@ -6,4 +6,5 @@ export const MESSAGE = {
   PLZ_INSERT_CAR_NAME: '자동차 이름을 입력하세요.',
   PLZ_CHECK_MAX_TIMES_TO_PLAY: `시도할 수 있는 최대 횟수는 ${MAX_TIMES_TO_PLAY}회 입니다.`,
   PLZ_INSERT_PLAY_TIMES: '시도할 횟수를 입력해주세요.',
+  PLZ_CHECK_CAR_NAME_PATTERN: '자동차 이름은 한글과 영문만 입력할 수 있습니다.',
 };
