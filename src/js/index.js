@@ -1,5 +1,5 @@
 import { $ } from './util/dom.js';
-import { ERR_MSG } from './util/constants.js';
+import { WARN_MSG, ERR_MSG } from './util/constants.js';
 import { toNameArray, isCheckCarNameLength, isMoveCar } from './util/util.js';
 
 const $carNamesInput = $('#car-names-input');
@@ -40,8 +40,11 @@ const submitCarNames = () => {
 		return;
 	}
 
-	if (carNamesArr.includes($carTryInput.value)) {
-		window.confirm('중복된 자동차의 이름이 있습니다. 그래도 진행하시겠습니까?');
+	const carNamesSet = new Set(carNamesArr);
+	if (
+		carNamesArr.length !== carNamesSet.size &&
+		window.confirm(WARN_MSG.DUPLICATE_CAR_NAME) === false
+	) {
 		return;
 	}
 
