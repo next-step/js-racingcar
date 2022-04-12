@@ -77,7 +77,8 @@ describe('자동차 경주 게임', () => {
       cy.get('#racing-try-count').should('be.visible');
 
       // when
-      cy.get('#try-count-input').type('-1');
+      const WRONG_INPUT_UNDER_ZERO = -1;
+      cy.get('#try-count-input').type(WRONG_INPUT_UNDER_ZERO);
 
       const alertStub = cy.stub();
       cy.on('window:alert', alertStub);
@@ -98,7 +99,8 @@ describe('자동차 경주 게임', () => {
       cy.get('#racing-try-count').should('be.visible');
 
       // when
-      cy.get('#try-count-input').type('11');
+      const WRONG_INPUT_OVER_TEN = 11;
+      cy.get('#try-count-input').type(WRONG_INPUT_OVER_TEN);
 
       const alertStub = cy.stub();
       cy.on('window:alert', alertStub);
@@ -133,12 +135,13 @@ describe('자동차 경주 게임', () => {
     });
 
     it('시도 횟수가 5번이라면 최대 5번 전진할 수 있다.', () => {
+      const TRY_COUNT_INPUT = 5;
       // given
       cy.get('#racing-try-count').should('not.be.visible');
       cy.get('#car-names-input').type('CHILL');
       cy.get('#car-names-submit').click();
       cy.get('#racing-try-count').should('be.visible');
-      cy.get('#try-count-input').type('5');
+      cy.get('#try-count-input').type(TRY_COUNT_INPUT);
 
       // when
       cy.get('#try-count-submit').click();
@@ -151,7 +154,7 @@ describe('자동차 경주 게임', () => {
       // then
       cy.get('#CHILL').should('be.visible').next().should('have.class', 'draw-random-number');
       cy.wait(5000);
-      cy.get('#CHILL').siblings('.forward-icon').should('have.length.lessThan', 5);
+      cy.get('#CHILL').siblings('.forward-icon').should('have.length.lessThan', TRY_COUNT_INPUT);
     });
   });
 });
