@@ -4,8 +4,7 @@ export const splitCarName = carName => {
 };
 
 export const generateNumberInRange = ({ min, max }) => {
-  const number = Math.floor(Math.random() * (max + 1)) + min;
-  return number;
+  return Math.floor(Math.random() * (max + 1)) + min;
 };
 
 export const updateInterval = ({ fn, endFn, interval, times }) => {
