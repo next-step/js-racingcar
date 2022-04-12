@@ -4,8 +4,8 @@ export function toNameArray(str) {
 	return str.split(',').map((item) => item.trim());
 }
 
-export function isCheckCarNameLength(carName) {
-	return carName.every((item) => item.length <= MAX_CAR_NAME_LENGTH);
+export function isCheckCarNameLength(carNames) {
+	return carNames.every((item) => item.length <= MAX_CAR_NAME_LENGTH);
 }
 
 export function isMoveCar() {
