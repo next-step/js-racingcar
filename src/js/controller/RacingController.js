@@ -2,10 +2,11 @@ import { Constants } from '../constants/constants.js';
 import { Validator, getRandomNumber, isMoveForwardNumber } from '../util/Utils.js';
 
 export default class RacingController {
-  constructor(racingModel, inputView, trackView) {
+  constructor(racingModel, inputView, trackView, resultView) {
     this.racingModel = racingModel;
     this.inputView = inputView;
     this.trackView = trackView;
+    this.resultView = resultView;
     this.registerCarEventListener();
   }
 
@@ -61,6 +62,7 @@ export default class RacingController {
       if (count > this.racingModel.tryCount) {
         this.trackView.removeLoading();
         clearInterval(timeIntervalId);
+        this.resultView.showRacingResult();
       }
     }, Constants.MILLISECONDS_PER_TRY);
   }
