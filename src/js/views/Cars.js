@@ -1,5 +1,5 @@
 import { $, hide } from '../../utils/dom.js';
-import { generateRandomNumbersUntil, range } from '../../utils/index.js';
+import { generateRandomNumberUnder, range } from '../../utils/index.js';
 
 const template = {
   forward: () => `
@@ -28,7 +28,7 @@ const removeChild = ($el) => {
 const MIN_NUMBER_TO_MOVE = 4;
 const getRandomMovingResults = (times, minNumberToMove = MIN_NUMBER_TO_MOVE) =>
   range(times)
-    .map(() => generateRandomNumbersUntil())
+    .map(() => generateRandomNumberUnder())
     .map((n) => n >= minNumberToMove);
 
 const generateMovements = (carNames, times) =>
