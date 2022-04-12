@@ -176,5 +176,25 @@ describe('자동차 경주 게임', () => {
         cy.get('#winners').should('have.text', 'CHILL');
       });
     });
+
+    describe('자동차가 2대 이상일 경우', () => {
+      it('경주가 끝나면 누가 우승했는지를 알려준다.', () => {
+        // given
+        const TRY_COUNT_INPUT = 5;
+        const MILLISECOND = 1000;
+        cy.get('#car-names-input').type('CHILL,HIP');
+        cy.get('#car-names-submit').click();
+        cy.get('#try-count-input').type(TRY_COUNT_INPUT);
+        cy.get('#try-count-submit').click();
+        cy.wait(TRY_COUNT_INPUT * MILLISECOND);
+        // when : 경주가 끝났을 때
+
+        // then : 우승자는 둘 중 한명이어야 한다.
+        cy.get('#racing-result').should('be.visible');
+        cy.get('#winners').then($span => {
+          expect($span.text()).to.be.oneOf(['CHILL', 'HIP', 'CHILL, HIP']);
+        });
+      });
+    });
   });
 });
