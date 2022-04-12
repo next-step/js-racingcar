@@ -62,8 +62,31 @@ export default class RacingController {
       if (count > this.racingModel.tryCount) {
         this.trackView.removeLoading();
         clearInterval(timeIntervalId);
-        this.resultView.showRacingResult();
+
+        this.getRacingResult();
       }
     }, Constants.MILLISECONDS_PER_TRY);
+  }
+
+  getRacingResult() {
+    const { carNames } = this.racingModel;
+
+    const forwardCountPerCar = carNames.map(
+      carName => document.querySelector(`#${carName}`).parentElement.childElementCount
+    );
+
+    const forwardCountMax = Math.max(...forwardCountPerCar);
+
+    const winners = [];
+
+    for (let index = 0; index < forwardCountPerCar.length; index += 1) {
+      if (forwardCountPerCar[index] === forwardCountMax) {
+        winners.push(carNames[index]);
+      }
+    }
+
+    document.querySelector('#winners').innerHTML = winners.join(', ');
+
+    this.resultView.showRacingResult();
   }
 }
