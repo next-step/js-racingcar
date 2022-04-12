@@ -30,6 +30,9 @@ describe('자동차 경주 게임 테스트 케이스', () => {
   context('시도 횟수를 제대로 입력한 경우', () => {
     it('자동차 이름이 출력된다.', () => {
       const racingCount = 5;
+      const carNames = carNamesT1.split(',');
+      let winners = [];
+      let max = 0;
 
       cy.get('#racing-name input').type(carNamesT1);
       cy.get('#racing-name button').click();
@@ -41,15 +44,25 @@ describe('자동차 경주 게임 테스트 케이스', () => {
       cy.get('#racing-count input').type(racingCount);
       cy.get('#racing-count button').click();
 
-      cy.get('#racing-name input')
-        .invoke('val')
-        .then((names) => {
-          const carNames = names.split(',');
+      cy.get('#racing-board').should('be.visible');
+      cy.get('#racing-board .car-player')
+        .each(($player, index) => {
+          const count = $player[0].parentElement.childElementCount;
 
-          cy.get('#racing-board').should('be.visible');
-          cy.get('#racing-board .car-player').each(($player, index) => {
-            expect(carNames[index]).to.equal($player.text());
-          });
+          if (count === max) {
+            winners.push($player.text().trim());
+          }
+          if (count > max) {
+            max = count;
+            winners = [$player.text().trim()];
+          }
+          cy.wrap(winners).as('winners');
+
+          expect(carNames[index]).to.equal($player.text());
+        })
+        .then(() => {
+          cy.get('#racing-result').should('be.visible');
+          cy.get('racing-result h2').should('have.text', winners.join(', '));
         });
     });
   });
