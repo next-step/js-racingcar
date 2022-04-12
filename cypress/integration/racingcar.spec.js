@@ -14,8 +14,7 @@ describe('자동차 경주 게임', () => {
 
         const verification = word
           .split(',')
-          .map((w) => w.trim())
-          .map((w) => w.replace(carNamePattern, '').substring(0, 5))
+          .map((w) => w.trim().replace(carNamePattern, '').substring(0, 5))
           .join(', ');
 
         cy.submitCarName(word);
