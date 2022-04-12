@@ -11,9 +11,9 @@ import {
 } from '../helpers/index.js';
 import { checkValidations, racingWrapper } from './service.js';
 
+// prettier-ignore
 const executor = {
   [CONTROLL_KEY.CAR_NAMES]: pipe(
-    // prettier-ignore
     trim,
     trimComma,
     split,
@@ -31,12 +31,10 @@ const executor = {
     () => $disabled('#game-try-count-confirm'),
   ),
   [CONTROLL_KEY.GAME_BEFORE]: pipe(
-    // prettier-ignore
     split,
     carNames => carNames.map(carName => ({ name: carName, moveCount: 0 })),
   ),
   [CONTROLL_KEY.GAME]: pipe(
-    // prettier-ignore
     racingWrapper,
     window.requestAnimationFrame,
   ),

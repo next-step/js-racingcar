@@ -12,6 +12,8 @@ export const MAX_GAME_TRY_COUNT = 100;
 export const MOVE_CONDITION = 4;
 export const MOVE_DECIDE_DELAY = 1000;
 
+export const RESULT_ALERT_DELAY = 1000;
+
 export const DICE_RANGE = {
   MIN: 1,
   MAX: 9,

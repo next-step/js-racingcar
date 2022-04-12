@@ -1,4 +1,5 @@
 import Template from '../Template.js';
+import { RESULT_ALERT_DELAY } from '../constants.js';
 import { $element } from '../helpers/index.js';
 
 const template = /*html*/ `
@@ -34,7 +35,8 @@ export default class ResultSection extends Template {
     this.firstElementChild.classList.remove('hidden');
     const winners = this.getAttribute('winners');
     document.getElementById('winners').textContent = winners;
-    setTimeout(() => alert(`이번 레이싱 게임의 승자는\n\n${winners} 입니다!\n\n✨축하해요✨`), 100);
+    // prettier-ignore
+    setTimeout(() => alert(`이번 레이싱 게임의 승자는\n\n${winners} 입니다!\n\n✨축하해요✨`), RESULT_ALERT_DELAY);
   }
 
   connectedCallback() {
