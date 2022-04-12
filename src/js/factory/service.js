@@ -18,12 +18,11 @@ const renderWinners = ({ winners }) => {
 
 const parsedRacingGameWinner = cars => {
   const maxMoveCount = store.getState('maxMoveCount');
-  const winners = cars
-    .reduce((result, { name, moveCount }) => {
+  // prettier-ignore
+  const winners = cars.reduce((result, { name, moveCount }) => {
       if (maxMoveCount === moveCount) return [...result, name];
       return result;
-    }, [])
-    .join(', ');
+    }, []).join(', ');
 
   return { cars, winners };
 };

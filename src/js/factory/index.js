@@ -12,25 +12,34 @@ import {
 import { checkValidations, racingWrapper } from './service.js';
 
 const executor = {
-  [CONTROLL_KEY.CAR_NAMES]: pipe(trim, trimComma, split, removeSpace, checkValidations),
-  //
+  [CONTROLL_KEY.CAR_NAMES]: pipe(
+    // prettier-ignore
+    trim,
+    trimComma,
+    split,
+    removeSpace,
+    checkValidations,
+  ),
   [CONTROLL_KEY.CAR_NAMES_AFTER]: pipe(
     () => $show('#game-try-count-form'),
     () => $disabled('#car-names'),
     () => $disabled('#car-names-confirm'),
     () => setTimeout(() => $focus('#game-try-count'), 100),
   ),
-  //
   [CONTROLL_KEY.TRY_COUNT_AFTER]: pipe(
     () => $disabled('#game-try-count'),
     () => $disabled('#game-try-count-confirm'),
   ),
-  //
-  [CONTROLL_KEY.GAME_BEFORE]: pipe(split, carNames =>
-    carNames.map(carName => ({ name: carName, moveCount: 0 })),
+  [CONTROLL_KEY.GAME_BEFORE]: pipe(
+    // prettier-ignore
+    split,
+    carNames => carNames.map(carName => ({ name: carName, moveCount: 0 })),
   ),
-  //
-  [CONTROLL_KEY.GAME]: pipe(racingWrapper, window.requestAnimationFrame),
+  [CONTROLL_KEY.GAME]: pipe(
+    // prettier-ignore
+    racingWrapper,
+    window.requestAnimationFrame,
+  ),
 };
 
 export const pipeline = (controllKey, params) => {

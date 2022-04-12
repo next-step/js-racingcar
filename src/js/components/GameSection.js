@@ -6,16 +6,14 @@ import { $element } from '../helpers/index.js';
 const template = /*html*/ `
 <section class="d-flex justify-center mt-5 hidden"></section>`;
 
+// prettier-ignore
 const panel = cars => /*html*/ `
-<div class="mt-4 d-flex">${cars
-  .map(
-    car => `
-      <div class="mr-2" id="${car.name}">
-        <div class="car-player">${car.name}</div>
-        ${spinner}
-      </div>`,
-  )
-  .join('')}</div>`;
+<div class="mt-4 d-flex">${cars.map(car => `
+  <div class="mr-2" id="${car.name}">
+    <div class="car-player">${car.name}</div>
+    ${spinner}
+  </div>`).join('')}
+</div>`;
 
 const spinner = /*html*/ `
 <div class="d-flex justify-center mt-3">

@@ -1,9 +1,7 @@
 import { DICE_RANGE, ERROR_MESSAGE } from '../constants.js';
 
-export const pipe =
-  (...fns) =>
-  value =>
-    fns.reduce((_value, fn) => fn(_value), value);
+// prettier-ignore
+export const pipe = (...fns) => value => fns.reduce((_value, fn) => fn(_value), value);
 
 export const trim = value => {
   if (typeof value !== 'string') throw new ReferenceError(ERROR_MESSAGE.INVALID_TYPE);

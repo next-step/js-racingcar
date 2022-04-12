@@ -34,9 +34,7 @@ export default class ResultSection extends Template {
     this.firstElementChild.classList.remove('hidden');
     const winners = this.getAttribute('winners');
     document.getElementById('winners').textContent = winners;
-    setTimeout(() => {
-      alert(`이번 레이싱 게임의 승자는\n\n${winners} 입니다!\n\n✨축하해요✨`);
-    }, 100);
+    setTimeout(() => alert(`이번 레이싱 게임의 승자는\n\n${winners} 입니다!\n\n✨축하해요✨`), 100);
   }
 
   connectedCallback() {
