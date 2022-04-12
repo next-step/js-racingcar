@@ -1,11 +1,11 @@
-import { CAR_STATE, ERROR, NUMBER } from '../constants/index.js';
+import { CAR_STATE, ERROR, CAR_NAME, MAX_RANDOM_NUMBER } from '../constants/index.js';
 
 const checkCarNameIsValid = (carName) => {
   if (!carName.trim()) {
     return ERROR.NAME_EMPTY;
   }
 
-  if (carName.length > NUMBER.NAME_MAX_LENGTH) {
+  if (carName.length > CAR_NAME.MAX_LENGTH) {
     return ERROR.NAME_MAX_LENGTH;
   }
 
@@ -18,8 +18,8 @@ export const checkCarNamesIsValid = (carNames) => {
 };
 
 const createForwardState = () => {
-  const random = Math.floor(Math.random() * 10);
-  return random > NUMBER.MAX_STOP_VALUE ? CAR_STATE.GO : CAR_STATE.STOP;
+  const random = Math.floor(Math.random() * MAX_RANDOM_NUMBER);
+  return random > CAR_STATE.MAX_STOP_VALUE ? CAR_STATE.GO : CAR_STATE.STOP;
 };
 
 export const createCarBoard = ({ names, count }) => {
