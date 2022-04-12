@@ -66,21 +66,17 @@ const Cars = ($el, store) => {
 
   const renderForward = (randomNumbers) => randomNumbers.forEach(moveCar);
 
-  const init = () => {
-    hide($el, true);
+  hide($el, true);
 
-    store.subscribe({ key: 'times', listeners: [render, mutateRandomNumbers] });
-    store.subscribe({
-      key: 'init',
-      listeners: [() => hide($el, true)],
-    });
-    store.subscribe({
-      key: 'movements',
-      listeners: [renderForward],
-    });
-  };
-
-  init();
+  store.subscribe({ key: 'times', listeners: [render, mutateRandomNumbers] });
+  store.subscribe({
+    key: 'init',
+    listeners: [() => hide($el, true)],
+  });
+  store.subscribe({
+    key: 'movements',
+    listeners: [renderForward],
+  });
 };
 
 export default Cars;

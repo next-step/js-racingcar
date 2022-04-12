@@ -33,33 +33,29 @@ const PlayTimesForm = ($el, store) => {
     }
   };
 
-  const init = () => {
-    hide($el, true);
+  hide($el, true);
 
-    $el.addEventListener('submit', onSubmitPlayTimes);
+  $el.addEventListener('submit', onSubmitPlayTimes);
 
-    store.subscribe({
-      key: 'init',
-      listeners: [
-        () => {
-          hide($el, true);
-          disabled($el, false);
-        },
-      ],
-    });
+  store.subscribe({
+    key: 'init',
+    listeners: [
+      () => {
+        hide($el, true);
+        disabled($el, false);
+      },
+    ],
+  });
 
-    store.subscribe({
-      key: 'carNames',
-      listeners: [
-        () => {
-          hide($el, false);
-          focus($times);
-        },
-      ],
-    });
-  };
-
-  init();
+  store.subscribe({
+    key: 'carNames',
+    listeners: [
+      () => {
+        hide($el, false);
+        focus($times);
+      },
+    ],
+  });
 };
 
 export default PlayTimesForm;

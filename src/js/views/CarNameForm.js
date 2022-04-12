@@ -36,16 +36,12 @@ const CarNameForm = ($el, store) => {
     }
   };
 
-  const init = () => {
-    $el.addEventListener('submit', onSubmitCarName);
+  $el.addEventListener('submit', onSubmitCarName);
 
-    store.subscribe({
-      key: 'init',
-      listeners: [() => disabled($el, false)],
-    });
-  };
-
-  init();
+  store.subscribe({
+    key: 'init',
+    listeners: [() => disabled($el, false)],
+  });
 };
 
 export default CarNameForm;
