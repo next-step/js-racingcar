@@ -178,7 +178,7 @@ describe('자동차 경주 게임', () => {
     });
 
     describe('자동차가 2대 이상일 경우', () => {
-      it('경주가 끝나면 누가 우승했는지를 알려준다.', () => {
+      it('자동차가 2대라면 우승자는 1명 또는 2명일 수 있다.', () => {
         // given
         const TRY_COUNT_INPUT = 5;
         const MILLISECOND = 1000;
@@ -189,7 +189,7 @@ describe('자동차 경주 게임', () => {
         cy.wait(TRY_COUNT_INPUT * MILLISECOND);
         // when : 경주가 끝났을 때
 
-        // then : 우승자는 둘 중 한명이어야 한다.
+        // then : 우승자는 한명 또는 두명이다.
         cy.get('#racing-result').should('be.visible');
         cy.get('#winners').then($span => {
           expect($span.text()).to.be.oneOf(['CHILL', 'HIP', 'CHILL, HIP']);
