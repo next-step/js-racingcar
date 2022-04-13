@@ -220,7 +220,20 @@ describe('자동차 경주 게임', () => {
       cy.wait(WAIT_SECOND * MILLISECOND).then(() => {
         expect(alertStub).to.be.calledWith('🎇🎇🎇🎇 축하합니다!🎇🎇🎇🎇');
       });
-      
+    });
+
+    it('다시 시작하기 버튼을 클릭하면 초기 화면을 보여준다.', () => {
+      // given
+      const TRY_COUNT_INPUT = 5;
+      const MILLISECOND = 1000;
+      cy.get('#car-names-input').type('CHILL,HIP');
+      cy.get('#car-names-submit').click();
+      cy.get('#try-count-input').type(TRY_COUNT_INPUT);
+      cy.get('#try-count-submit').click();
+      cy.wait(TRY_COUNT_INPUT * MILLISECOND);
+      cy.get('#retry-button').should('be.visible');
+
+      // when : 다시 시작하기 버튼을 클릭했을 때
     });
   });
 
