@@ -234,6 +234,13 @@ describe('자동차 경주 게임', () => {
       cy.get('#retry-button').should('be.visible');
 
       // when : 다시 시작하기 버튼을 클릭했을 때
+      cy.get('#retry-button').click();
+
+      // then : 자동차 이름을 입력하는 화면만 보여야 한다.
+      cy.get('#racing-try-count').should('not.be.visible');
+      cy.get('#racing-track').should('not.be.visible');
+      cy.get('#racing-result').should('not.be.visible');
+
     });
   });
 
