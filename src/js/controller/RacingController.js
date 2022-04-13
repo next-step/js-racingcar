@@ -44,7 +44,6 @@ export default class RacingController {
     this.startRace();
   }
 
-  // todo : 경주 시작
   startRace() {
     const { carNames } = this.racingModel;
     let count = Constants.INITIAL_TRY_COUNT;
@@ -92,7 +91,6 @@ export default class RacingController {
   }
 
   retryRacing() {
-    // todo : 시도 횟수 입력 화면, 경주 트랙 화면, 결과 화면이 모두 가려져야 한다.
     this.inputView.hideRacingTryCount();
     this.trackView.hideRacingTrack();
     this.resultView.hideRacingResult();
