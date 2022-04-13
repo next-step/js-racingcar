@@ -6,6 +6,7 @@ import store from '../store/store.js';
 function NameContainer(target) {
   target.innerHTML = template();
 
+  const $carNameForm = $('#car-name-form', target);
   const $carNameInput = $('#car-name', target);
   const $carNameBtn = $('#car-name-btn', target);
 

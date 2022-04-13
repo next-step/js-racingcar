@@ -6,6 +6,7 @@ import store from '../store/store.js';
 function NumberContainer(target) {
   target.innerHTML = template();
 
+  const $racingNumberForm = $('#racing-number-form', target);
   const $racingNumberInput = $('#racing-number', target);
   const $racingNumberBtn = $('#racing-number-btn', target);
 
