@@ -9,7 +9,7 @@ import {
 } from './constants.js';
 
 const hasCarNameOverMaxLength = (cars) =>
-  cars.some((car) => car.length > CAR_NAME_LENGTH_MAXIMUM);
+  cars.some((car) => car.trim().length > CAR_NAME_LENGTH_MAXIMUM);
 
 const validate = (predicate, handleError) => {
   if (!predicate) {
