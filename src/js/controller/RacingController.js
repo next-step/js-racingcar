@@ -86,5 +86,6 @@ export default class RacingController {
 
     this.resultView.showRacingWinners(winners);
     this.resultView.showRacingResult();
+    this.resultView.showCongratulatoryMessage();
   }
 }
