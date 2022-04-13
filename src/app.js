@@ -22,29 +22,45 @@ function initApp() {
   const $raceContainer = $app.querySelector(".race");
   const $result = $app.querySelector(".result");
 
-  function runRound(name) {
-    const randomNumber = getRandomNumber(0, 9);
-    const command = getCommand(randomNumber);
+  async function runRound(names) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const result = names.reduce(
+          (acc, curr) => ({ ...acc, [curr]: null }),
+          {}
+        );
+        names.forEach((name) => {
+          const randomNumber = getRandomNumber(0, 9);
+          const command = getCommand(randomNumber);
 
-    if (command === COMMAND_GO) {
-      document
-        .querySelector(`[aria-label="${name}"]`)
-        .insertAdjacentHTML("beforeend", forwardIconTemplate);
-    }
-    return command;
+          if (command === COMMAND_GO) {
+            document
+              .querySelector(`[aria-label="${name}"]`)
+              .insertAdjacentHTML("beforeend", forwardIconTemplate);
+          }
+          result[name] = command;
+        });
+
+        resolve(result);
+      }, 1000);
+    });
   }
 
-  function runRace(maxRound, names) {
+  async function runRace(maxRound, names) {
     const raceResult = names.reduce(
       (acc, curr) => ({ ...acc, [curr]: [] }),
       {}
     );
 
-    for (let i = 0; i < maxRound; i += 1) {
-      names.forEach((name) => {
-        raceResult[name].push(runRound(name));
+    const roundsResult = await Promise.all(
+      [...Array(maxRound).keys()].map((_) => runRound(names))
+    );
+
+    roundsResult.forEach((result) => {
+      Object.entries(result).forEach(([key, value]) => {
+        raceResult[key].push(value);
       });
-    }
+    });
 
     return raceResult;
   }
@@ -57,14 +73,14 @@ function initApp() {
     alert(MSG_ERROR_NO_NAMES);
   });
 
-  $tryCntSubmit.addEventListener("click", () => {
+  $tryCntSubmit.addEventListener("click", async () => {
     try {
       const count = getTryCount($tryCntInput.value);
       const names = getCarsNames($carsNameInput.value);
 
       $raceContainer.innerHTML = carListTemplate(names);
 
-      const raceResult = runRace(count, names);
+      const raceResult = await runRace(count, names);
       const winners = getWinners(raceResult);
 
       $result.appendChild(
@@ -78,6 +94,10 @@ function initApp() {
           },
         })
       );
+
+      setTimeout(() => {
+        alert("🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇");
+      }, 1000);
     } catch (e) {
       alert(e.message);
     }
