@@ -197,4 +197,29 @@ describe('자동차 경주 게임', () => {
       });
     });
   });
+
+  describe('게임이 모두 완료된 후', () => {
+    it('2초 후에 축하의 alert 메시지가 보여야 한다.', () => {
+      // given
+      const TRY_COUNT_INPUT = 5;
+      const MILLISECOND = 1000;
+      cy.get('#car-names-input').type('CHILL,HIP');
+      cy.get('#car-names-submit').click();
+      cy.get('#try-count-input').type(TRY_COUNT_INPUT);
+      cy.get('#try-count-submit').click();
+      cy.wait(TRY_COUNT_INPUT * MILLISECOND);
+      
+      // when : 경주가 끝났을 때
+      cy.get('#racing-result').should('be.visible');
+
+      // then : 2초 후 alert 로 축하 메시지를 보여준다.
+      const WAIT_SECOND = 2;
+      const alertStub = cy.stub();
+      cy.on('window:alert', alertStub);
+      
+      cy.wait(WAIT_SECOND * MILLISECOND);
+      expect(alertStub).to.be.calledWith('🎇🎇🎇🎇 축하합니다!🎇🎇🎇🎇');
+    });
+  });
+
 });
