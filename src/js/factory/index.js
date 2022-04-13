@@ -9,7 +9,7 @@ import {
   $focus,
   $disabled,
 } from '../helpers/index.js';
-import { checkValidations, racingWrapper } from './service.js';
+import { checkValidations, racingWrapper, renderResetArea } from './service.js';
 
 // prettier-ignore
 const executor = {
@@ -37,6 +37,10 @@ const executor = {
   [CONTROLL_KEY.GAME]: pipe(
     racingWrapper,
     window.requestAnimationFrame,
+  ),
+  [CONTROLL_KEY.RESULT]: pipe(
+    trimComma,
+    renderResetArea,
   ),
 };
 

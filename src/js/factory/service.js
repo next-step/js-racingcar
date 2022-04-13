@@ -1,28 +1,35 @@
-import { ERROR_MESSAGE, MAX_NAME_DIGITS, MOVE_CONDITION } from '../constants.js';
+import {
+  ERROR_MESSAGE,
+  MAX_NAME_DIGITS,
+  MOVE_CONDITION,
+  RESULT_ALERT_DELAY,
+} from '../constants.js';
 import {
   pipe,
   isDuplicatedArray,
   generateRandomNumbers,
+  delay,
   delayLoop,
   $element,
   $setAttributes,
+  $show,
 } from '../helpers/index.js';
 import useStore from './store.js';
 
 const store = useStore();
 
 const renderWinners = ({ winners }) => {
-  const attrs = [{ attr: 'winners', value: winners }];
-  $setAttributes({ target: 'result-section', attrs });
+  const attributes = [['winners', winners]];
+
+  $setAttributes('result-section', attributes);
 };
 
 const parsedRacingGameWinner = cars => {
   const maxMoveCount = store.getState('maxMoveCount');
-  // prettier-ignore
-  const winners = cars.reduce((result, { name, moveCount }) => {
-      if (maxMoveCount === moveCount) return [...result, name];
-      return result;
-    }, []).join(', ');
+  const winners = cars.reduce(
+    (result, { name, moveCount }) => (maxMoveCount === moveCount ? `${result}, ${name}` : result),
+    '',
+  );
 
   return { cars, winners };
 };
@@ -68,10 +75,23 @@ export const checkValidations = carNames => {
 };
 
 export const racingWrapper = ({ tryCount, cars }) => {
+  store.initStore();
+
   return delayLoop({
     limit: tryCount,
     func: racing,
     params: { cars },
     callback: pipe(removeCarSpinner, parsedRacingGameWinner, renderWinners),
   });
+};
+
+const congratulationsOnWinning = async winners => {
+  await delay(RESULT_ALERT_DELAY);
+  alert(`이번 레이싱 게임의 승자는\n\n${winners} 입니다!\n\n✨축하해요✨`);
+  $show('#game-reset-area');
+};
+
+export const renderResetArea = winners => {
+  document.getElementById('winners').textContent = winners;
+  congratulationsOnWinning(winners);
 };

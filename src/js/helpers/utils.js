@@ -40,10 +40,10 @@ export const generateRandomNumbers = ({
 export const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 export const delayLoop = ({
-  limit = 0,
+  limit = 1,
   delayMs = 1000,
   func = console.log,
-  callback,
+  callback = console.log,
   params = {},
 }) => {
   return async () => {

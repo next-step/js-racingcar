@@ -4,6 +4,7 @@ export const CONTROLL_KEY = {
   TRY_COUNT_AFTER: 'try-count',
   GAME_BEFORE: 'game-before',
   GAME: 'game',
+  RESULT: 'result',
 };
 
 export const MAX_NAME_DIGITS = 5;
