@@ -236,10 +236,14 @@ describe('자동차 경주 게임', () => {
       // when : 다시 시작하기 버튼을 클릭했을 때
       cy.get('#retry-button').click();
 
-      // then : 자동차 이름을 입력하는 화면만 보여야 한다.
+      // then : 1) 자동차 이름을 입력하는 화면만 보여야 한다.
       cy.get('#racing-try-count').should('not.be.visible');
       cy.get('#racing-track').should('not.be.visible');
       cy.get('#racing-result').should('not.be.visible');
+
+      // then : 2) 자동차 이름 입력란, 시도 횟수 입력란을 빈 값으로 초기화해야 한다.
+      cy.get('#car-names-input').should('have.value', '');
+      cy.get('#try-count-input').should('have.value', '');
 
     });
   });
