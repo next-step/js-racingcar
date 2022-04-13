@@ -96,5 +96,8 @@ export default class RacingController {
     this.inputView.hideRacingTryCount();
     this.trackView.hideRacingTrack();
     this.resultView.hideRacingResult();
+
+    document.querySelector('#car-names-input').value = '';
+    document.querySelector('#try-count-input').value = '';
   }
 }
