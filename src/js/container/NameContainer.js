@@ -13,17 +13,19 @@ function NameContainer(target) {
   render();
   setEvents();
 
+  function setCarNameHandler(event) {
+    const carName = $carNameInput.value;
+    if (
+      carNameValidation.emptyCarName(carName) ||
+      carNameValidation.carNameMaxLength(carName)
+    )
+      return;
+    actionMap?.SET_CARS_NAME(carName.split(','));
+    event.preventDefault();
+  }
+
   function setEvents() {
-    $carNameForm.addEventListener('submit', (event) => {
-      const carName = $carNameInput.value;
-      if (
-        carNameValidation.emptyCarName(carName) ||
-        carNameValidation.carNameMaxLength(carName)
-      )
-        return;
-      actionMap?.SET_CARS_NAME(carName.split(','));
-      event.preventDefault();
-    });
+    $carNameForm.addEventListener('submit', setCarNameHandler);
   }
 
   function render() {

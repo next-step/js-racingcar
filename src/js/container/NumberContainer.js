@@ -13,19 +13,21 @@ function NumberContainer(target) {
   render();
   setEvents();
 
-  function setEvents() {
-      const racingNumber = Number($racingNumberInput.value);
-    $racingNumberForm.addEventListener('submit', (event) => {
-      if (
-        racingNumberValidation.emptyRacingNumber(racingNumber) ||
-        racingNumberValidation.notNumberType(racingNumber) ||
-        racingNumberValidation.minRacingNumber(racingNumber)
-      )
-        return;
+  function setRacingNumberHandler(event) {
+    const racingNumber = $racingNumberInput.valueAsNumber;
+    if (
+      racingNumberValidation.emptyRacingNumber(racingNumber) ||
+      racingNumberValidation.notNumberType(racingNumber) ||
+      racingNumberValidation.minRacingNumber(racingNumber)
+    )
+      return;
 
-      actionMap?.SET_RACING_NUMBER(racingNumber);
-      event.preventDefault();
-    });
+    actionMap?.SET_RACING_NUMBER(racingNumber);
+    event.preventDefault();
+  }
+
+  function setEvents() {
+    $racingNumberForm.addEventListener('submit', setRacingNumberHandler);
   }
 
   function render() {
