@@ -1,7 +1,7 @@
-import Template from '../Template.js';
+import ComponentHandler from '../ComponentHandler.js';
 import { CONTROLL_KEY, MAX_GAME_TRY_COUNT } from '../constants.js';
 import { pipeline } from '../factory/index.js';
-import { isNull, $element } from '../helpers/index.js';
+import { isNull, $element, $focus } from '../helpers/index.js';
 
 const template = /*html*/ `
 <section class="d-flex justify-center mt-5">
@@ -13,7 +13,7 @@ const template = /*html*/ `
         예시 : EAST, WEST, SOUTH, NORTH
       </p>
       <div class="d-flex">
-        <input type="text" class="w-100 mr-2" id="car-names" name="car-names" placeholder="예시) EAST, WEST, SOUTH, NORTH" autofocus required />
+        <input type="text" class="w-100 mr-2" id="car-names" name="car-names" placeholder="예시) EAST, WEST, SOUTH, NORTH" required />
         <button type="submit" class="btn btn-cyan" id="car-names-confirm">확인</button>
       </div>
     </form>
@@ -27,9 +27,9 @@ const template = /*html*/ `
   </div>
 </section>`;
 
-export default class InputSection extends Template {
+export default class InputSection extends ComponentHandler {
   #carNames;
-  #handler = [];
+  #removeHandler;
 
   constructor() {
     super();
@@ -64,7 +64,7 @@ export default class InputSection extends Template {
   };
 
   connectedCallback() {
-    this.#handler = this.bindHandler([
+    this.#removeHandler = this.bindHandler([
       {
         type: 'submit',
         callback: this.checkInputCarNames,
@@ -74,10 +74,12 @@ export default class InputSection extends Template {
         callback: this.checkInputTryCount,
       },
     ]);
+
+    $focus('#car-names');
   }
 
   disconnectedCallback() {
-    this.#handler();
+    this.#removeHandler();
   }
 }
 
