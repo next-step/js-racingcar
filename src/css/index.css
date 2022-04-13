@@ -35,3 +35,20 @@ fieldset {
   border: none;
   padding: 0;
 }
+
+:is(section, form) {
+  transition: 0.3s ease-in-out;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.d-none {
+  display: none;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+}
