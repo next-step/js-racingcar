@@ -25,7 +25,7 @@ export default function GameProcess({ initState, handleRaceResult }) {
 
     if (this.isPossibleGameProcess(cars, raceTimes)) {
       this.processReady(cars);
-      this.processRun().then((newState) => handleRaceResult(newState));
+      this.processRun();
     }
   };
 
@@ -44,7 +44,7 @@ export default function GameProcess({ initState, handleRaceResult }) {
   };
 
   this.processRun = () =>
-    new Promise((resolve) => {
+    new Promise(() => {
       let currentRaceTimes = MIN_RACE_TIMES;
       const intervalId = setInterval(() => {
         this.$cars.forEach(($car) => {
@@ -55,7 +55,7 @@ export default function GameProcess({ initState, handleRaceResult }) {
           this.$cars.forEach(($car) => {
             $car.finish();
           });
-          resolve({
+          handleRaceResult({
             cars: this.$cars.map(($car) => $car.state),
             raceFinishedFlag: !this.state.raceFinishedFlag,
           });

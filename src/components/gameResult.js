@@ -1,5 +1,5 @@
 import { $ } from '../utils/dom.js';
-import { ALERT_MESSAGES } from "../constants/alertMessages.js";
+import { ALERT_MESSAGES } from '../constants/alertMessages.js';
 
 export default function GameResult({ initState, handleResetGame }) {
   this.$gameResultContainer = $('.game-result-container');
@@ -28,12 +28,13 @@ export default function GameResult({ initState, handleResetGame }) {
 
   this.getWinners = (winnerGoGount) => this.state.cars.filter((car) => car.goCount === winnerGoGount);
 
-  this.showGameEndMessageAndResetButtonActive = (delay = 2000) => {
-    setTimeout(() => {
-      alert(ALERT_MESSAGES.CONGRATULATION);
-      this.$gameResetButton.disabled = false;
-    }, delay);
-  };
+  this.showGameEndMessageAndResetButtonActive = (delay = 2000) =>
+    new Promise(() => {
+      setTimeout(() => {
+        alert(ALERT_MESSAGES.CONGRATULATION);
+        this.$gameResetButton.disabled = false;
+      }, delay);
+    });
 
   this.$gameResetButton.addEventListener('click', handleResetGame);
 }
