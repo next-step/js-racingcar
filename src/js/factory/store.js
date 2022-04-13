@@ -6,7 +6,11 @@ const initState = {
 };
 
 const useStore = () => {
-  const localState = { ...initState };
+  let localState = { ...initState };
+
+  const initStore = () => {
+    localState = { ...localState, ...initState };
+  };
 
   const setState = (key, value) => {
     if (localState[key] === undefined) throw new ReferenceError(ERROR_MESSAGE.NOT_EXISTS_KEY);
@@ -22,6 +26,7 @@ const useStore = () => {
   };
 
   return {
+    initStore,
     setState,
     getState,
   };
