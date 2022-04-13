@@ -1,5 +1,5 @@
 import './components/index.js';
-import Template from './Template.js';
+import ComponentHandler from './ComponentHandler.js';
 import { $element, $setAttributes } from './helpers/index.js';
 
 const template = /*html*/ `
@@ -9,8 +9,8 @@ const template = /*html*/ `
   <result-section winners=""></result-section>
 </fragment>`;
 
-export default class App extends Template {
-  #handler = [];
+export default class App extends ComponentHandler {
+  #removeHandler;
 
   constructor() {
     super();
@@ -18,7 +18,7 @@ export default class App extends Template {
   }
 
   connectedCallback() {
-    this.#handler = this.bindHandler([
+    this.#removeHandler = this.bindHandler([
       {
         type: 'inputted',
         callback: this.inputtedHandler,
@@ -31,15 +31,16 @@ export default class App extends Template {
   }
 
   disconnectedCallback() {
-    this.#handler();
+    this.#removeHandler();
   }
 
   inputtedHandler = ({ detail }) => {
-    const attrs = [
-      { attr: 'car-names', value: detail.carNames },
-      { attr: 'try-count', value: detail.tryCount },
+    const attributes = [
+      ['car-names', detail.carNames],
+      ['try-count', detail.tryCount],
     ];
-    $setAttributes({ target: 'game-section', attrs });
+
+    $setAttributes('game-section', attributes);
   };
 }
 

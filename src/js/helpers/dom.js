@@ -1,3 +1,5 @@
+import { arrayToMap } from './utils.js';
+
 const $wrapper = document.createElement('template');
 
 export const $element = html => {
@@ -18,8 +20,6 @@ export const $focus = target => {
   document.querySelector(target).focus();
 };
 
-export const $setAttributes = ({ target, attrs }) => {
-  attrs.forEach(({ attr, value }) => {
-    document.querySelector(target).setAttribute(attr, value);
-  });
+export const $setAttributes = (target, attributes) => {
+  attributes.forEach(([key, value]) => document.querySelector(target).setAttribute(key, value));
 };

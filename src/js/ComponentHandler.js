@@ -1,8 +1,4 @@
-export default class Template extends HTMLElement {
-  constructor() {
-    super();
-  }
-
+export default class ComponentHandler extends HTMLElement {
   bindHandler(events) {
     events.forEach(({ type, callback }) => this.addEventListener(type, callback));
     return () => {
