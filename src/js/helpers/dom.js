@@ -1,5 +1,3 @@
-import { arrayToMap } from './utils.js';
-
 const $wrapper = document.createElement('template');
 
 export const $element = html => {
