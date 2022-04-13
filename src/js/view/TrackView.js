@@ -23,6 +23,10 @@ export default class TrackView {
     document.querySelector('#racing-track').style.display = '';
   }
 
+  hideRacingTrack() {
+    document.querySelector('#racing-track').style.display = 'none';
+  }
+
   renderRacingCars(carNames) {
     const racingCarTemplates = carNames.map(carName => this.racingCarTemplate(carName));
 

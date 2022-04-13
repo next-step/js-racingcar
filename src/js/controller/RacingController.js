@@ -13,9 +13,11 @@ export default class RacingController {
   registerCarEventListener() {
     const carNamesSubmit = document.querySelector('#car-names-submit');
     const tryCountSubmit = document.querySelector('#try-count-submit');
+    const retryButton = document.querySelector('#retry-button');
 
     carNamesSubmit.addEventListener('click', () => this.submitCarNames());
     tryCountSubmit.addEventListener('click', () => this.submitTryCount());
+    retryButton.addEventListener('click', () => this.retryRacing());
   }
 
   submitCarNames() {
@@ -87,5 +89,12 @@ export default class RacingController {
     this.resultView.showRacingWinners(winners);
     this.resultView.showRacingResult();
     this.resultView.showCongratulatoryMessage();
+  }
+
+  retryRacing() {
+    // todo : 시도 횟수 입력 화면, 경주 트랙 화면, 결과 화면이 모두 가려져야 한다.
+    this.inputView.hideRacingTryCount();
+    this.trackView.hideRacingTrack();
+    this.resultView.hideRacingResult();
   }
 }

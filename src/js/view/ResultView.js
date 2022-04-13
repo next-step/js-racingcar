@@ -4,6 +4,10 @@ export default function ResultView() {
     document.querySelector('#racing-result').style.display = '';
   };
 
+  this.hideRacingResult = () => {
+    document.querySelector('#racing-result').style.display = 'none';
+  };
+
   this.showRacingWinners = (winners = []) => {
     document.querySelector('#winners').innerHTML = winners.join(', ');
   };
