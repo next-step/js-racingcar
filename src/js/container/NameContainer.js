@@ -13,7 +13,7 @@ function NameContainer(target) {
   setEvents();
 
   function setEvents() {
-    $carNameBtn.addEventListener('click', () => {
+    $carNameForm.addEventListener('submit', (event) => {
       const carName = $carNameInput.value;
       if (
         carNameValidation.emptyCarName(carName) ||
@@ -21,6 +21,7 @@ function NameContainer(target) {
       )
         return;
       actionMap?.SET_CARS_NAME(carName.split(','));
+      event.preventDefault();
     });
   }
 
@@ -41,10 +42,10 @@ function NameContainer(target) {
 					5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
 					예시) EAST, WEST, SOUTH, NORTH
 				</p>
-				<div class="d-flex">
+				<form id="car-name-form" class="d-flex">
 					<input id="car-name" type="text" class="w-100 mr-2"  placeholder="자동차 이름" />
-					<button id="car-name-btn"type="button" class="btn btn-cyan">확인</button>
-				</div>
+					<button  type="submit" id="car-name-btn" class="btn btn-cyan">확인</button>
+				</form>
 			</fieldset>
 		`;
   }
