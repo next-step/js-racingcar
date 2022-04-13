@@ -216,9 +216,11 @@ describe('자동차 경주 게임', () => {
       const WAIT_SECOND = 2;
       const alertStub = cy.stub();
       cy.on('window:alert', alertStub);
+
+      cy.wait(WAIT_SECOND * MILLISECOND).then(() => {
+        expect(alertStub).to.be.calledWith('🎇🎇🎇🎇 축하합니다!🎇🎇🎇🎇');
+      });
       
-      cy.wait(WAIT_SECOND * MILLISECOND);
-      expect(alertStub).to.be.calledWith('🎇🎇🎇🎇 축하합니다!🎇🎇🎇🎇');
     });
   });
 
