@@ -28,6 +28,7 @@ class RacingCarNamesView extends AbstractView {
       RacingCycleView.showView();
     } catch (e) {
       alert(e.message);
+      console.error(e.message);
     }
   }
 

@@ -32,6 +32,7 @@ class RacingCycleView extends AbstractView {
       RacingSectionView.start(cycle);
     } catch (e) {
       alert(e.message);
+      console.error(e.message);
     }
   }
 
