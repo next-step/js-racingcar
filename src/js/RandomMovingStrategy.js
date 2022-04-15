@@ -1,7 +1,6 @@
 import MovingStrategy from './MovingStrategy.js';
 
-export default class RandomMovingStrategy extends MovingStrategy {
-  // eslint-disable-next-line class-methods-use-this
+class IRandomMovingStrategy extends MovingStrategy {
   isMoveable() {
     const MOVABLE_RANGE_MIN_NUMBER = 0;
     const MOVABLE_RANGE_MAX_NUMBER = 9;
@@ -13,3 +12,7 @@ export default class RandomMovingStrategy extends MovingStrategy {
     );
   }
 }
+
+const RandomMovingStrategy = new IRandomMovingStrategy();
+Object.freeze(RandomMovingStrategy);
+export default RandomMovingStrategy;
