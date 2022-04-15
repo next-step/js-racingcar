@@ -19,12 +19,12 @@ const validate = (predicate, handleError) => {
   return true;
 };
 
-const predicate = {
-  emptyCarName: (cars) => cars.length === 0,
-  carNameMaxLength: (cars) => hasCarNameOverMaxLength(cars.split(',')),
-  emptyRacingNumber: (number) => number === false,
-  notNumberType: (number) => typeof number !== 'number',
-  minRacingNumber: (number) => number < RACING_MINIMUM_NUMBER,
+const hasErrorCondition = {
+  isEmptyCarName: (cars) => cars.length === 0,
+  isCarNameMaxLength: (cars) => hasCarNameOverMaxLength(cars.split(',')),
+  isEmptyRacingNumber: (number) => number === false,
+  isNotNumberType: (number) => typeof number !== 'number',
+  isMinRacingNumber: (number) => number < RACING_MINIMUM_NUMBER,
 };
 
 const handleError = {
