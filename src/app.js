@@ -6,10 +6,15 @@ import {
   getTryCount,
   getWinners,
 } from "./core/racing.mjs";
-import { carListTemplate, forwardIconTemplate } from "./core/templates.mjs";
+import {
+  carListTemplate,
+  forwardIconTemplate,
+  spinner,
+} from "./core/templates.mjs";
 import { MSG_ERROR_NO_NAMES } from "./core/constants.mjs";
 import { isEmpty } from "./core/validation.mjs";
 import { RaceResultComponent } from "./core/components.mjs";
+import { asyncMap } from "./util/asyncMap.mjs";
 
 function initApp() {
   const $app = document.querySelector("#app");
@@ -21,6 +26,20 @@ function initApp() {
   const $tryCntSubmit = $app.querySelector(".try-count-input + button");
   const $raceContainer = $app.querySelector(".race");
   const $result = $app.querySelector(".result");
+
+  function addSpinner(names) {
+    names.forEach((name) => {
+      document
+        .querySelector(`[aria-label="${name}"]`)
+        .insertAdjacentHTML("beforeend", spinner);
+    });
+  }
+
+  function removeSpinner() {
+    document.querySelectorAll(".spinner-block").forEach((el) => {
+      el.remove();
+    });
+  }
 
   async function runRound(names) {
     return new Promise((resolve) => {
@@ -35,8 +54,8 @@ function initApp() {
 
           if (command === COMMAND_GO) {
             document
-              .querySelector(`[aria-label="${name}"]`)
-              .insertAdjacentHTML("beforeend", forwardIconTemplate);
+              .querySelector(`[aria-label="${name}"] .spinner-block`)
+              .insertAdjacentHTML("beforebegin", forwardIconTemplate);
           }
           result[name] = command;
         });
@@ -52,15 +71,16 @@ function initApp() {
       {}
     );
 
-    const roundsResult = await Promise.all(
-      [...Array(maxRound).keys()].map((_) => runRound(names))
-    );
+    addSpinner(names);
 
-    roundsResult.forEach((result) => {
+    await asyncMap([...Array(maxRound).keys()], async () => {
+      const result = await runRound(names);
       Object.entries(result).forEach(([key, value]) => {
         raceResult[key].push(value);
       });
     });
+
+    removeSpinner();
 
     return raceResult;
   }
@@ -97,7 +117,7 @@ function initApp() {
 
       setTimeout(() => {
         alert("🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇");
-      }, 1000);
+      }, 2000);
     } catch (e) {
       alert(e.message);
     }

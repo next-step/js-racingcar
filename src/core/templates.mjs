@@ -11,3 +11,8 @@ export function carListTemplate(names) {
 
 export const forwardIconTemplate = `<div class="forward-icon mt-2">⬇️️</div>`;
 
+export const spinner = `<div class="d-flex justify-center mt-3 spinner-block">
+  <div class="relative spinner-container">
+    <span class="material spinner"></span>
+  </div>
+</div>`
