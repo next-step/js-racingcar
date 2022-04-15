@@ -11,12 +11,12 @@ import {
 const hasCarNameOverMaxLength = (cars) =>
   cars.some((car) => car.trim().length > CAR_NAME_LENGTH_MAXIMUM);
 
-const validate = (predicate, handleError) => {
-  if (!predicate) {
-    return false;
+const validate = (hasErrorCondition, handleError) => {
+  if (hasErrorCondition) {
+    handleError();
+    return true;
   }
-  handleError();
-  return true;
+  return false;
 };
 
 const hasErrorCondition = {
@@ -37,19 +37,28 @@ const handleError = {
 
 export const carNameValidation = {
   emptyCarName: (cars) =>
-    validate(predicate.emptyCarName(cars), handleError.emptyCarName),
+    validate(hasErrorCondition.isEmptyCarName(cars), handleError.emptyCarName),
   carNameMaxLength: (cars) =>
-    validate(predicate.carNameMaxLength(cars), handleError.carNameMaxLength),
+    validate(
+      hasErrorCondition.isCarNameMaxLength(cars),
+      handleError.carNameMaxLength
+    ),
 };
 
 export const racingNumberValidation = {
   emptyRacingNumber: (number) =>
     validate(
-      predicate.emptyRacingNumber(number),
+      hasErrorCondition.isEmptyRacingNumber(number),
       handleError.emptyRacingNumber
     ),
   notNumberType: (number) =>
-    validate(predicate.notNumberType(number), handleError.notNumberType),
+    validate(
+      hasErrorCondition.isNotNumberType(number),
+      handleError.notNumberType
+    ),
   minRacingNumber: (number) =>
-    validate(predicate.minRacingNumber(number), handleError.minRacingNumber),
+    validate(
+      hasErrorCondition.isMinRacingNumber(number),
+      handleError.minRacingNumber
+    ),
 };
