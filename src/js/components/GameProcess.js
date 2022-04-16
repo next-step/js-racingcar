@@ -1,25 +1,18 @@
 import Car from "../car.js";
 
-export default class GameProcess {
-  constructor(target, carNames, count) {
-    this.#count = count;
-    this.#createCars(carNames, count);
-    this.#render(target);
-    this.#updateCarsStatus();
-  }
+export const GameProcess = (target, carNames, count) => {
+  const _count = count;
+  let _cars = [];
 
-  #count;
-  #cars = [];
-
-  #createCars = (names, count) => {
+  const createCars = (names, count) => {
     names.forEach((name) => {
-      this.#cars.push(new Car(name, count));
+      _cars.push(new Car(name, count));
     });
   };
 
-  #render = (target) => {
+  const render = (target) => {
     let carElements = ``;
-    this.#cars.forEach((car) => {
+    _cars.forEach((car) => {
       carElements += `
       <div id="car" class="mr-2">
         <div class="car-player">${car.name}</div>
@@ -36,10 +29,10 @@ export default class GameProcess {
           `;
   };
 
-  #renderCarPath = () => {
+  const renderCarPath = () => {
     const targets = document.querySelectorAll("#car .car-path");
     targets.forEach((target, index) => {
-      if (this.#cars[index].isGoing) {
+      if (_cars[index].isGoing) {
         target.innerHTML += `<div class="forward-icon mt-2">⬇️️</div>`;
       } else {
         target.innerHTML += `
@@ -53,14 +46,19 @@ export default class GameProcess {
     });
   };
 
-  #updateCarsStatus = () => {
+  const updateCarsStatus = () => {
     let counter = 1;
 
     const timeout = setInterval(() => {
-      this.#renderCarPath();
-      if (counter++ == this.#count) {
+      renderCarPath();
+      if (counter++ == _count) {
         clearInterval(timeout);
       }
     }, 1000);
   };
-}
+
+  /** 컴포넌트 내 즉시 실행되는 함수들 */
+  createCars(carNames, _count);
+  render(target);
+  updateCarsStatus();
+};

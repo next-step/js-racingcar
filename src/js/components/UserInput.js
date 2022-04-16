@@ -1,17 +1,11 @@
 import { isAllCarNameValid } from "../validation.js";
 import { ALERT_STRING } from "../constant.js";
 
-export default class UserInput {
-  constructor(target, onSubmit) {
-    this.#render(target);
-    this.#setVisibility();
-    this.#setEvent(onSubmit);
-  }
+export const UserInput = (target, onSubmit) => {
+  let _carNames;
+  let _count;
 
-  #carNames;
-  #count;
-
-  #render = (target) => {
+  const render = (target) => {
     target.innerHTML = `
     <div class="d-flex justify-center mt-5">
       <div>
@@ -38,9 +32,9 @@ export default class UserInput {
         `;
   };
 
-  #setVisibility = () => {
-    const hasCarName = this.#carNames ? true : false;
-    const hasCount = this.#count ? true : false;
+  const setVisibility = () => {
+    const hasCarName = _carNames ? true : false;
+    const hasCount = _count ? true : false;
     const carsInputFieldElement = document.querySelector(
       "#cars-input-form > fieldset"
     );
@@ -57,24 +51,24 @@ export default class UserInput {
     }
   };
 
-  #setEvent = (onSubmit) => {
+  const setEvent = (onSubmit) => {
     const carsInputForm = document.querySelector("#cars-input-form");
     carsInputForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      this.#submitCars(carsInputForm);
+      submitCars(carsInputForm);
     });
 
     const countInputForm = document.querySelector("#count-input-form");
     countInputForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      this.#submitCount(countInputForm);
+      submitCount(countInputForm);
 
       // 컴포넌트 최종 form submit
-      onSubmit(this.#carNames, this.#count);
+      onSubmit(_carNames, _count);
     });
   };
 
-  #submitCars = (form) => {
+  const submitCars = (form) => {
     const formData = new FormData(form);
     const carNames = formData.get("cars-input").split(",");
     const isValid = isAllCarNameValid(carNames);
@@ -83,13 +77,18 @@ export default class UserInput {
       form.reset();
       return;
     }
-    this.#carNames = carNames;
-    this.#setVisibility();
+    _carNames = carNames;
+    setVisibility();
   };
 
-  #submitCount = (form) => {
+  const submitCount = (form) => {
     const formData = new FormData(form);
-    this.#count = formData.get("count-input");
-    this.#setVisibility();
+    _count = formData.get("count-input");
+    setVisibility();
   };
-}
+
+  /** 컴포넌트 내 즉시 실행되는 함수들 */
+  render(target);
+  setVisibility();
+  setEvent(onSubmit);
+};

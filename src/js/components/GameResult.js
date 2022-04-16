@@ -1,9 +1,5 @@
-export default class GameResult {
-  constructor(target) {
-    this.#render(target);
-  }
-
-  #render = (target) => {
+export const GameResult = (target) => {
+  const render = (target) => {
     target.innerHTML = `
         <div class="d-flex justify-center mt-5">
         <div>
@@ -15,4 +11,6 @@ export default class GameResult {
         </div>
             `;
   };
-}
+
+  render(target);
+};

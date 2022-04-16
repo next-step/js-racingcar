@@ -1,6 +1,6 @@
-import UserInput from "./components/UserInput.js";
-import GameProcess from "./components/GameProcess.js";
-import GameResult from "./components/GameResult.js";
+import { UserInput } from "./components/UserInput.js";
+import { GameProcess } from "./components/GameProcess.js";
+import { GameResult } from "./components/GameResult.js";
 
 class App {
   constructor() {
@@ -42,7 +42,7 @@ class App {
     this.#gameResultComponentTarget = document.querySelector(
       "#game-result-component"
     );
-    new UserInput(this.#userInputComponentTarget, this.#onSubmitUserInputForm);
+    UserInput(this.#userInputComponentTarget, this.#onSubmitUserInputForm);
     //new GameProcess(this.#gameProcessComponentTarget, this.#carNames);
     //new GameResult(this.#gameResultComponentTarget);
 
@@ -62,11 +62,7 @@ class App {
     this.#gameProcessComponentTarget.hidden = false;
 
     // GameProcess 컴포넌트 생성
-    new GameProcess(
-      this.#gameProcessComponentTarget,
-      this.#carNames,
-      this.#count
-    );
+    GameProcess(this.#gameProcessComponentTarget, this.#carNames, this.#count);
   };
 
   #updateCarPlayerLabels = (carsArray) => {
