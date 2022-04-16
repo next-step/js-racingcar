@@ -1,4 +1,4 @@
-export class CarDto {
+export class CarRacingProperty {
   #carName;
   #isForward;
 
