@@ -1,14 +1,18 @@
-import { htmlTemplate } from '../constants/template.js';
+import TEMPLATE from '../constants/template.js';
 import { $ } from '../utils/selector.js';
 
 export const renderRacingCar = (racingCarList) => {
-  $('#racing-progress-section').innerHTML = htmlTemplate.racingProgressView;
-  $('#attempt-count-input').disabled = true;
-  $('#attempt-count-submit').disabled = true;
+  $('#racing-progress-section').innerHTML = TEMPLATE.RACING_PROGRESS_VIEW;
+  disableInputOfAttemptCount();
 
   racingCarList.carList.forEach((car) => {
     createRacingCar(car.carName);
   });
+};
+
+const disableInputOfAttemptCount = () => {
+  $('#attempt-count-input').disabled = true;
+  $('#attempt-count-submit').disabled = true;
 };
 
 export const resetAttemptInput = () => {
@@ -17,11 +21,12 @@ export const resetAttemptInput = () => {
 
 export const createRacingCar = (carName) => {
   const carWrapper = document.createElement('div');
-  carWrapper.className = 'mr-2 car';
-
   const carElement = document.createElement('div');
+
+  carWrapper.className = 'mr-2 car';
   carElement.className = 'car-player';
   carElement.innerText = carName;
+  carElement.id = carName;
 
   carWrapper.appendChild(carElement);
   $('.racing-container').append(carWrapper);
@@ -29,17 +34,20 @@ export const createRacingCar = (carName) => {
 
 export const renderForwardIcon = (parent) => {
   const forwardIcon = document.createElement('div');
+
   forwardIcon.className = 'forward-icon mt-2';
   forwardIcon.innerText = '⬇️️';
 
   parent.insertAdjacentElement('beforeend', forwardIcon);
 };
+
 export const renderLoadingIcon = (parent) => {
   const spinnerFlexContainer = document.createElement('div');
-  spinnerFlexContainer.className = 'd-flex justify-center mt-3 spinner-wrapper';
   const spinnerContainer = document.createElement('div');
-  spinnerContainer.className = 'relative spinner-container';
   const spinnerIcon = document.createElement('span');
+
+  spinnerFlexContainer.className = 'd-flex justify-center mt-3 spinner-wrapper';
+  spinnerContainer.className = 'relative spinner-container';
   spinnerIcon.className = 'material spinner';
 
   spinnerContainer.appendChild(spinnerIcon);
@@ -48,12 +56,12 @@ export const renderLoadingIcon = (parent) => {
   parent.insertAdjacentElement('beforeend', spinnerFlexContainer);
 };
 
-export const startRacing = (carDtos) => {
+export const startRacing = (carRacingProperty) => {
   const carElements = document.getElementsByClassName('car');
 
   [...carElements].forEach((carElem, idx) => {
     removePrevSpinner(carElem);
-    if (carDtos[idx].isForward) {
+    if (carRacingProperty[idx].isForward) {
       renderForwardIcon(carElem);
     } else {
       renderLoadingIcon(carElem);

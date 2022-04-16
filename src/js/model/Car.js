@@ -1,17 +1,12 @@
-import {
-  MAX_CAR_NAME_LENTH,
-  MAX_FORWARD_NUMBER,
-  MIN_CAR_NAME_LENTH,
-  MIN_FORWARD_NUMBER,
-} from '../constants/car.js';
-import { ERROR_CAR_NAMES_INPUT } from '../constants/message.js';
+import CAR_VALIDATION from '../constants/carValidation.js';
+import MESSAGE from '../constants/message.js';
 
 export class Car {
   #carName;
 
   constructor(carName) {
     if (!this.isCorrectLength(carName)) {
-      throw ERROR_CAR_NAMES_INPUT;
+      throw MESSAGE.ERROR_CAR_NAMES_INPUT;
     }
     this.#carName = carName;
   }
@@ -21,10 +16,17 @@ export class Car {
   }
 
   isCorrectLength(carName) {
-    return carName.length <= MAX_CAR_NAME_LENTH && carName.length >= MIN_CAR_NAME_LENTH;
+    return (
+      carName.length <= CAR_VALIDATION.MAX_CAR_NAME_LENTH &&
+      carName.length >= CAR_VALIDATION.MIN_CAR_NAME_LENTH
+    );
   }
 
   createForwardNumber() {
-    return Math.floor(Math.random() * (MAX_FORWARD_NUMBER - MIN_FORWARD_NUMBER + 1)) + MIN_FORWARD_NUMBER;
+    return (
+      Math.floor(
+        Math.random() * (CAR_VALIDATION.MAX_FORWARD_NUMBER - CAR_VALIDATION.MIN_FORWARD_NUMBER + 1)
+      ) + CAR_VALIDATION.MIN_FORWARD_NUMBER
+    );
   }
 }

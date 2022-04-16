@@ -1,7 +1,7 @@
-import { MAX_FORWARD_CONDITION } from '../constants/car.js';
-import { ERROR_ATTEMPT_COUNT_INPUT } from '../constants/message.js';
 import { Car } from './Car.js';
-import { CarDto } from './CarDto.js';
+import MESSAGE from '../constants/message.js';
+import CAR_VALIDATION from '../constants/carValidation.js';
+import { CarRacingProperty } from './CarRacingProperty.js';
 
 // 매니저: 공통 필드 관리, carList를 통한 우승자 계산
 export class CarManager {
@@ -30,15 +30,15 @@ export class CarManager {
 
   set attemptCount(count) {
     if (count < 1) {
-      throw ERROR_ATTEMPT_COUNT_INPUT;
+      throw MESSAGE.ERROR_ATTEMPT_COUNT_INPUT;
     }
     this.#attemptCount = count;
   }
 
   attemptForward() {
     return this.#carList.map((car) => {
-      const isForward = car.createForwardNumber() >= MAX_FORWARD_CONDITION;
-      return new CarDto(car.carName, isForward);
+      const isForward = car.createForwardNumber() >= CAR_VALIDATION.MAX_FORWARD_CONDITION;
+      return new CarRacingProperty(car.carName, isForward);
     });
   }
 }
