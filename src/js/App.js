@@ -20,16 +20,15 @@ class App {
   #render = () => {
     console.log("render() called");
     const target = document.querySelector("#app");
-    target.innerHTML = `
-   
-      <section id="user-input-component">
-      </section>
-      <section id="game-process-component">
-      </section>
-      <section id="game-result-component">
-      </section>
-  
-      `;
+    const html = `
+    <section id="user-input-component">
+    </section>
+    <section id="game-process-component">
+    </section>
+    <section id="game-result-component">
+    </section>
+    `;
+    target.insertAdjacentHTML("afterbegin", html);
   };
 
   #setComponents = () => {

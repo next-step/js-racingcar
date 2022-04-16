@@ -6,7 +6,9 @@ export const UserInput = (target, onSubmit) => {
   let _count;
 
   const render = (target) => {
-    target.innerHTML = `
+    target.insertAdjacentHTML(
+      "afterbegin",
+      `
     <div class="d-flex justify-center mt-5">
       <div>
       <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
@@ -29,7 +31,8 @@ export const UserInput = (target, onSubmit) => {
         </form>
       </div>
     </div>
-        `;
+        `
+    );
   };
 
   const setVisibility = () => {

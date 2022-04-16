@@ -20,13 +20,16 @@ export const GameProcess = (target, carNames, count) => {
       </div>
       `;
     });
-    target.innerHTML = `
+    target.insertAdjacentHTML(
+      "afterbegin",
+      `
       <div class="d-flex justify-center mt-5">
         <div class="mt-4 d-flex">
             ${carElements}
         </div>
       </div>
-          `;
+          `
+    );
   };
 
   const renderCarPath = () => {

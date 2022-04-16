@@ -1,6 +1,8 @@
 export const GameResult = (target) => {
   const render = (target) => {
-    target.innerHTML = `
+    target.insertAdjacentHTML(
+      "afterbegin",
+      `
         <div class="d-flex justify-center mt-5">
         <div>
             <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
@@ -9,7 +11,8 @@ export const GameResult = (target) => {
             </div>
         </div>
         </div>
-            `;
+            `
+    );
   };
 
   render(target);
