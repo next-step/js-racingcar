@@ -23,3 +23,28 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+// Cypress.Commands.add('inputCarNames', (carNames) => {
+//   cy.get('#car-name-input').type(carNames);
+// });
+
+Cypress.Commands.add('isVisible', (target) => {
+  cy.get(target).should('be.visible');
+});
+
+Cypress.Commands.add('isNotVisible', (target) => {
+  cy.get(target).should('not.be.visible');
+});
+
+Cypress.Commands.add('isContainsPlayer', (player) => {
+  cy.get('.car-player').contains(player);
+});
+
+Cypress.Commands.add('submitCarNames', (carNames) => {
+  cy.get('#car-name-input').type(carNames);
+  cy.get('#car-name-submit').click();
+});
+
+Cypress.Commands.add('submitAttemptCount', (attemptCount) => {
+  cy.get('#attempt-count-input').type(attemptCount);
+  cy.get('#attempt-count-submit').click();
+});
