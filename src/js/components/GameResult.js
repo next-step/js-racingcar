@@ -1,4 +1,5 @@
-export const GameResult = (target) => {
+export const GameResult = () => {
+  const target = document.querySelector("#game-result-component");
   const render = (target) => {
     target.insertAdjacentHTML(
       "afterbegin",

@@ -12,11 +12,6 @@ class App {
   #carNames = [];
   #count = 0;
 
-  /** Components */
-  #userInputComponentTarget;
-  #gameProcessComponentTarget;
-  #gameResultComponentTarget;
-
   #render = () => {
     console.log("render() called");
     const target = document.querySelector("#app");
@@ -32,31 +27,16 @@ class App {
   };
 
   #setComponents = () => {
-    this.#userInputComponentTarget = document.querySelector(
-      "#user-input-component"
-    );
-    this.#gameProcessComponentTarget = document.querySelector(
-      "#game-process-component"
-    );
-    this.#gameResultComponentTarget = document.querySelector(
-      "#game-result-component"
-    );
-    UserInput(this.#userInputComponentTarget, this.#onSubmitUserInputForm);
-    //new GameProcess(this.#gameProcessComponentTarget, this.#carNames);
-    //new GameResult(this.#gameResultComponentTarget);
-
-    this.#gameProcessComponentTarget.hidden = true;
-    this.#gameResultComponentTarget.hidden = true;
+    UserInput(this.#onSubmitUserInputForm);
   };
 
   /** Handler Functions */
   #onSubmitUserInputForm = (carNames, count) => {
     this.#carNames = carNames;
     this.#count = count;
-    this.#gameProcessComponentTarget.hidden = false;
 
     // GameProcess 컴포넌트 생성
-    GameProcess(this.#gameProcessComponentTarget, this.#carNames, this.#count);
+    GameProcess(this.#carNames, this.#count);
   };
 }
 

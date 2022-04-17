@@ -1,6 +1,7 @@
 import Car from "../car.js";
 
-export const GameProcess = (target, carNames, count) => {
+export const GameProcess = (carNames, count) => {
+  const target = document.querySelector("#game-process-component");
   const _count = count;
   let _cars = [];
 

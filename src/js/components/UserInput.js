@@ -1,7 +1,8 @@
 import { isAllCarNameValid } from "../validation.js";
 import { ALERT_STRING } from "../constant.js";
 
-export const UserInput = (target, onSubmit) => {
+export const UserInput = (onSubmit) => {
+  const target = document.querySelector("#user-input-component");
   let _carNames;
   let _count;
 
