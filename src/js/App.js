@@ -49,11 +49,6 @@ class App {
     this.#gameResultComponentTarget.hidden = true;
   };
 
-  /** Event Setting */
-  #setEvents = () => {
-    console.log("setEvents() called");
-  };
-
   /** Handler Functions */
   #onSubmitUserInputForm = (carNames, count) => {
     this.#carNames = carNames;
@@ -62,13 +57,6 @@ class App {
 
     // GameProcess 컴포넌트 생성
     GameProcess(this.#gameProcessComponentTarget, this.#carNames, this.#count);
-  };
-
-  #updateCarPlayerLabels = (carsArray) => {
-    const carPlayerTarget = document.querySelectorAll(".car-player");
-    carPlayerTarget.forEach((element, index) => {
-      element.innerText = carsArray[index];
-    });
   };
 }
 
