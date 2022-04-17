@@ -36,15 +36,21 @@ export const GameProcess = (target, carNames, count) => {
     const targets = document.querySelectorAll("#car .car-path");
     targets.forEach((target, index) => {
       if (_cars[index].isGoing) {
-        target.innerHTML += `<div class="forward-icon mt-2">⬇️️</div>`;
+        target.insertAdjacentHTML(
+          "afterbegin",
+          `<div class="forward-icon mt-2">⬇️️</div>`
+        );
       } else {
-        target.innerHTML += `
+        target.insertAdjacentHTML(
+          "afterbegin",
+          `
         <div class="d-flex justify-center mt-3">
           <div class="relative spinner-container">
             <span class="material spinner"></span>
           </div>
         </div>
-        `;
+        `
+        );
       }
     });
   };

@@ -1,4 +1,4 @@
-import { getRandomInt } from "./util.js";
+import { getRandomIntExclusive } from "./util.js";
 
 export default class Car {
   constructor(name, count) {
@@ -26,7 +26,7 @@ export default class Car {
   };
 
   #move = () => {
-    const randomNumber = getRandomInt(9);
+    const randomNumber = getRandomIntExclusive(0, 9);
     if (randomNumber >= 4) {
       this.#moveForward();
     } else {
