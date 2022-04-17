@@ -11,10 +11,9 @@ import {
   forwardIconTemplate,
   spinner,
 } from "./core/templates.mjs";
-import { MSG_ERROR_NO_NAMES } from "./core/constants.mjs";
+import { MSG_ERROR_NO_NAMES, RACE_DELAY_TIME } from "./core/constants.mjs";
 import { isEmpty } from "./core/validation.mjs";
 import { RaceResultComponent } from "./core/components.mjs";
-import { asyncMap } from "./util/asyncMap.mjs";
 
 function initApp() {
   const $app = document.querySelector("#app");
@@ -27,15 +26,11 @@ function initApp() {
   const $raceContainer = $app.querySelector(".race");
   const $result = $app.querySelector(".result");
 
-  function addSpinner(names) {
-    names.forEach((name) => {
-      document
-        .querySelector(`[aria-label="${name}"]`)
-        .insertAdjacentHTML("beforeend", spinner);
-    });
+  function addSpinners($names) {
+    $names.forEach(($name) => $name.insertAdjacentHTML("beforeend", spinner));
   }
 
-  function removeSpinner() {
+  function removeSpinners() {
     document.querySelectorAll(".spinner-block").forEach((el) => {
       el.remove();
     });
@@ -43,9 +38,16 @@ function initApp() {
 
   async function runRound(names) {
     return new Promise((resolve) => {
+      const $spinnerBlocks = names.reduce((acc, name) => {
+        acc[name] = document.querySelector(
+          `[aria-label="${name}"] .spinner-block`
+        );
+        return acc;
+      }, {});
+
       setTimeout(() => {
         const result = names.reduce(
-          (acc, curr) => ({ ...acc, [curr]: null }),
+          (acc, curr) => ({ ...acc, [curr]: "" }),
           {}
         );
         names.forEach((name) => {
@@ -53,34 +55,42 @@ function initApp() {
           const command = getCommand(randomNumber);
 
           if (command === COMMAND_GO) {
-            document
-              .querySelector(`[aria-label="${name}"] .spinner-block`)
-              .insertAdjacentHTML("beforebegin", forwardIconTemplate);
+            $spinnerBlocks[name].insertAdjacentHTML(
+              "beforebegin",
+              forwardIconTemplate
+            );
           }
           result[name] = command;
         });
 
         resolve(result);
-      }, 1000);
+      }, RACE_DELAY_TIME);
     });
   }
 
-  async function runRace(maxRound, names) {
-    const raceResult = names.reduce(
-      (acc, curr) => ({ ...acc, [curr]: [] }),
-      {}
-    );
+  async function roundRunner(names, resultObject, remainTime = 0) {
+    if (!remainTime) {
+      return resultObject;
+    }
+    const resultOfRound = await runRound(names);
 
-    addSpinner(names);
-
-    await asyncMap([...Array(maxRound).keys()], async () => {
-      const result = await runRound(names);
-      Object.entries(result).forEach(([key, value]) => {
-        raceResult[key].push(value);
-      });
+    Object.entries(resultOfRound).forEach(([key, value]) => {
+      resultObject[key]
+        ? resultObject[key].push(value)
+        : (resultObject[key] = [value]);
     });
 
-    removeSpinner();
+    return await roundRunner(names, resultObject, remainTime - 1);
+  }
+
+  async function runRace(maxRound, names) {
+    const $cars = names.map((name) =>
+      document.querySelector(`[aria-label="${name}"]`)
+    );
+
+    addSpinners($cars);
+    const raceResult = await roundRunner(names, {}, maxRound);
+    removeSpinners();
 
     return raceResult;
   }
