@@ -1,5 +1,3 @@
-import { CAR_STATE } from '../constants/index.js';
-
 const getCarBoardItemTemplate = (car) => {
   return `
     <div class="mr-2">
