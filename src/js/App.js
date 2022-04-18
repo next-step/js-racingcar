@@ -31,8 +31,10 @@ class App {
   sendCarNames = (e) => {
     e.preventDefault();
     const carNames = this.$nameInput.value.split(',');
-
     this.cars = carNames.map((carName) => new Car(carName.trim()));
+    const isValidCarNames = this.cars.every((car) => car.name);
+
+    if (!isValidCarNames) return;
 
     $('#racing-name button').disabled = true;
     this.$nameInput.disabled = true;

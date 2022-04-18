@@ -4,15 +4,22 @@ class Car {
   $carName;
   $processCount;
   constructor(carName) {
-    const errorMessage = this.checkCarNameIsValid(carName);
-    if (errorMessage) {
-      alert(errorMessage);
-      throw errorMessage;
-    }
+    try {
+      const errorMessage = this.checkCarNameIsValid(carName);
+      if (errorMessage) {
+        throw new SyntaxError(errorMessage);
+      }
 
-    this.$carName = carName;
-    this.$processCount = 0;
-    this.$isWinner = false;
+      this.$carName = carName;
+      this.$processCount = 0;
+      this.$isWinner = false;
+    } catch (err) {
+      if (err instanceof SyntaxError) {
+        alert(err.message);
+      } else {
+        throw err;
+      }
+    }
   }
 
   get name() {
