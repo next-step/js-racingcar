@@ -1,11 +1,12 @@
 import { $ } from './utils/index.js';
 import { getCardBoardTemplate, getWinnerNamesTemplate } from './view/Template.js';
 import { hiddenEl, showEl } from './view/common.js';
-import Car from './service/Car.js';
+import CarManager from './service/CarManager.js';
 
 class App {
   constructor() {
     this.cars = null;
+    this.carManager = new CarManager();
     this.$nameInput = $('#racing-name input');
     this.$countInput = $('#racing-count input');
     $('#racing-name form').addEventListener('submit', this.sendCarNames);
@@ -19,11 +20,8 @@ class App {
     e.preventDefault();
     const challengeCount = this.$countInput.value;
 
-    this.cars.forEach((car) => car.forwardCar(Number(challengeCount)));
+    this.carManager.forwardCars({ cars: this.cars, count: Number(challengeCount) });
 
-    this.$countInput.disabled = true;
-    $('#racing-count button').disabled = true;
-    showEl($('#racing-board'));
     this.carBoardRender();
     this.carResultRender();
   };
@@ -31,22 +29,13 @@ class App {
   sendCarNames = (e) => {
     e.preventDefault();
     const carNames = this.$nameInput.value.split(',');
-    this.cars = carNames.map((carName) => new Car(carName.trim()));
+    this.cars = this.carManager.createCars(carNames);
     const isValidCarNames = this.cars.every((car) => car.name);
 
-    if (!isValidCarNames) return;
-
-    $('#racing-name button').disabled = true;
-    this.$nameInput.disabled = true;
-    showEl($('#racing-count'));
-    $('#racing-count input').focus();
+    if (isValidCarNames) {
+      this.carNamesRender();
+    }
   };
-
-  getWinners() {
-    const maxDistance = Math.max(...this.cars.map((car) => car.processCount));
-    this.cars.forEach((car) => car.setIsWinner(maxDistance));
-    return this.cars.filter((car) => car.isWinner).map((car) => car.name);
-  }
 
   reset = () => {
     this.cars = null;
@@ -80,13 +69,25 @@ class App {
     hiddenEl($('#racing-result'));
   }
 
+  carNamesRender() {
+    $('#racing-name button').disabled = true;
+    this.$nameInput.disabled = true;
+    showEl($('#racing-count'));
+    $('#racing-count input').focus();
+  }
+
   carBoardRender() {
+    this.$countInput.disabled = true;
+    $('#racing-count button').disabled = true;
+    showEl($('#racing-board'));
+
     $('#racing-board').innerHTML = getCardBoardTemplate(this.cars);
   }
 
   carResultRender() {
-    const winners = this.getWinners();
     showEl($('#racing-result'));
+
+    const winners = this.carManager.getWinners(this.cars);
     $('#racing-result #winner-names').innerHTML = getWinnerNamesTemplate(winners);
   }
 }

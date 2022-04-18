@@ -7,18 +7,13 @@ class Car {
     try {
       const errorMessage = this.checkCarNameIsValid(carName);
       if (errorMessage) {
-        throw new SyntaxError(errorMessage);
+        throw errorMessage;
       }
 
       this.$carName = carName;
       this.$processCount = 0;
-      this.$isWinner = false;
-    } catch (err) {
-      if (err instanceof SyntaxError) {
-        alert(err.message);
-      } else {
-        throw err;
-      }
+    } catch (errorMessage) {
+      alert(errorMessage);
     }
   }
 
@@ -55,12 +50,6 @@ class Car {
         this.$processCount++;
       }
       this.forwardCar();
-    }
-  }
-
-  setIsWinner(maxDistance) {
-    if (this.processCount >= maxDistance) {
-      this.$isWinner = true;
     }
   }
 }
