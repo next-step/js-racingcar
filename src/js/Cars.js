@@ -1,30 +1,33 @@
 import { Car } from './Car.js';
 
-export default class Game {
-  static #cars;
+class ICars {
+  #cars;
 
-  static readyCars(carNameList) {
-    Game.#cars = carNameList.map(
+  readyCars(carNameList) {
+    this.#cars = carNameList.map(
       (carName, index) => new Car({ name: carName, line: `car-line-${index}` })
     );
   }
 
-  static initialize() {
-    Game.#cars = null;
+  initialize() {
+    this.#cars = null;
   }
 
-  static get cars() {
-    return Game.#cars;
+  get carList() {
+    return this.#cars;
   }
 
-  static get winner() {
-    Game.#cars.sort(
+  get winner() {
+    this.carList.sort(
       (prevCar, nextCar) => nextCar.movingDistance - prevCar.movingDistance
     );
-    const [firstRankCar] = Game.#cars;
-    return Game.#cars
+    const [firstRankCar] = this.carList;
+    return this.carList
       .filter((car) => car.movingDistance >= firstRankCar.movingDistance)
       .map((car) => car.name)
       .join(',');
   }
 }
+const Cars = new ICars();
+Object.freeze(Cars);
+export default Cars;

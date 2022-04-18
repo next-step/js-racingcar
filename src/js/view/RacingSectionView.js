@@ -1,6 +1,6 @@
 import RacingCarNamesView from './RacingCarNamesView.js';
 import RandomMovingStrategy from '../RandomMovingStrategy.js';
-import Game from '../Game.js';
+import Cars from '../Cars.js';
 import AbstractView from './AbstractView.js';
 
 const $section = document.querySelector('#game');
@@ -100,21 +100,21 @@ class IRacingSectionView extends AbstractView {
   }
 
   ready() {
-    Game.readyCars(RacingCarNamesView.carNameList());
-    this.#settingCarToLine(Game.cars);
+    Cars.readyCars(RacingCarNamesView.carNameList());
+    this.#settingCarToLine(Cars.carList);
     this.#showGame();
   }
 
   start(cycle) {
     this.#runningLapByCycle({
       cycle,
-      carList: Game.cars,
+      carList: Cars.carList,
     });
-    this.#showWinner(Game.winner);
+    this.#showWinner(Cars.winner);
   }
 
   initialize() {
-    Game.initialize();
+    Cars.initialize();
     this.#initializeGame();
     this.#hideResult();
   }
