@@ -10,10 +10,12 @@ export const ERROR_MESSAGE = {
 };
 
 export const SELECTOR = {
+  APP: "#app",
   NAME_INPUT: "#input-name",
   TRY_INPUT: "#input-try",
   NAME_SUBMIT_BUTTON: "#name-submit-button",
   TRY_SUBMIT_BUTTON: "#try-submit-button",
   CAR_CONTAINER: "#car-container",
   CAR_NAME: ".car-name",
+  RACING_FORM: "#racing-form",
 };

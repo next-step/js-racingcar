@@ -34,7 +34,7 @@ const RacingInputView = {
   },
 
   renderInContainer($template) {
-    const $racingInputContainer = document.querySelector("#racing-form");
+    const $racingInputContainer = document.querySelector(SELECTOR.RACING_FORM);
     $racingInputContainer.insertAdjacentHTML("beforeend", $template);
   },
 };
