@@ -1,15 +1,17 @@
-import Store from './store/index.js';
-import { createCarBoard, checkCarNamesIsValid } from './service/index.js';
 import { $ } from './utils/index.js';
-import { getCardBoardTemplate } from './view/Template.js';
+import { getCardBoardTemplate, getWinnerNamesTemplate } from './view/Template.js';
+import { hiddenEl, showEl } from './view/common.js';
+import CarManager from './service/CarManager.js';
 
 class App {
   constructor() {
-    this.store = new Store();
+    this.cars = null;
+    this.carManager = new CarManager();
     this.$nameInput = $('#racing-name input');
     this.$countInput = $('#racing-count input');
     $('#racing-name form').addEventListener('submit', this.sendCarNames);
     $('#racing-count form').addEventListener('submit', this.sendChallengeCount);
+    $('#racing-result button').addEventListener('click', this.reset);
 
     $('#racing-name input').focus();
   }
@@ -17,35 +19,76 @@ class App {
   sendChallengeCount = (e) => {
     e.preventDefault();
     const challengeCount = this.$countInput.value;
-    const carNames = this.$nameInput.value.split(',');
-    const carBoard = createCarBoard({ names: carNames, count: challengeCount });
 
-    this.$countInput.disabled = true;
-    $('#racing-count button').disabled = true;
-    $('#racing-board').classList.remove('hidden');
-    this.store.setState({ carBoard });
+    this.carManager.forwardCars({ cars: this.cars, count: Number(challengeCount) });
+
     this.carBoardRender();
+    this.carResultRender();
   };
 
   sendCarNames = (e) => {
     e.preventDefault();
-
-    const $racingCount = $('#racing-count');
     const carNames = this.$nameInput.value.split(',');
-    const { errorMessage } = checkCarNamesIsValid(carNames);
-    if (errorMessage) {
-      alert(errorMessage);
-      return;
-    }
+    this.cars = this.carManager.createCars(carNames);
+    const isValidCarNames = this.cars.every((car) => car.name);
 
-    $('#racing-name button').disabled = true;
-    this.$nameInput.disabled = true;
-    $racingCount.classList.remove('hidden');
-    $('#racing-count input').focus();
+    if (isValidCarNames) {
+      this.carNamesRender();
+    }
   };
 
+  reset = () => {
+    this.cars = null;
+
+    this.resetCarBoard();
+    this.resetCarCount();
+    this.resetCardName();
+    this.resetResult();
+
+    this.$nameInput.focus();
+  };
+
+  resetCardName() {
+    this.$nameInput.value = '';
+    this.$nameInput.disabled = false;
+    $('#racing-name button').disabled = false;
+  }
+
+  resetCarCount() {
+    this.$countInput.value = '';
+    hiddenEl($('#racing-count'));
+    this.$countInput.disabled = false;
+    $('#racing-count button').disabled = false;
+  }
+
+  resetCarBoard() {
+    hiddenEl($('#racing-board'));
+  }
+
+  resetResult() {
+    hiddenEl($('#racing-result'));
+  }
+
+  carNamesRender() {
+    $('#racing-name button').disabled = true;
+    this.$nameInput.disabled = true;
+    showEl($('#racing-count'));
+    $('#racing-count input').focus();
+  }
+
   carBoardRender() {
-    $('#racing-board').innerHTML = getCardBoardTemplate(this.store.state.carBoard);
+    this.$countInput.disabled = true;
+    $('#racing-count button').disabled = true;
+    showEl($('#racing-board'));
+
+    $('#racing-board').innerHTML = getCardBoardTemplate(this.cars);
+  }
+
+  carResultRender() {
+    showEl($('#racing-result'));
+
+    const winners = this.carManager.getWinners(this.cars);
+    $('#racing-result #winner-names').innerHTML = getWinnerNamesTemplate(winners);
   }
 }
 

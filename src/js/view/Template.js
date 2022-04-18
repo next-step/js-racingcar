@@ -1,18 +1,20 @@
-import { CAR_STATE } from '../constants/index.js';
-
-const getCarBoardItemTemplate = ({ name, stateList }) => {
+const getCarBoardItemTemplate = (car) => {
   return `
     <div class="mr-2">
-      <div class="car-player">${name}</div>
-      ${'<div class="forward-icon mt-2">⬇️️</div>'.repeat(stateList.filter((state) => state === CAR_STATE.GO).length)}
+      <div class="car-player">${car.name}</div>
+      ${'<div class="forward-icon mt-2">⬇️️</div>'.repeat(car.processCount)}
     </div>
   `;
 };
 
-export const getCardBoardTemplate = (carBoard) => {
+export const getCardBoardTemplate = (cars) => {
   return `
     <div class="mt-4 d-flex">
-      ${carBoard.map((cardBoardItem) => getCarBoardItemTemplate(cardBoardItem)).join('')}
+      ${cars.map((car) => getCarBoardItemTemplate(car)).join('')}
     </div>
   `;
+};
+
+export const getWinnerNamesTemplate = (winnerList) => {
+  return `🏆 최종 우승자: ${winnerList.join(', ')} 🏆`;
 };
