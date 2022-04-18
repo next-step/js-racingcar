@@ -8,12 +8,10 @@ const CarStatus = Object.freeze({
 export class Car {
   #name;
   #status;
-  #line;
   #distance;
 
-  constructor({ name, line }) {
+  constructor({ name }) {
     this.#name = name;
-    this.#line = line;
     this.#distance = 0;
     this.#stop();
   }
@@ -29,10 +27,6 @@ export class Car {
 
   get name() {
     return this.#name;
-  }
-
-  get line() {
-    return this.#line;
   }
 
   get movingDistance() {

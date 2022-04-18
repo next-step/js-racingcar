@@ -25,9 +25,9 @@ function stopTemplate() {
 }
 
 class IRacingSectionView extends AbstractView {
-  #settingCar(car) {
+  #settingCar(car, lineNumber) {
     const $template = document.createElement('template');
-    $template.innerHTML = `<div class="mr-2" id="${car.line}"><div class="car-player">${car.name}</div></div>`;
+    $template.innerHTML = `<div class="mr-2" id="car-line-${lineNumber}"><div class="car-player">${car.name}</div></div>`;
     return $template.content.firstChild;
   }
 
@@ -35,7 +35,7 @@ class IRacingSectionView extends AbstractView {
     const $template = document.createElement('template');
     $template.innerHTML = '<div class="mt-4 d-flex"></div>';
     const $result = $template.content.firstChild;
-    $result.append(...cars.map((car) => this.#settingCar(car)));
+    $result.append(...cars.map((car, index) => this.#settingCar(car, index)));
     $section.replaceChildren($result);
   }
 
@@ -45,31 +45,31 @@ class IRacingSectionView extends AbstractView {
       .forEach(($stopPosition) => $stopPosition.remove());
   }
 
-  #carLine(car) {
-    return $section.querySelector(`#${car.line}`);
+  #carLine(car, lineNumber) {
+    return $section.querySelector(`#car-line-${lineNumber}`);
   }
 
-  #movePosition(car) {
-    this.#carLine(car).appendChild(moveTemplate());
+  #movePosition(car, lineNumber) {
+    this.#carLine(car, lineNumber).appendChild(moveTemplate());
   }
 
-  #stopPosition(car) {
-    this.#carLine(car).appendChild(stopTemplate());
+  #stopPosition(car, lineNumber) {
+    this.#carLine(car, lineNumber).appendChild(stopTemplate());
   }
 
-  #changeCarPosition(car) {
+  #changeCarPosition(car, lineNumber) {
     if (car.isMoveStatus()) {
-      this.#movePosition(car);
+      this.#movePosition(car, lineNumber);
       return;
     }
-    this.#stopPosition(car);
+    this.#stopPosition(car, lineNumber);
   }
 
   #runningLap(carList) {
     this.#removeStopPositionAllCar();
-    carList.forEach((car) => {
+    carList.forEach((car, index) => {
       car.run(RandomMovingStrategy);
-      this.#changeCarPosition(car);
+      this.#changeCarPosition(car, index);
     });
   }
 
