@@ -1,4 +1,4 @@
-import { validateName } from './carName.js';
+import { validateName } from './car.js';
 
 const cars = {
   validateNames: (carNameList) => {
