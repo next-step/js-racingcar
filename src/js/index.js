@@ -1,4 +1,4 @@
-import RacingGameView from './view/RacingGameView.js';
+import App from './view/App.js';
 
-RacingGameView.eventBindings();
-RacingGameView.initialize();
+App.eventBindings();
+App.initialize();

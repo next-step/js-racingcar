@@ -10,24 +10,24 @@ const $racingCycleSubmit = $racingCycleField.querySelector(
   '#racing-cycle-submit'
 );
 
-class RacingCycleView extends AbstractView {
-  static #disabledCycleField() {
+class IRacingCycleView extends AbstractView {
+  #disabledCycleField() {
     $racingCycleField.disabled = true;
   }
 
-  static #enabledCycleField() {
+  #enabledCycleField() {
     $racingCycleField.disabled = false;
   }
 
-  static #initializeCycle() {
+  #initializeCycle() {
     $racingCycleInput.value = null;
   }
 
-  static #handleCycleSubmit() {
+  #handleCycleSubmit() {
     const cycle = $racingCycleInput.value;
     try {
       RacingCycle.validate(cycle);
-      RacingCycleView.#disabledCycleField();
+      this.#disabledCycleField();
       RacingSectionView.ready();
       RacingSectionView.start(cycle);
     } catch (e) {
@@ -36,26 +36,27 @@ class RacingCycleView extends AbstractView {
     }
   }
 
-  static showView() {
+  showView() {
     $racingCycleField.classList.remove('hide');
   }
 
-  static #hideView() {
+  #hideView() {
     $racingCycleField.classList.add('hide');
   }
 
-  static initialize() {
-    RacingCycleView.#enabledCycleField();
-    RacingCycleView.#initializeCycle();
-    RacingCycleView.#hideView();
+  initialize() {
+    this.#enabledCycleField();
+    this.#initializeCycle();
+    this.#hideView();
   }
 
-  static eventBindings(onInitialize) {
-    $racingCycleSubmit.addEventListener(
-      'click',
-      RacingCycleView.#handleCycleSubmit
+  eventBindings(onInitialize) {
+    $racingCycleSubmit.addEventListener('click', () =>
+      this.#handleCycleSubmit()
     );
     RacingSectionView.eventBindings(onInitialize);
   }
 }
+const RacingCycleView = new IRacingCycleView();
+Object.freeze(RacingCycleView);
 export default RacingCycleView;

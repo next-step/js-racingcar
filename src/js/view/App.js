@@ -3,15 +3,18 @@ import RacingCarNamesView from './RacingCarNamesView.js';
 import RacingCycleView from './RacingCycleView.js';
 import RacingSectionView from './RacingSectionView.js';
 
-export default class RacingGameView extends AbstractView {
-  static eventBindings() {
+class IApp extends AbstractView {
+  eventBindings() {
     RacingCarNamesView.eventBindings();
-    RacingCycleView.eventBindings(RacingGameView.initialize);
+    RacingCycleView.eventBindings(this.initialize);
   }
 
-  static initialize() {
+  initialize() {
     RacingCarNamesView.initialize();
     RacingCycleView.initialize();
     RacingSectionView.initialize();
   }
 }
+const App = new IApp();
+Object.freeze(App);
+export default App;
