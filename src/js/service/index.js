@@ -1,11 +1,13 @@
 import { CAR_STATE, ERROR, CAR_NAME } from '../constants/index.js';
 
 const checkCarNameIsValid = (carName) => {
-  if (!carName.trim()) {
+  const trimCarName = carName.trim();
+
+  if (!trimCarName) {
     return ERROR.NAME_EMPTY;
   }
 
-  if (carName.length > CAR_NAME.MAX_LENGTH) {
+  if (trimCarName.length > CAR_NAME.MAX_LENGTH) {
     return ERROR.NAME_MAX_LENGTH;
   }
 
@@ -34,18 +36,10 @@ export const createCarBoard = ({ names, count }) => {
 };
 
 export const getWinners = (carBoard) => {
-  let winners = [];
-  let max = 0;
-  for (const carState of carBoard) {
-    const count = carState.stateList.filter((state) => state === 'go').length;
-    if (count === max) {
-      winners.push(carState.name);
-    }
-    if (count > max) {
-      max = count;
-      winners = [carState.name];
-    }
-  }
-
-  return winners;
+  const cars = carBoard.map((carState) => ({
+    name: carState.name,
+    forwardDistance: carState.stateList.filter((state) => state === 'go').length,
+  }));
+  const maxDistance = Math.max(...cars.map((car) => car.forwardDistance));
+  return cars.filter((car) => car.forwardDistance === maxDistance).map((car) => car.name);
 };

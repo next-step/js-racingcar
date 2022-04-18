@@ -1,4 +1,3 @@
-import { getWinnerNamesTemplate } from '../../src/js/view/Template.js';
 import { ERROR } from './../../src/js/constants/index.js';
 
 const carNamesT1 = '제우스, 오너, 페이커, 구마유시, 케리아';
@@ -13,7 +12,7 @@ describe('자동차 경주 게임 테스트 케이스', () => {
   });
 
   context('자동차 이름을 잘못 입력한 경우', () => {
-    it('자동차 이름을 다섯글자 초과로 입력했을 때', () => {
+    it('자동차 이름을 다섯글자 초과로 입력했을 때 경고창이 출력된다', () => {
       const alertStub = cy.stub();
       cy.on('window:alert', alertStub);
       const invalidCarName = '가나다라마바사';
@@ -29,25 +28,34 @@ describe('자동차 경주 게임 테스트 케이스', () => {
   });
 
   context('시도 횟수를 제대로 입력한 경우', () => {
-    it('자동차 이름이 출력된다.', () => {
+    it('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
       const racingCount = 5;
       const carNames = carNamesT1.split(',');
+
+      cy.get('#racing-name input').type(carNamesT1);
+      cy.get('#racing-name button').click();
+
+      cy.get('#racing-count input').type(racingCount);
+      cy.get('#racing-count button').click();
+
+      cy.get('#racing-board').should('be.visible');
+      cy.get('#racing-board .car-player').each(($player, index) => {
+        expect(carNames[index]).to.contains($player.text());
+      });
+    });
+    it('우승자의 이름이 쉼표(,)로 구분되어 화면에 출력된다.', () => {
+      const racingCount = 5;
       let winners = [];
       let max = 0;
 
       cy.get('#racing-name input').type(carNamesT1);
       cy.get('#racing-name button').click();
 
-      cy.get('#racing-name button').should('be.disabled');
-      cy.get('#racing-name input').should('be.disabled');
-      cy.get('#racing-count').should('be.visible');
-
       cy.get('#racing-count input').type(racingCount);
       cy.get('#racing-count button').click();
 
-      cy.get('#racing-board').should('be.visible');
       cy.get('#racing-board .car-player')
-        .each(($player, index) => {
+        .each(($player) => {
           const count = $player[0].parentElement.childElementCount;
 
           if (count === max) {
@@ -58,8 +66,6 @@ describe('자동차 경주 게임 테스트 케이스', () => {
             winners = [$player[0].textContent.trim()];
           }
           cy.wrap(winners).as('winners');
-
-          expect(carNames[index]).to.equal($player.text());
         })
         .then(() => {
           cy.get('#racing-result').should('be.visible');
