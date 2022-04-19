@@ -31,6 +31,7 @@ const App = {
 
   addEvent() {
     const $racingInputContainer = document.querySelector(SELECTOR.RACING_FORM);
+
     $racingInputContainer.addEventListener("click", ({ target }) => {
       if (target.closest(SELECTOR.NAME_SUBMIT_BUTTON)) {
         const { value } = document.querySelector(SELECTOR.NAME_INPUT);
@@ -51,6 +52,7 @@ const App = {
       this.setCarNames();
     });
   },
+
   validateCarNameInput(splitCarNames) {
     if (!Validator.validateCarNames(splitCarNames)) {
       alert(ERROR_MESSAGE.NAME_LENGTH);
@@ -62,6 +64,7 @@ const App = {
       return;
     }
   },
+
   setCarNames(splitCarNames) {
     this.carNames = splitCarNames;
 
