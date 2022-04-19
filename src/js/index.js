@@ -16,14 +16,15 @@ const App = {
   render() {
     const $app = document.querySelector(SELECTOR.APP);
     /*html */
-    $app.innerHTML = `<section class="d-flex justify-center mt-5" >
-    <form id ="racing-form">
-    </form>
-  </section>
-  <section class="d-flex justify-center mt-5">
-    <div class="mt-4 d-flex" id="car-container">
-    </div>
-  </section>
+    $app.innerHTML = `
+    <section class="d-flex justify-center mt-5" >
+      <form id ="racing-form">
+      </form>
+    </section>
+    <section class="d-flex justify-center mt-5">
+      <div class="mt-4 d-flex" id="car-container">
+      </div>
+    </section>
  `;
 
     RacingInputView.renderNameInput();
