@@ -56,12 +56,12 @@ const App = {
   },
 
   validateCarNameInput(splitCarNames) {
-    if (!Validator.validateCarNames(splitCarNames)) {
+    if (!Validator.isValidCarNameLength(splitCarNames)) {
       alert(ERROR_MESSAGE.NAME_LENGTH);
       return;
     }
 
-    if (!Validator.validateDuplicateCarNames(splitCarNames)) {
+    if (!Validator.isUniqueCarNames(splitCarNames)) {
       alert(ERROR_MESSAGE.NAME_DUPLICATE);
       return;
     }

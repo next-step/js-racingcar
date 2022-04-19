@@ -42,7 +42,7 @@ describe("자동차 경주 게임 테스트", () => {
       cy.get(SELECTOR.NAME_INPUT).should($name => {
         const name = $name.val();
         const carNames = splitCarName(name);
-        expect(Validator.validateCarNames(carNames)).to.be.false;
+        expect(Validator.isValidCarNameLength(carNames)).to.be.false;
       });
     });
 
