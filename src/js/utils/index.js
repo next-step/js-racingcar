@@ -1,8 +1,3 @@
-export const splitCarName = carName => {
-  const DELIMITER = ",";
-  return carName.split(DELIMITER);
-};
-
 export const generateNumberInRange = ({ min, max }) => {
   return Math.floor(Math.random() * (max + 1)) + min;
 };
