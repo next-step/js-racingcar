@@ -1,7 +1,7 @@
 import RacingInputView from "./views/RacingInputView.js";
 import RacingGame from "./models/RacingGame.js";
 import Validator from "./models/Validator.js";
-import { splitCarName, generateNumberInRange } from "./utils/index.js";
+import { generateNumberInRange } from "./utils/index.js";
 import { SELECTOR, ERROR_MESSAGE, MOVEMENT } from "./constant/index.js";
 
 const App = {
@@ -35,7 +35,7 @@ const App = {
     $racingInputContainer.addEventListener("click", ({ target }) => {
       if (target.closest(SELECTOR.NAME_SUBMIT_BUTTON)) {
         const { value } = document.querySelector(SELECTOR.NAME_INPUT);
-        const splitCarNames = splitCarName(value);
+        const splitCarNames = value.split(",");
         this.validateCarNameInput(splitCarNames);
         this.setCarNames(splitCarNames);
         target.disabled = true;
@@ -75,23 +75,18 @@ const App = {
     const { value } = document.querySelector(SELECTOR.TRY_INPUT);
     const tyrCount = Number(value);
 
-    if (!Validator.validateTryCount(this.tryCount)) {
-      alert(ERROR_MESSAGE.TRY_COUNT_RANGE);
-      return;
-    }
-
     this.tryCount = tyrCount;
 
     this.readyToStartGame();
   },
 
   readyToStartGame() {
-    if (!this.tryCount | !this.c)
-      const randomMovementsByCar = this.carNames.map(_ =>
-        Array.from({ length: this.tryCount }).map(_ =>
-          generateNumberInRange({ min: MOVEMENT.MIN, max: MOVEMENT.MAX })
-        )
-      );
+    if (!this.tryCount | !this.carNames) return;
+    const randomMovementsByCar = this.carNames.map(_ =>
+      Array.from({ length: this.tryCount }).map(_ =>
+        generateNumberInRange({ min: MOVEMENT.MIN, max: MOVEMENT.MAX })
+      )
+    );
 
     const carsInfo = this.carNames.map((carName, idx) =>
       Object.freeze({
