@@ -36,7 +36,8 @@ const App = {
     $racingInputContainer.addEventListener("click", ({ target }) => {
       if (target.closest(SELECTOR.NAME_SUBMIT_BUTTON)) {
         const { value } = document.querySelector(SELECTOR.NAME_INPUT);
-        const splitCarNames = value.split(",");
+        const splitCarNames = value.split(",").map(name => name.trim());
+
         this.validateCarNameInput(splitCarNames);
         this.setCarNames(splitCarNames);
         target.disabled = true;
