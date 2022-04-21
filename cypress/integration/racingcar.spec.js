@@ -1,6 +1,11 @@
-import { ERROR } from './../../src/js/constants/index.js';
+import { END_MESSAGE, ERROR, TIME } from './../../src/js/constants/index.js';
 
 const carNamesT1 = '제우스, 오너, 페이커, 구마유시, 케리아';
+const setRoundTick = (count) => {
+  for (let i = 0; i < count; i++) {
+    cy.tick(TIME.CAR_DELAY);
+  }
+};
 
 describe('자동차 경주 게임 테스트 케이스', () => {
   beforeEach(() => {
@@ -43,10 +48,12 @@ describe('자동차 경주 게임 테스트 케이스', () => {
         expect(carNames[index]).to.contains($player.text());
       });
     });
+
     it('우승자의 이름이 쉼표(,)로 구분되어 화면에 출력된다.', () => {
       const racingCount = 5;
       let winners = [];
       let max = 0;
+      cy.clock();
 
       cy.get('#racing-name input').type(carNamesT1);
       cy.get('#racing-name button').click();
@@ -54,10 +61,11 @@ describe('자동차 경주 게임 테스트 케이스', () => {
       cy.get('#racing-count input').type(racingCount);
       cy.get('#racing-count button').click();
 
+      setRoundTick(racingCount);
+
       cy.get('#racing-board .car-player')
         .each(($player) => {
-          const count = $player[0].parentElement.childElementCount;
-
+          const count = $player[0].parentElement.children.length;
           if (count === max) {
             winners.push($player[0].textContent.trim());
           }
@@ -71,6 +79,25 @@ describe('자동차 경주 게임 테스트 케이스', () => {
           cy.get('#racing-result').should('be.visible');
           cy.get('#racing-result h2').contains(winners.join(', '));
         });
+    });
+
+    it('경기가 종료된 후, 경기결과를 보여주고 2초 뒤에 축하 알림창을 띄운다.', () => {
+      const alertStub = cy.stub();
+      const racingCount = 5;
+      cy.on('window:alert', alertStub);
+      cy.clock();
+
+      cy.get('#racing-name input').type(carNamesT1);
+      cy.get('#racing-name button').click();
+
+      cy.get('#racing-count input').type(racingCount);
+      cy.get('#racing-count button').click();
+
+      setRoundTick(racingCount);
+      cy.get('#racing-result').should('be.visible');
+      cy.tick(TIME.RESULT_ALERT).then(() => {
+        expect(alertStub.getCall(0)).to.be.calledWith(END_MESSAGE);
+      });
     });
   });
 
