@@ -1,6 +1,6 @@
 import MovingStrategy from './MovingStrategy.js';
 
-class IRandomMovingStrategy extends MovingStrategy {
+class RandomMovingStrategy extends MovingStrategy {
   isMoveable() {
     const MOVABLE_RANGE_MIN_NUMBER = 0;
     const MOVABLE_RANGE_MAX_NUMBER = 9;
@@ -13,6 +13,6 @@ class IRandomMovingStrategy extends MovingStrategy {
   }
 }
 
-const RandomMovingStrategy = new IRandomMovingStrategy();
-Object.freeze(RandomMovingStrategy);
-export default RandomMovingStrategy;
+const randomMovingStrategy = new RandomMovingStrategy();
+Object.freeze(randomMovingStrategy);
+export default randomMovingStrategy;
