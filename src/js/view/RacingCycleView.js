@@ -1,33 +1,37 @@
 import RacingSectionView from './RacingSectionView.js';
 import RacingCycle from '../RacingCycle.js';
-import AbstractView from './AbstractView.js';
 
 const $racingCycleField = document.querySelector('#racing-cycle-field');
 const $racingCycleInput = $racingCycleField.querySelector(
   '#racing-cycle-input'
 );
-const $racingCycleSubmit = $racingCycleField.querySelector(
-  '#racing-cycle-submit'
-);
 
-class IRacingCycleView extends AbstractView {
-  #disabledCycleField() {
+const RacingCycleView = (function () {
+  function disabledCycleField() {
     $racingCycleField.disabled = true;
   }
 
-  #enabledCycleField() {
+  function enabledCycleField() {
     $racingCycleField.disabled = false;
   }
 
-  #initializeCycle() {
+  function initializeCycle() {
     $racingCycleInput.value = null;
   }
 
-  #handleCycleSubmit() {
+  function showView() {
+    $racingCycleField.classList.remove('hide');
+  }
+
+  function hideView() {
+    $racingCycleField.classList.add('hide');
+  }
+
+  function cycleSubmit() {
     const cycle = $racingCycleInput.value;
     try {
       RacingCycle.validate(cycle);
-      this.#disabledCycleField();
+      disabledCycleField();
       RacingSectionView.ready();
       RacingSectionView.start(cycle);
     } catch (e) {
@@ -36,27 +40,12 @@ class IRacingCycleView extends AbstractView {
     }
   }
 
-  showView() {
-    $racingCycleField.classList.remove('hide');
+  function initialize() {
+    enabledCycleField();
+    initializeCycle();
+    hideView();
   }
 
-  #hideView() {
-    $racingCycleField.classList.add('hide');
-  }
-
-  initialize() {
-    this.#enabledCycleField();
-    this.#initializeCycle();
-    this.#hideView();
-  }
-
-  eventBindings(onInitialize) {
-    $racingCycleSubmit.addEventListener('click', () =>
-      this.#handleCycleSubmit()
-    );
-    RacingSectionView.eventBindings(onInitialize);
-  }
-}
-const RacingCycleView = new IRacingCycleView();
-Object.freeze(RacingCycleView);
+  return { cycleSubmit, initialize, showView };
+})();
 export default RacingCycleView;

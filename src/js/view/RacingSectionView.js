@@ -1,11 +1,9 @@
 import RacingCarNamesView from './RacingCarNamesView.js';
 import RandomMovingStrategy from '../RandomMovingStrategy.js';
 import Cars from '../Cars.js';
-import AbstractView from './AbstractView.js';
 
 const $section = document.querySelector('#game');
 const $resultSection = document.querySelector('#result');
-const $restart = $resultSection.querySelector('#restart');
 const $winner = $resultSection.querySelector('#winner');
 
 function moveTemplate() {
@@ -24,105 +22,101 @@ function stopTemplate() {
   return $template.content.firstChild;
 }
 
-class IRacingSectionView extends AbstractView {
-  #settingCar(car, lineNumber) {
+const RacingSectionView = (function () {
+  function showResult() {
+    $resultSection.classList.remove('hide');
+  }
+
+  function hideResult() {
+    $resultSection.classList.add('hide');
+  }
+
+  function settingCar(car, lineNumber) {
     const $template = document.createElement('template');
     $template.innerHTML = `<div class="mr-2" id="car-line-${lineNumber}"><div class="car-player">${car.name}</div></div>`;
     return $template.content.firstChild;
   }
 
-  #settingCarToLine(cars) {
+  function settingCarToLine(cars) {
     const $template = document.createElement('template');
     $template.innerHTML = '<div class="mt-4 d-flex"></div>';
     const $result = $template.content.firstChild;
-    $result.append(...cars.map((car, index) => this.#settingCar(car, index)));
+    $result.append(...cars.map((car, index) => settingCar(car, index)));
     $section.replaceChildren($result);
   }
 
-  #removeStopPositionAllCar() {
+  function removeStopPositionAllCar() {
     $section
       .querySelectorAll('div.mt-3')
       .forEach(($stopPosition) => $stopPosition.remove());
   }
 
-  #carLine(car, lineNumber) {
+  function carLine(car, lineNumber) {
     return $section.querySelector(`#car-line-${lineNumber}`);
   }
 
-  #movePosition(car, lineNumber) {
-    this.#carLine(car, lineNumber).appendChild(moveTemplate());
+  function movePosition(car, lineNumber) {
+    carLine(car, lineNumber).appendChild(moveTemplate());
   }
 
-  #stopPosition(car, lineNumber) {
-    this.#carLine(car, lineNumber).appendChild(stopTemplate());
+  function stopPosition(car, lineNumber) {
+    carLine(car, lineNumber).appendChild(stopTemplate());
   }
 
-  #changeCarPosition(car, lineNumber) {
+  function changeCarPosition(car, lineNumber) {
     if (car.isMoveStatus()) {
-      this.#movePosition(car, lineNumber);
+      movePosition(car, lineNumber);
       return;
     }
-    this.#stopPosition(car, lineNumber);
+    stopPosition(car, lineNumber);
   }
 
-  #runningLap(carList) {
-    this.#removeStopPositionAllCar();
+  function runningLap(carList) {
+    removeStopPositionAllCar();
     carList.forEach((car, index) => {
       car.run(RandomMovingStrategy);
-      this.#changeCarPosition(car, index);
+      changeCarPosition(car, index);
     });
   }
 
-  #runningLapByCycle({ cycle, carList }) {
-    new Array(Number(cycle)).fill().forEach(() => this.#runningLap(carList));
+  function runningLapByCycle({ cycle, carList }) {
+    new Array(Number(cycle)).fill().forEach(() => runningLap(carList));
   }
 
-  #showWinner(winner) {
+  function showWinner(winner) {
     $winner.textContent = winner;
-    this.#showResult();
+    showResult();
   }
 
-  #showGame() {
+  function showGame() {
     $section.classList.remove('hide');
   }
 
-  #initializeGame() {
+  function initializeGame() {
     $section.replaceChildren('');
     $section.classList.add('hide');
   }
 
-  #showResult() {
-    $resultSection.classList.remove('hide');
-  }
-
-  #hideResult() {
-    $resultSection.classList.add('hide');
-  }
-
-  ready() {
+  function ready() {
     Cars.readyCars(RacingCarNamesView.carNameList());
-    this.#settingCarToLine(Cars.carList);
-    this.#showGame();
+    settingCarToLine(Cars.carList);
+    showGame();
   }
 
-  start(cycle) {
-    this.#runningLapByCycle({
+  function start(cycle) {
+    runningLapByCycle({
       cycle,
       carList: Cars.carList,
     });
-    this.#showWinner(Cars.winner);
+    showWinner(Cars.winner);
   }
 
-  initialize() {
+  function initialize() {
     Cars.initialize();
-    this.#initializeGame();
-    this.#hideResult();
+    initializeGame();
+    hideResult();
   }
 
-  eventBindings(onInitialize) {
-    $restart.addEventListener('click', onInitialize);
-  }
-}
-const RacingSectionView = new IRacingSectionView();
-Object.freeze(RacingSectionView);
+  return { initialize, ready, start };
+})();
 export default RacingSectionView;
