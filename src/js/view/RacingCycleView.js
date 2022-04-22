@@ -1,5 +1,5 @@
 import RacingSectionView from './RacingSectionView.js';
-import RacingCycle from '../RacingCycle.js';
+import racingCycle from '../RacingCycle.js';
 
 const $racingCycleField = document.querySelector('#racing-cycle-field');
 const $racingCycleInput = $racingCycleField.querySelector(
@@ -30,7 +30,7 @@ const RacingCycleView = (function () {
   function cycleSubmit() {
     const cycle = $racingCycleInput.value;
     try {
-      RacingCycle.validate(cycle);
+      racingCycle.validate(cycle);
       disabledCycleField();
       RacingSectionView.ready();
       RacingSectionView.start(cycle);

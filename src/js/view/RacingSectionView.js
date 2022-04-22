@@ -1,6 +1,5 @@
-import RacingCarNamesView from './RacingCarNamesView.js';
-import RandomMovingStrategy from '../RandomMovingStrategy.js';
-import Cars from '../Cars.js';
+import randomMovingStrategy from '../RandomMovingStrategy.js';
+import cars from '../Cars.js';
 
 const $section = document.querySelector('#game');
 const $resultSection = document.querySelector('#result');
@@ -37,11 +36,11 @@ const RacingSectionView = (function () {
     return $template.content.firstChild;
   }
 
-  function settingCarToLine(cars) {
+  function settingCarToLine(carList) {
     const $template = document.createElement('template');
     $template.innerHTML = '<div class="mt-4 d-flex"></div>';
     const $result = $template.content.firstChild;
-    $result.append(...cars.map((car, index) => settingCar(car, index)));
+    $result.append(...carList.map((car, index) => settingCar(car, index)));
     $section.replaceChildren($result);
   }
 
@@ -74,7 +73,7 @@ const RacingSectionView = (function () {
   function runningLap(carList) {
     removeStopPositionAllCar();
     carList.forEach((car, index) => {
-      car.run(RandomMovingStrategy);
+      car.run(randomMovingStrategy);
       changeCarPosition(car, index);
     });
   }
@@ -98,21 +97,20 @@ const RacingSectionView = (function () {
   }
 
   function ready() {
-    Cars.readyCars(RacingCarNamesView.carNameList());
-    settingCarToLine(Cars.carList);
+    settingCarToLine(cars.carList());
     showGame();
   }
 
   function start(cycle) {
     runningLapByCycle({
       cycle,
-      carList: Cars.carList,
+      carList: cars.carList(),
     });
-    showWinner(Cars.winner);
+    showWinner(cars.winner());
   }
 
   function initialize() {
-    Cars.initialize();
+    cars.initialize();
     initializeGame();
     hideResult();
   }

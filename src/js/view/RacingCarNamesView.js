@@ -1,5 +1,5 @@
 import RacingCycleView from './RacingCycleView.js';
-import cars from '../utils/cars.js';
+import cars from '../Cars.js';
 
 const CAR_NAME_SEPARATOR = ',';
 
@@ -25,7 +25,7 @@ const RacingCarNamesView = (function () {
 
   function carNameSubmit() {
     try {
-      cars.validateNames(carNameList());
+      cars.readyCars(carNameList());
       disabledCarNameField();
       RacingCycleView.showView();
     } catch (e) {
