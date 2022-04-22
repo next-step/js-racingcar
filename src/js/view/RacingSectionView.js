@@ -79,12 +79,38 @@ const RacingSectionView = (function () {
   }
 
   function runningLapByCycle({ cycle, carList }) {
-    new Array(Number(cycle)).fill().forEach(() => runningLap(carList));
+    return new Promise((resolve, reject) => {
+      let i = 0;
+      const lastLap = Number(cycle);
+
+      try {
+        const running = setInterval(() => {
+          if (i === lastLap) {
+            clearInterval(running);
+            resolve();
+            return;
+          }
+          runningLap(carList);
+          i += 1;
+        }, 1000);
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
   function showWinner(winner) {
     $winner.textContent = winner;
     showResult();
+  }
+
+  function notificationWinner(winner) {
+    alert(`축하합니다! ${winner}`);
+  }
+
+  function endGame(winner) {
+    showWinner(winner);
+    setTimeout(() => notificationWinner(winner), 2000);
   }
 
   function showGame() {
@@ -105,8 +131,9 @@ const RacingSectionView = (function () {
     runningLapByCycle({
       cycle,
       carList: cars.carList(),
+    }).then(() => {
+      endGame(cars.winner());
     });
-    showWinner(cars.winner());
   }
 
   function initialize() {
