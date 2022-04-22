@@ -49,8 +49,8 @@
           </fieldset>
         </form>
       </section>
-      <section class="d-flex justify-center mt-5">
-        <div class="mt-4 d-flex">
+      <section id="game" class="d-flex justify-center mt-5 hide">
+<!--        <div class="mt-4 d-flex">-->
           <!--          <div class="mr-2">-->
           <!--            <div class="car-player">EAST</div>-->
           <!--            <div class="forward-icon mt-2">⬇️️</div>-->
@@ -76,16 +76,16 @@
           <!--                      </div>-->
           <!--                    </div>-->
           <!--          </div>-->
+<!--        </div>-->
+      </section>
+      <section id="result" class="d-flex justify-center mt-5 hide">
+        <div>
+          <h2>🏆 최종 우승자: <span id="winner"></span> 🏆</h2>
+          <div class="d-flex justify-center">
+            <button id="restart" type="button" class="btn btn-cyan">다시 시작하기</button>
+          </div>
         </div>
       </section>
-      <!--      <section id="result" class="d-flex justify-center mt-5">-->
-      <!--        <div>-->
-      <!--          <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>-->
-      <!--          <div class="d-flex justify-center">-->
-      <!--            <button type="button" class="btn btn-cyan">다시 시작하기</button>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </section>-->
     </div>
     <script type="module" src="./src/js/index.js"></script>
   </body>

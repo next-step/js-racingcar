@@ -1,46 +1,34 @@
 const MIN_CYCLE = 1;
 const MAX_CYCLE = 100;
 
-class RacingCycle {
-  static #notificationEmptyCycle() {
-    alert('횟수를 입력하세요.');
-  }
-
-  static #notificationInvalidRangeCycle() {
-    alert(`횟수를 ${MIN_CYCLE} ~ ${MAX_CYCLE} 사이 값을 입력하세요.`);
-  }
-
-  static #isEmptyCycle(cycle) {
+class IRacingCycle {
+  #isEmptyCycle(cycle) {
     return cycle === undefined || cycle === null || !cycle;
   }
 
-  static #isEnableRangeCycle(cycle) {
+  #isDisableRangeCycle(cycle) {
     return !(cycle >= MIN_CYCLE && cycle <= MAX_CYCLE);
   }
 
-  static #validateEmptyCycle(cycle) {
-    if (RacingCycle.#isEmptyCycle(cycle)) {
-      RacingCycle.#notificationEmptyCycle();
-      return false;
+  #validateEmptyCycle(cycle) {
+    if (this.#isEmptyCycle(cycle)) {
+      throw new Error('횟수를 입력하세요.');
     }
-
-    return true;
   }
 
-  static #validateEnableRangeCycle(cycle) {
-    if (RacingCycle.#isEnableRangeCycle(cycle)) {
-      RacingCycle.#notificationInvalidRangeCycle();
-      return false;
+  #validateEnableRangeCycle(cycle) {
+    if (this.#isDisableRangeCycle(cycle)) {
+      throw new Error(
+        `횟수를 ${MIN_CYCLE} ~ ${MAX_CYCLE} 사이 값을 입력하세요.`
+      );
     }
-
-    return true;
   }
 
-  static validate(cycle) {
-    return (
-      RacingCycle.#validateEmptyCycle(cycle) &&
-      RacingCycle.#validateEnableRangeCycle(cycle)
-    );
+  validate(cycle) {
+    this.#validateEmptyCycle(cycle);
+    this.#validateEnableRangeCycle(cycle);
   }
 }
+const RacingCycle = new IRacingCycle();
+Object.freeze(RacingCycle);
 export default RacingCycle;

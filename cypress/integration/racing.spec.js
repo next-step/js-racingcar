@@ -6,9 +6,13 @@ Cypress.Commands.add('$cycleInput', () => cy.get('#racing-cycle-input'));
 
 Cypress.Commands.add('$cycleSubmit', () => cy.get('#racing-cycle-submit'));
 
+Cypress.Commands.add('$restartSubmit', () => cy.get('#restart'));
+
 Cypress.Commands.add('$racingCars', () => cy.get('div.mr-2'));
 
 Cypress.Commands.add('$racingResult', () => cy.get('#result'));
+
+Cypress.Commands.add('$winner', () => cy.get('#winner'));
 
 describe('자동차 경주 게임', () => {
   beforeEach(() => {
@@ -18,17 +22,23 @@ describe('자동차 경주 게임', () => {
   describe('초기 화면 테스트', () => {
     it('자동차 이름 입력이 가능한 화면이 보인다.', () => {
       cy.$carNamesInput().should('be.visible');
+      cy.$carNamesInput().should('not.have.text');
       cy.$carNamesSubmit().should('be.visible');
     });
     it('자동차 이름을 입력을 통과하기전 횟수 입력 화면이 보이지 않는다.', () => {
       cy.$cycleInput().should('not.be.visible');
+      cy.$cycleInput().should('not.have.text');
       cy.$cycleSubmit().should('not.be.visible');
     });
     it('초기에 자동차들은 보이지 않는다.', () => {
       cy.$racingCars().should('not.exist');
     });
     it('초기에 경기의 우승 결과는 보이지 않는다.', () => {
-      cy.$racingResult().should('not.exist');
+      cy.$racingResult().should('not.be.visible');
+    });
+    it('초기에 경기의 우승자는 보이지 않는다.', () => {
+      cy.$winner().should('not.be.visible');
+      cy.$winner().should('be.empty');
     });
   });
 
@@ -172,6 +182,48 @@ describe('자동차 경주 게임', () => {
     it('경기 시작 후 입력된 수만큼 자동차가 표시된다.', () => {
       cy.$racingCars().should('be.visible');
       cy.get('.car-player').should('have.length', 3);
+    });
+
+    it('경기종료 후 결과가가 보인다.', () => {
+      cy.$racingResult().should('be.visible');
+    });
+
+    it('경기종료 후 우승자가 보인다.', () => {
+      cy.$winner().should('be.visible');
+      cy.$winner().should('not.be.empty');
+    });
+  });
+
+  describe('경기 다시 시작', () => {
+    beforeEach(() => {
+      cy.$carNamesInput().type('자동1,자동차2,자동3');
+      cy.$carNamesSubmit().click();
+      cy.$cycleInput().type(5);
+      cy.$cycleSubmit()
+        .click()
+        .then(() => {
+          cy.$restartSubmit().click();
+        });
+    });
+
+    it('자동차 이름 입력이 가능한 화면이 보인다.', () => {
+      cy.$carNamesInput().should('be.visible');
+      cy.$carNamesInput().should('not.have.text');
+      cy.$carNamesSubmit().should('be.visible');
+    });
+    it('자동차 이름을 입력을 통과하기전 횟수 입력 화면이 보이지 않는다.', () => {
+      cy.$cycleInput().should('not.be.visible');
+      cy.$cycleInput().should('not.have.text');
+      cy.$cycleSubmit().should('not.be.visible');
+    });
+    it('자동차들은 보이지 않는다.', () => {
+      cy.$racingCars().should('not.exist');
+    });
+    it('경기의 우승 결과는 보이지 않는다.', () => {
+      cy.$racingResult().should('not.be.visible');
+    });
+    it('경기의 우승자는 보이지 않는다.', () => {
+      cy.$winner().should('not.be.visible');
     });
   });
 });

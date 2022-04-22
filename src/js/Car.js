@@ -1,29 +1,23 @@
+import MovingStrategy from './MovingStrategy.js';
+
 const CarStatus = Object.freeze({
   STOP: 'STOP',
   MOVING: 'MOVING',
 });
 
-function moveableNumber() {
-  const MOVABLE_RANGE_MIN_NUMBER = 0;
-  const MOVABLE_RANGE_MAX_NUMBER = 9;
-  return (
-    Math.random() * (MOVABLE_RANGE_MAX_NUMBER - MOVABLE_RANGE_MIN_NUMBER) +
-    MOVABLE_RANGE_MIN_NUMBER
-  );
-}
-
 export class Car {
   #name;
   #status;
-  #target;
+  #distance;
 
-  constructor({ name, target }) {
+  constructor({ name }) {
     this.#name = name;
-    this.#target = target;
+    this.#distance = 0;
     this.#stop();
   }
 
   #move() {
+    this.#distance += 1;
     this.#status = CarStatus.MOVING;
   }
 
@@ -31,24 +25,21 @@ export class Car {
     this.#status = CarStatus.STOP;
   }
 
-  get $target() {
-    return this.#target;
+  get name() {
+    return this.#name;
+  }
+
+  get movingDistance() {
+    return this.#distance;
   }
 
   isMoveStatus() {
     return this.#status === CarStatus.MOVING;
   }
 
-  static #isEnableMove(number) {
-    const MOVABLE_NUMBER = 4;
-    return number >= MOVABLE_NUMBER;
-  }
-
-  run() {
-    if (Car.#isEnableMove(moveableNumber())) {
-      this.#move();
-      return;
-    }
-    this.#stop();
+  run(movingStrategy) {
+    if (!(movingStrategy instanceof MovingStrategy))
+      throw new Error('인자로 MovingStrategy를 받아와야 합니다.');
+    return movingStrategy.isMoveable() ? this.#move() : this.#stop();
   }
 }

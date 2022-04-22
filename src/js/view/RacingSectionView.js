@@ -1,7 +1,12 @@
 import RacingCarNamesView from './RacingCarNamesView.js';
-import { Car } from '../Car.js';
+import RandomMovingStrategy from '../RandomMovingStrategy.js';
+import Cars from '../Cars.js';
+import AbstractView from './AbstractView.js';
 
-const $section = document.querySelector('section > div.mt-4.d-flex');
+const $section = document.querySelector('#game');
+const $resultSection = document.querySelector('#result');
+const $restart = $resultSection.querySelector('#restart');
+const $winner = $resultSection.querySelector('#winner');
 
 function moveTemplate() {
   const $template = document.createElement('template');
@@ -19,77 +24,105 @@ function stopTemplate() {
   return $template.content.firstChild;
 }
 
-function player(carName) {
-  return `<div class="car-player">${carName}</div>`;
-}
-
-class RacingSectionView {
-  static #cars() {
-    const $lines = $section.querySelectorAll('div.mr-2');
-    return [...$lines].map(($line) => {
-      const carName = $line.querySelector('.car-player');
-      return new Car({ name: carName, target: $line });
-    });
+class IRacingSectionView extends AbstractView {
+  #settingCar(car, lineNumber) {
+    const $template = document.createElement('template');
+    $template.innerHTML = `<div class="mr-2" id="car-line-${lineNumber}"><div class="car-player">${car.name}</div></div>`;
+    return $template.content.firstChild;
   }
 
-  static #carSetting(carName) {
-    const $car = document.createElement('div');
-    $car.classList.add('mr-2');
-    $car.innerHTML = player(carName);
-    return $car;
+  #settingCarToLine(cars) {
+    const $template = document.createElement('template');
+    $template.innerHTML = '<div class="mt-4 d-flex"></div>';
+    const $result = $template.content.firstChild;
+    $result.append(...cars.map((car, index) => this.#settingCar(car, index)));
+    $section.replaceChildren($result);
   }
 
-  static #settingCars(carNameList) {
-    const $result = new DocumentFragment();
-    $result.append(...carNameList.map((carName) => this.#carSetting(carName)));
-    return $result;
-  }
-
-  static #removeStopPositionAllCar() {
+  #removeStopPositionAllCar() {
     $section
       .querySelectorAll('div.mt-3')
       .forEach(($stopPosition) => $stopPosition.remove());
   }
 
-  static #movePosition(car) {
-    car.$target.appendChild(moveTemplate());
+  #carLine(car, lineNumber) {
+    return $section.querySelector(`#car-line-${lineNumber}`);
   }
 
-  static #stopPosition(car) {
-    car.$target.appendChild(stopTemplate());
+  #movePosition(car, lineNumber) {
+    this.#carLine(car, lineNumber).appendChild(moveTemplate());
   }
 
-  static #changeCarPosition(car) {
+  #stopPosition(car, lineNumber) {
+    this.#carLine(car, lineNumber).appendChild(stopTemplate());
+  }
+
+  #changeCarPosition(car, lineNumber) {
     if (car.isMoveStatus()) {
-      this.#movePosition(car);
+      this.#movePosition(car, lineNumber);
       return;
     }
-    this.#stopPosition(car);
+    this.#stopPosition(car, lineNumber);
   }
 
-  static #runningLap(carList) {
+  #runningLap(carList) {
     this.#removeStopPositionAllCar();
-    carList.forEach((car) => {
-      car.run();
-      this.#changeCarPosition(car);
+    carList.forEach((car, index) => {
+      car.run(RandomMovingStrategy);
+      this.#changeCarPosition(car, index);
     });
   }
 
-  static #runningLapByCycle({ cycle, carList }) {
+  #runningLapByCycle({ cycle, carList }) {
     new Array(Number(cycle)).fill().forEach(() => this.#runningLap(carList));
   }
 
-  static start(cycle) {
-    this.#runningLapByCycle({
-      cycle,
-      carList: this.#cars(),
-    });
+  #showWinner(winner) {
+    $winner.textContent = winner;
+    this.#showResult();
   }
 
-  static ready() {
-    $section.replaceChildren(
-      this.#settingCars(RacingCarNamesView.carNameList())
-    );
+  #showGame() {
+    $section.classList.remove('hide');
+  }
+
+  #initializeGame() {
+    $section.replaceChildren('');
+    $section.classList.add('hide');
+  }
+
+  #showResult() {
+    $resultSection.classList.remove('hide');
+  }
+
+  #hideResult() {
+    $resultSection.classList.add('hide');
+  }
+
+  ready() {
+    Cars.readyCars(RacingCarNamesView.carNameList());
+    this.#settingCarToLine(Cars.carList);
+    this.#showGame();
+  }
+
+  start(cycle) {
+    this.#runningLapByCycle({
+      cycle,
+      carList: Cars.carList,
+    });
+    this.#showWinner(Cars.winner);
+  }
+
+  initialize() {
+    Cars.initialize();
+    this.#initializeGame();
+    this.#hideResult();
+  }
+
+  eventBindings(onInitialize) {
+    $restart.addEventListener('click', onInitialize);
   }
 }
+const RacingSectionView = new IRacingSectionView();
+Object.freeze(RacingSectionView);
 export default RacingSectionView;
