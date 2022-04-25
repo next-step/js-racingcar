@@ -75,5 +75,10 @@ describe('레이싱카 앱 테스트', () => {
 				cy.get(`[data-cy='${name}']`).should('have.text', name);
 			});
 		});
+
+		it('자동차 경주 게임의 우승자를 표시한다.', () => {
+			cy.get('#racing-result-block').should('be.visible');
+			cy.get('#winners').should('be.visible');
+		});
 	});
 });
