@@ -5,15 +5,19 @@ import { getCardBoardTemplate, getWinnerNamesTemplate } from '../view/Template.j
 import Car from './Car.js';
 
 class CarManager {
+  constructor() {
+    this.timeoutId = undefined;
+  }
+
   createCars(carNames) {
     return carNames.map((carName) => new Car(carName.trim()));
   }
 
-  async forwardCars({ cars, count }) {
+  async runRound({ cars, count }) {
     const roundList = Array.from({ length: count }, (_, index) => index);
 
     for (const round of roundList) {
-      await this.delayForwardCars(cars);
+      await this.forwardCars(cars);
     }
 
     cars.forEach((car) => car.parkingCar());
@@ -21,7 +25,7 @@ class CarManager {
     this.carResultRender(cars);
   }
 
-  async delayForwardCars(cars) {
+  async forwardCars(cars) {
     await delay(TIME.CAR_DELAY);
     cars.forEach((car) => car.forwardCar());
     this.updateCarBoard(cars);
@@ -41,10 +45,17 @@ class CarManager {
 
     const winners = this.getWinners(cars);
     $('#racing-result #winner-names').innerHTML = getWinnerNamesTemplate(winners);
+    this.setTimeoutResult();
+  }
 
-    setTimeout(() => {
+  setTimeoutResult() {
+    this.timeoutId = setTimeout(() => {
       alert(END_MESSAGE);
     }, TIME.RESULT_ALERT);
+  }
+
+  cancelTimeoutResult() {
+    clearTimeout(this.timeoutId);
   }
 }
 

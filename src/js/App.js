@@ -43,6 +43,7 @@ class App {
     this.resetResult();
 
     this.$nameInput.focus();
+    this.carManager.cancelTimeoutResult();
   };
 
   resetCardName() {
@@ -79,7 +80,7 @@ class App {
     showEl($('#racing-board'));
 
     $('#racing-board').innerHTML = getCardBoardTemplate(this.cars);
-    this.carManager.forwardCars({ cars: this.cars, count });
+    this.carManager.runRound({ cars: this.cars, count });
   }
 }
 
