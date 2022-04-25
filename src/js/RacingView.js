@@ -6,10 +6,12 @@ export default class RacingView {
 		this.$target = $target;
 	}
 
-	updateView() {
+	updateView(callback) {
 		const template = this.#createForwardArrowTemplate();
 		this.$target.style.display = 'flex';
 		this.$target.innerHTML = `<div class="mt-4 d-flex">${template}</div>`;
+
+		callback && callback();
 	}
 
 	#getRacingGameProcess() {
@@ -22,7 +24,7 @@ export default class RacingView {
 		return this.car.name
 			.map(
 				(name) =>
-					`<div class="mr-2">
+					`<div class="mr-2 racing-game">
 					<div data-cy="${name}" class="car-player">${name}</div>
 					${this.#getRacingGameProcess(this.car.tryConunt)}
 				</div>`

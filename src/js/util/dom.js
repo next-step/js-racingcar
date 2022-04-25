@@ -6,3 +6,5 @@ export const $carTryBlock = $('#car-try-block');
 export const $carTryInput = $('#car-try-input');
 export const $carTrySubmit = $('#car-try-submit');
 export const $carRacingBlock = $('#car-racing-block');
+export const $carRacingResultBlock = $('#racing-result-block');
+export const $winner = $('#winner');
