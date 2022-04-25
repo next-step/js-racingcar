@@ -4,44 +4,43 @@ import RacingSectionView from './RacingSectionView.js';
 
 const $app = document.querySelector('#app');
 
-const App = (function () {
-  function isCarNameSubmit(id) {
-    return id === 'car-names-submit';
-  }
+function isCarNameSubmit(id) {
+  return id === 'car-names-submit';
+}
 
-  function isRacingCycleSubmit(id) {
-    return id === 'racing-cycle-submit';
-  }
+function isRacingCycleSubmit(id) {
+  return id === 'racing-cycle-submit';
+}
 
-  function isRestartRaceSubmit(id) {
-    return id === 'restart';
-  }
+function isRestartRaceSubmit(id) {
+  return id === 'restart';
+}
 
-  function initialize() {
-    RacingCarNamesView.initialize();
-    RacingCycleView.initialize();
-    RacingSectionView.initialize();
-  }
+function eventBindings() {
+  $app.addEventListener('click', (event) => {
+    const { id } = event.target;
+    if (isCarNameSubmit(id)) {
+      RacingCarNamesView.carNameSubmit();
+      return;
+    }
 
-  function eventBindings() {
-    $app.addEventListener('click', (event) => {
-      const { id } = event.target;
-      if (isCarNameSubmit(id)) {
-        RacingCarNamesView.carNameSubmit();
-        return;
-      }
+    if (isRacingCycleSubmit(id)) {
+      RacingCycleView.cycleSubmit();
+      return;
+    }
 
-      if (isRacingCycleSubmit(id)) {
-        RacingCycleView.cycleSubmit();
-        return;
-      }
+    if (isRestartRaceSubmit(id)) {
+      // eslint-disable-next-line no-use-before-define
+      initialize();
+    }
+  });
+}
 
-      if (isRestartRaceSubmit(id)) {
-        initialize();
-      }
-    });
-  }
+function initialize() {
+  eventBindings();
+  RacingCarNamesView.initialize();
+  RacingCycleView.initialize();
+  RacingSectionView.initialize();
+}
 
-  return { initialize, eventBindings };
-})();
-export default App;
+export { initialize };

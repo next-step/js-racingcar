@@ -1,4 +1,3 @@
-import App from './view/App.js';
+import { initialize } from './view/App.js';
 
-App.eventBindings();
-App.initialize();
+initialize();
