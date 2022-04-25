@@ -8,12 +8,11 @@ const Car = {
 		return this._name;
 	},
 	set name(name) {
-		const _names = toNameArray(name);
-
 		if (!name) {
 			throw new Error(ERR_MSG.EMPTY_CAR_NAME);
 		}
 
+		const _names = toNameArray(name);
 		if (!isCheckCarNameLength(_names)) {
 			throw new Error(ERR_MSG.OVER_CAR_NAME_MAX_LENGTH);
 		}
