@@ -1,5 +1,5 @@
 import { $ } from './utils/index.js';
-import { getCardBoardTemplate, getWinnerNamesTemplate } from './view/Template.js';
+import { getCardBoardTemplate } from './view/Template.js';
 import { hiddenEl, showEl } from './view/common.js';
 import CarManager from './service/CarManager.js';
 
@@ -20,10 +20,7 @@ class App {
     e.preventDefault();
     const challengeCount = this.$countInput.value;
 
-    this.carManager.forwardCars({ cars: this.cars, count: Number(challengeCount) });
-
-    this.carBoardRender();
-    this.carResultRender();
+    this.carBoardRender(Number(challengeCount));
   };
 
   sendCarNames = (e) => {
@@ -46,6 +43,7 @@ class App {
     this.resetResult();
 
     this.$nameInput.focus();
+    this.carManager.cancelTimeoutResult();
   };
 
   resetCardName() {
@@ -76,19 +74,13 @@ class App {
     $('#racing-count input').focus();
   }
 
-  carBoardRender() {
+  carBoardRender(count) {
     this.$countInput.disabled = true;
     $('#racing-count button').disabled = true;
     showEl($('#racing-board'));
 
     $('#racing-board').innerHTML = getCardBoardTemplate(this.cars);
-  }
-
-  carResultRender() {
-    showEl($('#racing-result'));
-
-    const winners = this.carManager.getWinners(this.cars);
-    $('#racing-result #winner-names').innerHTML = getWinnerNamesTemplate(winners);
+    this.carManager.runRound({ cars: this.cars, count });
   }
 }
 
