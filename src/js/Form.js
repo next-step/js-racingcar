@@ -19,7 +19,7 @@ export default class Form {
 		target.style.display = display;
 	}
 
-	setEvent(eventType = 'click', callback) {
+	setEvent(eventType, callback) {
 		this.$triggerEl.addEventListener(eventType, () => {
 			try {
 				callback();
