@@ -1,33 +1,43 @@
-import { Car } from './Car.js';
+import { Car, validateName } from './Car.js';
 
-class ICars {
-  #cars;
+const cars = (function () {
+  let carList;
 
-  readyCars(carNameList) {
-    this.#cars = carNameList.map(
+  function generateCars(carNameList) {
+    carList = carNameList.map(
       (carName, index) => new Car({ name: carName, line: `car-line-${index}` })
     );
   }
 
-  initialize() {
-    this.#cars = null;
+  function validateNames(carNameList) {
+    carNameList.forEach((carName) => validateName(carName));
   }
 
-  get carList() {
-    return this.#cars;
+  function readyCars(carNameList) {
+    validateNames(carNameList);
+    generateCars(carNameList);
   }
 
-  get winner() {
-    this.carList.sort(
+  function initialize() {
+    carList = null;
+  }
+
+  function winner() {
+    carList.sort(
       (prevCar, nextCar) => nextCar.movingDistance - prevCar.movingDistance
     );
-    const [firstRankCar] = this.carList;
-    return this.carList
+    const [firstRankCar] = carList;
+    return carList
       .filter((car) => car.movingDistance >= firstRankCar.movingDistance)
       .map((car) => car.name)
       .join(',');
   }
-}
-const Cars = new ICars();
-Object.freeze(Cars);
-export default Cars;
+
+  return {
+    readyCars,
+    carList: () => carList,
+    winner,
+    initialize,
+  };
+})();
+export default cars;

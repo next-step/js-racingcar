@@ -1,11 +1,8 @@
-import RacingCarNamesView from './RacingCarNamesView.js';
-import RandomMovingStrategy from '../RandomMovingStrategy.js';
-import Cars from '../Cars.js';
-import AbstractView from './AbstractView.js';
+import randomMovingStrategy from '../RandomMovingStrategy.js';
+import cars from '../Cars.js';
 
 const $section = document.querySelector('#game');
 const $resultSection = document.querySelector('#result');
-const $restart = $resultSection.querySelector('#restart');
 const $winner = $resultSection.querySelector('#winner');
 
 function moveTemplate() {
@@ -24,105 +21,127 @@ function stopTemplate() {
   return $template.content.firstChild;
 }
 
-class IRacingSectionView extends AbstractView {
-  #settingCar(car, lineNumber) {
+const RacingSectionView = (function () {
+  function showResult() {
+    $resultSection.classList.remove('hide');
+  }
+
+  function hideResult() {
+    $resultSection.classList.add('hide');
+  }
+
+  function settingCar(car, lineNumber) {
     const $template = document.createElement('template');
     $template.innerHTML = `<div class="mr-2" id="car-line-${lineNumber}"><div class="car-player">${car.name}</div></div>`;
     return $template.content.firstChild;
   }
 
-  #settingCarToLine(cars) {
+  function settingCarToLine(carList) {
     const $template = document.createElement('template');
     $template.innerHTML = '<div class="mt-4 d-flex"></div>';
     const $result = $template.content.firstChild;
-    $result.append(...cars.map((car, index) => this.#settingCar(car, index)));
+    $result.append(...carList.map((car, index) => settingCar(car, index)));
     $section.replaceChildren($result);
   }
 
-  #removeStopPositionAllCar() {
+  function removeStopPositionAllCar() {
     $section
       .querySelectorAll('div.mt-3')
       .forEach(($stopPosition) => $stopPosition.remove());
   }
 
-  #carLine(car, lineNumber) {
+  function carLine(car, lineNumber) {
     return $section.querySelector(`#car-line-${lineNumber}`);
   }
 
-  #movePosition(car, lineNumber) {
-    this.#carLine(car, lineNumber).appendChild(moveTemplate());
+  function movePosition(car, lineNumber) {
+    carLine(car, lineNumber).appendChild(moveTemplate());
   }
 
-  #stopPosition(car, lineNumber) {
-    this.#carLine(car, lineNumber).appendChild(stopTemplate());
+  function stopPosition(car, lineNumber) {
+    carLine(car, lineNumber).appendChild(stopTemplate());
   }
 
-  #changeCarPosition(car, lineNumber) {
+  function changeCarPosition(car, lineNumber) {
     if (car.isMoveStatus()) {
-      this.#movePosition(car, lineNumber);
+      movePosition(car, lineNumber);
       return;
     }
-    this.#stopPosition(car, lineNumber);
+    stopPosition(car, lineNumber);
   }
 
-  #runningLap(carList) {
-    this.#removeStopPositionAllCar();
+  function runningLap(carList) {
+    removeStopPositionAllCar();
     carList.forEach((car, index) => {
-      car.run(RandomMovingStrategy);
-      this.#changeCarPosition(car, index);
+      car.run(randomMovingStrategy);
+      changeCarPosition(car, index);
     });
   }
 
-  #runningLapByCycle({ cycle, carList }) {
-    new Array(Number(cycle)).fill().forEach(() => this.#runningLap(carList));
+  function runningLapByCycle({ cycle, carList }) {
+    return new Promise((resolve, reject) => {
+      let i = 0;
+      const lastLap = Number(cycle);
+
+      try {
+        const running = setInterval(() => {
+          if (i === lastLap) {
+            clearInterval(running);
+            resolve();
+            return;
+          }
+          runningLap(carList);
+          i += 1;
+        }, 1000);
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
-  #showWinner(winner) {
+  function showWinner(winner) {
     $winner.textContent = winner;
-    this.#showResult();
+    showResult();
   }
 
-  #showGame() {
+  function notificationWinner(winner) {
+    alert(`축하합니다! ${winner}`);
+  }
+
+  function endGame(winner) {
+    showWinner(winner);
+    setTimeout(() => notificationWinner(winner), 2000);
+  }
+
+  function showGame() {
     $section.classList.remove('hide');
   }
 
-  #initializeGame() {
+  function initializeGame() {
     $section.replaceChildren('');
     $section.classList.add('hide');
   }
 
-  #showResult() {
-    $resultSection.classList.remove('hide');
+  function ready() {
+    settingCarToLine(cars.carList());
+    showGame();
   }
 
-  #hideResult() {
-    $resultSection.classList.add('hide');
-  }
-
-  ready() {
-    Cars.readyCars(RacingCarNamesView.carNameList());
-    this.#settingCarToLine(Cars.carList);
-    this.#showGame();
-  }
-
-  start(cycle) {
-    this.#runningLapByCycle({
+  function start(cycle) {
+    runningLapByCycle({
       cycle,
-      carList: Cars.carList,
+      carList: cars.carList(),
+    }).then(() => {
+      endGame(cars.winner());
     });
-    this.#showWinner(Cars.winner);
   }
 
-  initialize() {
-    Cars.initialize();
-    this.#initializeGame();
-    this.#hideResult();
+  function initialize() {
+    cars.initialize();
+    initializeGame();
+    hideResult();
   }
 
-  eventBindings(onInitialize) {
-    $restart.addEventListener('click', onInitialize);
-  }
-}
-const RacingSectionView = new IRacingSectionView();
-Object.freeze(RacingSectionView);
+  return { initialize, ready, start };
+})();
 export default RacingSectionView;

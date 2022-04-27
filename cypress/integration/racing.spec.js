@@ -177,6 +177,7 @@ describe('자동차 경주 게임', () => {
       cy.$carNamesSubmit().click();
       cy.$cycleInput().type(5);
       cy.$cycleSubmit().click();
+      cy.wait(5 * 1000);
     });
 
     it('경기 시작 후 입력된 수만큼 자동차가 표시된다.', () => {
@@ -192,6 +193,17 @@ describe('자동차 경주 게임', () => {
       cy.$winner().should('be.visible');
       cy.$winner().should('not.be.empty');
     });
+
+    it('경기종료 후 우승자를 알림으로 보여준다.', () => {
+      const alertStub = cy.stub();
+      cy.on('window:alert', alertStub);
+
+      cy.$winner().should('be.visible');
+      cy.$winner().should('not.be.empty');
+      cy.wait(2000).then(() => {
+        expect(alertStub).to.be.called;
+      });
+    });
   });
 
   describe('경기 다시 시작', () => {
@@ -202,7 +214,9 @@ describe('자동차 경주 게임', () => {
       cy.$cycleSubmit()
         .click()
         .then(() => {
-          cy.$restartSubmit().click();
+          cy.wait(5 * 1000).then(() => {
+            cy.$restartSubmit().click();
+          });
         });
     });
 
