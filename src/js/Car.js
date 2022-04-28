@@ -12,18 +12,18 @@ const Car = {
 			throw new Error(ERR_MSG.EMPTY_CAR_NAME);
 		}
 
-		const _names = toNameArray(name);
-		if (!isCheckCarNameLength(_names)) {
+		const carNames = toNameArray(name);
+		if (!isCheckCarNameLength(carNames)) {
 			throw new Error(ERR_MSG.OVER_CAR_NAME_MAX_LENGTH);
 		}
 
-		const carNamesSet = new Set(_names);
-		if (_names.length !== carNamesSet.size) {
+		const carNamesSet = new Set(carNames);
+		if (carNames.length !== carNamesSet.size) {
 			// FIXME: confirm이 false일 경우 실행을 중단하도록 수정
 			window.confirm(WARN_MSG.DUPLICATE_CAR_NAME);
 		}
 
-		this._name = _names;
+		this._name = carNames;
 	},
 	get tryCount() {
 		return this._tryCount;
