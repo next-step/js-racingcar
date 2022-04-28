@@ -9,9 +9,8 @@ export default class RacingResultView {
 			document.querySelectorAll('.racing-game')
 		);
 
-		const maxNum = Math.max.apply(
-			null,
-			$racingGameColumns.map((item) => item.childElementCount)
+		const maxNum = Math.max(
+			...$racingGameColumns.map((item) => item.childElementCount)
 		);
 
 		const winner = $racingGameColumns
