@@ -26,7 +26,7 @@ const tryForm = new Form({
 
 nameForm.setEvent('click', () => {
 	car.name = nameForm.getValue();
-	nameForm.visibleForm($carTryBlock);
+	nameForm.setFormDisplay($carTryBlock);
 });
 
 tryForm.setEvent('click', () => {

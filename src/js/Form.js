@@ -15,7 +15,7 @@ export default class Form {
 		this.$triggerEl.disabled = true;
 	}
 
-	visibleForm(target, display = 'block') {
+	setFormDisplay(target, display = 'block') {
 		target.style.display = display;
 	}
 
