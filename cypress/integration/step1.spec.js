@@ -99,4 +99,42 @@ describe("STEP 1", function () {
       cy.get("#car .car-path").should("have.length", inputCount);
     });
   });
+
+  context("경주 결과 테스트", () => {
+    it("경주 거리가 가장 높은 자동차가 최종 우승자가 된다.", () => {
+      const inputExample = "호랑이,거북이,고양이,원숭이,부엉이";
+      const inputCount = 5;
+      cy.get(CARS_INPUT_FIELD_SELECTOR).type(inputExample).type("{enter}");
+      cy.get(COUNT_INPUT_FIELD_SELECTOR).type(inputCount).type("{enter}");
+
+      setTimeout(() => {
+        const winnerNode = [...document.querySelectorAll(".car-path")].reduce(
+          (prev, current) => {
+            return prev.childElementCount > current.childElementCount
+              ? prev
+              : current;
+          }
+        );
+        const winner = winnerNode.previousElementSibling.textContent;
+        cy.get("winner-text").should(
+          "have.text",
+          `🏆 최종 우승자: ${winner} 🏆`
+        );
+      }, 10000);
+    });
+  });
+
+  context("다시 시작하기 테스트", () => {
+    it("다시 시작하기 버튼을 누르면 앱이 초기화된다. ", () => {
+      const inputExample = "호랑이,거북이,고양이,원숭이,부엉이";
+      const inputCount = 5;
+      cy.get(CARS_INPUT_FIELD_SELECTOR).type(inputExample).type("{enter}");
+      cy.get(COUNT_INPUT_FIELD_SELECTOR).type(inputCount).type("{enter}");
+
+      setTimeout(() => {
+        cy.get("restart-button").click();
+        cy.get(COUNT_INPUT_FIELD_SELECTOR).should("be.not.visible");
+      }, 10000);
+    });
+  });
 });
