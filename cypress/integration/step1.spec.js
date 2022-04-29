@@ -100,6 +100,7 @@ describe("STEP 1", function () {
     });
   });
 
+
   context("경주 결과 테스트", () => {
     it("경주 거리가 가장 높은 자동차가 최종 우승자가 된다.", () => {
       const inputExample = "호랑이,거북이,고양이,원숭이,부엉이";

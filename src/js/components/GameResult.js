@@ -1,3 +1,4 @@
+
 export const GameResult = (winnerString, restartGame) => {
   const target = document.querySelector("#game-result-component");
   const render = (target) => {
@@ -15,6 +16,7 @@ export const GameResult = (winnerString, restartGame) => {
             `
     );
   };
+
 
   const setEvent = (handler) => {
     document

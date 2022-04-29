@@ -24,6 +24,7 @@ class App {
     </section>
     `;
     target.innerHTML = html;
+
   };
 
   #setComponents = () => {
@@ -36,6 +37,7 @@ class App {
     this.#count = count;
 
     // GameProcess 컴포넌트 생성
+
     GameProcess(this.#carNames, this.#count, this.#onCompleteGame);
   };
 

@@ -1,5 +1,6 @@
 import Car from "../car.js";
 
+
 export const GameProcess = (carNames, count, onCompleteGame) => {
   const target = document.querySelector("#game-process-component");
   const _count = count;
@@ -32,6 +33,7 @@ export const GameProcess = (carNames, count, onCompleteGame) => {
           `
     );
   };
+
 
   const renderSpinners = () => {
     const targets = document.querySelectorAll("#car .car-path");
@@ -76,6 +78,7 @@ export const GameProcess = (carNames, count, onCompleteGame) => {
       renderCarPath();
       if (counter++ == _count) {
         clearInterval(timeout);
+
 
         setTimeout(() => {
           clearSpinners();
