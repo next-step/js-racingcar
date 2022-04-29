@@ -1,6 +1,6 @@
 import Car from "../car.js";
 
-export const GameProcess = (carNames, count) => {
+export const GameProcess = (carNames, count, onCompleteGame) => {
   const target = document.querySelector("#game-process-component");
   const _count = count;
   let _cars = [];
@@ -33,6 +33,29 @@ export const GameProcess = (carNames, count) => {
     );
   };
 
+  const renderSpinners = () => {
+    const targets = document.querySelectorAll("#car .car-path");
+    targets.forEach((target) => {
+      target.insertAdjacentHTML(
+        "afterbegin",
+        `
+        <div class="spinner d-flex justify-center mt-3">
+          <div class="relative spinner-container">
+            <span class="material spinner"></span>
+          </div>
+        </div>
+      `
+      );
+    });
+  };
+
+  const clearSpinners = () => {
+    const targets = document.querySelectorAll("#car .car-path");
+    targets.forEach((target) => {
+      target.removeChild(target.lastElementChild);
+    });
+  };
+
   const renderCarPath = () => {
     const targets = document.querySelectorAll("#car .car-path");
     targets.forEach((target, index) => {
@@ -41,28 +64,23 @@ export const GameProcess = (carNames, count) => {
           "afterbegin",
           `<div class="forward-icon mt-2">⬇️️</div>`
         );
-      } else {
-        target.insertAdjacentHTML(
-          "afterbegin",
-          `
-        <div class="d-flex justify-center mt-3">
-          <div class="relative spinner-container">
-            <span class="material spinner"></span>
-          </div>
-        </div>
-        `
-        );
       }
     });
   };
 
   const updateCarsStatus = () => {
+    renderSpinners();
     let counter = 1;
 
     const timeout = setInterval(() => {
       renderCarPath();
       if (counter++ == _count) {
         clearInterval(timeout);
+
+        setTimeout(() => {
+          clearSpinners();
+          onCompleteGame(_cars);
+        }, 1000);
       }
     }, 1000);
   };
