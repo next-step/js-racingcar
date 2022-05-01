@@ -41,6 +41,20 @@ export const renderForwardIcon = (parent) => {
   parent.insertAdjacentElement('beforeend', forwardIcon);
 };
 
+export const renderLoadingIconOfCar = () => {
+  const carElements = document.getElementsByClassName('car');
+  [...carElements].forEach((carElem, idx) => {
+    renderLoadingIcon(carElem);
+  });
+};
+
+export const removeLoadingIconOfCar = () => {
+  const carElements = document.getElementsByClassName('car');
+  [...carElements].forEach((carElem, idx) => {
+    removePrevSpinner(carElem);
+  });
+};
+
 export const renderLoadingIcon = (parent) => {
   const spinnerFlexContainer = document.createElement('div');
   const spinnerContainer = document.createElement('div');
@@ -56,14 +70,13 @@ export const renderLoadingIcon = (parent) => {
   parent.insertAdjacentElement('beforeend', spinnerFlexContainer);
 };
 
-export const startRacing = (carRacingProperty) => {
+export const renderRacingIcon = (carRacingProperty) => {
   const carElements = document.getElementsByClassName('car');
 
   [...carElements].forEach((carElem, idx) => {
-    removePrevSpinner(carElem);
     if (carRacingProperty[idx].isForward) {
+      removePrevSpinner(carElem);
       renderForwardIcon(carElem);
-    } else {
       renderLoadingIcon(carElem);
     }
   });
@@ -73,6 +86,22 @@ export const removePrevSpinner = (currentElement) => {
   const lastElement = currentElement.lastChild;
 
   if (lastElement.className.includes('spinner-wrapper')) {
-    lastElement.remove();
+    currentElement.removeChild(lastElement);
   }
+};
+
+export const renderGameResult = (winnerList) => {
+  const winners = [];
+  winnerList.map((winner) => {
+    winners.push(winner.carName);
+  });
+
+  const winnerElement = $('#winners');
+  winnerElement.innerHTML = winners.join(', ');
+
+  $('#racing-winner-section').style.display = 'block';
+};
+
+export const alertWinners = () => {
+  alert('🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇');
 };
