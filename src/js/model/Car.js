@@ -3,6 +3,7 @@ import MESSAGE from '../constants/message.js';
 
 export class Car {
   #carName;
+  #position = 0;
 
   constructor(carName) {
     if (!this.isCorrectLength(carName)) {
@@ -15,6 +16,12 @@ export class Car {
     return this.#carName;
   }
 
+  get position() {
+    return this.#position;
+  }
+  set position(position) {
+    this.#position = position;
+  }
   isCorrectLength(carName) {
     return (
       carName.length <= CAR_VALIDATION.MAX_CAR_NAME_LENTH &&

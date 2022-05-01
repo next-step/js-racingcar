@@ -7,6 +7,7 @@ import { CarRacingProperty } from './CarRacingProperty.js';
 export class CarManager {
   #carList = [];
   #attemptCount;
+  #winnerList = [];
 
   constructor(carNames) {
     const carNameArray = carNames.split(',');
@@ -27,18 +28,47 @@ export class CarManager {
   get attemptCount() {
     return this.#attemptCount;
   }
-
+  get winnerList() {
+    return this.#winnerList;
+  }
   set attemptCount(count) {
     if (count < 1) {
       throw MESSAGE.ERROR_ATTEMPT_COUNT_INPUT;
     }
     this.#attemptCount = count;
   }
+  set addWinner(car) {
+    this.#winnerList.push(car);
+  }
 
   attemptForward() {
     return this.#carList.map((car) => {
       const isForward = car.createForwardNumber() >= CAR_VALIDATION.MAX_FORWARD_CONDITION;
+      if (isForward) {
+        car.position = car.position + 1;
+      }
       return new CarRacingProperty(car.carName, isForward);
     });
+  }
+
+  getMaxPosition() {
+    let max = 0;
+    this.#carList.filter((car) => {
+      if (max < car.position) {
+        max = car.position;
+      }
+    });
+    return max;
+  }
+  pickWinner() {
+    const max = this.getMaxPosition();
+
+    this.#carList.map((car) => {
+      if (max === car.position) {
+        this.addWinner = car;
+      }
+    });
+
+    return this.#winnerList;
   }
 }
