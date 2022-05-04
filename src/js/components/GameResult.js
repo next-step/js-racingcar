@@ -1,4 +1,5 @@
-export const GameResult = () => {
+
+export const GameResult = (winnerString, restartGame) => {
   const target = document.querySelector("#game-result-component");
   const render = (target) => {
     target.insertAdjacentHTML(
@@ -6,9 +7,9 @@ export const GameResult = () => {
       `
         <div class="d-flex justify-center mt-5">
         <div>
-            <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
+            <h2 id="winner-text">🏆 최종 우승자: ${winnerString} 🏆</h2>
             <div class="d-flex justify-center">
-            <button type="button" class="btn btn-cyan">다시 시작하기</button>
+            <button type="button" id="restart-button" class="btn btn-cyan">다시 시작하기</button>
             </div>
         </div>
         </div>
@@ -16,5 +17,13 @@ export const GameResult = () => {
     );
   };
 
+
+  const setEvent = (handler) => {
+    document
+      .getElementById("restart-button")
+      .addEventListener("click", handler);
+  };
+
   render(target);
+  setEvent(restartGame);
 };

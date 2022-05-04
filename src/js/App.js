@@ -23,7 +23,8 @@ class App {
     <section id="game-result-component">
     </section>
     `;
-    target.insertAdjacentHTML("afterbegin", html);
+    target.innerHTML = html;
+
   };
 
   #setComponents = () => {
@@ -36,7 +37,25 @@ class App {
     this.#count = count;
 
     // GameProcess 컴포넌트 생성
-    GameProcess(this.#carNames, this.#count);
+
+    GameProcess(this.#carNames, this.#count, this.#onCompleteGame);
+  };
+
+  #onCompleteGame = (cars) => {
+    const winner = cars.reduce((prev, current) => {
+      return prev.distance > current.distance ? prev : current;
+    });
+    console.log(winner);
+    this.#showGameResult(winner.name);
+  };
+
+  #showGameResult = (winnerString) => {
+    GameResult(winnerString, this.#restartGame);
+  };
+
+  #restartGame = () => {
+    this.#render();
+    this.#setComponents();
   };
 }
 
