@@ -20,6 +20,15 @@ export default function Template() {
     `;
   };
 
+  this.getElement = (key) => {
+    const elementTable = {
+      spinner: () => this.$spinnerElement,
+      forward: () => this.$forwardElement,
+    };
+
+    return elementTable[key]();
+  };
+
   this.init = () => {
     this.initForwardElement();
     this.initSpinnerElement();

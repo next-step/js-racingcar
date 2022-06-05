@@ -1,10 +1,9 @@
 import { RANDOM_NUMBER, CAR_GO_ABLE_NUMBER } from '../constants/common.js';
 
 export default class Car {
-  constructor({ $target, $spinner, $forward, initState }) {
+  constructor({ $target, $template, initState }) {
     this.$target = $target;
-    this.$spinner = $spinner;
-    this.$forward = $forward;
+    this.$template = $template;
     this.state = initState;
     this.init();
   }
@@ -17,12 +16,12 @@ export default class Car {
     this.$carPlayer.className = 'car-player';
     this.$carPlayer.textContent = this.state.carName;
     this.$car.appendChild(this.$carPlayer);
-    this.$car.appendChild(this.$spinner.cloneNode(true));
+    this.$car.appendChild(this.$template.getElement('spinner').cloneNode(true));
     this.$target.appendChild(this.$car);
   }
 
   go() {
-    this.$carPlayer.after(this.$forward.cloneNode(true));
+    this.$carPlayer.after(this.$template.getElement('forward').cloneNode(true));
     this.state.goCount++;
   }
 

@@ -8,7 +8,7 @@ export default function GameProcess({ initState, handleRaceResult }) {
   this.$gameProcess = $('.game-process-container');
   this.$carsContainer = $('.cars-container');
   this.$cars = null;
-  this.template = new Template();
+  this.$template = new Template();
 
   this.state = initState;
   this.setState = (newState) => {
@@ -37,30 +37,30 @@ export default function GameProcess({ initState, handleRaceResult }) {
       (car) =>
         new Car({
           $target: this.$carsContainer,
-          $spinner: this.template.$spinnerElement,
-          $forward: this.template.$forwardElement,
+          $template: this.$template,
           initState: { id: car.id, carName: car.carName, goCount: car.goCount },
         })
     );
   };
 
-  this.processRun = () => {
-    let currentRaceTimes = MIN_RACE_TIMES;
-    const intervalId = setInterval(() => {
-      this.$cars.forEach(($car) => {
-        if (Car.checkAbleGo(Car.getRandomNumber())) $car.go();
-      });
-
-      if (currentRaceTimes++ >= this.state.raceTimes) {
+  this.processRun = () =>
+    new Promise(() => {
+      let currentRaceTimes = MIN_RACE_TIMES;
+      const intervalId = setInterval(() => {
         this.$cars.forEach(($car) => {
-          $car.finish();
+          if (Car.checkAbleGo(Car.getRandomNumber())) $car.go();
         });
-        clearInterval(intervalId);
-        handleRaceResult({
-          cars: this.$cars.map(($car) => $car.state),
-          raceFinishedFlag: !this.state.raceFinishedFlag,
-        });
-      }
-    }, WAIT_TIME);
-  };
+
+        if (currentRaceTimes++ >= this.state.raceTimes) {
+          this.$cars.forEach(($car) => {
+            $car.finish();
+          });
+          handleRaceResult({
+            cars: this.$cars.map(($car) => $car.state),
+            raceFinishedFlag: !this.state.raceFinishedFlag,
+          });
+          clearInterval(intervalId);
+        }
+      }, WAIT_TIME);
+    });
 }
