@@ -10,7 +10,6 @@ export class CarRacingProperty {
   get carName() {
     return this.#carName;
   }
-
   get isForward() {
     return this.#isForward;
   }
