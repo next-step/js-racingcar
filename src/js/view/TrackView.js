@@ -23,12 +23,12 @@ export default class TrackView {
     document.querySelector('#racing-track').style.display = '';
   }
 
-  renderRacingCars(carNames) {
-    const racingCarTemplates = [];
+  hideRacingTrack() {
+    document.querySelector('#racing-track').style.display = 'none';
+  }
 
-    carNames.forEach(carName => {
-      racingCarTemplates.push(this.racingCarTemplate(carName));
-    });
+  renderRacingCars(carNames) {
+    const racingCarTemplates = carNames.map(carName => this.racingCarTemplate(carName));
 
     document.querySelector('#racing-track').firstElementChild.innerHTML = racingCarTemplates.join('');
 

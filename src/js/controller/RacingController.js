@@ -2,19 +2,22 @@ import { Constants } from '../constants/constants.js';
 import { Validator, getRandomNumber, isMoveForwardNumber } from '../util/Utils.js';
 
 export default class RacingController {
-  constructor(racingModel, inputView, trackView) {
+  constructor(racingModel, inputView, trackView, resultView) {
     this.racingModel = racingModel;
     this.inputView = inputView;
     this.trackView = trackView;
+    this.resultView = resultView;
     this.registerCarEventListener();
   }
 
   registerCarEventListener() {
     const carNamesSubmit = document.querySelector('#car-names-submit');
     const tryCountSubmit = document.querySelector('#try-count-submit');
+    const retryButton = document.querySelector('#retry-button');
 
     carNamesSubmit.addEventListener('click', () => this.submitCarNames());
     tryCountSubmit.addEventListener('click', () => this.submitTryCount());
+    retryButton.addEventListener('click', () => this.retryRacing());
   }
 
   submitCarNames() {
@@ -41,7 +44,6 @@ export default class RacingController {
     this.startRace();
   }
 
-  // todo : 경주 시작
   startRace() {
     const { carNames } = this.racingModel;
     let count = Constants.INITIAL_TRY_COUNT;
@@ -61,7 +63,39 @@ export default class RacingController {
       if (count > this.racingModel.tryCount) {
         this.trackView.removeLoading();
         clearInterval(timeIntervalId);
+
+        this.getRacingResult();
       }
     }, Constants.MILLISECONDS_PER_TRY);
+  }
+
+  getRacingResult() {
+    const { carNames } = this.racingModel;
+
+    const forwardCountPerCar = carNames.map(
+      carName => document.querySelector(`#${carName}`).parentElement.childElementCount
+    );
+
+    const forwardCountMax = Math.max(...forwardCountPerCar);
+
+    const winners = [];
+    for (let index = 0; index < forwardCountPerCar.length; index += 1) {
+      if (forwardCountPerCar[index] === forwardCountMax) {
+        winners.push(carNames[index]);
+      }
+    }
+
+    this.resultView.showRacingWinners(winners);
+    this.resultView.showRacingResult();
+    this.resultView.showCongratulatoryMessage();
+  }
+
+  retryRacing() {
+    this.inputView.hideRacingTryCount();
+    this.trackView.hideRacingTrack();
+    this.resultView.hideRacingResult();
+
+    document.querySelector('#car-names-input').value = '';
+    document.querySelector('#try-count-input').value = '';
   }
 }
