@@ -8,7 +8,7 @@
   <body>
     <div id="app">
       <section class="d-flex justify-center mt-5">
-        <form>
+        <form class="user-form">
           <fieldset>
             <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
             <p>
@@ -20,16 +20,16 @@
               <button type="button" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
-          <fieldset>
+          <fieldset class="hide">
             <p>시도할 횟수를 입력해주세요.</p>
             <div class="d-flex">
               <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-              <button type="button" class="btn btn-cyan">확인</button>
+              <button type="submit" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
         </form>
       </section>
-      <section class="d-flex justify-center mt-5">
+      <section class="d-flex justify-center mt-5 hide racing-board">
         <div class="mt-4 d-flex">
           <div class="mr-2">
             <div class="car-player">EAST</div>
@@ -58,14 +58,17 @@
           </div>
         </div>
       </section>
-      <section class="d-flex justify-center mt-5">
+      <section class="d-flex justify-center mt-5 hide winner">
         <div>
           <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
           <div class="d-flex justify-center">
-            <button type="button" class="btn btn-cyan">다시 시작하기</button>
+            <button type="button" class="btn btn-cyan reset-button">
+              다시 시작하기
+            </button>
           </div>
         </div>
       </section>
     </div>
+    <script type="module" src="./src/js/index.js"></script>
   </body>
 </html>
