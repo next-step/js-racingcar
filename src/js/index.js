@@ -1,72 +1,40 @@
-import { $ } from './util/dom.js';
-import { WARN_MSG, ERR_MSG } from './util/constants.js';
-import { toNameArray, isCheckCarNameLength, isMoveCar } from './util/util.js';
+import car from './Car.js';
+import Form from './Form.js';
+import RacingResultView from './RacingResultView.js';
+import RacingView from './RacingView.js';
+import * as dom from './util/dom.js';
 
-const $carNamesInput = $('#car-names-input');
-const $carNamesSubmit = $('#car-names-submit');
-const $carTryBlock = $('#car-try-block');
-const $carTryInput = $('#car-try-input');
-const $carTrySubmit = $('#car-try-submit');
-const $carRacingBlock = $('#car-racing-block');
+const {
+	$carNamesInput,
+	$carNamesSubmit,
+	$carTryBlock,
+	$carTryInput,
+	$carTrySubmit,
+	$carRacingBlock,
+	$carRacingResultBlock,
+	$winner,
+} = dom;
 
-const getRacingGameProcess = (tryCount) => {
-	const template = Array.from({ length: Number(tryCount) }, () =>
-		isMoveCar() ? `<div  class="forward-icon mt-2">⬇️️</div>` : null
-	).join('');
+const nameForm = new Form({
+	$inputEl: $carNamesInput,
+	$triggerEl: $carNamesSubmit,
+});
+const tryForm = new Form({
+	$inputEl: $carTryInput,
+	$triggerEl: $carTrySubmit,
+});
 
-	return template;
-};
+nameForm.setEvent('click', () => {
+	car.name = nameForm.getValue();
+	nameForm.setFormDisplay($carTryBlock);
+});
 
-const createForwardArrowTemplate = (carNames) =>
-	carNames
-		.map(
-			(name) =>
-				`<div class="mr-2">
-					<div data-cy="${name}" class="car-player">${name}</div>
-					${getRacingGameProcess($carTryInput.value)}
-				</div>`
-		)
-		.join('');
-
-const submitCarNames = () => {
-	if (!$carNamesInput.value) {
-		alert(ERR_MSG.EMPTY_CAR_NAME);
-		return;
-	}
-
-	const carNamesArr = toNameArray($carNamesInput.value);
-	if (!isCheckCarNameLength(carNamesArr)) {
-		alert(ERR_MSG.OVER_CAR_NAME_MAX_LENGTH);
-		return;
-	}
-
-	const carNamesSet = new Set(carNamesArr);
-	if (
-		carNamesArr.length !== carNamesSet.size &&
-		window.confirm(WARN_MSG.DUPLICATE_CAR_NAME) === false
-	) {
-		return;
-	}
-
-	$carNamesInput.disabled = true;
-	$carNamesSubmit.disabled = true;
-	$carTryBlock.style.display = 'block';
-};
-
-const submitTryNum = () => {
-	if (!$carTryInput.value) {
-		alert(ERR_MSG.EMPTY_TRY_NUM);
-		return;
-	}
-
-	$carTryInput.disabled = true;
-	$carTrySubmit.disabled = true;
-	$carRacingBlock.style.display = 'flex';
-
-	const carNamesArr = toNameArray($carNamesInput.value);
-	const template = createForwardArrowTemplate(carNamesArr);
-	$carRacingBlock.innerHTML = `<div class="mt-4 d-flex">${template}</div>`;
-};
-
-$carNamesSubmit.addEventListener('click', submitCarNames);
-$carTrySubmit.addEventListener('click', submitTryNum);
+tryForm.setEvent('click', () => {
+	car.tryCount = tryForm.getValue();
+	const racing = new RacingView({ car, $target: $carRacingBlock });
+	const racingResult = new RacingResultView({
+		$target: $carRacingResultBlock,
+		$winner,
+	});
+	racing.updateView(racingResult.createWinUserTemplate);
+});

@@ -1,4 +1,4 @@
-import { ERR_MSG } from '../../src/js/util/constatns';
+import { ERR_MSG } from '../../src/js/util/constants';
 
 describe('레이싱카 앱 테스트', () => {
 	before(() => {
@@ -30,8 +30,6 @@ describe('레이싱카 앱 테스트', () => {
 					);
 				});
 		});
-
-		// it('자동차의 이름이 중복되면 경고창을 띄워준다.', () => {});
 
 		it('자동차의 이름 입력을 완료하면 필드가 비활성화 된다.', () => {
 			cy.get('#car-names-input').clear().type('EAST, WEST, SOUTH, NORTH');
@@ -76,6 +74,11 @@ describe('레이싱카 앱 테스트', () => {
 			['EAST', 'WEST', 'SOUTH', 'NORTH'].forEach((name) => {
 				cy.get(`[data-cy='${name}']`).should('have.text', name);
 			});
+		});
+
+		it('자동차 경주 게임의 우승자를 표시한다.', () => {
+			cy.get('#racing-result-block').should('be.visible');
+			cy.get('#winner').should('be.visible');
 		});
 	});
 });
