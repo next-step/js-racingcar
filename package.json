@@ -1,0 +1,24 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "description": "<br/> <p align=\"middle\" >   <img width=\"200px;\" src=\"https://user-images.githubusercontent.com/50367798/106415730-2645a280-6493-11eb-876c-ef7172652261.png\"/> </p> <h2 align=\"middle\">자동차 경주 게임</h2> <p align=\"middle\">자바스크립트와 Cypress로 구현하는 자동차 경주 게임</p> <p align=\"middle\">   <img src=\"https://img.shields.io/badge/version-1.0.0-blue?style=flat-square\" alt=\"template version\"/>   <img src=\"https://img.shields.io/badge/language-html-red.svg?style=flat-square\"/>   <img src=\"https://img.shields.io/badge/language-css-blue.svg?style=flat-square\"/>   <img src=\"https://img.shields.io/badge/language-js-yellow.svg?style=flat-square\"/>   <img src=\"https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square\"/> </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlee0505/js-racingcar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jlee0505/js-racingcar/issues"
+  },
+  "homepage": "https://github.com/jlee0505/js-racingcar#readme",
+  "devDependencies": {
+    "cypress": "^10.3.1"
+  }
+}
