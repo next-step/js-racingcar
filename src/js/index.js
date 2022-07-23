@@ -1,8 +1,9 @@
 import { RoundsInput } from "./RoundsInput.js";
 import { CarFactory } from "./CarFactory.js";
+import { Winners } from "./Winners.js";
 
 import { isHTMLElement } from "./utils/validator.js";
-import { APP, CAR_CONTAINER, CAR_NAME_FORM, ROUNDS_FORM } from "./utils/selector.js";
+import { APP, CAR_CONTAINER, CAR_NAME_FORM, ROUNDS_FORM, WINNERS } from "./utils/selector.js";
 
 class App {
   $app;
@@ -11,6 +12,7 @@ class App {
   carFactory;
   rounds;
   roundsInput;
+  winners;
 
   constructor($app) {
     if (!isHTMLElement($app)) {
@@ -18,15 +20,20 @@ class App {
     }
 
     this.$app = $app;
-    this.$carContainer = $app.querySelector(CAR_CONTAINER);
+    const $carContainer = $app.querySelector(CAR_CONTAINER);
+    this.$carContainer = $carContainer;
 
     this.carFactory = new CarFactory($app.querySelector(CAR_NAME_FORM), {
-      $app: $app,
+      $carContainer,
       onCarsGenerated: this.registerCars.bind(this),
     });
 
     this.roundsInput = new RoundsInput($app.querySelector(ROUNDS_FORM), {
       onSetRounds: this.startRacing.bind(this),
+    });
+
+    this.winners = new Winners($app.querySelector(WINNERS), {
+      onReset: this.reset.bind(this),
     });
   }
 
@@ -37,7 +44,13 @@ class App {
   }
 
   race() {
+    this.disableButtons();
     this.cars.forEach((car) => car.race());
+    this.award();
+  }
+
+  award() {
+    this.winners.award(this.cars);
   }
 
   registerCars(cars) {
@@ -47,6 +60,19 @@ class App {
 
   showRoundsInput() {
     this.roundsInput.showInput();
+  }
+
+  disableButtons() {
+    this.carFactory.disableButton();
+    this.roundsInput.disableButton();
+  }
+
+  reset() {
+    this.cars = undefined;
+    this.rounds = undefined;
+    this.carFactory.rest();
+    this.roundsInput.rest();
+    this.winners.reset();
   }
 }
 

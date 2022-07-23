@@ -1,6 +1,5 @@
-import { CAR_CONTAINER } from "./utils/selector.js";
-import { MAX_POSSIBILITY, MOVE_THRESHOLD } from "./utils/constant.js";
 import { isHTMLElement } from "./utils/validator.js";
+import { MAX_POSSIBILITY, MOVE_THRESHOLD } from "./utils/constant.js";
 
 export class Car {
   $app;
@@ -8,14 +7,13 @@ export class Car {
   $carEl;
   name;
   rounds;
-  position;
+  position = 0;
 
-  constructor($app, name) {
-    if (!isHTMLElement($app)) {
-      throw new TypeError(`${app} is not a HTMLElement`);
+  constructor($container, name) {
+    if (!isHTMLElement($container)) {
+      throw new TypeError(`${container} is not a HTMLElement`);
     }
-    this.$app = $app;
-    this.$container = $app.querySelector(CAR_CONTAINER);
+    this.$container = $container;
     this.name = name;
   }
 

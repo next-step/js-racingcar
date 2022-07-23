@@ -1,23 +1,24 @@
 import { Car } from "./Car.js";
 import { Alert, alertError } from "./utils/Alert.js";
-import { CAR_NAME_INPUT } from "./utils/selector.js";
+import { CAR_NAME_INPUT, CAR_GENERATE_BUTTON } from "./utils/selector.js";
 import { CAR_FACTORY_ERROR_MESSAGES } from "./utils/errorMessage.js";
 import { CAR_NAME_SEPARATOR, MAX_CAR_NAME_LENGTH } from "./utils/constant.js";
 import { isDuplicated, isEmptyString, isFunction, isHTMLFormElement } from "./utils/validator.js";
 
 export class CarFactory {
-  $app;
   $form;
   $input;
+  $carContainer;
   onCarsGenerated;
 
-  constructor($form, { onCarsGenerated, $app } = {}) {
+  constructor($form, { onCarsGenerated, $carContainer } = {}) {
     if (!isHTMLFormElement($form)) {
       throw new TypeError(`${$form} is not a HTMLFormElement`);
     }
-    this.$app = $app;
+    this.$carContainer = $carContainer;
     this.$form = $form;
     this.$input = $form.querySelector(CAR_NAME_INPUT);
+    this.$button = $form.querySelector(CAR_GENERATE_BUTTON);
 
     if (!isFunction(onCarsGenerated)) {
       throw new TypeError(`${onCarsGenerated} is not a function`);
@@ -53,7 +54,7 @@ export class CarFactory {
       e.preventDefault();
       const carNames = this.getCarNames(e);
       this.validateCarNames(carNames);
-      const cars = carNames.map((name) => new Car(this.$app, name));
+      const cars = carNames.map((name) => new Car(this.$carContainer, name));
       this.onCarsGenerated(cars);
     } catch (error) {
       alertError(error, this.focusInput.bind(this));
@@ -66,5 +67,16 @@ export class CarFactory {
 
   addEventHandlers() {
     this.$form.addEventListener("submit", this.generateCars.bind(this));
+  }
+
+  disableButton() {
+    this.$button.disabled = true;
+  }
+
+  rest() {
+    this.$input.value = "";
+    this.$button.disabled = false;
+    this.$carContainer.innerHTML = "";
+    this.$input.focus();
   }
 }

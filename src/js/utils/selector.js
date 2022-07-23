@@ -9,3 +9,6 @@ export const ROUNDS_INPUT = `${ROUNDS_FORM} input[type=number]`;
 export const ROUNDS_SUBMIT_BUTTON = `${ROUNDS_FORM} button[type=submit]`;
 
 export const CAR_CONTAINER = "#cars";
+
+export const WINNERS = "#winners";
+export const RESET_BUTTON = "#reset-button";
