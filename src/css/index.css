@@ -35,3 +35,15 @@ fieldset {
   border: none;
   padding: 0;
 }
+
+#form-try-count,
+#car-racing,
+#result-winner {
+  display: none;
+}
+
+#form-try-count.active,
+#car-racing.active,
+#result-winner.active {
+  display: block;
+}
