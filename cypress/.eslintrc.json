@@ -1,0 +1,4 @@
+{
+  "extends": ["sandbox/base", "sandbox/cypress", "sandbox/prettier"],
+  "root": true
+}

@@ -1,0 +1,17 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": ["sandbox/base", "sandbox/prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2022
+  },
+  "rules": {
+    "class-methods-use-this": "off",
+    "no-alert": "off",
+    "no-console": "off",
+    "no-underscore-dangle": "off",
+    "import/extensions": ["error", { "js": "always" }],
+    "import/prefer-default-export": "off"
+  }
+}

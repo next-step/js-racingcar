@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "isolatedModules": false,
+    "types": ["cypress", "node"]
+  },
+  "include": ["**/*"]
+}
