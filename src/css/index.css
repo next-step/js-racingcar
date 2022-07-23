@@ -1,8 +1,8 @@
-@import './shared/button.css';
-@import './shared/layout.css';
-@import './shared/sizing.css';
-@import './shared/typhography.css';
-@import './ui/spinner.css';
+@import "./shared/button.css";
+@import "./shared/layout.css";
+@import "./shared/sizing.css";
+@import "./shared/typhography.css";
+@import "./ui/spinner.css";
 
 html,
 body {
@@ -34,4 +34,8 @@ body {
 fieldset {
   border: none;
   padding: 0;
+}
+
+.hidden {
+  display: none;
 }
