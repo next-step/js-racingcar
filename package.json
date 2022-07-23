@@ -1,0 +1,11 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ippowe/js-racingcar",
+  "author": "Jaemin Ahn <jae7415@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^10.3.1"
+  }
+}
