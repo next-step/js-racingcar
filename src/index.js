@@ -10,6 +10,12 @@ const validateNameLength = (name) => {
   }
 };
 
+const validateNumRange = (num) => {
+  if (num > 10 || num < 1) {
+    throw ERROR_MESSAGES.NUM_RANGE_ERROR;
+  }
+};
+
 const handleSubmit = (e) => {
   e.preventDefault();
   console.log(e);
@@ -20,12 +26,23 @@ const handleSubmit = (e) => {
     e.target[1].value.split(",").map((name) => {
       try {
         validateNameLength(name);
-        trialNum.classList.remove("hidden");
-        gameSection.classList.remove("hidden");
       } catch (error) {
         alert(error);
+        return;
       }
+      trialNum.classList.remove("hidden");
     });
+  }
+
+  //시도 횟수 입력값이 1~10사이가 아니면 경고 메세지를 표시한다.
+  if (e.target[4].value) {
+    try {
+      validateNumRange(e.target[4].value);
+    } catch (error) {
+      alert(error);
+      return;
+    }
+    gameSection.classList.remove("hidden");
   }
 };
 
