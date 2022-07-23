@@ -1,11 +1,14 @@
 import { SELECTORS, ERROR_MESSAGES } from "/src/constants.js";
 
 const shouldShowAlert = (err, typeVal) => {
+  if (typeVal) cy.get(SELECTORS.CAR_NAME_INPUT).type(typeVal);
+  cy.get(SELECTORS.CAR_NAME_FORM).submit();
+
   cy.on("window:alert", (alertMessage) => {
     expect(alertMessage).to.eq(err);
   });
-  submitForm(SELECTORS.CAR_NAME_INPUT, typeVal);
 };
+
 const submitForm = (selector, typeVal) => {
   if (typeVal) cy.get(selector).type(typeVal);
   cy.get(SELECTORS.CAR_NAME_FORM).submit();
@@ -23,22 +26,29 @@ describe("test racingcar", () => {
   });
 
   context("2. 인풋을 통해 자동차에 이름을 부여할 수 있다.", () => {
-    it("input의 길이가 0 이하이거나 6자 이상일 때, alert 이 뜬다.", () => {
+    it("자동차 이름의 길이가 0 이하이거나 6자 이상일 때, 경고 메세지가 뜬다.", () => {
       // input 에 "" 입력 (if)
       shouldShowAlert(ERROR_MESSAGES.WORD_LENGTH_ERROR, "123456");
       shouldShowAlert(ERROR_MESSAGES.WORD_LENGTH_ERROR, "");
     });
-    it("자동차 이름을 입력하고 버튼을 클릭하면 시도 횟수 입력창이 나타난다.", () => {
-      cy.get(SELECTORS.CAR_NAME_BTN).click();
-      cy.get(SELECTORS.TRIAL_NUM_FIELDSET).should("not.have.class", "hidden");
-    });
-    it("사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.", () => {
-      submitForm(SELECTORS.TRIAL_NUM_INPUT, "3");
-      cy.get(SELECTORS.GAME_SECTION).should("not.have.class", "hidden");
-    });
+    it("자동차 이름은 쉼표(,)를 기준으로 구분하여서 자동차 이름을 출력한다.", () => {});
   });
+
+  context(
+    "3. 사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.",
+    () => {
+      it("시도 횟수 input이 비어있을 경우 경고 메세지를 보낸다.", () => {
+        shouldShowAlert(ERROR_MESSAGES.NUM_RANGE_ERROR, "");
+      });
+      it("시도 횟수 입력값이 1이상 10이하의 수가 아닐 경우 경고 메세지를 보낸다.", () => {});
+      it("횟수를 입력하면 경주 게임 섹션이 화면이 나타난다.", () => {
+        submitForm(SELECTORS.TRIAL_NUM_INPUT, 3);
+        cy.get(SELECTORS.GAME_SECTION).should("not.have.class", "hidden");
+      });
+    }
+  );
   // it("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {});
-  // it("자동차 이름은 쉼표(,)를 기준으로 구분하여서 자동차 이름을 출력한다.", () => {});
+  //
   // context("주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다."),
   //   () => {
   //     it(
