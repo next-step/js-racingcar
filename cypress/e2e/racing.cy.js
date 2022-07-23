@@ -17,7 +17,7 @@ describe("test racingcar", () => {
 
   context("1.첫 시작은 자동차 입력 모델만 있다", () => {
     it("처음 시작했을 때 자동차 이름 입력 외에 다른 창은 뜨지 않는다", () => {
-      cy.get(SELECTORS.CAR_NAME_FILEDSET).should("not.have.class", "hidden");
+      cy.get(SELECTORS.CAR_NAME_FIELDSET).should("not.have.class", "hidden");
     });
   });
 
@@ -27,9 +27,9 @@ describe("test racingcar", () => {
       shouldShowAlert(ERROR_MESSAGES.WORD_LENGTH_ERROR, "123456");
       shouldShowAlert(ERROR_MESSAGES.WORD_LENGTH_ERROR, "");
     });
-    it("자동차 이름을 submit 하면 시도 횟수 입력창이 생성된다.", () => {
-      submitForm(SELECTORS.CAR_NAME_INPUT, "1, 2, 3");
-      cy.get(SELECTORS.TRIAL_NUM_FILEDSET).should("not.have.class", "hidden");
+    it("자동차 이름을 입력하고 버튼을 클릭하면 시도 횟수 입력창이 나타난다.", () => {
+      cy.get(SELECTORS.CAR_NAME_BTN).click();
+      cy.get(SELECTORS.TRIAL_NUM_FIELDSET).should("not.have.class", "hidden");
     });
     it("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {});
     it("자동차 이름은 쉼표(,)를 기준으로 구분하여서 자동차 이름을 출력한다.", () => {});
