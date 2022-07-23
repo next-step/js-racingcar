@@ -27,7 +27,8 @@ describe("test racingcar", () => {
   context(
     "3. 사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.",
     () => {
-      it("시도 횟수 input이 비어있을 경우 경고 메세지를 보낸다.", () => {});
+      // it("시도 횟수 input이 비어있을 경우 경고 메세지를 보낸다.", () => {
+      // });
       it("시도 횟수 입력값이 1이상 10이하의 수가 아닐 경우 경고 메세지를 보낸다.", () => {
         shouldShowAlert(
           "",
@@ -36,8 +37,12 @@ describe("test racingcar", () => {
         );
       });
       it("횟수를 입력하면 경주 게임 섹션이 화면이 나타난다.", () => {
-        submitForm(SELECTORS.TRIAL_NUM_INPUT, 3);
-        cy.get(SELECTORS.GAME_SECTION).should("not.have.class", "hidden");
+        cy.get(SELECTORS.TRIAL_NUM_INPUT).then((trial) => {
+          if (trial.is(":visible")) {
+            trial.type("3");
+            cy.get(SELECTORS.GAME_SECTION).should("not.have.class", "hidden");
+          }
+        });
       });
     }
   );
