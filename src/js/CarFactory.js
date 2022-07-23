@@ -37,7 +37,6 @@ export class CarFactory {
     if (isDuplicated(carNames)) {
       throw new Alert(CAR_FACTORY_ERROR_MESSAGES.CAR_NAMES_DUPLICATED);
     }
-
     carNames.forEach((name) => this.validateCarName(name));
   }
 
@@ -51,8 +50,9 @@ export class CarFactory {
       e.preventDefault();
       const carNames = this.getCarNames(e);
       this.validateCarNames(carNames);
-      const cars = carNames.map((name) => new Car(name));
-      this.onCarsGenerated(cars);
+      //Todo generate Car class
+      // const cars = carNames.map((name) => new Car(name));
+      this.onCarsGenerated(carNames);
     } catch (error) {
       alertError(error, this.focusInput.bind(this));
     }

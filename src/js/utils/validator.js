@@ -13,3 +13,11 @@ export const isFunction = (value) => {
 export const isDuplicated = (value) => {
   return value.length > new Set(value).size;
 };
+
+export const isInteger = (value) => {
+  return Number.isInteger(value);
+};
+
+export const isPositiveInteger = (value) => {
+  return isInteger(value) && value > 0;
+};

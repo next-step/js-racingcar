@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import { CAR_NAME_INPUT, ROUND_COUNT_FIELDSET } from "../../src/js/utils/selector";
+import { CAR_NAME_INPUT, ROUND_FIELDSET } from "../../src/js/utils/selector";
 import { CAR_FACTORY_ERROR_MESSAGES } from "../../src/js/utils/errorMessage";
 import { CAR_NAMES, INVALID_CAR_NAMES, SINGLE_CAR_NAME } from "../fixtures/carNames";
 
@@ -10,12 +10,12 @@ beforeEach(() => {
 describe("generate cars", () => {
   it("정상적으로 차량 생성", () => {
     cy.generateCars(CAR_NAMES);
-    cy.get(ROUND_COUNT_FIELDSET).should("be.visible");
+    cy.get(ROUND_FIELDSET).should("be.visible");
   });
 
   it("이름을 한 개만 입력해도 차량 생성", () => {
     cy.generateCars(SINGLE_CAR_NAME);
-    cy.get(ROUND_COUNT_FIELDSET).should("be.visible");
+    cy.get(ROUND_FIELDSET).should("be.visible");
   });
 
   it("쉼표 없이 자동차 이름 입력", () => {
