@@ -1,0 +1,17 @@
+{
+  "packageManager": "yarn@3.2.2",
+  "private": true,
+  "scripts": {
+    "cy:open": "cypress open",
+    "dev": "serve",
+    "test:open": "start-server-and-test 'yarn dev' http://localhost:3000 'yarn cy:open'"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.45",
+    "cypress": "^10.3.1",
+    "eslint": "^8.20.0",
+    "eslint-config-sandbox": "^1.3.0",
+    "serve": "^14.0.1",
+    "start-server-and-test": "^1.14.0"
+  }
+}
