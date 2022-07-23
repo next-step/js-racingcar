@@ -36,7 +36,7 @@ describe("test racingcar", () => {
           ERROR_MESSAGES.NUM_RANGE_ERROR
         );
       });
-      it("횟수를 입력하면 경주 게임 섹션이 화면이 나타난다.", () => {
+      it("올바른 횟수를 입력하면 경주 게임 섹션이 화면이 나타난다.", () => {
         cy.get(SELECTORS.TRIAL_NUM_INPUT).then((trial) => {
           if (trial.is(":visible")) {
             trial.type("3");
@@ -61,7 +61,18 @@ describe("test racingcar", () => {
         ERROR_MESSAGES.WORD_LENGTH_ERROR
       );
     });
-    it("자동차 이름은 쉼표(,)를 기준으로 구분하여서 자동차 이름을 출력한다.", () => {});
+    //it("끝이 ','로 끝나지 않는다.(정규식 ~한 형태다)", () => {});
+  });
+
+  context("4. 입력 받은 값을 경주 게임에 반영하여 출력한다", () => {
+    it("자동차 이름은 쉼표(,)를 기준으로 구분하여서 자동차 이름을 출력한다.", () => {
+      cy.get(SELECTORS.CAR_NAME_INPUT).type("WEST,EAST");
+
+      cy.get(SELECTORS.CAR_PLAYER_DIV).then(($names) => {
+        expect($names.first()).to.contain("WEST");
+        expect($names.second()).to.contain("EAST");
+      });
+    });
   });
 
   // it("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {});
