@@ -18,12 +18,21 @@ describe('자동차 이름 입력', () => {
     cy.on('window:alert', stub);
 
     cy.get('#form-car-name input').type('sujin2');
-    cy.get('#form-car-name button')
-      .click()
+    cy.get('#form-car-name')
+      .submit()
       .then(() => {
         expect(stub.getCall(0)).to.be.calledWith(
           '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.'
         );
+      });
+  });
+
+  it('자동차 이름을 입력 후 확인을 클릭하면 횟수 입력 필드가 보인다.', () => {
+    cy.get('#form-car-name input').type('blue, red, gray, white, pink');
+    cy.get('#form-car-name')
+      .submit()
+      .then(() => {
+        cy.get('#form-try-count').should('be.visible');
       });
   });
 });
