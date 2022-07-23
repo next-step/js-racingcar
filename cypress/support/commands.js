@@ -3,8 +3,8 @@ import {
   CAR_CONTAINER,
   CAR_GENERATE_BUTTON,
   CAR_NAME_INPUT,
-  ROUND_INPUT,
-  ROUND_SUBMIT_BUTTON,
+  ROUNDS_INPUT,
+  ROUNDS_SUBMIT_BUTTON,
 } from "../../src/js/utils/selector";
 import { CAR_NAME_SEPARATOR } from "../../src/js/utils/constant";
 
@@ -23,8 +23,8 @@ Cypress.Commands.add("checkAlertMessage", (alertMessage) => {
 
 Cypress.Commands.add("setRounds", (rounds) => {
   cy.generateCars(CAR_NAMES);
-  cy.get(ROUND_INPUT).type(rounds);
-  cy.get(ROUND_SUBMIT_BUTTON).click();
+  cy.get(ROUNDS_INPUT).type(rounds);
+  cy.get(ROUNDS_SUBMIT_BUTTON).click();
 });
 
 Cypress.Commands.add("checkIsCarsReady", (carNames = CAR_NAMES) => {
@@ -32,7 +32,7 @@ Cypress.Commands.add("checkIsCarsReady", (carNames = CAR_NAMES) => {
 });
 
 Cypress.Commands.add("checkHandleInvalidRounds", () => {
-  cy.get(ROUND_INPUT).should("be.empty");
-  cy.get(CAR_CONTAINER).should("be.empty");
-  cy.get(ROUND_INPUT).should("be.focused");
+  cy.get(ROUNDS_INPUT).should("be.empty");
+  cy.get(CAR_CONTAINER).children().should("have.length", 0);
+  cy.get(ROUNDS_INPUT).should("be.focused");
 });

@@ -1,3 +1,7 @@
+export const isHTMLElement = (element) => {
+  return element instanceof HTMLElement;
+};
+
 export const isHTMLFormElement = (element) => {
   return element instanceof HTMLFormElement;
 };

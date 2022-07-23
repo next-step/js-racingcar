@@ -31,15 +31,15 @@ body {
   justify-content: center;
 }
 
-fieldset {
-  border: none;
-  padding: 0;
-}
-
-fieldset.round-count {
+.round-count {
   display: none;
 }
 
-fieldset.round-count.visible {
+.round-count.visible {
   display: block;
+}
+
+.input-section {
+  width: max-content;
+  margin: 0 auto;
 }

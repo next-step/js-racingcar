@@ -6,6 +6,6 @@ export const CAR_FACTORY_ERROR_MESSAGES = {
   CAR_NAMES_DUPLICATED: "차량 이름이 중복되지 않게 입력해주세요.",
 };
 
-export const ROUND_INPUT_ERROR_MESSAGES = {
+export const ROUNDS_INPUT_ERROR_MESSAGES = {
   ROUNDS_IN_NOT_POSITIVE_INTEGER: "0보다 큰 양의 정수를 입력해주세요.",
 };

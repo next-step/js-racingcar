@@ -1,18 +1,21 @@
+import { Car } from "./Car.js";
 import { Alert, alertError } from "./utils/Alert.js";
 import { CAR_NAME_INPUT } from "./utils/selector.js";
-import { CAR_NAME_SEPARATOR, MAX_CAR_NAME_LENGTH } from "./utils/constant.js";
 import { CAR_FACTORY_ERROR_MESSAGES } from "./utils/errorMessage.js";
+import { CAR_NAME_SEPARATOR, MAX_CAR_NAME_LENGTH } from "./utils/constant.js";
 import { isDuplicated, isEmptyString, isFunction, isHTMLFormElement } from "./utils/validator.js";
 
 export class CarFactory {
+  $app;
   $form;
   $input;
   onCarsGenerated;
 
-  constructor($form, { onCarsGenerated } = {}) {
+  constructor($form, { onCarsGenerated, $app } = {}) {
     if (!isHTMLFormElement($form)) {
       throw new TypeError(`${$form} is not a HTMLFormElement`);
     }
+    this.$app = $app;
     this.$form = $form;
     this.$input = $form.querySelector(CAR_NAME_INPUT);
 
@@ -50,9 +53,8 @@ export class CarFactory {
       e.preventDefault();
       const carNames = this.getCarNames(e);
       this.validateCarNames(carNames);
-      //Todo generate Car class
-      // const cars = carNames.map((name) => new Car(name));
-      this.onCarsGenerated(carNames);
+      const cars = carNames.map((name) => new Car(this.$app, name));
+      this.onCarsGenerated(cars);
     } catch (error) {
       alertError(error, this.focusInput.bind(this));
     }

@@ -1,6 +1,6 @@
 import { Alert, alertError } from "./utils/Alert.js";
-import { ROUND_INPUT_ERROR_MESSAGES } from "./utils/errorMessage.js";
-import { ROUND_FIELDSET, ROUND_INPUT } from "./utils/selector.js";
+import { ROUNDS_INPUT } from "./utils/selector.js";
+import { ROUNDS_INPUT_ERROR_MESSAGES } from "./utils/errorMessage.js";
 import { isFunction, isHTMLFormElement, isPositiveInteger } from "./utils/validator.js";
 
 export class RoundsInput {
@@ -13,8 +13,7 @@ export class RoundsInput {
       throw new TypeError(`${$form} is not a HTMLFormElement`);
     }
     this.$form = $form;
-    this.$fieldset = $form.querySelector(ROUND_FIELDSET);
-    this.$input = $form.querySelector(ROUND_INPUT);
+    this.$input = $form.querySelector(ROUNDS_INPUT);
 
     if (!isFunction(onSetRounds)) {
       throw new TypeError(`${onSetRounds} is not a function`);
@@ -25,14 +24,14 @@ export class RoundsInput {
 
   validateRounds(rounds) {
     if (!isPositiveInteger(rounds)) {
-      throw new Alert(ROUND_INPUT_ERROR_MESSAGES.ROUNDS_IN_NOT_POSITIVE_INTEGER);
+      throw new Alert(ROUNDS_INPUT_ERROR_MESSAGES.ROUNDS_IN_NOT_POSITIVE_INTEGER);
     }
   }
 
   setRounds(e) {
     try {
       e.preventDefault();
-      const rounds = new FormData(e.target).get("rounds");
+      const rounds = +new FormData(e.target).get("rounds");
       this.validateRounds(rounds);
       this.onSetRounds(rounds);
     } catch (error) {
@@ -45,7 +44,7 @@ export class RoundsInput {
   }
 
   showInput() {
-    this.$fieldset.classList.toggle("visible", true);
+    this.$form.classList.toggle("visible", true);
   }
 
   addEventHandlers() {

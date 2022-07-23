@@ -3,7 +3,7 @@ const INVALID_ROUNDS = {
   NOT_A_NUMBER: NaN,
   STRING: "string",
   ZERO: 0,
-  EMPTY: "",
+  EMPTY: " ",
   NEGATIVE_INTEGER: -1,
 };
 
