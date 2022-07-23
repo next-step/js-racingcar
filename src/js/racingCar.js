@@ -7,6 +7,7 @@ class RacingCar {
   testCarNameSize = (carName) => {
     return carName.length <= 5;
   };
+
   gamePrepation = (e) => {
     e.preventDefault();
     console.log("e.submiter23", e.submitter);
