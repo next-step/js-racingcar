@@ -26,7 +26,7 @@
             <fieldset>
               <p>시도할 횟수를 입력해주세요.</p>
               <div class="d-flex">
-                <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
+                <input type="number" name="try-count" required min="1" max="100" class="w-100 mr-2" placeholder="시도 횟수" />
                 <button class="btn btn-cyan">확인</button>
               </div>
             </fieldset>
@@ -34,7 +34,7 @@
         </div>
       </section>
       <section id="car-racing" class="d-flex justify-center mt-5">
-        <div class="mt-4 d-flex">
+        <div id="car-racing-inner" class="mt-4 d-flex">
           <div class="mr-2">
             <div class="car-player">EAST</div>
             <div class="forward-icon mt-2">⬇️️</div>

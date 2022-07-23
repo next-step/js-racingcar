@@ -28,11 +28,29 @@ describe('자동차 이름 입력', () => {
   });
 
   it('자동차 이름을 입력 후 확인을 클릭하면 횟수 입력 필드가 보인다.', () => {
-    cy.get('#form-car-name input').type('blue, red, gray, white, pink');
-    cy.get('#form-car-name')
+    cy.submitCarName('blue, red, gray, white, pink').then(() => {
+      cy.get('#form-try-count').should('be.visible');
+    });
+  });
+});
+
+describe('시도할 횟수 입력', () => {
+  const carNameValue = 'blue, red, gray, white, pink';
+
+  it('횟수를 입력한 후 확인을 클릭하면 레이싱 영역에서 이름을 확인한다.', () => {
+    const stub = cy.stub();
+    cy.on('window:alert', stub);
+
+    cy.submitCarName(carNameValue);
+
+    cy.get('#form-try-count input').type('5');
+    cy.get('#form-try-count')
       .submit()
       .then(() => {
-        cy.get('#form-try-count').should('be.visible');
+        const carNames = carNameValue.split(',').map((item) => item.trim());
+        carNames.forEach((name) => {
+          cy.get('.car-player').contains(name);
+        });
       });
   });
 });

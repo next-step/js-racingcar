@@ -43,7 +43,9 @@ fieldset {
 }
 
 #form-try-count.active,
-#car-racing.active,
 #result-winner.active {
   display: block;
+}
+#car-racing.active {
+  display: flex;
 }
