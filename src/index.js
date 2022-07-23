@@ -17,13 +17,16 @@ const displaySelector = ($selector) => {
   $selector.classList.remove("hidden");
 };
 
-const createCarPlayerDiv = ($name) => {
-  const templateName = `<div class="car-player">${$name}</div>`;
+const createCarPlayerDiv = ($input) => {
+  const template = $input.value
+    .split(",")
+    .map((name) => `<div class="car-player">${name}</div>`);
   //   const templateSpinner = `<div class="spinners d-flex justify-center mt-3">
   //   <div class="relative spinner-container">
   //     <span class="material spinner"></span>
   //   </div>
   // </div>`;
+  $(SELECTORS.CAR_PLAYER_WRAPPER_DIV).innerHTML = template;
 };
 
 const handleSubmit = (e) => {
@@ -36,11 +39,11 @@ const handleSubmit = (e) => {
     e.target[1].value.split(",").map((name) => {
       try {
         validateNameLength(name);
-        createCarPlayerDiv(name);
       } catch (error) {
         alert(error);
         return;
       }
+      createCarPlayerDiv($(SELECTORS.CAR_NAME_INPUT));
       displaySelector($(SELECTORS.TRIAL_NUM_FIELDSET));
       $(SELECTORS.TRIAL_NUM_INPUT).focus();
     });
