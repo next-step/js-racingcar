@@ -5,6 +5,7 @@ export const SELECTORS = {
   CAR_NAME_BTN: "#car-name__btn",
   CAR_NAME_FIELDSET: "#car-name",
   TRIAL_NUM_FIELDSET: "#trial-num",
+  TRIAL_NUM_INPUT: "#trial-num__input",
   TRIAL_NUM_BTN: "#trial-num__btn",
   GAME_SECTION: "#game",
   RESULT_SECTION: "#result",
