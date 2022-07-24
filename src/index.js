@@ -1,5 +1,6 @@
 import { SELECTORS, ERROR_MESSAGES } from "./constants.js";
 import { $ } from "./dom.js";
+import { startRacingGame } from "./racing.js";
 
 const validateNameLength = ($name) => {
   if ($name.length > 5) {
@@ -18,14 +19,17 @@ const displaySelector = ($selector) => {
 };
 
 const createCarPlayerDiv = ($input) => {
-  const template = $input.value
-    .split(",")
-    .map((name) => `<div class="car-player">${name}</div>`);
-  //   const templateSpinner = `<div class="spinners d-flex justify-center mt-3">
-  //   <div class="relative spinner-container">
-  //     <span class="material spinner"></span>
-  //   </div>
-  // </div>`;
+  const template = $input.value.split(",").map(
+    (name) => `<div class="car">
+                  <div class="car-player">${name}</div>
+                  <div class="spinners d-flex justify-center mt-3">
+                    <div class="relative spinner-container">
+                      <span class="material spinner"></span>
+                    </div>
+                  </div>
+                </div>`
+  );
+
   $(SELECTORS.CAR_PLAYER_WRAPPER_DIV).innerHTML = template;
 };
 
@@ -53,6 +57,7 @@ const handleSubmit = (e) => {
   if (e.target[4].value) {
     try {
       validateNumRange(e.target[4].valueAsNumber);
+      startRacingGame(e.target[4].valueAsNumber);
     } catch (error) {
       alert(error);
       return;
@@ -60,5 +65,12 @@ const handleSubmit = (e) => {
     displaySelector($(SELECTORS.GAME_SECTION));
   }
 };
+
+// sumbmit을 자동차 이름과 실행 횟수를 따로 관리할 수 있도록
+// => html: form 2개로 나누기!
+
+// 화살표 템플릿과 스피너 템플릿을 만든다.
+// 전진 조건에 따라
+// setInterval
 
 $(SELECTORS.CAR_NAME_FORM).addEventListener("submit", handleSubmit);
