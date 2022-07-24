@@ -101,7 +101,7 @@ class RacingCar {
       this.raceParticipateCar = e.target[1].value.split(",");
       this.raceParticipateCar.forEach((element) => {
         if (!this.testCarNameSize(element)) {
-          alert("5자 이하의 자동차 이름을 입력하세요");
+          alert("5자 이하의 자동차 이름을 입력하세요.");
           return;
         }
       });

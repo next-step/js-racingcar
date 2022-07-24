@@ -14,4 +14,18 @@ describe("lotto", () => {
       expect(Cypress.$(item).text()).to.be.equal(carNames[index]);
     });
   });
+
+  it("5자 초과의 자동차 이름을 등록하면 경고창이 뜬다.", () => {
+    const alertStub = cy.stub();
+    cy.on("window:alert", alertStub);
+
+    cy.get("#car-name-input").type("red,blueeeee,green");
+    cy.get("#car-name-btn")
+      .click()
+      .then(() => {
+        expect(alertStub).to.be.calledWith(
+          "5자 이하의 자동차 이름을 입력하세요."
+        );
+      });
+  });
 });
