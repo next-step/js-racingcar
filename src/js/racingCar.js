@@ -1,5 +1,10 @@
-import { MAX_RANDOM_NUM, MIN_RANDOM_NUM } from "../utils/constant.js";
 class RacingCar {
+  static MAX_RANDOM_NUM = 9;
+  static MIN_RANDOM_NUM = 0;
+  static MIN_CARNAME_SIZE = 1;
+  static MAX_CARNAME_SIZE = 5;
+  static MIN_PLAY_NUM = 4;
+
   raceParticipateCar;
   raceCount;
   constructor() {
@@ -7,15 +12,20 @@ class RacingCar {
   }
 
   randomNumberGenerator = () => {
-    return Math.floor(Math.random() * MAX_RANDOM_NUM + MIN_RANDOM_NUM);
+    return Math.floor(
+      Math.random() * RacingCar.MAX_RANDOM_NUM + RacingCar.MIN_RANDOM_NUM
+    );
   };
 
   decidePlay = () => {
-    return this.randomNumberGenerator() >= 4;
+    return this.randomNumberGenerator() >= RacingCar.MIN_PLAY_NUM;
   };
 
   testCarNameSize = (carName) => {
-    return 0 < carName.length && carName.length <= 5;
+    return (
+      RacingCar.MIN_CARNAME_SIZE <= carName.length &&
+      carName.length <= RacingCar.MAX_CARNAME_SIZE
+    );
   };
 
   openInputNumberOfMatches = (e) => {
