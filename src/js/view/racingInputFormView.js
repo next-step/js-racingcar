@@ -1,5 +1,4 @@
 import Observable from "../util/observable.js";
-import BaseView from "./baseView.js";
 import RacingInputFormController from "../controller/racingInputFormController.js";
 
 import { notifyTypes } from "../util/constants.js";
