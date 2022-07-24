@@ -6,4 +6,5 @@ export const STANDARD_MOVE_VALUE = 3;
 export const notifyTypes = {
   ENTRY_CONFIRM: "ENTRY_CONFIRM",
   COUNT_CONFIRM: "COUNT_CONFIRM",
+  PROCESS_RACE: "PROCESS_RESULT",
 };
