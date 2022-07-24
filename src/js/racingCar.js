@@ -1,4 +1,4 @@
-class RacingCar {
+class racingCar {
   static MAX_RANDOM_NUM = 9;
   static MIN_RANDOM_NUM = 0;
   static MIN_CARNAME_SIZE = 1;
@@ -11,24 +11,24 @@ class RacingCar {
     this.initEventListeners();
   }
 
-  randomNumberGenerator = () => {
+  randomNumberGenerator() {
     return Math.floor(
-      Math.random() * RacingCar.MAX_RANDOM_NUM + RacingCar.MIN_RANDOM_NUM
+      Math.random() * racingCar.MAX_RANDOM_NUM + racingCar.MIN_RANDOM_NUM
     );
-  };
+  }
 
-  decidePlay = () => {
-    return this.randomNumberGenerator() >= RacingCar.MIN_PLAY_NUM;
-  };
+  decidePlay() {
+    return this.randomNumberGenerator() >= racingCar.MIN_PLAY_NUM;
+  }
 
-  testCarNameSize = (carName) => {
+  testCarNameSize(carName) {
     return (
-      RacingCar.MIN_CARNAME_SIZE <= carName.length &&
-      carName.length <= RacingCar.MAX_CARNAME_SIZE
+      racingCar.MIN_CARNAME_SIZE <= carName.length &&
+      carName.length <= racingCar.MAX_CARNAME_SIZE
     );
-  };
+  }
 
-  openInputNumberOfMatches = (e) => {
+  openInputNumberOfMatches(e) {
     e.target.insertAdjacentHTML(
       "beforeend",
       `<fieldset>
@@ -39,9 +39,9 @@ class RacingCar {
         </div>
       </fieldset>`
     );
-  };
+  }
 
-  matchLoading = () => {
+  matchLoading() {
     this.raceParticipateCar.forEach((element) => {
       document
         .querySelector(`div[data-racecar-name="${element}"]`)
@@ -54,9 +54,9 @@ class RacingCar {
           </div>`
         );
     });
-  };
+  }
 
-  matchResult = () => {
+  matchResult() {
     this.raceParticipateCar.forEach((element) => {
       document.querySelector(`div[data-race-loading="${element}"]`).remove();
       if (!this.decidePlay()) return;
@@ -67,9 +67,9 @@ class RacingCar {
           `<div class="forward-icon mt-2">⬇️️</div>`
         );
     });
-  };
+  }
 
-  matchStart = () => {
+  matchStart() {
     const template = this.raceParticipateCar
       .map((raceCar) => {
         return `
@@ -87,9 +87,9 @@ class RacingCar {
         </div>
       </section>`
     );
-  };
+  }
 
-  matchProgress = () => {
+  matchProgress() {
     let count = 1;
     this.matchLoading();
     const timeoutId = setInterval(() => {
@@ -100,7 +100,7 @@ class RacingCar {
       }
       this.matchLoading();
     }, 1000);
-  };
+  }
 
   gamePrepation = (e) => {
     e.preventDefault();
@@ -124,10 +124,10 @@ class RacingCar {
     }
   };
 
-  initEventListeners = () => {
+  initEventListeners() {
     document
       .querySelector("#racing-game-prepation-form")
       .addEventListener("submit", this.gamePrepation);
-  };
+  }
 }
-export default RacingCar;
+export default racingCar;
