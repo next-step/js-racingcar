@@ -17,14 +17,11 @@ describe('자동차 이름 입력', () => {
     const stub = cy.stub();
     cy.on('window:alert', stub);
 
-    cy.get('#form-car-name input').type('sujin2');
-    cy.get('#form-car-name')
-      .submit()
-      .then(() => {
-        expect(stub.getCall(0)).to.be.calledWith(
-          '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.'
-        );
-      });
+    cy.submitCarName('orange').then(() => {
+      expect(stub.getCall(0)).to.be.calledWith(
+        '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.'
+      );
+    });
   });
 
   it('자동차 이름을 입력 후 확인을 클릭하면 횟수 입력 필드가 보인다.', () => {
@@ -43,14 +40,20 @@ describe('시도할 횟수 입력', () => {
 
     cy.submitCarName(carNameValue);
 
-    cy.get('#form-try-count input').type('5');
-    cy.get('#form-try-count')
-      .submit()
-      .then(() => {
-        const carNames = carNameValue.split(',').map((item) => item.trim());
-        carNames.forEach((name) => {
-          cy.get('.car-player').contains(name);
-        });
+    cy.submitTryCount(5).then(() => {
+      const carNames = carNameValue.split(',').map((item) => item.trim());
+      carNames.forEach((name) => {
+        cy.get('.car-player').contains(name);
       });
+    });
+  });
+
+  it('레이싱 카의 화살표 개수는 시도할 횟수 보다 작거나 같다.', () => {
+    cy.submitCarName('white');
+    cy.submitTryCount(3);
+
+    cy.get('.forward-icon').should(($el) => {
+      expect($el).length.within(0, 3);
+    });
   });
 });

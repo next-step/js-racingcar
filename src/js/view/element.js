@@ -13,7 +13,7 @@ export const carNameEl = (name) => {
 
 export const loadingEl = () => {
   const el = document.createElement('div');
-  el.setAttribute('class', 'd-flex justify-center mt-3');
+  el.setAttribute('class', 'loading d-flex justify-center mt-3');
 
   const el2 = document.createElement('div');
   el2.setAttribute('class', 'relative spinner-container');

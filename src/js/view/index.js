@@ -1,5 +1,5 @@
-import { carNameEl, loadingEl, racingLineEl } from './element.js';
-import { $racingCarInner } from '../selector.js';
+import { carNameEl, downArrowEl, loadingEl, racingLineEl } from './element.js';
+import { $racingCar, $racingCarInner } from '../selector.js';
 
 export const showContent = ($el) => {
   $el.classList.add('active');
@@ -9,8 +9,27 @@ export const hideContent = ($el) => {
   $el.classList.remove('active');
 };
 
+export const setDisabledForm = ($form) => {
+  $form.querySelector('fieldset').setAttribute('disabled', 'disabled');
+};
+
 export const appendRacingEl = (resultOfOneCycle) => {
-  console.log(resultOfOneCycle);
+  const $previousEl = document
+    .querySelector('#car-racing-inner')
+    .cloneNode(true);
+
+  const racingLines = Array.from($previousEl.children).reduce(
+    ($wrapper, $el, i) => {
+      if (resultOfOneCycle[i]) {
+        $el.insertBefore(downArrowEl(), $el.lastChild);
+      }
+      $wrapper.appendChild($el);
+      return $wrapper;
+    },
+    document.createDocumentFragment()
+  );
+
+  $racingCarInner.replaceChildren(racingLines);
 };
 
 export const prepareRacingArea = (carNameList) => {
@@ -22,4 +41,8 @@ export const prepareRacingArea = (carNameList) => {
   }, document.createDocumentFragment());
 
   $racingCarInner.replaceChildren(racingLines);
+};
+
+export const removeLoadingEl = () => {
+  $racingCar.querySelectorAll('.loading').forEach(($el) => $el.remove());
 };
