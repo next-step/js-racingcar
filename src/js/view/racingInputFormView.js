@@ -9,32 +9,46 @@ const countInputTemplate = /* html */ `
     <fieldset>
         <p>시도할 횟수를 입력해주세요.</p>
         <div class="d-flex">
-            <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
+            <input id="move-count-input" type="number" class="w-100 mr-2" placeholder="시도 횟수" />
             <button id="count-confirm-btn" type="button" class="btn btn-cyan">확인</button>
         </div>
     </fieldset>
 `;
 
-class RacingInputFormView extends BaseView {
+class RacingInputFormView {
+  $racingInputForm;
+  $entryInput;
+  $moveCountInput;
+  $entryConfirmBtn;
+  $countConfirmBtn;
+
   constructor() {
-    super();
     this.racingInputFormController = RacingInputFormController;
 
     this.$racingInputForm = $("#racing-input-form");
     this.$entryInput = $("#entry-input");
     this.$entryConfirmBtn = $("#entry-confirm-btn");
 
-    this.bindObserver();
+    this.bindInitialObserver();
     this.bindInitialEvent();
   }
 
-  bindObserver() {
+  bindInitialObserver() {
     Observable.subscribe(
       notifyTypes.ENTRY_CONFIRM,
       () => {
         this.$entryInput.disabled = "disabled";
         this.$entryConfirmBtn.disabled = "disabled";
         this.attachCountInput();
+      },
+      this
+    );
+
+    Observable.subscribe(
+      notifyTypes.COUNT_CONFIRM,
+      () => {
+        this.$moveCountInput.disabled = "disabled";
+        this.$countConfirmBtn.disabled = "disabled";
       },
       this
     );
@@ -53,13 +67,22 @@ class RacingInputFormView extends BaseView {
     }
   };
 
-  onCountConfirmBtnClick = () => {};
+  onCountConfirmBtnClick = () => {
+    try {
+      const { value } = this.$moveCountInput;
+      this.racingInputFormController.handleCountConfirm(value);
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   attachCountInput = () => {
     this.$racingInputForm.insertAdjacentHTML("beforeEnd", countInputTemplate);
 
-    const $countInputBtn = $("#count-confirm-btn");
-    $countInputBtn.addEventListener("click", this.onCountConfirmBtnClick);
+    this.$moveCountInput = $("#move-count-input");
+    this.$countConfirmBtn = $("#count-confirm-btn");
+
+    this.$countConfirmBtn.addEventListener("click", this.onCountConfirmBtnClick);
   };
 }
 
