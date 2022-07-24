@@ -71,12 +71,12 @@ class racingCar {
 
   matchStart() {
     const template = this.raceParticipateCar
-      .map((raceCar) => {
-        return `
-    <div class="mr-2" data-racecar-name="${raceCar}">
-      <div class="car-player">${raceCar}</div>
-    </div>`;
-      })
+      .map(
+        (raceCar) => `
+      <div class="mr-2" data-racecar-name="${raceCar}">
+        <div class="car-player">${raceCar}</div>
+      </div>`
+      )
       .join("");
 
     document.querySelector("#app").insertAdjacentHTML(
