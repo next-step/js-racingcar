@@ -29,7 +29,9 @@ class RacingInputFormController {
       this.racingInfoModel.moveCount = countAsNum;
     }
 
-    Observable.notify(notifyTypes.COUNT_CONFIRM);
+    this.racingInfoModel.moveCars();
+
+    Observable.notify(notifyTypes.COUNT_CONFIRM, this.racingInfoModel.entires, this.racingInfoModel.movingDistPerCar);
   }
 }
 
