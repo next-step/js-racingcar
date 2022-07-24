@@ -1,16 +1,62 @@
+import { MAX_RANDOM_NUM, MIN_RANDOM_NUM } from "../utils/constant.js";
 class RacingCar {
   raceParticipateCar;
+  raceCount;
   constructor() {
     this.initEventListeners();
   }
 
+  randomNumberGenerator = () => {
+    return Math.floor(Math.random() * MAX_RANDOM_NUM + MIN_RANDOM_NUM);
+  };
+
+  decidePlay = () => {
+    return this.randomNumberGenerator() >= 4;
+  };
+
   testCarNameSize = (carName) => {
-    return carName.length <= 5;
+    return 0 < carName.length && carName.length <= 5;
+  };
+
+  matchLoading = () => {
+    this.raceParticipateCar.forEach((element) => {
+      document
+        .querySelector(`div[data-racecar-name="${element}"]`)
+        .insertAdjacentHTML(
+          "beforeend",
+          `<div class="d-flex justify-center mt-3" data-race-loading="${element}">
+            <div class="relative spinner-container">
+              <span class="material spinner"></span>
+            </div>
+          </div>`
+        );
+    });
+  };
+
+  matchProgress = () => {
+    let count = 1;
+    this.matchLoading();
+    const timeoutId = setInterval(() => {
+      this.raceParticipateCar.forEach((element) => {
+        document.querySelector(`div[data-race-loading="${element}"]`).remove();
+        if (!this.decidePlay()) return;
+        document
+          .querySelector(`div[data-racecar-name="${element}"]`)
+          .insertAdjacentHTML(
+            "beforeend",
+            `<div class="forward-icon mt-2">⬇️️</div>`
+          );
+      });
+      if (count++ === this.raceCount) {
+        clearInterval(timeoutId);
+        return;
+      }
+      this.matchLoading();
+    }, 1000);
   };
 
   gamePrepation = (e) => {
     e.preventDefault();
-    console.log("e.submiter23", e.submitter);
     if (e.submitter.id == "car-name") {
       if (!e.target[1].value) {
         return;
@@ -26,18 +72,19 @@ class RacingCar {
       e.target.insertAdjacentHTML(
         "beforeend",
         `<fieldset>
-      <p>시도할 횟수를 입력해주세요.</p>
-      <div class="d-flex">
-        <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-        <button id="try-count" class="btn btn-cyan">확인</button>
-      </div>
-    </fieldset>`
+          <p>시도할 횟수를 입력해주세요.</p>
+          <div class="d-flex">
+            <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
+            <button id="try-count" class="btn btn-cyan">확인</button>
+          </div>
+        </fieldset>`
       );
     } else {
+      this.raceCount = e.target[4].valueAsNumber;
       const template = this.raceParticipateCar
         .map((raceCar) => {
           return `
-        <div class="mr-2">
+        <div class="mr-2" data-racecar-name="${raceCar}">
           <div class="car-player">${raceCar}</div>
         </div>`;
         })
@@ -51,6 +98,7 @@ class RacingCar {
           </div>
         </section>`
       );
+      this.matchProgress();
     }
   };
 
