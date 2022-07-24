@@ -5,7 +5,7 @@ import { notifyTypes } from "../util/constants.js";
 import { $ } from "../util/dom.js";
 
 const countInputTemplate = /* html */ `
-    <fieldset>
+    <fieldset id="move-count-fieldset">
         <p>시도할 횟수를 입력해주세요.</p>
         <div class="d-flex">
             <input id="move-count-input" type="number" class="w-100 mr-2" placeholder="시도 횟수" />
@@ -17,6 +17,7 @@ const countInputTemplate = /* html */ `
 class RacingInputFormView {
   $racingInputForm;
   $entryInput;
+  $moveCountFieldSet;
   $moveCountInput;
   $entryConfirmBtn;
   $countConfirmBtn;
@@ -36,8 +37,7 @@ class RacingInputFormView {
     Observable.subscribe(
       notifyTypes.ENTRY_CONFIRM,
       () => {
-        this.$entryInput.disabled = "disabled";
-        this.$entryConfirmBtn.disabled = "disabled";
+        this.activateEntryFieldset(false);
         this.attachCountInput();
       },
       this
@@ -46,16 +46,30 @@ class RacingInputFormView {
     Observable.subscribe(
       notifyTypes.COUNT_CONFIRM,
       () => {
-        this.$moveCountInput.disabled = "disabled";
-        this.$countConfirmBtn.disabled = "disabled";
+        this.activateMoveCountFieldset(false);
       },
       this
     );
+
+    Observable.subscribe(notifyTypes.RESET_RACE, () => {
+      this.dettachCountInput();
+      this.activateEntryFieldset(true);
+    });
   }
 
   bindInitialEvent() {
     this.$entryConfirmBtn.addEventListener("click", this.onEntryConfirmBtnClick);
   }
+
+  activateEntryFieldset = (active) => {
+    this.$entryInput.disabled = !active;
+    this.$entryConfirmBtn.disabled = !active;
+  };
+
+  activateMoveCountFieldset = (active) => {
+    this.$moveCountInput.disabled = !active;
+    this.$countConfirmBtn.disabled = !active;
+  };
 
   onEntryConfirmBtnClick = () => {
     try {
@@ -78,10 +92,15 @@ class RacingInputFormView {
   attachCountInput = () => {
     this.$racingInputForm.insertAdjacentHTML("beforeEnd", countInputTemplate);
 
+    this.$moveCountFieldSet = $("#move-count-fieldset");
     this.$moveCountInput = $("#move-count-input");
     this.$countConfirmBtn = $("#count-confirm-btn");
 
     this.$countConfirmBtn.addEventListener("click", this.onCountConfirmBtnClick);
+  };
+
+  dettachCountInput = () => {
+    this.$racingInputForm.removeChild(this.$moveCountFieldSet);
   };
 }
 

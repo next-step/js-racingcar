@@ -4,7 +4,7 @@ import { notifyTypes } from "../util/constants.js";
 import { $ } from "../util/dom.js";
 
 const racingProcessWrapperTemplate = (children) => /* html */ `
-    <section class="d-flex justify-center mt-5">
+    <section id="race-process-section" class="d-flex justify-center mt-5">
         <div class="mt-4 d-flex">
             ${children}
         </div>
@@ -24,6 +24,7 @@ const moveArrowTemplate = /* html */ `
 
 class RacingProcessView {
   $app;
+  $raceProcessSection;
 
   constructor() {
     this.$app = $("#app");
@@ -33,6 +34,7 @@ class RacingProcessView {
 
   bindInitialObserver() {
     Observable.subscribe(notifyTypes.PROCESS_RACE, this.attachRacingProcessPanel, this);
+    Observable.subscribe(notifyTypes.RESET_RACE, this.dettachRacingProcessPanel);
   }
 
   renderMovedDistance(dist) {
@@ -53,6 +55,12 @@ class RacingProcessView {
 
   attachRacingProcessPanel = (entries, movingDistPerCar) => {
     this.$app.insertAdjacentHTML("beforeEnd", this.renderRacingProcess(entries, movingDistPerCar));
+
+    this.$raceProcessSection = $("#race-process-section");
+  };
+
+  dettachRacingProcessPanel = () => {
+    this.$app.removeChild(this.$raceProcessSection);
   };
 }
 
