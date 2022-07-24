@@ -28,6 +28,19 @@ class racingCar {
     );
   }
 
+  participateCarTemplate(raceCarName) {
+    return `
+    <div class="mr-2" data-racecar-name="${raceCarName}">
+      <div class="car-player">${raceCarName}</div>
+    </div>`;
+  }
+
+  participateCarTemplateGenerator() {
+    return this.raceParticipateCar
+      .map((raceCar) => this.participateCarTemplate(raceCar))
+      .join("");
+  }
+
   openInputNumberOfMatches(e) {
     e.target.insertAdjacentHTML(
       "beforeend",
@@ -69,21 +82,12 @@ class racingCar {
     });
   }
 
-  matchStart() {
-    const template = this.raceParticipateCar
-      .map(
-        (raceCar) => `
-      <div class="mr-2" data-racecar-name="${raceCar}">
-        <div class="car-player">${raceCar}</div>
-      </div>`
-      )
-      .join("");
-
+  matchFormGenerator() {
     document.querySelector("#app").insertAdjacentHTML(
       "beforeend",
       `<section class="d-flex justify-center mt-5">
         <div class="mt-4 d-flex">
-          ${template}
+          ${this.participateCarTemplateGenerator()}
         </div>
       </section>`
     );
@@ -119,7 +123,7 @@ class racingCar {
       this.openInputNumberOfMatches(e);
     } else {
       this.raceCount = e.target[4].valueAsNumber;
-      this.matchStart();
+      this.matchFormGenerator();
       this.matchProgress();
     }
   };
