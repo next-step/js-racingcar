@@ -24,8 +24,8 @@ class RacingCar {
       `<fieldset>
         <p>시도할 횟수를 입력해주세요.</p>
         <div class="d-flex">
-          <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-          <button id="try-count" class="btn btn-cyan">확인</button>
+          <input type="number" id="try-count-input" class="w-100 mr-2" placeholder="시도 횟수" />
+          <button id="try-count-btn" class="btn btn-cyan">확인</button>
         </div>
       </fieldset>`
     );
@@ -72,13 +72,13 @@ class RacingCar {
     document.querySelector("#app").insertAdjacentHTML(
       "beforeend",
       `<section class="d-flex justify-center mt-5">
-      <div class="mt-4 d-flex">
-        ${template}
-      </div>
-    </section>`
+        <div class="mt-4 d-flex">
+          ${template}
+        </div>
+      </section>`
     );
   };
-  
+
   matchProgress = () => {
     let count = 1;
     this.matchLoading();
@@ -94,7 +94,7 @@ class RacingCar {
 
   gamePrepation = (e) => {
     e.preventDefault();
-    if (e.submitter.id == "car-name") {
+    if (e.submitter.id == "car-name-btn") {
       if (!e.target[1].value) {
         return;
       }
