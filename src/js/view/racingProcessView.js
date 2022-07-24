@@ -1,13 +1,20 @@
-const racingProcessWrapperTemplate = /* html */ `
+import Observable from "../util/observable.js";
+
+import { notifyTypes } from "../util/constants.js";
+import { $ } from "../util/dom.js";
+
+const racingProcessWrapperTemplate = (children) => /* html */ `
     <section class="d-flex justify-center mt-5">
         <div class="mt-4 d-flex">
+            ${children}
         </div>
     </section>
 `;
 
-const carInfoTempalte = (carName) => /* html */ `
+const carInfoTempalte = (carName, children) => /* html */ `
     <div class="mr-2">
-        <div class="car-player">${cartName}</div>
+        <div class="car-player">${carName}</div>
+        ${children}
     </div>
 `;
 
@@ -20,5 +27,33 @@ class RacingProcessView {
 
   constructor() {
     this.$app = $("#app");
+
+    this.bindInitialObserver();
   }
+
+  bindInitialObserver() {
+    Observable.subscribe(notifyTypes.COUNT_CONFIRM, this.attachRacingProcessPanel, this);
+  }
+
+  renderMovedDistance(dist) {
+    return Array.from({ length: dist }, () => moveArrowTemplate).join("");
+  }
+
+  renderRacingProcess(entries, movingDistPerCar) {
+    const $racingProcessStatus = entries
+      .map((carName, idx) => {
+        const curCarMovedDist = movingDistPerCar[idx];
+        const $movedDistance = this.renderMovedDistance(curCarMovedDist);
+        return carInfoTempalte(carName, $movedDistance);
+      })
+      .join("");
+
+    return racingProcessWrapperTemplate($racingProcessStatus);
+  }
+
+  attachRacingProcessPanel = (entries, movingDistPerCar) => {
+    this.$app.insertAdjacentHTML("beforeEnd", this.renderRacingProcess(entries, movingDistPerCar));
+  };
 }
+
+export default RacingProcessView;
