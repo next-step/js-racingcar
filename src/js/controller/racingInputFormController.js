@@ -19,6 +19,18 @@ class RacingInputFormController {
 
     Observable.notify(notifyTypes.ENTRY_CONFIRM);
   }
+
+  handleCountConfirm(count) {
+    const countAsNum = Number(count);
+
+    if (countAsNum <= 0) {
+      throw new Error("0 이상의 숫자만 입력해 주세요");
+    } else {
+      this.racingInfoModel.moveCount = countAsNum;
+    }
+
+    Observable.notify(notifyTypes.COUNT_CONFIRM);
+  }
 }
 
 export default new RacingInputFormController();
