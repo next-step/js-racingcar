@@ -1,4 +1,4 @@
-export const inputSelctor = {
+export const inputSelector = {
     INPUT_CAR_NAME : '#input-car-name'
 }
 
