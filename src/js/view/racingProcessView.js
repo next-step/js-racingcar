@@ -32,7 +32,7 @@ class RacingProcessView {
   }
 
   bindInitialObserver() {
-    Observable.subscribe(notifyTypes.COUNT_CONFIRM, this.attachRacingProcessPanel, this);
+    Observable.subscribe(notifyTypes.PROCESS_RACE, this.attachRacingProcessPanel, this);
   }
 
   renderMovedDistance(dist) {

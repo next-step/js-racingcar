@@ -5,6 +5,7 @@ class RacingInfoModel {
     this.entires = [];
     this.moveCount = 0;
     this.movingDistPerCar = [];
+    this.racingWinner = [];
   }
 
   _generateRandomNum() {
@@ -40,6 +41,11 @@ class RacingInfoModel {
         }
       });
     });
+  }
+
+  getRacingResult() {
+    const maxDist = Math.max(...this.movingDistPerCar);
+    this.racingWinner = this.entires.filter((_, idx) => this.movingDistPerCar[idx] === maxDist);
   }
 }
 
