@@ -106,25 +106,32 @@ class racingCar {
     }, 1000);
   }
 
+  submitCarNames(e) {
+    if (!e.target[1].value) {
+      return;
+    }
+    this.raceParticipateCar = e.target[1].value.split(",");
+    this.raceParticipateCar.forEach((element) => {
+      if (!this.testCarNameSize(element)) {
+        alert("5자 이하의 자동차 이름을 입력하세요.");
+        return;
+      }
+    });
+    this.openInputNumberOfMatches(e);
+  }
+
+  submitNumberOfRaces(e) {
+    this.raceCount = e.target[4].valueAsNumber;
+    this.matchFormGenerator();
+    this.matchProgress();
+  }
+
   gamePrepation = (e) => {
     e.preventDefault();
     if (e.submitter.id == "car-name-btn") {
-      if (!e.target[1].value) {
-        return;
-      }
-      this.raceParticipateCar = e.target[1].value.split(",");
-      this.raceParticipateCar.forEach((element) => {
-        if (!this.testCarNameSize(element)) {
-          alert("5자 이하의 자동차 이름을 입력하세요.");
-          return;
-        }
-      });
-
-      this.openInputNumberOfMatches(e);
+      this.submitCarNames(e);
     } else {
-      this.raceCount = e.target[4].valueAsNumber;
-      this.matchFormGenerator();
-      this.matchProgress();
+      this.submitNumberOfRaces(e);
     }
   };
 
