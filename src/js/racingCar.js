@@ -33,20 +33,23 @@ class RacingCar {
     });
   };
 
+  matchResult = () => {
+    this.raceParticipateCar.forEach((element) => {
+      document.querySelector(`div[data-race-loading="${element}"]`).remove();
+      if (!this.decidePlay()) return;
+      document
+        .querySelector(`div[data-racecar-name="${element}"]`)
+        .insertAdjacentHTML(
+          "beforeend",
+          `<div class="forward-icon mt-2">⬇️️</div>`
+        );
+    });
+  };
   matchProgress = () => {
     let count = 1;
     this.matchLoading();
     const timeoutId = setInterval(() => {
-      this.raceParticipateCar.forEach((element) => {
-        document.querySelector(`div[data-race-loading="${element}"]`).remove();
-        if (!this.decidePlay()) return;
-        document
-          .querySelector(`div[data-racecar-name="${element}"]`)
-          .insertAdjacentHTML(
-            "beforeend",
-            `<div class="forward-icon mt-2">⬇️️</div>`
-          );
-      });
+      this.matchResult();
       if (count++ === this.raceCount) {
         clearInterval(timeoutId);
         return;
