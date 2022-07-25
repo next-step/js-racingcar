@@ -1,4 +1,4 @@
-import {buttonSelector, inputSelector} from '../../src/js/constant/selector.js';
+import {buttonSelector, fieldSelector, inputSelector} from '../../src/js/constant/selector.js';
 
 describe('자동차 경주 미션 1단계', () => {
 	beforeEach(() => {
@@ -13,15 +13,13 @@ describe('자동차 경주 미션 1단계', () => {
 				.should('have.value', 'EAST')
 		});
 
-		it('자동차 이름 입력 후 확인을 누르면 자동차가 1대 생성된다.', () => {
+		it('자동차 이름 입력 후 확인을 누르면 시도 횟수 입력 창이 보인다.', () => {
 			cy.get(inputSelector.INPUT_CAR_NAME)
 				.type('WEST')
 			cy.get(buttonSelector.SUBMIT_CAR_NAME)
 				.click()
-				
-		})
-		it('자동차 이름에 쉼표가 2개 있으면 자동차가 3대 생성된다.', () => {
-
+			cy.get(fieldSelector.CAR_NAME_FIELD)
+				.should('be.visible')
 		})
 		it('자동차 이름 입력칸이 비어 있으면 확인을 눌렀을 때 경고창이 뜬다.', () => {
 

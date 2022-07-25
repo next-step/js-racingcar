@@ -9,3 +9,7 @@ export const buttonSelector = {
 export const spanSelector = {
     CAR_NAME : '.car-player'
 }
+
+export const fieldSelector = {
+    CAR_NAME_FIELD :  '#car-name-field'
+}
