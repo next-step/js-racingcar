@@ -6,5 +6,6 @@ export const handleCarTryInput = function (carTryInput) {
   if(validateCarTry(carTryInput)) {
     freezeCarTryView()
     racingGameStore.setCarTry(carTryInput);
+    
   }
 }
