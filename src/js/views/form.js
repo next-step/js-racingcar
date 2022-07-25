@@ -10,5 +10,5 @@ export const hideAttemptFieldset = () => {
 }
 
 export const showAttemptFieldset = () => {
-  $attemptFieldset.classList.remove('d-none');
+  $attemptFieldset.classList.replace('d-none', 'd-block');
 }

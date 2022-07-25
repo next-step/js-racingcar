@@ -18,14 +18,18 @@ export const hideResultSection = () => {
 }
 
 export const renderCarName = (cars) => {
-  $racingcars.innerHTML = cars.map((car) => `<div class="car mr-2"><div class="car-player">${car.toUpperCase()}</div></div>`).join('');
+  let carTemplate = ``;
+  cars.forEach((car) => {
+    carTemplate += `<div class="car mr-2"><div class="car-player">${car.toUpperCase()}</div></div>`;
+  })
+
+  $racingcars.innerHTML = carTemplate;
 }
 
 export const renderRacingGame = (racingResult) => {
   document.querySelectorAll('.car-player').forEach((element, index) => {
-    const result = racingResult[index] ? '️️⬇️️' : ''
     if (racingResult[index] !== '') {
-      element.insertAdjacentHTML('afterend', `<div class="forward-icon mt-2">${result}</div>`)
+      element.insertAdjacentHTML('afterend', `<div class="forward-icon mt-2">${racingResult[index]}</div>`)
     }
     
   })

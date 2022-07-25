@@ -21,3 +21,4 @@ Cypress.Commands.add('checkAlertMessage', (selector, message) => {
     );
   })
 });
+

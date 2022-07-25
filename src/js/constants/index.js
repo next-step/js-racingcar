@@ -15,3 +15,4 @@ export const ALERT_MESSAGES = {
     POSITIVE_NUMBER: '1 이상의 수를 입력해주세요.'
   }
 }
+
