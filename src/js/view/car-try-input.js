@@ -24,3 +24,7 @@ export const freezeCarTryView = function () {
   $(inputSelector.INPUT_CAR_TRY).disabled = true;
   $(buttonSelector.SUBMIT_CAR_TRY).disabled = true;
 }
+
+export const focusOnTryInput = function () {
+  $(inputSelector.INPUT_CAR_TRY).focus();
+}

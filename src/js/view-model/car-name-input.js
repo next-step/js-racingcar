@@ -2,7 +2,7 @@ import {generateCars} from '../model/car.js'
 import { racingGameStore } from "../model/index.js";
 import { isOKToSendCarNamesToModel } from "../validate/car-name.js"
 import { freezeCarNameView } from "../view/car-name-input.js";
-import { showCarTryInput } from "../view/car-try-input.js";
+import { focusOnTryInput, showCarTryInput } from "../view/car-try-input.js";
 
 
 export const handleCarNameInput = function (carNameInput) {
@@ -11,5 +11,6 @@ export const handleCarNameInput = function (carNameInput) {
     racingGameStore.setCars(generateCars(carNames))
     freezeCarNameView();
     showCarTryInput();
+    focusOnTryInput();
   }
 }
