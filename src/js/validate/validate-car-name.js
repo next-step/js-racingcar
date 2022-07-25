@@ -19,7 +19,6 @@ export const validateCarName = function (carName) {
   }
 }
 
-export const isOKToSendCarNameInputToModel = function (carNameInput) {
-  const carNames = carNameInput.split(",")
+export const isOKToSendCarNamesToModel = function (carNames) {
   return !(carNames.some((carName) => !validateCarName(carName)))
 }
