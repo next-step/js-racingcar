@@ -15,3 +15,12 @@ export const spanSelector = {
 export const fieldSelector = {
     CAR_TRY_FIELD :  '#car-try-field'
 }
+
+export const sectionSelector = {
+    RACE_SECTION : '#race-section',
+}
+
+export const divSelector = {
+    CAR_PLAYERS_WRAPPER : '#car-players-wrapper',
+    CAR_WRAPPER : '#car-wrapper'
+}
