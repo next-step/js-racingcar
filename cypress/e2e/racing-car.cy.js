@@ -18,7 +18,7 @@ describe('자동차 경주 미션 1단계', () => {
 				.type('WEST')
 			cy.get(buttonSelector.SUBMIT_CAR_NAME)
 				.click()
-			cy.get(fieldSelector.CAR_NAME_FIELD)
+			cy.get(fieldSelector.CAR_TRY_FIELD)
 				.should('be.visible')
 		})
 		it('자동차 이름 입력칸이 비어 있으면 확인을 눌렀을 때 경고창이 뜬다.', () => {

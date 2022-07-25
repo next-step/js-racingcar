@@ -1,9 +1,11 @@
 export const inputSelector = {
-    INPUT_CAR_NAME : '#input-car-name'
+    INPUT_CAR_NAME : '#input-car-name',
+    INPUT_CAR_TRY : '#input-car-try',
 }
 
 export const buttonSelector = {
-    SUBMIT_CAR_NAME : '#submit-car-name'
+    SUBMIT_CAR_NAME : '#submit-car-name',
+    SUBMIT_CAR_TRY : '#submit-car-try',
 }
 
 export const spanSelector = {
@@ -11,5 +13,5 @@ export const spanSelector = {
 }
 
 export const fieldSelector = {
-    CAR_NAME_FIELD :  '#car-name-field'
+    CAR_TRY_FIELD :  '#car-try-field'
 }
