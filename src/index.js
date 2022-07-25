@@ -33,10 +33,9 @@ const createCarPlayerDiv = ($input) => {
   $(SELECTORS.CAR_PLAYER_WRAPPER_DIV).innerHTML = template;
 };
 
-const handleSubmit = (e) => {
+const handleSubmitCarName = (e) => {
   e.preventDefault();
   console.log(e);
-  console.log(e.target[1].value);
 
   // 각 자동차 이름이 5글자가 넘으면 경고 메세지를 표시한다.
   if (e.target[1].value) {
@@ -52,12 +51,17 @@ const handleSubmit = (e) => {
       $(SELECTORS.TRIAL_NUM_INPUT).focus();
     });
   }
+};
+
+const handleSubmitTrialNum = (e) => {
+  e.preventDefault();
+  console.log(e);
 
   //시도 횟수 입력값이 1~10사이가 아니면 경고 메세지를 표시한다.
-  if (e.target[4].value) {
+  if (e.target[1].value) {
     try {
-      validateNumRange(e.target[4].valueAsNumber);
-      startRacingGame(e.target[4].valueAsNumber);
+      validateNumRange(e.target[1].valueAsNumber);
+      startRacingGame(e.target[1].valueAsNumber);
     } catch (error) {
       alert(error);
       return;
@@ -73,4 +77,5 @@ const handleSubmit = (e) => {
 // 전진 조건에 따라
 // setInterval
 
-$(SELECTORS.CAR_NAME_FORM).addEventListener("submit", handleSubmit);
+$(SELECTORS.CAR_NAME_FORM).addEventListener("submit", handleSubmitCarName);
+$(SELECTORS.TRIAL_NUM_FORM).addEventListener("submit", handleSubmitTrialNum);

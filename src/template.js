@@ -4,4 +4,4 @@ export const templateSpinner = `<div class="spinners d-flex justify-center mt-3"
                                   </div>
                                 </div>`;
 
-export const fowardTemplate = `<div class="forward-icon mt-2">⬇️️</div>`;
+export const templateForward = `<div class="forward-icon mt-2">⬇️️</div>`;
