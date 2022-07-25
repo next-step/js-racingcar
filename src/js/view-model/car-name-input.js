@@ -1,5 +1,5 @@
 import {generateCars} from '../model/car.js'
-import { racingGameStore } from "../model/index.js";
+import { racingGameStore } from "../model/racing-game-store.js";
 import { isOKToSendCarNamesToModel } from "../validate/car-name.js"
 import { freezeCarNameView } from "../view/car-name-input.js";
 import { focusOnTryInput, showCarTryInput } from "../view/car-try-input.js";

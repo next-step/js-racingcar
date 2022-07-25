@@ -1,5 +1,5 @@
 import { sendCarsToView } from "../view-model/car.js";
-import { racingGameStore } from "./index.js"
+import { racingGameStore } from "./racing-game-store.js"
 
 export const initRacing = function () {
   const {getCars} = racingGameStore;
