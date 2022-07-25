@@ -45,6 +45,27 @@ describe('자동차 경주 미션 1단계', () => {
 				})
 		})
 	})
+
+	context('자동차 전진 시도 테스트', () => {
+		beforeEach(() => {
+			cy.submitCarName('ABC,DE')
+		})
+		it('자동차 전진 입력칸에 숫자를 입력할 수 있다.', () => {
+			cy.get(inputSelector.INPUT_CAR_TRY)
+				.should('be.visible')
+				.type(10)
+				.should('have.value', 10)
+		});
+		it('자동차 전진 입력칸이 비어있으면 확인을 눌렀을 때 경고창이 뜬다.', () => {
+			const stub = cy.stub()
+			cy.on('window:alert', stub)
+			cy.get(buttonSelector.SUBMIT_CAR_TRY)
+				.click()
+				.then(() => {
+					expect(stub.getCall(0)).to.be.calledWith(errorMessage.INVALID_CAR_TRY)
+				})
+		});
+	})
 });
 
 // 자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.
