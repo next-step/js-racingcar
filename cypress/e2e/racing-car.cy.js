@@ -46,7 +46,7 @@ describe('자동차 경주 미션 1단계', () => {
 		})
 	})
 
-	context('자동차 전진 시도 테스트', () => {
+	context('자동차 전진 시도 입력 테스트', () => {
 		beforeEach(() => {
 			cy.submitCarName('ABC,DE')
 		})
