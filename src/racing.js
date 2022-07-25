@@ -1,5 +1,5 @@
 import { SELECTORS } from "./constants.js";
-import { templateSpinner, templateForward } from "./template.js";
+import { templateForward } from "./template.js";
 
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
