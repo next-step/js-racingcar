@@ -8,9 +8,7 @@ class Car {
   }
 
   go () {
-    if(this.isOkToGo()) {
-      this.position += 1;
-    }
+    this.position += 1;
   }
 
   isOkToGo () {

@@ -1,4 +1,11 @@
+import { sendCarsToView } from "../view-model/car.js";
 import { racingGameStore } from "./index.js"
+
+export const initRacing = function () {
+  const {getCars} = racingGameStore;
+  race();
+  sendCarsToView(getCars())
+}
 
 export const race = function () {
   const RACE_END_COUNT = 0;
@@ -8,7 +15,9 @@ export const race = function () {
 
   if(tryCount > RACE_END_COUNT) {
     cars.forEach((car) => {
-      car.go()
+      if(car.isOkToGo()) {
+        car.go()  
+      }
     })
     setCarTry(tryCount-1)
     race();
