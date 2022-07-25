@@ -19,3 +19,8 @@ export const addCarTryEvent = function() {
     }
   })
 }
+
+export const freezeCarTryView = function () {
+  $(inputSelector.INPUT_CAR_TRY).disabled = true;
+  $(buttonSelector.SUBMIT_CAR_TRY).disabled = true;
+}
