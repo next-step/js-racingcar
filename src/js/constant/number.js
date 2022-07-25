@@ -1,0 +1,1 @@
+export const INPUT_CAR_NAME_MAX_LENGTH = 5;
