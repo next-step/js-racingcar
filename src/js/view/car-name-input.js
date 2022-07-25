@@ -15,3 +15,8 @@ export const addCarNameEvent = function () {
     }
   }) 
 }
+
+export const freezeCarNameView = function () {
+  $(inputSelector.INPUT_CAR_NAME).disabled = true;
+  $(buttonSelector.SUBMIT_CAR_NAME).disabled = true;
+}
