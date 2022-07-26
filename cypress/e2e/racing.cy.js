@@ -1,5 +1,13 @@
 import { SELECTORS, ERROR_MESSAGES } from "/src/constants.js";
-import { shouldShowAlert } from "./utils.js";
+
+//Custom Commands
+Cypress.Commands.add("shouldShowAlert", (typeVal, selector, err) => {
+  cy.on("window:alert", (alertMessage) => {
+    expect(alertMessage).to.eq(err);
+  });
+  if (typeVal) cy.get(selector).type(typeVal);
+  cy.get(SELECTORS.CAR_NAME_FORM).submit();
+});
 
 describe("intro: 유저가 첫 화면을 정상적으로 볼 수 있는지 테스트한다.", () => {
   beforeEach(() => {
@@ -18,7 +26,7 @@ describe("input: 유저가 정상적으로 자동차 이름과 시도 횟수를 
     // it("시도 횟수 input이 비어있을 경우 경고 메세지를 보낸다.", () => {
     // });
     it("시도 횟수 입력값이 1이상 10이하의 수가 아닐 경우 경고 메세지를 보낸다.", () => {
-      shouldShowAlert(
+      cy.shouldShowAlert(
         "",
         SELECTORS.TRIAL_NUM_INPUT,
         ERROR_MESSAGES.NUM_RANGE_ERROR
@@ -37,12 +45,12 @@ describe("input: 유저가 정상적으로 자동차 이름과 시도 횟수를 
   context("자동차 이름 입력창에 유저가 값을 입력했을 때,", () => {
     it("자동차 이름의 길이가 0 이하이거나 6자 이상이라면 경고 메세지가 뜬다.", () => {
       // input 에 "" 입력 (if)
-      shouldShowAlert(
+      cy.shouldShowAlert(
         "123456",
         SELECTORS.CAR_NAME_INPUT,
         ERROR_MESSAGES.WORD_LENGTH_ERROR
       );
-      shouldShowAlert(
+      cy.shouldShowAlert(
         "",
         SELECTORS.CAR_NAME_INPUT,
         ERROR_MESSAGES.WORD_LENGTH_ERROR
