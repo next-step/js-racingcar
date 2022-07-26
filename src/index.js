@@ -3,9 +3,12 @@ import { $ } from "./dom.js";
 import { startRacingGame } from "./racing.js";
 import { validateNameLength, validateNumRange } from "./validation.js";
 import { createTemplateCarPlayer } from "./template.js";
-import { displaySelector } from "./utils.js";
+import { displaySelector, displayTemplate } from "./utils.js";
 
 const handleSubmitCarName = (e) => {
+  const templateCarPlayer = createTemplateCarPlayer(
+    $(SELECTORS.CAR_NAME_INPUT)
+  );
   e.preventDefault();
 
   if (!e.target[1].value) {
@@ -19,7 +22,7 @@ const handleSubmitCarName = (e) => {
       alert(error);
       return;
     }
-    createTemplateCarPlayer($(SELECTORS.CAR_NAME_INPUT));
+    displayTemplate($(SELECTORS.CAR_PLAYER_WRAPPER_DIV), templateCarPlayer);
     displaySelector($(SELECTORS.TRIAL_NUM_FIELDSET));
     $(SELECTORS.TRIAL_NUM_INPUT).focus();
   });

@@ -10,7 +10,7 @@ export const templateSpinner = `<div class="spinners d-flex justify-center mt-3"
 export const templateForward = `<div class="forward-icon mt-2">⬇️️</div>`;
 
 export const createTemplateCarPlayer = ($input) => {
-  const template = $input.value.split(",").map(
+  return $input.value.split(",").map(
     (name) => `<div class="car">
                   <div class="car-player">${name}</div>
                   <div class="spinners d-flex justify-center mt-3">
@@ -20,6 +20,4 @@ export const createTemplateCarPlayer = ($input) => {
                   </div>
                 </div>`
   );
-
-  $(SELECTORS.CAR_PLAYER_WRAPPER_DIV).innerHTML = template;
 };
