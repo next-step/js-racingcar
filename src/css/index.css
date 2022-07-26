@@ -35,3 +35,13 @@ fieldset {
   border: none;
   padding: 0;
 }
+
+.competition-count-input-container, 
+.competition-list, 
+.competition-result {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
