@@ -3,7 +3,7 @@ import { $ } from "./dom.js";
 import { startRacingGame } from "./racing.js";
 import { validateNameLength, validateNumRange } from "./validation.js";
 import { createTemplateCarPlayer } from "./template.js";
-import { displaySelector, displayTemplate } from "./utils.js";
+import { removeHiddenClass, displayTemplate } from "./utils.js";
 
 const handleSubmitCarName = (e) => {
   const templateCarPlayer = createTemplateCarPlayer(
@@ -23,7 +23,7 @@ const handleSubmitCarName = (e) => {
       return;
     }
     displayTemplate($(SELECTORS.CAR_PLAYER_WRAPPER_DIV), templateCarPlayer);
-    displaySelector($(SELECTORS.TRIAL_NUM_FIELDSET));
+    removeHiddenClass($(SELECTORS.TRIAL_NUM_FIELDSET));
     $(SELECTORS.TRIAL_NUM_INPUT).focus();
   });
 };
@@ -42,7 +42,7 @@ const handleSubmitTrialNum = (e) => {
     alert(error);
     return;
   }
-  displaySelector($(SELECTORS.GAME_SECTION));
+  removeHiddenClass($(SELECTORS.GAME_SECTION));
 };
 
 $(SELECTORS.CAR_NAME_FORM).addEventListener("submit", handleSubmitCarName);
