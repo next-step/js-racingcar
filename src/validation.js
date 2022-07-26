@@ -1,3 +1,5 @@
+import { ERROR_MESSAGES } from "./constants.js";
+
 export const validateNameLength = ($name) => {
   if ($name.length > 5) {
     throw ERROR_MESSAGES.WORD_LENGTH_ERROR;
