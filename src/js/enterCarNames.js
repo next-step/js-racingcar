@@ -27,13 +27,19 @@ const setCompetitionCountFormVisible = () => {
   setVisible($('.competition-count-input-container'));
 };
 
-const enterCarNames = () => {
+const setCompetitionCountFormVisibleFocus = () => {
+  $('.competition-count-input').focus();
+};
+
+const enterCarNames = (e) => {
+  e.preventDefault();
   if (!checkCarNamesValidation()) {
     alertText(ALERT_TEXT.CAR_VALIDATION_ERROR);
     return;
   }
   setCarNamesFormDisabled();
   setCompetitionCountFormVisible();
+  setCompetitionCountFormVisibleFocus();
 };
 
 export default enterCarNames;
