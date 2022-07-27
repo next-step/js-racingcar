@@ -11,11 +11,11 @@ const handleSubmitCarName = (e) => {
   );
   e.preventDefault();
 
-  if (!e.target[1].value) {
+  if (!e.target["car-name__input"].value) {
     return;
   }
 
-  e.target[1].value.split(",").map((name) => {
+  e.target["car-name__input"].value.split(",").map((name) => {
     try {
       validateNameLength(name);
     } catch (error) {
@@ -31,13 +31,13 @@ const handleSubmitCarName = (e) => {
 const handleSubmitTrialNum = (e) => {
   e.preventDefault();
 
-  if (!e.target[1].value) {
+  if (!e.target["trial-num__input"].value) {
     return;
   }
 
   try {
-    validateNumRange(e.target[1].valueAsNumber);
-    startRacingGame(e.target[1].valueAsNumber);
+    validateNumRange(e.target["trial-num__input"].valueAsNumber);
+    startRacingGame(e.target["trial-num__input"].valueAsNumber);
   } catch (error) {
     alert(error);
     return;
