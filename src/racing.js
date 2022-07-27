@@ -1,5 +1,7 @@
 import { SELECTORS } from "./constants.js";
-import { templateForward } from "./template.js";
+import { createTemplateResult, templateForward } from "./template.js";
+import { displayTemplate, removeHiddenClass } from "./utils.js";
+import { $ } from "./dom.js";
 
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
@@ -29,4 +31,11 @@ export function startRacingGame(times) {
       // 스피너를 제거하는 로직
     }
   }, 1000);
+  showGameResult();
+}
+
+export function showGameResult() {
+  const template = createTemplateResult("west,east");
+  displayTemplate($(SELECTORS.RESULT_SECTION), template);
+  removeHiddenClass($(SELECTORS.RESULT_SECTION));
 }
