@@ -1,8 +1,9 @@
 import { CAR_FORWARD_CONDITION } from './constants.js';
 import { $, $$ } from './DOM.js';
-import getCarNamesList from './getCarNamesList.js';
+import getCarNames from './getCarNames.js';
 import getCompetitionCount from './getCompetitionCount.js';
 import getRandomNumber from './getRandomNumber.js';
+import getRacingResult from './getRacingResult.js';
 import { carForwardTemplate, carListTemplate } from './templates.js';
 
 const isForwardValidation = () => {
@@ -23,28 +24,33 @@ const setSpinnerInvisible = () => {
 
 const renderCompetitionProcess = (totalCount) => {
   let count = 1;
-  const cars = $$('.process-container');
+  const spinners = $$('.spinner-container');
 
   const renderCarForward = setInterval(() => {
     if (count === totalCount) {
       clearInterval(renderCarForward);
-      setSpinnerInvisible();
     }
 
-    cars.forEach((car) => {
+    spinners.forEach((car) => {
       if (isForwardValidation()) {
-        car.insertAdjacentHTML('afterend', carForwardTemplate);
+        car.insertAdjacentHTML('beforebegin', carForwardTemplate);
       }
     });
+
     count += 1;
+
+    if (count - 1 === totalCount) {
+      clearInterval(renderCarForward);
+      setSpinnerInvisible();
+      getRacingResult();
+    }
   }, 1000);
 };
 
-const getCompetitionRenderList = () => {
-  return getCarNamesList()
+const getCompetitionRenderList = () =>
+  getCarNames()
     .map((name) => carListTemplate(name))
     .join('');
-};
 
 const renderCompetitionList = () => {
   $('.competition-list').innerHTML = getCompetitionRenderList();

@@ -50,8 +50,9 @@ ul {
 }
 
 .competition-count-input-container, 
-.competition-list-container, 
-.competition-result {
+.competition-list-container,
+.competition-result 
+{
   display: none;
 }
 

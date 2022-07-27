@@ -1,16 +1,16 @@
 import { ALERT_TEXT, CAR_TEXT_LENGTH } from './constants.js';
 import { $ } from './DOM.js';
-import getCarNamesList from './getCarNamesList.js';
+import getCarNames from './getCarNames.js';
 import { alertText, setElementDisabled, setVisible } from './util.js';
 
 const checkCarNamesValidation = () => {
-  if (getCarNamesList().includes('')) {
+  if (getCarNames().includes('')) {
     return false;
   }
 
   if (
-    getCarNamesList().filter((name) => name.length > CAR_TEXT_LENGTH.MAX)
-      .length !== 0
+    getCarNames().filter((name) => name.length > CAR_TEXT_LENGTH.MAX).length !==
+    0
   ) {
     return false;
   }

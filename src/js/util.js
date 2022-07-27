@@ -10,4 +10,8 @@ const setElementDisabled = (element) => {
   element.disabled = true;
 };
 
-export { alertText, setVisible, setElementDisabled };
+const setElementUsable = (element) => {
+  element.disabled = false;
+};
+
+export { alertText, setVisible, setElementDisabled, setElementUsable };
