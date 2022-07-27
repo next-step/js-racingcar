@@ -1,36 +1,16 @@
-import { VALIDATE_TYPE } from "../constants/index.js";
 import { validateAttemptNumber, validateCarName } from "../validates/index.js";
 import { $attemptNumberInput, $racingcarNameInput, showAttemptFieldset } from "../views/form.js";
-import { renderCarName, showRacingcarSection } from "../views/racing.js";
-import { createRacingGame } from "./racing.js";
-
-const validateCarNameOrAttemptNumber = (type, inputValue) => {
-  if (type === VALIDATE_TYPE.NAME) {
-    validateCarName(inputValue);
-    return
-  }
-
-  if (type === VALIDATE_TYPE.ATTEMPT) {
-    validateAttemptNumber(inputValue);
-    return
-  }
-}
-
-const catchCarNameOrAttemptNumberError = (type, inputValue) => {
-  try {
-    validateCarNameOrAttemptNumber(type, inputValue)
-  } catch (error) {
-    return error;
-  }
-}
+import { renderCarName, renderRacingGame, showRacingcarSection } from "../views/racing.js";
+import { runRacingGame } from "./racing.js";
 
 export const handleRacingCarNameButton = () => {
   const inputValue = $racingcarNameInput.value;
   const cars = inputValue.split(',');
-  const errorMessage = catchCarNameOrAttemptNumberError(VALIDATE_TYPE.NAME, inputValue);
 
-  if (errorMessage) {
-    alert(errorMessage)
+  try {
+    validateCarName(inputValue);
+  } catch (error) {
+    alert(error);
     return
   }
 
@@ -41,13 +21,16 @@ export const handleRacingCarNameButton = () => {
 
 
 export const handleAttemptNumberButton = () => {
+  const cars = $racingcarNameInput.value.split(',');
   const inputValue = $attemptNumberInput.value;
-  const errorMessage = catchCarNameOrAttemptNumberError(VALIDATE_TYPE.ATTEMPT, inputValue);
 
-  if (errorMessage) {
-    alert(errorMessage)
+  try {
+    validateAttemptNumber(inputValue);
+  } catch (error) {
+    alert(error);
     return
   }
+
   showRacingcarSection();
-  createRacingGame(inputValue);
+  runRacingGame(inputValue, cars, renderRacingGame);
 }
