@@ -36,12 +36,29 @@ fieldset {
   padding: 0;
 }
 
+ul {
+  list-style-type: none;
+  padding:0;
+}
+
+.competition-list-container > ul {
+  justify-content: center;
+}
+
+.d-flex.justify-center.items-center.mt-3 {
+  flex-direction: column;
+}
+
 .competition-count-input-container, 
-.competition-list, 
+.competition-list-container, 
 .competition-result {
   display: none;
 }
 
 .visible {
   display: block;
+}
+
+.invisible {
+  display: none;
 }
