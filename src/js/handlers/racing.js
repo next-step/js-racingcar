@@ -1,17 +1,11 @@
-import { $racingcarNameInput } from "../views/form.js";
-import { renderRacingGame } from "../views/racing.js";
-
-
-const getRacingResult = (cars) => {
+export const getRacingResult = (cars) => {
   return cars.map(() => {
     const randomNumber = Math.floor(Math.random() * 10);
-    return randomNumber > 3 ? '️️⬇️️' : '' 
+    return randomNumber > 3
   })
 };
 
-export const createRacingGame = (attemptNumber) => {
-  const cars = $racingcarNameInput.value.split(',');
-
+export const runRacingGame = (attemptNumber, cars, renderRacingGame) => {
   Array.from({ length: attemptNumber }, () => {
     const racingResult = getRacingResult(cars);
     renderRacingGame(racingResult);
