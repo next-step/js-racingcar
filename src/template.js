@@ -10,12 +10,15 @@ export const templateSpinner = `<div class="spinners d-flex justify-center mt-3"
 export const templateForward = `<div class="forward-icon mt-2">⬇️️</div>`;
 
 export const createTemplateCarPlayer = (carNames) => {
-  return carNames.map(
-    (name) => `<div class="car">
+  return carNames
+    .map(
+      (name) =>
+        `<div class="ca mr-2">
                   <div class="car-player">${name}</div>
                   ${templateSpinner}
                 </div>`
-  );
+    )
+    .join("");
 };
 
 export const createTemplateResult = (result) => {
