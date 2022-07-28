@@ -5,7 +5,6 @@ import { startRacingGame } from "./racing.js";
 import { validateNameLength, validateNumRange } from "./validation.js";
 import { createTemplateCarPlayer } from "./template.js";
 import { removeHiddenClass, displayTemplate } from "./utils.js";
-import "./app.js";
 
 const carNameObserver = new Subject([]);
 const trialNumObserver = new Subject(0);
@@ -34,6 +33,7 @@ const handleSubmitCarName = (e) => {
 
 const handleSubmitTrialNum = (e) => {
   const trialNum = e.target["trial-num__input"].valueAsNumber;
+
   e.preventDefault();
 
   if (!e.target["trial-num__input"].value) {
@@ -46,6 +46,7 @@ const handleSubmitTrialNum = (e) => {
     alert(error);
     return;
   }
+
   trialNumObserver.notifyAll(trialNum);
   removeHiddenClass($(SELECTORS.GAME_SECTION));
 };
