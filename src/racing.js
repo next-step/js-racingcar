@@ -4,6 +4,8 @@ import { createTemplateResult, templateForward } from "./template.js";
 import { displayTemplate, removeHiddenClass } from "./utils.js";
 import { $ } from "./dom.js";
 
+const resultObserver = new Subject([]);
+
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -15,16 +17,9 @@ const isFoward = () => {
   return randomNum > 4;
 };
 
-const showGameResult = (winners) => {
-  const template = createTemplateResult(winners);
-  displayTemplate($(SELECTORS.RESULT_SECTION), template);
-  removeHiddenClass($(SELECTORS.RESULT_SECTION));
-};
-
 export function startRacingGame(trialNum) {
   let count = 1;
 
-  const racingCars = document.querySelectorAll(SELECTORS.CAR_DIV);
   const $spinners = document.querySelectorAll(".spinners");
   const $racingCarNames = document.querySelectorAll(SELECTORS.CAR_DIV_NAME);
 
@@ -39,10 +34,23 @@ export function startRacingGame(trialNum) {
 
     if (count++ === trialNum) {
       clearInterval(timeoutId);
+
       $spinners.forEach(($el) => {
         $el.style.willChange = "auto";
         $el.style.opacity = "0";
       });
+
+      resultObserver.notifyAll("test1,test2".split(","));
     }
   }, 1000);
 }
+
+const showGameResult = {
+  notify: (winners) => {
+    const template = createTemplateResult(winners);
+    displayTemplate($(SELECTORS.RESULT_SECTION), template);
+    removeHiddenClass($(SELECTORS.RESULT_SECTION));
+  },
+};
+
+resultObserver.subscribe(showGameResult);
