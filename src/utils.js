@@ -30,6 +30,6 @@ export const displayTemplateForward = ($racingCarNames) => {
 export const removeSpinners = ($spinners) => {
   $spinners.forEach(($el) => {
     $el.style.willChange = "auto";
-    $el.style.opacity = "0";
+    $el.style.display = "none";
   });
 };
