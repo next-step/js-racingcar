@@ -1,4 +1,5 @@
 import { SELECTORS } from "./constants.js";
+import { Subject } from "./subject.js";
 import { createTemplateResult, templateForward } from "./template.js";
 import { displayTemplate, removeHiddenClass } from "./utils.js";
 import { $ } from "./dom.js";
@@ -10,32 +11,38 @@ const getRandomInt = (min, max) => {
 };
 
 const isFoward = () => {
-  return getRandomInt(1, 10) > 4;
+  const randomNum = getRandomInt(1, 10);
+  return randomNum > 4;
 };
 
-export function startRacingGame(times) {
+const showGameResult = (winners) => {
+  const template = createTemplateResult(winners);
+  displayTemplate($(SELECTORS.RESULT_SECTION), template);
+  removeHiddenClass($(SELECTORS.RESULT_SECTION));
+};
+
+export function startRacingGame(trialNum) {
   let count = 1;
-  const racingCars = document.querySelectorAll(SELECTORS.CAR_PLAYER_DIV);
+
+  const racingCars = document.querySelectorAll(SELECTORS.CAR_DIV);
+  const $spinners = document.querySelectorAll(".spinners");
+  const $racingCarNames = document.querySelectorAll(SELECTORS.CAR_DIV_NAME);
 
   const timeoutId = setInterval(() => {
     // isFoward여부에 따라 레이싱 카들에 전진 템플릿을 삽입한다.
 
-    racingCars.forEach((racingcar) => {
+    $racingCarNames.forEach((racingcar) => {
       if (isFoward()) {
         racingcar.insertAdjacentHTML("afterend", templateForward);
       }
     });
 
-    if (count++ === times) {
+    if (count++ === trialNum) {
       clearInterval(timeoutId);
-      // 스피너를 제거하는 로직
+      $spinners.forEach(($el) => {
+        $el.style.willChange = "auto";
+        $el.style.opacity = "0";
+      });
     }
   }, 1000);
-  showGameResult();
-}
-
-export function showGameResult() {
-  const template = createTemplateResult("west,east");
-  displayTemplate($(SELECTORS.RESULT_SECTION), template);
-  removeHiddenClass($(SELECTORS.RESULT_SECTION));
 }

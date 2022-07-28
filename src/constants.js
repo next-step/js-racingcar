@@ -7,10 +7,15 @@ export const SELECTORS = {
   TRIAL_NUM_FORM: "#trial-num__form",
   TRIAL_NUM_FIELDSET: "#trial-num",
   TRIAL_NUM_INPUT: "#trial-num__input",
-  // display section
+
+  // game section
   GAME_SECTION: "#game",
   CAR_PLAYER_WRAPPER_DIV: ".car-player__wrapper",
-  CAR_PLAYER_DIV: ".car-player",
+  CAR_DIV: ".car",
+  CAR_DIV_NAME: ".car-player",
+  CAR_DIV_SPINNER: ".spinners",
+
+  // result section
   RESULT_SECTION: "#result",
 };
 
