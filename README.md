@@ -12,13 +12,15 @@
   <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"/>
 </p>
 
+[원동휘 레이싱카 미션 데모링크](https://wondonghwi.github.io/js-racingcar/)
+
 ## 🔥 Projects!
 <p align="middle">
   <img width="400" src="https://techcourse-storage.s3.ap-northeast-2.amazonaws.com/7c76e809d82a4a3aa0fd78a86be25427">
 </p>
 
 <p align="middle">
-  <a href="https://next-step.github.io/js-racingcar/">🖥️ 데모 링크</a>
+  <a href="https://next-step.github.io/js-racingcar/">🖥️ 예시 데모 링크</a>
 </p>
 
 <br>
