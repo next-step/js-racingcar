@@ -23,6 +23,9 @@ export function startRacingGame(trialNum) {
       clearInterval(timeoutId);
       removeSpinners($$(SELECTORS.CAR_DIV_SPINNER));
       resultObserver.notifyAll("test1,test2".split(","));
+      setTimeout(() => {
+        alert("🎇🎇🎇🎇 축하합니다! 🎇🎇🎇🎇");
+      }, 2000);
     }
   }, 1000);
 }
