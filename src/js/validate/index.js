@@ -9,4 +9,10 @@ const isCarNameValidate = (splitInputValue) => {
   });
 };
 
-export { isCarNameValidate };
+const isMinimumCountValidate = (carTryInputValue) => {
+  if (carTryInputValue.length === LENGTH.MIN_LENGTH || parseInt(carTryInputValue, 10) === 0) {
+    throw new Error(ALERT_MESSAGE.NO_VALUE_ENTERED);
+  }
+};
+
+export { isCarNameValidate, isMinimumCountValidate };
