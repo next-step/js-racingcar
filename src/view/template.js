@@ -1,6 +1,3 @@
-import { $ } from "./dom.js";
-import { SELECTORS } from "./constants.js";
-
 export const templateSpinner = `<div class="spinners d-flex justify-center mt-3">
                                   <div class="relative spinner-container">
                                     <span class="material spinner"></span>
@@ -13,10 +10,10 @@ export const createTemplateCarPlayer = (carNames) => {
   return carNames
     .map(
       (name) =>
-        `<div class="ca mr-2">
-                  <div class="car-player">${name}</div>
-                  ${templateSpinner}
-                </div>`
+        `<div class="car mr-2">
+          <div class="car-player">${name}</div>
+          ${templateSpinner}
+        </div>`
     )
     .join("");
 };

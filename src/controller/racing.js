@@ -1,15 +1,12 @@
-import { SELECTORS } from "./constants.js";
-import { Subject } from "./subject.js";
-import { createTemplateResult } from "./template.js";
+import { SELECTORS } from "../utils/constants/selectors.js";
+import { createTemplateResult } from "../view/template.js";
 import {
   displayTemplate,
   removeHiddenClass,
   displayTemplateForward,
   removeSpinners,
-} from "./utils.js";
-import { $, $$ } from "./dom.js";
-
-const resultObserver = new Subject([]);
+} from "../utils/utils.js";
+import { $, $$ } from "../utils/dom.js";
 
 export function startRacingGame(trialNum) {
   let count = 1;
