@@ -35,3 +35,12 @@ fieldset {
   border: none;
   padding: 0;
 }
+
+.hidden {
+  display: none;
+}
+
+#car-try-number {
+  min-width: 355px;
+}
+
