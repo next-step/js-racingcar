@@ -1,72 +1,37 @@
-import { SELECTORS } from "./constants.js";
-import { Subject } from "./subject.js";
-import { $ } from "./dom.js";
-import { startRacingGame } from "./racing.js";
-import { validateNameLength, validateNumRange } from "./validation.js";
-import { createTemplateCarPlayer } from "./template.js";
-import { removeHiddenClass, displayTemplate } from "./utils.js";
+import { SELECTORS } from "./utils/constants/selectors.js";
+import { RacingModel } from "./model/racingModel.js";
+import { $ } from "./utils/dom.js";
+import { removeHiddenClass } from "./utils/utils.js";
 
-const carNameObserver = new Subject([]);
-const trialNumObserver = new Subject(0);
+export const model = new RacingModel();
 
 const handleSubmitCarName = (e) => {
   e.preventDefault();
 
-  if (!e.target["car-name__input"].value) {
+  const carNames = e.target["car-name__input"].value;
+
+  if (!carNames) {
     return;
   }
-
-  const carNames = e.target["car-name__input"].value.split(",").map((name) => {
-    try {
-      validateNameLength(name);
-    } catch (error) {
-      alert(error);
-      return;
-    }
-    return name;
-  });
-
-  carNameObserver.notifyAll(carNames);
-
-  $(SELECTORS.TRIAL_NUM_INPUT).focus();
+  model.setCarNames(carNames);
+  model.displayCars();
+  removeHiddenClass($(SELECTORS.COUNT_SECTION));
+  $(SELECTORS.COUNT_INPUT).focus();
 };
 
-const handleSubmitTrialNum = (e) => {
-  const trialNum = e.target["trial-num__input"].valueAsNumber;
+const handleSubmitCount = (e) => {
+  const $count = e.target["count__input"].value;
 
   e.preventDefault();
 
-  if (!e.target["trial-num__input"].value) {
+  if (!$count) {
     return;
   }
 
-  try {
-    validateNumRange(trialNum);
-  } catch (error) {
-    alert(error);
-    return;
-  }
-
-  trialNumObserver.notifyAll(trialNum);
+  model.setCount(Number($count));
   removeHiddenClass($(SELECTORS.GAME_SECTION));
+  model.startRacingGame(Number($count));
 };
-
-const observer1 = {
-  notify: (carNames) => {
-    const templateCarPlayer = createTemplateCarPlayer(carNames);
-    displayTemplate($(SELECTORS.CAR_PLAYER_WRAPPER_DIV), templateCarPlayer);
-    removeHiddenClass($(SELECTORS.TRIAL_NUM_FIELDSET));
-  },
-};
-
-const observer2 = {
-  notify: (trialNum) => {
-    startRacingGame(trialNum);
-  },
-};
-
-carNameObserver.subscribe(observer1);
-trialNumObserver.subscribe(observer2);
 
 $(SELECTORS.CAR_NAME_FORM).addEventListener("submit", handleSubmitCarName);
-$(SELECTORS.TRIAL_NUM_FORM).addEventListener("submit", handleSubmitTrialNum);
+$(SELECTORS.COUNT_FORM).addEventListener("submit", handleSubmitCount);
