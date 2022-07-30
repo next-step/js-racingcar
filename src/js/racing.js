@@ -33,21 +33,29 @@ export const handleWriteCarName = (event) => {
   prepareRacingArea(carNameList);
 };
 
+const raceOneRound = () => {
+  const resultOfOneCycle = getCars().map(() =>
+    getIsForward(getRandomIntInclusive(0, 9))
+  );
+
+  getCars().forEach((car, i) => updateCarStep(car, resultOfOneCycle[i]));
+
+  appendRacingEl(resultOfOneCycle);
+};
+
+const playRacing = (laps) => {
+  [...Array(laps)].forEach(() => {
+    raceOneRound();
+  });
+};
+
 export const handleWriteTryCount = (event) => {
   event.preventDefault();
 
-  const tryCount = new FormData(event.target).get('try-count');
+  const laps = new FormData(event.target).get('try-count');
   setDisabledForm(event.target);
 
-  [...Array(tryCount)].forEach(() => {
-    const resultOfOneCycle = getCars().map(() =>
-      getIsForward(getRandomIntInclusive(0, 9))
-    );
-
-    getCars().forEach((car, i) => updateCarStep(car, resultOfOneCycle[i]));
-
-    appendRacingEl(resultOfOneCycle);
-  });
+  playRacing(laps);
 
   removeLoadingEl();
   showContent($racingCar);
