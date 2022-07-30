@@ -1,4 +1,4 @@
-class racingCar {
+class RacingCar {
   static MAX_RANDOM_NUM = 9;
   static MIN_RANDOM_NUM = 0;
   static MIN_CARNAME_SIZE = 1;
@@ -13,18 +13,18 @@ class racingCar {
 
   randomNumberGenerator() {
     return Math.floor(
-      Math.random() * racingCar.MAX_RANDOM_NUM + racingCar.MIN_RANDOM_NUM
+      Math.random() * RacingCar.MAX_RANDOM_NUM + RacingCar.MIN_RANDOM_NUM
     );
   }
 
   decidePlay() {
-    return this.randomNumberGenerator() >= racingCar.MIN_PLAY_NUM;
+    return this.randomNumberGenerator() >= RacingCar.MIN_PLAY_NUM;
   }
 
   testCarNameSize(carName) {
     return (
-      racingCar.MIN_CARNAME_SIZE <= carName.length &&
-      carName.length <= racingCar.MAX_CARNAME_SIZE
+      RacingCar.MIN_CARNAME_SIZE <= carName.length &&
+      carName.length <= RacingCar.MAX_CARNAME_SIZE
     );
   }
 
@@ -141,4 +141,4 @@ class racingCar {
       .addEventListener("submit", this.gamePrepation);
   }
 }
-export default racingCar;
+export default RacingCar;
