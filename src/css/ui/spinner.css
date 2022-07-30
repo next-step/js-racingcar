@@ -1,10 +1,11 @@
 .spinner-container {
+  position: relative;
   width: 25px;
   height: 25px;
 }
 
 .spinner::after {
-  content: '';
+  content: "";
   box-sizing: border-box;
   width: 25px;
   height: 25px;

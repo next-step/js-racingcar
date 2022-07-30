@@ -15,14 +15,16 @@ export class CarFactory {
     if (!isHTMLFormElement($form)) {
       throw new TypeError(`${$form} is not a HTMLFormElement`);
     }
+
+    if (!isFunction(onCarsGenerated)) {
+      throw new TypeError(`${onCarsGenerated} is not a function`);
+    }
+
     this.$carContainer = $carContainer;
     this.$form = $form;
     this.$input = $form.querySelector(CAR_NAME_INPUT);
     this.$button = $form.querySelector(CAR_GENERATE_BUTTON);
 
-    if (!isFunction(onCarsGenerated)) {
-      throw new TypeError(`${onCarsGenerated} is not a function`);
-    }
     this.onCarsGenerated = onCarsGenerated;
     this.addEventHandlers();
   }

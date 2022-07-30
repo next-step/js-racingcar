@@ -12,6 +12,7 @@ class App {
   carFactory;
   rounds;
   roundsInput;
+  currentRound = 0;
   winners;
 
   constructor($app) {
@@ -37,16 +38,27 @@ class App {
     });
   }
 
-  startRacing(rounds) {
-    const cars = this.cars.map((car) => car.setup(rounds));
+  setupCars() {
+    const cars = this.cars.map((car) => car.setup());
     this.$carContainer.append(...cars);
+  }
+
+  startRacing(rounds) {
+    this.rounds = rounds;
+    this.setupCars();
+    this.disableButtons();
     this.race();
   }
 
   race() {
-    this.disableButtons();
-    this.cars.forEach((car) => car.race());
-    this.award();
+    this.currentRound++;
+    Promise.all(this.cars.map((car) => car.move())).then(() => {
+      if (this.currentRound >= this.rounds) {
+        this.award();
+      } else {
+        this.race();
+      }
+    });
   }
 
   award() {
@@ -70,6 +82,7 @@ class App {
   reset() {
     this.cars = undefined;
     this.rounds = undefined;
+    this.currentRound = 0;
     this.carFactory.rest();
     this.roundsInput.rest();
     this.winners.reset();

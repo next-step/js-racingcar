@@ -11,13 +11,15 @@ export class Winners {
     if (!isHTMLElement($container)) {
       throw new TypeError(`${$container} is not a HTMLElement`);
     }
-    this.$container = $container;
-    this.$header = $container.querySelector("h2");
-    this.$resetButton = $container.querySelector(RESET_BUTTON);
 
     if (!isFunction(onReset)) {
       throw new TypeError(`${onReset} is not a function`);
     }
+
+    this.$container = $container;
+    this.$header = $container.querySelector("h2");
+    this.$resetButton = $container.querySelector(RESET_BUTTON);
+
     this.onReset = onReset;
     this.addEventHandlers();
   }
@@ -46,7 +48,7 @@ export class Winners {
   }
 
   renderWinners(winners) {
-    this.$header.innerText = this.getWinnerText(winners);
+    this.$header.textContent = this.getWinnerText(winners);
     this.$container.classList.add("visible");
   }
 
@@ -55,7 +57,7 @@ export class Winners {
   }
 
   reset() {
-    this.$header.innerText = "";
+    this.$header.textContent = "";
     this.$container.classList.remove("visible");
   }
 }

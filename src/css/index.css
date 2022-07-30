@@ -25,10 +25,13 @@ body {
   position: relative;
 }
 
-.forward-icon {
-  font-size: 32px;
+.car-state-element {
   display: flex;
   justify-content: center;
+}
+
+.forward-icon {
+  font-size: 32px;
 }
 
 .round-count {

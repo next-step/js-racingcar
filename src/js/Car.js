@@ -6,7 +6,6 @@ export class Car {
   $container;
   $carEl;
   name;
-  rounds;
   position = 0;
 
   constructor($container, name) {
@@ -28,12 +27,7 @@ export class Car {
     this.$carEl = this.createCarEl();
   }
 
-  setRounds(rounds) {
-    this.rounds = rounds;
-  }
-
-  setup(rounds) {
-    this.setRounds(rounds);
+  setup() {
     this.setCarEl();
     return this.$carEl;
   }
@@ -42,21 +36,50 @@ export class Car {
     return Math.random() * MAX_POSSIBILITY >= MOVE_THRESHOLD;
   }
 
-  race() {
-    for (let round = 0; round < this.rounds; round++) {
-      if (this.isMovable()) this.moveForward();
-    }
+  createRaceStateElement() {
+    const stateElement = document.createElement("div");
+    stateElement.classList.add("car-state-element", "mt-2");
+
+    stateElement.innerHTML = `
+      <div class="spinner-container">
+        <span class="spinner material"></span>
+      </div>
+    `;
+
+    return stateElement;
   }
 
-  getForwardIcon() {
-    const icon = document.createElement("div");
-    icon.classList.add("forward-icon", "mt-2");
-    icon.innerText = "⬇️️";
-    return icon;
+  loading() {
+    const raceStateElement = this.createRaceStateElement();
+    this.$carEl.append(raceStateElement);
+    return raceStateElement;
   }
 
-  moveForward() {
-    this.$carEl.appendChild(this.getForwardIcon());
+  move() {
+    return new Promise((resolve) => {
+      const raceStateElement = this.loading();
+      setTimeout(() => {
+        const isMovable = this.isMovable();
+        if (isMovable) this.moveForward(raceStateElement);
+        this.finish(isMovable, raceStateElement);
+        resolve();
+      }, 1000);
+    });
+  }
+
+  finish(isMovable, raceStateElement) {
+    if (isMovable) return;
+    raceStateElement.remove();
+  }
+
+  getForwardIcon(raceStateElement) {
+    raceStateElement.classList.add("forward-icon");
+    raceStateElement.textContent = "⬇️️";
+    return raceStateElement;
+  }
+
+  moveForward(raceStateElement) {
+    this.getForwardIcon(raceStateElement);
     this.position += 1;
   }
 }

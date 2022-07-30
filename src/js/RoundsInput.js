@@ -13,13 +13,15 @@ export class RoundsInput {
     if (!isHTMLFormElement($form)) {
       throw new TypeError(`${$form} is not a HTMLFormElement`);
     }
-    this.$form = $form;
-    this.$input = $form.querySelector(ROUNDS_INPUT);
-    this.$button = $form.querySelector(ROUNDS_SUBMIT_BUTTON);
 
     if (!isFunction(onSetRounds)) {
       throw new TypeError(`${onSetRounds} is not a function`);
     }
+
+    this.$form = $form;
+    this.$input = $form.querySelector(ROUNDS_INPUT);
+    this.$button = $form.querySelector(ROUNDS_SUBMIT_BUTTON);
+
     this.onSetRounds = onSetRounds;
     this.addEventHandlers();
   }
