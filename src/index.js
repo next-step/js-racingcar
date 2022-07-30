@@ -1,9 +1,12 @@
+
 import { SELECTORS } from "./utils/constants/selectors.js";
 import { RacingModel } from "./model/racingModel.js";
 import { $ } from "./utils/dom.js";
 import { removeHiddenClass } from "./utils/utils.js";
 
 export const model = new RacingModel();
+
+
 
 const handleSubmitCarName = (e) => {
   e.preventDefault();
@@ -35,3 +38,5 @@ const handleSubmitCount = (e) => {
 
 $(SELECTORS.CAR_NAME_FORM).addEventListener("submit", handleSubmitCarName);
 $(SELECTORS.COUNT_FORM).addEventListener("submit", handleSubmitCount);
+
+ 
