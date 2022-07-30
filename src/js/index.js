@@ -1,9 +1,10 @@
-import { isCarNameValidate, isMinimumCountValidate } from './validate/index.js';
-import CreateTemplate from './service/CreateRacingcarTemplate.js';
+import { checkValidation, isCarNameInputPassCondition, isMinimumCountValidate } from './validate/index.js';
 import Calculate from './service/Calculate.js';
 import RacingService from './service/RacingService.js';
-import { displayTemplate, removeHiddenClass } from './utils.js';
+import { removeHiddenClass } from './utils.js';
 import FieldsetView from './view/FieldsetView.js';
+import CreateTemplate from './service/CreateTemplate.js';
+import { ALERT_MESSAGE } from './constants.js';
 
 const $carNameForm = document.querySelector('#car-name-form');
 const $carNameFieldset = $carNameForm.querySelector('#car-name');
@@ -17,8 +18,8 @@ const $carTryNumberFieldsetInput = $carTryNumberForm.querySelector('input[name="
 const $racingSection = document.querySelector('#game');
 const $racingCarPlayer = $racingSection.querySelector('.car-player-wrapper');
 
-const carNameField = new FieldsetView($carNameFieldset, $carNameFieldsetInput);
-const carTryNumberField = new FieldsetView($carTryNumberFieldset, $carTryNumberFieldsetInput);
+const carNameField = new FieldsetView($carNameFieldset);
+const carTryNumberField = new FieldsetView($carTryNumberFieldset);
 const createTemplate = new CreateTemplate();
 const calculate = new Calculate();
 const racing = new RacingService(createTemplate, calculate);
@@ -26,16 +27,15 @@ const racing = new RacingService(createTemplate, calculate);
 const renderCarNameFieldset = (e) => {
   e.preventDefault();
 
-  const splitInputValue = carNameField.getSplitInputValue();
+  const splitted = carNameField.getSplitInputValue($carNameFieldsetInput);
 
   try {
-    isCarNameValidate(splitInputValue);
+    const inputCondition = isCarNameInputPassCondition(splitted);
+    checkValidation(inputCondition, ALERT_MESSAGE.NOT_VALIDATE_NAME_LENGTH);
 
     carNameField.applyFieldsetDisabled();
 
-    const templateCarPlayer = createTemplate.createCarPlayer(splitInputValue);
-
-    displayTemplate($racingCarPlayer, templateCarPlayer);
+    $racingCarPlayer.innerHTML = createTemplate.createRacingTemplate(splitted);
     removeHiddenClass($carTrySection);
 
     $carTryNumberFieldsetInput.focus();
@@ -44,24 +44,29 @@ const renderCarNameFieldset = (e) => {
   }
 };
 
-const renderRacingSection = (e) => {
+const renderRacingSection = (coin) => {
+  racing.startRacingGame(coin);
+};
+
+const renderCarTryInputSection = (e) => {
   e.preventDefault();
 
-  const carTryInputValue = carTryNumberField.getInputValue();
+  const carTryInputValue = carTryNumberField.getInputValue($carTryNumberFieldsetInput);
 
   const coin = parseInt(carTryInputValue, 10);
 
   try {
-    isMinimumCountValidate(carTryInputValue);
+    const inputCondition = isMinimumCountValidate(carTryInputValue);
+    checkValidation(inputCondition, ALERT_MESSAGE.NOT_VALIDATE_VALUE_LENGTH);
 
     carTryNumberField.applyFieldsetDisabled();
     removeHiddenClass($racingSection);
 
-    racing.startRacingGame(coin);
+    renderRacingSection(coin);
   } catch (error) {
     alert(error.message);
   }
 };
 
 $carNameForm.addEventListener('submit', renderCarNameFieldset);
-$carTryNumberForm.addEventListener('submit', renderRacingSection);
+$carTryNumberForm.addEventListener('submit', renderCarTryInputSection);

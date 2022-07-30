@@ -20,13 +20,14 @@ Cypress.Commands.add('getGameSeciton', () => {
   cy.get('#game');
 });
 
-Cypress.Commands.add('setEmptyStirngToInput', (name) => {
-  cy.getCarNameInput()
+Cypress.Commands.add('setEmptyStirngToInput', (name, formSelector) => {
+  const getElement = formSelector === '#car-name-form' ? cy.getCarNameInput() : cy.getCarTryNumberInput();
+  getElement
     .clear()
     .then((e) => {
-      if (name !== '') cy.wrap(e).type(name).get('#car-name-form').submit();
+      if (name !== '') cy.wrap(e).type(name).get(formSelector).submit();
     })
-    .get('#car-name-form')
+    .get(formSelector)
     .submit();
 });
 

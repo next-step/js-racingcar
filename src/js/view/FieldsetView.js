@@ -1,15 +1,14 @@
 class FieldsetView {
-  constructor(Fieldset, FieldsetInput) {
+  constructor(Fieldset) {
     this.Fieldset = Fieldset;
-    this.FieldsetInput = FieldsetInput;
   }
 
-  getInputValue() {
-    return this.FieldsetInput.value;
+  getInputValue(inputElement) {
+    return inputElement.value;
   }
 
-  getSplitInputValue() {
-    return this.FieldsetInput.value.split(',');
+  getSplitInputValue(inputElement) {
+    return this.getInputValue(inputElement).split(',');
   }
 
   applyFieldsetDisabled() {

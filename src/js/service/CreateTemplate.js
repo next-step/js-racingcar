@@ -15,7 +15,7 @@ class CreateTemplate {
                   </div>`;
   }
 
-  createCarPlayer(carNames) {
+  createRacingTemplate(carNames) {
     return carNames
       .map(
         (carName) => `<div class="car mr-2">

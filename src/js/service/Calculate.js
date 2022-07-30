@@ -1,10 +1,10 @@
 class Calculate {
-  getRandomCount() {
+  static #getRandomCount() {
     return Math.floor(Math.random() * 10);
   }
 
   isForwardCondition() {
-    return this.getRandomCount() > 4;
+    return Calculate.#getRandomCount() > 4;
   }
 }
 

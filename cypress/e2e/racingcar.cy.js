@@ -9,20 +9,20 @@ describe('레이싱카 테스트', () => {
   });
 
   describe('자동차 이름은 쉼표","를 기준으로 구분하며 입력한 글자수의', () => {
-    it(`${LENGTH.MAX_LENGTH}글자 이하만 가능하고 자동차이름 fieldset이 비활성화된다.`, () => {
+    it(`${LENGTH.CAR_NAME_MAX_LENGTH}글자 이하만 가능하고 자동차이름 fieldset이 비활성화된다.`, () => {
       cy.submitCarNameForm(CAR_NAMES_SRING);
 
       cy.getCarNameInput().should('be.disabled');
     });
 
     describe('길이가', () => {
-      it(`${LENGTH.MIN_LENGTH}일 경우(아무것도 입력하지 않은경우) 오류를 발생시켜 error alert를 띄워준다.`, () => {
-        cy.setEmptyStirngToInput('');
+      it(`${LENGTH.CAR_NAME_MIN_LENGTH}일 경우(아무것도 입력하지 않은경우) 오류를 발생시켜 error alert를 띄워준다.`, () => {
+        cy.setEmptyStirngToInput('', '#car-name-form');
 
         cy.onOccurAlert(ALERT_MESSAGE.NOT_VALIDATE_NAME);
       });
 
-      it(`${LENGTH.MAX_LENGTH}초과 일 경우 오류를 발생시켜 error alert를 띄워준다.`, () => {
+      it(`${LENGTH.CAR_NAME_MAX_LENGTH}초과 일 경우 오류를 발생시켜 error alert를 띄워준다.`, () => {
         cy.submitCarNameForm('abcdef');
 
         cy.onOccurAlert(ALERT_MESSAGE.NOT_VALIDATE_NAME);
@@ -42,10 +42,11 @@ describe('레이싱카 테스트', () => {
       cy.getCarTryNumberInput().focus();
     });
 
-    it(`${LENGTH.MAX_LENGTH}글자 이하만 가능하고 자동차이름 fieldset이 비활성화된다.`, () => {
+    it(`${LENGTH.CAR_TRY_VALUE_MIN_LENGTH}보다 크다면 시도횟수입력 fieldset이 비활성화된다.`, () => {
       cy.submitCarNameForm(CAR_NAMES_SRING);
+      cy.submitCarTryNumberForm('3');
 
-      cy.getCarNameFieldset().should('be.disabled');
+      cy.getCarTryNumberFieldset().should('be.disabled');
     });
 
     it('시도횟수를 입력한 경우 game Section이 화면에 표시된다.', () => {
@@ -70,15 +71,9 @@ describe('레이싱카 테스트', () => {
     });
 
     describe('시도횟수 입력창의 길이가', () => {
-      it(`${LENGTH.MIN_LENGTH}이상 일 경우 자동차이름 fieldset이 비활성화된다.`, () => {
+      it(`${LENGTH.CAR_TRY_VALUE_MIN_LENGTH}일 경우(아무것도 입력하지 않은경우) 오류를 발생시켜 error alert를 띄워준다.`, () => {
         cy.submitCarNameForm(CAR_NAMES_SRING);
-        cy.submitCarTryNumberForm('3');
-
-        cy.getCarTryNumberFieldset().should('be.disabled');
-      });
-
-      it(`${LENGTH.MIN_LENGTH}일 경우(아무것도 입력하지 않은경우) 오류를 발생시켜 error alert를 띄워준다.`, () => {
-        cy.setEmptyStirngToInput('');
+        cy.setEmptyStirngToInput('', '#car-try-number-form');
         cy.onOccurAlert(ALERT_MESSAGE.NO_VALUE_ENTERED);
       });
     });

@@ -1,4 +1,5 @@
-import { getIntervalTimer } from '../timer.js';
+import RemoveTemplate from './RemoveTemplate.js';
+import { DELAY_TIME_MS } from '../constants.js';
 
 class RacingService {
   constructor(createTemplate, calculate) {
@@ -10,7 +11,22 @@ class RacingService {
     const cars = document.querySelectorAll('.car');
     const carPlayers = document.querySelectorAll('.car-player');
 
-    getIntervalTimer(this.createTemplate, this.calculate, cars, carPlayers, coin);
+    let count = 1;
+    const removeTemplate = new RemoveTemplate();
+
+    const timeoutId = setInterval(() => {
+      carPlayers.forEach((carPlayer) => {
+        if (this.calculate.isForwardCondition()) {
+          carPlayer.insertAdjacentHTML('afterend', this.createTemplate.createForwardTemplate());
+        }
+      });
+
+      // eslint-disable-next-line no-plusplus
+      if (count++ === coin) {
+        clearInterval(timeoutId);
+        removeTemplate.removeAllSpinners(cars);
+      }
+    }, DELAY_TIME_MS);
   }
 }
 

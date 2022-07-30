@@ -1,18 +1,29 @@
-import { ALERT_MESSAGE, LENGTH } from '../constants.js';
+import { LENGTH } from '../constants.js';
 
-const isCarNameValidate = (splitInputValue) => {
-  return splitInputValue.forEach((item) => {
+const generateError = (message) => {
+  throw new Error(message);
+};
+
+const isCarNameInputPassCondition = (splittedValue) => {
+  let count = 0;
+  splittedValue.forEach((item) => {
     const trimmedItem = item.split(' ').join('');
-    if (trimmedItem.length === LENGTH.MIN_LENGTH || trimmedItem.length > LENGTH.MAX_LENGTH) {
-      throw new Error(ALERT_MESSAGE.NOT_VALIDATE_NAME);
+    if (trimmedItem.length === LENGTH.CAR_NAME_MIN_LENGTH || trimmedItem.length > LENGTH.CAR_NAME_MAX_LENGTH) {
+      count += 1;
     }
   });
+
+  return count === 0;
 };
 
 const isMinimumCountValidate = (carTryInputValue) => {
-  if (carTryInputValue.length === LENGTH.MIN_LENGTH || parseInt(carTryInputValue, 10) === 0) {
-    throw new Error(ALERT_MESSAGE.NO_VALUE_ENTERED);
+  return !(carTryInputValue.length === LENGTH.CAR_TRY_VALUE_MIN_LENGTH || parseInt(carTryInputValue, 10) === 0);
+};
+
+const checkValidation = (condition, message) => {
+  if (!condition) {
+    generateError(message);
   }
 };
 
-export { isCarNameValidate, isMinimumCountValidate };
+export { isCarNameInputPassCondition, isMinimumCountValidate, checkValidation };
