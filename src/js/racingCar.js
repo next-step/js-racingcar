@@ -7,6 +7,7 @@ class RacingCar {
 
   raceParticipateCar;
   raceCount;
+
   constructor() {
     this.initEventListeners();
   }
