@@ -1,4 +1,7 @@
-import { CAR_FORWARD_CONDITION } from './constants.js';
+import {
+  CAR_FORWARD_CONDITION,
+  CAR_RACING_INTERVAL_TIME,
+} from './constants.js';
 import { $, $$ } from './DOM.js';
 import getCarNames from './getCarNames.js';
 import getCompetitionCount from './getCompetitionCount.js';
@@ -44,7 +47,7 @@ const renderCompetitionProcess = (totalCount) => {
       setSpinnerInvisible();
       getRacingResult();
     }
-  }, 1000);
+  }, CAR_RACING_INTERVAL_TIME);
 };
 
 const getCompetitionRenderList = () =>
