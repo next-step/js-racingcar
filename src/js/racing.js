@@ -8,7 +8,12 @@ import {
 } from './view/index.js';
 import { $formTryCount, $racingCar } from './selector.js';
 import { getRandomIntInclusive, getIsForward } from './util/index.js';
-import { getCars, createCars, updateCarStep } from './model/cars.js';
+import {
+  getCars,
+  createCars,
+  updateCarStep,
+  updateCars,
+} from './model/cars.js';
 
 export const handleWriteCarName = (event) => {
   event.preventDefault();
@@ -23,7 +28,7 @@ export const handleWriteCarName = (event) => {
   }
 
   setDisabledForm(event.target);
-  createCars(carNameList);
+  updateCars(createCars(carNameList));
   showContent($formTryCount);
   prepareRacingArea(carNameList);
 };
