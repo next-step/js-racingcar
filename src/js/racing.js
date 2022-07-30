@@ -46,21 +46,18 @@ export const handleWriteCarName = (event) => {
 export const handleWriteTryCount = (event) => {
   event.preventDefault();
 
-  const tryCountValue = new FormData(event.target).get('try-count');
+  const tryCount = new FormData(event.target).get('try-count');
   setDisabledForm(event.target);
 
-  for (let i = 0; i < tryCountValue; i++) {
-    const resultOfOneCycle = [];
+  [...Array(tryCount)].forEach(() => {
+    const resultOfOneCycle = cars.map(() =>
+      getIsForward(getRandomIntInclusive(0, 9))
+    );
 
-    cars.forEach((car) => {
-      const randomNumber = getRandomIntInclusive(0, 9);
-      const isForward = getIsForward(randomNumber);
-      resultOfOneCycle.push(isForward);
-      updateCarStep(car, isForward);
-    });
+    cars.forEach((car, i) => updateCarStep(car, resultOfOneCycle[i]));
 
     appendRacingEl(resultOfOneCycle);
-  }
+  });
 
   removeLoadingEl();
   showContent($racingCar);
