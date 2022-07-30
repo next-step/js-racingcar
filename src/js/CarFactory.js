@@ -1,5 +1,5 @@
 import { Car } from "./Car.js";
-import { Alert, alertError } from "./utils/Alert.js";
+import { NotableError, noticeError } from "./utils/NotableError.js";
 import { CAR_NAME_INPUT, CAR_GENERATE_BUTTON } from "./utils/selector.js";
 import { CAR_FACTORY_ERROR_MESSAGES } from "./utils/errorMessage.js";
 import { CAR_NAME_SEPARATOR, MAX_CAR_NAME_LENGTH } from "./utils/constant.js";
@@ -31,19 +31,25 @@ export class CarFactory {
 
   validateCarName(carName) {
     if (isEmptyString(carName)) {
-      throw new Alert(CAR_FACTORY_ERROR_MESSAGES.CAR_NAME_IS_EMPTY);
+      throw new NotableError(CAR_FACTORY_ERROR_MESSAGES.CAR_NAME_IS_EMPTY);
     }
 
     if (carName.length > MAX_CAR_NAME_LENGTH) {
-      throw new Alert(CAR_FACTORY_ERROR_MESSAGES.CAR_NAME_LOGGER_THAN_MAX_LENGTH);
+      throw new NotableError(CAR_FACTORY_ERROR_MESSAGES.CAR_NAME_LOGGER_THAN_MAX_LENGTH);
     }
   }
 
-  validateCarNames(carNames) {
-    if (isDuplicated(carNames)) {
-      throw new Alert(CAR_FACTORY_ERROR_MESSAGES.CAR_NAMES_DUPLICATED);
+  isValidCarNames(carNames) {
+    try {
+      if (isDuplicated(carNames)) {
+        throw new NotableError(CAR_FACTORY_ERROR_MESSAGES.CAR_NAMES_DUPLICATED);
+      }
+      carNames.forEach((name) => this.validateCarName(name));
+      return true;
+    } catch (error) {
+      noticeError(error, this.focusInput.bind(this));
+      return false;
     }
-    carNames.forEach((name) => this.validateCarName(name));
   }
 
   getCarNames(e) {
@@ -52,14 +58,11 @@ export class CarFactory {
   }
 
   generateCars(e) {
-    try {
-      e.preventDefault();
-      const carNames = this.getCarNames(e);
-      this.validateCarNames(carNames);
+    e.preventDefault();
+    const carNames = this.getCarNames(e);
+    if (this.isValidCarNames(carNames)) {
       const cars = carNames.map((name) => new Car(this.$carContainer, name));
       this.onCarsGenerated(cars);
-    } catch (error) {
-      alertError(error, this.focusInput.bind(this));
     }
   }
 
@@ -75,7 +78,7 @@ export class CarFactory {
     this.$button.disabled = true;
   }
 
-  rest() {
+  reset() {
     this.$input.value = "";
     this.$button.disabled = false;
     this.$carContainer.innerHTML = "";

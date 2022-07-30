@@ -1,11 +1,11 @@
-export class Alert extends Error {
+export class NotableError extends Error {
   constructor(message) {
     super(message);
   }
 }
 
-export const alertError = (error, cb, alert = window.alert) => {
-  if (error instanceof Alert) {
+export const noticeError = (error, cb, alert = window.alert) => {
+  if (error instanceof NotableError) {
     alert(error.message);
     if (typeof cb === "function") cb();
   } else {

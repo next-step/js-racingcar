@@ -4,7 +4,7 @@ import { MAX_POSSIBILITY, MOVE_THRESHOLD, THOUSAND_MILLISECOND } from "./utils/c
 export class Car {
   $app;
   $container;
-  $carEl;
+  $carElement;
   name;
   position = 0;
 
@@ -16,42 +16,44 @@ export class Car {
     this.name = name;
   }
 
-  createCarEl() {
-    const el = document.createElement("div");
-    el.classList.add("mr-2");
-    el.innerHTML = `<div class="car-player">${this.name}</div>`;
-    return el;
+  createCarElement() {
+    const element = document.createElement("div");
+    element.classList.add("mr-2");
+    element.innerHTML = `<div class="car-player">${this.name}</div>`;
+    return element;
   }
 
-  setCarEl() {
-    this.$carEl = this.createCarEl();
+  setCarElement() {
+    this.$carElement = this.createCarElement();
   }
 
   setup() {
-    this.setCarEl();
-    return this.$carEl;
+    this.setCarElement();
+    return this.$carElement;
   }
 
   isMovable() {
     return Math.random() * MAX_POSSIBILITY >= MOVE_THRESHOLD;
   }
 
+  getLoadingSpinnerElement() {
+    return `
+    <div class="spinner-container">
+      <span class="spinner material"></span>
+    </div>
+  `;
+  }
+
   createRaceStateElement() {
     const stateElement = document.createElement("div");
     stateElement.classList.add("car-state-element", "mt-2");
-
-    stateElement.innerHTML = `
-      <div class="spinner-container">
-        <span class="spinner material"></span>
-      </div>
-    `;
-
+    stateElement.innerHTML = this.getLoadingSpinnerElement();
     return stateElement;
   }
 
   loading() {
     const raceStateElement = this.createRaceStateElement();
-    this.$carEl.append(raceStateElement);
+    this.$carElement.append(raceStateElement);
     return raceStateElement;
   }
 

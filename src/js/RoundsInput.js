@@ -1,7 +1,8 @@
-import { Alert, alertError } from "./utils/Alert.js";
+import { NotableError, noticeError } from "./utils/NotableError.js";
 import { ROUNDS_INPUT, ROUNDS_SUBMIT_BUTTON } from "./utils/selector.js";
 import { ROUNDS_INPUT_ERROR_MESSAGES } from "./utils/errorMessage.js";
 import { isFunction, isHTMLFormElement, isPositiveInteger } from "./utils/validator.js";
+import { MAX_ROUNDS } from "./utils/constant.js";
 
 export class RoundsInput {
   $form;
@@ -26,20 +27,28 @@ export class RoundsInput {
     this.addEventHandlers();
   }
 
-  validateRounds(rounds) {
-    if (!isPositiveInteger(rounds)) {
-      throw new Alert(ROUNDS_INPUT_ERROR_MESSAGES.ROUNDS_IN_NOT_POSITIVE_INTEGER);
+  isValidRounds(rounds) {
+    try {
+      if (!isPositiveInteger(rounds)) {
+        throw new NotableError(ROUNDS_INPUT_ERROR_MESSAGES.ROUNDS_IN_NOT_POSITIVE_INTEGER);
+      }
+
+      if (rounds > MAX_ROUNDS) {
+        throw new NotableError(ROUNDS_INPUT_ERROR_MESSAGES.ROUNDS_OVER_MAX_ROUNDS);
+      }
+
+      return true;
+    } catch (error) {
+      noticeError(error, this.focusInput.bind(this));
+      return false;
     }
   }
 
-  setRounds(e) {
-    try {
-      e.preventDefault();
-      const rounds = +new FormData(e.target).get("rounds");
-      this.validateRounds(rounds);
+  setRounds(event) {
+    event.preventDefault();
+    const rounds = Number(new FormData(event.target).get("rounds"));
+    if (this.isValidRounds(rounds)) {
       this.onSetRounds(rounds);
-    } catch (error) {
-      alertError(error, this.focusInput.bind(this));
     }
   }
 

@@ -29,12 +29,16 @@ export class Winners {
     return Math.max(...cars.map((car) => car.position));
   }
 
+  accumulateWinners(result, car, max) {
+    if (car.position === max) result.push(car);
+    return result;
+  }
+
   getWinners(cars) {
     const max = this.getMax(cars);
     return cars
       .reduce((result, car) => {
-        if (car.position === max) result.push(car);
-        return result;
+        return this.accumulateWinners(result, car, max);
       }, [])
       .map((car) => car.name);
   }
