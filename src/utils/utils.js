@@ -16,7 +16,7 @@ export const displayTemplateForward = ($racingCarNames, isMovable) => {
 
 export const removeSpinners = ($spinners) => {
   $spinners.forEach(($el) => {
-    $el.style.willChange = "auto"; //willChange => https://wit.nts-corp.com/2017/06/05/4571 / https://dev.opera.com/articles/css-will-change-property/
-    $el.style.opacity = 0; //https://wit.nts-corp.com/2020/06/05/6134
+    $el.style.willChange = "auto";
+    $el.style.opacity = 0;
   });
 };

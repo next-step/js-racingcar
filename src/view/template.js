@@ -26,12 +26,3 @@ export const createTemplateResult = (result) => {
             </div>
           </div>`;
 };
-
-// const createTemplateForward = (number) => {
-//   const res = "";
-
-//   for (let i = 0; i < number; i++) {
-//     res += templateForward;
-//   }
-//   return res + templateSpinner;
-// };

@@ -19,8 +19,6 @@ export class RacingModel {
     this.winners = [];
   }
 
-  //객체 내에서만 호출되는 함수들은 #(프라이빗)처리해준다.
-  // 밖에서는 내부로직 알 필요 없으므로 숨긴다 = "추상화"?? 뷰티파이?를 까보시는구나...커스터마이징...
   #getRandomInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -49,8 +47,6 @@ export class RacingModel {
     this.arrows = Array.from({ length: $carNames.length }, () => 0);
 
     console.log(this.carNames);
-    //그냥 0,Array.fill()
-    //Array($carNames.length).fill(0)
   }
 
   setCount($count) {
@@ -79,7 +75,7 @@ export class RacingModel {
         $$(SELECTORS.CAR_DIV_NAME),
         this.#isAbleToMoveFoward
       );
-      // this.arrows[idx] += 1; //만화로 보는 http
+
       if (cnt++ === $count) {
         clearInterval(timeoutId);
         this.getRacingResult();
@@ -87,7 +83,7 @@ export class RacingModel {
         this.showGameResult();
         setTimeout(() => {
           alert("🎇🎇🎇🎇 축하합니다! 🎇🎇🎇🎇");
-        }, 2000); // 프로미스/비동기 => async/await => setTimeout() 를 구현(연습)
+        }, 2000);
       }
     }, 1000);
   }

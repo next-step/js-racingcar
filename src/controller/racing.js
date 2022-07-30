@@ -13,7 +13,6 @@ export function startRacingGame(trialNum) {
 
   const timeoutId = setInterval(() => {
     // isFoward여부에 따라 레이싱 카들에 전진 템플릿을 삽입한다.
-
     displayTemplateForward($$(SELECTORS.CAR_DIV_NAME));
 
     if (count++ === trialNum) {
