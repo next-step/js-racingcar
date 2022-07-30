@@ -1,5 +1,5 @@
 import { isHTMLElement } from "./utils/validator.js";
-import { MAX_POSSIBILITY, MOVE_THRESHOLD } from "./utils/constant.js";
+import { MAX_POSSIBILITY, MOVE_THRESHOLD, THOUSAND_MILLISECOND } from "./utils/constant.js";
 
 export class Car {
   $app;
@@ -63,7 +63,7 @@ export class Car {
         if (isMovable) this.moveForward(raceStateElement);
         this.finish(isMovable, raceStateElement);
         resolve();
-      }, 1000);
+      }, THOUSAND_MILLISECOND);
     });
   }
 

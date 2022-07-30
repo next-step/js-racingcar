@@ -1,5 +1,6 @@
-import { isFunction, isHTMLElement } from "./utils/validator.js";
 import { RESET_BUTTON } from "./utils/selector.js";
+import { isFunction, isHTMLElement } from "./utils/validator.js";
+import { THOUSAND_MILLISECOND } from "./utils/constant.js";
 
 export class Winners {
   $container;
@@ -41,6 +42,13 @@ export class Winners {
   award(cars) {
     const winners = this.getWinners(cars);
     this.renderWinners(winners);
+    this.showAlert();
+  }
+
+  showAlert() {
+    setTimeout(() => {
+      window.alert("🎇🎇🎇🎇수고하셨습니다!🎇🎇🎇🎇");
+    }, 2 * THOUSAND_MILLISECOND);
   }
 
   getWinnerText(winners) {
