@@ -13,9 +13,9 @@ import { getCars, createCars, updateCarStep } from './model/cars.js';
 export const handleWriteCarName = (event) => {
   event.preventDefault();
 
-  const carNameValue = new FormData(event.target).get('car-name');
-  const carNameValueList = carNameValue.split(',').map((text) => text.trim());
-  if (!isValidNumberOfCharacters(carNameValueList)) {
+  const carName = new FormData(event.target).get('car-name');
+  const carNameList = carName.split(',').map((text) => text.trim());
+  if (!isValidNumberOfCharacters(carNameList)) {
     alert(
       '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.'
     );
@@ -23,9 +23,9 @@ export const handleWriteCarName = (event) => {
   }
 
   setDisabledForm(event.target);
-  createCars(carNameValueList);
+  createCars(carNameList);
   showContent($formTryCount);
-  prepareRacingArea(carNameValueList);
+  prepareRacingArea(carNameList);
 };
 
 export const handleWriteTryCount = (event) => {
