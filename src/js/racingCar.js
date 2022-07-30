@@ -24,8 +24,8 @@ class RacingCar {
 
   testCarNameSize(carName) {
     return (
-      RacingCar.MIN_CARNAME_SIZE <= carName.length &&
-      carName.length <= RacingCar.MAX_CARNAME_SIZE
+      RacingCar.MIN_CARNAME_SIZE <= carName.trim().length &&
+      carName.trim().length <= RacingCar.MAX_CARNAME_SIZE
     );
   }
 
