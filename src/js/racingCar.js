@@ -127,7 +127,7 @@ class RacingCar {
     this.matchProgress();
   }
 
-  gamePrepation = (e) => {
+  prepareGame = (e) => {
     e.preventDefault();
     if (e.submitter.id == "car-name-btn") {
       this.submitCarNames(e);
@@ -139,7 +139,7 @@ class RacingCar {
   initEventListeners() {
     document
       .querySelector("#racing-game-prepation-form")
-      .addEventListener("submit", this.gamePrepation);
+      .addEventListener("submit", this.prepareGame);
   }
 }
 export default RacingCar;
