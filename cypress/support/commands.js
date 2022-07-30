@@ -1,3 +1,13 @@
+import { SELECTORS } from "/src/constants.js";
+
+Cypress.Commands.add("shouldShowAlert", (typeVal, selector, err) => {
+  cy.on("window:alert", (alertMessage) => {
+    expect(alertMessage).to.eq(err);
+  });
+  if (typeVal) cy.get(selector).type(typeVal);
+  cy.get(SELECTORS.CAR_NAME_FORM).submit();
+});
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
