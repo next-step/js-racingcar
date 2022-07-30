@@ -8,22 +8,7 @@ import {
 } from './view/index.js';
 import { $formTryCount, $racingCar } from './selector.js';
 import { getRandomIntInclusive, getIsForward } from './util/index.js';
-
-const cars = [];
-
-const createCars = (carNameList) => {
-  const newCars = carNameList.map((carName) => ({
-    name: carName,
-    step: 0,
-  }));
-  cars.push(...newCars);
-};
-
-const updateCarStep = (car, isForward) => {
-  if (isForward) {
-    car.step += 1;
-  }
-};
+import { getCars, createCars, updateCarStep } from './model/cars.js';
 
 export const handleWriteCarName = (event) => {
   event.preventDefault();
@@ -50,11 +35,11 @@ export const handleWriteTryCount = (event) => {
   setDisabledForm(event.target);
 
   [...Array(tryCount)].forEach(() => {
-    const resultOfOneCycle = cars.map(() =>
+    const resultOfOneCycle = getCars().map(() =>
       getIsForward(getRandomIntInclusive(0, 9))
     );
 
-    cars.forEach((car, i) => updateCarStep(car, resultOfOneCycle[i]));
+    getCars().forEach((car, i) => updateCarStep(car, resultOfOneCycle[i]));
 
     appendRacingEl(resultOfOneCycle);
   });
