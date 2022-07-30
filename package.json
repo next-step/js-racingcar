@@ -23,9 +23,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.26.0",
+    "live-server": "^1.2.2",
     "prettier": "^2.7.1"
-  },
-  "dependencies": {
-    "live-server": "^1.2.2"
   }
 }
