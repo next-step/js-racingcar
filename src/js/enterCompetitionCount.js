@@ -3,8 +3,8 @@ import { $ } from './DOM.js';
 import renderCompetitionList from './renderCompetitionList.js';
 import { setElementDisabled, setVisible } from './util.js';
 
-const checkCompetitionCountValidation = () =>
-  $('.competition-count-input').value >= COMPETITION_COUNT.MIN;
+const checkCompetitionCountValidation = (element) =>
+  element.value >= COMPETITION_COUNT.MIN;
 
 const setCompetitionListVisible = () => {
   setVisible($('.competition-list-container'));
@@ -18,7 +18,7 @@ const setCompetitionCountFormDisabled = () => {
 const enterCompetitionCount = (e) => {
   e.preventDefault();
 
-  if (!checkCompetitionCountValidation()) {
+  if (!checkCompetitionCountValidation($('.competition-count-input'))) {
     alert(ALERT_TEXT.COMPETITION_COUNT_ERROR);
     return;
   }

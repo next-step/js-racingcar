@@ -3,14 +3,13 @@ import { $ } from './DOM.js';
 import getCarNames from './getCarNames.js';
 import { alertText, setElementDisabled, setVisible } from './util.js';
 
-const checkCarNamesValidation = () => {
-  if (getCarNames().includes('')) {
+const checkCarNamesValidation = (carNames) => {
+  if (carNames.includes('')) {
     return false;
   }
 
   if (
-    getCarNames().filter((name) => name.length > CAR_TEXT_LENGTH.MAX).length !==
-    0
+    carNames.filter((name) => name.length > CAR_TEXT_LENGTH.MAX).length !== 0
   ) {
     return false;
   }
@@ -33,7 +32,8 @@ const setCompetitionCountFormVisibleFocus = () => {
 
 const enterCarNames = (e) => {
   e.preventDefault();
-  if (!checkCarNamesValidation()) {
+
+  if (!checkCarNamesValidation(getCarNames())) {
     alertText(ALERT_TEXT.CAR_VALIDATION_ERROR);
     return;
   }

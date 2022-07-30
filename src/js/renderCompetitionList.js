@@ -6,7 +6,7 @@ import getRandomNumber from './getRandomNumber.js';
 import getRacingResult from './getRacingResult.js';
 import { carForwardTemplate, carListTemplate } from './templates.js';
 
-const isForwardValidation = () => {
+const isForwarded = () => {
   const { MIN, MAX, FORWARD } = CAR_FORWARD_CONDITION;
 
   if (getRandomNumber(MIN, MAX >= FORWARD)) {
@@ -32,7 +32,7 @@ const renderCompetitionProcess = (totalCount) => {
     }
 
     spinners.forEach((car) => {
-      if (isForwardValidation()) {
+      if (isForwarded()) {
         car.insertAdjacentHTML('beforebegin', carForwardTemplate);
       }
     });
@@ -48,9 +48,7 @@ const renderCompetitionProcess = (totalCount) => {
 };
 
 const getCompetitionRenderList = () =>
-  getCarNames()
-    .map((name) => carListTemplate(name))
-    .join('');
+  getCarNames().map(carListTemplate).join('');
 
 const renderCompetitionList = () => {
   $('.competition-list').innerHTML = getCompetitionRenderList();
