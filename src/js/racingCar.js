@@ -111,13 +111,13 @@ class RacingCar {
     if (!e.target[1].value) {
       return;
     }
-    this.raceParticipateCar = e.target[1].value.split(",");
-    this.raceParticipateCar.forEach((element) => {
-      if (!this.testCarNameSize(element)) {
-        alert("5자 이하의 자동차 이름을 입력하세요.");
-        return;
-      }
-    });
+    const carNames = e.target[1].value.split(",");
+    const invalidCarName = carNames.find((v) => !this.testCarNameSize(v));
+    if (invalidCarName) {
+      alert("5자 이하의 자동차 이름을 입력하세요.");
+      return;
+    }
+    this.raceParticipateCar = carNames;
     this.openInputNumberOfMatches(e);
   }
 
