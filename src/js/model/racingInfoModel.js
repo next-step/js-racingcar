@@ -1,4 +1,9 @@
-import { RANDOM_NUM_MIN_RANGE, RANDOM_NUM_MAX_RANGE, STANDARD_MOVE_VALUE } from "../util/constants.js";
+import {
+  MAX_NAME_LENGTH_LIMIT,
+  RANDOM_NUM_MIN_RANGE,
+  RANDOM_NUM_MAX_RANGE,
+  STANDARD_MOVE_VALUE,
+} from "../util/constants.js";
 
 class RacingInfoModel {
   constructor() {
@@ -22,6 +27,8 @@ class RacingInfoModel {
     entries.forEach((entry) => {
       if (entry.length === 0) {
         throw new Error("자동차의 이름이 유효하지 않습니다");
+      } else if (entry.length > MAX_NAME_LENGTH_LIMIT) {
+        throw new Error("5자 이하의 이름만 입력해 주세요");
       }
       this.entires.push(entry);
     });
