@@ -15,15 +15,16 @@ class CreateTemplate {
                   </div>`;
   }
 
-  createRacingTemplate(carNames) {
-    return carNames
-      .map(
-        (carName) => `<div class="car mr-2">
+  createRacingTemplate(carName) {
+    return `<div class="car mr-2">
                   ${this.createCarPlayerTemplate(carName)}
                   ${this.createSpinnerTemplate()}
-                </div>`
-      )
-      .join('');
+                </div>
+`;
+  }
+
+  createRacingListTemplate(carNames) {
+    return carNames.map((carName) => this.createRacingTemplate(carName)).join('');
   }
 }
 

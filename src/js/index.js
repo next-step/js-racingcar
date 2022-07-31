@@ -31,11 +31,11 @@ const renderCarNameFieldset = (e) => {
 
   try {
     const inputCondition = isCarNameInputPassCondition(splitted);
-    checkValidation(inputCondition, ALERT_MESSAGE.NOT_VALIDATE_NAME_LENGTH);
+    checkValidation(inputCondition, ALERT_MESSAGE.INVALID_CAR_NAME_LENGTH);
 
     carNameField.applyFieldsetDisabled();
 
-    $racingCarPlayer.innerHTML = createTemplate.createRacingTemplate(splitted);
+    $racingCarPlayer.innerHTML = createTemplate.createRacingListTemplate(splitted);
     removeHiddenClass($carTrySection);
 
     $carTryNumberFieldsetInput.focus();
@@ -57,7 +57,7 @@ const renderCarTryInputSection = (e) => {
 
   try {
     const inputCondition = isMinimumCountValidate(carTryInputValue);
-    checkValidation(inputCondition, ALERT_MESSAGE.NOT_VALIDATE_VALUE_LENGTH);
+    checkValidation(inputCondition, ALERT_MESSAGE.INVALID_RACING_COUNT);
 
     carTryNumberField.applyFieldsetDisabled();
     removeHiddenClass($racingSection);
