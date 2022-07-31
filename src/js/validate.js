@@ -1,26 +1,33 @@
 import { errorMessage } from './constant/message.js'
 import { INPUT_CAR_NAME_MAX_LENGTH } from './constant/number.js'
-import { fireError } from './utils.js'
+
+const catchError = function (message) {
+	console.error(message)
+	window.alert(message)
+}
 
 const validateCarName = function (carName) {
-	if (carName.length === 0) {
-		fireError(errorMessage.INVALID_CAR_NAME)
-		return false
-	}
-	if (carName.length > INPUT_CAR_NAME_MAX_LENGTH) {
-		fireError(errorMessage.INVALID_CAR_NAME)
-		return false
-	} else {
+	try {
+		if (carName.length === 0) {
+			throw new Error(errorMessage.INVALID_CAR_NAME)
+		}
+		if (carName.length > INPUT_CAR_NAME_MAX_LENGTH) {
+			throw new Error(errorMessage.INVALID_CAR_NAME)
+		}
 		return true
+	} catch (err) {
+		catchError(err)
 	}
 }
 
 const validateCompetitionCount = function (competitionCount) {
-	if (!competitionCount) {
-		fireError(errorMessage.INVALID_CAR_TRY)
-		return false
-	} else {
+	try {
+		if (!competitionCount) {
+			throw new Error(errorMessage.INVALID_CAR_TRY)
+		}
 		return true
+	} catch (err) {
+		catchError(err)
 	}
 }
 
