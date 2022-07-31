@@ -24,11 +24,9 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-import { buttonSelector, inputSelector } from "../../src/js/constant/selector"
+import { buttonSelector, inputSelector } from '../../src/js/constant/selector'
 
 Cypress.Commands.add('submitCarName', (carName) => {
-  cy.get(inputSelector.INPUT_CAR_NAME)
-    .type(carName)
-  cy.get(buttonSelector.SUBMIT_CAR_NAME)
-    .click()
+	cy.get(inputSelector.INPUT_CAR_NAME).type(carName)
+	cy.get(buttonSelector.SUBMIT_CAR_NAME).click()
 })

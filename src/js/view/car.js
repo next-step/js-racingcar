@@ -1,41 +1,47 @@
-import { divSelector, sectionSelector, spanSelector } from '../constant/selector.js'
-import {$} from '../utils.js'
+import {
+	divSelector,
+	sectionSelector,
+	spanSelector,
+} from '../constant/selector.js'
+import { $ } from '../utils.js'
 
 export const paintCar = function (carsElement) {
-  $(divSelector.CAR_PLAYERS_WRAPPER).innerHTML = carsElement
+	$(divSelector.CAR_PLAYERS_WRAPPER).innerHTML = carsElement
 }
 
 export const showRaceSection = function () {
-  $(sectionSelector.RACE_SECTION).classList.remove('d-none')
+	$(sectionSelector.RACE_SECTION).classList.remove('d-none')
 }
 
-export const getCarComponent = function(name, position) {
-  const carWrapper = document.createElement('div');
-  carWrapper.id = divSelector.CAR_WRAPPER.slice(1);
-  carWrapper.classList.add('mr-2');
-  
-  const carName = document.createElement('div');
-  carName.classList.add(spanSelector.CAR_NAME.slice(1));
-  carName.innerText = name;
-  
-  carWrapper.appendChild(carName);
-  carWrapper.appendChild(generateArrowComponents(position))
+export const getCarComponent = function (name, position) {
+	const carWrapper = document.createElement('div')
+	carWrapper.id = divSelector.CAR_WRAPPER.slice(1)
+	carWrapper.classList.add('mr-2')
 
-  return carWrapper;
+	const carName = document.createElement('div')
+	carName.classList.add(spanSelector.CAR_NAME.slice(1))
+	carName.innerText = name
+
+	carWrapper.appendChild(carName)
+	carWrapper.appendChild(generateArrowComponents(position))
+
+	return carWrapper
 }
 
 export const getArrowComponent = function () {
-  const arrowElement = document.createElement('div');
-  arrowElement.classList.add('forward-icon')
-  arrowElement.innerText = '⬇️️'
+	const arrowElement = document.createElement('div')
+	arrowElement.classList.add('forward-icon')
+	arrowElement.innerText = '⬇️️'
 
-  return arrowElement;
+	return arrowElement
 }
 
 export const generateArrowComponents = function (arrowCount) {
-  const div = document.createElement('div');
-    div.innerHTML = Array(arrowCount).fill(undefined).reduce((acc) => {
-      return acc + getArrowComponent().outerHTML
-    },'')
-    return div;
+	const div = document.createElement('div')
+	div.innerHTML = Array(arrowCount)
+		.fill(undefined)
+		.reduce((acc) => {
+			return acc + getArrowComponent().outerHTML
+		}, '')
+	return div
 }

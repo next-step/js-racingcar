@@ -13,6 +13,7 @@
 </p>
 
 ## 🔥 Projects!
+
 <p align="middle">
   <img width="400" src="https://techcourse-storage.s3.ap-northeast-2.amazonaws.com/7c76e809d82a4a3aa0fd78a86be25427">
 </p>
@@ -27,7 +28,7 @@
 
 ## 👏 Contributing
 
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요. 
+만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
 
 <br>
 
@@ -41,10 +42,10 @@
 
 This project is [MIT](https://github.com/next-step/js-racingcar/blob/main/LICENSE) licensed.
 
-
 <br>
 
 ## STEP 1 진행상황
+
 - [x] 자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.
 - [x] 자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5자 이하만 가능하다.
 - [x] 사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.
