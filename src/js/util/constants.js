@@ -1,3 +1,4 @@
+export const MIN_RACING_ENTRIES = 0;
 export const MAX_NAME_LENGTH_LIMIT = 5;
 export const RANDOM_NUM_MIN_RANGE = 0;
 export const RANDOM_NUM_MAX_RANGE = 10;
