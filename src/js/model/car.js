@@ -16,6 +16,4 @@ class Car {
 	}
 }
 
-export const generateCars = (carNames) => {
-	return carNames.map((name) => new Car(name))
-}
+export { Car }
