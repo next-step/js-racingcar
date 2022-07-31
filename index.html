@@ -6,66 +6,54 @@
 		<link rel="stylesheet" href="./src/css/index.css" />
 	</head>
 	<body>
-		<template id="car-item" class="mr-2">
-			<div id="car-name"></div>
-			<ul id="car-position">
-				<template id="forward-icon"></template>
-			</ul>
-		</template>
-
-		<template id="racing-app">
-			<section class="racingapp">
-				<section class="d-flex justify-center mt-5">
-					<form>
-						<fieldset>
-							<h1 class="text-center">🏎️ 자동차 경주 게임</h1>
-							<p>
-								5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
-								예시) EAST, WEST, SOUTH, NORTH
-							</p>
-							<div class="d-flex">
-								<input
-									type="text"
-									id="input-car-name"
-									class="w-100 mr-2"
-									placeholder="자동차 이름"
-								/>
-								<button type="button" id="submit-car-name" class="btn btn-cyan">
-									확인
-								</button>
-							</div>
-						</fieldset>
-						<fieldset id="car-try-field" class="d-none">
-							<p>시도할 횟수를 입력해주세요.</p>
-							<div class="d-flex">
-								<input
-									type="number"
-									id="input-car-try"
-									class="w-100 mr-2"
-									placeholder="시도 횟수"
-								/>
-								<button type="button" id="submit-car-try" class="btn btn-cyan">
-									확인
-								</button>
-							</div>
-						</fieldset>
-					</form>
-				</section>
-				<section id="race-section" class="d-flex justify-center mt-5 d-none">
-					<ul id="car-list" class="mt-4 d-flex" data-component="cars"></ul>
-				</section>
-				<section class="d-flex justify-center mt-5 d-none">
-					<div>
-						<h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
-						<div class="d-flex justify-center">
-							<button type="button" class="btn btn-cyan">다시 시작하기</button>
+		<div id="app">
+			<section class="d-flex justify-center mt-5">
+				<form>
+					<fieldset>
+						<h1 class="text-center">🏎️ 자동차 경주 게임</h1>
+						<p>
+							5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
+							예시) EAST, WEST, SOUTH, NORTH
+						</p>
+						<div class="d-flex">
+							<input
+								type="text"
+								id="input-car-name"
+								class="w-100 mr-2"
+								placeholder="자동차 이름"
+							/>
+							<button type="button" id="submit-car-name" class="btn btn-cyan">
+								확인
+							</button>
 						</div>
-					</div>
-				</section>
+					</fieldset>
+					<fieldset id="car-try-field">
+						<p>시도할 횟수를 입력해주세요.</p>
+						<div class="d-flex">
+							<input
+								type="number"
+								id="input-car-try"
+								class="w-100 mr-2"
+								placeholder="시도 횟수"
+							/>
+							<button type="button" id="submit-car-try" class="btn btn-cyan">
+								확인
+							</button>
+						</div>
+					</fieldset>
+				</form>
 			</section>
-		</template>
-		<div id="root">
-			<div data-component="app"></div>
+			<section id="race-section" class="d-flex justify-center mt-5">
+				<ul id="car-list" class="mt-4 d-flex" data-component="cars"></ul>
+			</section>
+			<section class="d-flex justify-center mt-5">
+				<div>
+					<h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
+					<div class="d-flex justify-center">
+						<button type="button" class="btn btn-cyan">다시 시작하기</button>
+					</div>
+				</div>
+			</section>
 		</div>
 		<script type="module" , src="src/js/index.js"></script>
 	</body>
