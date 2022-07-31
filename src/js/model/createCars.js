@@ -1,4 +1,4 @@
-import { Car } from './car.js'
+import { Car } from './Car.js'
 import validator from '../validator.js'
 
 export const createCars = function (carNameInput) {
