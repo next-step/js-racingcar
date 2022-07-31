@@ -18,7 +18,7 @@ class RacingInfoModel {
   }
 
   #canMove() {
-    return this.#generateRandomNum() <= STANDARD_MOVE_VALUE ? false : true;
+    return this.#generateRandomNum() > STANDARD_MOVE_VALUE;
   }
 
   setEntries(entries) {
