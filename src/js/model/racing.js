@@ -21,7 +21,5 @@ export const race = function () {
 		})
 		setCarTry(tryCount - 1)
 		race()
-	} else {
-		return
 	}
 }

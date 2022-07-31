@@ -40,7 +40,7 @@ export const getArrowComponent = function () {
 export const generateArrowComponents = function (arrowCount) {
 	const div = document.createElement('div')
 	div.innerHTML = Array(arrowCount)
-		.fill(undefined)
+		.fill()
 		.reduce((acc) => {
 			return acc + getArrowComponent().outerHTML
 		}, '')

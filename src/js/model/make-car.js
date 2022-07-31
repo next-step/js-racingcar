@@ -12,14 +12,10 @@ class Car {
 	}
 
 	isOkToGo() {
-		if (CAR_GO_OR_NOT_STANDARD > getRandomInt(0, 9)) {
-			return true
-		}
-		return false
+		return CAR_GO_OR_NOT_STANDARD > getRandomInt(0, 9)
 	}
 }
 
 export const generateCars = (carNames) => {
-	const cars = carNames.map((name) => new Car(name))
-	return cars
+	return carNames.map((name) => new Car(name))
 }
