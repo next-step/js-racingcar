@@ -71,7 +71,8 @@ class RacingInputFormView {
     this.$countConfirmBtn.disabled = !active;
   };
 
-  onEntryConfirmBtnClick = () => {
+  onEntryConfirmBtnClick = (event) => {
+    event.preventDefault();
     try {
       const { value } = this.$entryInput;
       this.racingInputFormController.handleEntryConfirm(value);
