@@ -32,6 +32,10 @@
 	display: none;
 }
 
+.d-none {
+  display: none;
+}
+
 /* Layout - Top / Right / Bottom / Left */
 
 .mt-2 {
