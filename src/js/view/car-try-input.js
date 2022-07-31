@@ -7,7 +7,7 @@ import {
 import { handleCarTryInput } from '../view-model/car-try-input.js'
 
 export const showCarTryInput = function () {
-	$(fieldSelector.CAR_TRY_FIELD).classList.remove('d-none')
+	$(fieldSelector.COMPETITION_COUNT_FIELD).classList.remove('d-none')
 }
 
 export const addCarTryEvent = function () {

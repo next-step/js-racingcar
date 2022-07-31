@@ -13,7 +13,8 @@ export const spanSelector = {
 }
 
 export const fieldSelector = {
-	CAR_TRY_FIELD: '#car-try-field',
+	CAR_NAME_FIELD: '#car-name-field',
+	COMPETITION_COUNT_FIELD: '#competition-count-field',
 }
 
 export const sectionSelector = {
