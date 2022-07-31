@@ -1,5 +1,6 @@
 import { sendCarsToView } from '../view-model/car.js'
 import { racingGameStore } from './racing-game-store.js'
+import { RACE_END_COUNT } from '../constant/number.js'
 
 export const initRacing = function () {
 	const { getCars } = racingGameStore
@@ -8,7 +9,6 @@ export const initRacing = function () {
 }
 
 export const race = function () {
-	const RACE_END_COUNT = 0
 	const { getCars, getCarTry, setCarTry } = racingGameStore
 	const tryCount = getCarTry()
 	const cars = getCars()
