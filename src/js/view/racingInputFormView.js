@@ -83,8 +83,8 @@ class RacingInputFormView {
 
   onCountConfirmBtnClick = () => {
     try {
-      const { value } = this.$moveCountInput;
-      this.racingInputFormController.handleCountConfirm(value);
+      const { valueAsNumber } = this.$moveCountInput;
+      this.racingInputFormController.handleCountConfirm(valueAsNumber);
     } catch (error) {
       alert(error);
     }
