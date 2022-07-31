@@ -7,8 +7,8 @@ const CONDITIONS = {
 
 const NOTICE_MESSAGES = {
   NAME: {
-    EMPTY: "이름을 입력해주세요.",
-    MAX_LENGTH: "이름은 5자 이하로 입력해주세요.",
+    EMPTY: '이름을 입력해주세요.',
+    MAX_LENGTH: '이름은 5자 이하로 입력해주세요.',
   },
 };
 

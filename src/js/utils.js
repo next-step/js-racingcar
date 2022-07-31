@@ -1,4 +1,4 @@
-const toArrayBySeparator = (string, separator = ",") => string.split(separator);
+const toArrayBySeparator = (string, separator = ',') => string.split(separator);
 const getRandomInteger = (maxValue) => Math.floor(Math.random() * ++maxValue);
 
 const eventLoop = (data, eventFunc, isStoppable, setTimer) => {

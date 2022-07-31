@@ -1,6 +1,6 @@
-import racingData from "./RacingData.js";
-import { CAR_NAME_MAX_LENGTH, CONDITIONS } from "../consts.js";
-import { getRandomInteger, toArrayBySeparator, eventLoop } from "../utils.js";
+import racingData from './RacingData.js';
+import { CAR_NAME_MAX_LENGTH, CONDITIONS } from '../consts.js';
+import { getRandomInteger, toArrayBySeparator, eventLoop } from '../utils.js';
 const RacingModule = () => {
   const getCarNames = (value) => {
     return toArrayBySeparator(value);

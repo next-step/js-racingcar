@@ -1,11 +1,11 @@
 const RacingViewModule = () => {
   const initializeView = (initTargets) => {
     const DEFAULT_VALUE = {
-      value: "",
-      innerHTML: "",
+      value: '',
+      innerHTML: '',
       hidden: true,
       disabled: false,
-      classList: "mt-4 d-flex",
+      classList: 'mt-4 d-flex',
     };
     Object.keys(initTargets).forEach((attrKey) =>
       initTargets[attrKey].forEach(
@@ -24,7 +24,7 @@ const RacingViewModule = () => {
             <div class="car-player">${name}</div>
             ${Array.from({ length: position })
               .map(() => `<div class="forward-icon mt-2">⬇️️</div>`)
-              .join("")}
+              .join('')}
             <div class="relative spinner-container">
                 <span class="material spinner"></span>
             </div>
@@ -33,11 +33,11 @@ const RacingViewModule = () => {
   const renderRaceStatus = ($el, raceData) => {
     $el.innerHTML = `<div class="mt-4 d-flex" >${raceData
       .map(getRaceStatusTemplate)
-      .join("")}</div>`;
+      .join('')}</div>`;
   };
 
   const hiddenSpinner = ($raceStatus) => {
-    $raceStatus.classList.add("finished");
+    $raceStatus.classList.add('finished');
   };
   const renderWinners = ($wrapper, $renderTarget, raceData) => {
     $wrapper.hidden = false;

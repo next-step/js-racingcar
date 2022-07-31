@@ -1,25 +1,25 @@
-import { NOTICE_MESSAGES } from "./consts.js";
-import racingData from "./modules/RacingData.js";
-import RacingModule from "./modules/RacingModule.js";
-import RacingViewModule from "./modules/RacingViewModule.js";
+import { NOTICE_MESSAGES } from './consts.js';
+import racingData from './modules/RacingData.js';
+import RacingModule from './modules/RacingModule.js';
+import RacingViewModule from './modules/RacingViewModule.js';
 
-const $racingInfoForm = document.querySelector("#racing-info-form");
+const $racingInfoForm = document.querySelector('#racing-info-form');
 const $carNames = {
-  field: $racingInfoForm.querySelector("#car-names-field"),
-  input: $racingInfoForm.querySelector("[name=car_names_input]"),
-  btn: $racingInfoForm.querySelector("#car-names-btn"),
+  field: $racingInfoForm.querySelector('#car-names-field'),
+  input: $racingInfoForm.querySelector('[name=car_names_input]'),
+  btn: $racingInfoForm.querySelector('#car-names-btn'),
 };
 const $tryNumber = {
-  field: $racingInfoForm.querySelector("#try-field"),
-  input: $racingInfoForm.querySelector("[name=try_number_input]"),
-  btn: $racingInfoForm.querySelector("#try-number-btn"),
+  field: $racingInfoForm.querySelector('#try-field'),
+  input: $racingInfoForm.querySelector('[name=try_number_input]'),
+  btn: $racingInfoForm.querySelector('#try-number-btn'),
 };
 
-const $raceStatusDiv = document.querySelector("#race-status-div");
-const $raceWinnerDiv = document.querySelector("#race-winner-div");
+const $raceStatusDiv = document.querySelector('#race-status-div');
+const $raceWinnerDiv = document.querySelector('#race-winner-div');
 const $raceWinner = {
-  label: $raceWinnerDiv.querySelector("h2"),
-  btn: $raceWinnerDiv.querySelector("#init-btn"),
+  label: $raceWinnerDiv.querySelector('h2'),
+  btn: $raceWinnerDiv.querySelector('#init-btn'),
 };
 
 const { getCarNames, isBlink, hasTooLongName, getResultTryOnce, goRace } =
@@ -45,7 +45,7 @@ const onInitialize = (e) => {
 };
 
 const onTypingCarName = (e) => {
-  if (e.key === "Enter") {
+  if (e.key === 'Enter') {
     e.preventDefault();
     onCompleteCarNames();
   }
@@ -86,7 +86,7 @@ const onStartRacing = (e) => {
   });
 };
 
-$carNames.input.addEventListener("keydown", onTypingCarName);
-$carNames.btn.addEventListener("click", onCompleteCarNames);
-$racingInfoForm.addEventListener("submit", onStartRacing);
-$raceWinner.btn.addEventListener("click", onInitialize);
+$carNames.input.addEventListener('keydown', onTypingCarName);
+$carNames.btn.addEventListener('click', onCompleteCarNames);
+$racingInfoForm.addEventListener('submit', onStartRacing);
+$raceWinner.btn.addEventListener('click', onInitialize);
