@@ -1,14 +1,6 @@
 import { $ } from '../utils.js'
-import {
-	buttonSelector,
-	fieldSelector,
-	inputSelector,
-} from '../constant/selector.js'
+import { buttonSelector, inputSelector } from '../constant/selector.js'
 import { handleCarTryInput } from '../view-model/car-try-input.js'
-
-export const showCarTryInput = function () {
-	$(fieldSelector.COMPETITION_COUNT_FIELD).classList.remove('d-none')
-}
 
 export const addCarTryEvent = function () {
 	const $carTryInput = $(inputSelector.INPUT_CAR_TRY)

@@ -1,11 +1,11 @@
 export const inputSelector = {
 	INPUT_CAR_NAME: '#input-car-name',
-	INPUT_CAR_TRY: '#input-car-try',
+	INPUT_RACE_COUNT: '#input-race-count',
 }
 
 export const buttonSelector = {
 	SUBMIT_CAR_NAME: '#submit-car-name',
-	SUBMIT_CAR_TRY: '#submit-car-try',
+	SUBMIT_RACE_COUNT: '#submit-race-count',
 }
 
 export const spanSelector = {
@@ -14,7 +14,7 @@ export const spanSelector = {
 
 export const fieldSelector = {
 	CAR_NAME_FIELD: '#car-name-field',
-	COMPETITION_COUNT_FIELD: '#competition-count-field',
+	RACE_COUNT_FIELD: '#race-count-field',
 }
 
 export const sectionSelector = {
