@@ -20,7 +20,10 @@ export const sectionSelector = {
 	RACE_SECTION: '#race-section',
 }
 
+export const ulSelector = {
+	CAR_LIST: '#car-list',
+}
+
 export const divSelector = {
-	CAR_PLAYERS_WRAPPER: '#car-players-wrapper',
 	CAR_WRAPPER: '#car-wrapper',
 }

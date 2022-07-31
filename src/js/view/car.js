@@ -2,11 +2,12 @@ import {
 	divSelector,
 	sectionSelector,
 	spanSelector,
+	ulSelector,
 } from '../constant/selector.js'
 import { $ } from '../utils.js'
 
 export const paintCar = function (carsElement) {
-	$(divSelector.CAR_PLAYERS_WRAPPER).innerHTML = carsElement
+	$(ulSelector.CAR_LIST).innerHTML = carsElement
 }
 
 export const showRaceSection = function () {
