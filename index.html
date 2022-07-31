@@ -27,7 +27,7 @@
 							</button>
 						</div>
 					</fieldset>
-					<fieldset id="competition-count-field">
+					<fieldset id="competition-count-field" hidden>
 						<p>시도할 횟수를 입력해주세요.</p>
 						<div class="d-flex">
 							<input
@@ -47,7 +47,7 @@
 				<ul id="car-list" class="mt-4 d-flex" data-component="cars"></ul>
 			</section>
 			<section class="d-flex justify-center mt-5">
-				<div>
+				<div id="result-wrapper" hidden>
 					<h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
 					<div class="d-flex justify-center">
 						<button type="button" class="btn btn-cyan">다시 시작하기</button>
