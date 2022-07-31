@@ -1,6 +1,3 @@
-import { CAR_GO_OR_NOT_STANDARD } from '../constant/number.js'
-import { getRandomInt } from '../utils.js'
-
 class Car {
 	constructor(name) {
 		this.name = name
@@ -9,10 +6,6 @@ class Car {
 
 	go() {
 		this.position += 1
-	}
-
-	isOkToGo() {
-		return CAR_GO_OR_NOT_STANDARD > getRandomInt(0, 9)
 	}
 }
 

@@ -1,6 +1,7 @@
 import { sendCarsToView } from '../view-model/car.js'
 import { racingGameStore } from './racing-game-store.js'
-import { RACE_END_COUNT } from '../constant/number.js'
+import { CAR_GO_OR_NOT_STANDARD, RACE_END_COUNT } from '../constant/number.js'
+import { getRandomInt } from '../utils.js'
 
 export const initRacing = function () {
 	const { getCars } = racingGameStore
@@ -15,7 +16,7 @@ export const race = function () {
 
 	if (tryCount > RACE_END_COUNT) {
 		cars.forEach((car) => {
-			if (car.isOkToGo()) {
+			if (CAR_GO_OR_NOT_STANDARD > getRandomInt(0, 9)) {
 				car.go()
 			}
 		})
