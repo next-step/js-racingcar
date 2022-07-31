@@ -13,12 +13,12 @@ class RacingInfoModel {
     this.racingWinner = [];
   }
 
-  _generateRandomNum() {
+  #generateRandomNum() {
     return Math.floor(Math.random() * (RANDOM_NUM_MAX_RANGE - RANDOM_NUM_MIN_RANGE)) + RANDOM_NUM_MIN_RANGE;
   }
 
-  _canMove() {
-    return this._generateRandomNum() <= STANDARD_MOVE_VALUE ? false : true;
+  #canMove() {
+    return this.#generateRandomNum() <= STANDARD_MOVE_VALUE ? false : true;
   }
 
   setEntries(entries) {
@@ -43,7 +43,7 @@ class RacingInfoModel {
   moveCars() {
     Array.from({ length: this.moveCount }, () => {
       this.entires.forEach((_, idx) => {
-        if (this._canMove()) {
+        if (this.#canMove()) {
           this.movingDistPerCar[idx] += 1;
         }
       });
