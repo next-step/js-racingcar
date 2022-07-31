@@ -1,28 +1,30 @@
-const getCarElement = (car) => {
-	const { name, position } = car
+let template
 
-	return `
-    <li class="car-wrapper mr-2">
-      <div class="car-player">${name}</div>
-      <ul class="arrow-wrapper">
-        ${position.map(getCarForwardElement)}
-      </ul>
-    </li>
-  `
+const createNewCarNode = () => {
+	if (!template) {
+		template = document.getElementById('car-item')
+	}
+
+	return template.content.firstElementChild.cloneNode(true)
 }
 
-const getCarForwardElement = () => {
-	return `
-    <li class="forward-icon">
-      ⬇️️
-    </li>
-  `
+const getCarElement = (car) => {
+	const { name } = car
+	const element = createNewCarNode()
+
+	element.querySelector('#car-name').textContent = name
+
+	return element
 }
 
 export default (targetElement, { cars }) => {
 	const newCarList = targetElement.cloneNode(true)
-	const carsElements = cars.map(getCarElement).join('')
-	newCarList.innerHTML = carsElements
+
+	newCarList.innerHTML = ''
+
+	cars.map(getCarElement).forEach((element) => {
+		newCarList.appendChild(element)
+	})
 
 	return newCarList
 }

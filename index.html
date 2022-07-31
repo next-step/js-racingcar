@@ -44,7 +44,14 @@
 				</form>
 			</section>
 			<section id="race-section" class="d-flex justify-center mt-5 d-none">
-				<ul id="car-list" class="mt-4 d-flex" data-component="cars"></ul>
+				<ul id="car-list" class="mt-4 d-flex" data-component="cars">
+					<template id="car-item" class="mr-2">
+						<div id="car-name"></div>
+						<ul id="car-position">
+							<template id="forward-icon"></template>
+						</ul>
+					</template>
+				</ul>
 			</section>
 			<section class="d-flex justify-center mt-5 d-none">
 				<div>
