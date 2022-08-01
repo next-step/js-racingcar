@@ -32,6 +32,7 @@ const validateRaceCount = function (raceCount) {
 }
 
 export default {
+	catchError,
 	validateCarName,
 	validateRaceCount,
 }

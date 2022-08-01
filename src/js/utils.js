@@ -13,7 +13,3 @@ export const showElement = function (element) {
 export const hideElement = function (element) {
 	element.hidden = true
 }
-
-export const freezeElement = function (element) {
-	element.disabled = true
-}

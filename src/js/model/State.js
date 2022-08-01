@@ -1,10 +1,16 @@
 class State {
 	#state
 	#observers
+	#isStateWritable
 
 	constructor(state) {
 		this.#state = state
 		this.#observers = new Set()
+		this.#isStateWritable = true
+	}
+
+	freeze() {
+		this.#isStateWritable = false
 	}
 
 	getState() {
@@ -12,8 +18,10 @@ class State {
 	}
 
 	setState(newState) {
-		this.#state = newState
-		this.publish()
+		if (this.#isStateWritable) {
+			this.#state = newState
+			this.publish()
+		}
 	}
 
 	subscribe(func) {
