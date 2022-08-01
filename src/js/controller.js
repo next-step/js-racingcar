@@ -1,6 +1,7 @@
 import { createCars } from './model/createCars.js'
 import { State } from './model/State.js'
 import validator from './validator.js'
+import { toggleRaceCountInputView } from './views/raceCountInputView.js'
 
 const state = Object.freeze({
 	cars: new State([]),
@@ -8,6 +9,10 @@ const state = Object.freeze({
 	winners: new State([]),
 	isRaceStarted: new State(false),
 })
+
+const subscribeViews = (() => {
+	state.cars.subscribe(() => toggleRaceCountInputView(state.cars.getState()))
+})()
 
 const saveCars = function (cars) {
 	console.log(cars)
