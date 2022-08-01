@@ -1,0 +1,29 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "serve": "live-server",
+    "test": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jin-2/js-racingcar.git"
+  },
+  "author": "jin-2",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jin-2/js-racingcar/issues"
+  },
+  "homepage": "https://github.com/jin-2/js-racingcar#readme",
+  "devDependencies": {
+    "cypress": "^10.3.1",
+    "eslint": "^8.20.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.26.0",
+    "live-server": "^1.2.2",
+    "prettier": "^2.7.1"
+  }
+}
