@@ -1,6 +1,6 @@
 import { fieldSelector } from './constant/selector.js'
-import { createCars } from './model/createCars.js'
-import { State } from './model/State.js'
+import { createCars } from './models/createCars.js'
+import { State } from './models/State.js'
 import validator from './validator.js'
 import { toggleRaceCountInputView } from './views/raceCountInputView.js'
 import { $ } from './utils.js'
