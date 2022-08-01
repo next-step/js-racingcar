@@ -1,5 +1,5 @@
 import { fieldSelector } from '../constant/selector.js'
-import { Car } from '../model/car.js'
+import { Car } from '../model/Car.js'
 import { racingGameStore } from '../model/racing-game-store.js'
 import { $, showElement } from '../utils.js'
 import validator from '../validator.js'
