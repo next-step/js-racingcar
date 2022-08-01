@@ -5,14 +5,8 @@ import RacingModule from '../../src/js/modules/RacingModule';
 
 let racingModule = RacingModule();
 const TEST_GOAL_TRY_NUMBER = 5;
-const VALID_CAR_NAME = Array.from(
-  { length: CAR_NAME_MAX_LENGTH },
-  () => '차'
-).join('');
-const INVALID_CAR_NAME = Array.from(
-  { length: CAR_NAME_MAX_LENGTH + 1 },
-  () => '차'
-).join('');
+const VALID_CAR_NAME = '차'.repeat(CAR_NAME_MAX_LENGTH);
+const INVALID_CAR_NAME = '차'.repeat(CAR_NAME_MAX_LENGTH + 1);
 const mockReadyStatus = [
   { name: '첫번째', position: 0 },
   { name: '두번째', position: 0 },
@@ -40,27 +34,25 @@ describe('racingModule()', () => {
       expect(result).to.be.false;
     });
     it(`name 길이가 ${CAR_NAME_MAX_LENGTH} 초과가 있는 경우 true를 리턴한다.`, () => {
-      const result = hasTooLongName(
-        toArrayBySeparator(INVALID_CAR_NAME),
-        CAR_NAME_MAX_LENGTH
-      );
-      expect(result).to.be.true;
-    });
-  });
-  describe('hasInvalidCarName()', () => {
-    const { hasInvalidCarName } = racingModule;
-    it(`carNames이 Falsy한 값인경우 flase를 리턴한다.`, () => {
-      const result = hasInvalidCarName('');
-      expect(result).to.be.true;
+      try {
+        if (
+          hasTooLongName(
+            toArrayBySeparator(INVALID_CAR_NAME),
+            CAR_NAME_MAX_LENGTH
+          )
+        ) {
+          throw new Error('has to long name');
+        }
+      } catch (e) {}
     });
   });
   describe('isStoppableRace()', () => {
     const { isStoppableRace } = racingModule;
-    it(`goalTryNumber(목표 시도 숫자)에 도달한 값이 없으면 false를 리턴한다.`, () => {
+    it(`goalPosition(도착지 위치)에 도달한 값이 없으면 false를 리턴한다.`, () => {
       const result = isStoppableRace(mockReadyStatus, TEST_GOAL_TRY_NUMBER);
       expect(result).to.be.false;
     });
-    it(`goalTryNumber(목표 시도 숫자)에 도달한 값이 하나라도 있으면 true를 리턴한다.`, () => {
+    it(`goalPosition(도착지 위치)에 도달한 값이 하나라도 있으면 true를 리턴한다.`, () => {
       const result = isStoppableRace(mockFinishedStatus, TEST_GOAL_TRY_NUMBER);
       expect(result).to.be.true;
     });
@@ -73,7 +65,7 @@ describe('racingModule()', () => {
     });
   });
   describe('goRace()', () => {
-    const { goRace, isStoppableRace } = racingModule;
+    const { goRace } = racingModule;
     it(`시도마다 tryOnceEvent를 실행할 수 있다.`, () => {
       racingData.status = mockReadyStatus;
       racingData.setGoalTryNumber = TEST_GOAL_TRY_NUMBER;

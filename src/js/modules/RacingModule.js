@@ -21,21 +21,21 @@ const RacingModule = () => {
     });
   };
 
-  const isStoppableRace = (raceStatus, goalTryNumber) =>
-    !!raceStatus.find(({ position }) => position === goalTryNumber);
+  const isStoppableRace = (raceStatus, goalPosition) =>
+    !!raceStatus.find(({ position }) => position === goalPosition);
 
-  const getWinners = (raceStatus, goalTryNumber) =>
-    raceStatus.filter(({ position }) => position === goalTryNumber);
+  const getWinners = (raceStatus, goalPosition) =>
+    raceStatus.filter(({ position }) => position === goalPosition);
 
   const goRace = (raceData, tryOnceEvent) => {
-    const { status, goalTryNumber } = raceData;
+    const { status, goalPosition } = raceData;
     return eventLoop(
       status,
       tryOnceEvent,
-      (raceStatus) => isStoppableRace(raceStatus, goalTryNumber),
+      (raceStatus) => isStoppableRace(raceStatus, goalPosition),
       (f) => setTimeout(f, 1000)
     ).then((raceResult) => {
-      const winners = getWinners(raceResult, goalTryNumber);
+      const winners = getWinners(raceResult, goalPosition);
       return winners;
     });
   };

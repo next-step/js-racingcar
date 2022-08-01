@@ -1,15 +1,15 @@
 import { NOTICE_MESSAGES } from '../../src/js/consts';
 
-const TEST_GOAL_TRY_NUMBER = 5;
+const TEST_GOAL_POSITION_NUMBER = 5;
 const CAR_NAMES_SELECTOR = {
   FIELD: 'fieldset[id=car-names-field]',
   INPUT: 'input[name=car_names_input]',
   BTN: 'button[id=car-names-btn]',
 };
-const TRY_NUMBER_SELECTOR = {
-  FIELD: 'fieldset[id=try-field]',
-  INPUT: 'input[name=try_number_input]',
-  BTN: 'button[id=try-number-btn]',
+const GOAL_POSITION_NUMBER_SELECTOR = {
+  FIELD: 'fieldset[id=goal-position-field]',
+  INPUT: 'input[name=goal_position_number_input]',
+  BTN: 'button[id=goal-position-number-btn]',
 };
 
 const RACE_STATUS_SELECTOR = {
@@ -70,13 +70,16 @@ describe('레이싱 어플리케이션', () => {
 
     it('이름 입력 후 확인 클릭시, 이름 입력 필드는 disabled 되고 시도할 횟수 입력폼이 나온다.', () => {
       cy.get(CAR_NAMES_SELECTOR.FIELD).should('be.disabled');
-      cy.get(TRY_NUMBER_SELECTOR.INPUT).should('be.visible');
-      cy.get(TRY_NUMBER_SELECTOR.BTN).should('be.visible');
+      cy.get(GOAL_POSITION_NUMBER_SELECTOR.INPUT).should('be.visible');
+      cy.get(GOAL_POSITION_NUMBER_SELECTOR.BTN).should('be.visible');
     });
     it('시도 횟수를 입력하지 않을경우 invalid 메시지가 나온다.', () => {
-      cy.get(TRY_NUMBER_SELECTOR.INPUT).clear();
-      cy.get(TRY_NUMBER_SELECTOR.BTN).click();
-      cy.get('input[name=try_number_input]:invalid').should('have.length', 1);
+      cy.get(GOAL_POSITION_NUMBER_SELECTOR.INPUT).clear();
+      cy.get(GOAL_POSITION_NUMBER_SELECTOR.BTN).click();
+      cy.get('input[name=goal_position_number_input]:invalid').should(
+        'have.length',
+        1
+      );
     });
 
     /*
@@ -85,22 +88,24 @@ describe('레이싱 어플리케이션', () => {
      *    테스트가 명확해 질듯 보임..
      * */
     it('시도 횟수 입력시, 시도 횟수 입력 필드는 disabled 되고 진행상황을 확인할 수 있다.', () => {
-      cy.get(TRY_NUMBER_SELECTOR.INPUT).type(`${TEST_GOAL_TRY_NUMBER}`);
-      cy.get(TRY_NUMBER_SELECTOR.BTN).click();
-      cy.get(TRY_NUMBER_SELECTOR.FIELD).should('be.disabled');
+      cy.get(GOAL_POSITION_NUMBER_SELECTOR.INPUT).type(
+        `${TEST_GOAL_POSITION_NUMBER}`
+      );
+      cy.get(GOAL_POSITION_NUMBER_SELECTOR.BTN).click();
+      cy.get(GOAL_POSITION_NUMBER_SELECTOR.FIELD).should('be.disabled');
       cy.wait(10000);
       cy.get(RACE_WINNER_SELECTOR.DIV).should('be.visible');
     });
     it('다시 시작하기 클릭시 화면이 초기화 된다.', () => {
-      cy.get(TRY_NUMBER_SELECTOR.INPUT).type(`${1}`);
-      cy.get(TRY_NUMBER_SELECTOR.BTN).click();
+      cy.get(GOAL_POSITION_NUMBER_SELECTOR.INPUT).type(`${1}`);
+      cy.get(GOAL_POSITION_NUMBER_SELECTOR.BTN).click();
       cy.wait(5000);
       cy.get(RACE_WINNER_SELECTOR.INIT_BTN).click();
 
       cy.get(CAR_NAMES_SELECTOR.INPUT).should('not.include.value');
 
-      cy.get(TRY_NUMBER_SELECTOR.INPUT).should('not.include.value');
-      cy.get(TRY_NUMBER_SELECTOR.FIELD).should('be.hidden');
+      cy.get(GOAL_POSITION_NUMBER_SELECTOR.INPUT).should('not.include.value');
+      cy.get(GOAL_POSITION_NUMBER_SELECTOR.FIELD).should('be.hidden');
       cy.get(RACE_STATUS_SELECTOR.DIV).should('be.hidden');
       cy.get(RACE_WINNER_SELECTOR.DIV).should('be.hidden');
     });

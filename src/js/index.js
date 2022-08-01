@@ -9,10 +9,10 @@ const $carNames = {
   input: $racingInfoForm.querySelector('[name=car_names_input]'),
   btn: $racingInfoForm.querySelector('#car-names-btn'),
 };
-const $tryNumber = {
-  field: $racingInfoForm.querySelector('#try-field'),
-  input: $racingInfoForm.querySelector('[name=try_number_input]'),
-  btn: $racingInfoForm.querySelector('#try-number-btn'),
+const $goalPositionNumber = {
+  field: $racingInfoForm.querySelector('#goal-position-field'),
+  input: $racingInfoForm.querySelector('[name=goal_position_number_input]'),
+  btn: $racingInfoForm.querySelector('#goal-position-number-btn'),
 };
 
 const $raceStatusDiv = document.querySelector('#race-status-div');
@@ -36,10 +36,10 @@ const onInitialize = (e) => {
   racingData.initialize();
 
   initializeView({
-    value: [$carNames.input, $tryNumber.input],
+    value: [$carNames.input, $goalPositionNumber.input],
     innerHTML: [$raceStatusDiv, $raceWinner.label],
-    hidden: [$tryNumber.field, $raceStatusDiv, $raceWinnerDiv],
-    disabled: [$carNames.field, $tryNumber.field],
+    hidden: [$goalPositionNumber.field, $raceStatusDiv, $raceWinnerDiv],
+    disabled: [$carNames.field, $goalPositionNumber.field],
     classList: [$raceStatusDiv],
   });
 };
@@ -64,7 +64,11 @@ const onCompleteCarNames = () => {
 
     racingData.raceReadyStatus = namesArray;
 
-    readyForNextStep($carNames.field, $tryNumber.field, $tryNumber.input);
+    readyForNextStep(
+      $carNames.field,
+      $goalPositionNumber.field,
+      $goalPositionNumber.input
+    );
   } catch (e) {
     alert(e.message);
   }
@@ -72,9 +76,9 @@ const onCompleteCarNames = () => {
 
 const onStartRacing = (e) => {
   e.preventDefault();
-  racingData.setGoalTryNumber = +e.target.try_number_input.value;
+  racingData.setGoalPosition = +e.target.goal_position_number_input.value;
 
-  readyForNextStep($tryNumber.field, $raceStatusDiv);
+  readyForNextStep($goalPositionNumber.field, $raceStatusDiv);
 
   goRace(racingData, (data) => {
     const result = getResultTryOnce(data);
