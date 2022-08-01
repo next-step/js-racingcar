@@ -1,3 +1,5 @@
+import { errorMessage } from '../constant/message.js'
+
 class State {
 	#state
 	#observers
@@ -18,9 +20,15 @@ class State {
 	}
 
 	setState(newState) {
-		if (this.#isStateWritable) {
+		try {
+			if (!this.#isStateWritable) {
+				throw new Error(errorMessage.FROZEN_STATE)
+			}
+			console.log(newState)
 			this.#state = newState
 			this.publish()
+		} catch (err) {
+			console.error(err)
 		}
 	}
 
