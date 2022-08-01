@@ -5,7 +5,7 @@ import validator from './validator.js'
 import { toggleRaceCountInputView } from './views/raceCountInputView.js'
 import { $ } from './utils.js'
 import { errorMessage } from './constant/message.js'
-import { toggleCarsView } from './views/carsView.js'
+import { renderCarList } from './views/carsView.js'
 
 const state = Object.freeze({
 	cars: new State([]),
@@ -15,7 +15,9 @@ const state = Object.freeze({
 
 const subscribeViews = (() => {
 	state.cars.subscribe(() => toggleRaceCountInputView(state.cars.getState()))
-	state.raceCount.subscribe(() => toggleCarsView(state.cars.getState()))
+	state.raceCount.subscribe(() =>
+		renderCarList({ cars: state.cars.getState() })
+	)
 })()
 
 const completeFieldsetElement = function ({

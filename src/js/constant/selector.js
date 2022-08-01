@@ -23,8 +23,13 @@ export const sectionSelector = {
 
 export const ulSelector = {
 	CAR_LIST: '#car-list',
+	TRACK_LIST: '.track-list',
 }
 
 export const divSelector = {
 	CAR_WRAPPER: '#car-wrapper',
+}
+
+export const templateSelector = {
+	CAR: '#car-template',
 }
