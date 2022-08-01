@@ -5,12 +5,13 @@ import { $ } from './utils.js'
 import { errorMessage } from './constant/message.js'
 import { renderCarList } from './views/carsView.js'
 import { createCars, State } from './models/index.js'
-import { initRacing } from './models/racing.js'
+import { renderTrack } from './views/raceView.js'
 
 const state = Object.freeze({
 	cars: new State([]),
 	raceCount: new State(null),
 	winners: new State([]),
+	isRaceStarted: new State(false),
 })
 
 const subscribeViews = (() => {
@@ -18,6 +19,8 @@ const subscribeViews = (() => {
 	state.raceCount.subscribe(() =>
 		renderCarList({ cars: state.cars.getState() })
 	)
+	state.raceCount.subscribe(() => startRace())
+	state.isRaceStarted.subscribe(() => initRacing())
 })()
 
 const completeFieldsetElement = function ({
@@ -74,8 +77,6 @@ const handleRaceCountInput = function (ev) {
 				saveValue: raceCount,
 				stateKey: 'raceCount',
 			})
-
-			initRacing()
 		}
 	}
 }
@@ -89,9 +90,17 @@ const handleClickRaceCountSubmitButton = function (raceCountInput) {
 			saveValue: raceCount,
 			stateKey: 'raceCount',
 		})
-
-		initRacing()
 	}
+}
+
+const startRace = function () {
+	state.isRaceStarted.setState(true)
+	state.isRaceStarted.freeze()
+}
+
+const initRacing = function () {
+	const { cars, raceCount } = state
+	renderTrack({ cars: cars.getState(), raceCount: raceCount.getState() })
 }
 
 export default {
