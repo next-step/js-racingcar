@@ -23,9 +23,8 @@ const init = function () {
 	const $raceCountSubmitButton = $(buttonSelector.SUBMIT_RACE_COUNT)
 
 	$raceCountInput.addEventListener('keydown', controller.handleRaceCountInput)
-	$raceCountSubmitButton.addEventListener(
-		'click',
-		controller.handleClickRaceCountSubmitButton
+	$raceCountSubmitButton.addEventListener('click', () =>
+		controller.handleClickRaceCountSubmitButton($raceCountInput)
 	)
 }
 

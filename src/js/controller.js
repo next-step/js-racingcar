@@ -1,5 +1,6 @@
 import { createCars } from './model/createCars.js'
 import { State } from './model/State.js'
+import validator from './validator.js'
 
 const state = {
 	cars: new State([]),
@@ -13,7 +14,10 @@ const saveCars = function (cars) {
 }
 
 const saveRaceCount = function (raceCount) {
-	state.raceCount.setState(raceCount)
+	if (validator.validateRaceCount(raceCount)) {
+		console.log(raceCount)
+		state.raceCount.setState(raceCount)
+	}
 }
 
 const handleCarNameInput = function (ev) {

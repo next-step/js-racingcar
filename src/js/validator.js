@@ -20,10 +20,10 @@ const validateCarName = function (carName) {
 	}
 }
 
-const validateCompetitionCount = function (competitionCount) {
+const validateRaceCount = function (raceCount) {
 	try {
-		if (!competitionCount) {
-			throw new Error(errorMessage.INVALID_CAR_TRY)
+		if (!raceCount) {
+			throw new Error(errorMessage.INVALID_RACE_COUNT)
 		}
 		return true
 	} catch (err) {
@@ -33,5 +33,5 @@ const validateCompetitionCount = function (competitionCount) {
 
 export default {
 	validateCarName,
-	validateCompetitionCount,
+	validateRaceCount,
 }
