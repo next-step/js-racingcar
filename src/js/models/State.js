@@ -41,4 +41,4 @@ class State {
 	}
 }
 
-export { State }
+export default State

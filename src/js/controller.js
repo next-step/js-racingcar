@@ -1,11 +1,10 @@
 import { fieldSelector } from './constant/selector.js'
-import { createCars } from './models/createCars.js'
-import { State } from './models/State.js'
 import validator from './validator.js'
 import { toggleRaceCountInputView } from './views/raceCountInputView.js'
 import { $ } from './utils.js'
 import { errorMessage } from './constant/message.js'
 import { renderCarList } from './views/carsView.js'
+import { createCars, State } from './models/index.js'
 
 const state = Object.freeze({
 	cars: new State([]),
