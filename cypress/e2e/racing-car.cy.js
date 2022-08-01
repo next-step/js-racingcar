@@ -1,5 +1,5 @@
 describe('empty spec', () => {
-  it('passes', () => {
+  beforeEach(() => {
     cy.visit('/');
   });
 
@@ -18,6 +18,7 @@ describe('empty spec', () => {
 
     cy.get('#input-car-name').type(carName);
 
+    // FIXME: cy.getValidationMessage(target)
     cy.get('#input-car-name')
       .invoke('prop', 'validationMessage')
       .should('eq', '자동차 이름을 입력해주세요.');
@@ -31,5 +32,15 @@ describe('empty spec', () => {
     cy.get('#input-car-name')
       .invoke('prop', 'validationMessage')
       .should('eq', '자동차 이름은 5자 이하로 작성해 주세요.');
+  });
+
+  it('자동차이름을 5개 초과로 입력할 경우, "자동차 이름을 5개이하로 입력해주세요." 텍스트를 확인할 수 있다. ', () => {
+    const carName = '자동차1, 자동차2, 자동차3, 자동차4, 자동차5, 자동차6';
+
+    cy.get('#input-car-name').type(carName);
+
+    cy.get('#input-car-name')
+      .invoke('prop', 'validationMessage')
+      .should('eq', '자동차 이름을 5개이하로 입력해주세요.');
   });
 });
