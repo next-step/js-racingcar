@@ -7,7 +7,6 @@ const init = function () {
 	const $carNameSubmitButton = $(buttonSelector.SUBMIT_CAR_NAME)
 
 	$carNameInput.addEventListener('keydown', controller.handleCarNameInput)
-
 	$carNameSubmitButton.addEventListener('click', () =>
 		controller.handleClickCarNameSubmitButton($carNameInput.value)
 	)

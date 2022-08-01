@@ -8,6 +8,7 @@ const state = {
 }
 
 const saveCars = function (cars) {
+	console.log(cars)
 	state.cars.setState(cars)
 }
 
@@ -42,6 +43,7 @@ const handleClickRaceCountSubmitButton = function (raceCountInput) {
 }
 
 export default {
+	state,
 	handleCarNameInput,
 	handleClickCarNameSubmitButton,
 	handleRaceCountInput,
