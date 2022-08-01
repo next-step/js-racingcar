@@ -2,11 +2,12 @@ import { createCars } from './model/createCars.js'
 import { State } from './model/State.js'
 import validator from './validator.js'
 
-const state = {
+const state = Object.freeze({
 	cars: new State([]),
 	raceCount: new State(null),
 	winners: new State([]),
-}
+	isRaceStarted: new State(false),
+})
 
 const saveCars = function (cars) {
 	console.log(cars)
