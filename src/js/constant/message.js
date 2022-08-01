@@ -6,4 +6,5 @@ export const errorMessage = {
 	INVALID_SAVE_VALUE: '저장할 수 없는 값입니다.',
 	INVALID_SAVE_FUNCTION: '잘못된 저장 함수입니다.',
 	INVALID_FIELDSET_ELEMENT: 'fieldset 엘리먼트가 지정되지 않았습니다.',
+	FROZEN_STATE: 'frozen state 의 상태를 덮어쓸 수 없습니다.',
 }

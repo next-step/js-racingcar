@@ -5,29 +5,21 @@ import validator from './validator.js'
 import { toggleRaceCountInputView } from './views/raceCountInputView.js'
 import { $ } from './utils.js'
 import { errorMessage } from './constant/message.js'
+import { toggleCarsView } from './views/carsView.js'
 
 const state = Object.freeze({
 	cars: new State([]),
 	raceCount: new State(null),
 	winners: new State([]),
-	isRaceStarted: new State(false),
 })
 
 const subscribeViews = (() => {
 	state.cars.subscribe(() => toggleRaceCountInputView(state.cars.getState()))
+	state.raceCount.subscribe(() => toggleCarsView(state.cars.getState()))
 })()
-
-const saveCars = function (cars) {
-	state.cars.setState(cars)
-}
-
-const saveRaceCount = function (raceCount) {
-	state.raceCount.setState(raceCount)
-}
 
 const completeFieldsetElement = function ({
 	fieldsetElement,
-	saveFunction,
 	saveValue,
 	stateKey,
 }) {
@@ -35,14 +27,11 @@ const completeFieldsetElement = function ({
 		if (!saveValue) {
 			throw new Error(errorMessage.INVALID_SAVE_VALUE)
 		}
-		if (!saveFunction) {
-			throw new Error(errorMessage.INVALID_SAVE_FUNCTION)
-		}
 		if (!fieldsetElement) {
 			throw new Error(errorMessage.INVALID_FIELDSET_ELEMENT)
 		} else {
 			fieldsetElement.disabled = true
-			saveFunction(saveValue)
+			state[stateKey].setState(saveValue)
 			state[stateKey].freeze()
 		}
 	} catch (err) {
@@ -57,7 +46,6 @@ const handleCarNameInput = function (ev) {
 
 		completeFieldsetElement({
 			fieldsetElement: $(fieldSelector.CAR_NAME_FIELD),
-			saveFunction: saveCars,
 			saveValue: cars,
 			stateKey: 'cars',
 		})
@@ -68,7 +56,6 @@ const handleClickCarNameSubmitButton = function (carNameInputValue) {
 	const cars = createCars(carNameInputValue)
 	completeFieldsetElement({
 		fieldsetElement: $(fieldSelector.CAR_NAME_FIELD),
-		saveFunction: saveCars,
 		saveValue: cars,
 		stateKey: 'cars',
 	})
@@ -82,7 +69,6 @@ const handleRaceCountInput = function (ev) {
 		if (validator.validateRaceCount(raceCount)) {
 			completeFieldsetElement({
 				fieldsetElement: $(fieldSelector.RACE_COUNT_FIELD),
-				saveFunction: saveRaceCount,
 				saveValue: raceCount,
 				stateKey: 'raceCount',
 			})
@@ -96,7 +82,6 @@ const handleClickRaceCountSubmitButton = function (raceCountInput) {
 	if (validator.validateRaceCount(raceCount)) {
 		completeFieldsetElement({
 			fieldsetElement: $(fieldSelector.RACE_COUNT_FIELD),
-			saveFunction: saveRaceCount,
 			saveValue: raceCount,
 			stateKey: 'raceCount',
 		})
