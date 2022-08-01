@@ -5,6 +5,7 @@ import { $ } from './utils.js'
 import { errorMessage } from './constant/message.js'
 import { renderCarList } from './views/carsView.js'
 import { createCars, State } from './models/index.js'
+import { initRacing } from './models/racing.js'
 
 const state = Object.freeze({
 	cars: new State([]),
@@ -73,6 +74,8 @@ const handleRaceCountInput = function (ev) {
 				saveValue: raceCount,
 				stateKey: 'raceCount',
 			})
+
+			initRacing()
 		}
 	}
 }
@@ -86,6 +89,8 @@ const handleClickRaceCountSubmitButton = function (raceCountInput) {
 			saveValue: raceCount,
 			stateKey: 'raceCount',
 		})
+
+		initRacing()
 	}
 }
 
