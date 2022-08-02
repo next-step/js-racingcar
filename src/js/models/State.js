@@ -24,7 +24,6 @@ class State {
 			if (!this.#isStateWritable) {
 				throw new Error(errorMessage.FROZEN_STATE)
 			}
-			console.log(newState)
 			this.#state = newState
 			this.publish()
 		} catch (err) {
