@@ -1,3 +1,4 @@
+import { userInteractionType } from '../../src/js/constant/interaction.js'
 import { errorMessage } from '../../src/js/constant/message.js'
 import {
 	buttonSelector,
@@ -18,17 +19,23 @@ describe('자동차 경주 미션 1단계', () => {
 		})
 
 		it('5자 이하의 자동차 이름 입력 후 확인 버튼을 마우스 좌클릭하면 시도 횟수 입력 창이 보인다.', () => {
-			cy.submitCarName('ABCDE')
+			cy.submitCarName({
+				carName: 'ABCDE',
+				submitType: userInteractionType.CLICK,
+			})
 			cy.get(fieldSelector.RACE_COUNT_FIELD).should('be.visible')
 		})
 
 		it('5자 이하의 자동차 이름 입력 후 키보드 엔터를 누르면 시도 횟수 입력 창이 보인다.', () => {
-			cy.get(inputSelector.INPUT_CAR_NAME).type('ABCDE{enter}')
+			cy.submitCarName({
+				carName: 'ABCDE',
+				submitType: userInteractionType.ENTER,
+			})
 			cy.get(fieldSelector.RACE_COUNT_FIELD).should('be.visible')
 		})
 
 		it('자동차 이름 입력을 마치면 이름 입력창이 비활성화 된다.', () => {
-			cy.submitCarName('WEST').then(() => {
+			cy.submitCarName({ carName: 'WEST', submitType: 'Click' }).then(() => {
 				cy.get(fieldSelector.CAR_NAME_FIELD).should('be.disabled')
 			})
 		})
@@ -47,7 +54,10 @@ describe('자동차 경주 미션 1단계', () => {
 		it('자동차 이름 입력칸에 6자 이상의 텍스트를 입력하면 확인을 눌렀을 때 경고창이 뜬다.', () => {
 			const stub = cy.stub()
 			cy.on('window:alert', stub)
-			cy.submitCarName('ABCDEF').then(() => {
+			cy.submitCarName({
+				carName: 'ABCDEF',
+				submitType: userInteractionType.CLICK,
+			}).then(() => {
 				expect(stub.getCall(0)).to.be.calledWith(errorMessage.INVALID_CAR_NAME)
 			})
 		})
@@ -55,7 +65,10 @@ describe('자동차 경주 미션 1단계', () => {
 		it('자동차 이름 입력칸에 입력한 자동차 이름 중 빈 문자열이 포함되어 있으면 확인을 눌렀을 때 경고창이 뜬다.', () => {
 			const stub = cy.stub()
 			cy.on('window:alert', stub)
-			cy.submitCarName('ABC,,DEF').then(() => {
+			cy.submitCarName({
+				carName: 'ABC,,DEF',
+				submitType: userInteractionType.ENTER,
+			}).then(() => {
 				expect(stub.getCall(0)).to.be.calledWith(errorMessage.INVALID_CAR_NAME)
 			})
 		})
@@ -63,7 +76,10 @@ describe('자동차 경주 미션 1단계', () => {
 
 	context('자동차 전진 시도 입력 테스트', () => {
 		beforeEach(() => {
-			cy.submitCarName('ABC,DE')
+			cy.submitCarName({
+				carName: 'ABC,DE',
+				submitType: userInteractionType.ENTER,
+			})
 		})
 
 		it('자동차 전진 입력칸에 숫자를 입력할 수 있다.', () => {

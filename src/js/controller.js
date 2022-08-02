@@ -4,6 +4,7 @@ import { $ } from './utils.js'
 import { errorMessage } from './constant/message.js'
 import { createCars, State } from './models/index.js'
 import { carsView, trackView, winnersView } from './views/index.js'
+import { userInteractionType } from './constant/interaction.js'
 
 const state = Object.freeze({
 	cars: new State([]),
@@ -35,7 +36,7 @@ const completeFieldsetElement = function ({
 
 const handleCarNameInput = function (ev) {
 	const { target, key } = ev
-	if (key === 'Enter') {
+	if (key === userInteractionType.ENTER) {
 		const cars = createCars(target.value)
 
 		completeFieldsetElement({
@@ -57,7 +58,7 @@ const handleClickCarNameSubmitButton = function (carNameInputValue) {
 
 const handleRaceCountInput = function (ev) {
 	const { target, key } = ev
-	if (key === 'Enter') {
+	if (key === userInteractionType.ENTER) {
 		const raceCount = target.valueAsNumber
 
 		if (validator.validateRaceCount(raceCount)) {
