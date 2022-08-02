@@ -110,3 +110,19 @@ describe('자동차 경주 미션 1단계', () => {
 		})
 	})
 })
+
+describe('자동차 경주 미션 2단계', () => {
+	beforeEach(() => {
+		cy.visit('/')
+		cy.submitCarName({
+			carName: 'NORTH,WEST,SOUTH,EAST',
+			submitType: userInteractionType.CLICK,
+		})
+		cy.submitRaceCount({
+			raceCount: 10,
+			submitType: userInteractionType.ENTER,
+		})
+	})
+
+	it('테스트', () => {})
+})
