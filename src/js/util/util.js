@@ -14,4 +14,13 @@ const setElementUsable = (element) => {
   element.disabled = false;
 };
 
-export { alertText, setVisible, setElementDisabled, setElementUsable };
+const getRandomNumber = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
+export {
+  alertText,
+  setVisible,
+  setElementDisabled,
+  setElementUsable,
+  getRandomNumber,
+};

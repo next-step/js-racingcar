@@ -1,7 +1,7 @@
-import { ALERT_TEXT } from './constants.js';
-import { $, $$ } from './DOM.js';
-import { racingWinnerTemplate } from './templates.js';
-import { alertText, setVisible } from './util.js';
+import { ALERT_TEXT } from '../constants/constants.js';
+import { $, $$ } from '../selector/DOM.js';
+import { racingWinnerTemplate } from '../view/templates.js';
+import { alertText, setVisible } from '../util/util.js';
 
 const setVisibleRacingResult = () => {
   setVisible($('.competition-result'));

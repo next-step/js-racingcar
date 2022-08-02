@@ -1,4 +1,4 @@
-import { $ } from './DOM.js';
+import { $ } from '../selector/DOM.js';
 
 const competitionCountInput = $('.competition-count-input');
 

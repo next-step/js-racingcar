@@ -1,4 +1,4 @@
-import { ALERT_TEXT, CAR_RACING_INTERVAL_TIME } from '../../src/js/constants';
+import { ALERT_TEXT, CAR_RACING_INTERVAL_TIME } from '../../src/js/constants/constants';
 
 describe('자동차 경주 테스트', () => {
   beforeEach(() => {

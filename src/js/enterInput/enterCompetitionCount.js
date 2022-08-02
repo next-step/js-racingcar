@@ -1,10 +1,9 @@
-import { ALERT_TEXT, COMPETITION_COUNT } from './constants.js';
-import { $ } from './DOM.js';
-import renderCompetitionList from './renderCompetitionList.js';
-import { setElementDisabled, setVisible } from './util.js';
+import { ALERT_TEXT, COMPETITION_COUNT } from '../constants/constants.js';
+import { $ } from '../selector/DOM.js';
+import getCompetitionList from '../view/getCompetitionList.js';
+import { setElementDisabled, setVisible } from '../util/util.js';
 
-const checkCompetitionCountValidation = (element) =>
-  element.value >= COMPETITION_COUNT.MIN;
+const checkCompetitionCountValidation = (text) => text >= COMPETITION_COUNT.MIN;
 
 const setCompetitionListVisible = () => {
   setVisible($('.competition-list-container'));
@@ -18,13 +17,13 @@ const setCompetitionCountFormDisabled = () => {
 const enterCompetitionCount = (e) => {
   e.preventDefault();
 
-  if (!checkCompetitionCountValidation($('.competition-count-input'))) {
+  if (!checkCompetitionCountValidation($('.competition-count-input').value)) {
     alert(ALERT_TEXT.COMPETITION_COUNT_ERROR);
     return;
   }
   setCompetitionCountFormDisabled();
   setCompetitionListVisible();
-  renderCompetitionList();
+  getCompetitionList();
 };
 
 export default enterCompetitionCount;

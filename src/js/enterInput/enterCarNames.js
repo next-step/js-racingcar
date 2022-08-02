@@ -1,7 +1,7 @@
-import { ALERT_TEXT, CAR_TEXT_LENGTH } from './constants.js';
-import { $ } from './DOM.js';
-import getCarNames from './getCarNames.js';
-import { alertText, setElementDisabled, setVisible } from './util.js';
+import { ALERT_TEXT, CAR_TEXT_LENGTH } from '../constants/constants.js';
+import { $ } from '../selector/DOM.js';
+import getCarNames from '../inputValue/getCarNames.js';
+import { alertText, setElementDisabled, setVisible } from '../util/util.js';
 
 const checkCarNamesValidation = (carNames) => {
   if (carNames.includes('')) {

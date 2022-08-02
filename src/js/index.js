@@ -1,7 +1,7 @@
-import enterCarNames from './enterCarNames.js';
-import { $ } from './DOM.js';
-import enterCompetitionCount from './enterCompetitionCount.js';
-import resetRacing from './resetRacing.js';
+import enterCarNames from './enterInput/enterCarNames.js';
+import { $ } from './selector/DOM.js';
+import enterCompetitionCount from './enterInput/enterCompetitionCount.js';
+import resetRacing from './view/resetRacing.js';
 
 const carNameInputForm = $('.car-name-input-container');
 const competitionCountInputForm = $('.competition-count-input-container');

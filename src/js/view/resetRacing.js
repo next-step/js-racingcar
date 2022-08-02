@@ -1,5 +1,5 @@
-import { $, $$ } from './DOM.js';
-import { setElementUsable } from './util.js';
+import { $, $$ } from '../selector/DOM.js';
+import { setElementUsable } from '../util/util.js';
 
 const carNameInput = $('.car-name-input');
 const competitionCountInput = $('.competition-count-input');

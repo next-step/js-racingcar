@@ -1,11 +1,11 @@
 import {
   CAR_FORWARD_CONDITION,
   CAR_RACING_INTERVAL_TIME,
-} from './constants.js';
-import { $, $$ } from './DOM.js';
-import getCarNames from './getCarNames.js';
-import getCompetitionCount from './getCompetitionCount.js';
-import getRandomNumber from './getRandomNumber.js';
+} from '../constants/constants.js';
+import { $, $$ } from '../selector/DOM.js';
+import getCarNames from '../inputValue/getCarNames.js';
+import getCompetitionCount from '../inputValue/getCompetitionCount.js';
+import { getRandomNumber } from '../util/util.js';
 import getRacingResult from './getRacingResult.js';
 import { carForwardTemplate, carListTemplate } from './templates.js';
 
@@ -53,9 +53,9 @@ const renderCompetitionProcess = (totalCount) => {
 const getCompetitionRenderList = () =>
   getCarNames().map(carListTemplate).join('');
 
-const renderCompetitionList = () => {
+const getCompetitionList = () => {
   $('.competition-list').innerHTML = getCompetitionRenderList();
   renderCompetitionProcess(getCompetitionCount());
 };
 
-export default renderCompetitionList;
+export default getCompetitionList;
