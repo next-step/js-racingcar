@@ -4,7 +4,7 @@ import { getRandomInt } from '../utils.js'
 const getTrackElement = function () {
 	const arrowElement = document.createElement('div')
 	arrowElement.classList.add('forward-icon')
-	arrowElement.innerText = '⬇️️'
+	arrowElement.textContent = '⬇️️'
 
 	return arrowElement
 }
