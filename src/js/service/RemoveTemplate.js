@@ -6,6 +6,12 @@ class RemoveTemplate {
       }
     });
   };
+
+  static removeResult = (result) => {
+    while (result.hasChildNodes()) {
+      result.removeChild(result.firstChild);
+    }
+  };
 }
 
 export default RemoveTemplate;
