@@ -10,6 +10,7 @@ export const buttonSelector = {
 
 export const spanSelector = {
 	CAR_NAME: '.car-name',
+	WINER_NAME: '.winner-name',
 }
 
 export const fieldsetSelector = {
@@ -24,6 +25,7 @@ export const sectionSelector = {
 export const ulSelector = {
 	CAR_LIST: '#car-list',
 	TRACK_LIST: '.track-list',
+	WINNER_NAME_LIST: '#winner-names',
 }
 
 export const divSelector = {

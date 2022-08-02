@@ -12,6 +12,15 @@ ul {
 	height: 100%;
 }
 
+ul {
+	display: inline;
+}
+
+li {
+	list-style: none;
+	display: inherit;
+}
+
 .car-name {
 	height: 36px;
 	min-width: 64px;

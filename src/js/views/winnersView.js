@@ -1,17 +1,23 @@
-import { divSelector, titleSelector } from '../constant/selector.js'
+import { divSelector, titleSelector, ulSelector } from '../constant/selector.js'
 import { $ } from '../utils.js'
+
+const createWinnerNameElement = function ({ winnerName }) {
+	const winnerNameElement = document.createElement('li')
+	winnerNameElement.textContent = winnerName
+	return winnerNameElement
+}
 
 const renderWinners = function ({ winners }) {
 	const resultElement = $(divSelector.RESULT_WRAPPER)
 	resultElement.hidden = false
 
-	const winnersName = winners
-		.reduce((acc, cur) => acc + ` ${cur.name},`, '')
+	resultElement.querySelector(ulSelector.WINNER_NAME_LIST).innerHTML = winners
+		.reduce(
+			(acc, cur) =>
+				acc + createWinnerNameElement({ winnerName: cur.name }).outerHTML + ',',
+			''
+		)
 		.slice(0, -1)
-
-	resultElement.querySelector(
-		titleSelector.WINNERS
-	).textContent = `🏆 최종 우승자 : ${winnersName} 🏆`
 }
 
 export default {
