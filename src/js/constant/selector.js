@@ -28,6 +28,10 @@ export const ulSelector = {
 	WINNER_NAME_LIST: '#winner-names',
 }
 
+export const liSelector = {
+	WINNER_NAME_ITEM: '.winner-name',
+}
+
 export const divSelector = {
 	CAR_WRAPPER: '#car-wrapper',
 	RESULT_WRAPPER: '#result-wrapper',

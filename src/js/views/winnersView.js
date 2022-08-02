@@ -1,8 +1,9 @@
-import { divSelector, titleSelector, ulSelector } from '../constant/selector.js'
+import { divSelector, ulSelector } from '../constant/selector.js'
 import { $ } from '../utils.js'
 
 const createWinnerNameElement = function ({ winnerName }) {
 	const winnerNameElement = document.createElement('li')
+	winnerNameElement.classList.add('winner-name')
 	winnerNameElement.textContent = winnerName
 	return winnerNameElement
 }

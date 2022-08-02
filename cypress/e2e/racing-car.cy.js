@@ -3,8 +3,7 @@ import { errorMessage } from '../../src/js/constant/message.js'
 import {
 	buttonSelector,
 	fieldsetSelector,
-	spanSelector,
-	titleSelector,
+	liSelector,
 } from '../../src/js/constant/selector.js'
 
 describe('자동차 경주 미션 1단계', () => {
@@ -118,7 +117,7 @@ describe('자동차 경주 미션 2단계', () => {
 	})
 
 	it('자동차 게임이 완료되면 우승자 이름이 화면에 보인다. ', () => {
-		cy.get(spanSelector.WINER_NAME)
+		cy.get(liSelector.WINNER_NAME_ITEM)
 			.invoke('text')
 			.then((text) => {
 				expect(['NORTH', 'WEST', 'SOUTH', 'EAST']).to.include(text)
