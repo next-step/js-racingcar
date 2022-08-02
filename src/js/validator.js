@@ -23,7 +23,10 @@ const validateCarName = function (carName) {
 const validateRaceCount = function (raceCount) {
 	try {
 		if (!raceCount) {
-			throw new Error(errorMessage.INVALID_RACE_COUNT)
+			throw new Error(errorMessage.SMALL_RACE_COUNT)
+		}
+		if (raceCount >= Number.MAX_SAFE_INTEGER) {
+			throw new Error(errorMessage.BIG_RACE_COUNT)
 		}
 		return true
 	} catch (err) {
