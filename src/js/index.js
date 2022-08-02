@@ -18,11 +18,13 @@ const $carTryNumberFieldsetInput = $carTryNumberForm.querySelector('input[name="
 const $racingSection = document.querySelector('#game');
 const $racingCarPlayer = $racingSection.querySelector('.car-player-wrapper');
 
+const $racingResult = document.querySelector('#result');
+
 const carNameField = new FieldsetView($carNameFieldset);
 const carTryNumberField = new FieldsetView($carTryNumberFieldset);
 const createTemplate = new CreateTemplate();
 const calculate = new Calculate();
-const racing = new RacingService(createTemplate, calculate);
+const racing = new RacingService(createTemplate, calculate, $racingResult);
 
 const renderCarNameFieldset = (e) => {
   e.preventDefault();
