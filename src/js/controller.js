@@ -96,8 +96,10 @@ const runGame = function () {
 }
 
 const setWinner = function ({ cars }) {
-	const maxPosition = cars.sort((a, b) => b.position - a.position)[0].position
-	const winners = cars.filter((car) => car.position === maxPosition)
+	const winnerPosition = cars.reduce((maxPosition, { position }) => {
+		return position > maxPosition ? position : maxPosition
+	}, 0)
+	const winners = cars.filter((car) => car.position === winnerPosition)
 
 	state.winners.setState(winners)
 }
