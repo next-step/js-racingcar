@@ -28,8 +28,13 @@ export const ulSelector = {
 
 export const divSelector = {
 	CAR_WRAPPER: '#car-wrapper',
+	RESULT_WRAPPER: '#result-wrapper',
 }
 
 export const templateSelector = {
 	CAR: '#car-template',
+}
+
+export const titleSelector = {
+	WINNERS: '#winners',
 }

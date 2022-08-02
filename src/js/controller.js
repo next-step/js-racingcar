@@ -6,6 +6,7 @@ import { errorMessage } from './constant/message.js'
 import { renderCarList } from './views/carsView.js'
 import { createCars, State } from './models/index.js'
 import { renderTrack } from './views/raceView.js'
+import { renderWinners } from './views/winnersView.js'
 
 const state = Object.freeze({
 	cars: new State([]),
@@ -13,15 +14,6 @@ const state = Object.freeze({
 	winners: new State([]),
 	isRaceStarted: new State(false),
 })
-
-const subscribeViews = (() => {
-	state.cars.subscribe(() => toggleRaceCountInputView(state.cars.getState()))
-	state.raceCount.subscribe(() =>
-		renderCarList({ cars: state.cars.getState() })
-	)
-	state.raceCount.subscribe(() => startRace())
-	state.isRaceStarted.subscribe(() => initRacing())
-})()
 
 const completeFieldsetElement = function ({
 	fieldsetElement,
@@ -93,15 +85,34 @@ const handleClickRaceCountSubmitButton = function (raceCountInput) {
 	}
 }
 
-const startRace = function () {
+const initGame = function () {
 	state.isRaceStarted.setState(true)
-	state.isRaceStarted.freeze()
 }
 
-const initRacing = function () {
+const runGame = function () {
 	const { cars, raceCount } = state
 	renderTrack({ cars: cars.getState(), raceCount: raceCount.getState() })
+	setWinner({ cars: cars.getState() })
 }
+
+const setWinner = function ({ cars }) {
+	const maxPosition = cars.sort((a, b) => b.position - a.position)[0].position
+	const winners = cars.filter((car) => car.position === maxPosition)
+
+	state.winners.setState(winners)
+}
+
+const subscribeViews = (() => {
+	state.cars.subscribe(() => toggleRaceCountInputView(state.cars.getState()))
+	state.raceCount.subscribe(() => {
+		renderCarList({ cars: state.cars.getState() })
+		initGame()
+	})
+	state.isRaceStarted.subscribe(runGame)
+	state.winners.subscribe(() => {
+		renderWinners({ winners: state.winners.getState() })
+	})
+})()
 
 export default {
 	state,

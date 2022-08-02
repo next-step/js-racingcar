@@ -36,6 +36,10 @@ class State {
 		this.#observers.add(func)
 	}
 
+	unsubscribe(func) {
+		this.#observers.delete(func)
+	}
+
 	publish() {
 		this.#observers.forEach((func) => func())
 	}
