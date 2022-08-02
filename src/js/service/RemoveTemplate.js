@@ -1,5 +1,5 @@
 class RemoveTemplate {
-  removeAllSpinners = (cars) => {
+  static removeAllSpinners = (cars) => {
     cars.forEach((car) => {
       if (car.hasChildNodes()) {
         car.removeChild(car.lastElementChild);

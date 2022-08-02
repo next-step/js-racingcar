@@ -3,7 +3,7 @@ class Calculate {
     return Math.floor(Math.random() * 10);
   }
 
-  isForwardCondition() {
+  static isForwardCondition() {
     return Calculate.#getRandomCount() > 4;
   }
 }
