@@ -65,9 +65,11 @@ describe('자동차 경주 미션 1단계', () => {
 		beforeEach(() => {
 			cy.submitCarName('ABC,DE')
 		})
+
 		it('자동차 전진 입력칸에 숫자를 입력할 수 있다.', () => {
 			cy.get(inputSelector.INPUT_RACE_COUNT).type(10).should('have.value', 10)
 		})
+
 		it('자동차 전진 입력칸이 비어있으면 확인을 눌렀을 때 경고창이 뜬다.', () => {
 			const stub = cy.stub()
 			cy.on('window:alert', stub)
@@ -75,7 +77,19 @@ describe('자동차 경주 미션 1단계', () => {
 				.click()
 				.then(() => {
 					const actualMessage = stub.getCall(0).lastArg
-					expect(actualMessage).to.equal(errorMessage.INVALID_RACE_COUNT)
+					expect(actualMessage).to.equal(errorMessage.SMALL_RACE_COUNT)
+				})
+		})
+
+		it('자동차 전진 입력칸에 최대 정수보다 큰 수를 입력하면 확인을 눌렀을 때 경고창이 뜬다.', () => {
+			const stub = cy.stub()
+			cy.on('window:alert', stub)
+			cy.get(inputSelector.INPUT_RACE_COUNT).type(10000000000000000000)
+			cy.get(buttonSelector.SUBMIT_RACE_COUNT)
+				.click()
+				.then(() => {
+					const actualMessage = stub.getCall(0).lastArg
+					expect(actualMessage).to.equal(errorMessage.BIG_RACE_COUNT)
 				})
 		})
 	})
