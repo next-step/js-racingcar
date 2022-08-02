@@ -1,12 +1,9 @@
 import { fieldSelector } from './constant/selector.js'
 import validator from './validator.js'
-import { toggleRaceCountInputView } from './views/raceCountInputView.js'
 import { $ } from './utils.js'
 import { errorMessage } from './constant/message.js'
-import { renderCarList } from './views/carsView.js'
 import { createCars, State } from './models/index.js'
-import { renderTrack } from './views/raceView.js'
-import { renderWinners } from './views/winnersView.js'
+import { carsView, trackView, winnersView } from './views/index.js'
 
 const state = Object.freeze({
 	cars: new State([]),
@@ -91,7 +88,10 @@ const initGame = function () {
 
 const runGame = function () {
 	const { cars, raceCount } = state
-	renderTrack({ cars: cars.getState(), raceCount: raceCount.getState() })
+	trackView.renderTrack({
+		cars: cars.getState(),
+		raceCount: raceCount.getState(),
+	})
 	setWinner({ cars: cars.getState() })
 }
 
@@ -103,14 +103,16 @@ const setWinner = function ({ cars }) {
 }
 
 const subscribeViews = (() => {
-	state.cars.subscribe(() => toggleRaceCountInputView(state.cars.getState()))
+	state.cars.subscribe(() => {
+		$(fieldSelector.RACE_COUNT_FIELD).hidden = false
+	})
 	state.raceCount.subscribe(() => {
-		renderCarList({ cars: state.cars.getState() })
+		carsView.renderCarList({ cars: state.cars.getState() })
 		initGame()
 	})
 	state.isRaceStarted.subscribe(runGame)
 	state.winners.subscribe(() => {
-		renderWinners({ winners: state.winners.getState() })
+		winnersView.renderWinners({ winners: state.winners.getState() })
 	})
 })()
 

@@ -1,4 +1,3 @@
-export { default as carNameInputView } from './carNameInputView.js'
-export { default as raceCountInputView } from './raceCountInputView.js'
 export { default as carsView } from './carsView.js'
-export { default as raceView } from './raceView.js'
+export { default as trackView } from './trackView.js'
+export { default as winnersView } from './winnersView.js'

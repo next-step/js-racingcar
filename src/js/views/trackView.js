@@ -9,7 +9,7 @@ const getTrackElement = function () {
 	return arrowElement
 }
 
-export const renderTrack = function ({ cars, raceCount }) {
+const renderTrack = function ({ cars, raceCount }) {
 	if (raceCount <= RACE_END_COUNT) return
 
 	const trackViews = document.querySelectorAll('.track-list')
@@ -22,4 +22,8 @@ export const renderTrack = function ({ cars, raceCount }) {
 	})
 
 	renderTrack({ cars, raceCount: raceCount - 1 })
+}
+
+export default {
+	renderTrack,
 }

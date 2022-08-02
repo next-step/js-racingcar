@@ -1,7 +1,7 @@
 import { divSelector, titleSelector } from '../constant/selector.js'
 import { $ } from '../utils.js'
 
-export const renderWinners = function ({ winners }) {
+const renderWinners = function ({ winners }) {
 	const resultElement = $(divSelector.RESULT_WRAPPER)
 	resultElement.hidden = false
 
@@ -12,4 +12,8 @@ export const renderWinners = function ({ winners }) {
 	resultElement.querySelector(
 		titleSelector.WINNERS
 	).textContent = `🏆 최종 우승자 : ${winnersName} 🏆`
+}
+
+export default {
+	renderWinners,
 }

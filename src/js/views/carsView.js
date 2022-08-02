@@ -5,7 +5,7 @@ import {
 } from '../constant/selector.js'
 import { $ } from '../utils.js'
 
-export const renderCarList = function ({ cars }) {
+const renderCarList = function ({ cars }) {
 	const carListElement = $(ulSelector.CAR_LIST)
 	carListElement.hidden = false
 
@@ -26,4 +26,8 @@ const getCarElement = function ({ name }) {
 	carElement.querySelector(spanSelector.CAR_NAME).textContent = name
 
 	return carElement
+}
+
+export default {
+	renderCarList,
 }
