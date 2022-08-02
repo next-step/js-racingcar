@@ -7,6 +7,7 @@ export default class CarPlayerNameForm extends BaseController {
 
     this.$form = document.querySelector('#form-car-player-name');
     this.carPlayerNameInput = new CarPlayerNameInput();
+    this.$filedset = this.$form.querySelector('fieldset');
 
     this.#addSubmitEvent();
   }
@@ -20,5 +21,25 @@ export default class CarPlayerNameForm extends BaseController {
 
   #addSubmitEvent() {
     this.$form.addEventListener('submit', this.#setCarPlayerNames.bind(this));
+  }
+
+  hasCarPlayerName() {
+    return this.state.carPlayerNames.length > 0;
+  }
+
+  able() {
+    this.$filedset.disabled = false;
+  }
+
+  disalbe() {
+    this.$filedset.disabled = true;
+  }
+
+  render() {
+    if (this.hasCarPlayerName()) {
+      this.disalbe();
+    } else {
+      this.able();
+    }
   }
 }

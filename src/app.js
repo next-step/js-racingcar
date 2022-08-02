@@ -1,4 +1,5 @@
-import AttemptInput from './controller/AttemptInput.js';
+import AttemptForm from './controller/AttemptForm.js';
+import BaseController from './controller/BaseController.js';
 import CarPlayerList from './controller/CarPlayerList.js';
 import CarPlayerNameForm from './controller/CarPlayerNameForm.js';
 
@@ -8,7 +9,9 @@ function App() {
   };
   new CarPlayerList(state);
   new CarPlayerNameForm(state);
-  new AttemptInput();
+  new AttemptForm(state);
+
+  BaseController.render();
 }
 
 App();
