@@ -7,6 +7,13 @@ class RacingService {
     this.calculate = calculate;
   }
 
+  displayCongratsAlert() {
+    const timeoutId = setTimeout(() => {
+      alert('🎇🎇🎇🎇 축하합니다! 🎇🎇🎇🎇');
+      clearTimeout(timeoutId);
+    }, DELAY_TIME_MS.RACING_GAME_CONGRATS_TIMEOUT);
+  }
+
   startRacingGame(coin) {
     const cars = document.querySelectorAll('.car');
     const carPlayers = document.querySelectorAll('.car-player');
@@ -14,7 +21,7 @@ class RacingService {
     let count = 1;
     const removeTemplate = new RemoveTemplate();
 
-    const timeoutId = setInterval(() => {
+    const intervalTimeId = setInterval(() => {
       carPlayers.forEach((carPlayer) => {
         if (this.calculate.isForwardCondition()) {
           carPlayer.insertAdjacentHTML('afterend', this.createTemplate.createForwardTemplate());
@@ -23,10 +30,11 @@ class RacingService {
 
       // eslint-disable-next-line no-plusplus
       if (count++ === coin) {
-        clearInterval(timeoutId);
+        clearInterval(intervalTimeId);
         removeTemplate.removeAllSpinners(cars);
+        this.displayCongratsAlert();
       }
-    }, DELAY_TIME_MS);
+    }, DELAY_TIME_MS.RACING_GAME_INTERVAL);
   }
 }
 
