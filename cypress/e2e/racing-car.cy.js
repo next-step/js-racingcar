@@ -17,12 +17,12 @@ describe('자동차 경주 미션 1단계', () => {
 				.should('have.value', 'EAST')
 		})
 
-		it('5자 이하의 자동차 이름 입력 후 확인을 누르면 시도 횟수 입력 창이 보인다.', () => {
+		it('5자 이하의 자동차 이름 입력 후 확인 버튼을 마우스 좌클릭하면 시도 횟수 입력 창이 보인다.', () => {
 			cy.submitCarName('ABCDE')
 			cy.get(fieldSelector.RACE_COUNT_FIELD).should('be.visible')
 		})
 
-		it('5자 이하의 자동차 이름 입력 후 엔터를 누르면 시도 횟수 입력 창이 보인다.', () => {
+		it('5자 이하의 자동차 이름 입력 후 키보드 엔터를 누르면 시도 횟수 입력 창이 보인다.', () => {
 			cy.get(inputSelector.INPUT_CAR_NAME).type('ABCDE{enter}')
 			cy.get(fieldSelector.RACE_COUNT_FIELD).should('be.visible')
 		})
