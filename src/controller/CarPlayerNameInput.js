@@ -5,7 +5,7 @@ export const NAME_LIST_MAX_LENGHT = 5;
 
 export default class CarNameInput extends ValidateInput {
   constructor() {
-    const $input = document.querySelector('#input-car-name');
+    const $input = document.querySelector('#input-car-player-name');
     super($input);
   }
 
