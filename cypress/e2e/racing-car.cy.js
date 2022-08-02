@@ -43,4 +43,20 @@ describe('empty spec', () => {
       .invoke('prop', 'validationMessage')
       .should('eq', '자동차 이름을 5개이하로 입력해주세요.');
   });
+
+  it('자동차 이름을 입력하면, 입력한 자동차 갯수만큼의 플레이어를 볼 수 있다.', () => {
+    const carName = '자동차1, 자동차2, 자동차3, 자동차4';
+    const carNameCount = 4;
+
+    cy.get('#input-car-name').type(carName);
+    cy.get('#form-car-player-name').submit();
+
+    cy.get('.car-player').then($player => {
+      cy.wrap($player).should('have.length', carNameCount);
+      cy.wrap($player[0]).should('have.text', '자동차1');
+      cy.wrap($player[1]).should('have.text', '자동차2');
+      cy.wrap($player[2]).should('have.text', '자동차3');
+      cy.wrap($player[3]).should('have.text', '자동차4');
+    });
+  });
 });

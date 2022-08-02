@@ -1,7 +1,12 @@
-import CarNameInput from './controller/CarNameInput.js';
+import CarPlayerList from './controller/CarPlayerList.js';
+import CarPlayerNameForm from './controller/CarPlayerNameForm.js';
 
 function App() {
-  const carNameInput = new CarNameInput();
+  const state = {
+    carPlayerNames: [],
+  };
+  new CarPlayerList(state);
+  new CarPlayerNameForm(state);
 }
 
 App();
