@@ -20,7 +20,7 @@ describe('자동차 경주 미션 1단계', () => {
 
 		it('5자 이하의 자동차 이름 입력 후 확인을 누르면 시도 횟수 입력 창이 보인다.', () => {
 			cy.submitCarName('ABCDE')
-			cy.get(fieldSelector.CAR_TRY_FIELD).should('be.visible')
+			cy.get(fieldSelector.RACE_COUNT_FIELD).should('be.visible')
 		})
 		it('자동차 이름 입력칸이 비어 있으면 확인을 눌렀을 때 경고창이 뜬다.', () => {
 			const stub = cy.stub()
@@ -54,7 +54,7 @@ describe('자동차 경주 미션 1단계', () => {
 			cy.submitCarName('ABC,DE')
 		})
 		it('자동차 전진 입력칸에 숫자를 입력할 수 있다.', () => {
-			cy.get(inputSelector.INPUT_CAR_TRY)
+			cy.get(inputSelector.INPUT_RACE_COUNT)
 				.should('be.visible')
 				.type(10)
 				.should('have.value', 10)
@@ -62,7 +62,7 @@ describe('자동차 경주 미션 1단계', () => {
 		it('자동차 전진 입력칸이 비어있으면 확인을 눌렀을 때 경고창이 뜬다.', () => {
 			const stub = cy.stub()
 			cy.on('window:alert', stub)
-			cy.get(buttonSelector.SUBMIT_CAR_TRY)
+			cy.get(buttonSelector.SUBMIT_RACE_COUNT)
 				.click()
 				.then(() => {
 					expect(stub.getCall(0)).to.be.calledWith(errorMessage.INVALID_CAR_TRY)
