@@ -1,11 +1,11 @@
-import RemoveTemplate from './RemoveTemplate.js';
 import { DELAY_TIME_MS } from '../constants.js';
 import { removeHiddenClass } from '../utils.js';
+import RemoveTemplate from './RemoveTemplate.js';
+import Calculate from './Calculate.js';
 
 class RacingService {
-  constructor(createTemplate, calculate, racingResult) {
+  constructor(createTemplate, racingResult) {
     this.createTemplate = createTemplate;
-    this.calculate = calculate;
     this.racingResult = racingResult;
     this.winnerList = [];
   }
@@ -39,11 +39,10 @@ class RacingService {
     const carPlayers = document.querySelectorAll('.car-player');
 
     let count = 1;
-    const removeTemplate = new RemoveTemplate();
 
     const intervalTimeId = setInterval(() => {
       carPlayers.forEach((carPlayer) => {
-        if (this.calculate.isForwardCondition()) {
+        if (Calculate.isForwardCondition()) {
           carPlayer.insertAdjacentHTML('afterend', this.createTemplate.createForwardTemplate());
         }
       });
@@ -51,7 +50,7 @@ class RacingService {
       // eslint-disable-next-line no-plusplus
       if (count++ === coin) {
         clearInterval(intervalTimeId);
-        removeTemplate.removeAllSpinners(cars);
+        RemoveTemplate.removeAllSpinners(cars);
         this.getWinnerList(cars, carPlayers);
         this.showGameResult(this.winnerList.join(', '));
         this.displayCongratsAlert();
