@@ -59,4 +59,24 @@ describe('empty spec', () => {
       cy.wrap($player[3]).should('have.text', '자동차4');
     });
   });
+
+  it('시도횟수를 1미만으로 입력하면, "값은 1 이상이어야 합니다." Error message를 확인할 수 있다.', () => {
+    const attempt = 0;
+
+    cy.get('#input-attempt').type(attempt);
+
+    cy.get('#input-attempt')
+      .invoke('prop', 'validationMessage')
+      .should('eq', '값은 1 이상이어야 합니다.');
+  });
+
+  it('시도횟수를 20초과로 입력하면, "값은 20 이하여야 합니다." Error message를 확인할 수 있다.', () => {
+    const attempt = 21;
+
+    cy.get('#input-attempt').type(attempt);
+
+    cy.get('#input-attempt')
+      .invoke('prop', 'validationMessage')
+      .should('eq', '값은 20 이하여야 합니다.');
+  });
 });
