@@ -12,7 +12,7 @@ export const spanSelector = {
 	CAR_NAME: '.car-name',
 }
 
-export const fieldSelector = {
+export const fieldsetSelector = {
 	CAR_NAME_FIELD: '#car-name-field',
 	RACE_COUNT_FIELD: '#race-count-field',
 }
