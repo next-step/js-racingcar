@@ -1,9 +1,9 @@
 import { errorMessage } from './constant/message.js'
 import { INPUT_CAR_NAME_MAX_LENGTH } from './constant/number.js'
 
-const catchError = function (message) {
-	console.error(message)
-	window.alert(message)
+const catchError = function (error) {
+	console.error(error)
+	window.alert(error.message)
 }
 
 const validateCarName = function (carName) {
