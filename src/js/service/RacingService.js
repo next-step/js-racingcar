@@ -1,7 +1,6 @@
 import { DELAY_TIME_MS } from '../constants.js';
-import { removeHiddenClass } from '../utils.js';
+import { getRandomCount, removeHiddenClass } from '../utils.js';
 import RemoveTemplate from './RemoveTemplate.js';
-import Calculate from './Calculate.js';
 
 class RacingService {
   constructor(createTemplate, racingResult) {
@@ -34,6 +33,10 @@ class RacingService {
     }, DELAY_TIME_MS.RACING_GAME_CONGRATS_TIMEOUT);
   }
 
+  isForwardCondition() {
+    return getRandomCount() >= 4;
+  }
+
   startRacingGame(coin) {
     const cars = document.querySelectorAll('.car');
     const carPlayers = document.querySelectorAll('.car-player');
@@ -42,7 +45,7 @@ class RacingService {
 
     const intervalTimeId = setInterval(() => {
       carPlayers.forEach((carPlayer) => {
-        if (Calculate.isForwardCondition()) {
+        if (this.isForwardCondition()) {
           carPlayer.insertAdjacentHTML('afterend', this.createTemplate.createForwardTemplate());
         }
       });

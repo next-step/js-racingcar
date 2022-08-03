@@ -5,3 +5,7 @@ export const addHiddenClass = (selector) => {
 export const removeHiddenClass = (selector) => {
   selector.classList.remove('hidden');
 };
+
+export const getRandomCount = () => {
+  return Math.floor(Math.random() * 10);
+};
