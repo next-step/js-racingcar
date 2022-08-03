@@ -1,4 +1,8 @@
 class CreateTemplate {
+  getRacingList(carNames) {
+    return carNames.map((carName) => this.createRacingTemplate(carName)).join('');
+  }
+
   createCarPlayerTemplate(carName) {
     return `<div class="car-player">${carName}</div>`;
   }
@@ -24,7 +28,7 @@ class CreateTemplate {
   }
 
   createRacingListTemplate(carNames) {
-    return carNames.map((carName) => this.createRacingTemplate(carName)).join('');
+    return this.getRacingList(carNames);
   }
 
   createRacingResultTemplate(result) {
