@@ -1,3 +1,5 @@
+import { RANDOM_MULTIPLICATION_NUMBER } from './constants.js';
+
 export const addHiddenClass = (selector) => {
   selector.classList.add('hidden');
 };
@@ -7,5 +9,5 @@ export const removeHiddenClass = (selector) => {
 };
 
 export const getRandomCount = () => {
-  return Math.floor(Math.random() * 10);
+  return Math.floor(Math.random() * RANDOM_MULTIPLICATION_NUMBER);
 };

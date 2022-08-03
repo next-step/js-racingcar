@@ -1,4 +1,4 @@
-import { DELAY_TIME_MS } from '../constants.js';
+import { DELAY_TIME_MS, FORWARD_CONDITION_NUMBER } from '../constants.js';
 import { getRandomCount, removeHiddenClass } from '../utils.js';
 import RemoveTemplate from './RemoveTemplate.js';
 
@@ -34,7 +34,7 @@ class RacingService {
   }
 
   isForwardCondition() {
-    return getRandomCount() >= 4;
+    return getRandomCount() >= FORWARD_CONDITION_NUMBER;
   }
 
   startRacingGame(coin) {
