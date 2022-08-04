@@ -1,5 +1,5 @@
 import { $ } from "./dom.js";
-import { SELECTORS } from "./constants.js";
+import { SELECTORS } from "./constants/constants.js";
 
 export const templateSpinner = `<div class="spinners d-flex justify-center mt-3">
                                   <div class="relative spinner-container">

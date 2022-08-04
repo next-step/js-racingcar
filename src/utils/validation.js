@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from "../constants.js";
+import { ERROR_MESSAGES } from "./constants/constants.js";
 
 export const validateNameLength = ($name) => {
   if ($name.length > 5) {
