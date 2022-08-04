@@ -1,16 +1,12 @@
 import { SELECTORS } from "../utils/constants/selectors.js";
-import { validateNumRange, validateNameLength } from "./validation.js";
+import { validateNumRange, validateNameLength } from "../utils/validation.js";
 import { $, $$ } from "../utils/dom.js";
-import {
-  displayTemplateForward,
-  removeHiddenClass,
-  removeSpinners,
-  getRandomInt,
-} from "../utils/utils.js";
+import { removeHiddenClass, getRandomInt } from "../utils/utils.js";
 import {
   createTemplateCarPlayer,
   createTemplateResult,
 } from "../view/template.js";
+import { templateForward } from "../view/template.js";
 
 export class RacingModel {
   constructor() {
@@ -23,6 +19,21 @@ export class RacingModel {
   #isAbleToMoveFoward = () => {
     const randomNum = getRandomInt(1, 10);
     return randomNum > 4;
+  };
+
+  #displayTemplateForward = ($racingCarNames) => {
+    $racingCarNames.forEach((racingcar) => {
+      if (this.#isAbleToMoveFoward()) {
+        racingcar.insertAdjacentHTML("afterend", templateForward);
+      }
+    });
+  };
+
+  #removeSpinners = ($spinners) => {
+    $spinners.forEach(($el) => {
+      $el.style.willChange = "auto";
+      $el.style.opacity = 0;
+    });
   };
 
   setCarNames($carNames) {
@@ -61,15 +72,12 @@ export class RacingModel {
     let cnt = 1;
 
     const timeoutId = setInterval(() => {
-      displayTemplateForward(
-        $$(SELECTORS.CAR_DIV_NAME),
-        this.#isAbleToMoveFoward
-      );
+      this.#displayTemplateForward($$(SELECTORS.CAR_DIV_NAME));
 
       if (cnt++ === $count) {
         clearInterval(timeoutId);
         this.getRacingResult();
-        removeSpinners($$(SELECTORS.CAR_DIV_SPINNER));
+        this.#removeSpinners($$(SELECTORS.CAR_DIV_SPINNER));
         this.showGameResult();
         setTimeout(() => {
           alert("🎇🎇🎇🎇 축하합니다! 🎇🎇🎇🎇");
