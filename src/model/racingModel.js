@@ -26,7 +26,6 @@ export class RacingModel {
   };
 
   #isAbleToMoveFoward = () => {
-    debugger;
     const randomNum = this.#getRandomInt(1, 10);
     return randomNum > 4;
   };
