@@ -38,8 +38,6 @@ export class RacingModel {
     });
 
     this.arrows = Array.from({ length: $carNames.length }, () => 0);
-
-    console.log(this.carNames);
   }
 
   setCount($count) {
@@ -50,7 +48,6 @@ export class RacingModel {
       return;
     }
     this.count = $count;
-    console.log(this.count);
   }
 
   displayCars() {
