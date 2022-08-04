@@ -28,7 +28,7 @@ const handleSubmitCount = (e) => {
     return;
   }
 
-  racingModel.setCount(Number($count));
+  racingModel.setPlayTime(Number($count));
   removeHiddenClass($(SELECTORS.GAME_SECTION));
   racingModel.startRacingGame(Number($count));
 };

@@ -11,7 +11,7 @@ import { templateForward } from "../view/template.js";
 export class RacingModel {
   constructor() {
     this.carNames = [];
-    this.count = 0;
+    this.playTime = 0;
     this.movingCount = [];
     this.winners = [];
   }
@@ -51,14 +51,13 @@ export class RacingModel {
     this.movingCount = Array.from({ length: $carNames.length }, () => 0);
   }
 
-  setCount($count) {
+  setPlayTime($count) {
     try {
       validateNumRange($count);
+      this.playTime = $count;
     } catch (error) {
       alert(error.message);
-      return;
     }
-    this.count = $count;
   }
 
   displayCars() {
@@ -66,6 +65,30 @@ export class RacingModel {
       "beforeend",
       createTemplateCarPlayer(this.carNames)
     );
+  }
+
+  moveCars() {
+    Array.from({ length: this.playTime }, () => {
+      this.carNames.forEach((name, idx) => {
+        if (this.#isAbleToMoveFoward()) {
+          this.movingCount[idx] += 1;
+        }
+      });
+    });
+  }
+
+  setWinners() {
+    const max = Math.max(...this.movingCount);
+    console.log(...this.movingCount);
+    this.winners = this.carNames.filter(
+      (name, idx) => this.movingCount[idx] === max
+    );
+  }
+
+  showWinners() {
+    const winners = createTemplateResult(this.winners.join());
+    $(SELECTORS.RESULT_SECTION).insertAdjacentHTML("beforeend", winners);
+    removeHiddenClass($(SELECTORS.RESULT_SECTION));
   }
 
   startRacingGame($count) {
@@ -76,26 +99,14 @@ export class RacingModel {
 
       if (cnt++ === $count) {
         clearInterval(timeoutId);
-        this.getRacingResult();
+        this.moveCars();
         this.#removeSpinners($$(SELECTORS.CAR_DIV_SPINNER));
-        this.showGameResult();
+        this.setWinners();
+        this.showWinners();
         setTimeout(() => {
           alert("🎇🎇🎇🎇 축하합니다! 🎇🎇🎇🎇");
         }, 2000);
       }
     }, 1000);
-  }
-
-  getRacingResult() {
-    const max = Math.max(...this.movingCount);
-    this.winners = this.carNames.filter(
-      (name, idx) => this.movingCount[idx] === max
-    );
-  }
-
-  showGameResult() {
-    const winners = createTemplateResult(this.winners.join());
-    $(SELECTORS.RESULT_SECTION).insertAdjacentHTML("beforeend", winners);
-    removeHiddenClass($(SELECTORS.RESULT_SECTION));
   }
 }
