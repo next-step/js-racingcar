@@ -14,7 +14,7 @@ describe('플레이어 이름 입력', () => {
     cy.get('#input-attempt').should('not.be.visible');
   });
 
-  it('"," 이후  플레이어 이름을 입력 안힌 경우, "플레이어 이름을 입력해주세요." Error message를 확인할 수 있다. ', () => {
+  it('"," 이후  플레이어 이름을 입력 안한 경우, "플레이어 이름을 입력해주세요." Error message를 확인할 수 있다. ', () => {
     const carName = '테스트, ';
 
     cy.get('#input-car-player-name').type(carName);
