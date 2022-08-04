@@ -3,13 +3,13 @@ import BaseController from './BaseController.js';
 import Racing from './Racing.js';
 
 export default class AttemptForm extends BaseController {
-  constructor(state) {
-    super(state);
+  constructor(app) {
+    super(app);
 
     this.$form = document.querySelector('#form-attempt');
     this.attemptInput = new AttemptInput();
     this.$filedset = this.$form.querySelector('fieldset');
-    this.racing = new Racing(state);
+    this.racing = new Racing(app);
 
     this.#addSubmitEvent();
   }
@@ -32,12 +32,12 @@ export default class AttemptForm extends BaseController {
 
   // TODO: STORE 쓰면 불리
   #getHasCarPlayerName() {
-    return this.state.carPlayerNames.length > 0;
+    return this.app.state.carPlayerNames.length > 0;
   }
 
   // TODO: STORE 쓰면 불리
   #getHasAttempt() {
-    return !!this.state.attempt;
+    return !!this.app.state.attempt;
   }
 
   #visible() {

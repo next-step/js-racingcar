@@ -180,4 +180,18 @@ describe('레이싱', () => {
 
     cy.get('#race-result').should('be.visible');
   });
+
+  it('플레이 시간이 끝나면 결과를 본 후, 다시시작하기를 누르면 초기화된다.', () => {
+    const { waitTime } = setup();
+
+    cy.wait(waitTime);
+    cy.get('#btn-restart').click();
+
+    cy.get('#input-car-player-name').should('have.value', '');
+    cy.get('#input-attempt').should('not.be.visible');
+    cy.get('#input-attempt').should('have.value', '');
+    cy.get('#race-result').should('not.be.visible');
+  });
 });
+
+// TODO : 엣지케이스 숫자 input에 문자입력

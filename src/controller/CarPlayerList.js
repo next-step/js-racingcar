@@ -2,19 +2,17 @@ import CarPlayer from '../view/CarPlayer.js';
 import BaseController from './BaseController.js';
 
 export default class CarPlayerList extends BaseController {
-  constructor(state) {
-    super(state);
+  constructor(app) {
+    super(app);
     this.$carPlayerList = document.querySelector('#car-player-list');
   }
 
-  // TODO: STORE 쓰면 불리
   #getHasCarPlayerName() {
-    return this.state.carPlayerNames.length > 0;
+    return this.app.state.carPlayerNames.length > 0;
   }
 
-  // TODO: STORE 쓰면 불리
   #getHasAttempt() {
-    return !!this.state.attempt;
+    return !!this.app.state.attempt;
   }
 
   render() {
@@ -23,7 +21,7 @@ export default class CarPlayerList extends BaseController {
       return;
     }
 
-    const { carPlayerNames, racingSteps } = this.state;
+    const { carPlayerNames, racingSteps } = this.app.state;
     const carPlayerList = carPlayerNames
       .map(name => CarPlayer(name, racingSteps[name] || []))
       .join('');

@@ -2,17 +2,19 @@ import BaseController from './BaseController.js';
 import BaseInput from './BaseInput.js';
 
 export default class Result extends BaseController {
-  constructor(state) {
-    super(state);
+  constructor(app) {
+    super(app);
 
     this.$result = document.querySelector('#race-result');
+    this.$restartButton = document.querySelector('#btn-restart');
+
+    this.#addRestartButtonEvent();
   }
 
   #getHasRaceWinner() {
-    return !!this.state.winners.length;
+    return !!this.app.state.winners.length;
   }
 
-  // static methods로 사용하묜 좋을듯...?
   #visible() {
     this.$result.classList.remove('d-none');
   }
@@ -27,6 +29,15 @@ export default class Result extends BaseController {
     } else {
       this.#invisible();
     }
+  }
+
+  #addRestartButtonEvent() {
+    this.$restartButton.addEventListener('click', this.#restart.bind(this));
+  }
+
+  #restart() {
+    this.app.resetState();
+    BaseInput.Clear();
   }
 
   render() {

@@ -1,23 +1,27 @@
+import App from './core/App.js';
 import AttemptForm from './controller/AttemptForm.js';
-import BaseController from './controller/BaseController.js';
 import CarPlayerList from './controller/CarPlayerList.js';
 import CarPlayerNameForm from './controller/CarPlayerNameForm.js';
 import Result from './controller/Result.js';
 import Winner from './controller/Winner.js';
 
+const state = {
+  carPlayerNames: [],
+  racingSteps: {},
+  attempt: 0,
+  winners: [],
+};
 
-function App() {
-  const state = {
-    carPlayerNames: [],
-    attempt: 0,
-  };
-  new CarPlayerList(state);
-  new CarPlayerNameForm(state);
-  new AttemptForm(state);
-  new Result(state);
-  new Winner(state);
+function main() {
+  const app = new App(state);
+  app.useController(CarPlayerList);
+  app.useController(CarPlayerNameForm);
+  app.useController(AttemptForm);
+  app.useController(Result);
+  app.useController(Winner);
 
-  BaseController.render();
+  // NOTE: 초기 랜더링
+  app.render();
 }
 
-App();
+main();

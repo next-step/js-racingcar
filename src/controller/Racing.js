@@ -1,5 +1,9 @@
 import BaseController from './BaseController.js';
 
+const GO_FORWARD_CONDITION_NUMBER = 4;
+const MAX_RANDOM_NUMBER = 9;
+const MIN_RANDOM_NUMBER = 1;
+
 function wait(ms) {
   return new Promise(resolve => {
     setTimeout(resolve, ms);
@@ -8,7 +12,7 @@ function wait(ms) {
 
 export default class Racing extends BaseController {
   #setRacingSteps() {
-    const racingSteps = this.state.carPlayerNames.reduce((acc, name) => {
+    const racingSteps = this.app.state.carPlayerNames.reduce((acc, name) => {
       acc[name] = [false];
       return acc;
     }, {});
@@ -17,13 +21,15 @@ export default class Racing extends BaseController {
   }
 
   #setWinner() {
-    const maxStepCount = this.state.carPlayerNames.reduce((max, name) => {
-      if (max < this.state.racingSteps[name].length) return this.state.racingSteps[name].length;
+    const maxStepCount = this.app.state.carPlayerNames.reduce((max, name) => {
+      if (max < this.app.state.racingSteps[name].length) {
+        return this.app.state.racingSteps[name].length;
+      }
       return max;
     }, 0);
 
-    const winners = this.state.carPlayerNames.filter(
-      name => this.state.racingSteps[name].length === maxStepCount,
+    const winners = this.app.state.carPlayerNames.filter(
+      name => this.app.state.racingSteps[name].length === maxStepCount,
     );
 
     this.setState('winners', winners);
@@ -35,8 +41,8 @@ export default class Racing extends BaseController {
   }
 
   #endRacing() {
-    const racingSteps = this.state.carPlayerNames.reduce((acc, name) => {
-      acc[name] = [...this.state.racingSteps[name].slice(0, -1)];
+    const racingSteps = this.app.state.carPlayerNames.reduce((acc, name) => {
+      acc[name] = [...this.app.state.racingSteps[name].slice(0, -1)];
       return acc;
     }, {});
 
@@ -44,14 +50,14 @@ export default class Racing extends BaseController {
   }
 
   #forwardStep() {
-    const racingSteps = this.state.carPlayerNames.reduce((acc, name) => {
-      const random = Math.random() * 10 + 1;
-      const isGoForward = random >= 4;
+    const racingSteps = this.app.state.carPlayerNames.reduce((acc, name) => {
+      const random = Math.floor(Math.random() * MAX_RANDOM_NUMBER + MIN_RANDOM_NUMBER);
+      const isGoForward = random >= GO_FORWARD_CONDITION_NUMBER;
 
       if (isGoForward) {
-        acc[name] = [...this.state.racingSteps[name].slice(0, -1), true, false];
+        acc[name] = [...this.app.state.racingSteps[name].slice(0, -1), true, false];
       } else {
-        acc[name] = [...this.state.racingSteps[name]];
+        acc[name] = [...this.app.state.racingSteps[name]];
       }
 
       return acc;
@@ -61,11 +67,9 @@ export default class Racing extends BaseController {
   }
 
   async #race() {
-    const MAX_ATTEMPT = this.state.attempt;
+    const MAX_ATTEMPT = this.app.state.attempt;
 
-    // eslint-disable-next-line no-plusplus
     for (let attempt = 0; attempt < MAX_ATTEMPT; ++attempt) {
-      // eslint-disable-next-line no-await-in-loop
       await wait(1000);
       this.#forwardStep();
     }

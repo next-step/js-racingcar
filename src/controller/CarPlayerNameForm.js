@@ -2,8 +2,8 @@ import BaseController from './BaseController.js';
 import CarPlayerNameInput from './CarPlayerNameInput.js';
 
 export default class CarPlayerNameForm extends BaseController {
-  constructor(state) {
-    super(state);
+  constructor(app) {
+    super(app);
 
     this.$form = document.querySelector('#form-car-player-name');
     this.carPlayerNameInput = new CarPlayerNameInput();
@@ -23,9 +23,8 @@ export default class CarPlayerNameForm extends BaseController {
     this.$form.addEventListener('submit', this.#setCarPlayerNames.bind(this));
   }
 
-  // TODO: STORE 쓰면 불리
   #getHasCarPlayerName() {
-    return this.state.carPlayerNames.length > 0;
+    return this.app.state.carPlayerNames.length > 0;
   }
 
   #able() {
