@@ -5,6 +5,7 @@ import {
   displayTemplateForward,
   removeHiddenClass,
   removeSpinners,
+  getRandomInt,
 } from "../utils/utils.js";
 import {
   createTemplateCarPlayer,
@@ -19,14 +20,8 @@ export class RacingModel {
     this.winners = [];
   }
 
-  #getRandomInt = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-  };
-
   #isAbleToMoveFoward = () => {
-    const randomNum = this.#getRandomInt(1, 10);
+    const randomNum = getRandomInt(1, 10);
     return randomNum > 4;
   };
 
