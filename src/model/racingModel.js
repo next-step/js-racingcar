@@ -31,11 +31,10 @@ export class RacingModel {
     $carNames.split(",").forEach(($name) => {
       try {
         validateNameLength($name);
+        this.carNames.push($name);
       } catch (error) {
         alert(error.message);
-        return;
       }
-      this.carNames.push($name);
     });
 
     this.arrows = Array.from({ length: $carNames.length }, () => 0);
