@@ -1,5 +1,5 @@
-import CarPlayer from '../view/CarPlayer.js';
-import BaseController from './BaseController.js';
+import CarPlayer from '../../view/CarPlayer.js';
+import BaseController from '../BaseController.js';
 
 export default class CarPlayerList extends BaseController {
   constructor(app) {

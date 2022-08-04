@@ -1,5 +1,5 @@
-import BaseController from './BaseController.js';
-import CarPlayerNameInput from './CarPlayerNameInput.js';
+import BaseController from '../BaseController.js';
+import CarPlayerNameInput from './NameInput.js';
 
 export default class CarPlayerNameForm extends BaseController {
   constructor(app) {

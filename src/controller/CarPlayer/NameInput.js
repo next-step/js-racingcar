@@ -1,4 +1,4 @@
-import BaseInput from './BaseInput.js';
+import BaseInput from '../BaseInput.js';
 
 export const NAME_MAX_LENGTH = 5;
 export const NAME_LIST_MAX_LENGHT = 5;

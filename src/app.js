@@ -1,7 +1,7 @@
 import App from './core/App.js';
-import AttemptForm from './controller/AttemptForm.js';
-import CarPlayerList from './controller/CarPlayerList.js';
-import CarPlayerNameForm from './controller/CarPlayerNameForm.js';
+import AttemptForm from './controller/Attempt/Form.js';
+import CarPlayerList from './controller/CarPlayer/List.js';
+import CarPlayerNameForm from './controller/CarPlayer/NameForm.js';
 import Result from './controller/Result.js';
 import Winner from './controller/Winner.js';
 

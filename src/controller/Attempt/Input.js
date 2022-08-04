@@ -1,4 +1,4 @@
-import BaseInput from './BaseInput.js';
+import BaseInput from '../BaseInput.js';
 
 export default class AttemptInput extends BaseInput {
   constructor() {

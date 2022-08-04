@@ -1,6 +1,6 @@
-import AttemptInput from './AttemptInput.js';
-import BaseController from './BaseController.js';
-import Racing from './Racing.js';
+import AttemptInput from './Input.js';
+import BaseController from '../BaseController.js';
+import Racing from '../Racing.js';
 
 export default class AttemptForm extends BaseController {
   constructor(app) {
