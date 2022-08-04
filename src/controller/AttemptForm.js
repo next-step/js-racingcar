@@ -30,12 +30,10 @@ export default class AttemptForm extends BaseController {
     this.setState('attempt', value);
   }
 
-  // TODO: STORE 쓰면 불리
   #getHasCarPlayerName() {
     return this.app.state.carPlayerNames.length > 0;
   }
 
-  // TODO: STORE 쓰면 불리
   #getHasAttempt() {
     return !!this.app.state.attempt;
   }

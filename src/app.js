@@ -20,7 +20,6 @@ function main() {
   app.useController(Result);
   app.useController(Winner);
 
-  // NOTE: 초기 랜더링
   app.render();
 }
 
