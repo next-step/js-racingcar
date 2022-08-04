@@ -1,19 +1,14 @@
 import { SELECTORS, ERROR_MESSAGES } from "/src/constants.js";
 
-//Custom Commands
-Cypress.Commands.add("shouldShowAlert", (typeVal, selector, err) => {
-  cy.on("window:alert", (alertMessage) => {
-    expect(alertMessage).to.eq(err);
-  });
-  if (typeVal) cy.get(selector).type(typeVal);
-  cy.get(SELECTORS.CAR_NAME_FORM).submit();
+before(() => {
+  cy.visit("http://127.0.0.1:5501/index.html");
+});
+
+beforeEach(() => {
+  cy.get(SELECTORS.CAR_NAME_INPUT).clear();
 });
 
 describe("intro: 유저가 첫 화면을 정상적으로 볼 수 있는지 테스트한다.", () => {
-  beforeEach(() => {
-    cy.visit("http://127.0.0.1:5501/index.html");
-  });
-
   context("처음 시작했을 때", () => {
     it("자동차 이름 입력 외에 다른 창은 뜨지 않는다", () => {
       cy.get(SELECTORS.CAR_NAME_FORM).should("not.have.class", "hidden");
@@ -71,5 +66,16 @@ describe("play: 게임이 정상적으로 실행되는지 테스트한다.", () 
     });
 
     it("입력한 시도 횟수만큼만 게임이 실행되는 걸 볼 수 있다.", () => {});
+  });
+});
+
+describe("result: 게임 결과를 정상적으로 출력하는지 테스트한다.", () => {
+  context("게임이 횟수만큼 실행되었다면", () => {
+    it("우승자를 알리는 결과창(모달)을 볼 수 있다.", () => {
+      cy.get(SELECTORS.CAR_NAME_INPUT).type("r,s,e");
+      cy.get(SELECTORS.TRIAL_NUM_INPUT).type(3);
+      cy.get(SELECTORS.GAME_SECTION).should("not.have.class", "hidden");
+      cy.get(SELECTORS.RESULT_SECTION).should("not.have.class", "hidden");
+    });
   });
 });
