@@ -8,23 +8,25 @@ export default class CarPlayerList extends BaseController {
   }
 
   // TODO: STORE 쓰면 불리
-  #hasCarPlayerName() {
+  #getHasCarPlayerName() {
     return this.state.carPlayerNames.length > 0;
   }
 
   // TODO: STORE 쓰면 불리
-  #hasAttempt() {
+  #getHasAttempt() {
     return !!this.state.attempt;
   }
 
   render() {
-    if (!this.#hasCarPlayerName() || !this.#hasAttempt()) {
+    if (!this.#getHasCarPlayerName() || !this.#getHasAttempt()) {
       this.$carPlayerList.innerHTML = '';
       return;
     }
 
-    const { carPlayerNames } = this.state;
-    const carPlayerList = carPlayerNames.reduce((acc, name) => acc + CarPlayer(name), '');
+    const { carPlayerNames, racingSteps } = this.state;
+    const carPlayerList = carPlayerNames
+      .map(name => CarPlayer(name, racingSteps[name] || []))
+      .join('');
 
     this.$carPlayerList.innerHTML = carPlayerList;
   }

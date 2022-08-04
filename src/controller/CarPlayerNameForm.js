@@ -24,7 +24,7 @@ export default class CarPlayerNameForm extends BaseController {
   }
 
   // TODO: STORE 쓰면 불리
-  #hasCarPlayerName() {
+  #getHasCarPlayerName() {
     return this.state.carPlayerNames.length > 0;
   }
 
@@ -37,7 +37,7 @@ export default class CarPlayerNameForm extends BaseController {
   }
 
   render() {
-    if (this.#hasCarPlayerName()) {
+    if (this.#getHasCarPlayerName()) {
       this.#disalbe();
     } else {
       this.#able();

@@ -1,4 +1,4 @@
-export default class ValidateInput {
+export default class BaseInput {
   constructor($input) {
     this.$input = $input;
 
@@ -20,6 +20,12 @@ export default class ValidateInput {
     this.$input.addEventListener('input', event => {
       this.validate(event);
       event.target.reportValidity();
+    });
+  }
+
+  static Clear() {
+    document.querySelectorAll('input').forEach($input => {
+      $input.value = '';
     });
   }
 }

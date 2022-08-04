@@ -1,9 +1,9 @@
-import ValidateInput from './ValidateInput.js';
+import BaseInput from './BaseInput.js';
 
 export const NAME_MAX_LENGTH = 5;
 export const NAME_LIST_MAX_LENGHT = 5;
 
-export default class CarNameInput extends ValidateInput {
+export default class CarNameInput extends BaseInput {
   constructor() {
     const $input = document.querySelector('#input-car-player-name');
     super($input);
