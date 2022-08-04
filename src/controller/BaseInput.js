@@ -2,23 +2,22 @@ export default class BaseInput {
   constructor($input) {
     this.$input = $input;
 
-    this.#addValidate();
+    this.#addValidity();
   }
 
   /**
    * @param {object} event HTMLElement: input event
    *
-   * validate을 반듯이 구현해합니다.
    */
-  validate() {}
+  setValidity() {}
 
   setCustomValidity(message) {
     this.$input.setCustomValidity(message);
   }
 
-  #addValidate() {
+  #addValidity() {
     this.$input.addEventListener('input', event => {
-      this.validate(event);
+      this.setValidity(event);
       event.target.reportValidity();
     });
   }
