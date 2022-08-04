@@ -23,23 +23,24 @@ export default class CarPlayerNameForm extends BaseController {
     this.$form.addEventListener('submit', this.#setCarPlayerNames.bind(this));
   }
 
-  hasCarPlayerName() {
+  // TODO: STORE 쓰면 불리
+  #hasCarPlayerName() {
     return this.state.carPlayerNames.length > 0;
   }
 
-  able() {
+  #able() {
     this.$filedset.disabled = false;
   }
 
-  disalbe() {
+  #disalbe() {
     this.$filedset.disabled = true;
   }
 
   render() {
-    if (this.hasCarPlayerName()) {
-      this.disalbe();
+    if (this.#hasCarPlayerName()) {
+      this.#disalbe();
     } else {
-      this.able();
+      this.#able();
     }
   }
 }
