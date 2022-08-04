@@ -1,12 +1,9 @@
-
 import { SELECTORS } from "./utils/constants/selectors.js";
 import { RacingModel } from "./model/racingModel.js";
 import { $ } from "./utils/dom.js";
 import { removeHiddenClass } from "./utils/utils.js";
 
-export const model = new RacingModel();
-
-
+export const racingModel = new RacingModel();
 
 const handleSubmitCarName = (e) => {
   e.preventDefault();
@@ -16,8 +13,8 @@ const handleSubmitCarName = (e) => {
   if (!carNames) {
     return;
   }
-  model.setCarNames(carNames);
-  model.displayCars();
+  racingModel.setCarNames(carNames);
+  racingModel.displayCars();
   removeHiddenClass($(SELECTORS.COUNT_SECTION));
   $(SELECTORS.COUNT_INPUT).focus();
 };
@@ -31,12 +28,10 @@ const handleSubmitCount = (e) => {
     return;
   }
 
-  model.setCount(Number($count));
+  racingModel.setCount(Number($count));
   removeHiddenClass($(SELECTORS.GAME_SECTION));
-  model.startRacingGame(Number($count));
+  racingModel.startRacingGame(Number($count));
 };
 
 $(SELECTORS.CAR_NAME_FORM).addEventListener("submit", handleSubmitCarName);
 $(SELECTORS.COUNT_FORM).addEventListener("submit", handleSubmitCount);
-
- 

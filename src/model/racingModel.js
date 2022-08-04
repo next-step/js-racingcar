@@ -16,7 +16,7 @@ export class RacingModel {
   constructor() {
     this.carNames = [];
     this.count = 0;
-    this.arrows = [];
+    this.movingCount = [];
     this.winners = [];
   }
 
@@ -37,7 +37,7 @@ export class RacingModel {
       }
     });
 
-    this.arrows = Array.from({ length: $carNames.length }, () => 0);
+    this.movingCount = Array.from({ length: $carNames.length }, () => 0);
   }
 
   setCount($count) {
@@ -79,9 +79,9 @@ export class RacingModel {
   }
 
   getRacingResult() {
-    const max = Math.max(...this.arrows);
+    const max = Math.max(...this.movingCount);
     this.winners = this.carNames.filter(
-      (name, idx) => this.arrows[idx] === max
+      (name, idx) => this.movingCount[idx] === max
     );
   }
 
