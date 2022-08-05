@@ -39,16 +39,18 @@ export class RacingModel {
   setCarNames($carNames) {
     this.carNames = [];
 
-    $carNames.split(",").forEach(($name) => {
+    const arr = $carNames.split(",");
+    for (let i = 0; i < arr.length; i++) {
       try {
-        validateNameLength($name);
-        this.carNames.push($name);
+        validateNameLength(arr[i]);
+        this.carNames.push(arr[i]);
         removeHiddenClass($(SELECTORS.COUNT_SECTION));
         $(SELECTORS.COUNT_INPUT).focus();
       } catch (error) {
         alert(error.message);
+        return;
       }
-    });
+    }
 
     this.movingCount = Array.from({ length: $carNames.length }, () => 0);
   }
