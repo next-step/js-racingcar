@@ -1,3 +1,3 @@
-import RacingCar from "./RacingCar.js";
+import PrepareRacing from "./PrepareRacing.js";
 
-new RacingCar();
+new PrepareRacing();
