@@ -15,8 +15,6 @@ const handleSubmitCarName = (e) => {
   }
   racingModel.setCarNames(carNames);
   racingModel.displayCars();
-  removeHiddenClass($(SELECTORS.COUNT_SECTION));
-  $(SELECTORS.COUNT_INPUT).focus();
 };
 
 const handleSubmitCount = (e) => {
@@ -29,8 +27,6 @@ const handleSubmitCount = (e) => {
   }
 
   racingModel.setPlayTime(Number($count));
-  removeHiddenClass($(SELECTORS.GAME_SECTION));
-  racingModel.startRacingGame(Number($count));
 };
 
 $(SELECTORS.CAR_NAME_FORM).addEventListener("submit", handleSubmitCarName);

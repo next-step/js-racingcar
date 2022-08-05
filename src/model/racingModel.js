@@ -43,6 +43,8 @@ export class RacingModel {
       try {
         validateNameLength($name);
         this.carNames.push($name);
+        removeHiddenClass($(SELECTORS.COUNT_SECTION));
+        $(SELECTORS.COUNT_INPUT).focus();
       } catch (error) {
         alert(error.message);
       }
@@ -55,6 +57,8 @@ export class RacingModel {
     try {
       validateNumRange($count);
       this.playTime = $count;
+      removeHiddenClass($(SELECTORS.GAME_SECTION));
+      this.startRacingGame(Number($count));
     } catch (error) {
       alert(error.message);
     }
