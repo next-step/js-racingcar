@@ -13,6 +13,7 @@ export const SELECTORS = {
   CAR_PLAYER_WRAPPER_DIV: ".car-player__wrapper",
   CAR_DIV: ".car",
   CAR_DIV_NAME: ".car-player",
+  CAR_FORWARD_ICON: ".forward-icon",
   CAR_DIV_SPINNER: ".spinners",
 
   // result section

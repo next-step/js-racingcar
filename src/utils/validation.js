@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from "./constants/constants.js";
+import { ERROR_MESSAGES } from "./constants/messages.js";
 
 class Error {
   constructor(message) {

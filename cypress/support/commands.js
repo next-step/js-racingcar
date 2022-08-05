@@ -1,4 +1,4 @@
-import { SELECTORS } from "/src/constants.js";
+import { SELECTORS } from "/src/utils/constants/selectors.js";
 
 Cypress.Commands.add("shouldShowAlert", (typeVal, selector, err) => {
   cy.on("window:alert", (alertMessage) => {
