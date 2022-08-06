@@ -33,7 +33,7 @@
 }
 
 .d-none {
-  display: none;
+	display: none;
 }
 
 /* Layout - Top / Right / Bottom / Left */
@@ -113,4 +113,8 @@
 }
 .content-evenly {
 	align-content: space-around;
+}
+
+.flex-col {
+	flex-direction: column;
 }
