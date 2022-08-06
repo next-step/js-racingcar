@@ -1,5 +1,5 @@
-import MatchNumber from "./MatchNumber.js";
-import RacingCarInfo from "./RacingCarInfo.js";
+import MatchNumber from "./state/MatchNumber.js";
+import RacingCarInfo from "./state/RacingCarInfo.js";
 
 class RunRacing {
   static MAX_RANDOM_NUM = 9;

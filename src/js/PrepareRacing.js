@@ -1,5 +1,5 @@
-import MatchNumber from "./MatchNumber.js";
-import RacingCarInfo from "./RacingCarInfo.js";
+import MatchNumber from "./state/MatchNumber.js";
+import RacingCarInfo from "./state/RacingCarInfo.js";
 import RunRacing from "./RunRacing.js";
 
 class PrepareRacing {
