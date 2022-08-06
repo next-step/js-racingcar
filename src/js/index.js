@@ -7,21 +7,27 @@ import controller from './controller.js'
 import { $ } from './utils.js'
 
 function main() {
-	const $raceGameForm = $(formSelector.RACE_GAME_FORM)
-	const $carNameInput = $(inputSelector.INPUT_CAR_NAME)
-	const $carNameSubmitButton = $(buttonSelector.SUBMIT_CAR_NAME)
-	const $raceCountInput = $(inputSelector.INPUT_RACE_COUNT)
-	const $raceCountSubmitButton = $(buttonSelector.SUBMIT_RACE_COUNT)
+	const raceGameFormElement = $(formSelector.RACE_GAME_FORM)
+	const carNameInputElement = $(inputSelector.INPUT_CAR_NAME)
+	const carNameSubmitButtonElement = $(buttonSelector.SUBMIT_CAR_NAME)
+	const raceCountInputElement = $(inputSelector.INPUT_RACE_COUNT)
+	const raceCountSubmitButtonElement = $(buttonSelector.SUBMIT_RACE_COUNT)
 
-	$carNameInput.addEventListener('keydown', controller.saveCarNameInput)
-	$carNameSubmitButton.addEventListener('click', controller.saveCarNameInput)
+	raceGameFormElement.addEventListener('submit', controller.startGame)
+	carNameInputElement.addEventListener('keydown', controller.saveCarNameInput)
+	carNameSubmitButtonElement.addEventListener(
+		'click',
+		controller.saveCarNameInput
+	)
 
-	$raceCountInput.addEventListener('keydown', controller.saveRaceCountInput)
-	$raceCountSubmitButton.addEventListener(
+	raceCountInputElement.addEventListener(
+		'keydown',
+		controller.saveRaceCountInput
+	)
+	raceCountSubmitButtonElement.addEventListener(
 		'click',
 		controller.saveRaceCountInput
 	)
-	$raceGameForm.addEventListener('submit', controller.initGame)
 }
 
 main()

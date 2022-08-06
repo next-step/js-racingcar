@@ -57,7 +57,7 @@ const saveRaceCount = function () {
 	}
 }
 
-const initGame = function (ev) {
+const startGame = function (ev) {
 	ev.preventDefault()
 	racingGameStore.isRaceStarted.setState(true)
 }
@@ -106,7 +106,7 @@ const subscribeViews = (() => {
 })()
 
 export default {
-	initGame,
+	startGame,
 	saveCarNameInput,
 	saveRaceCountInput,
 }
