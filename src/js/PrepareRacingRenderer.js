@@ -7,9 +7,9 @@ class PrepareRacingRenderer {
   static MIN_CARNAME_SIZE = 1;
   static MAX_CARNAME_SIZE = 5;
   #view = null;
+
   constructor(view) {
     this.initRenderer();
-
     this.#view = view;
   }
 
@@ -26,7 +26,6 @@ class PrepareRacingRenderer {
   }
 
   submitCarNames(e) {
-    //경기 참가 자동차명을 입력하면, 자동차명이 규칙에 맞는지 확인한 후, 경기횟수를 입력하는 폼을 열어준다.
     if (!e.target[1].value) {
       return;
     }
@@ -39,16 +38,14 @@ class PrepareRacingRenderer {
     RacingCarInfo.setRaceParticipateCar(carNames);
     this.#view.initView();
   }
-  submitNumberOfRaces(e) {
-    //경기횟수를 입력하면 그에 해당하는 template을 생성하고 경기를 진행한다.
-    MatchNumber.setMatchNumber(e.target[4].valueAsNumber);
 
+  submitNumberOfRaces(e) {
+    MatchNumber.setMatchNumber(e.target[4].valueAsNumber);
     const runRacingRenderer = new RunRacingRenderer();
     runRacingRenderer.initRenderer();
   }
 
   prepareGame = (e) => {
-    //자동차이름과 경기회수 입력 이벤트를 판단한다.
     e.preventDefault();
     this.#view.setElement(e);
     if (e.submitter.id == "car-name-btn") {
@@ -59,7 +56,6 @@ class PrepareRacingRenderer {
   };
 
   initRenderer() {
-    //입력 폼을 가져온다.
     document
       .querySelector("#racing-game-prepation-form")
       .addEventListener("submit", this.prepareGame);

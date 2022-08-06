@@ -1,9 +1,11 @@
 import View from "./View.js";
 class PrepareRacingView extends View {
   #e;
+
   setElement(e) {
     this.#e = e;
   }
+
   initView() {
     this.#e.target.insertAdjacentHTML(
       "beforeend",
