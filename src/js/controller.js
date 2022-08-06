@@ -65,14 +65,17 @@ const startGame = function (ev) {
 	racingGameStore.isRaceStarted.setState(true)
 }
 
-const runGame = function () {
+const runGame = async function () {
 	const { cars, raceCount } = racingGameStore
 
-	trackView.renderTrack({
-		cars: cars.getState(),
-		raceCount: raceCount.getState(),
-	})
-	setWinner({ cars: cars.getState() })
+	await trackView
+		.initTrack({
+			cars: cars.getState(),
+			raceCount: raceCount.getState(),
+		})
+		.then(() => {
+			setWinner({ cars: cars.getState() })
+		})
 }
 
 const setWinner = function ({ cars }) {
@@ -80,7 +83,6 @@ const setWinner = function ({ cars }) {
 		return position > maxPosition ? position : maxPosition
 	}, 0)
 	const winners = cars.filter((car) => car.position === winnerPosition)
-
 	racingGameStore.winners.setState(winners)
 }
 

@@ -2,6 +2,10 @@ export const $ = function (selector) {
 	return document.querySelector(selector)
 }
 
+export const $$ = function (selector) {
+	return document.querySelectorAll(selector)
+}
+
 export const getRandomInt = function (max, min) {
 	return Math.floor(Math.random() * (max - min) + min)
 }
@@ -12,4 +16,8 @@ export const showElement = function (element) {
 
 export const hideElement = function (element) {
 	element.hidden = true
+}
+
+export const delay = function (ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms))
 }

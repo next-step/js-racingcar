@@ -39,6 +39,7 @@ export const liSelector = {
 export const divSelector = {
 	CAR_WRAPPER: '#car-wrapper',
 	RESULT_WRAPPER: '#result-wrapper',
+	SPINNER_CONTAINER: '.spinner-container',
 }
 
 export const templateSelector = {
