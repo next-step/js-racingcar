@@ -48,6 +48,15 @@ class RacingInfoModel {
         }
       });
     });
+
+    Array.from({ length: this.moveCount }, (_, i) => {
+      setTimeout(() => {
+        this.entires.forEach((_, idx) => {
+          console.log(this.entires[idx]);
+        });
+        console.log("~~~~~~~~~");
+      }, 1000 * i);
+    });
   }
 
   getRacingResult() {
