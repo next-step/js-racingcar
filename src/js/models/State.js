@@ -25,7 +25,6 @@ class State {
 				throw new Error(errorMessage.FROZEN_STATE)
 			}
 			this.#state = newState
-			console.log(newState)
 			this.publish()
 		} catch (err) {
 			console.error(err)

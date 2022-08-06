@@ -1,3 +1,7 @@
+export const formSelector = {
+	RACE_GAME_FORM: '#race-game-form',
+}
+
 export const inputSelector = {
 	INPUT_CAR_NAME: '#input-car-name',
 	INPUT_RACE_COUNT: '#input-race-count',

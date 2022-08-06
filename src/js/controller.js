@@ -1,4 +1,8 @@
-import { fieldsetSelector, inputSelector } from './constant/selector.js'
+import {
+	fieldsetSelector,
+	formSelector,
+	inputSelector,
+} from './constant/selector.js'
 import { $, showElement } from './utils.js'
 import {
 	createCars,
@@ -57,7 +61,8 @@ const saveRaceCount = function () {
 	}
 }
 
-const initGame = function () {
+const initGame = function (ev) {
+	ev.preventDefault()
 	racingGameStore.isRaceStarted.setState(true)
 }
 
@@ -88,6 +93,7 @@ const subscribeViews = (() => {
 		isRaceStarted,
 		winners,
 	} = racingGameStore
+
 	carNameInput.subscribe(saveCars)
 	cars.subscribe(() => {
 		fieldsetView.showFieldset($(fieldsetSelector.RACE_COUNT_FIELD))
@@ -95,7 +101,7 @@ const subscribeViews = (() => {
 	raceCountInput.subscribe(saveRaceCount)
 	raceCount.subscribe(() => {
 		carsView.renderCarList({ cars: cars.getState() })
-		initGame()
+		$(formSelector.RACE_GAME_FORM).requestSubmit()
 	})
 	isRaceStarted.subscribe(runGame)
 	winners.subscribe(() => {
@@ -104,6 +110,7 @@ const subscribeViews = (() => {
 })()
 
 export default {
+	initGame,
 	saveCarNameInput,
 	saveRaceCountInput,
 }
