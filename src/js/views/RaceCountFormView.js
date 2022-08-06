@@ -5,6 +5,7 @@ export default class RaceCountFormView extends View {
   constructor(element = $('#race-count-component')) {
     super(element);
     this.inputElement = $('#input-race-count');
+    this.buttonElement = $('#submit-race-count');
     this.bindEvents();
     this.hide();
   }
@@ -19,8 +20,15 @@ export default class RaceCountFormView extends View {
     this.emit('@submit', raceCount);
   }
 
-  show(cars) {
+  #disableButton(isDisabled) {
+    this.inputElement.disabled = isDisabled;
+    this.buttonElement.disabled = isDisabled;
+  }
+
+  show(cars, tryCount) {
     if (!cars.length) return this.hide();
+    this.inputElement.value = tryCount;
+    this.#disableButton(!!tryCount);
     super.show();
   }
 }

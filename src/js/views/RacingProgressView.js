@@ -25,10 +25,18 @@ export default class RacingProgressView extends View {
     });
   }
 
-  show(cars, tryCount) {
-    if (cars.length && tryCount) {
-      this.element.insertAdjacentHTML('afterbegin', this.#renderCarPlayers(cars));
-      this.#renderRacingProgress(cars);
+  #removeChildNode() {
+    while (this.element.hasChildNodes()) {
+      this.element.removeChild(this.element.firstChild);
     }
+  }
+
+  show(cars, tryCount) {
+    const isRaceBegan = !!(cars.length && tryCount);
+    if (!isRaceBegan) return this.hide();
+    this.#removeChildNode();
+    this.element.insertAdjacentHTML('afterbegin', this.#renderCarPlayers(cars));
+    this.#renderRacingProgress(cars);
+    super.show();
   }
 }

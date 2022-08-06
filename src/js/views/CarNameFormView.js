@@ -5,6 +5,7 @@ export default class CarNameFormView extends View {
   constructor(element = $('#car-name-component')) {
     super(element);
     this.inputElement = $('#input-car-name');
+    this.buttonElement = $('#submit-car-name');
     this.bindEvents();
   }
 
@@ -16,5 +17,16 @@ export default class CarNameFormView extends View {
     event.preventDefault();
     const { value: carNames } = this.inputElement;
     this.emit('@submit', carNames);
+  }
+
+  #disableButton(isDisabled) {
+    this.inputElement.disabled = isDisabled;
+    this.buttonElement.disabled = isDisabled;
+  }
+
+  show(cars) {
+    const value = cars.map((car) => car.name).join(',');
+    this.inputElement.value = value;
+    this.#disableButton(!!value);
   }
 }

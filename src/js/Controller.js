@@ -15,7 +15,7 @@ export default class Controller {
   subscribeViewEvents() {
     this.carNameFormView.on('@submit', ({ detail: carNames }) => this.onCarNameSubmit(carNames));
     this.raceCountFormView.on('@submit', ({ detail: tryCount }) => this.onRaceCountSubmit(tryCount));
-    this.racingResultView.on('@reset', () => console.log('@reset'));
+    this.racingResultView.on('@reset', () => this.onReset());
   }
 
   onCarNameSubmit(carNames) {
@@ -39,7 +39,7 @@ export default class Controller {
 
   onRaceCountSubmit(tryCount) {
     try {
-      if (tryCount >= TRY_COUNT_LIMIT) throw new Error('최대 시도 횟수는 30회 입니다.');
+      if (tryCount > TRY_COUNT_LIMIT) throw new Error('최대 시도 횟수는 30회 입니다.');
       this.model.race(tryCount);
       this.render();
     } catch (err) {
@@ -47,8 +47,15 @@ export default class Controller {
     }
   }
 
+  onReset() {
+    this.model.reset();
+    this.render();
+  }
+
   render() {
-    this.raceCountFormView.show(this.model.cars);
+    this.carNameFormView.show(this.model.cars);
+    this.raceCountFormView.show(this.model.cars, this.model.tryCount);
     this.racingProgressView.show(this.model.cars, this.model.tryCount);
+    this.racingResultView.show(this.model.cars, this.model.tryCount);
   }
 }
