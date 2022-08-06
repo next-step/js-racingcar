@@ -76,6 +76,18 @@ describe('자동차 경주 미션 1단계', () => {
 			})
 		})
 
+		it('자동차 전진 입력칸에 음수를 입력하면 확인을 눌렀을 때 경고창이 뜬다.', () => {
+			const stub = cy.stub()
+			cy.on('window:alert', stub)
+			cy.submitRaceCount({
+				raceCount: -1,
+				submitType: userInteractionType.ENTER,
+			}).then(() => {
+				const actualMessage = stub.getCall(0).lastArg
+				expect(actualMessage).to.equal(errorMessage.SMALL_RACE_COUNT)
+			})
+		})
+
 		it('자동차 전진 입력칸이 비어있으면 확인을 눌렀을 때 경고창이 뜬다.', () => {
 			const stub = cy.stub()
 			cy.on('window:alert', stub)
@@ -83,7 +95,7 @@ describe('자동차 경주 미션 1단계', () => {
 				.click()
 				.then(() => {
 					const actualMessage = stub.getCall(0).lastArg
-					expect(actualMessage).to.equal(errorMessage.SMALL_RACE_COUNT)
+					expect(actualMessage).to.equal(errorMessage.EMPTY_RACE_COUNT)
 				})
 		})
 

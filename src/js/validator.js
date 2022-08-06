@@ -6,7 +6,10 @@ const catchError = function (error) {
 	window.alert(error.message)
 }
 
-const isValidateCarName = function (carName) {
+const isValidCarName = function (carName) {
+	if (!carName) {
+		return false
+	}
 	if (carName.length === 0) {
 		return false
 	}
@@ -16,22 +19,21 @@ const isValidateCarName = function (carName) {
 	return true
 }
 
-const validateRaceCount = function (raceCount) {
-	try {
-		if (!raceCount) {
-			throw new Error(errorMessage.SMALL_RACE_COUNT)
-		}
-		if (raceCount >= Number.MAX_SAFE_INTEGER) {
-			throw new Error(errorMessage.BIG_RACE_COUNT)
-		}
-		return true
-	} catch (err) {
-		catchError(err)
+const isValidRaceCount = function (raceCount) {
+	if (!raceCount) {
+		return false
 	}
+	if (raceCount <= 0) {
+		return false
+	}
+	if (raceCount >= Number.MAX_SAFE_INTEGER) {
+		return false
+	}
+	return true
 }
 
 export default {
 	catchError,
-	isValidateCarName,
-	validateRaceCount,
+	isValidCarName,
+	isValidRaceCount,
 }

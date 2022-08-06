@@ -13,55 +13,56 @@ import {
 	winnersView,
 } from './views/index.js'
 import { userInteractionType } from './constant/interaction.js'
+import createValidRaceCount from './models/createValidRaceCount.js'
 
 const handleCarNameInput = function (ev) {
 	const { target, key } = ev
 	if (key === userInteractionType.ENTER) {
 		const cars = createCars(target.value)
 
-		saveFieldsetValue({
-			fieldsetSelector: $(fieldsetSelector.CAR_NAME_FIELD),
-			saveValue: cars,
-			stateKey: 'cars',
-		})
+		!!cars.length &&
+			saveFieldsetValue({
+				fieldsetSelector: $(fieldsetSelector.CAR_NAME_FIELD),
+				saveValue: cars,
+				stateKey: 'cars',
+			})
 	}
 }
 
 const handleClickCarNameSubmitButton = function (carNameInputValue) {
 	const cars = createCars(carNameInputValue)
 
-	saveFieldsetValue({
-		fieldsetSelector: $(fieldsetSelector.CAR_NAME_FIELD),
-		saveValue: cars,
-		stateKey: 'cars',
-	})
+	!!cars.length &&
+		saveFieldsetValue({
+			fieldsetSelector: $(fieldsetSelector.CAR_NAME_FIELD),
+			saveValue: cars,
+			stateKey: 'cars',
+		})
 }
 
 const handleRaceCountInput = function (ev) {
 	const { target, key } = ev
 	if (key === userInteractionType.ENTER) {
-		const raceCount = target.valueAsNumber
+		const raceCount = createValidRaceCount(target.valueAsNumber)
 
-		if (validator.validateRaceCount(raceCount)) {
+		!!raceCount &&
 			saveFieldsetValue({
 				fieldsetSelector: $(fieldsetSelector.RACE_COUNT_FIELD),
 				saveValue: raceCount,
 				stateKey: 'raceCount',
 			})
-		}
 	}
 }
 
 const handleClickRaceCountSubmitButton = function (raceCountInput) {
-	const raceCount = raceCountInput.valueAsNumber
+	const raceCount = createValidRaceCount(raceCountInput.valueAsNumber)
 
-	if (validator.validateRaceCount(raceCount)) {
+	!!raceCount &&
 		saveFieldsetValue({
 			fieldsetSelector: $(fieldsetSelector.RACE_COUNT_FIELD),
 			saveValue: raceCount,
 			stateKey: 'raceCount',
 		})
-	}
 }
 
 const initGame = function () {

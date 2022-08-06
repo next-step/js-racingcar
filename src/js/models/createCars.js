@@ -8,7 +8,7 @@ const createCars = function (carNameInput) {
 	const cars = []
 	try {
 		for (const carName of carNames) {
-			if (validator.isValidateCarName(carName)) {
+			if (validator.isValidCarName(carName)) {
 				cars.push(new Car(carName))
 				continue
 			}
@@ -18,6 +18,7 @@ const createCars = function (carNameInput) {
 		}
 	} catch (err) {
 		validator.catchError(err)
+		return []
 	}
 
 	return cars
