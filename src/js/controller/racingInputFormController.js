@@ -1,7 +1,7 @@
 import Observable from "../util/observable.js";
 import RacingInfoModel from "../model/racingInfoModel.js";
 
-import { notifyTypes, MIN_RACING_ENTRIES } from "../util/constants.js";
+import { notifyTypes, MIN_RACING_ENTRIES, GO_FOWARD_TIME_INTERVAL } from "../util/constants.js";
 
 class RacingInputFormController {
   constructor() {
@@ -33,7 +33,7 @@ class RacingInputFormController {
             this.racingInfoModel.movingDistPerCar,
             isFinished
           );
-        }, 1000 * i);
+        }, GO_FOWARD_TIME_INTERVAL * i);
       });
     });
   }
