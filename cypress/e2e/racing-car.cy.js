@@ -2,7 +2,7 @@ before(() => cy.visit('/'));
 
 describe('자동차 이름 입력에 관한 테스트', () => {
   afterEach(() => {
-    cy.get('[data-cy="input-car-name"]').clear();
+    cy.reload();
   });
 
   it('렌더링 후, 자동차 이름을 입력하는 input과 button이 정상적으로 렌더링 되었는지 확인한다.', () => {
@@ -35,6 +35,16 @@ describe('자동차 이름 입력에 관한 테스트', () => {
 });
 
 describe('경주 횟수에 관한 테스트', () => {
+  afterEach(() => {
+    cy.reload();
+  });
+
+  it('시도 횟수가 30회인 경우 정상적으로 경주가 진행된다.', () => {
+    cy.enterCarNames('dog,cat');
+    cy.enterRaceCount(30);
+    cy.get('[data-cy="game-result-component"]').should('be.visible');
+  });
+
   it('시도 횟수가 30회를 초과할 경우 알림창이 나온다.', () => {
     cy.enterCarNames('dog,cat');
     cy.enterRaceCount(31);
@@ -43,6 +53,10 @@ describe('경주 횟수에 관한 테스트', () => {
 });
 
 describe('경주 결과에 관한 테스트', () => {
+  afterEach(() => {
+    cy.reload();
+  });
+
   it('자동차 이름과 시도 횟수를 입력하면 아래에 자동차 이름들이 보인다.', () => {
     const carNames = ['dog', 'cat'];
     cy.enterCarNames(carNames.join(','));
