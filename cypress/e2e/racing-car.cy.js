@@ -117,10 +117,6 @@ describe('자동차 경주 미션 2단계', () => {
 	})
 
 	it('자동차 게임이 완료되면 우승자 이름이 화면에 보인다. ', () => {
-		cy.get(liSelector.WINNER_NAME_ITEM)
-			.invoke('text')
-			.then((text) => {
-				expect('NORTHWESTSOUTHEAST').to.include(text)
-			})
+		cy.get(liSelector.WINNER_NAME_ITEM).should('be.visible')
 	})
 })
