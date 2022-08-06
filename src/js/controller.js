@@ -1,5 +1,4 @@
 import { fieldsetSelector } from './constant/selector.js'
-import validator from './validator.js'
 import { $ } from './utils.js'
 import {
 	createCars,
