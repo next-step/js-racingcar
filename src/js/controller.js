@@ -2,7 +2,7 @@ import { fieldsetSelector } from './constant/selector.js'
 import validator from './validator.js'
 import { $ } from './utils.js'
 import { errorMessage } from './constant/message.js'
-import { createCars, State, racingGameStore } from './models/index.js'
+import { createCars, racingGameStore } from './models/index.js'
 import {
 	carsView,
 	fieldsetView,
@@ -17,15 +17,16 @@ const completeFieldsetElement = function ({
 	stateKey,
 }) {
 	try {
+		if (!!saveValue && !!fieldsetSelector) {
+			fieldsetSelector.disabled = true
+			racingGameStore[stateKey].setState(saveValue)
+			racingGameStore[stateKey].freeze()
+		}
 		if (!saveValue) {
 			throw new Error(errorMessage.INVALID_SAVE_VALUE)
 		}
 		if (!fieldsetSelector) {
 			throw new Error(errorMessage.INVALID_FIELDSET_ELEMENT)
-		} else {
-			fieldsetSelector.disabled = true
-			racingGameStore[stateKey].setState(saveValue)
-			racingGameStore[stateKey].freeze()
 		}
 	} catch (err) {
 		console.error(err)
