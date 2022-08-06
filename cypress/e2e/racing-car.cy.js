@@ -39,11 +39,10 @@ describe('경주 횟수에 관한 테스트', () => {
     cy.enterCarNames('dog,cat');
     cy.enterRaceCount(31);
     cy.on('window:alert', (text) => expect(text).to.contains('최대 시도 횟수는 30회 입니다.'));
-    cy.get('[data-cy="input-race-count"]').clear();
   });
 });
 
-describe('경주 기록에 관한 테스트', () => {
+describe('경주 결과에 관한 테스트', () => {
   it('자동차 이름과 시도 횟수를 입력하면 아래에 자동차 이름들이 보인다.', () => {
     const carNames = ['dog', 'cat'];
     cy.enterCarNames(carNames.join(','));
@@ -51,5 +50,25 @@ describe('경주 기록에 관한 테스트', () => {
     cy.get('[data-cy="game-progress-component"]').each(($div, index) => {
       expect($div.text()).to.contains(carNames[index]);
     });
+  });
+
+  it('자동차 경주가 완료되면 우승자를 보여준다.', () => {
+    const carNames = ['dog', 'cat'];
+    cy.enterCarNames(carNames.join(','));
+    cy.enterRaceCount(10);
+    cy.get('[data-cy="winner"]')
+      .invoke('text')
+      .then((text) => carNames.includes(text));
+  });
+
+  it('다시 시작하기 버튼을 누르면 입력창과 결과가 초기화 된다.', () => {
+    const carNames = ['dog', 'cat'];
+    cy.enterCarNames(carNames.join(','));
+    cy.enterRaceCount(10);
+    cy.get('[data-cy="reset-button"]').click();
+    cy.get('[data-cy="input-car-name"]').should('be.empty');
+    cy.get('[data-cy="input-race-count"]').should('be.empty');
+    cy.get('[data-cy="game-progress-component"]').should('not.be.visible');
+    cy.get('[data-cy="game-result-component"]').should('not.be.visible');
   });
 });

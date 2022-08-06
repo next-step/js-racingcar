@@ -50,10 +50,10 @@
         <div id="game-progress-component" data-cy="game-progress-component" class="mt-4 d-flex"></div>
       </section>
       <section class="d-flex justify-center mt-5">
-        <div id="game-result-component">
+        <div id="game-result-component" data-cy="game-result-component">
           <h2>🏆 최종 우승자: <span id="winners" data-cy="winner"></span> 🏆</h2>
           <div class="d-flex justify-center">
-            <button type="button" id="reset" class="btn btn-cyan">다시 시작하기</button>
+            <button type="button" id="reset" data-cy="reset-button" class="btn btn-cyan">다시 시작하기</button>
           </div>
         </div>
       </section>
@@ -61,9 +61,3 @@
     <script type="module" src="./src/js/index.js"></script>
   </body>
 </html>
-
-<!-- <div class="d-flex justify-center mt-3">
-  <div class="relative spinner-container">
-    <span class="material spinner"></span>
-  </div>
-</div> -->
