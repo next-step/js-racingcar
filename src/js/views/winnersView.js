@@ -3,8 +3,10 @@ import { $ } from '../utils.js'
 
 const createWinnerNameElement = function ({ winnerName }) {
 	const winnerNameElement = document.createElement('li')
+
 	winnerNameElement.classList.add('winner-name')
 	winnerNameElement.textContent = winnerName
+
 	return winnerNameElement
 }
 
