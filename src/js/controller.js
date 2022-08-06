@@ -40,6 +40,7 @@ const saveRaceCountInput = function (ev) {
 		racingGameStore.raceCountInput.setState(ev.target.valueAsNumber)
 		return
 	}
+
 	if (ev.type === eventType.CLICK) {
 		racingGameStore.raceCountInput.setState(
 			$(inputSelector.INPUT_RACE_COUNT).valueAsNumber
@@ -51,6 +52,7 @@ const saveRaceCountInput = function (ev) {
 const saveRaceCount = function () {
 	const { raceCountInput, raceCount } = racingGameStore
 	const validRaceCount = createValidRaceCount(raceCountInput.getState())
+
 	if (!!validRaceCount) {
 		raceCount.setState(validRaceCount)
 		fieldsetView.freezeFieldset($(fieldsetSelector.RACE_COUNT_FIELD))
@@ -59,11 +61,13 @@ const saveRaceCount = function () {
 
 const startGame = function (ev) {
 	ev.preventDefault()
+
 	racingGameStore.isRaceStarted.setState(true)
 }
 
 const runGame = function () {
 	const { cars, raceCount } = racingGameStore
+
 	trackView.renderTrack({
 		cars: cars.getState(),
 		raceCount: raceCount.getState(),
