@@ -2,7 +2,7 @@ import { fieldsetSelector } from './constant/selector.js'
 import validator from './validator.js'
 import { $ } from './utils.js'
 import { errorMessage } from './constant/message.js'
-import { createCars, State } from './models/index.js'
+import { createCars, State, racingGameStore } from './models/index.js'
 import {
 	carsView,
 	fieldsetView,
@@ -10,13 +10,6 @@ import {
 	winnersView,
 } from './views/index.js'
 import { userInteractionType } from './constant/interaction.js'
-
-const state = Object.freeze({
-	cars: new State([]),
-	raceCount: new State(null),
-	winners: new State([]),
-	isRaceStarted: new State(false),
-})
 
 const completeFieldsetElement = function ({
 	fieldsetSelector,
@@ -31,8 +24,8 @@ const completeFieldsetElement = function ({
 			throw new Error(errorMessage.INVALID_FIELDSET_ELEMENT)
 		} else {
 			fieldsetSelector.disabled = true
-			state[stateKey].setState(saveValue)
-			state[stateKey].freeze()
+			racingGameStore[stateKey].setState(saveValue)
+			racingGameStore[stateKey].freeze()
 		}
 	} catch (err) {
 		console.error(err)
@@ -89,11 +82,11 @@ const handleClickRaceCountSubmitButton = function (raceCountInput) {
 }
 
 const initGame = function () {
-	state.isRaceStarted.setState(true)
+	racingGameStore.isRaceStarted.setState(true)
 }
 
 const runGame = function () {
-	const { cars, raceCount } = state
+	const { cars, raceCount } = racingGameStore
 	trackView.renderTrack({
 		cars: cars.getState(),
 		raceCount: raceCount.getState(),
@@ -107,25 +100,24 @@ const setWinner = function ({ cars }) {
 	}, 0)
 	const winners = cars.filter((car) => car.position === winnerPosition)
 
-	state.winners.setState(winners)
+	racingGameStore.winners.setState(winners)
 }
 
 const subscribeViews = (() => {
-	state.cars.subscribe(() => {
+	racingGameStore.cars.subscribe(() => {
 		fieldsetView.showFieldset($(fieldsetSelector.RACE_COUNT_FIELD))
 	})
-	state.raceCount.subscribe(() => {
-		carsView.renderCarList({ cars: state.cars.getState() })
+	racingGameStore.raceCount.subscribe(() => {
+		carsView.renderCarList({ cars: racingGameStore.cars.getState() })
 		initGame()
 	})
-	state.isRaceStarted.subscribe(runGame)
-	state.winners.subscribe(() => {
-		winnersView.renderWinners({ winners: state.winners.getState() })
+	racingGameStore.isRaceStarted.subscribe(runGame)
+	racingGameStore.winners.subscribe(() => {
+		winnersView.renderWinners({ winners: racingGameStore.winners.getState() })
 	})
 })()
 
 export default {
-	state,
 	handleCarNameInput,
 	handleClickCarNameSubmitButton,
 	handleRaceCountInput,

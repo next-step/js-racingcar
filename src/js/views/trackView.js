@@ -1,5 +1,4 @@
 import { CAR_GO_OR_NOT_STANDARD, RACE_END_COUNT } from '../constant/number.js'
-import { ulSelector } from '../constant/selector.js'
 import { getRandomInt } from '../utils.js'
 
 const getTrackElement = function () {
