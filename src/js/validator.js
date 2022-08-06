@@ -6,18 +6,14 @@ const catchError = function (error) {
 	window.alert(error.message)
 }
 
-const validateCarName = function (carName) {
-	try {
-		if (carName.length === 0) {
-			throw new Error(errorMessage.INVALID_CAR_NAME)
-		}
-		if (carName.length > INPUT_CAR_NAME_MAX_LENGTH) {
-			throw new Error(errorMessage.INVALID_CAR_NAME)
-		}
-		return true
-	} catch (err) {
-		catchError(err)
+const isValidateCarName = function (carName) {
+	if (carName.length === 0) {
+		return false
 	}
+	if (carName.length > INPUT_CAR_NAME_MAX_LENGTH) {
+		return false
+	}
+	return true
 }
 
 const validateRaceCount = function (raceCount) {
@@ -36,6 +32,6 @@ const validateRaceCount = function (raceCount) {
 
 export default {
 	catchError,
-	validateCarName,
+	isValidateCarName,
 	validateRaceCount,
 }
