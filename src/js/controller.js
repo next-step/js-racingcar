@@ -3,12 +3,8 @@ import {
 	formSelector,
 	inputSelector,
 } from './constant/selector.js'
-import { $, showElement } from './utils.js'
-import {
-	createCars,
-	racingGameStore,
-	saveFieldsetValue,
-} from './models/index.js'
+import { $ } from './utils.js'
+import { createValidCars, racingGameStore } from './models/index.js'
 import {
 	carsView,
 	fieldsetView,
@@ -31,7 +27,7 @@ const saveCarNameInput = function (ev) {
 
 const saveCars = function () {
 	const { carNameInput, cars } = racingGameStore
-	const carList = createCars(carNameInput.getState())
+	const carList = createValidCars(carNameInput.getState())
 
 	if (!!carList.length) {
 		cars.setState(carList)

@@ -3,7 +3,7 @@ import validator from '../validator.js'
 import { errorMessage } from '../constant/message.js'
 import { INPUT_CAR_NAME_MAX_LENGTH } from '../constant/number.js'
 
-const createCars = function (carNameInput) {
+const createValidCars = function (carNameInput) {
 	const carNames = carNameInput.split(',').map((carName) => carName.trim())
 	const cars = []
 	try {
@@ -24,4 +24,4 @@ const createCars = function (carNameInput) {
 	return cars
 }
 
-export default createCars
+export default createValidCars
