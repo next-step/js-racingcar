@@ -1,10 +1,10 @@
 import { checkValidation, isCarNameInputPassCondition, isMinimumCountValidate } from './validate/index.js';
-import Calculate from './service/Calculate.js';
 import RacingService from './service/RacingService.js';
-import { removeHiddenClass } from './utils.js';
+import { addHiddenClass, removeHiddenClass } from './utils.js';
 import FieldsetView from './view/FieldsetView.js';
 import CreateTemplate from './service/CreateTemplate.js';
 import { ALERT_MESSAGE } from './constants.js';
+import RemoveTemplate from './service/RemoveTemplate.js';
 
 const $carNameForm = document.querySelector('#car-name-form');
 const $carNameFieldset = $carNameForm.querySelector('#car-name');
@@ -18,11 +18,12 @@ const $carTryNumberFieldsetInput = $carTryNumberForm.querySelector('input[name="
 const $racingSection = document.querySelector('#game');
 const $racingCarPlayer = $racingSection.querySelector('.car-player-wrapper');
 
+const $racingResult = document.querySelector('#result');
+
 const carNameField = new FieldsetView($carNameFieldset);
 const carTryNumberField = new FieldsetView($carTryNumberFieldset);
 const createTemplate = new CreateTemplate();
-const calculate = new Calculate();
-const racing = new RacingService(createTemplate, calculate);
+const racing = new RacingService(createTemplate, $racingResult);
 
 const renderCarNameFieldset = (e) => {
   e.preventDefault();
@@ -31,11 +32,11 @@ const renderCarNameFieldset = (e) => {
 
   try {
     const inputCondition = isCarNameInputPassCondition(splitted);
-    checkValidation(inputCondition, ALERT_MESSAGE.NOT_VALIDATE_NAME_LENGTH);
+    checkValidation(inputCondition, ALERT_MESSAGE.INVALID_CAR_NAME_LENGTH);
 
     carNameField.applyFieldsetDisabled();
 
-    $racingCarPlayer.innerHTML = createTemplate.createRacingTemplate(splitted);
+    $racingCarPlayer.innerHTML = createTemplate.createRacingListTemplate(splitted);
     removeHiddenClass($carTrySection);
 
     $carTryNumberFieldsetInput.focus();
@@ -57,7 +58,7 @@ const renderCarTryInputSection = (e) => {
 
   try {
     const inputCondition = isMinimumCountValidate(carTryInputValue);
-    checkValidation(inputCondition, ALERT_MESSAGE.NOT_VALIDATE_VALUE_LENGTH);
+    checkValidation(inputCondition, ALERT_MESSAGE.INVALID_RACING_COUNT);
 
     carTryNumberField.applyFieldsetDisabled();
     removeHiddenClass($racingSection);
@@ -68,5 +69,22 @@ const renderCarTryInputSection = (e) => {
   }
 };
 
+const reset = (e) => {
+  if (e.target.id !== 'replay') return;
+
+  $carNameForm.reset();
+  $carTryNumberForm.reset();
+
+  $carNameFieldset.disabled = false;
+  $carTryNumberFieldset.disabled = false;
+
+  addHiddenClass($carTrySection);
+  addHiddenClass($racingSection);
+  addHiddenClass($racingResult);
+
+  RemoveTemplate.removeResult($racingResult);
+};
+
 $carNameForm.addEventListener('submit', renderCarNameFieldset);
 $carTryNumberForm.addEventListener('submit', renderCarTryInputSection);
+$racingResult.addEventListener('click', reset);
