@@ -11,12 +11,12 @@ import {
 	trackView,
 	winnersView,
 } from './views/index.js'
-import { userInteractionType } from './constant/interaction.js'
+import { eventType } from './constant/interaction.js'
 import createValidRaceCount from './models/createValidRaceCount.js'
 
 const handleCarNameInput = function (ev) {
 	const { target, key } = ev
-	if (key === userInteractionType.ENTER) {
+	if (key === eventType.ENTER) {
 		const cars = createCars(target.value)
 
 		!!cars.length &&
@@ -41,7 +41,7 @@ const handleClickCarNameSubmitButton = function (carNameInputValue) {
 
 const handleRaceCountInput = function (ev) {
 	const { target, key } = ev
-	if (key === userInteractionType.ENTER) {
+	if (key === eventType.ENTER) {
 		const raceCount = createValidRaceCount(target.valueAsNumber)
 
 		!!raceCount &&

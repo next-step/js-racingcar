@@ -1,4 +1,4 @@
-import { userInteractionType } from '../../src/js/constant/interaction.js'
+import { eventType } from '../../src/js/constant/interaction.js'
 import { errorMessage } from '../../src/js/constant/message.js'
 import {
 	buttonSelector,
@@ -15,7 +15,7 @@ describe('자동차 경주 미션 1단계', () => {
 		it('5자 이하의 자동차 이름 입력 후 확인 버튼을 마우스 좌클릭하면 시도 횟수 입력 창이 보인다.', () => {
 			cy.submitCarName({
 				carName: 'ABCDE',
-				submitType: userInteractionType.CLICK,
+				submitType: eventType.CLICK,
 			})
 			cy.get(fieldsetSelector.RACE_COUNT_FIELD).should('be.visible')
 		})
@@ -23,7 +23,7 @@ describe('자동차 경주 미션 1단계', () => {
 		it('5자 이하의 자동차 이름 입력 후 키보드 엔터를 누르면 시도 횟수 입력 창이 보인다.', () => {
 			cy.submitCarName({
 				carName: 'ABCDE',
-				submitType: userInteractionType.ENTER,
+				submitType: eventType.ENTER,
 			})
 			cy.get(fieldsetSelector.RACE_COUNT_FIELD).should('be.visible')
 		})
@@ -50,7 +50,7 @@ describe('자동차 경주 미션 1단계', () => {
 			cy.on('window:alert', stub)
 			cy.submitCarName({
 				carName: 'ABCDEF',
-				submitType: userInteractionType.CLICK,
+				submitType: eventType.CLICK,
 			}).then(() => {
 				expect(stub.getCall(0)).to.be.calledWith(errorMessage.INVALID_CAR_NAME)
 			})
@@ -61,7 +61,7 @@ describe('자동차 경주 미션 1단계', () => {
 			cy.on('window:alert', stub)
 			cy.submitCarName({
 				carName: 'ABC,,DEF',
-				submitType: userInteractionType.ENTER,
+				submitType: eventType.ENTER,
 			}).then(() => {
 				expect(stub.getCall(0)).to.be.calledWith(errorMessage.INVALID_CAR_NAME)
 			})
@@ -72,7 +72,7 @@ describe('자동차 경주 미션 1단계', () => {
 		beforeEach(() => {
 			cy.submitCarName({
 				carName: 'ABC,DE',
-				submitType: userInteractionType.ENTER,
+				submitType: eventType.ENTER,
 			})
 		})
 
@@ -81,7 +81,7 @@ describe('자동차 경주 미션 1단계', () => {
 			cy.on('window:alert', stub)
 			cy.submitRaceCount({
 				raceCount: -1,
-				submitType: userInteractionType.ENTER,
+				submitType: eventType.ENTER,
 			}).then(() => {
 				const actualMessage = stub.getCall(0).lastArg
 				expect(actualMessage).to.equal(errorMessage.SMALL_RACE_COUNT)
@@ -104,7 +104,7 @@ describe('자동차 경주 미션 1단계', () => {
 			cy.on('window:alert', stub)
 			cy.submitRaceCount({
 				raceCount: 100000000000000000000000000000,
-				submitType: userInteractionType.ENTER,
+				submitType: eventType.ENTER,
 			})
 				.click()
 				.then(() => {
@@ -120,11 +120,11 @@ describe('자동차 경주 미션 2단계', () => {
 		cy.visit('/')
 		cy.submitCarName({
 			carName: 'NORTH,WEST,SOUTH,EAST',
-			submitType: userInteractionType.CLICK,
+			submitType: eventType.CLICK,
 		})
 		cy.submitRaceCount({
 			raceCount: 10,
-			submitType: userInteractionType.ENTER,
+			submitType: eventType.ENTER,
 		})
 	})
 

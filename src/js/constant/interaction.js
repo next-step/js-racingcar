@@ -1,4 +1,4 @@
-export const userInteractionType = {
+export const eventType = {
 	ENTER: 'Enter',
 	CLICK: 'Click',
 }

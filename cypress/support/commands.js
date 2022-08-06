@@ -25,23 +25,23 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { buttonSelector, inputSelector } from '../../src/js/constant/selector'
-import { userInteractionType } from '../../src/js/constant/interaction'
+import { eventType } from '../../src/js/constant/interaction'
 
 Cypress.Commands.add('submitCarName', ({ carName, submitType }) => {
-	if (submitType === userInteractionType.ENTER) {
+	if (submitType === eventType.ENTER) {
 		cy.get(inputSelector.INPUT_CAR_NAME).type(`${carName}{enter}`)
 	}
-	if (submitType === userInteractionType.CLICK) {
+	if (submitType === eventType.CLICK) {
 		cy.get(inputSelector.INPUT_CAR_NAME).type(carName)
 		cy.get(buttonSelector.SUBMIT_CAR_NAME).click()
 	}
 })
 
 Cypress.Commands.add('submitRaceCount', ({ raceCount, submitType }) => {
-	if (submitType === userInteractionType.ENTER) {
+	if (submitType === eventType.ENTER) {
 		cy.get(inputSelector.INPUT_RACE_COUNT).type(`${raceCount}{enter}`)
 	}
-	if (submitType === userInteractionType.CLICK) {
+	if (submitType === eventType.CLICK) {
 		cy.get(inputSelector.INPUT_RACE_COUNT).type(raceCount)
 		cy.get(buttonSelector.SUBMIT_RACE_COUNT).click()
 	}
