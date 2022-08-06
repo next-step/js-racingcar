@@ -24,7 +24,7 @@ export const sectionSelector = {
 
 export const ulSelector = {
 	CAR_LIST: '#car-list',
-	TRACK_LIST: '.track-list',
+	RACING_TRACK: '.racing-track',
 	WINNER_NAME_LIST: '#winner-names',
 }
 

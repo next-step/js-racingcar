@@ -1,4 +1,5 @@
 import { CAR_GO_OR_NOT_STANDARD, RACE_END_COUNT } from '../constant/number.js'
+import { ulSelector } from '../constant/selector.js'
 import { getRandomInt } from '../utils.js'
 
 const getTrackElement = function () {
@@ -12,12 +13,12 @@ const getTrackElement = function () {
 const renderTrack = function ({ cars, raceCount }) {
 	if (raceCount <= RACE_END_COUNT) return
 
-	const trackViews = document.querySelectorAll('.track-list')
+	const trackListWrapperElement = document.querySelectorAll('.racing-track')
 
 	cars.forEach((car, idx) => {
 		if (CAR_GO_OR_NOT_STANDARD > getRandomInt(0, 9)) {
 			car.go()
-			trackViews[idx].append(getTrackElement())
+			trackListWrapperElement[idx].append(getTrackElement())
 		}
 	})
 
