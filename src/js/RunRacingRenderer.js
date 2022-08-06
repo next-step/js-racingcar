@@ -19,24 +19,8 @@ class RunRacingRenderer {
     return this.randomNumberGenerator() >= RunRacingRenderer.MIN_PLAY_NUM;
   }
 
-  participateCarTemplate(raceCarName) {
-    //view
-    return `
-    <div class="mr-2" data-racecar-name="${raceCarName}">
-      <div class="car-player">${raceCarName}</div>
-    </div>`;
-  }
-
-  participateCarTemplateGenerator() {
-    return RacingCarInfo.getRaceParticipateCar()
-      .map((raceCar) => this.participateCarTemplate(raceCar))
-      .join("");
-  }
-
   matchLoading() {
     //view
-    console.log("matchloading", RacingCarInfo.getRaceParticipateCar());
-    console.log("first", document.querySelector(`div[data-racecar-name="1"]`));
     RacingCarInfo.getRaceParticipateCar().forEach((element) => {
       document
         .querySelector(`div[data-racecar-name="${element}"]`)
@@ -65,18 +49,6 @@ class RunRacingRenderer {
     });
   }
 
-  matchFormGenerator() {
-    //view
-    document.querySelector("#app").insertAdjacentHTML(
-      "beforeend",
-      `<section class="d-flex justify-center mt-5">
-        <div class="mt-4 d-flex">
-          ${this.participateCarTemplateGenerator()}
-        </div>
-      </section>`
-    );
-  }
-
   matchProgress() {
     let count = 1;
     this.matchLoading();
@@ -91,7 +63,6 @@ class RunRacingRenderer {
   }
 
   initRenderer() {
-    this.matchFormGenerator();
     this.matchProgress();
   }
 }

@@ -1,3 +1,4 @@
 import PrepareRacingRenderer from "./PrepareRacingRenderer.js";
 import PrepareRacingView from "./PrepareRacingView.js";
-new PrepareRacingRenderer(new PrepareRacingView());
+import ContestantView from "./ContestantView.js";
+new PrepareRacingRenderer(new PrepareRacingView(), new ContestantView());

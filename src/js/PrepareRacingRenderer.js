@@ -6,15 +6,21 @@ import View from "./View.js";
 class PrepareRacingRenderer {
   static MIN_CARNAME_SIZE = 1;
   static MAX_CARNAME_SIZE = 5;
-  #view = null;
+  #prepareRacingView = null;
+  #contestantView = null;
 
-  constructor(view) {
+  constructor(prepareRacingView, contestantView) {
     this.initRenderer();
-    this.#view = view;
+    this.#prepareRacingView = prepareRacingView;
+    this.#contestantView = contestantView;
   }
 
-  set view(v) {
-    if (v instanceof View) this.#view = v;
+  set prepareRacingView(v) {
+    if (v instanceof View) this.#prepareRacingView = v;
+    else throw `invalid vie : ${v}`;
+  }
+  set contestantView(v) {
+    if (v instanceof View) this.#contestantView = v;
     else throw `invalid vie : ${v}`;
   }
 
@@ -36,18 +42,19 @@ class PrepareRacingRenderer {
       return;
     }
     RacingCarInfo.setRaceParticipateCar(carNames);
-    this.#view.initView();
+    this.#prepareRacingView.initView();
   }
 
   submitNumberOfRaces(e) {
     MatchNumber.setMatchNumber(e.target[4].valueAsNumber);
+    this.#contestantView.initView();
     const runRacingRenderer = new RunRacingRenderer();
     runRacingRenderer.initRenderer();
   }
 
   prepareGame = (e) => {
     e.preventDefault();
-    this.#view.setElement(e);
+    this.#prepareRacingView.setElement(e);
     if (e.submitter.id == "car-name-btn") {
       this.submitCarNames(e);
     } else {
