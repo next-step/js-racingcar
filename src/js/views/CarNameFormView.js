@@ -19,6 +19,10 @@ export default class CarNameFormView extends View {
     this.emit('@submit', carNames);
   }
 
+  #showInputValue(value) {
+    this.inputElement.value = value;
+  }
+
   #disableButton(isDisabled) {
     this.inputElement.disabled = isDisabled;
     this.buttonElement.disabled = isDisabled;
@@ -26,7 +30,7 @@ export default class CarNameFormView extends View {
 
   show(cars) {
     const value = cars.map((car) => car.name).join(',');
-    this.inputElement.value = value;
+    this.#showInputValue(value);
     this.#disableButton(!!value);
   }
 }

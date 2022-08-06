@@ -20,6 +20,10 @@ export default class RaceCountFormView extends View {
     this.emit('@submit', raceCount);
   }
 
+  #showInputValue(value) {
+    this.inputElement.value = value;
+  }
+
   #disableButton(isDisabled) {
     this.inputElement.disabled = isDisabled;
     this.buttonElement.disabled = isDisabled;
@@ -27,7 +31,7 @@ export default class RaceCountFormView extends View {
 
   show(cars, tryCount) {
     if (!cars.length) return this.hide();
-    this.inputElement.value = tryCount;
+    this.#showInputValue(tryCount);
     this.#disableButton(!!tryCount);
     super.show();
   }

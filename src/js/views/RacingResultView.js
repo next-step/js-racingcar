@@ -17,9 +17,7 @@ export default class RacingResultView extends View {
     this.emit('@reset');
   }
 
-  show(cars, tryCount) {
-    const isRaceBegan = !!(cars.length && tryCount);
-    if (!isRaceBegan) return this.hide();
+  #renderWinners(cars) {
     const winNumber = Math.max(...cars.map((car) => car.location));
     const winner = cars
       .filter((car) => car.location === winNumber)
@@ -27,6 +25,12 @@ export default class RacingResultView extends View {
       .join(',');
 
     this.winnerNameElement.textContent = winner;
+  }
+
+  show(cars, tryCount) {
+    const isRaceBegan = !!(cars.length && tryCount);
+    if (!isRaceBegan) return this.hide();
+    this.#renderWinners(cars);
     super.show();
   }
 }

@@ -7,7 +7,7 @@ export default class RacingProgressView extends View {
   }
 
   #renderCarPlayers(cars) {
-    return cars
+    const playerElements = cars
       .map((car) => {
         return `
           <div class="mr-2">
@@ -16,6 +16,7 @@ export default class RacingProgressView extends View {
         `;
       })
       .join('');
+    this.element.insertAdjacentHTML('afterbegin', playerElements);
   }
 
   #renderRacingProgress(cars) {
@@ -35,7 +36,7 @@ export default class RacingProgressView extends View {
     const isRaceBegan = !!(cars.length && tryCount);
     if (!isRaceBegan) return this.hide();
     this.#removeChildNode();
-    this.element.insertAdjacentHTML('afterbegin', this.#renderCarPlayers(cars));
+    this.#renderCarPlayers(cars);
     this.#renderRacingProgress(cars);
     super.show();
   }
