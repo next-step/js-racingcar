@@ -1,6 +1,7 @@
 import MatchNumber from "./state/MatchNumber.js";
 import RacingCarInfo from "./state/RacingCarInfo.js";
 import RunRacingRenderer from "./RunRacingRenderer.js";
+import MatchLoadingView from "./MatchLoadingView.js";
 import View from "./View.js";
 
 class PrepareRacingRenderer {
@@ -48,7 +49,7 @@ class PrepareRacingRenderer {
   submitNumberOfRaces(e) {
     MatchNumber.setMatchNumber(e.target[4].valueAsNumber);
     this.#contestantView.initView();
-    const runRacingRenderer = new RunRacingRenderer();
+    const runRacingRenderer = new RunRacingRenderer(new MatchLoadingView());
     runRacingRenderer.initRenderer();
   }
 

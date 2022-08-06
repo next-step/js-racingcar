@@ -5,8 +5,16 @@ class RunRacingRenderer {
   static MAX_RANDOM_NUM = 9;
   static MIN_RANDOM_NUM = 0;
   static MIN_PLAY_NUM = 4;
+  #matchLoadingView = null;
 
-  constructor() {}
+  constructor(matchLoadingView) {
+    this.#matchLoadingView = matchLoadingView;
+  }
+
+  set matchLoadingView(v) {
+    if (v instanceof View) this.#matchLoadingView = v;
+    else throw `invalid vie : ${v}`;
+  }
 
   randomNumberGenerator() {
     return Math.floor(
@@ -20,18 +28,9 @@ class RunRacingRenderer {
   }
 
   matchLoading() {
-    //view
     RacingCarInfo.getRaceParticipateCar().forEach((element) => {
-      document
-        .querySelector(`div[data-racecar-name="${element}"]`)
-        .insertAdjacentHTML(
-          "beforeend",
-          `<div class="d-flex justify-center mt-3" data-race-loading="${element}">
-            <div class="relative spinner-container">
-              <span class="material spinner"></span>
-            </div>
-          </div>`
-        );
+      this.#matchLoadingView.setElement(element);
+      this.#matchLoadingView.initView();
     });
   }
 
