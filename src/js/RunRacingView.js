@@ -1,6 +1,6 @@
 import View from "./View.js";
 
-class MontestantView extends View {
+class RunRacingView extends View {
   #e;
   setElement(e) {
     this.#e = e;
@@ -18,5 +18,18 @@ class MontestantView extends View {
           </div>`
       );
   }
+
+  finishLoadingRacingView() {
+    document.querySelector(`div[data-race-loading="${this.#e}"]`).remove();
+  }
+
+  movesForwardView() {
+    document
+      .querySelector(`div[data-racecar-name="${this.#e}"]`)
+      .insertAdjacentHTML(
+        "beforeend",
+        `<div class="forward-icon mt-2">⬇️️</div>`
+      );
+  }
 }
-export default MontestantView;
+export default RunRacingView;

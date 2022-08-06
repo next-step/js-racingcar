@@ -5,14 +5,14 @@ class RunRacingRenderer {
   static MAX_RANDOM_NUM = 9;
   static MIN_RANDOM_NUM = 0;
   static MIN_PLAY_NUM = 4;
-  #matchLoadingView = null;
+  #runRacingView = null;
 
-  constructor(matchLoadingView) {
-    this.#matchLoadingView = matchLoadingView;
+  constructor(runRacingView) {
+    this.#runRacingView = runRacingView;
   }
 
-  set matchLoadingView(v) {
-    if (v instanceof View) this.#matchLoadingView = v;
+  set runRacingView(v) {
+    if (v instanceof View) this.#runRacingView = v;
     else throw `invalid vie : ${v}`;
   }
 
@@ -29,22 +29,18 @@ class RunRacingRenderer {
 
   matchLoading() {
     RacingCarInfo.getRaceParticipateCar().forEach((element) => {
-      this.#matchLoadingView.setElement(element);
-      this.#matchLoadingView.initView();
+      this.#runRacingView.setElement(element);
+      this.#runRacingView.initView();
     });
   }
 
   matchResult() {
     //view
     RacingCarInfo.getRaceParticipateCar().forEach((element) => {
-      document.querySelector(`div[data-race-loading="${element}"]`).remove();
+      this.#runRacingView.setElement(element);
+      this.#runRacingView.finishLoadingRacingView();
       if (!this.decidePlay()) return;
-      document
-        .querySelector(`div[data-racecar-name="${element}"]`)
-        .insertAdjacentHTML(
-          "beforeend",
-          `<div class="forward-icon mt-2">⬇️️</div>`
-        );
+      this.#runRacingView.movesForwardView();
     });
   }
 
