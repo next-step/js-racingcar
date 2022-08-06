@@ -30,7 +30,8 @@ import { userInteractionType } from '../../src/js/constant/interaction'
 Cypress.Commands.add('submitCarName', ({ carName, submitType }) => {
 	if (submitType === userInteractionType.ENTER) {
 		cy.get(inputSelector.INPUT_CAR_NAME).type(`${carName}{enter}`)
-	} else if (submitType === userInteractionType.CLICK) {
+	}
+	if (submitType === userInteractionType.CLICK) {
 		cy.get(inputSelector.INPUT_CAR_NAME).type(carName)
 		cy.get(buttonSelector.SUBMIT_CAR_NAME).click()
 	}
@@ -39,7 +40,8 @@ Cypress.Commands.add('submitCarName', ({ carName, submitType }) => {
 Cypress.Commands.add('submitRaceCount', ({ raceCount, submitType }) => {
 	if (submitType === userInteractionType.ENTER) {
 		cy.get(inputSelector.INPUT_RACE_COUNT).type(`${raceCount}{enter}`)
-	} else if (submitType === userInteractionType.CLICK) {
+	}
+	if (submitType === userInteractionType.CLICK) {
 		cy.get(inputSelector.INPUT_RACE_COUNT).type(raceCount)
 		cy.get(buttonSelector.SUBMIT_RACE_COUNT).click()
 	}
