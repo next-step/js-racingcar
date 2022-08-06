@@ -41,6 +41,7 @@ class RunRacingRenderer {
       this.#runRacingView.finishLoadingRacingView();
       if (!this.decidePlay()) return;
       this.#runRacingView.movesForwardView();
+      RacingCarInfo.setRaceForwardCount(element);
     });
   }
 
