@@ -120,7 +120,7 @@ describe('자동차 경주 미션 2단계', () => {
 		cy.get(liSelector.WINNER_NAME_ITEM)
 			.invoke('text')
 			.then((text) => {
-				expect(['NORTH', 'WEST', 'SOUTH', 'EAST']).to.include(text)
+				expect('NORTHWESTSOUTHEAST').to.include(text)
 			})
 	})
 })
