@@ -1,7 +1,12 @@
 import Observable from "../util/observable.js";
 import RacingInfoModel from "../model/racingInfoModel.js";
 
-import { notifyTypes, MIN_RACING_ENTRIES, GO_FOWARD_TIME_INTERVAL } from "../util/constants.js";
+import {
+  notifyTypes,
+  MIN_RACING_ENTRIES,
+  GO_FOWARD_TIME_INTERVAL,
+  SHOW_ALERT_MESSAGE_TIME_INTERVAL,
+} from "../util/constants.js";
 
 class RacingInputFormController {
   constructor() {
@@ -38,6 +43,12 @@ class RacingInputFormController {
     });
   }
 
+  #showCongratulateMessage() {
+    setTimeout(() => {
+      alert("🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇");
+    }, SHOW_ALERT_MESSAGE_TIME_INTERVAL);
+  }
+
   async handleCountConfirm(count) {
     if (count <= 0) {
       throw new Error("0 이상의 숫자만 입력해 주세요");
@@ -50,6 +61,8 @@ class RacingInputFormController {
 
     this.racingInfoModel.getRacingResult();
     Observable.notify(notifyTypes.GET_RACE_RESULT, this.racingInfoModel.racingWinner);
+
+    this.#showCongratulateMessage();
   }
 }
 

@@ -4,6 +4,7 @@ export const RANDOM_NUM_MIN_RANGE = 0;
 export const RANDOM_NUM_MAX_RANGE = 10;
 export const STANDARD_MOVE_VALUE = 3;
 export const GO_FOWARD_TIME_INTERVAL = 1000;
+export const SHOW_ALERT_MESSAGE_TIME_INTERVAL = 2000;
 
 export const notifyTypes = {
   ENTRY_CONFIRM: "ENTRY_CONFIRM",

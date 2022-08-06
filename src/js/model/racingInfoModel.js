@@ -56,8 +56,6 @@ class RacingInfoModel {
         this.movingDistPerCar[idx] += 1;
       }
     });
-
-    console.log(this.movingDistPerCar);
   }
 
   getRacingResult() {

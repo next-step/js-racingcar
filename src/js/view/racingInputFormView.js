@@ -98,7 +98,6 @@ class RacingInputFormView {
     this.$countConfirmBtn = $("#count-confirm-btn");
 
     this.$countConfirmBtn.addEventListener("click", async () => {
-      console.log("hi");
       await this.onCountConfirmBtnClick();
     });
   };
