@@ -1,8 +1,11 @@
 import { fieldsetSelector } from './constant/selector.js'
 import validator from './validator.js'
 import { $ } from './utils.js'
-import { errorMessage } from './constant/message.js'
-import { createCars, racingGameStore } from './models/index.js'
+import {
+	createCars,
+	racingGameStore,
+	saveFieldsetValue,
+} from './models/index.js'
 import {
 	carsView,
 	fieldsetView,
@@ -11,34 +14,12 @@ import {
 } from './views/index.js'
 import { userInteractionType } from './constant/interaction.js'
 
-const completeFieldsetElement = function ({
-	fieldsetSelector,
-	saveValue,
-	stateKey,
-}) {
-	try {
-		if (!!saveValue && !!fieldsetSelector) {
-			fieldsetSelector.disabled = true
-			racingGameStore[stateKey].setState(saveValue)
-			racingGameStore[stateKey].freeze()
-		}
-		if (!saveValue) {
-			throw new Error(errorMessage.INVALID_SAVE_VALUE)
-		}
-		if (!fieldsetSelector) {
-			throw new Error(errorMessage.INVALID_FIELDSET_ELEMENT)
-		}
-	} catch (err) {
-		console.error(err)
-	}
-}
-
 const handleCarNameInput = function (ev) {
 	const { target, key } = ev
 	if (key === userInteractionType.ENTER) {
 		const cars = createCars(target.value)
 
-		completeFieldsetElement({
+		saveFieldsetValue({
 			fieldsetSelector: $(fieldsetSelector.CAR_NAME_FIELD),
 			saveValue: cars,
 			stateKey: 'cars',
@@ -48,7 +29,8 @@ const handleCarNameInput = function (ev) {
 
 const handleClickCarNameSubmitButton = function (carNameInputValue) {
 	const cars = createCars(carNameInputValue)
-	completeFieldsetElement({
+
+	saveFieldsetValue({
 		fieldsetSelector: $(fieldsetSelector.CAR_NAME_FIELD),
 		saveValue: cars,
 		stateKey: 'cars',
@@ -61,7 +43,7 @@ const handleRaceCountInput = function (ev) {
 		const raceCount = target.valueAsNumber
 
 		if (validator.validateRaceCount(raceCount)) {
-			completeFieldsetElement({
+			saveFieldsetValue({
 				fieldsetSelector: $(fieldsetSelector.RACE_COUNT_FIELD),
 				saveValue: raceCount,
 				stateKey: 'raceCount',
@@ -74,7 +56,7 @@ const handleClickRaceCountSubmitButton = function (raceCountInput) {
 	const raceCount = raceCountInput.valueAsNumber
 
 	if (validator.validateRaceCount(raceCount)) {
-		completeFieldsetElement({
+		saveFieldsetValue({
 			fieldsetSelector: $(fieldsetSelector.RACE_COUNT_FIELD),
 			saveValue: raceCount,
 			stateKey: 'raceCount',
