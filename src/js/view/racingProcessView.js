@@ -49,20 +49,24 @@ class RacingProcessView {
     return Array.from({ length: dist }, () => moveArrowTemplate).join("");
   }
 
-  renderRacingProcess(entries, movingDistPerCar) {
+  renderRacingProcess(entries, movingDistPerCar, isFinished) {
     const $racingProcessStatus = entries
       .map((carName, idx) => {
         const curCarMovedDist = movingDistPerCar[idx];
         const $movedDistance = this.renderMovedDistance(curCarMovedDist);
-        return carInfoTempalte(carName, $movedDistance, moveWatingSpinner);
+        return carInfoTempalte(carName, $movedDistance, isFinished ? "" : moveWatingSpinner);
       })
       .join("");
 
     return racingProcessWrapperTemplate($racingProcessStatus);
   }
 
-  attachRacingProcessPanel = (entries, movingDistPerCar) => {
-    this.$app.insertAdjacentHTML("beforeEnd", this.renderRacingProcess(entries, movingDistPerCar));
+  attachRacingProcessPanel = (entries, movingDistPerCar, isFinished) => {
+    if (this.$raceProcessSection) {
+      this.$app.removeChild(this.$raceProcessSection);
+    }
+
+    this.$app.insertAdjacentHTML("beforeEnd", this.renderRacingProcess(entries, movingDistPerCar, isFinished));
 
     this.$raceProcessSection = $("#race-process-section");
   };
