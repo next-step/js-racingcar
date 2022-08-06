@@ -11,9 +11,10 @@ function main() {
 	$carNameInput.addEventListener('keydown', controller.saveCarNameInput)
 	$carNameSubmitButton.addEventListener('click', controller.saveCarNameInput)
 
-	$raceCountInput.addEventListener('keydown', controller.handleRaceCountInput)
-	$raceCountSubmitButton.addEventListener('click', () =>
-		controller.handleClickRaceCountSubmitButton($raceCountInput)
+	$raceCountInput.addEventListener('keydown', controller.saveRaceCountInput)
+	$raceCountSubmitButton.addEventListener(
+		'click',
+		controller.saveRaceCountInput
 	)
 }
 

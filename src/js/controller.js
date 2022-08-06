@@ -29,33 +29,32 @@ const saveCars = function () {
 	const { carNameInput, cars } = racingGameStore
 	const carList = createCars(carNameInput.getState())
 
-	!!carList.length && cars.setState(carList)
-	fieldsetView.freezeFieldset($(fieldsetSelector.CAR_NAME_FIELD))
-}
-
-const handleRaceCountInput = function (ev) {
-	const { target, key } = ev
-	if (key === eventType.ENTER) {
-		const raceCount = createValidRaceCount(target.valueAsNumber)
-
-		!!raceCount &&
-			saveFieldsetValue({
-				fieldsetSelector: $(fieldsetSelector.RACE_COUNT_FIELD),
-				saveValue: raceCount,
-				stateKey: 'raceCount',
-			})
+	if (!!carList.length) {
+		cars.setState(carList)
+		fieldsetView.freezeFieldset($(fieldsetSelector.CAR_NAME_FIELD))
 	}
 }
 
-const handleClickRaceCountSubmitButton = function (raceCountInput) {
-	const raceCount = createValidRaceCount(raceCountInput.valueAsNumber)
+const saveRaceCountInput = function (ev) {
+	if (ev.key === eventType.ENTER) {
+		racingGameStore.raceCountInput.setState(ev.target.valueAsNumber)
+		return
+	}
+	if (ev.type === eventType.CLICK) {
+		racingGameStore.raceCountInput.setState(
+			$(inputSelector.INPUT_RACE_COUNT).valueAsNumber
+		)
+		return
+	}
+}
 
-	!!raceCount &&
-		saveFieldsetValue({
-			fieldsetSelector: $(fieldsetSelector.RACE_COUNT_FIELD),
-			saveValue: raceCount,
-			stateKey: 'raceCount',
-		})
+const saveRaceCount = function () {
+	const { raceCountInput, raceCount } = racingGameStore
+	const validRaceCount = createValidRaceCount(raceCountInput.getState())
+	if (!!validRaceCount) {
+		raceCount.setState(validRaceCount)
+		fieldsetView.freezeFieldset($(fieldsetSelector.RACE_COUNT_FIELD))
+	}
 }
 
 const initGame = function () {
@@ -81,12 +80,19 @@ const setWinner = function ({ cars }) {
 }
 
 const subscribeViews = (() => {
-	const { carNameInput, cars, raceCount, isRaceStarted, winners } =
-		racingGameStore
+	const {
+		carNameInput,
+		cars,
+		raceCountInput,
+		raceCount,
+		isRaceStarted,
+		winners,
+	} = racingGameStore
 	carNameInput.subscribe(saveCars)
 	cars.subscribe(() => {
 		fieldsetView.showFieldset($(fieldsetSelector.RACE_COUNT_FIELD))
 	})
+	raceCountInput.subscribe(saveRaceCount)
 	raceCount.subscribe(() => {
 		carsView.renderCarList({ cars: cars.getState() })
 		initGame()
@@ -99,6 +105,5 @@ const subscribeViews = (() => {
 
 export default {
 	saveCarNameInput,
-	handleRaceCountInput,
-	handleClickRaceCountSubmitButton,
+	saveRaceCountInput,
 }
