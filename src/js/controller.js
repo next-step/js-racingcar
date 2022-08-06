@@ -3,7 +3,7 @@ import {
 	formSelector,
 	inputSelector,
 } from './constant/selector.js'
-import { $ } from './utils.js'
+import { $, showElement } from './utils.js'
 import { createValidCars, racingGameStore } from './models/index.js'
 import {
 	carsView,
@@ -96,7 +96,9 @@ const subscribeViews = (() => {
 
 	carNameInput.subscribe(saveCars)
 	cars.subscribe(() => {
-		fieldsetView.showFieldset($(fieldsetSelector.RACE_COUNT_FIELD))
+		const raceCountFieldsetElement = $(fieldsetSelector.RACE_COUNT_FIELD)
+		showElement(raceCountFieldsetElement)
+		raceCountFieldsetElement.querySelector('input').focus()
 	})
 	raceCountInput.subscribe(saveRaceCount)
 	raceCount.subscribe(() => {
