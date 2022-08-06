@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { buttonSelector, inputSelector } from '../../src/js/constant/selector'
-import { eventType } from '../../src/js/constant/interaction'
+import { eventType } from '../../src/js/constant/eventType'
 
 Cypress.Commands.add('submitCarName', ({ carName, submitType }) => {
 	if (submitType === eventType.ENTER) {

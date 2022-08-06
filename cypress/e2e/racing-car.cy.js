@@ -1,4 +1,4 @@
-import { eventType } from '../../src/js/constant/interaction.js'
+import { eventType } from '../../src/js/constant/eventType.js'
 import { errorMessage } from '../../src/js/constant/message.js'
 import {
 	buttonSelector,
@@ -29,9 +29,11 @@ describe('자동차 경주 미션 1단계', () => {
 		})
 
 		it('자동차 이름 입력을 마치면 이름 입력창이 비활성화 된다.', () => {
-			cy.submitCarName({ carName: 'WEST', submitType: 'Click' }).then(() => {
-				cy.get(fieldsetSelector.CAR_NAME_FIELD).should('be.disabled')
-			})
+			cy.submitCarName({ carName: 'WEST', submitType: eventType.CLICK }).then(
+				() => {
+					cy.get(fieldsetSelector.CAR_NAME_FIELD).should('be.disabled')
+				}
+			)
 		})
 
 		it('자동차 이름 입력칸이 비어 있으면 확인을 눌렀을 때 경고창이 뜬다.', () => {

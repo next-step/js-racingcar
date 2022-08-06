@@ -7,7 +7,12 @@ const hideFieldset = function (fieldsetElement) {
 	fieldsetElement.hidden = true
 }
 
+const freezeFieldset = function (fieldsetElement) {
+	fieldsetElement.disabled = true
+}
+
 export default {
+	freezeFieldset,
 	showFieldset,
 	hideFieldset,
 }

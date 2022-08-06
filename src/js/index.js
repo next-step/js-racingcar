@@ -8,10 +8,8 @@ function main() {
 	const $raceCountInput = $(inputSelector.INPUT_RACE_COUNT)
 	const $raceCountSubmitButton = $(buttonSelector.SUBMIT_RACE_COUNT)
 
-	$carNameInput.addEventListener('keydown', controller.handleCarNameInput)
-	$carNameSubmitButton.addEventListener('click', () =>
-		controller.handleClickCarNameSubmitButton($carNameInput.value)
-	)
+	$carNameInput.addEventListener('keydown', controller.saveCarNameInput)
+	$carNameSubmitButton.addEventListener('click', controller.saveCarNameInput)
 
 	$raceCountInput.addEventListener('keydown', controller.handleRaceCountInput)
 	$raceCountSubmitButton.addEventListener('click', () =>
