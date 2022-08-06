@@ -1,3 +1,5 @@
+import ResultRacingView from "./ResultRacingView.js";
+import ResultRacingRenderer from "./ResultRacingRenderer.js";
 import MatchNumber from "./state/MatchNumber.js";
 import RacingCarInfo from "./state/RacingCarInfo.js";
 
@@ -34,7 +36,7 @@ class RunRacingRenderer {
     });
   }
 
-  matchResult() {
+  finishOneMatch() {
     //view
     RacingCarInfo.getRaceParticipateCar().forEach((element) => {
       this.#runRacingView.setElement(element);
@@ -44,22 +46,28 @@ class RunRacingRenderer {
       RacingCarInfo.setRaceForwardCount(element);
     });
   }
-
   matchProgress() {
-    let count = 1;
-    this.matchLoading();
-    const timeoutId = setInterval(() => {
-      this.matchResult();
-      if (count++ === MatchNumber.getMatchNumber()) {
-        clearInterval(timeoutId);
-        return;
-      }
+    return new Promise((resolve, reject) => {
+      let count = 1;
       this.matchLoading();
-    }, 1000);
+      const timeoutId = setInterval(() => {
+        this.finishOneMatch();
+        if (count++ === MatchNumber.getMatchNumber()) {
+          clearInterval(timeoutId);
+          resolve();
+          return;
+        }
+        this.matchLoading();
+      }, 1000);
+    });
   }
 
-  initRenderer() {
-    this.matchProgress();
+  async initRenderer() {
+    await this.matchProgress();
+    const resultRacingRenderer = new ResultRacingRenderer(
+      new ResultRacingView()
+    );
+    resultRacingRenderer.initRenderer();
   }
 }
 export default RunRacingRenderer;
