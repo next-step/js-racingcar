@@ -1,7 +1,7 @@
 import MatchNumber from "./state/MatchNumber.js";
 import RacingCarInfo from "./state/RacingCarInfo.js";
 
-class RunRacing {
+class RunRacingRenderer {
   static MAX_RANDOM_NUM = 9;
   static MIN_RANDOM_NUM = 0;
   static MIN_PLAY_NUM = 4;
@@ -10,12 +10,13 @@ class RunRacing {
 
   randomNumberGenerator() {
     return Math.floor(
-      Math.random() * RunRacing.MAX_RANDOM_NUM + RunRacing.MIN_RANDOM_NUM
+      Math.random() * RunRacingRenderer.MAX_RANDOM_NUM +
+        RunRacingRenderer.MIN_RANDOM_NUM
     );
   }
 
   decidePlay() {
-    return this.randomNumberGenerator() >= RunRacing.MIN_PLAY_NUM;
+    return this.randomNumberGenerator() >= RunRacingRenderer.MIN_PLAY_NUM;
   }
 
   participateCarTemplate(raceCarName) {
@@ -88,5 +89,10 @@ class RunRacing {
       this.matchLoading();
     }, 1000);
   }
+
+  initRenderer() {
+    this.matchFormGenerator();
+    this.matchProgress();
+  }
 }
-export default RunRacing;
+export default RunRacingRenderer;
