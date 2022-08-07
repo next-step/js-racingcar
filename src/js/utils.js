@@ -17,7 +17,3 @@ export const showElement = function (element) {
 export const hideElement = function (element) {
 	element.hidden = true
 }
-
-export const delay = function (ms) {
-	return new Promise((resolve) => setTimeout(resolve, ms))
-}

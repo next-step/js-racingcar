@@ -16,53 +16,55 @@ import createValidRaceCount from './models/createValidRaceCount.js'
 
 const saveCarNameInput = function (ev) {
 	if (ev.key === eventType.ENTER) {
-		racingGameStore.carNameInput.setState(ev.target.value)
+		setStateAndFreeze({ stateKey: 'carNameInput', newState: ev.target.value })
 		return
 	}
 	if (ev.type === eventType.CLICK) {
-		racingGameStore.carNameInput.setState($(inputSelector.INPUT_CAR_NAME).value)
+		const carNameInput = $(inputSelector.INPUT_CAR_NAME).value
+		setStateAndFreeze({ stateKey: 'carNameInput', newState: carNameInput })
 		return
 	}
 }
 
 const saveCars = function () {
-	const { carNameInput, cars } = racingGameStore
+	const { carNameInput } = racingGameStore
 	const carList = createValidCars(carNameInput.getState())
 
 	if (!!carList.length) {
-		cars.setState(carList)
 		fieldsetView.freezeFieldset($(fieldsetSelector.CAR_NAME_FIELD))
+		setStateAndFreeze({ stateKey: 'cars', newState: carList })
 	}
 }
 
 const saveRaceCountInput = function (ev) {
-	if (ev.key === eventType.ENTER) {
-		racingGameStore.raceCountInput.setState(ev.target.valueAsNumber)
+	if (ev.key === eventType.ENTER || ev.type === eventType) {
+		setStateAndFreeze({
+			stateKey: 'raceCountInput',
+			newState: ev.target.valueAsNumber,
+		})
 		return
 	}
 
 	if (ev.type === eventType.CLICK) {
-		racingGameStore.raceCountInput.setState(
-			$(inputSelector.INPUT_RACE_COUNT).valueAsNumber
-		)
+		const newCountInput = $(inputSelector.INPUT_RACE_COUNT).valueAsNumber
+		setStateAndFreeze({ stateKey: 'raceCountInput', newState: newCountInput })
 		return
 	}
 }
 
 const saveRaceCount = function () {
-	const { raceCountInput, raceCount } = racingGameStore
+	const { raceCountInput } = racingGameStore
 	const validRaceCount = createValidRaceCount(raceCountInput.getState())
 
 	if (!!validRaceCount) {
-		raceCount.setState(validRaceCount)
 		fieldsetView.freezeFieldset($(fieldsetSelector.RACE_COUNT_FIELD))
+		setStateAndFreeze({ stateKey: 'raceCount', newState: validRaceCount })
 	}
 }
 
 const startGame = function (ev) {
 	ev.preventDefault()
-
-	racingGameStore.isRaceStarted.setState(true)
+	setStateAndFreeze({ stateKey: 'isRaceStarted', newState: true })
 }
 
 const runGame = async function () {
@@ -82,8 +84,15 @@ const setWinner = function ({ cars }) {
 	const winnerPosition = cars.reduce((maxPosition, { position }) => {
 		return position > maxPosition ? position : maxPosition
 	}, 0)
+
 	const winners = cars.filter((car) => car.position === winnerPosition)
-	racingGameStore.winners.setState(winners)
+	setStateAndFreeze({ stateKey: 'winners', newState: winners })
+}
+
+const setStateAndFreeze = function ({ stateKey, newState }) {
+	const stateObj = racingGameStore[stateKey]
+	stateObj.setState(newState)
+	stateObj.freeze()
 }
 
 const subscribeViews = (() => {

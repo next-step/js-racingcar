@@ -10,6 +10,7 @@ export const inputSelector = {
 export const buttonSelector = {
 	SUBMIT_CAR_NAME: '#submit-car-name',
 	SUBMIT_RACE_COUNT: '#submit-race-count',
+	RESET_BUTTON: '#reset-game-button',
 }
 
 export const spanSelector = {
