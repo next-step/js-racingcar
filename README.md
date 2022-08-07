@@ -51,3 +51,14 @@ This project is [MIT](https://github.com/next-step/js-racingcar/blob/main/LICENS
 - [x] 사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.
 - [x] 주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.
 - [x] 전진하는 조건은 0에서 9 사이에서 random 값을 구한 후 random 값이 4 이상일 경우 전진하고, 3 이하의 값이면 멈춘다.
+
+## STEP 2 진행상황
+
+- [x] 자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.
+- [x] 우승자가 여러명일 경우 ,를 이용하여 구분한다.
+
+## STEP 3 진행상황
+
+- [x] 자동차 경주 게임의 턴이 진행 될 때마다 1초의 텀(progressive 재생)을 두고 진행한다.
+- [x] 애니메이션 구현을 위해 setInterval, setTimeout, requestAnimationFrame 을 활용한다.
+- [x] 정상적으로 게임의 턴이 다 동작된 후에는 결과를 보여주고, 2초 후에 축하의 alert 메세지를 띄운다.
