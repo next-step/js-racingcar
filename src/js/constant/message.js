@@ -10,3 +10,7 @@ export const errorMessage = {
 	INVALID_FIELDSET_ELEMENT: 'fieldset 엘리먼트가 지정되지 않았습니다.',
 	FROZEN_STATE: 'frozen state 의 상태를 덮어쓸 수 없습니다.',
 }
+
+export const alertMessage = {
+	CONGRATURATE_WINNER: '🤩축하합니다!!🤩',
+}

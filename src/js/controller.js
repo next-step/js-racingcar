@@ -16,6 +16,7 @@ import {
 	winnersView,
 } from './views/index.js'
 import { eventType } from './constant/eventType.js'
+import { alertMessage } from './constant/message.js'
 
 const saveCarNameInput = function (ev) {
 	const { carNameInput } = racingGameStore
@@ -89,6 +90,14 @@ const setWinner = function ({ cars }) {
 
 	const winners = cars.filter((car) => car.position === winnerPosition)
 	setStateAndFreeze({ stateKey: 'winners', newState: winners })
+	congraturateWinner()
+}
+
+const congraturateWinner = function () {
+	const TIME = 2000
+	setTimeout(() => {
+		window.alert(alertMessage.CONGRATURATE_WINNER)
+	}, TIME)
 }
 
 const setStateAndFreeze = function ({ stateKey, newState }) {
