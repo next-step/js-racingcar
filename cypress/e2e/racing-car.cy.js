@@ -1,5 +1,5 @@
 import { eventType } from '../../src/js/constant/eventType.js'
-import { errorMessage } from '../../src/js/constant/message.js'
+import { alertMessage, errorMessage } from '../../src/js/constant/message.js'
 import {
 	buttonSelector,
 	fieldsetSelector,
@@ -117,7 +117,9 @@ describe('자동차 경주 미션 1단계', () => {
 	})
 })
 
-describe('자동차 경주 미션 2단계', () => {
+describe('자동차 경주 미션 2,3 단계', () => {
+	const RACE_COUNT = 5
+	const SECOND = 1000
 	beforeEach(() => {
 		cy.visit('/')
 		cy.submitCarName({
@@ -125,12 +127,22 @@ describe('자동차 경주 미션 2단계', () => {
 			submitType: eventType.CLICK,
 		})
 		cy.submitRaceCount({
-			raceCount: 10,
+			raceCount: RACE_COUNT,
 			submitType: eventType.ENTER,
 		})
 	})
 
-	it('자동차 게임이 완료되면 우승자 이름이 화면에 보인다. ', () => {
+	it('자동차 게임이 완료되면 우승자 이름이 화면에 보인다.', () => {
+		cy.wait(RACE_COUNT * SECOND)
 		cy.get(liSelector.WINNER_NAME_ITEM).should('be.visible')
+	})
+
+	it('자동차 게임이 완료되면 2초 뒤 축하 메시지가 화면에 나타난다.', () => {
+		const stub = cy.stub()
+		cy.on('window:alert', stub)
+		cy.wait(RACE_COUNT * SECOND + 2000).then(() => {
+			const actualMessage = stub.getCall(0).lastArg
+			expect(actualMessage).to.equal(alertMessage.CONGRATURATE_WINNER)
+		})
 	})
 })
