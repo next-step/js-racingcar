@@ -4,7 +4,11 @@ import {
 	inputSelector,
 } from './constant/selector.js'
 import { $, showElement } from './utils.js'
-import { createValidCars, racingGameStore } from './models/index.js'
+import {
+	createValidCars,
+	racingGameStore,
+	createValidRaceCount,
+} from './models/index.js'
 import {
 	carsView,
 	fieldsetView,
@@ -12,16 +16,16 @@ import {
 	winnersView,
 } from './views/index.js'
 import { eventType } from './constant/eventType.js'
-import createValidRaceCount from './models/createValidRaceCount.js'
 
 const saveCarNameInput = function (ev) {
+	const { carNameInput } = racingGameStore
+
 	if (ev.key === eventType.ENTER) {
-		setStateAndFreeze({ stateKey: 'carNameInput', newState: ev.target.value })
+		carNameInput.setState(ev.target.value)
 		return
 	}
 	if (ev.type === eventType.CLICK) {
-		const carNameInput = $(inputSelector.INPUT_CAR_NAME).value
-		setStateAndFreeze({ stateKey: 'carNameInput', newState: carNameInput })
+		carNameInput.setState($(inputSelector.INPUT_CAR_NAME).value)
 		return
 	}
 }
@@ -37,17 +41,15 @@ const saveCars = function () {
 }
 
 const saveRaceCountInput = function (ev) {
-	if (ev.key === eventType.ENTER || ev.type === eventType) {
-		setStateAndFreeze({
-			stateKey: 'raceCountInput',
-			newState: ev.target.valueAsNumber,
-		})
+	const { raceCountInput } = racingGameStore
+
+	if (ev.key === eventType.ENTER) {
+		raceCountInput.setState(ev.target.valueAsNumber)
 		return
 	}
 
 	if (ev.type === eventType.CLICK) {
-		const newCountInput = $(inputSelector.INPUT_RACE_COUNT).valueAsNumber
-		setStateAndFreeze({ stateKey: 'raceCountInput', newState: newCountInput })
+		raceCountInput.setState($(inputSelector.INPUT_RACE_COUNT).valueAsNumber)
 		return
 	}
 }
