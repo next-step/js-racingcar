@@ -1,7 +1,11 @@
-import { CAR_NAME_MAX_LENGTH, NOTICE_MESSAGES } from '../../src/js/consts';
 import { toArrayBySeparator } from '../../src/js/utils';
 import racingData from '../../src/js/modules/RacingData';
-import RacingModule from '../../src/js/modules/RacingModule';
+import RacingModule, {
+  CAR_NAME_MAX_LENGTH,
+} from '../../src/js/modules/RacingModule';
+import ValidationError, {
+  INVALID_MESSAGES,
+} from '../../src/js/modules/ValidationError';
 
 const TEST_GOAL_TRY_NUMBER = 5;
 const VALID_CAR_NAME = '차'.repeat(CAR_NAME_MAX_LENGTH);
@@ -26,19 +30,37 @@ describe('racingModule()', () => {
   });
   describe('hasTooLongName()', () => {
     const { hasTooLongName } = racingModule;
-    it(`name 길이가 ${CAR_NAME_MAX_LENGTH} 이하가 있는 경우 false를 리턴한다.`, () => {
-      const result = hasTooLongName(
-        toArrayBySeparator(VALID_CAR_NAME),
-        CAR_NAME_MAX_LENGTH
-      );
-      expect(result).to.be.false;
+    it(`name 길이가 ${CAR_NAME_MAX_LENGTH} 이하가 있는 경우 한다`, () => {
+      try {
+        if (
+          hasTooLongName(
+            toArrayBySeparator(VALID_CAR_NAME),
+            CAR_NAME_MAX_LENGTH
+          )
+        ) {
+          throw new ValidationError(INVALID_MESSAGES.NAME.MAX_LENGTH);
+        }
+
+        expect(true).to.be.true;
+      } catch (e) {
+        throw e;
+      }
     });
-    it(`name 길이가 ${CAR_NAME_MAX_LENGTH} 초과가 있는 경우 true를 리턴한다.`, () => {
-      const result = hasTooLongName(
-        toArrayBySeparator(INVALID_CAR_NAME),
-        CAR_NAME_MAX_LENGTH
-      );
-      expect(result).to.be.true;
+    it(`name 길이가 ${CAR_NAME_MAX_LENGTH} 초과가 있는 경우 ${INVALID_MESSAGES.NAME.MAX_LENGTH}에러 메시지를 throw 리턴한다.`, () => {
+      try {
+        if (
+          hasTooLongName(
+            toArrayBySeparator(INVALID_CAR_NAME),
+            CAR_NAME_MAX_LENGTH
+          )
+        ) {
+          throw new ValidationError(INVALID_MESSAGES.NAME.MAX_LENGTH);
+        }
+
+        throw Error;
+      } catch (e) {
+        expect(e.message).to.be.contains(INVALID_MESSAGES.NAME.MAX_LENGTH);
+      }
     });
   });
   describe('isFinishedRace()', () => {

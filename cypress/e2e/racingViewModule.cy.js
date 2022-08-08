@@ -1,4 +1,4 @@
-import { NOTICE_MESSAGES } from '../../src/js/consts';
+import { INVALID_MESSAGES } from '../../src/js/modules/ValidationError';
 
 const TEST_GOAL_POSITION_NUMBER = 5;
 const CAR_NAMES_SELECTOR = {
@@ -41,7 +41,7 @@ describe('레이싱 어플리케이션', () => {
         .click()
         .then(() => {
           expect(alertStub.getCall(0)).to.be.calledWith(
-            NOTICE_MESSAGES.NAME.EMPTY
+            INVALID_MESSAGES.NAME.EMPTY
           );
         });
     });
@@ -55,7 +55,7 @@ describe('레이싱 어플리케이션', () => {
         .click()
         .then(() => {
           expect(alertStub.getCall(0)).to.be.calledWith(
-            NOTICE_MESSAGES.NAME.MAX_LENGTH
+            INVALID_MESSAGES.NAME.MAX_LENGTH
           );
         });
     });
@@ -82,11 +82,6 @@ describe('레이싱 어플리케이션', () => {
       );
     });
 
-    /*
-     * @ FIXME timeout과는 별계로, 자동차가 움직이지 않은 상태로 지속될 수 있어,
-     *    추후 1초 내에 전진하는 값이 나올때까지 requestAnimationFrame으로 돌리도록하고, 각 초마다 generator로 yield하도록 변경해야
-     *    테스트가 명확해 질듯 보임..
-     * */
     it('시도 횟수 입력시, 시도 횟수 입력 필드는 disabled 되고 진행상황을 확인할 수 있다.', () => {
       cy.get(GOAL_POSITION_NUMBER_SELECTOR.INPUT).type(
         `${TEST_GOAL_POSITION_NUMBER}`

@@ -1,7 +1,9 @@
-import { NOTICE_MESSAGES } from './consts.js';
 import racingData from './modules/RacingData.js';
 import RacingModule from './modules/RacingModule.js';
 import RacingViewModule from './modules/RacingViewModule.js';
+import ValidationError, {
+  INVALID_MESSAGES,
+} from './modules/ValidationError.js';
 
 const raceApp = () => {
   const $racingInfoForm = document.querySelector('#racing-info-form');
@@ -56,13 +58,13 @@ const raceApp = () => {
   const onCompleteCarNames = () => {
     try {
       if (!$carNames.input.value) {
-        throw new Error(NOTICE_MESSAGES.NAME.EMPTY);
+        throw new ValidationError(INVALID_MESSAGES.NAME.EMPTY, alert);
       }
 
       const namesArray = getCarNames($carNames.input.value);
 
       if (hasTooLongName(namesArray)) {
-        throw new Error(NOTICE_MESSAGES.NAME.MAX_LENGTH);
+        throw new ValidationError(INVALID_MESSAGES.NAME.MAX_LENGTH, alert);
       }
 
       racingData.setRaceReadyStatus(namesArray);
@@ -72,8 +74,12 @@ const raceApp = () => {
         $goalPositionNumber.field,
         $goalPositionNumber.input
       );
-    } catch (e) {
-      alert(e.message);
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        err.errorEvent(err.message);
+      } else {
+        throw err;
+      }
     }
   };
 

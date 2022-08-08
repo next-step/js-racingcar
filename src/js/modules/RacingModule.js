@@ -1,5 +1,12 @@
-import { CAR_NAME_MAX_LENGTH, CONDITIONS } from '../consts.js';
 import { getRandomInteger, toArrayBySeparator, delay } from '../utils.js';
+
+const CAR_NAME_MAX_LENGTH = 5;
+const CONDITIONS = {
+  RANDOM_NUMBER_MAX: 9,
+  MOVE_CAR_MIN: 4,
+  STOP_CAR_MAX: 3,
+};
+
 const RacingModule = () => {
   const getCarNames = (value) => {
     return toArrayBySeparator(value);
@@ -56,3 +63,4 @@ const RacingModule = () => {
 };
 
 export default RacingModule;
+export { CAR_NAME_MAX_LENGTH, CONDITIONS };
