@@ -1,4 +1,18 @@
-const RacingViewModule = () => {
+import ValidationError, { INVALID_MESSAGES } from './ValidationError.js';
+import racingData from './RacingData.js';
+import RacingModule from './RacingModule.js';
+
+const RacingViewModule = (
+  $racingInfoForm,
+  $carNames,
+  $goalPositionNumber,
+  $raceStatusDiv,
+  $raceWinnerDiv,
+  $raceWinner
+) => {
+  const { getCarNames, hasTooLongName, moveRandom, getResultTryOnce, goRace } =
+    RacingModule();
+
   const initializeView = (initTargets) => {
     const DEFAULT_VALUE = {
       value: '',
@@ -12,6 +26,69 @@ const RacingViewModule = () => {
         (el) => (el[attrKey] = DEFAULT_VALUE[attrKey])
       )
     );
+  };
+
+  const onInitialize = () => {
+    racingData.initialize();
+
+    initializeView({
+      value: [$carNames.input, $goalPositionNumber.input],
+      innerHTML: [$raceStatusDiv, $raceWinner.label],
+      hidden: [$goalPositionNumber.field, $raceStatusDiv, $raceWinnerDiv],
+      disabled: [$carNames.field, $goalPositionNumber.field],
+      classList: [$raceStatusDiv],
+    });
+  };
+
+  const onTypingCarName = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      onCompleteCarNames();
+    }
+  };
+
+  const onCompleteCarNames = () => {
+    try {
+      if (!$carNames.input.value) {
+        throw new ValidationError(INVALID_MESSAGES.NAME.EMPTY, alert);
+      }
+
+      const namesArray = getCarNames($carNames.input.value);
+
+      if (hasTooLongName(namesArray)) {
+        throw new ValidationError(INVALID_MESSAGES.NAME.MAX_LENGTH, alert);
+      }
+
+      racingData.setRaceReadyStatus(namesArray);
+
+      readyForNextStep(
+        $carNames.field,
+        $goalPositionNumber.field,
+        $goalPositionNumber.input
+      );
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        err.errorEvent(err.message);
+      } else {
+        throw err;
+      }
+    }
+  };
+
+  const onStartRacing = async (e) => {
+    e.preventDefault();
+    racingData.setGoalPosition(+e.target.goal_position_number_input.value);
+
+    readyForNextStep($goalPositionNumber.field, $raceStatusDiv);
+
+    const winners = await goRace(racingData, (data) => {
+      const result = getResultTryOnce(data, moveRandom);
+      renderRaceStatus($raceStatusDiv, result);
+      return result;
+    });
+
+    hiddenSpinner($raceStatusDiv);
+    renderWinners($raceWinnerDiv, $raceWinner.label, winners);
   };
 
   const readyForNextStep = ($beforeEl, $nextEl, $focusTarget) => {
@@ -46,12 +123,23 @@ const RacingViewModule = () => {
       .join()} 🏆`;
   };
 
+  const addRaceStepEvent = () => {
+    $carNames.input.addEventListener('keydown', onTypingCarName);
+    $carNames.btn.addEventListener('click', onCompleteCarNames);
+    $racingInfoForm.addEventListener('submit', onStartRacing);
+    $raceWinner.btn.addEventListener('click', onInitialize);
+  };
+
   return {
+    onTypingCarName,
+    onCompleteCarNames,
+    onStartRacing,
     initializeView,
     readyForNextStep,
     renderRaceStatus,
     hiddenSpinner,
     renderWinners,
+    addRaceStepEvent,
   };
 };
 
