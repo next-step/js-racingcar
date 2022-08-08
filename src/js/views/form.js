@@ -4,6 +4,7 @@ export const $racingcarNameButton = document.querySelector('input[name=car-name]
 export const $attemptFieldset = document.querySelector('.attempt');
 export const $attemptNumberInput = document.querySelector('input[name=attempt-number]');
 export const $attemptNumberButton = document.querySelector('input[name=attempt-number] + button');
+export const $resetButton = document.querySelector('.reset');
 
 export const hideAttemptFieldset = () => {
   $attemptFieldset.classList.add('d-none');
