@@ -5,10 +5,10 @@ const racingData = {
     this.status = [];
     this.goalPosition = 0;
   },
-  set raceReadyStatus(carNamesArray) {
+  setRaceReadyStatus(carNamesArray) {
     this.status = carNamesArray.map((name) => ({ name, position: 0 }));
   },
-  set setGoalPosition(tryNumber) {
+  setGoalPosition(tryNumber) {
     this.goalPosition = tryNumber;
   },
 };
