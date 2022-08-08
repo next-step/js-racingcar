@@ -1,19 +1,11 @@
 const toArrayBySeparator = (string, separator = ',') => string.split(separator);
 const getRandomInteger = (maxValue) => Math.floor(Math.random() * ++maxValue);
 
-const eventLoop = (data, eventFunc, isStoppable, setTimer) => {
-  return new Promise((res) => {
-    let currData = data;
-    const f = () => {
-      currData = eventFunc(currData);
-      if (isStoppable(currData)) {
-        res(currData);
-      } else {
-        setTimer(f);
-      }
-    };
-    setTimer(f);
-  });
-};
+const delay = (asyncFunc, timerFunc = setTimeout, timeout = 1000) =>
+  new Promise((res) =>
+    timerFunc(() => {
+      res(asyncFunc());
+    }, timeout)
+  );
 
-export { toArrayBySeparator, getRandomInteger, eventLoop };
+export { toArrayBySeparator, getRandomInteger, delay };

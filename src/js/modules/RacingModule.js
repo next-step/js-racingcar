@@ -1,6 +1,5 @@
-import racingData from './RacingData.js';
 import { CAR_NAME_MAX_LENGTH, CONDITIONS } from '../consts.js';
-import { getRandomInteger, toArrayBySeparator, eventLoop } from '../utils.js';
+import { getRandomInteger, toArrayBySeparator, delay } from '../utils.js';
 const RacingModule = () => {
   const getCarNames = (value) => {
     return toArrayBySeparator(value);
@@ -10,42 +9,47 @@ const RacingModule = () => {
 
   const isBlink = (names) => !!names.find((name) => !name);
 
-  const getResultTryOnce = (raceStatus) => {
-    return raceStatus.map(({ name, position }) => {
-      if (
-        getRandomInteger(CONDITIONS.RANDOM_NUMBER_MAX) > CONDITIONS.MOVE_CAR_MIN
-      ) {
-        ++position;
-      }
-      return { name, position };
-    });
+  const moveRandom = ({ name, position }) => {
+    if (
+      getRandomInteger(CONDITIONS.RANDOM_NUMBER_MAX) > CONDITIONS.MOVE_CAR_MIN
+    ) {
+      ++position;
+    }
+    return { name, position };
   };
 
-  const isStoppableRace = (raceStatus, goalPosition) =>
+  const getResultTryOnce = (raceStatus, tryMethod) => {
+    return raceStatus.map(tryMethod);
+  };
+
+  const isFinishedRace = (raceStatus, goalPosition) =>
     !!raceStatus.find(({ position }) => position === goalPosition);
 
   const getWinners = (raceStatus, goalPosition) =>
     raceStatus.filter(({ position }) => position === goalPosition);
 
-  const goRace = (raceData, tryOnceEvent) => {
+  const goRace = async (raceData, turnEvent) => {
     const { status, goalPosition } = raceData;
-    return eventLoop(
-      status,
-      tryOnceEvent,
-      (raceStatus) => isStoppableRace(raceStatus, goalPosition),
-      (f) => setTimeout(f, 1000)
-    ).then((raceResult) => {
-      const winners = getWinners(raceResult, goalPosition);
-      return winners;
-    });
+
+    let currData = status;
+
+    const raceSingleTurn = async () => {
+      currData = turnEvent(currData);
+      if (isFinishedRace(currData, goalPosition)) return currData;
+      else return await delay(raceSingleTurn);
+    };
+    const raceResult = await delay(raceSingleTurn);
+
+    return getWinners(raceResult, goalPosition);
   };
 
   return {
     getCarNames,
     isBlink,
     hasTooLongName,
+    moveRandom,
     getResultTryOnce,
-    isStoppableRace,
+    isFinishedRace,
     goRace,
     getWinners,
   };
