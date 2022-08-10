@@ -1,15 +1,15 @@
 const racingProcessInfo = {
   status: [],
-  goalPosition: 0,
+  tryNumber: 0,
   initialize() {
     this.status = [];
-    this.goalPosition = 0;
+    this.tryNumber = 0;
   },
   setRaceReadyStatus(carNamesArray) {
     this.status = carNamesArray.map((name) => ({ name, position: 0 }));
   },
-  setGoalPosition(tryNumber) {
-    this.goalPosition = tryNumber;
+  setTryNumber(tryNumber) {
+    this.tryNumber = tryNumber;
   },
 };
 

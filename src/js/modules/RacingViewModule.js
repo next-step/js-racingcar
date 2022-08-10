@@ -77,7 +77,7 @@ const RacingViewModule = (
 
   const onStartRacing = async (e) => {
     e.preventDefault();
-    racingData.setGoalPosition(+e.target.goal_position_number_input.value);
+    racingData.setTryNumber(+e.target.goal_position_number_input.value);
 
     readyForNextStep($goalPositionNumber.field, $raceStatusDiv);
 

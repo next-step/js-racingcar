@@ -1,4 +1,9 @@
-import { getRandomInteger, toArrayBySeparator, delay } from '../utils.js';
+import {
+  getRandomInteger,
+  toArrayBySeparator,
+  delay,
+  getMaxValueByObjectKey,
+} from '../utils.js';
 
 const CAR_NAME_MAX_LENGTH = 5;
 const CONDITIONS = {
@@ -14,8 +19,6 @@ const RacingModule = () => {
   const hasTooLongName = (names, limitLength = CAR_NAME_MAX_LENGTH) =>
     !!names.find((name) => name.trim().length > limitLength);
 
-  const isBlink = (names) => !!names.find((name) => !name);
-
   const moveRandom = ({ name, position }) => {
     if (
       getRandomInteger(CONDITIONS.RANDOM_NUMBER_MAX) > CONDITIONS.MOVE_CAR_MIN
@@ -29,26 +32,26 @@ const RacingModule = () => {
     return raceStatus.map(tryMethod);
   };
 
-  const isFinishedRace = (raceStatus, goalPosition) =>
-    !!raceStatus.find(({ position }) => position === goalPosition);
-
-  const getWinners = (raceStatus, goalPosition) =>
-    raceStatus.filter(({ position }) => position === goalPosition);
+  const getWinners = (raceStatus) => {
+    const winnerPosition = getMaxValueByObjectKey(raceStatus, 'position');
+    return raceStatus.filter(({ position }) => position === winnerPosition);
+  };
 
   const goRace = async (racingProcessInfo, turnEvent) => {
-    const { status, goalPosition } = racingProcessInfo;
+    const { status, tryNumber } = racingProcessInfo;
 
     let currData = status;
+    let tryCount = 0;
 
     const raceSingleTurn = async () => {
       currData = turnEvent(currData);
-      if (isFinishedRace(currData, goalPosition)) return currData;
+      if (++tryCount === tryNumber) return currData;
       await delay();
       return raceSingleTurn();
     };
     const raceResult = await raceSingleTurn();
-
-    return getWinners(raceResult, goalPosition);
+    console.log('raceResult', raceResult);
+    return getWinners(raceResult);
   };
 
   return {
