@@ -63,24 +63,6 @@ describe('racingModule()', () => {
       }
     });
   });
-  describe('isFinishedRace()', () => {
-    const { isFinishedRace } = racingModule;
-    it(`goalPosition(도착지 위치)에 도달한 값이 없으면 false를 리턴한다.`, () => {
-      const result = isFinishedRace(mockReadyStatus, TEST_GOAL_TRY_NUMBER);
-      expect(result).to.be.false;
-    });
-    it(`goalPosition(도착지 위치)에 도달한 값이 하나라도 있으면 true를 리턴한다.`, () => {
-      const result = isFinishedRace(mockFinishedStatus, TEST_GOAL_TRY_NUMBER);
-      expect(result).to.be.true;
-    });
-  });
-  describe('getWinners()', () => {
-    const { getWinners } = racingModule;
-    it(`경주가 완료된 데이터에서 승리한 리스트를 가져올 수 있다.`, () => {
-      const result = getWinners(mockFinishedStatus, TEST_GOAL_TRY_NUMBER);
-      expect(result).to.be.length(1);
-    });
-  });
   describe('goRace()', () => {
     const { goRace } = racingModule;
     it(`시도마다 tryOnceEvent를 실행할 수 있다.`, async () => {

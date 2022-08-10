@@ -43,9 +43,10 @@ const RacingModule = () => {
     const raceSingleTurn = async () => {
       currData = turnEvent(currData);
       if (isFinishedRace(currData, goalPosition)) return currData;
-      return await delay(raceSingleTurn);
+      await delay();
+      return raceSingleTurn();
     };
-    const raceResult = await delay(raceSingleTurn);
+    const raceResult = await raceSingleTurn();
 
     return getWinners(raceResult, goalPosition);
   };
