@@ -1,6 +1,6 @@
 import RacingViewModule from './modules/RacingViewModule.js';
 
-const raceApp = () => {
+export default function raceApp() {
   const $racingInfoForm = document.querySelector('#racing-info-form');
   const $carNames = {
     field: $racingInfoForm.querySelector('#car-names-field'),
@@ -30,6 +30,4 @@ const raceApp = () => {
   );
 
   addRaceStepEvent();
-};
-
-export default raceApp;
+}
