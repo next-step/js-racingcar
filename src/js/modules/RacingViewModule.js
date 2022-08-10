@@ -1,5 +1,5 @@
 import ValidationError, { INVALID_MESSAGES } from './ValidationError.js';
-import racingData from './RacingData.js';
+import racingData from './RacingProcessInfo.js';
 import RacingModule from './RacingModule.js';
 
 const RacingViewModule = (

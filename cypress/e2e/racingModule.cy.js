@@ -1,5 +1,5 @@
 import { toArrayBySeparator } from '../../src/js/utils';
-import racingData from '../../src/js/modules/RacingData';
+import racingProcessInfo from '../../src/js/modules/RacingProcessInfo';
 import RacingModule, {
   CAR_NAME_MAX_LENGTH,
 } from '../../src/js/modules/RacingModule';
@@ -26,7 +26,7 @@ const mockFinishedStatus = [
 describe('racingModule()', () => {
   beforeEach(() => {
     racingModule = RacingModule();
-    racingData.initialize();
+    racingProcessInfo.initialize();
   });
   describe('hasTooLongName()', () => {
     const { hasTooLongName } = racingModule;
@@ -84,17 +84,17 @@ describe('racingModule()', () => {
   describe('goRace()', () => {
     const { goRace } = racingModule;
     it(`시도마다 tryOnceEvent를 실행할 수 있다.`, async () => {
-      racingData.status = mockReadyStatus;
-      racingData.setGoalTryNumber = TEST_GOAL_TRY_NUMBER;
+      racingProcessInfo.status = mockReadyStatus;
+      racingProcessInfo.setGoalTryNumber = TEST_GOAL_TRY_NUMBER;
       let event = {
         raceSingleTurn: () => {},
       };
       cy.stub(event, 'raceSingleTurn', () => {
-        racingData.status[0].position += 1;
-        return racingData.status;
+        racingProcessInfo.status[0].position += 1;
+        return racingProcessInfo.status;
       });
 
-      await goRace(racingData, event.raceSingleTurn);
+      await goRace(racingProcessInfo, event.raceSingleTurn);
       expect(event.raceSingleTurn).to.be.called;
     });
     afterEach(() => {

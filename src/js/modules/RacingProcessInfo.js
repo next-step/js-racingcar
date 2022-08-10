@@ -1,4 +1,4 @@
-const racingData = {
+const racingProcessInfo = {
   status: [],
   goalPosition: 0,
   initialize() {
@@ -13,4 +13,4 @@ const racingData = {
   },
 };
 
-export default racingData;
+export default racingProcessInfo;

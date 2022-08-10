@@ -35,15 +35,15 @@ const RacingModule = () => {
   const getWinners = (raceStatus, goalPosition) =>
     raceStatus.filter(({ position }) => position === goalPosition);
 
-  const goRace = async (raceData, turnEvent) => {
-    const { status, goalPosition } = raceData;
+  const goRace = async (racingProcessInfo, turnEvent) => {
+    const { status, goalPosition } = racingProcessInfo;
 
     let currData = status;
 
     const raceSingleTurn = async () => {
       currData = turnEvent(currData);
       if (isFinishedRace(currData, goalPosition)) return currData;
-      else return await delay(raceSingleTurn);
+      return await delay(raceSingleTurn);
     };
     const raceResult = await delay(raceSingleTurn);
 
