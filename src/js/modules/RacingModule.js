@@ -52,13 +52,10 @@ const RacingModule = () => {
 
   return {
     getCarNames,
-    isBlink,
     hasTooLongName,
     moveRandom,
     getResultTryOnce,
-    isFinishedRace,
     goRace,
-    getWinners,
   };
 };
 

@@ -131,14 +131,6 @@ const RacingViewModule = (
   };
 
   return {
-    onTypingCarName,
-    onCompleteCarNames,
-    onStartRacing,
-    initializeView,
-    readyForNextStep,
-    renderRaceStatus,
-    hiddenSpinner,
-    renderWinners,
     addRaceStepEvent,
   };
 };
