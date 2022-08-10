@@ -7,10 +7,12 @@ export default class Winner extends BaseController {
     this.$raceWinner = document.querySelector('#race-winner');
   }
 
+  // VIEW
   #getHasRaceWinner() {
     return !!this.app.state.winners.length;
   }
 
+  // VIEW
   render() {
     if (this.#getHasRaceWinner()) {
       const winners = this.app.state.winners.join(', ').trim();

@@ -11,18 +11,22 @@ export default class Result extends BaseController {
     this.#addRestartButtonEvent();
   }
 
+  // VIEW
   #getHasRaceWinner() {
     return !!this.app.state.winners.length;
   }
 
+  // VIEW
   #visible() {
     this.$result.classList.remove('d-none');
   }
 
+  // VIEW
   #invisible() {
     this.$result.classList.add('d-none');
   }
 
+  // VIEW
   #setVisible() {
     if (this.#getHasRaceWinner()) {
       this.#visible();
@@ -40,6 +44,7 @@ export default class Result extends BaseController {
     BaseInput.Clear();
   }
 
+  // VIEW
   render() {
     this.#setVisible();
   }

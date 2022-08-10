@@ -1,6 +1,7 @@
 import CarPlayer from '../../view/CarPlayer.js';
 import BaseController from '../BaseController.js';
 
+// VIEW
 export default class CarPlayerList extends BaseController {
   constructor(app) {
     super(app);
