@@ -1,13 +1,12 @@
-import BaseController from './BaseController.js';
+import BaseView from './BaseView.js';
 
-export default class Winner extends BaseController {
+export default class Winner extends BaseView {
   constructor(app) {
     super(app);
 
     this.$raceWinner = document.querySelector('#race-winner');
   }
 
-  // VIEW
   render() {
     if (this.model.getHasRaceWinner()) {
       const winners = this.model.state.winners.join(', ').trim();
