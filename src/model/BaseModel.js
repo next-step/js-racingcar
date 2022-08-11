@@ -1,18 +1,12 @@
-export default class BaseModel {
+import Observer from '../core/Observer.js';
+
+export default class BaseModel extends Observer {
   #defaultState;
 
   constructor(state) {
+    super();
     this.state = { ...state };
     this.#defaultState = state;
-    this.listeners = [];
-  }
-
-  suscribe(render) {
-    this.listeners.push(render);
-  }
-
-  notify() {
-    this.listeners.forEach(listener => listener());
   }
 
   setState(key, payload) {
