@@ -1,7 +1,7 @@
 import BaseController from './BaseController.js';
 import BaseInput from './BaseInput.js';
 
-export default class Result extends BaseController {
+export default class RestartButton extends BaseController {
   constructor(app) {
     super(app);
 
