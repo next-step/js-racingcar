@@ -7,6 +7,7 @@ import model from './model/index.js';
 import ViewCarPlayerList from './view/CarPlayer/List.js';
 import ViewCarPlayerNameForm from './view/CarPlayer/NameForm.js';
 import ViewAttemptForm from './view/AttemptForm.js';
+import ViewResult from './view/Result.js';
 
 function main() {
   const app = new App(model);
@@ -17,6 +18,7 @@ function main() {
   app.useView(ViewCarPlayerList);
   app.useView(ViewCarPlayerNameForm);
   app.useView(ViewAttemptForm);
+  app.useView(ViewResult);
 
   app.model.notify();
 }
