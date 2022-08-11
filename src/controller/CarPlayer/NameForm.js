@@ -22,23 +22,4 @@ export default class CarPlayerNameForm extends BaseController {
   #addSubmitEvent() {
     this.$form.addEventListener('submit', this.#setCarPlayerNames.bind(this));
   }
-
-  // VIEW
-  #able() {
-    this.$filedset.disabled = false;
-  }
-
-  // VIEW
-  #disalbe() {
-    this.$filedset.disabled = true;
-  }
-
-  // VIEW
-  render() {
-    if (this.model.getHasCarPlayerName()) {
-      this.#disalbe();
-    } else {
-      this.#able();
-    }
-  }
 }
