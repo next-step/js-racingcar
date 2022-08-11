@@ -1,14 +1,9 @@
+import { wait } from '../utils/index.js';
 import BaseController from './BaseController.js';
 
 const GO_FORWARD_CONDITION_NUMBER = 4;
 const MAX_RANDOM_NUMBER = 9;
 const MIN_RANDOM_NUMBER = 1;
-
-function wait(ms) {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms);
-  });
-}
 
 export default class Racing extends BaseController {
   #setRacingSteps() {
