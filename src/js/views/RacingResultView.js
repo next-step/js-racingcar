@@ -1,7 +1,7 @@
 import View from './View.js';
 import { $ } from '../utils.js';
 
-export default class RacingResultView extends View {
+export class RacingResultView extends View {
   constructor(element = $('#game-result-component')) {
     super(element);
     this.winnerNameElement = $('#winners');

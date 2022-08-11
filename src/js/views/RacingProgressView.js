@@ -1,7 +1,7 @@
 import View from './View.js';
 import { $ } from '../utils.js';
 
-export default class RacingProgressView extends View {
+export class RacingProgressView extends View {
   constructor(element = $('#game-progress-component')) {
     super(element);
   }

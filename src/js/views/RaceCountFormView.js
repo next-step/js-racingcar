@@ -1,7 +1,7 @@
 import View from './View.js';
 import { $ } from '../utils.js';
 
-export default class RaceCountFormView extends View {
+export class RaceCountFormView extends View {
   constructor(element = $('#race-count-component')) {
     super(element);
     this.inputElement = $('#input-race-count');
@@ -21,7 +21,9 @@ export default class RaceCountFormView extends View {
   }
 
   #showInputValue(value) {
-    this.inputElement.value = value;
+    if (!value) {
+      this.inputElement.value = null;
+    }
   }
 
   #disableButton(isDisabled) {

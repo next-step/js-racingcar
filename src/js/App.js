@@ -1,11 +1,6 @@
-import RacingCar from './Model.js';
+import RacingCar from './RacingCar.js';
 import Controller from './Controller.js';
-import CarNameFormView from './views/CarNameFormView.js';
-import RaceCountFormView from './views/RaceCountFormView.js';
-import RacingProgressView from './views/RacingProgressView.js';
-import RacingResultView from './views/RacingResultView.js';
-
-document.addEventListener('DOMContentLoaded', App);
+import { CarNameFormView, RaceCountFormView, RacingProgressView, RacingResultView } from './views/index.js';
 
 function App() {
   const model = new RacingCar();
@@ -18,3 +13,5 @@ function App() {
 
   new Controller(model, views);
 }
+
+export default App;

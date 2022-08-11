@@ -1,7 +1,7 @@
 import View from './View.js';
 import { $ } from '../utils.js';
 
-export default class CarNameFormView extends View {
+export class CarNameFormView extends View {
   constructor(element = $('#car-name-component')) {
     super(element);
     this.inputElement = $('#input-car-name');
