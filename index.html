@@ -22,7 +22,7 @@
               </div>
             </fieldset>
           </form>
-          <form id="form-attempt">
+          <form id="form-attempt" class="d-none">
             <p>시도할 횟수를 입력해주세요.</p>
             <fieldset>
               <div class="d-flex">
@@ -35,34 +35,9 @@
       </section>
       <section class="d-flex justify-center mt-5">
         <div id="car-player-list" class="mt-4 d-flex">
-          <div class="mr-2">
-            <div class="car-player">EAST</div>
-            <div class="forward-icon mt-2">⬇️️</div>
-            <div class="forward-icon mt-2">⬇️️</div>
-          </div>
-          <div class="mr-2">
-            <div class="car-player">WEST</div>
-            <div class="forward-icon mt-2">⬇️️</div>
-          </div>
-          <div class="mr-2">
-            <div class="car-player">SOUTH</div>
-            <div class="d-flex justify-center mt-3">
-              <div class="relative spinner-container">
-                <span class="material spinner"></span>
-              </div>
-            </div>
-          </div>
-          <div class="mr-2">
-            <div class="car-player">NORTH</div>
-            <div class="d-flex justify-center mt-3">
-              <div class="relative spinner-container">
-                <span class="material spinner"></span>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
-      <section id="race-result" class="d-flex justify-center mt-5">
+      <section id="race-result" class="d-none d-flex justify-center mt-5">
         <div>
           <h2 id="race-winner"></h2>
           <div class="d-flex justify-center">
