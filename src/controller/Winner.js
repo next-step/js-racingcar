@@ -8,14 +8,9 @@ export default class Winner extends BaseController {
   }
 
   // VIEW
-  #getHasRaceWinner() {
-    return !!this.app.state.winners.length;
-  }
-
-  // VIEW
   render() {
-    if (this.#getHasRaceWinner()) {
-      const winners = this.app.state.winners.join(', ').trim();
+    if (this.app.model.getHasRaceWinner()) {
+      const winners = this.app.model.state.winners.join(', ').trim();
       this.$raceWinner.textContent = `🏆 최종 우승자: ${winners} 🏆`;
     } else {
       this.$raceWinner.textContent = '';

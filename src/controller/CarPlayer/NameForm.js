@@ -24,11 +24,6 @@ export default class CarPlayerNameForm extends BaseController {
   }
 
   // VIEW
-  #getHasCarPlayerName() {
-    return this.app.state.carPlayerNames.length > 0;
-  }
-
-  // VIEW
   #able() {
     this.$filedset.disabled = false;
   }
@@ -40,7 +35,7 @@ export default class CarPlayerNameForm extends BaseController {
 
   // VIEW
   render() {
-    if (this.#getHasCarPlayerName()) {
+    if (this.app.model.getHasCarPlayerName()) {
       this.#disalbe();
     } else {
       this.#able();

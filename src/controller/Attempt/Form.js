@@ -31,16 +31,6 @@ export default class AttemptForm extends BaseController {
   }
 
   // VIEW
-  #getHasCarPlayerName() {
-    return this.app.state.carPlayerNames.length > 0;
-  }
-
-  // VIEW
-  #getHasAttempt() {
-    return !!this.app.state.attempt;
-  }
-
-  // VIEW
   #visible() {
     this.$form.classList.remove('d-none');
   }
@@ -62,7 +52,7 @@ export default class AttemptForm extends BaseController {
 
   // VIEW
   #setVisible() {
-    if (this.#getHasCarPlayerName()) {
+    if (this.app.model.getHasCarPlayerName()) {
       this.#visible();
     } else {
       this.#invisible();
@@ -71,7 +61,7 @@ export default class AttemptForm extends BaseController {
 
   // VIEW
   #setAble() {
-    if (this.#getHasAttempt()) {
+    if (this.app.model.getHasAttempt()) {
       this.#disalbe();
     } else {
       this.#able();
