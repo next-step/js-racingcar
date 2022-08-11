@@ -8,7 +8,6 @@ export default class AttemptForm extends BaseController {
 
     this.$form = document.querySelector('#form-attempt');
     this.attemptInput = new AttemptInput();
-    this.$filedset = this.$form.querySelector('fieldset');
     this.racing = new Racing(app);
 
     this.#addSubmitEvent();
@@ -28,49 +27,5 @@ export default class AttemptForm extends BaseController {
     const { value } = this.attemptInput.$input;
 
     this.setState('attempt', value);
-  }
-
-  // VIEW
-  #visible() {
-    this.$form.classList.remove('d-none');
-  }
-
-  // VIEW
-  #invisible() {
-    this.$form.classList.add('d-none');
-  }
-
-  // VIEW
-  #able() {
-    this.$filedset.disabled = false;
-  }
-
-  // VIEW
-  #disalbe() {
-    this.$filedset.disabled = true;
-  }
-
-  // VIEW
-  #setVisible() {
-    if (this.model.getHasCarPlayerName()) {
-      this.#visible();
-    } else {
-      this.#invisible();
-    }
-  }
-
-  // VIEW
-  #setAble() {
-    if (this.model.getHasAttempt()) {
-      this.#disalbe();
-    } else {
-      this.#able();
-    }
-  }
-
-  // VIEW
-  render() {
-    this.#setVisible();
-    this.#setAble();
   }
 }
