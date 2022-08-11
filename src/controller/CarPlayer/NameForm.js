@@ -7,7 +7,6 @@ export default class CarPlayerNameForm extends BaseController {
 
     this.$form = document.querySelector('#form-car-player-name');
     this.carPlayerNameInput = new CarPlayerNameInput();
-    this.$filedset = this.$form.querySelector('fieldset');
 
     this.#addSubmitEvent();
   }
