@@ -52,7 +52,7 @@ export default class AttemptForm extends BaseController {
 
   // VIEW
   #setVisible() {
-    if (this.app.model.getHasCarPlayerName()) {
+    if (this.model.getHasCarPlayerName()) {
       this.#visible();
     } else {
       this.#invisible();
@@ -61,7 +61,7 @@ export default class AttemptForm extends BaseController {
 
   // VIEW
   #setAble() {
-    if (this.app.model.getHasAttempt()) {
+    if (this.model.getHasAttempt()) {
       this.#disalbe();
     } else {
       this.#able();

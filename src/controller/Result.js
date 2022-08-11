@@ -23,7 +23,7 @@ export default class Result extends BaseController {
 
   // VIEW
   #setVisible() {
-    if (this.app.model.getHasRaceWinner()) {
+    if (this.model.getHasRaceWinner()) {
       this.#visible();
     } else {
       this.#invisible();
@@ -35,7 +35,7 @@ export default class Result extends BaseController {
   }
 
   #restart() {
-    this.app.model.resetState();
+    this.model.resetState();
     BaseInput.Clear();
   }
 

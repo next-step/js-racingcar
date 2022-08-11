@@ -9,8 +9,8 @@ export default class Winner extends BaseController {
 
   // VIEW
   render() {
-    if (this.app.model.getHasRaceWinner()) {
-      const winners = this.app.model.state.winners.join(', ').trim();
+    if (this.model.getHasRaceWinner()) {
+      const winners = this.model.state.winners.join(', ').trim();
       this.$raceWinner.textContent = `🏆 최종 우승자: ${winners} 🏆`;
     } else {
       this.$raceWinner.textContent = '';

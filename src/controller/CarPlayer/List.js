@@ -9,12 +9,12 @@ export default class CarPlayerList extends BaseController {
   }
 
   render() {
-    if (!this.app.model.getHasCarPlayerName() || !this.app.model.getHasAttempt()) {
+    if (!this.model.getHasCarPlayerName() || !this.model.getHasAttempt()) {
       this.$carPlayerList.innerHTML = '';
       return;
     }
 
-    const { carPlayerNames, racingSteps } = this.app.model.state;
+    const { carPlayerNames, racingSteps } = this.model.state;
     const carPlayerList = carPlayerNames
       .map(name => CarPlayer(name, racingSteps[name] || []))
       .join('');

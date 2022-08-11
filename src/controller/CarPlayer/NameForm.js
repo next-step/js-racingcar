@@ -35,7 +35,7 @@ export default class CarPlayerNameForm extends BaseController {
 
   // VIEW
   render() {
-    if (this.app.model.getHasCarPlayerName()) {
+    if (this.model.getHasCarPlayerName()) {
       this.#disalbe();
     } else {
       this.#able();
