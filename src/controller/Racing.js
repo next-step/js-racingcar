@@ -62,9 +62,10 @@ export default class Racing extends BaseController {
   }
 
   async #race() {
-    const MAX_ATTEMPT = this.model.state.attempt;
+    const { attempt } = this.model.state;
+    const dumy = new Array(Number(attempt)).fill(null);
 
-    for (let attempt = 0; attempt < MAX_ATTEMPT; ++attempt) {
+    for await (const _ of dumy) {
       await wait(1000);
       this.#forwardStep();
     }
