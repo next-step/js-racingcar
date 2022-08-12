@@ -4,6 +4,7 @@ import BaseController from './BaseController.js';
 const GO_FORWARD_CONDITION_NUMBER = 4;
 const MAX_RANDOM_NUMBER = 9;
 const MIN_RANDOM_NUMBER = 1;
+const INTERBAL = 1000;
 
 export default class Racing extends BaseController {
   #startRacingSteps() {
@@ -59,15 +60,23 @@ export default class Racing extends BaseController {
     this.setState('racingSteps', racingSteps);
   }
 
-  async #race() {
-    const { attempt } = this.model.state;
-    const waitList = new Array(Number(attempt))
-      .fill(null)
-      .map((_, index) => wait(1000 * (index + 1)));
+  #forwardInterwval() {
+    let remainAttemp = this.model.state.attempt;
+    return new Promise(resolve => {
+      const time = setInterval(() => {
+        this.#forwardStep();
+        remainAttemp -= 1;
 
-    for await (const _ of waitList) {
-      this.#forwardStep();
-    }
+        if (remainAttemp === 0) {
+          clearInterval(time);
+          resolve();
+        }
+      }, INTERBAL);
+    });
+  }
+
+  async #race() {
+    await this.#forwardInterwval();
 
     this.#endRacing();
     this.#setWinner();
