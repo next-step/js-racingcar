@@ -60,8 +60,9 @@ export default class Racing extends BaseController {
     this.setState('racingSteps', racingSteps);
   }
 
-  #forwardInterwval() {
+  #forwardInterval() {
     let remainAttemp = this.model.state.attempt;
+
     return new Promise(resolve => {
       requestIntervalAnimationFrame(() => {
         remainAttemp -= 1;
@@ -76,7 +77,7 @@ export default class Racing extends BaseController {
   }
 
   async #race() {
-    await this.#forwardInterwval();
+    await this.#forwardInterval();
 
     this.#endRacing();
     this.#setWinner();
