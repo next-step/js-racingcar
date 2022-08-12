@@ -1,4 +1,4 @@
-import { wait } from '../utils/index.js';
+import { requestIntervalAnimationFrame } from '../utils/index.js';
 import BaseController from './BaseController.js';
 
 const GO_FORWARD_CONDITION_NUMBER = 4;
@@ -63,14 +63,14 @@ export default class Racing extends BaseController {
   #forwardInterwval() {
     let remainAttemp = this.model.state.attempt;
     return new Promise(resolve => {
-      const time = setInterval(() => {
-        this.#forwardStep();
+      requestIntervalAnimationFrame(() => {
         remainAttemp -= 1;
-
+        this.#forwardStep();
         if (remainAttemp === 0) {
-          clearInterval(time);
           resolve();
+          return false;
         }
+        return true;
       }, INTERBAL);
     });
   }
