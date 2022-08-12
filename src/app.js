@@ -9,20 +9,19 @@ import ViewAttemptForm from './view/AttemptForm.js';
 import ViewResult from './view/Result.js';
 import ViewWinner from './view/Winner.js';
 
-function main() {
-  const app = new App(model);
+function app() {
+  const raceApp = new App(model);
 
-  app.useController(CarPlayerNameForm);
-  app.useController(AttemptForm);
-  app.useController(RestartButton);
+  raceApp.useController(CarPlayerNameForm);
+  raceApp.useController(AttemptForm);
+  raceApp.useController(RestartButton);
+  raceApp.useView(ViewCarPlayerList);
+  raceApp.useView(ViewCarPlayerNameForm);
+  raceApp.useView(ViewAttemptForm);
+  raceApp.useView(ViewResult);
+  raceApp.useView(ViewWinner);
 
-  app.useView(ViewCarPlayerList);
-  app.useView(ViewCarPlayerNameForm);
-  app.useView(ViewAttemptForm);
-  app.useView(ViewResult);
-  app.useView(ViewWinner);
-
-  app.model.notify();
+  raceApp.model.notify();
 }
 
-main();
+app();
