@@ -1,12 +1,15 @@
 # 해야 할것 정리
 
-- [ ] MVC의 의도에 맞게 다시 정리하기
-  - [ ] View Function -> View Class로 변경 ( 커밋을 따로 )
-  - [ ] MVC로 변경하면서 추상 클래서 / 추상 메서드도 함께 챙기기 ( 커밋을 따로 )
+- [x] MVC의 의도에 맞게 다시 정리하기
+  - [x] View Function -> View Class로 변경 ( 커밋을 따로 )
+  - [x] MVC로 변경하면서 추상 클래서 / 추상 메서드도 함께 챙기기 ( 커밋을 따로 )
 - [ ] setInterval / requestAnimationFrame 들로 각각 구현 진행해보기
-  - [ ] Wait Util function
-- [ ] #endRacing 가독성 높이기
-- [ ] cypress clock api를 활용해서 테스트 해보기
+  - [x] Wait Util function
+  - [x] for await (...of...) 사용해보기
+  - [x] setInterval
+  - [x] requestAnimationFrame
+- [x] #endRacing 가독성 높이기
+- [x] cypress clock api를 활용해서 테스트 해보기
 
 # 자동차 경주 리뷰
 
