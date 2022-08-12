@@ -11,9 +11,11 @@ import ViewWinner from './view/Winner.js';
 
 function main() {
   const app = new App(model);
+
   app.useController(CarPlayerNameForm);
   app.useController(AttemptForm);
   app.useController(RestartButton);
+
   app.useView(ViewCarPlayerList);
   app.useView(ViewCarPlayerNameForm);
   app.useView(ViewAttemptForm);

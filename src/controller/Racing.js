@@ -4,7 +4,7 @@ import BaseController from './BaseController.js';
 const GO_FORWARD_CONDITION_NUMBER = 4;
 const MAX_RANDOM_NUMBER = 9;
 const MIN_RANDOM_NUMBER = 1;
-const INTERBAL = 1000;
+const INTERVAL = 1000;
 
 export default class Racing extends BaseController {
   #startRacingSteps() {
@@ -64,15 +64,15 @@ export default class Racing extends BaseController {
     let remainAttemp = this.model.state.attempt;
 
     return new Promise(resolve => {
-      requestIntervalAnimationFrame(() => {
-        remainAttemp -= 1;
+      const time = setInterval(() => {
         this.#forwardStep();
+        remainAttemp -= 1;
+
         if (remainAttemp === 0) {
+          clearInterval(time);
           resolve();
-          return false;
         }
-        return true;
-      }, INTERBAL);
+      }, INTERVAL);
     });
   }
 
