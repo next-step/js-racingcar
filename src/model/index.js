@@ -19,6 +19,10 @@ class Model extends BaseModel {
   getHasRaceWinner() {
     return !!this.state.winners.length;
   }
+
+  getRacingStepByName(name) {
+    return this.state.racingSteps[name];
+  }
 }
 
 const model = new Model(state);
