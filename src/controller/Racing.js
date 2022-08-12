@@ -1,4 +1,3 @@
-import { requestIntervalAnimationFrame } from '../utils/index.js';
 import BaseController from './BaseController.js';
 
 const GO_FORWARD_CONDITION_NUMBER = 4;
