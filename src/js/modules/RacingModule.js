@@ -4,6 +4,7 @@ import {
   delay,
   getMaxValueByObjectKey,
 } from '../utils.js';
+import ValidationError, { INVALID_MESSAGES } from './ValidationError.js';
 
 const CAR_NAME_MAX_LENGTH = 5;
 const CONDITIONS = {
@@ -16,8 +17,11 @@ const RacingModule = () => {
   const getCarNames = (value) => {
     return toArrayBySeparator(value);
   };
-  const hasTooLongName = (names, limitLength = CAR_NAME_MAX_LENGTH) =>
-    !!names.find((name) => name.trim().length > limitLength);
+  const checkTooLongName = (names, limitLength = CAR_NAME_MAX_LENGTH) => {
+    if (!!names.find((name) => name.trim().length > limitLength)) {
+      throw new ValidationError(INVALID_MESSAGES.NAME.MAX_LENGTH, alert);
+    }
+  };
 
   const moveRandom = ({ name, position }) => {
     if (
@@ -38,25 +42,24 @@ const RacingModule = () => {
   };
 
   const goRace = async (racingProcessInfo, turnEvent) => {
-    const { status, tryNumber } = racingProcessInfo;
+    const { status, tryEndNumber } = racingProcessInfo;
 
     let currData = status;
     let tryCount = 0;
 
     const raceSingleTurn = async () => {
       currData = turnEvent(currData);
-      if (++tryCount === tryNumber) return currData;
+      if (++tryCount === tryEndNumber) return currData;
       await delay();
       return raceSingleTurn();
     };
     const raceResult = await raceSingleTurn();
-    console.log('raceResult', raceResult);
     return getWinners(raceResult);
   };
 
   return {
     getCarNames,
-    hasTooLongName,
+    checkTooLongName,
     moveRandom,
     getResultTryOnce,
     goRace,

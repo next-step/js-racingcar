@@ -10,8 +10,13 @@ const RacingViewModule = (
   $raceWinnerDiv,
   $raceWinner
 ) => {
-  const { getCarNames, hasTooLongName, moveRandom, getResultTryOnce, goRace } =
-    RacingModule();
+  const {
+    getCarNames,
+    checkTooLongName,
+    moveRandom,
+    getResultTryOnce,
+    goRace,
+  } = RacingModule();
 
   const initializeView = (initTargets) => {
     const DEFAULT_VALUE = {
@@ -55,9 +60,7 @@ const RacingViewModule = (
 
       const namesArray = getCarNames($carNames.input.value);
 
-      if (hasTooLongName(namesArray)) {
-        throw new ValidationError(INVALID_MESSAGES.NAME.MAX_LENGTH, alert);
-      }
+      checkTooLongName(namesArray);
 
       racingData.setRaceReadyStatus(namesArray);
 
@@ -77,7 +80,7 @@ const RacingViewModule = (
 
   const onStartRacing = async (e) => {
     e.preventDefault();
-    racingData.setTryNumber(+e.target.goal_position_number_input.value);
+    racingData.setTryEndNumber(+e.target.goal_position_number_input.value);
 
     readyForNextStep($goalPositionNumber.field, $raceStatusDiv);
 

@@ -88,13 +88,13 @@ describe('레이싱 어플리케이션', () => {
       );
       cy.get(GOAL_POSITION_NUMBER_SELECTOR.BTN).click();
       cy.get(GOAL_POSITION_NUMBER_SELECTOR.FIELD).should('be.disabled');
-      cy.wait(10000);
+      cy.wait(6000);
       cy.get(RACE_WINNER_SELECTOR.DIV).should('be.visible');
     });
     it('다시 시작하기 클릭시 화면이 초기화 된다.', () => {
       cy.get(GOAL_POSITION_NUMBER_SELECTOR.INPUT).type(`${1}`);
       cy.get(GOAL_POSITION_NUMBER_SELECTOR.BTN).click();
-      cy.wait(5000);
+      cy.wait(6000);
       cy.get(RACE_WINNER_SELECTOR.INIT_BTN).click();
 
       cy.get(CAR_NAMES_SELECTOR.INPUT).should('not.include.value');
