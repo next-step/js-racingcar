@@ -3,26 +3,49 @@ import BaseInput from '../BaseInput.js';
 export const MAX_NAME_LENGTH = 5;
 export const MAX_NAME_LIST_LENGHT = 5;
 
-export default class CarNameInput extends BaseInput {
+export default class CarPlayerNameInput extends BaseInput {
   constructor() {
     const $input = document.querySelector('#input-car-player-name');
     super($input);
   }
 
+  #validateOverPlayerNameLength(carPlayerNames) {
+    return carPlayerNames.every(name => name.length <= MAX_NAME_LENGTH);
+  }
+
+  #validateEmptyPlayerName(carPlayerNames) {
+    return carPlayerNames.every(carName => carName !== '');
+  }
+
+  #validateOverPlayerLength(carPlayerNames) {
+    return carPlayerNames.length < MAX_NAME_LIST_LENGHT;
+  }
+
+  #validateDuplicatePlayerName(carPlayerNames) {
+    return carPlayerNames.length === new Set(carPlayerNames).size;
+  }
+
+  #getValidationMessage(carPlayerNames) {
+    if (!this.#validateOverPlayerNameLength(carPlayerNames)) {
+      return '플레이어 이름은 5자 이하로 작성해 주세요.';
+    }
+    if (!this.#validateEmptyPlayerName(carPlayerNames)) {
+      return '플레이어 이름을 입력해주세요.';
+    }
+    if (!this.#validateOverPlayerLength(carPlayerNames)) {
+      return '플레이어 이름을 5개이하로 입력해주세요.';
+    }
+    if (!this.#validateDuplicatePlayerName(carPlayerNames)) {
+      return '중복된 플레이어가 있습니다 다시 입력해 주세요.';
+    }
+    return '';
+  }
+
   setValidity(event) {
     const { value } = event.target;
-    const carNames = value.split(',').map(carName => carName.trim());
+    const carPlayerNames = value.split(',').map(name => name.trim());
+    const validationMessage = this.#getValidationMessage(carPlayerNames);
 
-    if (carNames.some(carName => carName.length > MAX_NAME_LENGTH)) {
-      this.setCustomValidity('플레이어 이름은 5자 이하로 작성해 주세요.');
-    } else if (carNames.some(carName => carName === '')) {
-      this.setCustomValidity('플레이어 이름을 입력해주세요.');
-    } else if (carNames.length >= MAX_NAME_LIST_LENGHT) {
-      this.setCustomValidity('플레이어 이름을 5개이하로 입력해주세요.');
-    } else if (carNames.length !== new Set(carNames).size) {
-      this.setCustomValidity('중복된 플레이어가 있습니다 다시 입력해 주세요.');
-    } else {
-      this.setCustomValidity('');
-    }
+    this.setCustomValidity(validationMessage);
   }
 }
