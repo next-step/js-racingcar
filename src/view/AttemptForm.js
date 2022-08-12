@@ -20,7 +20,7 @@ export default class AttemptForm extends BaseView {
     this.$filedset.disabled = false;
   }
 
-  #disalbe() {
+  #disable() {
     this.$filedset.disabled = true;
   }
 
@@ -34,7 +34,7 @@ export default class AttemptForm extends BaseView {
 
   #setAble() {
     if (this.model.getHasAttempt()) {
-      this.#disalbe();
+      this.#disable();
     } else {
       this.#able();
     }

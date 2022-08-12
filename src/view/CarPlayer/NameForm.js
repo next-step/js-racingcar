@@ -12,13 +12,13 @@ export default class CarPlayerNameForm extends BaseView {
     this.$filedset.disabled = false;
   }
 
-  #disalbe() {
+  #disable() {
     this.$filedset.disabled = true;
   }
 
   render() {
     if (this.model.getHasCarPlayerName()) {
-      this.#disalbe();
+      this.#disable();
     } else {
       this.#able();
     }
