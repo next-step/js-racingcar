@@ -6,6 +6,8 @@ export default class RestartButton extends BaseController {
     super(app);
 
     this.$restartButton = document.querySelector('#btn-restart');
+    this.$inputAttempt = document.querySelector('#input-attempt');
+    this.$inputCarPlayerName = document.querySelector('#input-car-player-name');
 
     this.#addRestartButtonEvent();
   }
@@ -16,6 +18,7 @@ export default class RestartButton extends BaseController {
 
   #restart() {
     this.model.resetState();
-    BaseInput.Clear();
+    BaseInput.clear(this.$inputAttempt);
+    BaseInput.clear(this.$inputCarPlayerName);
   }
 }

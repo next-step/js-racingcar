@@ -22,9 +22,7 @@ export default class BaseInput {
     });
   }
 
-  static Clear() {
-    document.querySelectorAll('input').forEach($input => {
-      $input.value = '';
-    });
+  static clear($input) {
+    $input.value = '';
   }
 }
