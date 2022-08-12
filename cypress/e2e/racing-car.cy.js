@@ -162,18 +162,20 @@ describe('레이싱', () => {
     const carNameCount = 4;
     const attempt = 5;
     const waitTime = 5000;
+    const timeStep = 1000;
 
     return {
       carName,
       carNameCount,
       attempt,
       waitTime,
+      timeStep,
     };
   };
 
   beforeEach(() => {
     const { carName, attempt } = setup();
-
+    cy.clock();
     cy.visit('/');
 
     cy.get('#input-car-player-name').type(carName);
@@ -194,18 +196,25 @@ describe('레이싱', () => {
     });
   });
 
-  it('플레이어 이름와 시도를 정상적으로 입력하면, 플레이 시간이 끝나면 결과를 볼 수 있다.', () => {
-    const { waitTime } = setup();
+  it('플레이어 이름과 시도를 정상적으로 입력하면, 플레이 시간이 끝나면 결과를 볼 수 있다.', () => {
+    const { timeStep } = setup();
 
-    cy.wait(waitTime);
-
+    cy.tick(timeStep);
+    cy.get('#race-result').should('not.be.visible');
+    cy.tick(timeStep);
+    cy.get('#race-result').should('not.be.visible');
+    cy.tick(timeStep);
+    cy.get('#race-result').should('not.be.visible');
+    cy.tick(timeStep);
+    cy.get('#race-result').should('not.be.visible');
+    cy.tick(timeStep);
     cy.get('#race-result').should('be.visible');
   });
 
   it('플레이 시간이 끝나면 결과를 본 후, 다시시작하기를 누르면 초기화된다.', () => {
     const { waitTime } = setup();
 
-    cy.wait(waitTime);
+    cy.tick(waitTime);
     cy.get('#btn-restart').click();
 
     cy.get('#input-car-player-name').should('have.value', '');
