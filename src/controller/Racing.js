@@ -16,13 +16,10 @@ export default class Racing extends BaseController {
   }
 
   #setWinner() {
-    const maxStepCount = this.model.state.carPlayerNames.reduce((max, name) => {
-      const racingStep = this.model.getRacingStepByName(name);
-      if (max < racingStep.length) {
-        return racingStep.length;
-      }
-      return max;
-    }, 0);
+    const stepCountList = this.model.state.carPlayerNames.map(
+      name => this.model.getRacingStepByName(name).length
+    );
+    const maxStepCount = Math.max(...stepCountList);
 
     const winners = this.model.state.carPlayerNames.filter(
       name => this.model.getRacingStepByName(name).length === maxStepCount
