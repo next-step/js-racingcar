@@ -3,9 +3,6 @@ import racingProcessInfo from '../../src/js/modules/RacingProcessInfo';
 import RacingModule, {
   CAR_NAME_MAX_LENGTH,
 } from '../../src/js/modules/RacingModule';
-import ValidationError, {
-  INVALID_MESSAGES,
-} from '../../src/js/modules/ValidationError';
 
 const TEST_SINGLE_TRY_NUMBER = 1;
 const TEST_GOAL_TRY_NUMBER = 5;
@@ -30,6 +27,19 @@ describe('racingModule()', () => {
     racingModule = RacingModule();
     racingProcessInfo.initialize();
   });
+  describe('checkFalsyName()', () => {
+    const { checkFalsyName } = racingModule;
+    it('name에 1개 이상의 문자가 들어가 있는경우 에러를 throw하지 않는다.', () => {
+      expect(() => {
+        checkFalsyName('차');
+      }).to.not.throw();
+    });
+    it('name이 1개 이상의 공백으로만 들어가 있는 경우 에러를 throw 한다.', () => {
+      expect(() => {
+        checkFalsyName('      ');
+      }).to.be.throw();
+    });
+  });
   describe('checkTooLongName()', () => {
     const { checkTooLongName } = racingModule;
     it(`name 길이가 ${CAR_NAME_MAX_LENGTH} 이하가 있는 에러를 throw하지 않는다.`, () => {
@@ -40,13 +50,13 @@ describe('racingModule()', () => {
         );
       }).to.not.throw();
     });
-    it(`name 길이가 ${CAR_NAME_MAX_LENGTH} 초과가 있는 경우 ${INVALID_MESSAGES.NAME.MAX_LENGTH}에러 메시지를 throw 리턴한다.`, () => {
+    it(`name 길이가 ${CAR_NAME_MAX_LENGTH} 초과가 있는 경우 에러 메시지를 throw 리턴한다.`, () => {
       expect(() => {
         checkTooLongName(
           toArrayBySeparator(INVALID_CAR_NAME),
           CAR_NAME_MAX_LENGTH
         );
-      }).to.be.throw(INVALID_MESSAGES.NAME.MAX_LENGTH);
+      }).to.be.throw();
     });
   });
   describe('goRace()', () => {

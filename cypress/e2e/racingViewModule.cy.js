@@ -40,9 +40,7 @@ describe('레이싱 어플리케이션', () => {
       cy.get(CAR_NAMES_SELECTOR.BTN)
         .click()
         .then(() => {
-          expect(alertStub.getCall(0)).to.be.calledWith(
-            INVALID_MESSAGES.NAME.EMPTY
-          );
+          expect(alertStub.getCall(0)).to.be.calledWith('이름을 입력해주세요.');
         });
     });
 
@@ -55,7 +53,7 @@ describe('레이싱 어플리케이션', () => {
         .click()
         .then(() => {
           expect(alertStub.getCall(0)).to.be.calledWith(
-            INVALID_MESSAGES.NAME.MAX_LENGTH
+            '이름은 5자 이하로 입력해주세요.'
           );
         });
     });

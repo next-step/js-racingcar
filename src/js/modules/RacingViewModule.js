@@ -1,4 +1,4 @@
-import ValidationError, { INVALID_MESSAGES } from './ValidationError.js';
+import ValidationError from './ValidationError.js';
 import racingData from './RacingProcessInfo.js';
 import RacingModule from './RacingModule.js';
 
@@ -11,6 +11,7 @@ const RacingViewModule = (
   $raceWinner
 ) => {
   const {
+    checkFalsyName,
     getCarNames,
     checkTooLongName,
     moveRandom,
@@ -52,11 +53,15 @@ const RacingViewModule = (
     }
   };
 
+  const readyForNextStep = ($beforeEl, $nextEl, $focusTarget) => {
+    $beforeEl.disabled = true;
+    $nextEl.hidden = false;
+    if ($focusTarget) $focusTarget.focus();
+  };
+
   const onCompleteCarNames = () => {
     try {
-      if (!$carNames.input.value) {
-        throw new ValidationError(INVALID_MESSAGES.NAME.EMPTY, alert);
-      }
+      checkFalsyName($carNames.input.value);
 
       const namesArray = getCarNames($carNames.input.value);
 
@@ -92,12 +97,6 @@ const RacingViewModule = (
 
     hiddenSpinner($raceStatusDiv);
     renderWinners($raceWinnerDiv, $raceWinner.label, winners);
-  };
-
-  const readyForNextStep = ($beforeEl, $nextEl, $focusTarget) => {
-    $beforeEl.disabled = true;
-    $nextEl.hidden = false;
-    if ($focusTarget) $focusTarget.focus();
   };
 
   const getRaceStatusTemplate = ({ name, position }) => `<div class="mr-2">
