@@ -16,7 +16,7 @@ export class RacingModel {
     this.winners = [];
   }
 
-  #isAbleToMoveFoward = () => {
+  #isAbleToMoveForward = () => {
     const randomNum = getRandomInt(1, 10);
     return randomNum > 4;
   };
@@ -76,7 +76,7 @@ export class RacingModel {
   moveCars() {
     Array.from({ length: this.playTime }, () => {
       this.carNames.forEach((name, idx) => {
-        if (this.#isAbleToMoveFoward()) {
+        if (this.#isAbleToMoveForward()) {
           this.movingCount[idx] += 1;
         }
       });
