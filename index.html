@@ -8,51 +8,38 @@
   <body>
     <div id="app">
       <section class="d-flex justify-center mt-5">
-        <form id="car-name__form">
-          <fieldset id="car-name">
+        <form>
+          <fieldset class="name-area">
             <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
             <p>
               5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
               예시) EAST, WEST, SOUTH, NORTH
             </p>
             <div class="d-flex">
-              <input
-                name="car-name__input"
-                id="car-name__input"
-                type="text"
-                class="w-100 mr-2"
-                placeholder="자동차 이름"
-              />
-              <button id="car-name__btn" type="submit" class="btn btn-cyan">
-                확인
-              </button>
+              <input type="text" class="w-100 mr-2" placeholder="자동차 이름" />
+              <button type="button" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
-        </form>
-      </section>
-      <section id="count__section" class="hidden d-flex justify-center mt-5">
-        <form id="count__form">
-          <fieldset>
+          <fieldset class="count-area hidden">
             <p>시도할 횟수를 입력해주세요.</p>
-            <div class="d-flex mw">
-              <input
-                name="count__input"
-                id="count__input"
-                type="number"
-                class="w-100 mr-2"
-                placeholder="시도 횟수"
-              />
-              <button id="count__btn" type="submit" class="btn btn-cyan">
-                확인
-              </button>
+            <div class="d-flex">
+              <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
+              <button type="button" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
         </form>
       </section>
-      <section id="game" class="d-flex justify-center mt-5 hidden">
-        <div class="car-player__wrapper mt-4 d-flex"></div>
+      <section class="d-flex justify-center mt-5 play-area hidden">
+        <div class="mt-4 d-flex"></div>
       </section>
-      <section id="result" class="d-flex justify-center mt-5 hidden"></section>
+      <section class="d-flex justify-center mt-5 result-area hidden">
+        <div>
+          <h2>🏆 최종 우승자: <span class="winner-list"></span> 🏆</h2>
+          <div class="d-flex justify-center">
+            <button type="button" class="btn btn-cyan">다시 시작하기</button>
+          </div>
+        </div>
+      </section>
     </div>
     <script type="module" src="./src/index.js"></script>
   </body>
