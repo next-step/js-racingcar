@@ -64,7 +64,7 @@ describe("input: 유저가 정상적으로 자동차 이름과 시도 횟수를 
 describe("play: 게임이 정상적으로 실행되는지 테스트한다.", () => {
   context("두 입력값이 정상적으로 submit 되었을 때", () => {
     it("게임 실행 화면에 자동차 이름이 정상적으로 출력되는 것을 볼 수 있다.", () => {
-      cy.get(SELECTORS.CAR_NAME_INPUT).type("TEST1,TEST2");
+      cy.get(SELECTORS.CAR_NAME_INPUT).type("TEST1,TEST2,TEST3,TEST4");
       cy.get(SELECTORS.CAR_NAME_FORM).submit();
       cy.get(SELECTORS.COUNT_INPUT).type(3);
       cy.get(SELECTORS.COUNT_FORM).submit();
@@ -73,6 +73,8 @@ describe("play: 게임이 정상적으로 실행되는지 테스트한다.", () 
         if ($names.is(":visible")) {
           expect($names.first()).to.contain("TEST1");
           expect($names.eq(1)).to.contain("TEST2");
+          expect($names.eq(2)).to.contain("TEST3");
+          expect($names.eq(3)).to.contain("TEST4");
         }
       });
     });
@@ -93,7 +95,7 @@ describe("play: 게임이 정상적으로 실행되는지 테스트한다.", () 
 
       //trial.2
       cy.get(SELECTORS.CAR_DIV).each(($car) => {
-        if ($car.get(SELECTORS.CAR_FORWARD_ICON).have.length <= 3) return;
+        cy.wrap($car.get(SELECTORS.CAR_FORWARD_ICON)).should("have.length", 3);
       });
     });
   });
