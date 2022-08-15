@@ -16,11 +16,13 @@ export class RacingGame {
     this.addEvent();
   }
   setElement() {
-    this.nameArea = $(".name-area", this.container);
+    this.nameForm = $(".name-form", this.container);
+    this.nameArea = $(".name-area", this.nameForm);
     this.nameInput = $("input", this.nameArea);
     this.nameButton = $("button", this.nameArea);
 
-    this.countArea = $(".count-area", this.container);
+    this.countForm = $(".count-form", this.container);
+    this.countArea = $(".count-area", this.countForm);
     this.countInput = $("input", this.countArea);
     this.countButton = $("button", this.countArea);
 
@@ -30,11 +32,16 @@ export class RacingGame {
     this.resultButton = $("button", this.resultArea);
   }
   addEvent() {
+    this.nameForm.addEventListener("submit", this.inputName.bind(this));
     this.nameButton.addEventListener("click", this.inputName.bind(this));
+
+    this.countForm.addEventListener("submit", this.inputCount.bind(this));
     this.countButton.addEventListener("click", this.inputCount.bind(this));
+
     this.resultButton.addEventListener("click", this.resetGame.bind(this));
   }
-  inputName() {
+  inputName(e) {
+    e.preventDefault();
     const inputValue = this.nameInput.value.trim();
     this.nameInput.value = inputValue;
 
@@ -60,7 +67,8 @@ export class RacingGame {
       this.countInput.focus();
     }
   }
-  inputCount() {
+  inputCount(e) {
+    e.preventDefault();
     const inputValue = this.countInput.value;
 
     if (!inputValue || +inputValue === 0) {

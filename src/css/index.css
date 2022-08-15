@@ -39,8 +39,3 @@ fieldset {
 .hidden {
   display: none;
 }
-
-.mw {
-  min-width: 355px;
-}
-

@@ -7,8 +7,8 @@
   </head>
   <body>
     <div id="app">
-      <section class="d-flex justify-center mt-5">
-        <form>
+      <section class="d-flex d-flex-col items-center mt-5">
+        <form class="name-form">
           <fieldset class="name-area">
             <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
             <p>
@@ -20,7 +20,9 @@
               <button type="button" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
-          <fieldset class="count-area hidden">
+        </form>
+        <form class="count-form">
+          <fieldset class="count-area hidden mw-355">
             <p>시도할 횟수를 입력해주세요.</p>
             <div class="d-flex">
               <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
