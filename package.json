@@ -1,0 +1,19 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "main": "main.js",
+  "repository": "https://github.com/ingdaeho/js-racingcar.git",
+  "author": "daeho <dlaeogh8572@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^10.3.0",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1"
+  }
+}
