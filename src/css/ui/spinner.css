@@ -1,6 +1,11 @@
+*.finished .spinner-container{
+  display: none;
+}
+
 .spinner-container {
   width: 25px;
   height: 25px;
+  margin: auto;
 }
 
 .spinner::after {

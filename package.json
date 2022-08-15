@@ -1,0 +1,17 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/largeKim/js-racingcar.git",
+  "author": "largeKim <kdw4458@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "live-server",
+    "test": "cypress open"
+  },
+  "devDependencies": {
+    "cypress": "latest",
+    "eslint": "^8.18.0",
+    "prettier": "^2.7.1"
+  }
+}
