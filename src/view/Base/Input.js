@@ -1,5 +1,8 @@
-export default class BaseInput {
-  constructor($input) {
+import BaseView from './View.js';
+
+export default class BaseInput extends BaseView {
+  constructor(app, $input) {
+    super(app);
     this.$input = $input;
 
     this.#addValidity();

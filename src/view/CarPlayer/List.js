@@ -1,6 +1,6 @@
-import BaseView from '../BaseView.js';
+import BaseView from '../Base/View.js';
 
-export default class CarPlayerList extends BaseView {
+export default class ViewCarPlayerList extends BaseView {
   constructor(app) {
     super(app);
     this.$carPlayerList = document.querySelector('#car-player-list');

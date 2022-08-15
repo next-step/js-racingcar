@@ -1,9 +1,9 @@
-import BaseController from './BaseController.js';
-import BaseInput from './BaseInput.js';
+import BaseView from './Base/View.js';
 
-export default class RestartButton extends BaseController {
+export default class ViewRestartButton extends BaseView {
   constructor(app) {
     super(app);
+    this.raceController = this.controller.race;
 
     this.$restartButton = document.querySelector('#btn-restart');
     this.$inputAttempt = document.querySelector('#input-attempt');
@@ -17,8 +17,9 @@ export default class RestartButton extends BaseController {
   }
 
   #restart() {
-    this.model.resetState();
-    BaseInput.clear(this.$inputAttempt);
-    BaseInput.clear(this.$inputCarPlayerName);
+    this.raceController.resetRace();
+
+    this.$inputAttempt.value = '';
+    this.$inputCarPlayerName.value = '';
   }
 }

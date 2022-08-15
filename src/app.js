@@ -1,23 +1,26 @@
 import App from './core/App.js';
-import AttemptForm from './controller/Attempt/Form.js';
-import CarPlayerNameForm from './controller/CarPlayer/NameForm.js';
-import RestartButton from './controller/RestartButton.js';
 import model from './model/index.js';
-import ViewCarPlayerList from './view/CarPlayer/List.js';
+import ViewAttemptForm from './view/Attempt/Form.js';
+import ViewAttemptInput from './view/Attempt/Input.js';
 import ViewCarPlayerNameForm from './view/CarPlayer/NameForm.js';
-import ViewAttemptForm from './view/AttemptForm.js';
+import ViewCarPlayerNameInput from './view/CarPlayer/NameInput.js';
+import ViewCarPlayerList from './view/CarPlayer/List.js';
+import ViewRestartButton from './view/RestartButton.js';
 import ViewResult from './view/Result.js';
 import ViewWinner from './view/Winner.js';
+import ControllerRace from './controller/Race.js';
 
 function app() {
   const raceApp = new App(model);
 
-  raceApp.useController(CarPlayerNameForm);
-  raceApp.useController(AttemptForm);
-  raceApp.useController(RestartButton);
-  raceApp.useView(ViewCarPlayerList);
-  raceApp.useView(ViewCarPlayerNameForm);
+  raceApp.useController(ControllerRace);
+
   raceApp.useView(ViewAttemptForm);
+  raceApp.useView(ViewAttemptInput);
+  raceApp.useView(ViewCarPlayerNameForm);
+  raceApp.useView(ViewCarPlayerNameInput);
+  raceApp.useView(ViewCarPlayerList);
+  raceApp.useView(ViewRestartButton);
   raceApp.useView(ViewResult);
   raceApp.useView(ViewWinner);
 

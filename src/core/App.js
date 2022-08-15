@@ -1,15 +1,15 @@
 export default class App {
   constructor(model) {
     this.model = model;
+    this.controller = {};
   }
 
   useController(Controller) {
-    // if ! Controller  instanceof BaseController throw error
-    new Controller(this);
+    const instance = new Controller(this);
+    this.controller[instance.name] = instance;
   }
 
   useView(View) {
-    // if ! View  instanceof BaseView throw error
     new View(this);
   }
 }

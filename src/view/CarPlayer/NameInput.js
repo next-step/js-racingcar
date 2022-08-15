@@ -1,12 +1,12 @@
-import BaseInput from '../BaseInput.js';
+import BaseInput from '../Base/Input.js';
 
 export const MAX_NAME_LENGTH = 5;
 export const MAX_NAME_LIST_LENGHT = 5;
 
-export default class CarPlayerNameInput extends BaseInput {
-  constructor() {
+export default class ViewCarPlayerNameInput extends BaseInput {
+  constructor(app) {
     const $input = document.querySelector('#input-car-player-name');
-    super($input);
+    super(app, $input);
   }
 
   #validateOverPlayerNameLength(carPlayerNames) {

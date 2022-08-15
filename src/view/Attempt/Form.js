@@ -1,11 +1,24 @@
-import BaseView from './BaseView.js';
+import BaseView from '../Base/View.js';
 
-export default class AttemptForm extends BaseView {
+export default class ViewAttemptForm extends BaseView {
   constructor(app) {
     super(app);
+    this.raceController = this.controller.race;
 
     this.$form = document.querySelector('#form-attempt');
+    this.$attemptInput = document.querySelector('#input-attempt');
     this.$filedset = this.$form.querySelector('fieldset');
+
+    this.#addSubmitEvent();
+  }
+
+  #addSubmitEvent() {
+    this.$form.addEventListener('submit', this.#raceStart.bind(this));
+  }
+
+  #raceStart(event) {
+    event.preventDefault();
+    this.raceController.starRace(this);
   }
 
   #visible() {
@@ -38,6 +51,12 @@ export default class AttemptForm extends BaseView {
     } else {
       this.#able();
     }
+  }
+
+  setAttempt() {
+    const { value } = this.$attemptInput;
+
+    this.raceController.setAttempt(value);
   }
 
   render() {

@@ -1,9 +1,8 @@
-import BaseView from './BaseView.js';
+import BaseView from './Base/View.js';
 
-export default class Winner extends BaseView {
+export default class ViewWinner extends BaseView {
   constructor(app) {
     super(app);
-
     this.$raceWinner = document.querySelector('#race-winner');
   }
 
