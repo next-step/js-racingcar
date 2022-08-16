@@ -16,6 +16,10 @@
   display: flex;
 }
 
+.d-flex-col {
+  flex-direction: column;
+}
+
 .d-block {
   display: block;
 }
