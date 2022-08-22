@@ -1,5 +1,3 @@
-import ResultRacingView from "./ResultRacingView.js";
-import ResultRacingRenderer from "./ResultRacingRenderer.js";
 import RacingInfoDomain from "./Domain/RacingInfoDomain.js";
 
 class RunRacingRenderer {
@@ -44,6 +42,7 @@ class RunRacingRenderer {
       RacingInfoDomain.setRaceForwardCount(element);
     });
   }
+
   matchProgress() {
     return new Promise((resolve, reject) => {
       let count = 1;
@@ -62,10 +61,6 @@ class RunRacingRenderer {
 
   async initRenderer() {
     await this.matchProgress();
-    const resultRacingRenderer = new ResultRacingRenderer(
-      new ResultRacingView()
-    );
-    resultRacingRenderer.initRenderer();
   }
 }
 export default RunRacingRenderer;

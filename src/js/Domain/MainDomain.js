@@ -3,12 +3,14 @@ import InputNumberOfMatchesView from "../InputNumberOfMatchesView.js";
 import ContestantView from "../ContestantView.js";
 import RunRacingRenderer from "../RunRacingRenderer.js";
 import RunRacingView from "../RunRacingView.js";
+import ResultRacingView from "../ResultRacingView.js";
+import ResultRacingRenderer from "../ResultRacingRenderer.js";
 class MainDomain {
   constructor() {
     this.initEventListener();
   }
 
-  prepareGame = (e) => {
+  prepareGame = async (e) => {
     e.preventDefault();
     const prePareRacingDomain = new PrepareRacingDomain(
       new InputNumberOfMatchesView(),
@@ -19,7 +21,11 @@ class MainDomain {
     } else {
       prePareRacingDomain.submitNumberOfMatches(e);
       const runRacingRenderer = new RunRacingRenderer(new RunRacingView());
-      runRacingRenderer.initRenderer();
+      await runRacingRenderer.initRenderer();
+      const resultRacingRenderer = new ResultRacingRenderer(
+        new ResultRacingView()
+      );
+      resultRacingRenderer.initRenderer();
     }
   };
 
