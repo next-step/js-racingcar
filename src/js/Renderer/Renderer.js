@@ -2,7 +2,7 @@ class Renderer {
   setElement(e) {
     throw "override";
   }
-  initView() {
+  initRenerer() {
     throw "override";
   }
 }

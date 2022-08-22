@@ -1,11 +1,11 @@
 import RacingInfoDomain from "./RacingInfoDomain.js";
 
 class ResultRacingDomain {
-  #resultRacingview;
+  #resultRacingRenderer;
   #winner = { count: -1, name: [] };
 
-  constructor(resultRacingview) {
-    this.#resultRacingview = resultRacingview;
+  constructor(resultRacingRenderer) {
+    this.#resultRacingRenderer = resultRacingRenderer;
   }
 
   resultRacing() {
@@ -19,7 +19,7 @@ class ResultRacingDomain {
         this.#winner.name.push(name);
       }
     }
-    this.#resultRacingview.resultRenderer(this.#winner.name.join(","));
+    this.#resultRacingRenderer.resultRenderer(this.#winner.name.join(","));
   }
 }
 export default ResultRacingDomain;
