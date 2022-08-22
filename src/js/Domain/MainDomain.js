@@ -1,17 +1,17 @@
-import MatchNumber from "./state/MatchNumber.js";
-import RacingCarInfo from "./state/RacingCarInfo.js";
-import RunRacingRenderer from "./RunRacingRenderer.js";
-import RunRacingView from "./RunRacingView.js";
-import View from "./View.js";
+import MatchNumber from "../state/MatchNumber.js";
+import RacingCarInfo from "../state/RacingCarInfo.js";
+import RunRacingRenderer from "../RunRacingRenderer.js";
+import RunRacingView from "../RunRacingView.js";
+import View from "../View.js";
 
-class PrepareRacingRenderer {
+class MainDomain {
   static MIN_CARNAME_SIZE = 1;
   static MAX_CARNAME_SIZE = 5;
   #prepareRacingView = null;
   #contestantView = null;
 
   constructor(prepareRacingView, contestantView) {
-    this.initRenderer();
+    this.initEventListener();
     this.#prepareRacingView = prepareRacingView;
     this.#contestantView = contestantView;
   }
@@ -27,8 +27,8 @@ class PrepareRacingRenderer {
 
   testCarNameSize(carName) {
     return (
-      PrepareRacingRenderer.MIN_CARNAME_SIZE <= carName.trim().length &&
-      carName.trim().length <= PrepareRacingRenderer.MAX_CARNAME_SIZE
+      MainDomain.MIN_CARNAME_SIZE <= carName.trim().length &&
+      carName.trim().length <= MainDomain.MAX_CARNAME_SIZE
     );
   }
 
@@ -63,10 +63,10 @@ class PrepareRacingRenderer {
     }
   };
 
-  initRenderer() {
+  initEventListener() {
     document
       .querySelector("#racing-game-prepation-form")
       .addEventListener("submit", this.prepareGame);
   }
 }
-export default PrepareRacingRenderer;
+export default MainDomain;
