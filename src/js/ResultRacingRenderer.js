@@ -1,4 +1,4 @@
-import RacingCarInfo from "./Domain/RacingCarInfoDomain.js";
+import RacingInfoDomain from "./Domain/RacingInfoDomain.js";
 
 class ResultRacingRenderer {
   #resultRacingview;
@@ -9,12 +9,12 @@ class ResultRacingRenderer {
   }
 
   initRenderer() {
-    for (let name in RacingCarInfo.getRaceForwardCount()) {
-      if (RacingCarInfo.getRaceForwardCount()[name] > this.#winner.count) {
-        this.#winner.count = RacingCarInfo.getRaceForwardCount()[name];
+    for (let name in RacingInfoDomain.getRaceForwardCount()) {
+      if (RacingInfoDomain.getRaceForwardCount()[name] > this.#winner.count) {
+        this.#winner.count = RacingInfoDomain.getRaceForwardCount()[name];
         this.#winner.name = [name];
       } else if (
-        RacingCarInfo.getRaceForwardCount()[name] == this.#winner.count
+        RacingInfoDomain.getRaceForwardCount()[name] == this.#winner.count
       ) {
         this.#winner.name.push(name);
       }

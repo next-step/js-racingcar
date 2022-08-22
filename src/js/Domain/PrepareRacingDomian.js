@@ -1,15 +1,22 @@
-import RacingCarInfoDomain from "./RacingCarInfoDomain.js";
+import RacingInfoDomain from "./RacingInfoDomain.js";
 import View from "../View.js";
-
+import MatchNumber from "../state/MatchNumber.js";
 class PrepareRacingDomain {
   #prepareRacingView;
+  #contestantView;
 
-  constructor(prepareRacingView) {
+  constructor(prepareRacingView, contestantView) {
     this.#prepareRacingView = prepareRacingView;
+    this.#contestantView = contestantView;
   }
 
   set prepareRacingView(v) {
     if (v instanceof View) this.#prepareRacingView = v;
+    else throw `invalid vie : ${v}`;
+  }
+
+  set contestantView(v) {
+    if (v instanceof View) this.#contestantView = v;
     else throw `invalid vie : ${v}`;
   }
 
@@ -19,12 +26,17 @@ class PrepareRacingDomain {
       return;
     }
     this.#prepareRacingView.setElement(e);
-    if (RacingCarInfoDomain.findInvalidCar(carNames.split(","))) {
+    if (RacingInfoDomain.findInvalidCar(carNames.split(","))) {
       alert("5자 이하의 자동차 이름을 입력하세요.");
       return;
     }
-    RacingCarInfoDomain.setRaceParticipateCar(carNames.split(","));
+    RacingInfoDomain.setRaceParticipateCar(carNames.split(","));
     this.#prepareRacingView.initView();
+  }
+
+  submitNumberOfRaces(e) {
+    MatchNumber.setMatchNumber(e.target[4].valueAsNumber);
+    this.#contestantView.initView();
   }
 }
 export default PrepareRacingDomain;

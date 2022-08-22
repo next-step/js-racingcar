@@ -1,13 +1,14 @@
-class RacingCarInfo {
+class RacingInfoDomain {
   static MIN_CARNAME_SIZE = 1;
   static MAX_CARNAME_SIZE = 5;
   #raceParticipateCar;
   #raceForward = {};
+  #matchNumber;
 
   testCarNameSize(carName) {
     return (
-      RacingCarInfo.MIN_CARNAME_SIZE <= carName.trim().length &&
-      carName.trim().length <= RacingCarInfo.MAX_CARNAME_SIZE
+      RacingInfoDomain.MIN_CARNAME_SIZE <= carName.trim().length &&
+      carName.trim().length <= RacingInfoDomain.MAX_CARNAME_SIZE
     );
   }
 
@@ -35,4 +36,4 @@ class RacingCarInfo {
     return this.#raceForward;
   }
 }
-export default new RacingCarInfo();
+export default new RacingInfoDomain();

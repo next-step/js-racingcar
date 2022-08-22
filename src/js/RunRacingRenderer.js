@@ -1,7 +1,7 @@
 import ResultRacingView from "./ResultRacingView.js";
 import ResultRacingRenderer from "./ResultRacingRenderer.js";
 import MatchNumber from "./state/MatchNumber.js";
-import RacingCarInfo from "./Domain/RacingCarInfoDomain.js";
+import RacingInfoDomain from "./Domain/RacingInfoDomain.js";
 
 class RunRacingRenderer {
   static MAX_RANDOM_NUM = 9;
@@ -30,7 +30,7 @@ class RunRacingRenderer {
   }
 
   matchLoading() {
-    RacingCarInfo.getRaceParticipateCar().forEach((element) => {
+    RacingInfoDomain.getRaceParticipateCar().forEach((element) => {
       this.#runRacingView.setElement(element);
       this.#runRacingView.initView();
     });
@@ -38,12 +38,12 @@ class RunRacingRenderer {
 
   finishOneMatch() {
     //view
-    RacingCarInfo.getRaceParticipateCar().forEach((element) => {
+    RacingInfoDomain.getRaceParticipateCar().forEach((element) => {
       this.#runRacingView.setElement(element);
       this.#runRacingView.finishLoadingRacingView();
       if (!this.decidePlay()) return;
       this.#runRacingView.movesForwardView();
-      RacingCarInfo.setRaceForwardCount(element);
+      RacingInfoDomain.setRaceForwardCount(element);
     });
   }
   matchProgress() {

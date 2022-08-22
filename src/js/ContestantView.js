@@ -1,5 +1,5 @@
 import View from "./View.js";
-import RacingCarInfo from "./Domain/RacingCarInfoDomain.js";
+import RacingInfoDomain from "./Domain/RacingInfoDomain.js";
 
 class ContestantView extends View {
   setElement() {}
@@ -24,7 +24,7 @@ class ContestantView extends View {
   }
 
   participateCarTemplateGenerator() {
-    return RacingCarInfo.getRaceParticipateCar()
+    return RacingInfoDomain.getRaceParticipateCar()
       .map((raceCar) => this.participateCarTemplate(raceCar))
       .join("");
   }
