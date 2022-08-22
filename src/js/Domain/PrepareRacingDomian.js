@@ -2,7 +2,7 @@ import RacingCarInfoDomain from "./RacingCarInfoDomain.js";
 import View from "../View.js";
 
 class PrepareRacingDomain {
-  #prepareRacingView = null;
+  #prepareRacingView;
 
   constructor(prepareRacingView) {
     this.#prepareRacingView = prepareRacingView;
@@ -14,7 +14,6 @@ class PrepareRacingDomain {
   }
 
   submitCarNames(e) {
-    console.log("submitCarNames,e", e);
     const carNames = e.target[1].value;
     if (!carNames) {
       return;

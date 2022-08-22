@@ -6,7 +6,7 @@ import RunRacingView from "../RunRacingView.js";
 import View from "../View.js";
 
 class MainDomain {
-  #contestantView = null;
+  #contestantView;
 
   constructor(contestantView) {
     this.initEventListener();
