@@ -49,11 +49,12 @@ class RunRacingDomain {
       this.matchLoading();
       const timeoutId = setInterval(() => {
         this.finishOneMatch();
-        if (count++ === RacingInfoDomain.getMatchNumber()) {
+        if (count === RacingInfoDomain.getMatchNumber()) {
           clearInterval(timeoutId);
           resolve();
           return;
         }
+        count++;
         this.matchLoading();
       }, 1000);
     });
