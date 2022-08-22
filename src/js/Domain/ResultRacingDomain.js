@@ -1,6 +1,6 @@
-import RacingInfoDomain from "./Domain/RacingInfoDomain.js";
+import RacingInfoDomain from "./RacingInfoDomain.js";
 
-class ResultRacingRenderer {
+class ResultRacingDomain {
   #resultRacingview;
   #winner = { count: -1, name: [] };
 
@@ -22,4 +22,4 @@ class ResultRacingRenderer {
     this.#resultRacingview.resultView(this.#winner.name.join(","));
   }
 }
-export default ResultRacingRenderer;
+export default ResultRacingDomain;

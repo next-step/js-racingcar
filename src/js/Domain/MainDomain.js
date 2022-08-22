@@ -4,7 +4,7 @@ import ContestantView from "../ContestantView.js";
 import RunRacingDomain from "./RunRacingDomain.js";
 import RunRacingView from "../RunRacingView.js";
 import ResultRacingView from "../ResultRacingView.js";
-import ResultRacingRenderer from "../ResultRacingRenderer.js";
+import ResultRacingRenderer from "./ResultRacingDomain.js";
 class MainDomain {
   constructor() {
     this.initEventListener();
