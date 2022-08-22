@@ -21,11 +21,11 @@ class MainDomain {
     } else {
       prePareRacingDomain.submitNumberOfMatches(e);
       const runRacingDomain = new RunRacingDomain(new RunRacingRenderer());
-      await runRacingDomain.initRenderer();
+      await runRacingDomain.matchProgress();
       const resultRacingDomain = new ResultRacingDomain(
         new ResultRacingRenderer()
       );
-      resultRacingDomain.initRenderer();
+      resultRacingDomain.resultRacing();
     }
   };
 

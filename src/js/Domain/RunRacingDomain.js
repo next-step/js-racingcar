@@ -58,9 +58,5 @@ class RunRacingDomain {
       }, 1000);
     });
   }
-
-  async initRenderer() {
-    await this.matchProgress();
-  }
 }
 export default RunRacingDomain;

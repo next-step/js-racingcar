@@ -8,7 +8,7 @@ class ResultRacingDomain {
     this.#resultRacingview = resultRacingview;
   }
 
-  initRenderer() {
+  resultRacing() {
     for (let name in RacingInfoDomain.getRaceForwardCount()) {
       if (RacingInfoDomain.getRaceForwardCount()[name] > this.#winner.count) {
         this.#winner.count = RacingInfoDomain.getRaceForwardCount()[name];
