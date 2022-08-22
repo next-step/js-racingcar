@@ -1,4 +1,4 @@
-import RacingCarInfo from "./state/RacingCarInfo.js";
+import RacingCarInfo from "./Domain/RacingCarInfoDomain.js";
 
 class ResultRacingRenderer {
   #resultRacingview;

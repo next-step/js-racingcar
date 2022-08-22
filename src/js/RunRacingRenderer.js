@@ -1,7 +1,7 @@
 import ResultRacingView from "./ResultRacingView.js";
 import ResultRacingRenderer from "./ResultRacingRenderer.js";
 import MatchNumber from "./state/MatchNumber.js";
-import RacingCarInfo from "./state/RacingCarInfo.js";
+import RacingCarInfo from "./Domain/RacingCarInfoDomain.js";
 
 class RunRacingRenderer {
   static MAX_RANDOM_NUM = 9;

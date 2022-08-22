@@ -1,5 +1,5 @@
 import View from "./View.js";
-import RacingCarInfo from "./state/RacingCarInfo.js";
+import RacingCarInfo from "./Domain/RacingCarInfoDomain.js";
 
 class ContestantView extends View {
   setElement() {}
