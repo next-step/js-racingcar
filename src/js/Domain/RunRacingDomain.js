@@ -1,6 +1,6 @@
-import RacingInfoDomain from "./Domain/RacingInfoDomain.js";
+import RacingInfoDomain from "./RacingInfoDomain.js";
 
-class RunRacingRenderer {
+class RunRacingDomain {
   static MAX_RANDOM_NUM = 9;
   static MIN_RANDOM_NUM = 0;
   static MIN_PLAY_NUM = 4;
@@ -17,13 +17,13 @@ class RunRacingRenderer {
 
   randomNumberGenerator() {
     return Math.floor(
-      Math.random() * RunRacingRenderer.MAX_RANDOM_NUM +
-        RunRacingRenderer.MIN_RANDOM_NUM
+      Math.random() * RunRacingDomain.MAX_RANDOM_NUM +
+        RunRacingDomain.MIN_RANDOM_NUM
     );
   }
 
   decidePlay() {
-    return this.randomNumberGenerator() >= RunRacingRenderer.MIN_PLAY_NUM;
+    return this.randomNumberGenerator() >= RunRacingDomain.MIN_PLAY_NUM;
   }
 
   matchLoading() {
@@ -63,4 +63,4 @@ class RunRacingRenderer {
     await this.matchProgress();
   }
 }
-export default RunRacingRenderer;
+export default RunRacingDomain;

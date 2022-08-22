@@ -1,7 +1,7 @@
 import PrepareRacingDomain from "./PrepareRacingDomian.js";
 import InputNumberOfMatchesView from "../InputNumberOfMatchesView.js";
 import ContestantView from "../ContestantView.js";
-import RunRacingRenderer from "../RunRacingRenderer.js";
+import RunRacingDomain from "./RunRacingDomain.js";
 import RunRacingView from "../RunRacingView.js";
 import ResultRacingView from "../ResultRacingView.js";
 import ResultRacingRenderer from "../ResultRacingRenderer.js";
@@ -20,8 +20,8 @@ class MainDomain {
       prePareRacingDomain.submitCarNames(e);
     } else {
       prePareRacingDomain.submitNumberOfMatches(e);
-      const runRacingRenderer = new RunRacingRenderer(new RunRacingView());
-      await runRacingRenderer.initRenderer();
+      const runRacingDomain = new RunRacingDomain(new RunRacingView());
+      await runRacingDomain.initRenderer();
       const resultRacingRenderer = new ResultRacingRenderer(
         new ResultRacingView()
       );
