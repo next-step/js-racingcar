@@ -5,34 +5,44 @@ import RunRacingDomain from "./RunRacingDomain.js";
 import RunRacingRenderer from "../Renderer/RunRacingRenderer.js";
 import ResultRacingRenderer from "../Renderer/ResultRacingRenderer.js";
 import ResultRacingDomain from "./ResultRacingDomain.js";
+
 class MainDomain {
   constructor() {
     this.initEventListener();
   }
 
-  prepareGame = async (e) => {
+  submitCarNames(prePareRacingDomain, e) {
+    prePareRacingDomain.submitCarNames(e);
+  }
+
+  async submitNumberOfMatches(prePareRacingDomain, e) {
+    const runRacingDomain = new RunRacingDomain(new RunRacingRenderer());
+    const resultRacingDomain = new ResultRacingDomain(
+      new ResultRacingRenderer()
+    );
+
+    prePareRacingDomain.submitNumberOfMatches(e);
+    await runRacingDomain.matchProgress();
+    resultRacingDomain.resultRacing();
+  }
+
+  initGame = (e) => {
     e.preventDefault();
     const prePareRacingDomain = new PrepareRacingDomain(
       new InputNumberOfMatchesRenderer(),
       new ContestantRenderer()
     );
     if (e.submitter.id == "car-name-btn") {
-      prePareRacingDomain.submitCarNames(e);
+      this.submitCarNames(prePareRacingDomain, e);
     } else {
-      prePareRacingDomain.submitNumberOfMatches(e);
-      const runRacingDomain = new RunRacingDomain(new RunRacingRenderer());
-      await runRacingDomain.matchProgress();
-      const resultRacingDomain = new ResultRacingDomain(
-        new ResultRacingRenderer()
-      );
-      resultRacingDomain.resultRacing();
+      this.submitNumberOfMatches(prePareRacingDomain, e);
     }
   };
 
   initEventListener() {
     document
       .querySelector("#racing-game-prepation-form")
-      .addEventListener("submit", this.prepareGame);
+      .addEventListener("submit", this.initGame);
   }
 }
 export default MainDomain;

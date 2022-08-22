@@ -4,7 +4,7 @@ class RunRacingDomain {
   static MAX_RANDOM_NUM = 9;
   static MIN_RANDOM_NUM = 0;
   static MIN_PLAY_NUM = 4;
-  #runRacingRenderer = null;
+  #runRacingRenderer;
 
   constructor(runRacingRenderer) {
     this.#runRacingRenderer = runRacingRenderer;
