@@ -1,6 +1,5 @@
 import RacingInfoDomain from "./RacingInfoDomain.js";
 import View from "../View.js";
-import MatchNumber from "../state/MatchNumber.js";
 class PrepareRacingDomain {
   #prepareRacingView;
   #contestantView;
@@ -35,7 +34,7 @@ class PrepareRacingDomain {
   }
 
   submitNumberOfRaces(e) {
-    MatchNumber.setMatchNumber(e.target[4].valueAsNumber);
+    RacingInfoDomain.setMatchNumber(e.target[4].valueAsNumber);
     this.#contestantView.initView();
   }
 }

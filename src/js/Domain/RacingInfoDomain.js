@@ -35,5 +35,13 @@ class RacingInfoDomain {
   getRaceForwardCount() {
     return this.#raceForward;
   }
+
+  setMatchNumber(matchNumber) {
+    this.#matchNumber = matchNumber;
+  }
+
+  getMatchNumber() {
+    return this.#matchNumber;
+  }
 }
 export default new RacingInfoDomain();

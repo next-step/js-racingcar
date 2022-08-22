@@ -16,7 +16,6 @@ class ContestantView extends View {
   }
 
   participateCarTemplate(raceCarName) {
-    //view
     return `
     <div class="mr-2" data-racecar-name="${raceCarName}">
       <div class="car-player">${raceCarName}</div>

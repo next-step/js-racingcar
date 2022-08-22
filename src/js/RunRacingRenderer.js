@@ -1,6 +1,5 @@
 import ResultRacingView from "./ResultRacingView.js";
 import ResultRacingRenderer from "./ResultRacingRenderer.js";
-import MatchNumber from "./state/MatchNumber.js";
 import RacingInfoDomain from "./Domain/RacingInfoDomain.js";
 
 class RunRacingRenderer {
@@ -37,7 +36,6 @@ class RunRacingRenderer {
   }
 
   finishOneMatch() {
-    //view
     RacingInfoDomain.getRaceParticipateCar().forEach((element) => {
       this.#runRacingView.setElement(element);
       this.#runRacingView.finishLoadingRacingView();
@@ -52,7 +50,7 @@ class RunRacingRenderer {
       this.matchLoading();
       const timeoutId = setInterval(() => {
         this.finishOneMatch();
-        if (count++ === MatchNumber.getMatchNumber()) {
+        if (count++ === RacingInfoDomain.getMatchNumber()) {
           clearInterval(timeoutId);
           resolve();
           return;
