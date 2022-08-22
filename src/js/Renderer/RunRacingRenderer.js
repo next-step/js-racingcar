@@ -1,12 +1,12 @@
-import View from "./View.js";
+import Renderer from "./Renderer.js";
 
-class RunRacingView extends View {
+class RunRacingRenderer extends Renderer {
   #e;
   setElement(e) {
     this.#e = e;
   }
 
-  initView() {
+  initRenderer() {
     document
       .querySelector(`div[data-racecar-name="${this.#e}"]`)
       .insertAdjacentHTML(
@@ -19,11 +19,11 @@ class RunRacingView extends View {
       );
   }
 
-  finishLoadingRacingView() {
+  finishLoadingRacingRenderer() {
     document.querySelector(`div[data-race-loading="${this.#e}"]`).remove();
   }
 
-  movesForwardView() {
+  movesForwardRenderer() {
     document
       .querySelector(`div[data-racecar-name="${this.#e}"]`)
       .insertAdjacentHTML(
@@ -32,4 +32,4 @@ class RunRacingView extends View {
       );
   }
 }
-export default RunRacingView;
+export default RunRacingRenderer;

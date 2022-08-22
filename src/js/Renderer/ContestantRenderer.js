@@ -1,10 +1,10 @@
-import View from "./View.js";
-import RacingInfoDomain from "./Domain/RacingInfoDomain.js";
+import Renderer from "./Renderer.js";
+import RacingInfoDomain from "../Domain/RacingInfoDomain.js";
 
-class ContestantView extends View {
+class ContestantRenderer extends Renderer {
   setElement() {}
 
-  initView() {
+  initRenderer() {
     document.querySelector("#app").insertAdjacentHTML(
       "beforeend",
       `<section class="d-flex justify-center mt-5">
@@ -28,4 +28,4 @@ class ContestantView extends View {
       .join("");
   }
 }
-export default ContestantView;
+export default ContestantRenderer;

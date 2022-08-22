@@ -4,14 +4,14 @@ class RunRacingDomain {
   static MAX_RANDOM_NUM = 9;
   static MIN_RANDOM_NUM = 0;
   static MIN_PLAY_NUM = 4;
-  #runRacingView = null;
+  #runRacingRenderer = null;
 
-  constructor(runRacingView) {
-    this.#runRacingView = runRacingView;
+  constructor(runRacingRenderer) {
+    this.#runRacingRenderer = runRacingRenderer;
   }
 
-  set runRacingView(v) {
-    if (v instanceof View) this.#runRacingView = v;
+  set runRacingRenderer(v) {
+    if (v instanceof Renderer) this.#runRacingRenderer = v;
     else throw `invalid vie : ${v}`;
   }
 
@@ -28,17 +28,17 @@ class RunRacingDomain {
 
   matchLoading() {
     RacingInfoDomain.getRaceParticipateCar().forEach((element) => {
-      this.#runRacingView.setElement(element);
-      this.#runRacingView.initView();
+      this.#runRacingRenderer.setElement(element);
+      this.#runRacingRenderer.initRenderer();
     });
   }
 
   finishOneMatch() {
     RacingInfoDomain.getRaceParticipateCar().forEach((element) => {
-      this.#runRacingView.setElement(element);
-      this.#runRacingView.finishLoadingRacingView();
+      this.#runRacingRenderer.setElement(element);
+      this.#runRacingRenderer.finishLoadingRacingRenderer();
       if (!this.decidePlay()) return;
-      this.#runRacingView.movesForwardView();
+      this.#runRacingRenderer.movesForwardRenderer();
       RacingInfoDomain.setRaceForwardCount(element);
     });
   }

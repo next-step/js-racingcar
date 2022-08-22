@@ -1,21 +1,21 @@
 import RacingInfoDomain from "./RacingInfoDomain.js";
-import View from "../View.js";
+import Renderer from "../Renderer/Renderer.js";
 class PrepareRacingDomain {
-  #inputNumberOfMatchesView;
-  #contestantView;
+  #inputNumberOfMatchesRenderer;
+  #contestantRenderer;
 
-  constructor(inputNumberOfMatchesView, contestantView) {
-    this.#inputNumberOfMatchesView = inputNumberOfMatchesView;
-    this.#contestantView = contestantView;
+  constructor(inputNumberOfMatchesRenderer, contestantRenderer) {
+    this.#inputNumberOfMatchesRenderer = inputNumberOfMatchesRenderer;
+    this.#contestantRenderer = contestantRenderer;
   }
 
-  set inputNumberOfMatchesView(v) {
-    if (v instanceof View) this.#inputNumberOfMatchesView = v;
+  set inputNumberOfMatchesRenderer(v) {
+    if (v instanceof Renderer) this.#inputNumberOfMatchesRenderer = v;
     else throw `invalid vie : ${v}`;
   }
 
-  set contestantView(v) {
-    if (v instanceof View) this.#contestantView = v;
+  set contestantRenderer(v) {
+    if (v instanceof Renderer) this.#contestantRenderer = v;
     else throw `invalid vie : ${v}`;
   }
 
@@ -24,18 +24,18 @@ class PrepareRacingDomain {
     if (!carNames) {
       return;
     }
-    this.#inputNumberOfMatchesView.setElement(e);
+    this.#inputNumberOfMatchesRenderer.setElement(e);
     if (RacingInfoDomain.findInvalidCar(carNames.split(","))) {
       alert("5자 이하의 자동차 이름을 입력하세요.");
       return;
     }
     RacingInfoDomain.setRaceParticipateCar(carNames.split(","));
-    this.#inputNumberOfMatchesView.initView();
+    this.#inputNumberOfMatchesRenderer.initRenderer();
   }
 
   submitNumberOfMatches(e) {
     RacingInfoDomain.setMatchNumber(e.target[4].valueAsNumber);
-    this.#contestantView.initView();
+    this.#contestantRenderer.initRenderer();
   }
 }
 export default PrepareRacingDomain;

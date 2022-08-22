@@ -1,12 +1,12 @@
-import View from "./View.js";
-class InputNumberOfMatchesView extends View {
+import Renderer from "./Renderer.js";
+class InputNumberOfMatchesRenderer extends Renderer {
   #e;
 
   setElement(e) {
     this.#e = e;
   }
 
-  initView() {
+  initRenderer() {
     this.#e.target.insertAdjacentHTML(
       "beforeend",
       `<fieldset>
@@ -19,4 +19,4 @@ class InputNumberOfMatchesView extends View {
     );
   }
 }
-export default InputNumberOfMatchesView;
+export default InputNumberOfMatchesRenderer;

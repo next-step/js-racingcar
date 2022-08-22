@@ -1,11 +1,11 @@
-import View from "./View.js";
+import Renderer from "./Renderer.js";
 
-class ResultRacingView extends View {
+class ResultRacingRenderer extends Renderer {
   setElement(e) {}
 
-  initView() {}
+  initRenderer() {}
 
-  resultView(winners) {
+  resultRenderer(winners) {
     document.querySelector("#app").insertAdjacentHTML(
       "beforeend",
       `<section class="d-flex justify-center mt-5">
@@ -16,4 +16,4 @@ class ResultRacingView extends View {
     );
   }
 }
-export default ResultRacingView;
+export default ResultRacingRenderer;

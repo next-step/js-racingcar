@@ -1,4 +1,4 @@
-class View {
+class Renderer {
   setElement(e) {
     throw "override";
   }
@@ -6,4 +6,4 @@ class View {
     throw "override";
   }
 }
-export default View;
+export default Renderer;

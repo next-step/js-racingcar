@@ -1,10 +1,10 @@
 import PrepareRacingDomain from "./PrepareRacingDomian.js";
-import InputNumberOfMatchesView from "../InputNumberOfMatchesView.js";
-import ContestantView from "../ContestantView.js";
+import InputNumberOfMatchesRenderer from "../Renderer/InputNumberOfMatchesRenderer.js";
+import ContestantRenderer from "../Renderer/ContestantRenderer.js";
 import RunRacingDomain from "./RunRacingDomain.js";
-import RunRacingView from "../RunRacingView.js";
-import ResultRacingView from "../ResultRacingView.js";
-import ResultRacingRenderer from "./ResultRacingDomain.js";
+import RunRacingRenderer from "../Renderer/RunRacingRenderer.js";
+import ResultRacingRenderer from "../Renderer/ResultRacingRenderer.js";
+import ResultRacingDomain from "./ResultRacingDomain.js";
 class MainDomain {
   constructor() {
     this.initEventListener();
@@ -13,19 +13,19 @@ class MainDomain {
   prepareGame = async (e) => {
     e.preventDefault();
     const prePareRacingDomain = new PrepareRacingDomain(
-      new InputNumberOfMatchesView(),
-      new ContestantView()
+      new InputNumberOfMatchesRenderer(),
+      new ContestantRenderer()
     );
     if (e.submitter.id == "car-name-btn") {
       prePareRacingDomain.submitCarNames(e);
     } else {
       prePareRacingDomain.submitNumberOfMatches(e);
-      const runRacingDomain = new RunRacingDomain(new RunRacingView());
+      const runRacingDomain = new RunRacingDomain(new RunRacingRenderer());
       await runRacingDomain.initRenderer();
-      const resultRacingRenderer = new ResultRacingRenderer(
-        new ResultRacingView()
+      const resultRacingDomain = new ResultRacingDomain(
+        new ResultRacingRenderer()
       );
-      resultRacingRenderer.initRenderer();
+      resultRacingDomain.initRenderer();
     }
   };
 

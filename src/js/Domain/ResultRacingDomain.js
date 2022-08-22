@@ -19,7 +19,7 @@ class ResultRacingDomain {
         this.#winner.name.push(name);
       }
     }
-    this.#resultRacingview.resultView(this.#winner.name.join(","));
+    this.#resultRacingview.resultRenderer(this.#winner.name.join(","));
   }
 }
 export default ResultRacingDomain;
