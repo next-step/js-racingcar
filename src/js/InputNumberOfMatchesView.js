@@ -1,5 +1,5 @@
 import View from "./View.js";
-class PrepareRacingView extends View {
+class InputNumberOfMatchesView extends View {
   #e;
 
   setElement(e) {
@@ -19,4 +19,4 @@ class PrepareRacingView extends View {
     );
   }
 }
-export default PrepareRacingView;
+export default InputNumberOfMatchesView;
