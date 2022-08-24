@@ -1,4 +1,4 @@
-describe("lotto", () => {
+describe("racingcar", () => {
   beforeEach(() => {
     cy.visit("http://127.0.0.1:5500/");
   });
@@ -27,5 +27,15 @@ describe("lotto", () => {
           "5자 이하의 자동차 이름을 입력하세요."
         );
       });
+  });
+
+  it("자동차 게임이 완료되면 우승자가 화면에 뜬다.", () => {
+    const carNames = ["red", "blue", "green"];
+    cy.get("#car-name-input").type(carNames.join(","));
+    cy.get("#car-name-btn").click();
+    cy.get("#try-count-input").type("3");
+    cy.get("#try-count-btn").click();
+    cy.wait(3000);
+    cy.get("#winners").should("be.visible");
   });
 });
