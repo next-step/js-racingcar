@@ -23,3 +23,19 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('invaildInputValue', (btn, error) => {
+  cy.get(btn).click();
+  cy.on('window.alert', (text) => {
+    expect(text).to.contains(
+      error
+    );
+  });
+});
+
+Cypress.Commands.add('inputFields', (ele, btn, carNames) => {
+  cy.get(ele).type(carNames);
+  cy.get(btn).click();
+  cy.get(ele).invoke('attr', 'disabled', true).should('have.attr', 'disabled');
+  cy.get(btn).invoke('attr', 'disabled', true).should('have.attr', 'disabled');
+});

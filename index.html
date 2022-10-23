@@ -9,7 +9,7 @@
   <body>
     <div id="app">
       <section class="d-flex justify-center mt-5">
-        <form>
+        <form id="car-racing-form">
           <fieldset>
             <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
             <p>
@@ -22,10 +22,10 @@
                 class="w-100 mr-2 car-name"
                 placeholder="자동차 이름"
               />
-              <button type="button" class="btn btn-cyan btn-car-name">확인</button>
+              <button class="btn btn-cyan btn-car-name">확인</button>
             </div>
           </fieldset>
-          <fieldset class="attempts-wrapper init-hide">
+          <fieldset class="attempts-wrapper init-hide attempt-count-wrap">
             <p>시도할 횟수를 입력해주세요.</p>
             <div class="d-flex">
               <input
@@ -41,7 +41,7 @@
         </form>
       </section>
       <section id="racing-wrapper" class="d-flex justify-center mt-5 init-hide">
-        <div class="mt-4 d-flex">
+        <div class="mt-4 d-flex racing-inner-wrapper">
           <div class="mr-2">
             <div class="car-player">EAST</div>
             <div class="forward-icon mt-2">⬇️️</div>
