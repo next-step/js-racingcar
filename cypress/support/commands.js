@@ -32,10 +32,3 @@ Cypress.Commands.add('invaildInputValue', (btn, error) => {
     );
   });
 });
-
-Cypress.Commands.add('inputFields', (ele, btn, carNames) => {
-  cy.get(ele).type(carNames);
-  cy.get(btn).click();
-  cy.get(ele).invoke('attr', 'disabled', true).should('have.attr', 'disabled');
-  cy.get(btn).invoke('attr', 'disabled', true).should('have.attr', 'disabled');
-});

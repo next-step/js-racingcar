@@ -1,7 +1,7 @@
-import { errorMessages } from '../constants.js';
+import { attempts, errorMessages } from '../constants.js';
 
 export default function validateAttemptCount(count) {
-  if(count > 0) return;
+  if(count > attempts.WRONG) return;
 
   throw Error(errorMessages.INVALID_ATTEMPT);
 }

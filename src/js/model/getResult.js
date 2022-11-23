@@ -1,9 +1,8 @@
-export default function getResult() {
-  const players = document.querySelectorAll('.car-player');
-
-  const maxScore = Math.max(...(Array.from(players).map(it => Number(it.dataset.forwardCount))));
-
-  const maxForwardPlayer = Array.from(players).filter(it => Number(it.dataset.forwardCount) === maxScore).map(it => it.innerText);
+export default function getResult(cars) {
+  const maxScore = Math.max(...(Array.from(cars).map(it => Number(it.dataset.forwardCount))));
+  const maxForwardPlayer = Array.from(cars)
+  .filter(it => Number(it.dataset.forwardCount) === maxScore)
+  .map(it => it.innerText);
 
   return maxForwardPlayer;
 }

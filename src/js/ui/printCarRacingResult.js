@@ -1,4 +1,4 @@
-const winnerMessage = (values) => {
+export const winnerMessage = (values) => {
   const template = `
   🏆 최종 우승자: ${values.join(', ')} 🏆
   `;

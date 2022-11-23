@@ -7,17 +7,12 @@ export const errorMessages = {
     '입력한 레이싱 횟수가 너무 적습니다. 레이싱 횟수는 1이상이어야 합니다.',
 };
 
-export const carNames = {
-  RIGHT: '1,2,3,4',
-  WRONG: '1.2.3.4',
-};
-
 export const attempts = {
   RIGHT: 7,
   WRONG: 0
 };
 
-export const GAME = {
+export const game = {
   MAX_SCORE: 9,
   MIN_SCORE: 0,
   THRESHOLD_SCORE: 4,
