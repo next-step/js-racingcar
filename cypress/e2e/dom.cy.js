@@ -1,24 +1,41 @@
 /* eslint-disable no-undef */
 
+import { ALERT_MESSAGE } from '../../src/js/service/constant';
+import { ELEMENT } from '../../src/js/ui/element';
+
 describe('자동차 경주 게임 요구사항을 점검한다', () => {
   const URL = '../../index.html';
+  const STRING_CAR_NAMES = '갑,을,병,정,무,기,경,신,임,계';
 
   beforeEach(() => {
     cy.visit(URL);
   });
 
   describe('1단계: 자동차 이름을 입력한다.', () => {
-    it('자동차 이름 입력 폼에 이름은 1자~5자까지만 가능하다', () => {
-      expect(false).to.be.true;
-    });
     it('자동차 이름 입력 확인 버튼이 있다', () => {
-      expect(false).to.be.true;
+      cy.get(ELEMENT.BUTTON.CAR_NAME_CONFIRM).should('be.visible');
     });
+
+    it('자동차 이름 입력 폼에 이름은 1자~5자까지만 가능하다', () => {
+      const stub = cy.stub();
+      cy.on('window:alert', stub);
+
+      cy.get(ELEMENT.INPUT.CAR_NAMES).type('갑을병정무기경신임계');
+      cy.get(ELEMENT.BUTTON.CAR_NAME_CONFIRM)
+        .click()
+        .then(() => expect(stub.getCall(0)).to.be.calledWith(ALERT_MESSAGE.INVALID.CAR_NAMES_LENGTH));
+    });
+
     it('자동차 이름 입력 후 확인 버튼을 누르면 시도할 횟수를 입력하는 상자가 뜬다', () => {
-      expect(false).to.be.true;
+      cy.get(ELEMENT.INPUT.CAR_NAMES).type(STRING_CAR_NAMES);
+      cy.get(ELEMENT.BUTTON.CAR_NAME_CONFIRM).click();
+      cy.get(ELEMENT.FIELD.ATTEMPT_TIMES).should('be.visible');
     });
+
     it('자동차 이름 입력 후 엔터를 누르면 시도할 횟수를 입력하는 상자가 뜬다', () => {
-      expect(false).to.be.true;
+      cy.get(ELEMENT.INPUT.CAR_NAMES).type(STRING_CAR_NAMES);
+      cy.get(ELEMENT.INPUT.CAR_NAMES).type(`{enter}`);
+      cy.get(ELEMENT.FIELD.ATTEMPT_TIMES).should('be.visible');
     });
   });
 
