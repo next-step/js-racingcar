@@ -30,4 +30,34 @@ describe('레이싱 카 어플리케이션 테스트', () => {
       isAlert(ERROR_MESSAGES.NAME_OUT_OF_RANGE);
     });
   });
+
+  describe('사용자는 몇번을 이동할 것인지 입력할 수 있다.', () => {
+    beforeEach(() => {
+      setName('Benz');
+    });
+
+    it('올바른 자동차 이름을 입력하면 시도할 횟수를 입력할 수 있다.', () => {
+      cy.get('.set-trial-container').should('exist');
+      cy.get('.trial-input').type('3');
+      cy.get('.trial-submit-btn').click();
+    });
+
+    it('시도할 횟수를 입력할 수 있다.', () => {
+      cy.get('.set-trial-container').should('exist');
+    });
+
+    it('시도할 횟수는 1 이상이어야 한다.', () => {
+      cy.get('.trial-input').type('0');
+      cy.get('.trial-submit-btn').click();
+      isAlert(ERROR_MESSAGES.INVALID_TRIAL_COUNT);
+      cy.get('.trial-input').type('-100');
+      cy.get('.trial-submit-btn').click();
+      isAlert(ERROR_MESSAGES.INVALID_TRIAL_COUNT);
+    });
+
+    it('시도할 횟수는 숫자만 입력되어야 한다.', () => {
+      cy.get('.trial-input').type('abc뛟쒧10!@#');
+      cy.get('.trial-input').should('have.value', '10');
+    });
+  });
 });

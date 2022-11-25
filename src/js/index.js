@@ -1,5 +1,5 @@
 import { $ } from './utils/selector.js';
-import { onNameSubmit } from './event/eventHandler.js';
+import { onSubmitName, onSubmitTrialCount } from './event/eventHandler.js';
 
-$('.car-name-submit-btn').addEventListener('click', event => onNameSubmit(event));
-
+$('.car-name-submit-btn').addEventListener('click', event => onSubmitName(event));
+$('.trial-submit-btn').addEventListener('click', event => onSubmitTrialCount(event));

@@ -1,18 +1,16 @@
-import { isValidNames } from '../utils/validate.js';
+import { isValidNames, isValidTrialCount } from '../utils/validate.js';
 import { $ } from '../utils/selector.js';
-import { setName, trimInput, splitName } from '../model/model.js';
-import { showTrialForm, focusInput, disableInput } from '../view/view.js';
+import { setName, setTrialCount, trimInput, splitName } from '../model/racingcar.js';
+import { showTrialForm, focusInput, disableInput } from '../view/main.js';
 
-/* eslint-disable import/prefer-default-export */
-
-export const onNameSubmit = event => {
+export const onSubmitName = event => {
   event.preventDefault();
   const inputValue = $('.car-name-input').value;
   const trimmedValue = trimInput(inputValue);
   const names = splitName(trimmedValue);
 
   if (isValidNames(names) === false) {
-    focusInput();
+    focusInput($('.car-name-input'));
     return;
   }
 
@@ -20,4 +18,17 @@ export const onNameSubmit = event => {
   console.log(names);
   showTrialForm();
   disableInput();
+};
+
+export const onSubmitTrialCount = event => {
+  event.preventDefault();
+  const trialCount = Number($('.trial-input').value);
+  console.log(trialCount);
+
+  if (isValidTrialCount(trialCount) === false) {
+    focusInput($('.trial-input'));
+    return;
+  }
+
+  setTrialCount(trialCount);
 };
