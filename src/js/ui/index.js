@@ -1,6 +1,6 @@
 import { ELEMENT } from './element.js';
-import { addClass } from './function.js';
-import { handleCarNames } from './handler.js';
+import { addClass, setClickListener, setInputEnterListener } from './function.js';
+import { handleAttemptTimes, handleCarNames } from './handler.js';
 import { selector } from './selector.js';
 
 export const initialize = () => {
@@ -10,12 +10,11 @@ export const initialize = () => {
 };
 
 export function setListeners() {
-  selector(ELEMENT.BUTTON.CAR_NAME_CONFIRM).addEventListener('click', () => {
-    handleCarNames();
-  });
-  selector(ELEMENT.INPUT.CAR_NAMES).addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-      handleCarNames();
-    }
-  });
+  // STEP1. 자동차 이름 입력
+  setClickListener(ELEMENT.BUTTON.CAR_NAME_CONFIRM, handleCarNames);
+  setInputEnterListener(ELEMENT.INPUT.CAR_NAMES, handleCarNames);
+
+  // STEP2. 자동차 시도 횟수 입력
+  setClickListener(ELEMENT.BUTTON.ATTEMT_TIMES_CONFIRM, handleAttemptTimes);
+  setInputEnterListener(ELEMENT.INPUT.ATTEMPT_TIMES, handleAttemptTimes);
 }

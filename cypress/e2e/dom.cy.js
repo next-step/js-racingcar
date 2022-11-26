@@ -50,18 +50,13 @@ describe('자동차 경주 게임 요구사항을 점검한다', () => {
       cy.get(ELEMENT.BUTTON.ATTEMT_TIMES_CONFIRM).should('be.visible');
     });
 
-    it.only('시도 횟수가 1회 미만인 경우 예외를 발생시킨다', () => {
+    it('시도 횟수를 입력하지 않으면 오류 메시지를 출력한다', () => {
       const stub = cy.stub();
       cy.on('window:alert', stub);
 
-      ['0', '-1', String(Number.MIN_SAFE_INTEGER)].forEach((input) => {
-        cy.get(ELEMENT.INPUT.ATTEMPT_TIMES).type(input);
-        cy.get(ELEMENT.BUTTON.ATTEMT_TIMES_CONFIRM)
-          .click()
-          .then(() => {
-            expect(stub.getCall(0)).to.be.calledWith(ALERT_MESSAGE.INVALID.ATTEMPT_TIMES);
-          });
-      });
+      cy.get(ELEMENT.BUTTON.ATTEMT_TIMES_CONFIRM)
+        .click()
+        .then(() => expect(stub.getCall(0)).to.be.calledWith(ALERT_MESSAGE.INVALID.ATTEMPT_TIMES));
     });
 
     it('시도 횟수 입력 후 확인 버튼을 누르면 자동차 경주 영역이 보인다', () => {
