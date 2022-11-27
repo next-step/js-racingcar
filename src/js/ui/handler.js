@@ -1,8 +1,7 @@
-import { Car } from '../service/Car.js';
 import { RacingGame } from '../service/RacingGame.js';
 import { ELEMENT } from './element.js';
-import { removeClass } from './function.js';
 import { selector } from './selector.js';
+import { removeClass, updateWinners } from './function.js';
 import { getAttemtTimesInput, getCarNamesFromInput, validateAttemptTimes, validateCarNames } from './validator.js';
 
 export const handleCarNames = () => {
@@ -21,7 +20,8 @@ export const handleAttemptTimes = () => {
     removeClass(selector(ELEMENT.SECTION.CAR_RACING), 'hidden');
     const game = RacingGame(getCarNamesFromInput(), getAttemtTimesInput());
     const winners = game();
-    console.log(winners);
+    updateWinners(winners);
+    removeClass(selector(ELEMENT.SECTION.WINNER), 'hidden');
   } catch (error) {
     alert(error.message);
     console.error(error);

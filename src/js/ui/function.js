@@ -1,3 +1,6 @@
+// eslint-disable-next-line no-unused-vars
+import { Car } from '../service/Car.js';
+import { ELEMENT } from './element.js';
 import { selector } from './selector.js';
 
 /**
@@ -38,4 +41,21 @@ export const setInputEnterListener = (element, callback) => {
       callback();
     }
   });
+};
+
+/**
+ *
+ * @param {Car[]} cars
+ * @returns {string}
+ */
+const getWinnerText = (cars) => {
+  return `최종 우승자: ${cars.map((car) => car.getCarName()).join(', ')}`;
+};
+
+/**
+ *
+ * @param {Car[]} winners
+ */
+export const updateWinners = (winners) => {
+  selector(ELEMENT.SUBTITLE.WINNER).innerText = getWinnerText(winners);
 };
