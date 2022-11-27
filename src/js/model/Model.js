@@ -1,3 +1,4 @@
+import { RACING_CAR } from '../constants/racing-car.js';
 import { moveOrStop, wait } from '../service/racing-car.js';
 import { getCarAttemptsCount, hideLoadingStatus, showLoadingStatus } from '../view/racing-car.js';
 
@@ -25,7 +26,7 @@ class Model {
       showLoadingStatus();
 
       // eslint-disable-next-line no-await-in-loop
-      await wait(1000);
+      await wait(RACING_CAR.MOVE_FORWARD_WAITING_TIME);
       hideLoadingStatus();
       const record = moveOrStop(this.#carName);
 
