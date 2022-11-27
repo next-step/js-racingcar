@@ -19,12 +19,9 @@ export const handleAttemptTimes = () => {
   try {
     validateAttemptTimes();
     removeClass(selector(ELEMENT.SECTION.CAR_RACING), 'hidden');
-    // 도메인 영역으로 분리시킬 필요가 있다
-    const cars = getCarNamesFromInput().map((carName) => new Car(carName));
-    const attemptTimes = getAttemtTimesInput();
-    const carRacing = new RacingGame(cars, attemptTimes);
-    const winner = carRacing.run(cars, attemptTimes);
-    console.log(winner);
+    const game = RacingGame(getCarNamesFromInput(), getAttemtTimesInput());
+    const winners = game();
+    console.log(winners);
   } catch (error) {
     alert(error.message);
     console.error(error);
