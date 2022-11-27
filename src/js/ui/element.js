@@ -20,4 +20,7 @@ export const ELEMENT = {
   SUBTITLE: {
     WINNER: '.subtitle-winner',
   },
+  DIV: {
+    CAR_RACING: '.div-car-racing',
+  },
 };

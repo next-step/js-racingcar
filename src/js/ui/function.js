@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { Car } from '../service/Car.js';
+import { CAR_RACING } from '../service/constant.js';
 import { ELEMENT } from './element.js';
 import { selector } from './selector.js';
 
@@ -58,4 +59,33 @@ const getWinnerText = (cars) => {
  */
 export const updateWinners = (winners) => {
   selector(ELEMENT.SUBTITLE.WINNER).innerText = getWinnerText(winners);
+};
+
+/**
+ *
+ * @param {Car} car
+ * @returns {string}
+ */
+export const getCarRuts = (car) => {
+  const carNameDiv = `<div class="car-player">${car.getCarName()}</div>`;
+  const getCarRutDiv = (movedDistance) => {
+    const getDiv = (str) => `<div class="forward-icon mt-2">${str}</div>`;
+    return Array.from({ length: movedDistance })
+      .map(() => getDiv(`⬇️`))
+      .join('');
+  };
+  return `
+  <div class="mr-2">
+    ${carNameDiv}
+    ${getCarRutDiv(car.getMovedDistance())}  
+  </div>
+  `;
+};
+
+/**
+ *
+ * @param {Car[]} cars
+ */
+export const updateCarsRut = (cars) => {
+  selector(ELEMENT.DIV.CAR_RACING).innerHTML = cars.map((car) => getCarRuts(car)).join('');
 };
