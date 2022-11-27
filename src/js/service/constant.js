@@ -10,4 +10,14 @@ export const CAR_RACING = {
     MIN_LENGTH: 1,
     MAX_LENGTH: 5,
   },
+  CAR: {
+    CONDITION: {
+      FORWARD: 4,
+      STOP: 3,
+    },
+  },
+  RANDOM_VALUE: {
+    MIN: 0,
+    MAX: 10,
+  },
 };
