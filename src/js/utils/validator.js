@@ -17,21 +17,21 @@ const hasZeroElementLengthInArray = (value) => {
   return value.some((elem) => elem.length === 0);
 };
 
-const assert = (predicate, message) => {
+const validate = (predicate, message) => {
   if (!predicate) {
     throw new Error(message);
   }
 };
 
-export const assertCarName = (carName) => {
-  assert(
+export const validateCarName = (carName) => {
+  validate(
     isLessThanOrEqualToLengthInArray(carName, RACING_CAR.NAME_LENGTH_LIMIT),
     ERROR_MESSAGE.INVALID_CAR_NAME_LENGTH,
   );
 
-  assert(!hasZeroElementLengthInArray(carName), ERROR_MESSAGE.INVALID_CAR_NAME_LENGTH);
+  validate(!hasZeroElementLengthInArray(carName), ERROR_MESSAGE.INVALID_CAR_NAME_LENGTH);
 };
 
-export const assertCarAttemptsCount = (count) => {
-  assert(count >= RACING_CAR.MIN_ATTEMPTS_COUNT, ERROR_MESSAGE.INVALID_CAR_ATTEMPTS_COUNT);
+export const validateCarAttemptsCount = (count) => {
+  validate(count >= RACING_CAR.MIN_ATTEMPTS_COUNT, ERROR_MESSAGE.INVALID_CAR_ATTEMPTS_COUNT);
 };

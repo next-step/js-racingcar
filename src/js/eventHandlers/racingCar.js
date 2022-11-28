@@ -1,5 +1,5 @@
 import model from '../model/Model.js';
-import { assertCarAttemptsCount, assertCarName } from '../utils/validator.js';
+import { validateCarAttemptsCount, validateCarName } from '../utils/validator.js';
 import {
   disableCarAttemptsCountForm,
   disableCarNameForm,
@@ -15,7 +15,7 @@ export const handleCarNameSubmit = (e) => {
   try {
     model.carName = getCarName();
 
-    assertCarName(model.carName);
+    validateCarName(model.carName);
 
     disableCarNameForm();
     showCarAttemptsCountForm();
@@ -29,7 +29,7 @@ export const handleCarAttemptsCountSubmit = (e) => {
 
   try {
     const carAttemptsCount = getCarAttemptsCount();
-    assertCarAttemptsCount(carAttemptsCount);
+    validateCarAttemptsCount(carAttemptsCount);
 
     disableCarAttemptsCountForm();
     renderCarRoad(model.carName);
