@@ -3,12 +3,12 @@ import { moveOrStop, wait } from '../service/racingCar.js';
 import { getCarAttemptsCount, hideLoadingStatus, showLoadingStatus } from '../view/racingCar.js';
 
 class Model {
-  #carName = [];
+  #carName = '';
 
   #record = {};
 
   get carName() {
-    return this.#carName;
+    return this.#carName.split(',').map((elem) => elem.trim());
   }
 
   set carName(carName) {
@@ -28,9 +28,9 @@ class Model {
       // eslint-disable-next-line no-await-in-loop
       await wait(RACING_CAR.MOVE_FORWARD_WAITING_TIME);
       hideLoadingStatus();
-      const record = moveOrStop(this.#carName);
+      const record = moveOrStop(this.carName);
 
-      this.#carName.forEach((elem) => {
+      this.carName.forEach((elem) => {
         this.#record[elem] = !this.#record[elem] ? [record[elem]] : [...this.#record[elem], record[elem]];
       });
     }

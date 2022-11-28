@@ -21,9 +21,7 @@ export const makeSpinnerTemplate = () => {
 };
 
 export const getCarName = () => {
-  return $(SELECTOR.CAR_NAME_INPUT)
-    .value.split(',')
-    .map((elem) => elem.trim());
+  return $(SELECTOR.CAR_NAME_INPUT).value;
 };
 
 export const disableCarNameForm = () => {
