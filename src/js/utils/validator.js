@@ -5,7 +5,7 @@ export const isMoveForwardNumber = (num) => {
   return num >= RACING_CAR.STANDARD_MOVE_FORWARD_NUMBER;
 };
 
-const isLessThanOrEqualToLengthInArray = (value, length) => {
+const isValidCarNameLength = (value, length) => {
   if (!Array.isArray(value)) return;
 
   return value.every((elem) => elem.length <= length);
@@ -24,10 +24,7 @@ const validate = (predicate, message) => {
 };
 
 export const validateCarName = (carName) => {
-  validate(
-    isLessThanOrEqualToLengthInArray(carName, RACING_CAR.NAME_LENGTH_LIMIT),
-    ERROR_MESSAGE.INVALID_CAR_NAME_LENGTH,
-  );
+  validate(isValidCarNameLength(carName, RACING_CAR.NAME_LENGTH_LIMIT), ERROR_MESSAGE.INVALID_CAR_NAME_LENGTH);
 
   validate(!hasZeroElementLengthInArray(carName), ERROR_MESSAGE.INVALID_CAR_NAME_LENGTH);
 };
