@@ -1,6 +1,6 @@
-import { RACING_CAR } from '../constants/racing-car.js';
-import { moveOrStop, wait } from '../service/racing-car.js';
-import { getCarAttemptsCount, hideLoadingStatus, showLoadingStatus } from '../view/racing-car.js';
+import { RACING_CAR } from '../constants/racingCar.js';
+import { moveOrStop, wait } from '../service/racingCar.js';
+import { getCarAttemptsCount, hideLoadingStatus, showLoadingStatus } from '../view/racingCar.js';
 
 class Model {
   #carName = [];

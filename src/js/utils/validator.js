@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../constants/errorMessage.js';
-import { RACING_CAR } from '../constants/racing-car.js';
+import { RACING_CAR } from '../constants/racingCar.js';
 
 export const isMoveForwardNumber = (num) => {
   return num >= RACING_CAR.STANDARD_MOVE_FORWARD_NUMBER;

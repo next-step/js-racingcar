@@ -7,7 +7,7 @@ import {
   getCarName,
   renderCarRoad,
   showCarAttemptsCountForm,
-} from '../view/racing-car.js';
+} from '../view/racingCar.js';
 
 export const handleCarNameSubmit = (e) => {
   e.preventDefault();

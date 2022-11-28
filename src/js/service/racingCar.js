@@ -1,6 +1,6 @@
-import { RACING_CAR } from '../constants/racing-car.js';
+import { RACING_CAR } from '../constants/racingCar.js';
 import { generateRandomNumber } from '../utils/index.js';
-import { renderCarStatus } from '../view/racing-car.js';
+import { renderCarStatus } from '../view/racingCar.js';
 
 export const wait = (ms) => {
   return new Promise((resolve) => {
