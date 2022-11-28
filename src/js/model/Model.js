@@ -1,9 +1,9 @@
 import { RACING_CAR } from '../constants/racingCar.js';
-import { moveOrStop, wait } from '../service/racingCar.js';
-import { getCarAttemptsCount, hideLoadingStatus, showLoadingStatus } from '../view/racingCar.js';
 
 class Model {
   #carName = '';
+
+  #carAttemptsCount = RACING_CAR.MIN_ATTEMPTS_COUNT;
 
   #record = {};
 
@@ -15,25 +15,16 @@ class Model {
     this.#carName = carName;
   }
 
-  get record() {
-    return this.#record;
+  get carAttemptsCount() {
+    return this.#carAttemptsCount;
   }
 
-  async gameStart() {
-    const carAttemptsCount = getCarAttemptsCount();
+  set carAttemptsCount(count) {
+    this.#carAttemptsCount = count;
+  }
 
-    for (let i = 0; i < carAttemptsCount; i++) {
-      showLoadingStatus();
-
-      // eslint-disable-next-line no-await-in-loop
-      await wait(RACING_CAR.MOVE_FORWARD_WAITING_TIME);
-      hideLoadingStatus();
-      const record = moveOrStop(this.carName);
-
-      this.carName.forEach((elem) => {
-        this.#record[elem] = !this.#record[elem] ? [record[elem]] : [...this.#record[elem], record[elem]];
-      });
-    }
+  get record() {
+    return this.#record;
   }
 }
 

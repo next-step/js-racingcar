@@ -1,5 +1,4 @@
 import model from '../model/Model.js';
-import { validateCarAttemptsCount, validateCarName } from '../utils/validator.js';
 import {
   disableCarAttemptsCountForm,
   disableCarNameForm,
@@ -8,6 +7,8 @@ import {
   renderCarRoad,
   showCarAttemptsCountForm,
 } from '../view/racingCar.js';
+import { validateCarAttemptsCount, validateCarName } from '../utils/validator.js';
+import { gameStart } from '../service/racingCar.js';
 
 export const handleCarNameSubmit = (e) => {
   e.preventDefault();
@@ -28,12 +29,12 @@ export const handleCarAttemptsCountSubmit = (e) => {
   e.preventDefault();
 
   try {
-    const carAttemptsCount = getCarAttemptsCount();
-    validateCarAttemptsCount(carAttemptsCount);
+    model.carAttemptsCount = getCarAttemptsCount();
+    validateCarAttemptsCount(model.carAttemptsCount);
 
     disableCarAttemptsCountForm();
     renderCarRoad(model.carName);
-    model.gameStart();
+    gameStart();
   } catch (error) {
     alert(error.message);
   }
