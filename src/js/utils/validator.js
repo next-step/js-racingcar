@@ -25,7 +25,6 @@ const validate = (predicate, message) => {
 
 export const validateCarName = (carName) => {
   validate(isValidCarNameLength(carName, RACING_CAR.NAME_LENGTH_LIMIT), ERROR_MESSAGE.INVALID_CAR_NAME_LENGTH);
-
   validate(!hasZeroElementLengthInArray(carName), ERROR_MESSAGE.INVALID_CAR_NAME_LENGTH);
 };
 
