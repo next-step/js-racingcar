@@ -1,5 +1,18 @@
 {
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:nara04040/js-racingcar.git",
+  "author": "nara04040 <nara04040@naver.com>",
+  "license": "MIT",
   "dependencies": {
-    "cypress": "^11.2.0"
+    "cypress": "^11.2.0",
+    "eslint": "^8.28.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.0"
   }
 }
