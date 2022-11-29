@@ -1,7 +1,7 @@
 import model from '../model/Model.js';
 import { RACING_CAR } from '../constants/racingCar.js';
 import { generateRandomNumber } from '../utils/index.js';
-import { getCarAttemptsCount, hideLoadingStatus, renderCarStatus, showLoadingStatus } from '../view/racingCar.js';
+import { hideLoadingSpinner, showLoadingSpinner, renderCarStatus } from '../view/racingCar.js';
 
 export const wait = (ms) => {
   return new Promise((resolve) => {
@@ -22,19 +22,22 @@ export const moveOrStop = (carName) => {
   return record;
 };
 
-export const gameStart = async () => {
-  const carAttemptsCount = getCarAttemptsCount();
+export const gameStart = () => {
+  let count = 0;
 
-  for (let i = 0; i < carAttemptsCount; i++) {
-    showLoadingStatus();
-
-    // eslint-disable-next-line no-await-in-loop
-    await wait(RACING_CAR.MOVE_FORWARD_WAITING_TIME);
-    hideLoadingStatus();
+  showLoadingSpinner();
+  const timer = setInterval(() => {
+    hideLoadingSpinner();
     const record = moveOrStop(model.carName);
 
     model.carName.forEach((elem) => {
       model.record[elem] = !model.record[elem] ? [record[elem]] : [...model.record[elem], record[elem]];
     });
-  }
+
+    ++count;
+
+    if (count === model.carAttemptsCount) clearInterval(timer);
+
+    if (count < model.carAttemptsCount) showLoadingSpinner();
+  }, RACING_CAR.MOVE_FORWARD_WAITING_TIME);
 };
