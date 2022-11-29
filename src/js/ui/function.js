@@ -50,7 +50,7 @@ export const setInputEnterListener = (element, callback) => {
  * @returns {string}
  */
 const getWinnerText = (cars) => {
-  return `최종 우승자: ${cars.map((car) => car.getCarName()).join(', ')}`;
+  return `🏆 최종 우승자: ${cars.map((car) => car.getCarName()).join(', ')} 🏆`;
 };
 
 /**
