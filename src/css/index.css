@@ -35,3 +35,7 @@ fieldset {
   border: none;
   padding: 0;
 }
+
+.race-times {
+  display: none;
+}
