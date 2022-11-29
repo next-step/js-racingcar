@@ -1,6 +1,6 @@
 import observer from '../core/observer.js';
 
-export class Component {
+export default class Component {
   constructor({ $target, props = {} }) {
     this.$target = $target;
     this.state = {};
