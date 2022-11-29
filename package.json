@@ -1,0 +1,25 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oyg0420/js-racingcar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oyg0420/js-racingcar/issues"
+  },
+  "homepage": "https://github.com/oyg0420/js-racingcar#readme",
+  "devDependencies": {
+    "cypress": "^11.2.0",
+    "live-server": "^1.2.2"
+  }
+}
