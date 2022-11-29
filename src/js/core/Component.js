@@ -8,8 +8,13 @@ export default class Component {
     this.setup();
   }
 
+  setState(newState) {
+    this.state = newState;
+    this.render();
+  }
+
   setup() {
-    this.state = observer.observable(this.state);
+    // this.state = observer.observable(this.state);
 
     observer.observe(() => {
       this.mounted();
