@@ -1,6 +1,19 @@
 import Component from '../core/Component.js';
-
+import { store } from '../store/index.js';
 class Progress extends Component {
+  constructor({ $target, props = {} }) {
+    super({ $target, props });
+  }
+
+  render() {
+    if (store.state.isVisibleProgress) {
+      this.$target.innerHTML = this.template();
+    }
+    if (!store.state.isVisibleProgress && this.$target.innerHTML.length) {
+      this.$target.innerHTML = '';
+    }
+  }
+
   template() {
     return /*html*/ `
       <div class="mt-4 d-flex">

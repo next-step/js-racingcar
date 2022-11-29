@@ -5,19 +5,18 @@ export default class Component {
     this.$target = $target;
     this.state = {};
     this.props = props;
+    this.mounted();
     this.setup();
   }
 
   setState(newState) {
-    this.state = newState;
+    this.state = { ...this.state, ...newState };
     this.render();
   }
 
   setup() {
-    // this.state = observer.observable(this.state);
-
     observer.observe(() => {
-      this.mounted();
+      //*TODO: Component를 확장한 클래스 중 store의 state를 변경한 곳만 리렌더를 발생시켜야함.
       this.render();
       this.addEventListener();
     });

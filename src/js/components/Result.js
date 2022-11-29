@@ -1,6 +1,17 @@
 import Component from '../core/Component.js';
+import { store } from '../store/index.js';
 
 class Result extends Component {
+  render() {
+    if (store.state.isVisibleResult) {
+      this.$target.innerHTML = this.template();
+    }
+
+    if (!store.state.isVisibleResult && this.$target.innerHTML.length) {
+      this.$target.innerHTML = '';
+    }
+  }
+
   template() {
     return /*html*/ `
       <div>

@@ -1,9 +1,12 @@
 export const DEFAULT_STORE_STATE = {
   carNames: '',
-  trailNumber: null,
+  trialNumber: null,
   isVisibleTrial: false,
   isVisibleProgress: false,
   isVisibleResult: false,
 };
 
-export const CLICK_EVENT_MAP = new Map();
+export const EVENT_MAP = {
+  CLICK: new Map(),
+  KEY_UP: new Map(),
+};

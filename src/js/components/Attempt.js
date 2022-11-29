@@ -1,22 +1,15 @@
-import { CLICK_EVENT_MAP } from '../constants.js';
+import { EVENT_MAP } from '../constants.js';
 import Component from '../core/Component.js';
-class TrialCount extends Component {
-  template() {
-    return /*html*/ `
-      <p class="move-explanation">시도할 횟수를 입력해주세요.</p>
-      <div class="d-flex">
-        <input type="number" class="w-100 mr-2 move-input" placeholder="시도 횟수" />
-        <button type="button" class="btn btn-cyan">확인</button>
-      </div>
-    `;
-  }
-}
+import { store } from '../store/index.js';
+import Trial from './Trial.js';
 
 class Attempt extends Component {
   constructor({ $target, props = {} }) {
     super({ $target, props });
+
     this.state = {
       isVisibleTrial: false,
+      carNames: null,
     };
   }
 
@@ -30,50 +23,55 @@ class Attempt extends Component {
             예시) EAST, WEST, SOUTH, NORTH
           </p>
           <div class="d-flex">
-            <input type="text" class="w-100 mr-2 car-name-input" placeholder="자동차 이름" />
+            <input type="text" class="w-100 mr-2 car-name-input" placeholder="자동차 이름" data-id="car-name-input"/>
             <button type="button" class="btn btn-cyan name-submit-button" data-id="submit-carname">확인</button>
           </div>
         </fieldset>
         <fieldset class="trial-count-wrapper">
-         <!-- <p class="move-explanation">시도할 횟수를 입력해주세요.</p>
-          <div class="d-flex">
-            <input type="number" class="w-100 mr-2 move-input" placeholder="시도 횟수" />
-            <button type="button" class="btn btn-cyan">확인</button>
-          </div> -->
         </fieldset>
       </form>
     `;
   }
 
-  // setState(nextState) {
-  //   this.state = nextState;
-  // }
-
   onSubmitCarname(event) {
-    this.setState({ ...this.state, isVisibleTrial: true });
-    console.log(this.state);
-    // store.setState({ isVisibleTrial: true });
+    this.setState({ isVisibleTrial: true });
+    store.setState({ carNames: this.state.carNames });
+  }
+
+  onTypeCarNames(event) {
+    this.setState({ carNames: event.target.value });
   }
 
   render() {
-    const { $target } = this;
+    const { $target, state } = this;
+    const { isVisibleTrial, carNames } = state;
+    const $trialWrapper = $target.querySelector('.trial-count-wrapper');
 
-    // const { isVisibleTrial } = store.state;
-    const { isVisibleTrial } = this.state;
-    console.log('in render', isVisibleTrial);
     if (isVisibleTrial) {
-      new TrialCount({
-        $target: $target.querySelector('.trial-count-wrapper'),
+      new Trial({
+        $target: $trialWrapper,
       });
     }
 
-    if (!isVisibleTrial) {
-      $target.querySelector('.trial-count-wrapper').innerHTML = '';
+    if (!isVisibleTrial && $trialWrapper.innerHTML.length) {
+      $trialWrapper.innerHTML = '';
+    }
+
+    //*TODO: 이건 아니야.. store의 state가 사용되는 곳만 리렌더하도록 꼭 변경 필요
+    $target
+      .querySelector('[data-id=car-name-input]')
+      .setAttribute('value', carNames || store.state.carNames);
+
+    if (isVisibleTrial) {
+      $target
+        .querySelector('[data-id=submit-carname]')
+        .setAttribute('disabled', '');
     }
   }
 
   addEventListener() {
-    CLICK_EVENT_MAP.set('submit-carname', this.onSubmitCarname.bind(this));
+    EVENT_MAP.CLICK.set('submit-carname', this.onSubmitCarname.bind(this));
+    EVENT_MAP.KEY_UP.set('car-name-input', this.onTypeCarNames.bind(this));
   }
 }
 
