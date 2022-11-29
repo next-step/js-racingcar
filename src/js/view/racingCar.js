@@ -46,13 +46,13 @@ export const disableCarAttemptsCountForm = () => {
   $(SELECTOR.CAR_ATTEMPTS_COUNT_BUTTON).disabled = true;
 };
 
-export const showLoadingStatus = () => {
+export const showLoadingSpinner = () => {
   $all(SELECTOR.CAR_WRAPPER).forEach(($el) => {
     $el.insertAdjacentHTML('beforeend', makeSpinnerTemplate());
   });
 };
 
-export const hideLoadingStatus = () => {
+export const hideLoadingSpinner = () => {
   $all(SELECTOR.CAR_WRAPPER).forEach(($el) => {
     $el.removeChild($el.lastChild);
   });
