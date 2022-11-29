@@ -1,3 +1,3 @@
-export default function printArrow() {
-  return `<div class="forward-icon mt-2">⬇️️</div>`;
+export default function printArrow(ele) {
+  return ele.parentNode.insertAdjacentHTML('beforeend', `<div class="forward-icon mt-2">⬇️️</div>`);
 }

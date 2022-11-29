@@ -1,12 +1,10 @@
 export const winnerMessage = (values) => {
-  const template = `
-  🏆 최종 우승자: ${values.join(', ')} 🏆
-  `;
+  const template = `🏆 최종 우승자: ${values.join(', ')} 🏆`;
 
   return template;
 };
 
-export function printCarRacingResult(results) {
+export function printWinner(results) {
   const resultWrapper = document.getElementById('result-wrapper');
   resultWrapper.style.display = 'block';
   resultWrapper.style.textAlign = 'center';

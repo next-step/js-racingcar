@@ -1,4 +1,3 @@
-import State from '../model/state.js';
 import startGame from '../model/startGame.js';
 import validateAttemptCount from '../model/validateAttemptCount.js';
 import disableElements from './disableElements.js';
@@ -12,7 +11,6 @@ export default function initializeAttemptCount(e) {
 
   try {
     validateAttemptCount(attemptCount.value);
-    State.count = attemptCount.value;
     disableElements(attemptCount, attemptCountButton);
     startGame(attemptCount.value);
   } catch (error) {

@@ -1,4 +1,3 @@
-import State from '../model/state.js';
 import validateCarName from '../model/validateCarName.js';
 import disableElements from './disableElements.js';
 import showAttemptCountField from './showAttemptCountField.js';
@@ -11,7 +10,6 @@ export default function initializeCarNames(e) {
 
   try {
     validateCarName(carName.value)
-    State.player = carName.value;
     disableElements(carName, carNameButton);
     showAttemptCountField();
   } catch (error) {

@@ -1,18 +1,12 @@
-import { printCarRacingResult } from '../ui/printCarRacingResult.js';
+import { printWinner } from '../ui/printWinner.js';
 import showCars from '../ui/showCars.js';
-import carRacing from './carRacing.js';
-import getResult from './getResult.js';
+import displayRacingProcess from '../ui/displayRacingProcess.js';
+import getWinnerNames from './getWinnerNames.js';
 
 export default function startGame(counts) {
-  const carNameInput = document.querySelector('.car-name');
-  const carNames = carNameInput.value.split(',');
-  showCars(carNames);
-  
-  const cars = document.querySelectorAll('.car-player');
-  for (let i = 0; i < counts; i++) {
-    carRacing(cars);
-  }
+  showCars();
+  displayRacingProcess(counts);
 
-  const result = getResult(cars);
-  printCarRacingResult(result);
+  const winnerNames = getWinnerNames();
+  printWinner(winnerNames);
 }
