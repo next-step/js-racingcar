@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="./src/css/index.css" />
   </head>
   <body>
+  <script src="./src/index.js" type="module"></script>
     <div id="app">
       <section class="d-flex justify-center mt-5">
-        <form>
+        <form id="racing-game-form">
           <fieldset>
             <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
             <p>
@@ -16,20 +17,20 @@
               예시) EAST, WEST, SOUTH, NORTH
             </p>
             <div class="d-flex">
-              <input type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-              <button type="button" class="btn btn-cyan">확인</button>
+              <input id="car-names-input" type="text" class="w-100 mr-2" placeholder="자동차 이름" />
+              <button id="car-names-button" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
-          <fieldset>
+          <fieldset id="racing-count-fieldset" class="hidden">
             <p>시도할 횟수를 입력해주세요.</p>
             <div class="d-flex">
-              <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-              <button type="button" class="btn btn-cyan">확인</button>
+              <input id="racing-count-input" type="number" min="1" max="100" class="w-100 mr-2" placeholder="시도 횟수" />
+              <button type="submit" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
         </form>
       </section>
-      <section class="d-flex justify-center mt-5">
+      <section class="d-flex justify-center mt-5 hidden">
         <div class="mt-4 d-flex">
           <div class="mr-2">
             <div class="car-player">EAST</div>
@@ -58,7 +59,7 @@
           </div>
         </div>
       </section>
-      <section class="d-flex justify-center mt-5">
+      <section class="d-flex justify-center mt-5 hidden">
         <div>
           <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
           <div class="d-flex justify-center">
