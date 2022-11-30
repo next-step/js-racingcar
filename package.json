@@ -5,6 +5,9 @@
   "repository": "git@github.com:nara04040/js-racingcar.git",
   "author": "nara04040 <nara04040@naver.com>",
   "license": "MIT",
+  "scripts": {
+    "test:e2e": "cypress open"
+  },
   "dependencies": {
     "cypress": "^11.2.0",
     "eslint": "^8.28.0",
