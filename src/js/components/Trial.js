@@ -1,7 +1,6 @@
 import { EVENT_MAP } from '../constants.js';
 import Component from '../core/Component.js';
 import { store } from '../store/index.js';
-
 class Trial extends Component {
   constructor({ $target, props = {} }) {
     super({ $target, props });
@@ -13,8 +12,13 @@ class Trial extends Component {
   render() {
     this.$target
       .querySelector('[data-id=move-input]')
-      .setAttribute('value', this.state.trialNumber || store.state.trialNumber);
-
+      .setAttribute(
+        'value',
+        this.state.trialNumber || store.state.trialNumber || ''
+      );
+    if (!store.state.isVisibleProgress) {
+      this.$target.querySelector('[data-id=move-input]').focus();
+    }
     if (store.state.isVisibleProgress) {
       this.$target
         .querySelector('[data-id=submit-trial]')
@@ -24,9 +28,22 @@ class Trial extends Component {
 
   onTypeMovement(event) {
     this.setState({ trialNumber: Number(event.target.value) });
+
+    // if (event.key === 'Enter' && event.type !== 'submit') {
+    //   this.onSubmitTrials(event);
+    //   return;
+    // }
   }
 
   onSubmitTrials(event) {
+    //*TODO: split car names and make progress
+
+    if (!Number.isInteger(this.state.trialNumber)) {
+      alert('');
+      return;
+    }
+    event.preventDefault();
+
     store.setState({
       trialNumber: this.state.trialNumber,
       isVisibleProgress: true,

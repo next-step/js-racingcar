@@ -1,6 +1,7 @@
 import { EVENT_MAP } from '../constants.js';
 import Component from '../core/Component.js';
 import { store } from '../store/index.js';
+import { splitingCarNames, validateCarNames } from '../utils/index.js';
 import Trial from './Trial.js';
 
 class Attempt extends Component {
@@ -34,6 +35,14 @@ class Attempt extends Component {
   }
 
   onSubmitCarname(event) {
+    event.preventDefault();
+    if (!validateCarNames(splitingCarNames(this.state.carNames))) {
+      alert(
+        '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.'
+      );
+      return;
+    }
+
     this.setState({ isVisibleTrial: true });
     store.setState({ carNames: this.state.carNames });
   }
@@ -61,7 +70,8 @@ class Attempt extends Component {
     $target
       .querySelector('[data-id=car-name-input]')
       .setAttribute('value', carNames || store.state.carNames);
-
+    if (!isVisibleTrial)
+      $target.querySelector('[data-id=car-name-input]').focus();
     if (isVisibleTrial) {
       $target
         .querySelector('[data-id=submit-carname]')
@@ -72,6 +82,7 @@ class Attempt extends Component {
   addEventListener() {
     EVENT_MAP.CLICK.set('submit-carname', this.onSubmitCarname.bind(this));
     EVENT_MAP.KEY_UP.set('car-name-input', this.onTypeCarNames.bind(this));
+    EVENT_MAP.SUBMIT.set('submit-carname', this.onSubmitCarname.bind(this));
   }
 }
 

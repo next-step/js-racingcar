@@ -93,6 +93,13 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.get($element.moveSubmitButton).click();
       cy.get($element.moveSubmitButton).should('be.disabled');
     });
+
+    it('이동 횟수를 입력하지 않고 제출하면 이벤트가 발생하지 않음.', () => {
+      cy.get($element.movesInput).clear();
+      cy.get($element.moveSubmitButton).click();
+      cy.get($element.moveSubmitButton).should('be.disabled');
+      // cy.get($element.moveSubmitButton).should('exist');
+    });
   });
 
   context('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {

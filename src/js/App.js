@@ -50,5 +50,11 @@ export class App extends Component {
         EVENT_MAP.KEY_UP.get(event.target.dataset.id)(event);
       }
     });
+
+    document.addEventListener('submit', (event) => {
+      Array.from(EVENT_MAP.SUBMIT.values()).forEach((el) => {
+        el(event);
+      });
+    });
   }
 }

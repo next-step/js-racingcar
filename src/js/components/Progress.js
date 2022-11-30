@@ -1,5 +1,23 @@
 import Component from '../core/Component.js';
 import { store } from '../store/index.js';
+import { splitingCarNames } from '../utils/index.js';
+
+class Player extends Component {
+  constructor({ $target, props = {} }) {
+    super({ $target, props });
+    this.props = props;
+  }
+  template() {
+    return /*html*/ `
+      <div class="mr-2">
+        <div class="car-player">EAST</div>
+        <div class="forward-icon mt-2">⬇️️</div>
+        <div class="forward-icon mt-2">⬇️️</div>
+      </div>
+    `;
+  }
+}
+
 class Progress extends Component {
   constructor({ $target, props = {} }) {
     super({ $target, props });
@@ -8,7 +26,14 @@ class Progress extends Component {
   render() {
     if (store.state.isVisibleProgress) {
       this.$target.innerHTML = this.template();
+      splitingCarNames(store.state.carNames).map((carName) => {
+        new Player({
+          $target: this.$target.querySelector('.progress-wrapper'),
+          props: { carName },
+        });
+      });
     }
+
     if (!store.state.isVisibleProgress && this.$target.innerHTML.length) {
       this.$target.innerHTML = '';
     }
@@ -16,7 +41,7 @@ class Progress extends Component {
 
   template() {
     return /*html*/ `
-      <div class="mt-4 d-flex">
+      <div class="mt-4 d-flex progress-wrapper">
         <div class="mr-2">
           <div class="car-player">EAST</div>
           <div class="forward-icon mt-2">⬇️️</div>
