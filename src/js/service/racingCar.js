@@ -3,12 +3,6 @@ import { RACING_CAR } from '../constants/racingCar.js';
 import { generateRandomNumber, sortObjectByValue } from '../utils/index.js';
 import { hideLoadingSpinner, showLoadingSpinner, renderCarStatus } from '../view/racingCar.js';
 
-export const wait = (ms) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-};
-
 export const getMoveForwardCount = (arr) => {
   if (!Array.isArray(arr)) return;
 
