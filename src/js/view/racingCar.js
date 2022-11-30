@@ -5,7 +5,7 @@ import { isMoveForwardNumber } from '../utils/validator.js';
 export const makeCarTemplate = (carName) => {
   return `<div class="mr-2 js-car-wrapper" data-cy="car-wrapper">
     <div class="car-player js-car-player" data-cy="car-player">${carName}</div>
-    <div class='js-car-forward-icon-wrapper' data-car-name="${carName}"></div>
+    <div class='js-car-forward-icon-wrapper' data-car-name="${carName}" data-cy="car-forward-icon-wrapper"></div>
   </div>`;
 };
 
@@ -88,5 +88,5 @@ export const renderCarStatus = (record) => {
 
 export const renderWinners = (winners) => {
   showWinnersWrapper();
-  $(SELECTOR.CAR_WINNERS_NAME).innerHTML = `${winners.join(', ')}`;
+  $(SELECTOR.CAR_WINNERS_NAME).innerHTML = `${winners}`;
 };

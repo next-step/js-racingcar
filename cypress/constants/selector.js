@@ -7,4 +7,8 @@ export const SELECTOR = {
 
   CAR_ROAD: 'car-road',
   CAR_PLAYER: 'car-player',
+  CAR_WRAPPER: 'car-wrapper',
+
+  CAR_FORWARD_ICON_WRAPPER: 'car-forward-icon-wrapper',
+  CAR_WINNERS_NAME: 'car-winners-name',
 };

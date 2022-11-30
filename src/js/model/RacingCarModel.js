@@ -26,7 +26,7 @@ class RacingCarModel {
   }
 
   get winners() {
-    return this.#winners;
+    return this.#winners.join(', ');
   }
 
   set winners(winners) {

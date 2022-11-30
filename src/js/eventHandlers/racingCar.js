@@ -36,7 +36,9 @@ export const handleCarAttemptsCountSubmit = async (e) => {
     disableCarAttemptsCountForm();
     renderCarRoad(racingCarModel.name);
     await gameStart();
+    window.record = racingCarModel.record;
     racingCarModel.winners = getWinners(racingCarModel.name, racingCarModel.record);
+    window.winners = racingCarModel.winners;
     renderWinners(racingCarModel.winners);
   } catch (error) {
     alert(error.message);
