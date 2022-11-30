@@ -88,5 +88,5 @@ export const renderCarStatus = (record) => {
 
 export const renderWinners = (winners) => {
   showWinnersWrapper();
-  $(SELECTOR.CAR_WINNERS_NAME).innerHTML = `${winners}`;
+  $(SELECTOR.CAR_WINNERS_NAME).textContent = winners;
 };
