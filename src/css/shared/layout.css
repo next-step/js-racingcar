@@ -12,6 +12,10 @@
 }
 
 /* Layout - Display */
+.d-none {
+  display: none;
+}
+
 .d-flex {
   display: flex;
 }
@@ -26,6 +30,11 @@
 
 .d-inline-block {
   display: inline-block;
+}
+
+/* Flex - Flex-Direction */
+.flex-col {
+  flex-direction: column;
 }
 
 /* Layout - Top / Right / Bottom / Left */
