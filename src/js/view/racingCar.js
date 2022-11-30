@@ -64,6 +64,11 @@ const showCarRoad = () => {
   $(SELECTOR.CAR_ROAD).classList.add('d-flex');
 };
 
+const showWinnersWrapper = () => {
+  $(SELECTOR.CAR_WINNERS_CONTAINER).classList.remove('d-none');
+  $(SELECTOR.CAR_WINNERS_CONTAINER).classList.add('d-flex');
+};
+
 export const renderCarRoad = (carName) => {
   showCarRoad();
   $(SELECTOR.CAR_ROAD_WRAPPER).insertAdjacentHTML('beforeend', carName.map((car) => makeCarTemplate(car)).join(''));
@@ -79,4 +84,9 @@ export const renderCarStatus = (record) => {
 
     $el.insertAdjacentHTML('beforeend', makeMoveTemplate());
   });
+};
+
+export const renderWinners = (winners) => {
+  showWinnersWrapper();
+  $(SELECTOR.CAR_WINNERS_NAME).innerHTML = `${winners.join(', ')}`;
 };

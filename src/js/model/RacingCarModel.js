@@ -1,36 +1,36 @@
 import { RACING_CAR } from '../constants/racingCar.js';
 
 class RacingCarModel {
-  #carName = '';
+  #name = '';
 
-  #carAttemptsCount = RACING_CAR.MIN_ATTEMPTS_COUNT;
+  #attemptsCount = RACING_CAR.MIN_ATTEMPTS_COUNT;
 
   #record = {};
 
-  #racingCarWinners = [];
+  #winners = [];
 
-  get carName() {
-    return this.#carName.split(',').map((elem) => elem.trim());
+  get name() {
+    return this.#name.split(',').map((elem) => elem.trim());
   }
 
-  set carName(carName) {
-    this.#carName = carName;
+  set name(name) {
+    this.#name = name;
   }
 
-  get carAttemptsCount() {
-    return this.#carAttemptsCount;
+  get attemptsCount() {
+    return this.#attemptsCount;
   }
 
-  set carAttemptsCount(count) {
-    this.#carAttemptsCount = count;
+  set attemptsCount(count) {
+    this.#attemptsCount = count;
   }
 
-  get racingCarWinners() {
-    return this.#racingCarWinners;
+  get winners() {
+    return this.#winners;
   }
 
-  set racingCarWinners(winners) {
-    this.#racingCarWinners = winners;
+  set winners(winners) {
+    this.#winners = winners;
   }
 
   get record() {

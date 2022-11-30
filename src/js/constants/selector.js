@@ -12,4 +12,6 @@ export const SELECTOR = {
   CAR_WRAPPER: '.js-car-wrapper',
   CAR_FORWARD_ICON_WRAPPER: '.js-car-forward-icon-wrapper',
 
-  
+  CAR_WINNERS_CONTAINER: '.js-car-winners-container',
+  CAR_WINNERS_NAME: '.js-car-winners-name',
+};
