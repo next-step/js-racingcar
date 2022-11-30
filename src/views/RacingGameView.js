@@ -7,10 +7,15 @@ class RacingGameView {
     this.$racingCountFieldSet = document.getElementById(
       "racing-count-fieldset"
     );
+    this.$racingSection = document.getElementById("racing-section");
   }
 
   showElement(target) {
     target.classList.remove("hidden");
+  }
+
+  templateRacingSection(Cars) {
+    return Cars.map((Car) => Car.templateCarName()).join("");
   }
 }
 

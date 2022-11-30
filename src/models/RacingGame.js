@@ -1,14 +1,14 @@
 class RacingGame {
-  #cars = [];
+  #Cars = [];
   #racingCount = 0;
   constructor() {}
 
-  get cars() {
-    return this.#cars;
+  get Cars() {
+    return this.#Cars;
   }
 
-  set cars(cars) {
-    this.#cars = cars;
+  set Cars(Cars) {
+    this.#Cars = Cars;
   }
 
   get racingCount() {

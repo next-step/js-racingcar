@@ -2,6 +2,7 @@ const RACING_GAME = {
   CAR: {
     NAME_LENGTH_MIN: 1,
     NAME_LENGTH_MAX: 5,
+    MOVABLE_MIN_NUMBER: 4,
   },
   MESSAGES: {
     CAR_NAMES_MISMATCH: "올바른 자동차명 형식이 아닙니다.",

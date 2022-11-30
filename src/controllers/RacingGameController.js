@@ -1,6 +1,7 @@
 import RacingGame from "../models/RacingGame.js";
 import RacingGameView from "../views/RacingGameView.js";
 import RACING_GAME from "../constants.js";
+import Car from "../models/Car.js";
 
 class RacingGameController {
   #model;
@@ -27,29 +28,46 @@ class RacingGameController {
   #onSubmitCarNames(e) {
     e.preventDefault();
 
-    if (!this.isCarNamesCorrectlyRegistered(this.#view.$carNamesInput.value)) {
+    const carNames = this.#view.$carNamesInput.value;
+
+    if (!this.isCarNamesCorrectlyRegistered(carNames)) {
       window.alert(RACING_GAME.MESSAGES.CAR_NAMES_MISMATCH);
       return;
     }
 
+    this.#model.Cars = carNames.split(",").map((carName) => new Car(carName));
     this.#view.showElement(this.#view.$racingCountFieldSet);
   }
 
   #onSubmitRacingCount(e) {
     e.preventDefault();
 
-    if (
-      !this.isRacingCountCorrectlyRegistered(this.#view.$racingCountInput.value)
-    ) {
+    const racingCount = this.#view.$racingCountInput.value;
+
+    if (!this.isRacingCountCorrectlyRegistered(racingCount)) {
       window.alert(RACING_GAME.MESSAGES.RACING_COUNT_MISMATCH);
       return;
     }
+
+    this.#model.racingCount = racingCount;
+    this.#onRacingStart();
+  }
+
+  #onRacingStart() {
+    this.#model.Cars.forEach((Car) => {
+      Car.onRacingStart(this.#model.racingCount);
+    });
+
+    this.#view.$racingSection.innerHTML = this.#view.templateRacingSection(
+      this.#model.Cars
+    );
+    this.#view.showElement(this.#view.$racingSection);
   }
 
   isCarNamesCorrectlyRegistered(carNames) {
     return carNames
       .split(",")
-      .every((carName) => this.isCarNameLessThanNameLimit(carName));
+      .every((carName) => this.isCarNameLessThanNameLimit(carName.trim()));
   }
 
   isCarNameLessThanNameLimit(carName) {
@@ -60,7 +78,11 @@ class RacingGameController {
   }
 
   isRacingCountCorrectlyRegistered(count) {
-    const racingCount = +(count || "0");
+    if (!count) {
+      return false;
+    }
+
+    const racingCount = +count;
 
     return (
       RACING_GAME.RACING_COUNT_MIN <= racingCount &&
