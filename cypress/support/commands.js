@@ -4,8 +4,8 @@ export const racingCountFieldsetSelector = 'fieldset[name="racing-count"]';
 export const racingCountInputSelector = 'input[name="racing-count"]';
 
 Cypress.Commands.add('carNameTypo', (carName) => {
- cy.get(carNameFieldset).within(() => {
-  cy.get(carNameInput).type(carName);
+ cy.get(carNameFieldsetSelector).within(() => {
+  cy.get(carNameInputSelector).type(carName);
   cy.get('button').click();
  });
 });
