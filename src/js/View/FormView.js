@@ -14,19 +14,29 @@ export default class FormView extends View {
  }
 
  setEvent() {
-  this.addEvent('click', 'fieldset[name="car-name"] button', (e) => {
-   this.model.setCarNames(e.target.previousElementSibling.value.split(','));
-   this.$carNameFieldset.disabled = true;
-   this.$raceCountFieldset.classList.remove('hidden');
-  });
-
-  this.addEvent('submit', 'form', (e) => {
+  this.addEvent('submit', 'form', async (e) => {
    e.preventDefault();
    for (const el of e.target) {
-    if (el.value && el.name === 'racing-count') this.model.play(+el.value);
+    if (this.#isTargetFieldset('car-name', el)) {
+     this.model.setCarNames(el.value.split(','));
+     this.$carNameFieldset.disabled = true;
+     this.$raceCountFieldset.classList.remove('hidden');
+     return;
+    }
+    if (this.#isTargetFieldset('racing-count', el)) {
+     await this.model.play(+el.value);
+     this.$raceCountFieldset.disabled = true;
+    }
    }
-   this.$raceCountFieldset.disabled = true;
   });
+ }
+
+ #isTargetFieldset(targetName, target) {
+  return (
+   !target.closest('fieldset').disabled &&
+   target.value !== undefined &&
+   target.name === targetName
+  );
  }
 
  getTemplate() {
@@ -39,7 +49,7 @@ export default class FormView extends View {
       </legend>
       <div class="d-flex">
         <input name="car-name" type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-        <button type="button" class="btn btn-cyan">확인</button>
+        <button type="submit" class="btn btn-cyan">확인</button>
       </div>
     </fieldset>
     <fieldset name="racing-count" class="hidden">

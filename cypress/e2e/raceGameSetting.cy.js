@@ -5,6 +5,7 @@
 import {
  carNameInputSelector,
  carNameFieldsetSelector,
+ racingCountFieldsetSelector,
 } from '../support/commands';
 
 describe('자동차에 이름을 부여할 수 있다.', () => {
@@ -84,8 +85,10 @@ describe('사용자는 몇 번의 이동을 할 것인지를 입력할 수 있�
 
  it('1 미만의 횟수를 입력하고 확인 버튼을 누를시 "입력한 레이싱 횟수가 너무 적습니다. 레이싱 횟수는 1이상이어야 합니다." 라는 alert 을 띄워준다.', () => {
   cy.carNameTypo('kia,benz,audi,tesla,volvo');
-  cy.get('input[name="racing-count"]').type('0');
-  cy.get('button').click();
+  cy.get(racingCountFieldsetSelector).within(() => {
+   cy.get('input').type('0');
+   cy.get('button').click();
+  });
   cy.on('window:alert', (str) => {
    expect(str).to.equal(
     '입력한 레이싱 횟수가 너무 적습니다. 레이싱 횟수는 1이상이어야 합니다.'
