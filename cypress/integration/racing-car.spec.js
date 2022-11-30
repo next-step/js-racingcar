@@ -38,18 +38,54 @@ describe("레이싱 게임", () => {
         message: RACING_GAME.MESSAGES.CAR_NAMES_MISMATCH,
       });
     });
-
-    it("콤마를 기준으로 자동차명을 구분한다.", () => {
-      // 콤마가 2개이면 자동차가 2대, 3개면 3대 등
-    });
   });
 
   context("사용자는 몇 번 이동할지 횟수를 입력한다.", () => {
+    beforeEach(() => {
+      cy.get("#car-names-input").type("123");
+      cy.get("#car-names-button").click();
+    });
+
     it("최소 1 이상의 숫자를 입력해야 한다.", () => {
-      expect(true).to.eq(false);
+      cy.get("#racing-count-input").type("{backspace}");
+      cy.alertMessage({
+        selector: "#racing-count-button",
+        message: RACING_GAME.MESSAGES.RACING_COUNT_MISMATCH,
+      });
+
+      cy.get("#racing-count-input").type("0");
+      cy.alertMessage({
+        selector: "#racing-count-button",
+        message: RACING_GAME.MESSAGES.RACING_COUNT_MISMATCH,
+      });
     });
     it("최대 10까지 입력할 수 있다.", () => {
-      expect(true).to.eq(false);
+      cy.get("#racing-count-input").type("11");
+      cy.alertMessage({
+        selector: "#racing-count-button",
+        message: RACING_GAME.MESSAGES.RACING_COUNT_MISMATCH,
+      });
+    });
+  });
+
+  context("자동차를 등록하면 등록한 자동차명이 노출된다.", () => {
+    let carNames = "감자, 고구마";
+
+    beforeEach(() => {
+      cy.get("#car-names-input").type(carNames);
+      cy.get("#car-names-button").click();
+      cy.get("#racing-count-input").type("5");
+      cy.get("#racing-count-button").click();
+    });
+
+    it("자동차명이 (감자, 고구마)인 경우", () => {
+      cy.get(`#car-name-감자`).should("exist");
+      cy.get(`#car-name-고구마`).should("exist");
+    });
+    it("자동차명에 공백이 있는 경우 제거한다.", () => {
+      carNames = "    감자    ,  고구마 ";
+      cy.get(`#car-name-감자`).should("exist");
+      cy.get(`#car-name-고구마`).should("exist");
     });
   });
 });
