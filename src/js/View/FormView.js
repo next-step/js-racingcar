@@ -1,4 +1,4 @@
-import { withErrorHandling } from '../utils';
+import { NAME, SELECTOR } from '../constants';
 import View from './View';
 
 export default class FormView extends View {
@@ -6,10 +6,10 @@ export default class FormView extends View {
   super(target);
   this.model = model;
   this.$carNameFieldset = this.$target.querySelector(
-   'fieldset[name="car-name"]'
+   SELECTOR.FIELDSET.CAR_NAME
   );
   this.$raceCountFieldset = this.$target.querySelector(
-   'fieldset[name="racing-count"]'
+   SELECTOR.FIELDSET.RACING_COUNT
   );
  }
 
@@ -17,13 +17,13 @@ export default class FormView extends View {
   this.addEvent('submit', 'form', async (e) => {
    e.preventDefault();
    for (const el of e.target) {
-    if (this.#isTargetFieldset('car-name', el)) {
+    if (this.#isTargetFieldset(NAME.CAR_NAME, el)) {
      this.model.setCarNames(el.value.split(','));
      this.$carNameFieldset.disabled = true;
      this.$raceCountFieldset.classList.remove('hidden');
      return;
     }
-    if (this.#isTargetFieldset('racing-count', el)) {
+    if (this.#isTargetFieldset(NAME.RACING_COUNT, el)) {
      await this.model.play(+el.value);
      this.$raceCountFieldset.disabled = true;
     }
