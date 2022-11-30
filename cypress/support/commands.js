@@ -6,3 +6,10 @@ Cypress.Commands.add('carNameTypo', (carName) => {
   cy.get('button').click();
  });
 });
+
+Cypress.Commands.add('tryCountTypo', (tryCount) => {
+ cy.get(SELECTOR.FIELDSET.RACING_COUNT).within(() => {
+  cy.get(SELECTOR.INPUT.RACING_COUNT).type(tryCount);
+  cy.get('button').click();
+ });
+});

@@ -1,6 +1,6 @@
 import './css/index.css';
 import RaceModel from './js/Model/RaceModel';
-import { raceFormSection } from './js/View/dom';
+import { $raceFormSection } from './js/View/dom';
 import FormView from './js/View/FormView';
 
 class App {
@@ -11,4 +11,4 @@ class App {
   });
  }
 }
-new App(RaceModel, [{ view: FormView, target: raceFormSection }]);
+new App(RaceModel, [{ view: FormView, target: $raceFormSection }]);
