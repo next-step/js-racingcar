@@ -11,7 +11,7 @@ export default class RaceModel {
   * @param {string[]} cars
   */
  setCarNames(cars) {
-  this.#cars = cars.map((car) => new RacingCar(car));
+  this.#cars = cars.map((car) => new RacingCar(car.trim()));
  }
  #validateTryCount(tryCount) {
   if (tryCount < 1) {

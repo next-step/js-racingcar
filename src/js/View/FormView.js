@@ -24,8 +24,10 @@ export default class FormView extends View {
      return;
     }
     if (this.#isTargetFieldset(NAME.RACING_COUNT, el)) {
-     await this.model.play(+el.value);
      this.$raceCountFieldset.disabled = true;
+     await this.model.play(+el.value).catch((e) => {
+      this.$raceCountFieldset.disabled = false;
+     });
     }
    }
   });
