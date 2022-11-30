@@ -10,4 +10,6 @@ export const SELECTOR = {
   CAR_ROAD: '.js-car-road',
   CAR_ROAD_WRAPPER: '.js-car-road-wrapper',
   CAR_WRAPPER: '.js-car-wrapper',
-};
+  CAR_FORWARD_ICON_WRAPPER: '.js-car-forward-icon-wrapper',
+
+  

@@ -1,4 +1,4 @@
-import model from '../model/Model.js';
+import racingCarModel from '../model/RacingCarModel.js';
 import { RACING_CAR } from '../constants/racingCar.js';
 import { generateRandomNumber } from '../utils/index.js';
 import { hideLoadingSpinner, showLoadingSpinner, renderCarStatus } from '../view/racingCar.js';
@@ -27,17 +27,19 @@ export const gameStart = () => {
 
   showLoadingSpinner();
   const timer = setInterval(() => {
-    hideLoadingSpinner();
-    const record = moveOrStop(model.carName);
+    const record = moveOrStop(racingCarModel.carName);
 
-    model.carName.forEach((elem) => {
-      model.record[elem] = !model.record[elem] ? [record[elem]] : [...model.record[elem], record[elem]];
+    racingCarModel.carName.forEach((elem) => {
+      racingCarModel.record[elem] = !racingCarModel.record[elem]
+        ? [record[elem]]
+        : [...racingCarModel.record[elem], record[elem]];
     });
 
     ++count;
 
-    if (count === model.carAttemptsCount) clearInterval(timer);
-
-    if (count < model.carAttemptsCount) showLoadingSpinner();
+    if (count === racingCarModel.carAttemptsCount) {
+      clearInterval(timer);
+      hideLoadingSpinner();
+    }
   }, RACING_CAR.MOVE_FORWARD_WAITING_TIME);
 };

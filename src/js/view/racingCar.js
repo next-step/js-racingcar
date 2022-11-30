@@ -3,8 +3,9 @@ import { SELECTOR } from '../constants/selector.js';
 import { isMoveForwardNumber } from '../utils/validator.js';
 
 export const makeCarTemplate = (carName) => {
-  return `<div class="mr-2 js-car-wrapper" data-car-name="${carName}">
+  return `<div class="mr-2 js-car-wrapper" data-cy="car-wrapper">
     <div class="car-player js-car-player" data-cy="car-player">${carName}</div>
+    <div class='js-car-forward-icon-wrapper' data-car-name="${carName}"></div>
   </div>`;
 };
 
@@ -33,8 +34,8 @@ export const getCarAttemptsCount = () => {
   return Number($(SELECTOR.CAR_ATTEMPTS_COUNT_INPUT).value);
 };
 
-export const getCarWrapper = () => {
-  return Array.from($all(SELECTOR.CAR_WRAPPER));
+export const getCarForwardIconWrapper = () => {
+  return Array.from($all(SELECTOR.CAR_FORWARD_ICON_WRAPPER));
 };
 
 export const showCarAttemptsCountForm = () => {
@@ -69,9 +70,9 @@ export const renderCarRoad = (carName) => {
 };
 
 export const renderCarStatus = (record) => {
-  const carWrapper = getCarWrapper();
+  const carForwardIconWrapper = getCarForwardIconWrapper();
 
-  carWrapper.forEach(($el) => {
+  carForwardIconWrapper.forEach(($el) => {
     const { carName } = $el.dataset;
 
     if (!isMoveForwardNumber(record[carName])) return;
