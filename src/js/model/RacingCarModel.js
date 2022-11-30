@@ -1,11 +1,13 @@
 import { RACING_CAR } from '../constants/racingCar.js';
 
-class Model {
+class RacingCarModel {
   #carName = '';
 
   #carAttemptsCount = RACING_CAR.MIN_ATTEMPTS_COUNT;
 
   #record = {};
+
+  #racingCarWinners = [];
 
   get carName() {
     return this.#carName.split(',').map((elem) => elem.trim());
@@ -23,11 +25,19 @@ class Model {
     this.#carAttemptsCount = count;
   }
 
+  get racingCarWinners() {
+    return this.#racingCarWinners;
+  }
+
+  set racingCarWinners(winners) {
+    this.#racingCarWinners = winners;
+  }
+
   get record() {
     return this.#record;
   }
 }
 
-const model = new Model();
+const racingCarModel = new RacingCarModel();
 
-export default model;
+export default racingCarModel;

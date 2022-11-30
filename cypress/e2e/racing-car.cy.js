@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../../src/js/constants/errorMessage.js';
-import model from '../../src/js/model/Model.js';
+import racingCarModel from '../../src/js/model/RacingCarModel.js';
 import { SELECTOR } from '../constants/selector.js';
 
 beforeEach(() => {
@@ -82,7 +82,7 @@ describe('자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5
       it('4 이상이면 전진하고, 3 이하의 값이면 멈춘다.', () => {
         cy.startRacingGame('car1, car2, car3, car4', 2);
 
-        console.log(model.record);
+        console.log(racingCarModel.record);
       });
     });
   });
