@@ -8,6 +8,9 @@ import {
 } from '../support/commands';
 
 describe('자동차에 이름을 부여할 수 있다.', () => {
+ beforeEach(() => {
+  cy.visit('http://localhost:3000');
+ });
  it('자동차 이름을 적을 수 있는 Input이 존재한다.', () => {
   cy.get(carNameInputSelector).should('exist').should('be.visible');
  });
