@@ -6,15 +6,12 @@ export default class RaceModel {
   this.#cars = [];
   this.tryCount = 0;
  }
-
  /**
   * setCarNames
   * @param {string[]} cars
   */
  setCarNames(cars) {
-  console.log(cars);
   this.#cars = cars.map((car) => new RacingCar(car));
-  console.log(this.#cars);
  }
 
  async play(tryCount) {

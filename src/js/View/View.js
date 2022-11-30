@@ -1,3 +1,5 @@
+import { withErrorHandling } from '../utils';
+
 export default class View {
  constructor(target) {
   this.$target = target;
@@ -22,7 +24,7 @@ export default class View {
    if (ev.target) {
     if (!isTarget(ev.target)) return false;
 
-    callback(ev);
+    withErrorHandling(callback)(ev);
    }
   });
  }

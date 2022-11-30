@@ -1,3 +1,4 @@
+import { withErrorHandling } from '../utils';
 import View from './View';
 
 export default class FormView extends View {
@@ -14,16 +15,14 @@ export default class FormView extends View {
 
  setEvent() {
   this.addEvent('click', 'fieldset[name="car-name"] button', (e) => {
-   this.$raceCountFieldset.classList.remove('hidden');
+   this.model.setCarNames(e.target.previousElementSibling.value.split(','));
    this.$carNameFieldset.disabled = true;
+   this.$raceCountFieldset.classList.remove('hidden');
   });
 
   this.addEvent('submit', 'form', (e) => {
    e.preventDefault();
-   console.log(e);
    for (const el of e.target) {
-    if (el.value && el.name === 'car-name')
-     this.model.setCarNames(el.value.split(','));
     if (el.value && el.name === 'racing-count') this.model.play(+el.value);
    }
    this.$raceCountFieldset.disabled = true;

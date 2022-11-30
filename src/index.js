@@ -11,5 +11,4 @@ class App {
   });
  }
 }
-
 new App(RaceModel, [{ view: FormView, target: raceFormSection }]);
