@@ -28,7 +28,7 @@ class RacingGameController {
     e.preventDefault();
 
     if (!this.isCarNamesCorrectlyRegistered(this.#view.$carNamesInput.value)) {
-      window.alert("!!");
+      window.alert(RACING_GAME.MESSAGES.CAR_NAMES_MISMATCH);
       return;
     }
 
@@ -38,15 +38,14 @@ class RacingGameController {
   #onSubmitRacingCount(e) {
     e.preventDefault();
 
-    if (!this.isRacingCountRegistered(this.#view.$racingCountInput.value)) {
-      window.alert("!!");
+    if (
+      !this.isRacingCountCorrectlyRegistered(this.#view.$racingCountInput.value)
+    ) {
+      window.alert(RACING_GAME.MESSAGES.RACING_COUNT_MISMATCH);
       return;
     }
-
-    console.log("game start!");
   }
 
-  //TOBE Regex로 만들어보자. ([a-zA-Z]{1,5}[,][\s])
   isCarNamesCorrectlyRegistered(carNames) {
     return carNames
       .split(",")
@@ -54,12 +53,19 @@ class RacingGameController {
   }
 
   isCarNameLessThanNameLimit(carName) {
-    return carName.length <= RACING_GAME.CAR.NAME_LENGTH_LIMIT;
+    return (
+      RACING_GAME.CAR.NAME_LENGTH_MIN <= carName.length &&
+      carName.length <= RACING_GAME.CAR.NAME_LENGTH_MAX
+    );
   }
 
-  // TODO
-  isRacingCountRegistered(count) {
-    return count !== "";
+  isRacingCountCorrectlyRegistered(count) {
+    const racingCount = +(count || "0");
+
+    return (
+      RACING_GAME.RACING_COUNT_MIN <= racingCount &&
+      racingCount <= RACING_GAME.RACING_COUNT_MAX
+    );
   }
 }
 
