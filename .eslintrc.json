@@ -12,6 +12,8 @@
     "import/extensions": "off",
     "max-depth": ["error", 2],
     "no-alert":"off",
+    "import/prefer-default-export": "off",
+    "no-console": "off",
     "prettier/prettier": ["error", { "endOfLine": "auto" }]
   }
 }
