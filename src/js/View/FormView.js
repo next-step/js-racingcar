@@ -3,8 +3,7 @@ import View from './View';
 
 export default class FormView extends View {
  constructor(target, model) {
-  super(target);
-  this.model = model;
+  super(target, model);
   this.$carNameFieldset = this.$target.querySelector(
    SELECTOR.FIELDSET.CAR_NAME
   );

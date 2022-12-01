@@ -12,4 +12,9 @@ export const SELECTOR = {
   CAR_NAME: `input[name="${NAME.CAR_NAME}"]`,
   RACING_COUNT: `input[name="${NAME.RACING_COUNT}"]`,
  },
+ ID: {
+  RACE_FORM: '#race-form',
+  RACE_PROCESS: '#race-process',
+  RACE_RESULT: '#race-result',
+ },
 };

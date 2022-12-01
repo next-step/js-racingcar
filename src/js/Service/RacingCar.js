@@ -1,8 +1,9 @@
 export default class RacingCar {
  #position;
+ #name;
  constructor(name) {
   this.validateCarName(name);
-  this.name = name;
+  this.#name = name;
   this.#position = 0;
  }
  /**
@@ -39,5 +40,9 @@ export default class RacingCar {
 
  getPosition() {
   return this.#position;
+ }
+
+ getName() {
+  return this.#name;
  }
 }

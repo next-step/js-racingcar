@@ -1,10 +1,13 @@
 import RacingCar from '../Service/RacingCar';
+import Observer from './Observer';
 
-export default class RaceModel {
+export default class RaceModel extends Observer {
  #cars;
+ #tryCount;
  constructor() {
+  super();
   this.#cars = [];
-  this.tryCount = 0;
+  this.#tryCount = 0;
  }
  /**
   * setCarNames
@@ -21,15 +24,20 @@ export default class RaceModel {
   }
  }
 
+ getCarsPosition() {
+  return this.#cars.map((car) => [car.getName(), car.getPosition()]);
+ }
+ isFinished() {
+  return this.#tryCount <= 0;
+ }
+
  async play(tryCount) {
   this.#validateTryCount(tryCount);
 
-  this.tryCount = tryCount;
-  // promise
-  while (tryCount--) {
-   await Promise.all(this.#cars.map((car) => car.move())).then((positions) => {
-    console.log(positions);
-   });
+  this.#tryCount = tryCount;
+  while (this.#tryCount--) {
+   this.notify();
+   await Promise.all(this.#cars.map((car) => car.move()));
   }
  }
 }
