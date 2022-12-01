@@ -13,5 +13,5 @@ export const setTrialCount = newTrialCount => {
   state.trialCount = newTrialCount;
 };
 
-export const trimInput = value => value.replace(TRIM_BETWEEN_COMMA, ',').trim();
+export const trimNames = value => value.replace(TRIM_BETWEEN_COMMA, ',').trim();
 export const splitName = name => name.split(',');
