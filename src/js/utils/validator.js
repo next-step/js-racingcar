@@ -17,3 +17,9 @@ export const validateDuplicatedCarName = (carNames) => {
     throw new Error(ERROR_MESSAGE.DUPLICATED_CAR_NAME);
   }
 };
+
+export const validateTrialCount = (count) => {
+  if (count < CONDITION.MIN_TRIAL_COUNT) {
+    throw new Error(ERROR_MESSAGE.INVALID_TRIAL_COUNT);
+  }
+};

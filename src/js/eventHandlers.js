@@ -1,6 +1,14 @@
-import { validateCarNamesLength, validateDuplicatedCarName } from './utils/validator.js';
+import {
+  validateCarNamesLength,
+  validateDuplicatedCarName,
+  validateTrialCount,
+} from './utils/validator.js';
 
-import { disableCarNamesForm, showTrialCountForm } from './view/racingCar.js';
+import {
+  disableCarNamesForm,
+  showTrialCountForm,
+  disableTrialCountForm,
+} from './view/racingCar.js';
 
 export const handleCarNames = (e) => {
   e.preventDefault();
@@ -13,6 +21,20 @@ export const handleCarNames = (e) => {
 
     disableCarNamesForm();
     showTrialCountForm();
+  } catch (err) {
+    alert(err.message);
+    console.error(err.message);
+  }
+};
+
+export const handleTrialCount = (e) => {
+  e.preventDefault();
+  try {
+    const trialCount = e.target.elements[0].valueAsNumber;
+
+    validateTrialCount(trialCount);
+
+    disableTrialCountForm();
   } catch (err) {
     alert(err.message);
     console.error(err.message);

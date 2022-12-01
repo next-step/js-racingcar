@@ -10,3 +10,8 @@ export const disableCarNamesForm = () => {
 export const showTrialCountForm = () => {
   $(SELECTOR.TRIAL_COUNT_FORM).classList.remove('hidden');
 };
+
+export const disableTrialCountForm = () => {
+  $(SELECTOR.TRIAL_COUNT_INPUT).disabled = true;
+  $(SELECTOR.TRIAL_COUNT_BTN).disabled = true;
+};
