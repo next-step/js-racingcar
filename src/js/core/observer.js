@@ -1,11 +1,12 @@
-import { debounceFrame } from '../utils/index.js';
+// import { debounceFrame } from '../utils/index.js';
 
 const observer = (() => {
   let currentObserver = null;
   const observableMap = new Map();
 
   const observe = (fn) => {
-    currentObserver = debounceFrame(fn);
+    // currentObserver = debounceFrame(fn);
+    currentObserver = fn;
     fn();
     currentObserver = null;
   };
@@ -13,10 +14,10 @@ const observer = (() => {
   const observable = (obj) => {
     return new Proxy(obj, {
       get(target, name) {
-        if (!observableMap.has(name)) observableMap.set(new Set());
+        if (!observableMap.has(name)) observableMap.set(name, new Set());
         if (currentObserver) {
           observableMap.set(
-            name,
+            name || '',
             new Set([...(observableMap.get(name) || []), currentObserver])
           );
         }
@@ -36,6 +37,7 @@ const observer = (() => {
         if (JSON.stringify(target[name]) === JSON.stringify(value)) return true;
 
         target[name] = value;
+        console.log({ observableMap });
         observableMap.get(name).forEach((fn) => fn());
         return true;
       },

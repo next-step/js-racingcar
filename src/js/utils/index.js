@@ -15,7 +15,6 @@ export const validateCarNames = (carNamesArray) => {
 };
 
 export const splitingCarNames = (carNames) => {
-  console.log(carNames);
   if (!carNames.length) return [];
   return carNames.split(',').filter((name) => name.trim());
 };
@@ -41,7 +40,6 @@ export const checkRacingIntheEnd = ({ racingMap, trialNumber }) => {
 };
 
 export const makeNewRacingMap = (prevRacingMap) => {
-  console.log({ prevRacingMap });
   if (!prevRacingMap.size) return prevRacingMap;
   const updatedRacingMap = new Map([...prevRacingMap]);
 
@@ -52,6 +50,15 @@ export const makeNewRacingMap = (prevRacingMap) => {
     ]);
   });
 
-  console.log({ prevRacingMap }, { updatedRacingMap });
   return updatedRacingMap;
+};
+
+export const makeDefaultRacingMap = (carNames) => {
+  const map = new Map();
+  splitingCarNames(carNames).forEach((el, idx) => {
+    const carId = `${el}-${idx}`;
+    map.set(carId, []);
+  });
+
+  return map;
 };
