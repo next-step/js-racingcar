@@ -7,7 +7,6 @@ import ProcessView from './js/View/ProcessView';
 class App {
  constructor(Model, views) {
   const model = new Model();
-  console.log(model);
   views.forEach(({ view, target }) => {
    new view(target, model);
   });

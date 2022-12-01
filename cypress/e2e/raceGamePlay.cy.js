@@ -23,5 +23,4 @@ describe('자동차 경주 게임울 시작한다.', () => {
   await cy.wait(COUNT * SEC);
   await cy.get('.spinner').should('not.exist');
  });
- it('주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.', () => {});
 });
