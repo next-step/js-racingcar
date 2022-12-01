@@ -1,5 +1,6 @@
 import { isValidNames, isValidTrialCount } from '../utils/validate.js';
-import racingManager from '../model/racingCar.js';
+import racingManager from '../model/racingcar.js';
+
 import {
   showTrialForm,
   focusNameInput,
