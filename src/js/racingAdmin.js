@@ -15,6 +15,10 @@ const racingAdmin = {
     this.result = newResult;
   },
 
+  trimValue(value) {
+    return value.split(' ').join('');
+  },
+
   splitComma(value) {
     return value.split(',');
   },
