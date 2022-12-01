@@ -1,5 +1,12 @@
 import { isValidNames, isValidTrialCount } from '../utils/validate.js';
-import { setName, setTrialCount, trimNames, splitName } from '../model/racingCar.js';
+import {
+  setName,
+  setTrialCount,
+  trimNames,
+  splitName,
+  generateGame,
+  setGameResult,
+} from '../model/racingCar.js';
 import {
   showTrialForm,
   focusNameInput,
@@ -8,6 +15,8 @@ import {
   getNameInputValue,
   getTrialInputValue,
   disabledTrialInput,
+  showResult,
+  updateResult,
 } from '../view/main.js';
 
 export const handleSubmitName = event => {
@@ -36,5 +45,12 @@ export const handleSubmitTrialCount = event => {
   }
 
   setTrialCount(trialCount);
+  console.log(trialCount);
+  const gameResult = generateGame();
+  console.log(gameResult);
+
+  setGameResult(gameResult);
+  updateResult(gameResult);
+  showResult();
   disabledTrialInput();
 };
