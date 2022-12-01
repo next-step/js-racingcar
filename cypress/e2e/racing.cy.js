@@ -1,3 +1,5 @@
+import {ALERT_MESSAGE, DOM} from "../../src/js/constants/dom.js";
+
 const INPUT_CAR_NAMES = "EAST, WEST, SOUTH, NORTH";
 const INVALID_INPUT_CAR_NAMES = "EASTTT, WESTTT, SOUTHH, NORTHH";
 
@@ -24,7 +26,7 @@ describe("자동차 경주 게임", () => {
 
     it("자동차 이름은 5자 이하이다.", () => {
       cy.submitCarNames(INVALID_INPUT_CAR_NAMES);
-      cy.alertMessage("자동차 이름은 5자 이하로 작성해야합니다.");
+      cy.alertMessage(ALERT_MESSAGE.INVALID_INPUT_CAR_NAMES);
     });
   });
 });
