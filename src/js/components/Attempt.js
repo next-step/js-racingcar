@@ -1,17 +1,16 @@
 import { EVENT_MAP } from '../constants.js';
 import Component from '../core/Component.js';
 import { store } from '../store/index.js';
-import { splitingCarNames, validateCarNames } from '../utils/index.js';
+import {
+  makeDefaultRacingMap,
+  splitingCarNames,
+  validateCarNames,
+} from '../utils/index.js';
 import Trial from './Trial.js';
 
 class Attempt extends Component {
   constructor({ $target, props = {} }) {
     super({ $target, props });
-
-    this.state = {
-      isVisibleTrial: false,
-      carNames: null,
-    };
   }
 
   template() {
@@ -35,27 +34,33 @@ class Attempt extends Component {
   }
 
   onSubmitCarname(event) {
+    const { carNames } = store.state;
+    const splitedCarNames = splitingCarNames(carNames);
+
     event.preventDefault();
-    if (!validateCarNames(splitingCarNames(this.state.carNames))) {
+    if (!validateCarNames(splitedCarNames)) {
       alert(
         '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.'
       );
       return;
     }
 
-    this.setState({ isVisibleTrial: true });
-    store.setState({ carNames: this.state.carNames });
+    store.setState({
+      isVisibleTrial: true,
+      racingMap: makeDefaultRacingMap(carNames),
+    });
   }
 
   onTypeCarNames(event) {
-    this.setState({ carNames: event.target.value });
+    store.setState({ carNames: event.target.value });
   }
 
   render() {
-    const { $target, state } = this;
-    const { isVisibleTrial, carNames } = state;
+    const { $target } = this;
+    const { isVisibleTrial, carNames } = store.state;
     const $trialWrapper = $target.querySelector('.trial-count-wrapper');
-
+    const $carNameInput = $target.querySelector('[data-id=car-name-input]');
+    const $carSubmitButton = $target.querySelector('[data-id=submit-carname]');
     if (isVisibleTrial) {
       new Trial({
         $target: $trialWrapper,
@@ -66,16 +71,12 @@ class Attempt extends Component {
       $trialWrapper.innerHTML = '';
     }
 
-    //*TODO: 이건 아니야.. store의 state가 사용되는 곳만 리렌더하도록 꼭 변경 필요
-    $target
-      .querySelector('[data-id=car-name-input]')
-      .setAttribute('value', carNames || store.state.carNames);
-    if (!isVisibleTrial)
-      $target.querySelector('[data-id=car-name-input]').focus();
-    if (isVisibleTrial) {
-      $target
-        .querySelector('[data-id=submit-carname]')
-        .setAttribute('disabled', '');
+    $carNameInput.setAttribute('value', carNames);
+
+    if (!isVisibleTrial) {
+      $carNameInput.focus();
+    } else {
+      $carSubmitButton.setAttribute('disabled', '');
     }
   }
 

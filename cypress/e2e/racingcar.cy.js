@@ -28,7 +28,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.get($element.nameSubmitButton).should('exist');
     });
 
-    it('각 자동차이름은 1자 미만으로 입력한 뒤 제출하면 경고창이 발생한다.,', () => {
+    it('각 자동차이름은 1자 미만으로 입력한 뒤 제출하면 경고창이 발생한다.', () => {
       cy.get($element.carNameInput).clear();
       cy.get($element.nameSubmitButton).click();
 
@@ -39,7 +39,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       });
     });
 
-    it('각 자동차이름은 5자 이상으로 입력한 뒤 제출하면 경고창이 발생한다.,', () => {
+    it('각 자동차이름은 5자 이상으로 입력한 뒤 제출하면 경고창이 발생한다.', () => {
       cy.get($element.carNameInput).type(CAR_NAME.OVER_LENGTH);
       cy.get($element.nameSubmitButton).click();
 

@@ -25,8 +25,10 @@ export default class Component {
   mounted() {
     this.$target.innerHTML = this.template();
   }
-
-  render() {}
+  componentUpdated() {}
+  render() {
+    this.componentUpdated();
+  }
 
   template() {
     return '';

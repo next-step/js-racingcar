@@ -50,7 +50,7 @@ export class App extends Component {
         EVENT_MAP.KEY_UP.get(event.target.dataset.id)(event);
       }
     });
-
+    //*TODO: document에 submit이벤트를 거는 것 이 맞는지 확인 필요
     document.addEventListener('submit', (event) => {
       Array.from(EVENT_MAP.SUBMIT.values()).forEach((el) => {
         el(event);

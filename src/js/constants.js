@@ -6,6 +6,7 @@ export const DEFAULT_STORE_STATE = {
   isVisibleResult: false,
   isStartRacing: false,
   isRacingEnd: false,
+  racingMap: null,
   racingQueue: [],
 };
 

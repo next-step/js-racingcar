@@ -1,52 +1,73 @@
 import { EVENT_MAP } from '../constants.js';
 import Component from '../core/Component.js';
 import { store } from '../store/index.js';
+import {
+  checkRacingIntheEnd,
+  makeNewRacingMap,
+  waitUntil,
+} from '../utils/index.js';
 class Trial extends Component {
   constructor({ $target, props = {} }) {
     super({ $target, props });
-    this.state = {
-      trialNumber: null,
-    };
   }
 
   render() {
     const $moveInput = this.$target.querySelector('[data-id=move-input]');
     const $moveButton = this.$target.querySelector('[data-id=move-submit]');
+    const { trialNumber, isVisibleProgress, racingMap } = store.state;
 
-    $moveInput.setAttribute(
-      'value',
-      this.state.trialNumber || store.state.trialNumber || ''
-    );
+    $moveInput.setAttribute('value', trialNumber || '');
 
-    if (!Number.isInteger(this.state.trialNumber)) {
+    if (!Number.isInteger(trialNumber)) {
       $moveButton.setAttribute('disabled', '');
     } else {
       $moveButton.removeAttribute('disabled');
     }
 
-    if (!store.state.isVisibleProgress) {
+    if (!isVisibleProgress) {
       $moveInput.focus();
     } else {
       $moveButton.setAttribute('disabled', '');
     }
+    this.componentUpdated();
   }
 
   onTypeMovement(event) {
-    this.setState({ trialNumber: Number(event.target.value) });
+    store.setState({ trialNumber: Number(event.target.value) });
   }
 
-  onSubmitTrials(event) {
-    //*TODO: split car names and make progress
+  async componentUpdated() {
+    const { racingMap, trialNumber, isVisibleProgress, isRacingEnd } =
+      store.state;
+    if (isRacingEnd) {
+      alert('레이싱이 끝났습니다');
+      return;
+    }
+    if (!isVisibleProgress) return;
 
-    if (!Number.isInteger(this.state.trialNumber)) {
+    if (checkRacingIntheEnd({ racingMap, trialNumber })) {
+      !isRacingEnd && store.setState({ isRacingEnd: true });
+      return;
+    }
+
+    await waitUntil(700);
+
+    store.setState({
+      racingMap: makeNewRacingMap(racingMap),
+    });
+  }
+
+  async onSubmitTrials(event) {
+    const { racingMap, trialNumber } = store.state;
+    if (!Number.isInteger(trialNumber)) {
       alert('');
       return;
     }
     event.preventDefault();
 
     store.setState({
-      trialNumber: this.state.trialNumber,
       isVisibleProgress: true,
+      racingMap: makeNewRacingMap(racingMap),
     });
   }
 
