@@ -31,7 +31,15 @@ body {
   justify-content: center;
 }
 
-fieldset {
-  border: none;
-  padding: 0;
+.game-setting-section {
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  width: 420px;
+}
+
+.hidden {
+  display: none;
 }

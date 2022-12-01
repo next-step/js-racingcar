@@ -1,0 +1,5 @@
+export const CONDITION = {
+  MIN_CAR_NAME_LENGTH: 1,
+  MAX_CAR_NAME_LENGTH: 5,
+  MIN_TRIAL_COUNT: 1,
+};

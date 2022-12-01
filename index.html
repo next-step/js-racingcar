@@ -7,29 +7,27 @@
   </head>
   <body>
     <div id="app">
-      <section class="d-flex justify-center mt-5">
-        <form>
-          <fieldset>
-            <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
-            <p>
-              5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
-              예시) EAST, WEST, SOUTH, NORTH
-            </p>
-            <div class="d-flex">
-              <input type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-              <button type="button" class="btn btn-cyan">확인</button>
-            </div>
-          </fieldset>
-          <fieldset>
-            <p>시도할 횟수를 입력해주세요.</p>
-            <div class="d-flex">
-              <input type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-              <button type="button" class="btn btn-cyan">확인</button>
-            </div>
-          </fieldset>
+      <section class="d-flex justify-center mt-5 game-setting-section">
+        <form class="car-names-form">
+          <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
+          <p>
+            5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
+            예시) EAST, WEST, SOUTH, NORTH
+          </p>
+          <div class="d-flex">
+            <input type="text" class="w-100 mr-2 car-names-input" placeholder="자동차 이름" />
+            <button type="submit" class="btn btn-cyan car-names-btn">확인</button>
+          </div>
+        </form>
+        <form class="trial-count-form hidden">
+          <p>시도할 횟수를 입력해주세요.</p>
+          <div class="d-flex">
+            <input type="number" class="w-100 mr-2 trial-count-input" placeholder="시도 횟수" />
+            <button type="button" class="btn btn-cyan trial-count-btn">확인</button>
+          </div>
         </form>
       </section>
-      <section class="d-flex justify-center mt-5">
+      <section class="d-flex justify-center mt-5 hidden">
         <div class="mt-4 d-flex">
           <div class="mr-2">
             <div class="car-player">EAST</div>
@@ -58,7 +56,7 @@
           </div>
         </div>
       </section>
-      <section class="d-flex justify-center mt-5">
+      <section class="d-flex justify-center mt-5 hidden">
         <div>
           <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
           <div class="d-flex justify-center">
@@ -67,5 +65,6 @@
         </div>
       </section>
     </div>
+    <script type="module" src="./src/js/index.js"></script>
   </body>
 </html>
