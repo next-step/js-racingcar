@@ -8,8 +8,8 @@ export default class RacingCar {
  }
 
  /**
-  *
-  * @returns {number}
+  * 자동차를 이동시킵니다.
+  * @returns {number} 자동차의 현재 위치
   */
  move() {
   return new Promise((resolve, reject) => {
@@ -22,16 +22,30 @@ export default class RacingCar {
   });
  }
 
+ /* 자동차의 현재 위치를 반환합니다.
+  *  * @returns {number} 자동차의 현재 위치
+  */
  getPosition() {
   return this.#position;
  }
 
+ /* 자동차의 이름을 반환합니다.
+  *  * @returns {string} 자동차의 이름
+  */
  getName() {
   return this.#name;
  }
+
+ /*  0~limit 사이의 random number 를 얻습니다.
+  *  * @returns {number} 0~limit 사이의 random number
+  */
  #getRandomNumber(limit = 10) {
   return Math.floor(Math.random() * limit);
  }
+
+ /*  자동차 이름을 validate 합니다.
+  * @param {string} carName 자동차 이름
+  */
 
  #validateCarName(carName) {
   if (carName.length < 1 || carName.length > 5) {
@@ -41,6 +55,9 @@ export default class RacingCar {
   }
  }
 
+ /*  자동차가 움직일지 아닐지를 결정합니다.
+  * @returns {boolean}
+  */
  #isMove() {
   const moveLimit = 4;
   if (this.#getRandomNumber() >= moveLimit) return true;
