@@ -3,41 +3,48 @@ import {
   TRIM_BETWEEN_COMMA,
   GENERATION_MIN,
   GENERATION_MAX,
-  GO_OR_STOP_STANDARD,
+  GO_OR_STOP_CONDITION,
 } from '../utils/constants.js';
 
-const state = {
+const racingManager = {
   names: [],
   trialCount: 0,
   gameResult: [],
+
+  setName(newName) {
+    this.names = newName;
+  },
+
+  setTrialCount(newTrialCount) {
+    this.trialCount = newTrialCount;
+  },
+
+  setGameResult(newGameResult) {
+    this.gameResult = newGameResult;
+  },
+
+  trimNames(value) {
+    return value.replace(TRIM_BETWEEN_COMMA, ',').trim();
+  },
+
+  splitName(name) {
+    return name.split(',');
+  },
+
+  isGoOrStop(randomNum) {
+    return randomNum > GO_OR_STOP_CONDITION;
+  },
+
+  getGameResult() {
+    return new Array(this.trialCount).fill(false).map(element => {
+      const randomNum = getRandomNumber(GENERATION_MIN, GENERATION_MAX);
+      return this.isGoOrStop(randomNum);
+    });
+  },
+
+  generateGame() {
+    return this.names.reduce((acc, name) => ({ ...acc, [name]: this.getGameResult() }), {});
+  },
 };
 
-export const getState = () => state;
-export const setName = newName => {
-  state.names = newName;
-};
-export const setTrialCount = newTrialCount => {
-  state.trialCount = newTrialCount;
-};
-
-export const setGameResult = newGameResult => {
-  state.gameResult = newGameResult;
-};
-
-export const trimNames = value => value.replace(TRIM_BETWEEN_COMMA, ',').trim();
-export const splitName = name => name.split(',');
-
-const isGoOrStop = randomNum => randomNum > GO_OR_STOP_STANDARD;
-
-const getGameResult = () => {
-  const { trialCount } = getState();
-  return new Array(trialCount).fill(false).map(element => {
-    const randomNum = getRandomNumber(GENERATION_MIN, GENERATION_MAX);
-    return isGoOrStop(randomNum);
-  });
-};
-
-export const generateGame = () => {
-  const { names } = getState();
-  return names.reduce((acc, name) => ({ ...acc, [name]: getGameResult() }), {});
-};
+export default racingManager;

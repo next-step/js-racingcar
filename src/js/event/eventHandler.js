@@ -1,56 +1,45 @@
 import { isValidNames, isValidTrialCount } from '../utils/validate.js';
-import {
-  setName,
-  setTrialCount,
-  trimNames,
-  splitName,
-  generateGame,
-  setGameResult,
-} from '../model/racingCar.js';
+import racingManager from '../model/racingCar.js';
 import {
   showTrialForm,
   focusNameInput,
-  disabledNameInput,
+  disabledNameForm,
   focusTrialInput,
-  getNameInputValue,
-  getTrialInputValue,
-  disabledTrialInput,
+  disabledTrialForm,
   showResult,
   updateResult,
 } from '../view/main.js';
 
 export const handleSubmitName = event => {
   event.preventDefault();
-  const trimmedValue = trimNames(getNameInputValue());
-  const names = splitName(trimmedValue);
+  const { value: nameInputValue } = event.target.elements['car-name'];
+  const trimmedValue = racingManager.trimNames(nameInputValue);
+  const names = racingManager.splitName(trimmedValue);
 
   if (!isValidNames(names)) {
     focusNameInput();
     return;
   }
 
-  setName(names);
-  console.log(names);
+  racingManager.setName(names);
+  disabledNameForm();
   showTrialForm();
-  disabledNameInput();
 };
 
 export const handleSubmitTrialCount = event => {
   event.preventDefault();
-  const trialCount = getTrialInputValue();
+  const trialCount = Number(event.target.elements['trial-count'].value);
 
   if (!isValidTrialCount(trialCount)) {
     focusTrialInput();
     return;
   }
 
-  setTrialCount(trialCount);
-  console.log(trialCount);
-  const gameResult = generateGame();
-  console.log(gameResult);
+  racingManager.setTrialCount(trialCount);
+  disabledTrialForm();
 
-  setGameResult(gameResult);
+  const gameResult = racingManager.generateGame();
+  racingManager.setGameResult(gameResult);
   updateResult(gameResult);
   showResult();
-  disabledTrialInput();
 };

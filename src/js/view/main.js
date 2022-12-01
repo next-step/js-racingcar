@@ -1,25 +1,24 @@
 import { $ } from '../utils/selector.js';
 
-export const getTrialInputValue = () => Number($('.trial-input').value);
-export const getNameInputValue = () => $('.car-name-input').value;
-
 export const showTrialForm = () => {
-  $('.trial-container').classList.remove('hide');
+  $('.trial-form').classList.remove('hide');
 };
 
 export const focusNameInput = () => {
   $('.car-name-input').focus();
 };
 
-export const disabledNameInput = () => {
+export const disabledNameForm = () => {
   $('.car-name-input').disabled = true;
+  $('.car-name-submit-btn').disabled = true;
 };
 
 export const focusTrialInput = () => {
   $('.trial-input').focus();
 };
 
-export const disabledTrialInput = () => {
+export const disabledTrialForm = () => {
+  $('.trial-submit-btn').disabled = true;
   $('.trial-input').disabled = true;
 };
 
@@ -29,6 +28,7 @@ export const showResult = () => {
 
 export const updateResult = gameResult => {
   let template = `<div class="mt-4 d-flex">`;
+
   Object.entries(gameResult).forEach(el => {
     template += `
 			<div class="mr-2">
