@@ -35,3 +35,9 @@ fieldset {
   border: none;
   padding: 0;
 }
+
+section {
+  flex-direction: column;
+  width: 400px;
+  margin: 0 auto;
+}

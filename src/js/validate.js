@@ -1,3 +1,10 @@
 export const isCorrectRange = (carName) => {
   return carName.every((element) => element.length >= 1 && element.length <= 5);
 };
+
+export const isCorrectNumberRange = (attemptNumber) => {
+  if (attemptNumber < 1 || attemptNumber === '') {
+    return false;
+  }
+  return true;
+};

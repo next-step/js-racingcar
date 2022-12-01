@@ -1,6 +1,7 @@
-import { $carNameInput } from './utils/dom.js';
+import { $attemptNumberInput, $carNameInput } from './utils/dom.js';
 import racingAdmin from './racingAdmin.js';
-import { isCorrectRange } from './validate.js';
+import { isCorrectRange, isCorrectNumberRange } from './validate.js';
+import { ALERT_ERROR_MESSAGE } from './constants.js';
 
 export const handleCarNameButton = (e) => {
   e.preventDefault();
@@ -8,10 +9,18 @@ export const handleCarNameButton = (e) => {
   const trimInputValue = racingAdmin.trimValue(inputValues);
   const carNames = racingAdmin.splitComma(trimInputValue);
 
-  // console.log(isCorrectRange(carNames));
   if (!isCorrectRange(carNames)) {
-    return alert('글자 수 1~5사이의 자동차 이름을 입력하세요.');
+    return alert(ALERT_ERROR_MESSAGE.UNCORRECT_RANGE);
   }
   racingAdmin.setCarName(carNames);
   racingAdmin.showCarNames(carNames);
+};
+
+export const handleAttemptNumber = (e) => {
+  e.preventDefault();
+  const attemptNumberInputValue = +$attemptNumberInput.value;
+
+  if (!isCorrectNumberRange(attemptNumberInputValue)) {
+    return alert(ALERT_ERROR_MESSAGE.UNCORRECT_NUMBER_RANGE);
+  }
 };
