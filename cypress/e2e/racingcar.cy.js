@@ -3,8 +3,8 @@ describe('레이싱카 사이트 E2E 테스트', () => {
     nameSubmitButton: '.name-submit-button',
     carNameInput: '.car-name-input',
     moveExplanation: '.move-explanation',
-    moveInput: '.move-input',
-    moveSubmitButton: 'move-submit-button',
+    movesInput: '.move-input',
+    moveSubmitButton: '.move-submit-button',
     carPlayer: '.car-player',
     spinner: '.spinner',
   };
@@ -120,8 +120,11 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.get($element.nameSubmitButton).click();
       cy.get($element.movesInput).type(MOVE_NUMBER);
       cy.get($element.moveSubmitButton).click();
-      cy.get($element.carPlayer).each((element, index) => {
-        element.should('have.text', CAR_NAME.DIVERSE_CAR_NAME[index]);
+      cy.get($element.carPlayer).each((eachElement, index) => {
+        cy.get(eachElement).should(
+          'have.text',
+          CAR_NAME.DIVERSE_CAR_NAME[index]
+        );
       });
     });
 
@@ -132,8 +135,11 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.get($element.nameSubmitButton).click();
       cy.get($element.movesInput).type(MOVE_NUMBER);
       cy.get($element.moveSubmitButton).click();
-      cy.get($element.carPlayer).each((element, index) => {
-        element.should('have.text', CAR_NAME.DIVERSE_CAR_NAME[index]);
+      cy.get($element.carPlayer).each((eachElement, index) => {
+        cy.get(eachElement).should(
+          'have.text',
+          CAR_NAME.DIVERSE_CAR_NAME[index]
+        );
       });
       cy.get($element.spinner).should(
         'have.length',
