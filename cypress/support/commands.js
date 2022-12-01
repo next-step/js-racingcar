@@ -26,12 +26,12 @@
 
 Cypress.Commands.add('setName', name => {
   cy.get('.car-name-input').type(name, { force: true });
-  cy.get('.car-name-submit-btn').click();
+  cy.get('.car-name-submit-btn').click({ force: true });
 });
 
 Cypress.Commands.add('setTrialCount', count => {
   cy.get('.trial-input').type(count, { force: true });
-  cy.get('.trial-submit-btn').click();
+  cy.get('.trial-submit-btn').click({ force: true });
 });
 
 Cypress.Commands.add('isAlert', message => {

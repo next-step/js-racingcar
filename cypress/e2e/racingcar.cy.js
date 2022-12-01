@@ -13,7 +13,7 @@ describe('레이싱 카 어플리케이션 테스트', () => {
     });
 
     it('자동차의 이름이 1~5자 사이의 문자가 아니라면 alert을 띄운다.', () => {
-      cy.get('.car-name-submit-btn').click();
+      cy.get('.car-name-submit-btn').click({ force: true });
       cy.isAlert(ERROR_MESSAGES.NAME_OUT_OF_RANGE);
       cy.setName('Mercedes-Benz');
       cy.isAlert(ERROR_MESSAGES.NAME_OUT_OF_RANGE);
