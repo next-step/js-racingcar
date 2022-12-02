@@ -1,4 +1,4 @@
-import { getRandomNumber } from '../service/racingcar.js';
+import { getRandomNumber } from '../utils/random.js';
 import {
   TRIM_BETWEEN_COMMA,
   GENERATION_MIN,
