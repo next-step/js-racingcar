@@ -34,10 +34,7 @@ const observer = (() => {
           'newVal:',
           value
         );
-        // if (JSON.stringify(target[name]) === JSON.stringify(value)) return true;
-        console.log('!!!update new Value', value);
         target[name] = value;
-        console.log({ observableMap });
         observableMap.get(name).forEach((fn) => fn());
         return true;
       },

@@ -2,7 +2,7 @@ import { EVENT_MAP } from '../constants.js';
 import Component from '../core/Component.js';
 import { store } from '../store/index.js';
 import {
-  checkRacingIntheEnd,
+  getRacingWinner,
   makeNewRacingMap,
   waitUntil,
 } from '../utils/index.js';
@@ -40,12 +40,14 @@ class Trial extends Component {
     const { racingMap, trialNumber, isVisibleProgress, isRacingEnd } =
       store.state;
     if (isRacingEnd) {
-      alert('레이싱이 끝났습니다');
       return;
     }
     if (!isVisibleProgress) return;
+    const winner = getRacingWinner({ racingMap, trialNumber });
+    if (winner.length) {
+      alert('레이싱이 끝났습니다');
 
-    if (checkRacingIntheEnd({ racingMap, trialNumber })) {
+      console.log('@@@@@@@@', winner);
       !isRacingEnd && store.setState({ isRacingEnd: true });
       return;
     }
@@ -57,7 +59,7 @@ class Trial extends Component {
     });
   }
 
-  async onSubmitTrials(event) {
+  onSubmitTrials(event) {
     const { racingMap, trialNumber } = store.state;
     if (!Number.isInteger(trialNumber)) {
       alert('');

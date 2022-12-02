@@ -32,21 +32,26 @@ export const getProgressOrNot = () => {
 export const waitUntil = (delay) =>
   new Promise((resolve) => setTimeout(resolve, delay));
 
-export const checkRacingIntheEnd = ({ racingMap, trialNumber }) => {
-  let isEnd = false;
+export const getRacingWinner = ({ racingMap, trialNumber }) => {
   if (!racingMap || !racingMap.size) return false;
 
-  return [...racingMap.values()].some(
-    (progressArray) =>
-      progressArray.filter((el) => el === true).length === Number(trialNumber)
-  );
+  return [...racingMap.keys()]
+    .map((carId) => {
+      const progressArray = racingMap.get(carId);
+      if (
+        progressArray.filter((el) => el === true).length === Number(trialNumber)
+      ) {
+        return carId;
+      }
+    })
+    .filter((el) => Boolean(el));
 };
 
 export function makeNewRacingMap(prevRacingMap) {
   console.log('makeNewRacingMap', prevRacingMap.size, prevRacingMap);
   if (!prevRacingMap.size) return prevRacingMap;
   const updatedRacingMap = new Map([...prevRacingMap]);
-  console.log({ updatedRacingMap });
+  console.log('makeNewRacingMap@@', { updatedRacingMap });
   [...updatedRacingMap.keys()].forEach((key) => {
     updatedRacingMap.set(key, [
       ...updatedRacingMap.get(key),
