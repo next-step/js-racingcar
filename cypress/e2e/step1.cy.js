@@ -24,16 +24,19 @@ describe('자동차 이름 입력 테스트', () => {
     DUPLICATED_CASE: '가, 나, 나',
   };
 
-  context('자동차 이름 input에 "가, 나, 다"를 입력하고 확인 버튼을 클릭했을 때', () => {
-    it('input은 value로 "가, 나, 다"를 갖는다.', () => {
-      cy.registerNamesByButton(CAR_NAMES.VALID_CASE);
+  context(
+    `자동차 이름 input에 "${CAR_NAMES.VALID_CASE}"를 입력하고 확인 버튼을 클릭했을 때`,
+    () => {
+      it(`input은 value로 "${CAR_NAMES.VALID_CASE}"를 갖는다.`, () => {
+        cy.registerNamesByButton(CAR_NAMES.VALID_CASE);
 
-      cy.get(SELECTOR.CAR_NAMES_INPUT).should('have.value', CAR_NAMES.VALID_CASE);
-    });
-  });
+        cy.get(SELECTOR.CAR_NAMES_INPUT).should('have.value', CAR_NAMES.VALID_CASE);
+      });
+    },
+  );
 
-  context('자동차 이름 input에 "가, 나, 다"를 입력하고 enter를 눌렀을 때', () => {
-    it('input은 value로 "가, 나, 다"를 갖는다.', () => {
+  context(`자동차 이름 input에 "${CAR_NAMES.VALID_CASE}"를 입력하고 enter를 눌렀을 때`, () => {
+    it(`input은 value로 "${CAR_NAMES.VALID_CASE}"를 갖는다.`, () => {
       cy.get(SELECTOR.CAR_NAMES_INPUT).type(`${CAR_NAMES.VALID_CASE}{enter}`);
 
       cy.get(SELECTOR.CAR_NAMES_INPUT).should('have.value', CAR_NAMES.VALID_CASE);
@@ -101,16 +104,19 @@ describe('레이싱 횟수 입력 테스트', () => {
     cy.registerNamesByButton(CAR_NAMES);
   });
 
-  context('레이싱 횟수 input에 5를 입력하고 확인 버튼을 클릭했을 때', () => {
-    it('input은 value로 5를 갖는다.', () => {
-      cy.registerCountByButton(TRIAL_COUNT.VALID_CASE);
+  context(
+    `레이싱 횟수 input에 ${TRIAL_COUNT.VALID_CASE}를 입력하고 확인 버튼을 클릭했을 때`,
+    () => {
+      it(`input은 value로 ${TRIAL_COUNT.VALID_CASE}를 갖는다.`, () => {
+        cy.registerCountByButton(TRIAL_COUNT.VALID_CASE);
 
-      cy.get(SELECTOR.TRIAL_COUNT_INPUT).should('have.value', TRIAL_COUNT.VALID_CASE);
-    });
-  });
+        cy.get(SELECTOR.TRIAL_COUNT_INPUT).should('have.value', TRIAL_COUNT.VALID_CASE);
+      });
+    },
+  );
 
-  context('레이싱 횟수 input에 5를 입력하고 enter를 눌렀을 때', () => {
-    it('input은 value로 5를 갖는다.', () => {
+  context(`레이싱 횟수 input에 ${TRIAL_COUNT.VALID_CASE}를 입력하고 enter를 눌렀을 때`, () => {
+    it(`input은 value로 ${TRIAL_COUNT.VALID_CASE}를 갖는다.`, () => {
       cy.get(SELECTOR.TRIAL_COUNT_INPUT).type(`${TRIAL_COUNT.VALID_CASE}{enter}`);
 
       cy.get(SELECTOR.TRIAL_COUNT_INPUT).should('have.value', TRIAL_COUNT.VALID_CASE);
