@@ -32,7 +32,7 @@ export const updateResult = gameResult => {
 			${Object.entries(gameResult)
         .map(
           ([key, value]) => `
-					<div class="mr-2">
+					<div class="mr-2 result-container">
 						<div class="car-player">${key}</div>
 						${value
               .filter(Boolean)

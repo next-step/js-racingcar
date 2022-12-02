@@ -54,9 +54,13 @@ describe('레이싱 카 어플리케이션 테스트', () => {
   });
 
   describe('주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.', () => {
-    it('시도할 횟수를 입력하면, 입력한 이름이 순서대로 화면에 표출된다.', () => {
-      const cars = 'Benz, k5, Audi, BMW';
+    const cars = 'Benz, k5, Audi, BMW';
+
+    beforeEach(() => {
       cy.setName(cars);
+    });
+
+    it('입력한 이름이 결과 화면에 표출된다.', () => {
       cy.setTrialCount(10);
       cy.get('.game-result').should('not.have.class', 'hide');
 
@@ -64,6 +68,22 @@ describe('레이싱 카 어플리케이션 테스트', () => {
       cy.get('.car-player').each(($el, idx) => {
         const text = $el.text();
         expect(text).be.equal(carNames[idx]);
+      });
+    });
+
+    it('입력한 시도 횟수 내에서만 전진한다.', () => {
+      const trialCounts = [5, 10, 15, 20, 50];
+
+      cy.wrap(trialCounts).each(count => {
+        cy.setTrialCount(count);
+
+        cy.get('.result-container').each($el => {
+          const length = $el.find('.forward-icon').length;
+          expect(length).to.be.within(0, count);
+        });
+
+        cy.get('.trial-input').clear({ force: true });
+        cy.get('.trial-submit-btn').invoke('removeAttr', 'disabled');
       });
     });
   });
