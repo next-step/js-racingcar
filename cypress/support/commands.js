@@ -37,6 +37,10 @@ Cypress.Commands.add("submitCarNames", (names) => {
   cy.get(".btn-cyan").click();
 });
 
+Cypress.Commands.add("disabledCarNamesAfterSubmit", (target) => {
+  cy.get(target).should("be.disabled");
+});
+
 Cypress.Commands.add("containCarPlayer", (player) => {
   cy.get(".car-player").contains(player);
 });

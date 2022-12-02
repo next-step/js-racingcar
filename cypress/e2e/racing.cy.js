@@ -1,4 +1,4 @@
-import {ALERT_MESSAGE, DOM} from "../../src/js/constants/dom.js";
+import {ALERT_MESSAGE} from "../../src/js/constants/constants.js";
 
 const INPUT_CAR_NAMES = "EAST, WEST, SOUTH, NORTH";
 const INVALID_INPUT_CAR_NAMES = "EASTTT, WESTTT, SOUTHH, NORTHH";
@@ -16,12 +16,9 @@ describe("자동차 경주 게임", () => {
 
     it("자동차 이름은 쉼표(,)를 기준으로 구분한다", () => {
       cy.submitCarNames(INPUT_CAR_NAMES);
-      cy.submitNumberOfAttempts(3);
 
-      cy.containCarPlayer("EAST");
-      cy.containCarPlayer("WEST");
-      cy.containCarPlayer("SOUTH");
-      cy.containCarPlayer("NORTH");
+      cy.disabledCarNamesAfterSubmit(".input-car-name");
+      cy.disabledCarNamesAfterSubmit(".name-submit-btn");
     });
 
     it("자동차 이름은 5자 이하이다.", () => {
