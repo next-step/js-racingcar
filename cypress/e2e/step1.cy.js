@@ -1,4 +1,4 @@
-import { CONDITION } from '../../src/js/constants/condition.js';
+import { INPUT_CONDITION } from '../../src/js/constants/condition.js';
 import { ERROR_MESSAGE } from '../../src/js/constants/errorMessage.js';
 import { SELECTOR } from '../../src/js/constants/selector.js';
 
@@ -43,7 +43,7 @@ describe('자동차 이름 입력 테스트', () => {
     });
   });
 
-  context(`이름의 길이가 ${CONDITION.MIN_CAR_NAME_LENGTH - 1}인 자동차를 입력했을 때`, () => {
+  context(`이름의 길이가 ${INPUT_CONDITION.MIN_CAR_NAME_LENGTH - 1}인 자동차를 입력했을 때`, () => {
     it('경고창(alert)이 뜬다.', () => {
       cy.registerNamesByButton(CAR_NAMES.SHORT_CASE);
 
@@ -53,7 +53,7 @@ describe('자동차 이름 입력 테스트', () => {
     });
   });
 
-  context(`자동차 이름의 길이가 ${CONDITION.MAX_CAR_NAME_LENGTH}를 초과했을 때`, () => {
+  context(`자동차 이름의 길이가 ${INPUT_CONDITION.MAX_CAR_NAME_LENGTH}를 초과했을 때`, () => {
     it('경고창(alert)이 뜬다.', () => {
       cy.registerNamesByButton(CAR_NAMES.LONG_CASE);
 
@@ -123,15 +123,18 @@ describe('레이싱 횟수 입력 테스트', () => {
     });
   });
 
-  context(`레이싱 횟수 input에 ${CONDITION.MIN_TRIAL_COUNT - 1}이하인 값을 입력했을 때`, () => {
-    it('경고창(alert)이 뜬다.', () => {
-      cy.registerCountByButton(TRIAL_COUNT.INVALID_CASE);
+  context(
+    `레이싱 횟수 input에 ${INPUT_CONDITION.MIN_TRIAL_COUNT - 1}이하인 값을 입력했을 때`,
+    () => {
+      it('경고창(alert)이 뜬다.', () => {
+        cy.registerCountByButton(TRIAL_COUNT.INVALID_CASE);
 
-      cy.on('window:alert', (text) => {
-        expect(text).to.contains(ERROR_MESSAGE.INVALID_TRIAL_COUNT);
+        cy.on('window:alert', (text) => {
+          expect(text).to.contains(ERROR_MESSAGE.INVALID_TRIAL_COUNT);
+        });
       });
-    });
-  });
+    },
+  );
 
   context('레이싱 횟수 입력을 완료했을 때', () => {
     beforeEach(() => {
