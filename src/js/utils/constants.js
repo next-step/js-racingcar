@@ -1,4 +1,5 @@
 export const TRIM_BETWEEN_COMMA = /\s*,\s*/g;
+export const SEPARATOR = ',';
 
 export const NAME_LENGTH_MIN = 1;
 export const NAME_LENGTH_MAX = 5;

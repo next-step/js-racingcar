@@ -4,6 +4,7 @@ import {
   GENERATION_MIN,
   GENERATION_MAX,
   GO_OR_STOP_CONDITION,
+  SEPARATOR,
 } from '../utils/constants.js';
 
 const racingManager = {
@@ -11,24 +12,12 @@ const racingManager = {
   trialCount: 0,
   gameResult: [],
 
-  setName(newName) {
-    this.names = newName;
-  },
-
-  setTrialCount(newTrialCount) {
-    this.trialCount = newTrialCount;
-  },
-
-  setGameResult(newGameResult) {
-    this.gameResult = newGameResult;
-  },
-
   trimNames(value) {
-    return value.replace(TRIM_BETWEEN_COMMA, ',').trim();
+    return value.replace(TRIM_BETWEEN_COMMA, SEPARATOR).trim();
   },
 
   splitName(name) {
-    return name.split(',');
+    return name.split(SEPARATOR);
   },
 
   isGoOrStop(randomNum) {

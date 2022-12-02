@@ -22,7 +22,7 @@ export const handleSubmitName = event => {
     return;
   }
 
-  racingManager.setName(names);
+  racingManager.names = names;
   disabledNameForm();
   showTrialForm();
 };
@@ -36,11 +36,11 @@ export const handleSubmitTrialCount = event => {
     return;
   }
 
-  racingManager.setTrialCount(trialCount);
+  racingManager.trialCount = trialCount;
   disabledTrialForm();
 
   const gameResult = racingManager.generateGame();
-  racingManager.setGameResult(gameResult);
+  racingManager.gameResult = gameResult;
   updateResult(gameResult);
   showResult();
 };

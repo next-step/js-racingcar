@@ -27,16 +27,19 @@ export const showResult = () => {
 };
 
 export const updateResult = gameResult => {
-  let template = `<div class="mt-4 d-flex">`;
-
-  Object.entries(gameResult).forEach(el => {
-    template += `
-			<div class="mr-2">
-				<div class="car-player">${el[0]}</div>
-				${el[1].map(inner => (inner ? `<div class="forward-icon mt-2">⬇️️</div>` : '')).join('')}
-			</div>`;
-  });
-
-  template += `</div>`;
-  $('.game-result').innerHTML = template;
+  $('.game-result').innerHTML = `
+		<div class="mt-4 d-flex">
+			${Object.entries(gameResult)
+        .map(
+          ([key, value]) => `
+					<div class="mr-2">
+						<div class="car-player">${key}</div>
+						${value
+              .filter(Boolean)
+              .map(_ => `<div class="forward-icon mt-2">⬇️️</div>`)
+              .join('')}
+						</div>`,
+        )
+        .join('')}
+		</div>`;
 };
