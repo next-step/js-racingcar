@@ -61,6 +61,7 @@ class Attempt extends Component {
     const $trialWrapper = $target.querySelector('.trial-count-wrapper');
     const $carNameInput = $target.querySelector('[data-id=car-name-input]');
     const $carSubmitButton = $target.querySelector('[data-id=submit-carname]');
+
     if (isVisibleTrial) {
       new Trial({
         $target: $trialWrapper,

@@ -14,7 +14,7 @@ class Trial extends Component {
   render() {
     const $moveInput = this.$target.querySelector('[data-id=move-input]');
     const $moveButton = this.$target.querySelector('[data-id=move-submit]');
-    const { trialNumber, isVisibleProgress, racingMap } = store.state;
+    const { trialNumber, isVisibleProgress } = store.state;
 
     $moveInput.setAttribute('value', trialNumber || '');
 
@@ -33,21 +33,29 @@ class Trial extends Component {
   }
 
   onTypeMovement(event) {
-    store.setState({ trialNumber: Number(event.target.value) });
+    const { value } = event.target;
+    const isSubmit = event.key === 'Enter' && value.length;
+
+    if (isSubmit) {
+      this.onSubmitTrials(event);
+      return;
+    }
+    store.setState({ trialNumber: Number(value) });
   }
 
   async componentUpdated() {
     const { racingMap, trialNumber, isVisibleProgress, isRacingEnd } =
       store.state;
+    const winner = getRacingWinner({ racingMap, trialNumber });
+
     if (isRacingEnd) {
       return;
     }
     if (!isVisibleProgress) return;
-    const winner = getRacingWinner({ racingMap, trialNumber });
+
     if (winner.length) {
       alert('레이싱이 끝났습니다');
 
-      console.log('@@@@@@@@', winner);
       !isRacingEnd && store.setState({ isRacingEnd: true });
       return;
     }
@@ -59,13 +67,15 @@ class Trial extends Component {
     });
   }
 
-  onSubmitTrials(event) {
+  async onSubmitTrials(event) {
     const { racingMap, trialNumber } = store.state;
-    if (!Number.isInteger(trialNumber)) {
-      alert('');
-      return;
-    }
-    event.preventDefault();
+    console.log(
+      { trialNumber },
+      !trialNumber,
+      !Number.isInteger(trialNumber),
+      !Number.isSafeInteger(trialNumber)
+    );
+    if (!Number.isInteger(trialNumber) || !trialNumber) return;
 
     store.setState({
       isVisibleProgress: true,
