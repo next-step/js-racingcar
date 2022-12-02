@@ -28,15 +28,9 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.get($element.nameSubmitButton).should('exist');
     });
 
-    it('각 자동차이름은 1자 미만으로 입력한 뒤 제출하면 경고창이 발생한다.', () => {
+    it('각 자동차이름은 1자 미만으로 입력한 뒤 제출하려하면 버튼이 비활성화 되어있다.', () => {
       cy.get($element.carNameInput).clear();
-      cy.get($element.nameSubmitButton).click();
-
-      cy.on('window:alert', (text) => {
-        expect(text).to.contains(
-          '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.'
-        );
-      });
+      cy.get($element.nameSubmitButton).should('be.disabled');
     });
 
     it('각 자동차이름은 5자 이상으로 입력한 뒤 제출하면 경고창이 발생한다.', () => {
@@ -53,6 +47,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
     it('이름을 제출 한 뒤 제출버튼이 비 활성화 되어야 한다.', () => {
       cy.get($element.carNameInput).type(CAR_NAME.VALID);
       cy.get($element.nameSubmitButton).click();
+
       cy.get($element.nameSubmitButton).should('be.disabled');
     });
 
@@ -96,16 +91,13 @@ describe('레이싱카 사이트 E2E 테스트', () => {
 
     it('이동 횟수를 입력하지 않고 제출하면 이벤트가 발생하지 않음.', () => {
       cy.get($element.movesInput).clear();
-      cy.get($element.moveSubmitButton).click();
       cy.get($element.moveSubmitButton).should('be.disabled');
-      // cy.get($element.moveSubmitButton).should('exist');
     });
   });
 
   context('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
+    const MOVE_NUMBER = 3;
     it('이름과 이동횟수를 제출한 경우 기입한 자동차의 이름이 출력되어야 한다.', () => {
-      const MOVE_NUMBER = 3;
-
       cy.get($element.carNameInput).type(CAR_NAME.VALID);
       cy.get($element.nameSubmitButton).click();
       cy.get($element.movesInput).type(MOVE_NUMBER);
@@ -114,8 +106,6 @@ describe('레이싱카 사이트 E2E 테스트', () => {
     });
 
     it('하나이상의 자동차 이름은 쉼표(,)를 기준으로 구분되어야 한다.', () => {
-      const MOVE_NUMBER = 3;
-
       cy.get($element.carNameInput).type(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.get($element.nameSubmitButton).click();
       cy.get($element.movesInput).type(MOVE_NUMBER);
@@ -129,8 +119,6 @@ describe('레이싱카 사이트 E2E 테스트', () => {
     });
 
     it('이름이 출력된 순간 이름 아래로 Spinner가 떠야한다.', () => {
-      const MOVE_NUMBER = 3;
-
       cy.get($element.carNameInput).type(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.get($element.nameSubmitButton).click();
       cy.get($element.movesInput).type(MOVE_NUMBER);

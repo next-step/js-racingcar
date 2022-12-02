@@ -48,10 +48,10 @@ export const getRacingWinner = ({ racingMap, trialNumber }) => {
 };
 
 export function makeNewRacingMap(prevRacingMap) {
-  console.log('makeNewRacingMap', prevRacingMap.size, prevRacingMap);
   if (!prevRacingMap.size) return prevRacingMap;
+
   const updatedRacingMap = new Map([...prevRacingMap]);
-  console.log('makeNewRacingMap@@', { updatedRacingMap });
+
   [...updatedRacingMap.keys()].forEach((key) => {
     updatedRacingMap.set(key, [
       ...updatedRacingMap.get(key),
@@ -66,8 +66,17 @@ export const makeDefaultRacingMap = (carNames) => {
   const map = new Map();
   splitingCarNames(carNames).forEach((el, idx) => {
     const carId = `${el}-${idx}`;
+
     map.set(carId, []);
   });
 
   return map;
+};
+
+export const makeDataAttributeIdForm = (dataIdsObject) => {
+  const formedObject = {};
+  Object.entries(dataIdsObject).forEach(
+    ([key, value]) => (formedObject[key] = `[data-id=${value}]`)
+  );
+  return formedObject;
 };

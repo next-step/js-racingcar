@@ -15,20 +15,16 @@ class Trial extends Component {
     const $moveInput = this.$target.querySelector('[data-id=move-input]');
     const $moveButton = this.$target.querySelector('[data-id=move-submit]');
     const { trialNumber, isVisibleProgress } = store.state;
+    const isDisbledButton = isVisibleProgress || !trialNumber;
+    const isDisabledInput = isVisibleProgress;
+
+    if (isDisbledButton) $moveButton.setAttribute('disabled', '');
+    if (!isDisbledButton) $moveButton.removeAttribute('disabled');
+    if (isDisabledInput) $moveInput.setAttribute('disabled', '');
+    if (!isDisabledInput) $moveInput.focus();
 
     $moveInput.setAttribute('value', trialNumber || '');
 
-    if (!Number.isInteger(trialNumber)) {
-      $moveButton.setAttribute('disabled', '');
-    } else {
-      $moveButton.removeAttribute('disabled');
-    }
-
-    if (!isVisibleProgress) {
-      $moveInput.focus();
-    } else {
-      $moveButton.setAttribute('disabled', '');
-    }
     this.componentUpdated();
   }
 

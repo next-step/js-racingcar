@@ -7,17 +7,6 @@ class Progress extends Component {
     super({ $target, props });
   }
 
-  mounted() {
-    this.$target.innerHTML = this.template();
-  }
-
-  template() {
-    return /*html*/ `
-      <div class="mt-4 d-flex progress-container">
-      </div>
-  `;
-  }
-
   render() {
     if (!store.state.isVisibleProgress) return;
 

@@ -61,6 +61,15 @@ class Attempt extends Component {
     const $trialWrapper = $target.querySelector('.trial-count-wrapper');
     const $carNameInput = $target.querySelector('[data-id=car-name-input]');
     const $carSubmitButton = $target.querySelector('[data-id=submit-carname]');
+    const isDisabledButton = isVisibleTrial || !carNames;
+    const isDisabledInput = isVisibleTrial;
+
+    if (isDisabledButton) $carSubmitButton.setAttribute('disabled', '');
+    if (!isDisabledButton) $carSubmitButton.removeAttribute('disabled');
+    if (isDisabledInput) $carNameInput.setAttribute('disabled', '');
+    if (!isDisabledInput) $carNameInput.focus();
+
+    $carNameInput.setAttribute('value', carNames);
 
     if (isVisibleTrial) {
       new Trial({
@@ -68,17 +77,7 @@ class Attempt extends Component {
       });
     }
 
-    if (!isVisibleTrial && $trialWrapper.innerHTML.length) {
-      $trialWrapper.innerHTML = '';
-    }
-
-    $carNameInput.setAttribute('value', carNames);
-
-    if (!isVisibleTrial) {
-      $carNameInput.focus();
-    } else {
-      $carSubmitButton.setAttribute('disabled', '');
-    }
+    if (!isVisibleTrial) $trialWrapper.innerHTML = '';
   }
 
   addEventListener() {
