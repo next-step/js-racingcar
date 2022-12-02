@@ -4,7 +4,7 @@ import {
   validateCarNamesLength,
   validateDuplicatedCarName,
   validateTrialCount,
-} from './utils/validator.js';
+} from './service/validator.js';
 import { startGame } from './service/game.js';
 
 import {
