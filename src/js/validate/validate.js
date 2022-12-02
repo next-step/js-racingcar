@@ -1,4 +1,9 @@
-import { ERROR_MESSAGES, NAME_LENGTH_MIN, NAME_LENGTH_MAX, TRIAL_COUNT_MIN } from './constants.js';
+import {
+  NAME_LENGTH_MIN,
+  NAME_LENGTH_MAX,
+  TRIAL_COUNT_MIN,
+} from '../constant/racingcar.js';
+import ERROR_MESSAGES from '../constant/errorMessages.js';
 
 const isInRange = names =>
   names.every(name => name.length >= NAME_LENGTH_MIN && name.length <= NAME_LENGTH_MAX);

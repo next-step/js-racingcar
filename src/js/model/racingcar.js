@@ -5,7 +5,7 @@ import {
   GENERATION_MAX,
   GO_OR_STOP_CONDITION,
   SEPARATOR,
-} from '../utils/constants.js';
+} from '../constant/racingcar.js';
 
 const racingManager = {
   names: [],
@@ -25,7 +25,7 @@ const racingManager = {
   },
 
   getGameResult() {
-    return new Array(this.trialCount).fill(false).map(element => {
+    return new Array(this.trialCount).fill(false).map(_ => {
       const randomNum = getRandomNumber(GENERATION_MIN, GENERATION_MAX);
       return this.isGoOrStop(randomNum);
     });

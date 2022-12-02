@@ -1,4 +1,4 @@
-import { isValidNames, isValidTrialCount } from '../utils/validate.js';
+import { isValidNames, isValidTrialCount } from '../validate/validate.js';
 import racingManager from '../model/racingcar.js';
 
 import {

@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from '/src/js/utils/constants.js';
+import ERROR_MESSAGES from '/src/js/constant/errorMessages.js';
 
 describe('레이싱 카 어플리케이션 테스트', () => {
   beforeEach(() => {
