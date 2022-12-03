@@ -1,8 +1,10 @@
-import CarNameFormView from './views/carNameFormView/car_name_form_view.js';
+import CarNameFormView from './views/car_name_form_view.js';
+import CarRaceCountFormView from './views/car_race_count_form_view.js';
 
 class App {
   constructor($target, model) {
     new CarNameFormView($target, model);
+    new CarRaceCountFormView($target, model);
   }
 }
 

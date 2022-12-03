@@ -2,6 +2,7 @@ class View {
   constructor($target, model) {
     this.$target = $target;
     this.model = model;
+    this.model.subscribe(this.render.bind(this));
     this.addEventHandler();
     this.render();
   }

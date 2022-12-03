@@ -1,30 +1,35 @@
-class CarRacingGame {
+import Observer from '../observer.js';
+
+class CarRacingGame extends Observer {
   #carNames;
-  #totalCount;
+  #carRaceCount;
   #result;
   #winners;
 
   constructor() {
+    super();
     this.#carNames = [];
-    this.#totalCount = 0;
+    this.#carRaceCount = 0;
     this.#result = [];
     this.#winners = [];
   }
 
-  setCarNames(nextCarNames) {
+  setCarNames = (nextCarNames) => {
     this.#carNames = nextCarNames;
-  }
+    this.notify();
+  };
 
-  setTotalCount(nextTotalCount) {
-    this.#totalCount = nextTotalCount;
-  }
+  setCarRaceCount = (nextTotalCount) => {
+    this.#carRaceCount = nextTotalCount;
+    this.notify();
+  };
 
   get carNames() {
     return this.#carNames;
   }
 
-  get totalCount() {
-    return this.#totalCount;
+  get carRaceCount() {
+    return this.#carRaceCount;
   }
 
   get result() {

@@ -1,6 +1,7 @@
 import { ERROR_MESSAGE } from '../../src/js/const.js';
 
 const DEFAULT_CAR_NAMES = 'EAST, WEST, SOUTH, NORTH';
+const DEFAULT_CARD_RACE_COUNT = 5;
 
 describe('자동차 경주 테스트', () => {
   beforeEach(() => {
@@ -36,14 +37,37 @@ describe('자동차 경주 테스트', () => {
   });
 
   describe('시도할 회수를 입력할 수 있다.', () => {
+    beforeEach(() => {
+      cy.visit('/');
+      cy.typeCarNameInput(DEFAULT_CAR_NAMES);
+      cy.getCarNameInput(DEFAULT_CAR_NAMES);
+      cy.clickCarNameSubmitButton();
+    });
+
     context('자동차 이름 입력 폼 입력이 완료되었을 때', () => {
-      it('시도할 횟수 입력 폼이 노출된다.', () => {});
+      it('시도할 횟수 입력 폼이 노출된다.', () => {
+        cy.getCarRaceCountForm();
+      });
     });
+
     context('입력 폼에 시도할 횟수를 입력했을 때', () => {
-      it('입력한 횟수가 입력창에 노출된다.', () => {});
+      it('입력한 횟수가 입력창에 노출된다.', () => {
+        cy.typeCarRaceCountInput(DEFAULT_CARD_RACE_COUNT);
+        cy.getCarRaceCountInput(DEFAULT_CARD_RACE_COUNT);
+      });
     });
+
     context('입력 폼에 확인버튼을 눌렀을 때', () => {
-      it('0 이상의 숫자가 입력되지 않았다면 alert가 노출된다.', () => {});
+      it('0 이상의 숫자가 입력되지 않았다면 alert가 노출된다.', () => {
+        const stub = cy.stub();
+        cy.on('window:alert', stub);
+        cy.typeCarRaceCountInput(-1);
+        cy.clickCarRaceCountSubmitButton().then(() => {
+          expect(stub.getCall(0)).to.be.calledWith(
+            ERROR_MESSAGE.INVALIDATE_CAR_RACE_COUNT
+          );
+        });
+      });
     });
   });
 
