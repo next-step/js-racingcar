@@ -1,4 +1,4 @@
-import {$} from "../utils/selector.js";
+import {$} from "../utils/index.js";
 
 export const DOM = Object.freeze({
   CAR_NAMES_ID_INPUT: $(".input-car-name"),

@@ -1,26 +1,28 @@
 import {DOM} from "./constants/dom.js";
 import {ALERT_MESSAGE} from "../js/constants/constants.js";
 import {isValidation} from "../js/model.js";
+import {showElement, lockElement, resetElement} from "./utils/index.js";
 
 export const handleCarNamesInput = (event) => {
   event.preventDefault();
 
   if (isValidation(DOM.CAR_NAMES_ID_INPUT.value)) {
-    DOM.CAR_NAMES_ID_INPUT.disabled = true;
-    DOM.CAR_NAMES_SUBMIT_BTN.disabled = true;
-
+    lockElement(DOM.CAR_NAMES_ID_INPUT);
+    lockElement(DOM.CAR_NAMES_SUBMIT_BTN);
     handleNumberOfAttempts();
   } else {
     alert(ALERT_MESSAGE.INVALID_INPUT_CAR_NAMES);
-    DOM.CAR_NAMES_ID_INPUT.value = "";
+    resetElement(DOM.CAR_NAMES_ID_INPUT);
   }
 };
 
 export const handleNumberOfAttempts = () => {
-  DOM.NUMBER_OF_ATTEMPTS_FIELDSET.classList.remove("d-none");
+  showElement(DOM.NUMBER_OF_ATTEMPTS_FIELDSET);
 };
 
 export const handleCarViewAndRace = (event) => {
   event.preventDefault();
-  console.log("check");
+
+  lockElement(DOM.NUMBER_OF_ATTEMPTS_INPUT);
+  lockElement(DOM.NUMBER_OF_ATTEMPTS_BTN);
 };
