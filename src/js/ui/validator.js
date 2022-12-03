@@ -1,5 +1,5 @@
 import { ALERT_MESSAGE, CAR_RACING } from '../service/constant.js';
-import { getCarNamesArray, isEmptyNames, isMetNamesLength } from '../util/validator.js';
+import { getCarNamesArray, isDuplicatedCarNames, isEmptyNames, isMetNamesLength } from '../util/validator.js';
 import { ELEMENT } from './element.js';
 import { selector } from './selector.js';
 
@@ -27,6 +27,9 @@ export const validateCarNames = () => {
     carNames.some((carName) => !isMetNamesLength({ name: carName, minLength: MIN_LENGTH, maxLength: MAX_LENGTH }))
   ) {
     throw new Error(ALERT_MESSAGE.INVALID.CAR_NAMES_LENGTH);
+  }
+  if (isDuplicatedCarNames(carNames)) {
+    throw new Error(ALERT_MESSAGE.INVALID.DUPLICATED_CAR_NAMES);
   }
 };
 

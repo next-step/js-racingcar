@@ -17,6 +17,14 @@ export const getCarNamesArray = (names) => {
 
 /**
  *
+ * @param {string[]} carNames
+ */
+export const isDuplicatedCarNames = (carNames) => {
+  return Array.from(new Set([...carNames])).length !== carNames.length;
+};
+
+/**
+ *
  * @param {string[]} names
  * @returns {boolean}
  */
