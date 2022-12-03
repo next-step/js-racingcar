@@ -1,3 +1,7 @@
+import { ERROR_MESSAGE } from '../../src/js/const.js';
+
+const DEFAULT_CAR_NAMES = 'EAST, WEST, SOUTH, NORTH';
+
 describe('자동차 경주 테스트', () => {
   beforeEach(() => {
     cy.visit('/');
@@ -5,14 +9,29 @@ describe('자동차 경주 테스트', () => {
 
   describe('자동차에 이름을 부여할 수 있다.', () => {
     context('페이지에 진입했을 때', () => {
-      it('자동차 이름 입력 폼이 노출된다.', () => {});
+      it('자동차 이름 입력 폼이 노출된다.', () => {
+        cy.getCarNameForm();
+      });
     });
+
     context('입력 폼에 이름을 입력했을 때', () => {
-      it('입력한 이름이 입력창에 노출된다.', () => {});
+      it('입력한 이름이 입력창에 노출된다.', () => {
+        cy.typeCarNameInput(DEFAULT_CAR_NAMES);
+        cy.getCarNameInput(DEFAULT_CAR_NAMES);
+      });
     });
+
     context('자동차 이름 입력 폼에 확인 버튼을 눌렀을 때', () => {
-      it('이름을 쉼표로 구분한 갯수와 자동차 갯수와 일치한다.', () => {});
-      it('이름이 5자를 초과한 경우 alert가 노출된다.', () => {});
+      it('이름이 5자를 초과한 경우 alert가 노출된다.', () => {
+        const stub = cy.stub();
+        cy.on('window:alert', stub);
+        cy.typeCarNameInput('EAST, WEST WEST WEST, SOUTH, NORTH');
+        cy.clickCarNameSubmitButton().then(() => {
+          expect(stub.getCall(0)).to.be.calledWith(
+            ERROR_MESSAGE.INVALIDATE_CAR_NAME
+          );
+        });
+      });
     });
   });
 

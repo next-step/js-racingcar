@@ -1,4 +1,4 @@
-import CarNameFormView from './views/car_name_form_view.js';
+import CarNameFormView from './views/carNameFormView/car_name_form_view.js';
 
 class App {
   constructor($target, model) {

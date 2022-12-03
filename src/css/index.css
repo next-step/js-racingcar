@@ -31,7 +31,24 @@ body {
   justify-content: center;
 }
 
-fieldset {
-  border: none;
-  padding: 0;
+#form-section {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#form-section > form {
+  width: 400px;
+}
+
+#car-race-count-form {
+  display: none;
+}
+
+#car-race-section {
+  display: none;
+}
+
+#car-race-result-section {
+  display: none;
 }
