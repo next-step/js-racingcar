@@ -8,3 +8,17 @@ export const isValidation = (namesArr) => {
 
   return true;
 };
+
+export class Car {
+  constructor(name) {
+    this.name = name;
+    this.position = 0;
+  }
+
+  forward() {
+    this.position += 1;
+  }
+}
+
+export const getCarNamesArr = (element) =>
+  element.value.split(",").map((carName) => new Car(carName.trim()));

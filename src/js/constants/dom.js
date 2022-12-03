@@ -8,5 +8,5 @@ export const DOM = Object.freeze({
   NUMBER_OF_ATTEMPTS_INPUT: $(".input-number-attempts"),
   NUMBER_OF_ATTEMPTS_BTN: $(".btn-attempts-submit"),
 
-  RACING_CAR_RENDER_SECTION: $("section-car-render"),
+  RACING_CAR_RENDER_SECTION: $(".section-car-render"),
 });

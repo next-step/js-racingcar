@@ -110,3 +110,7 @@
 .content-evenly {
   align-content: space-around;
 }
+
+.flex-col {
+  flex-direction: column;
+}

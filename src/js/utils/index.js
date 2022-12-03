@@ -13,3 +13,7 @@ export const lockElement = (element) => {
 export const resetElement = (element) => {
   element.value = "";
 };
+
+export const getRandomNumber = (min, max) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
