@@ -1,12 +1,13 @@
 import { CAR, ERROR_MESSAGE } from '../const.js';
 import { $ } from '../utils.js';
-import View from './view.js';
+import Component from './component.js';
 
-class CarRaceCountFormView extends View {
+class CarRaceCountForm extends Component {
   constructor($target, model) {
     super($target, model);
     this.$carRaceCountForm = $('#car-race-count-form');
     this.$carRaceCountInput = $('#car-race-count-input');
+    this.$carRaceCountSubmitButton = $('#car-race-count-submit-button');
     this.carRaceCount = 0;
   }
 
@@ -45,17 +46,23 @@ class CarRaceCountFormView extends View {
   }
 
   renderCarRaceCountForm() {
-    const { carNames } = this.model;
-    const showCarRaceCountForm = carNames.length > 0;
+    const { carRaceCount } = this.model;
+    this.$carRaceCountForm.style.display = 'block';
 
-    if (showCarRaceCountForm) {
-      this.$carRaceCountForm.style.display = 'block';
+    if (carRaceCount > 0) {
+      this.$carRaceCountInput.disabled = true;
+      this.$carRaceCountSubmitButton.disabled = true;
     }
   }
 
   render() {
-    this.renderCarRaceCountForm();
+    const { carNames } = this.model;
+    const showCarRaceCountForm = carNames.length > 0;
+
+    if (showCarRaceCountForm) {
+      this.renderCarRaceCountForm();
+    }
   }
 }
 
-export default CarRaceCountFormView;
+export default CarRaceCountForm;

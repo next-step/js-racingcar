@@ -1,4 +1,4 @@
-class View {
+class Component {
   constructor($target, model) {
     this.$target = $target;
     this.model = model;
@@ -28,4 +28,4 @@ class View {
   render() {}
 }
 
-export default View;
+export default Component;

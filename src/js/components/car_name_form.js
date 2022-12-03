@@ -1,12 +1,13 @@
-import View from './view.js';
+import Component from './component.js';
 import { $ } from '../utils.js';
 import { CAR, ERROR_MESSAGE } from '../const.js';
 
-class CarNameFormView extends View {
+class CarNameForm extends Component {
   constructor($target, model) {
     super($target, model);
     this.$cardNameForm = $('#car-name-form');
     this.$carNameInput = $('#car-name-input');
+    this.$carNameSubmitButton = $('#car-name-submit-button');
     this.carNames = '';
   }
 
@@ -59,6 +60,15 @@ class CarNameFormView extends View {
       this.handleCarNameFormSubmit();
     }
   }
+
+  render() {
+    const { carNames } = this.model;
+
+    if (carNames.length > 0) {
+      this.$carNameInput.disabled = true;
+      this.$carNameSubmitButton.disabled = true;
+    }
+  }
 }
 
-export default CarNameFormView;
+export default CarNameForm;

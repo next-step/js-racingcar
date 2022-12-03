@@ -1,6 +1,6 @@
 import { CAR, DICE } from '../const.js';
 import { $, filledArray, getRandomInt } from '../utils.js';
-import View from './view.js';
+import Component from './component.js';
 
 const CAR_RACE_STATUS_HTML = {
   [CAR.RACE_STATUS.LOADING]:
@@ -12,7 +12,7 @@ const CAR_RACE_STATUS_HTML = {
   [CAR.RACE_STATUS.STOP]: '',
 };
 
-class CarRaceView extends View {
+class CarRace extends Component {
   constructor($target, model) {
     super($target, model);
     this.carRaceSection = $('#car-race-section');
@@ -78,4 +78,4 @@ class CarRaceView extends View {
   }
 }
 
-export default CarRaceView;
+export default CarRace;

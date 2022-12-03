@@ -1,12 +1,12 @@
-import CarNameFormView from './views/car_name_form_view.js';
-import CarRaceCountFormView from './views/car_race_count_form_view.js';
-import CarRaceView from './views/car_race_view.js';
+import CarNameForm from './components/car_name_form.js';
+import CarRaceCountForm from './components/car_race_count_form.js';
+import CarRace from './components/car_race.js';
 
 class App {
   constructor($target, model) {
-    new CarNameFormView($target, model);
-    new CarRaceCountFormView($target, model);
-    new CarRaceView($target, model);
+    new CarNameForm($target, model);
+    new CarRaceCountForm($target, model);
+    new CarRace($target, model);
   }
 }
 
