@@ -33,8 +33,8 @@ Cypress.Commands.add("isNotVisible", (target) => {
 });
 
 Cypress.Commands.add("submitCarNames", (names) => {
-  cy.get(".car-player").type(names);
-  cy.get(".btn-cyan").click();
+  cy.get(".input-car-name").type(names);
+  cy.get(".btn-name-submit").click();
 });
 
 Cypress.Commands.add("disabledCarNamesAfterSubmit", (target) => {
