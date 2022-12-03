@@ -1,4 +1,5 @@
-import { SettingComponent } from "./components/setting.component.js";
+import { nameComponent } from "./components/nameComponent.js";
+import { roundComponent } from "./components/roundComponent.js";
 import { Validator } from "./common/validator.js";
 import { View } from "./views/view.js";
 import stateService from "./services/state.service.js";
@@ -16,6 +17,7 @@ export class App {
     }
 
     init() {
-        const settingController = new SettingComponent(this.container);
+        const settingComponent = new nameComponent(this.container);
+        const raceTurnComponent = new roundComponent(this.container);
     }
 }

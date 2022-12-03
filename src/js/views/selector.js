@@ -1,8 +1,10 @@
-export const $carName = {
-    input: document.querySelector('.car-name-input'),
-    button: document.querySelector('.car-name-btn')
+export const $name = {
+    input: document.querySelector('.name-input'),
+    button: document.querySelector('.name-btn')
 }
 
-export const $raceTurn = {
-    container: document.querySelector('.race-turn-container')
+export const $round = {
+    container: document.querySelector('.round-container'),
+    input: document.querySelector('.round-input'),
+    button: document.querySelector('.round-btn')
 }
