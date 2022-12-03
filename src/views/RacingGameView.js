@@ -17,10 +17,6 @@ class RacingGameView {
   templateRacingSection(Cars) {
     return Cars.map((Car) => Car.templateCarName()).join("");
   }
-
-  templateRacingSection(Cars) {
-    return Cars.map((Car) => Car.templateCarName()).join("");
-  }
 }
 
 export default RacingGameView;
