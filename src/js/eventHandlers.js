@@ -14,7 +14,7 @@ import {
   disableTrialCountForm,
 } from './view/racingCar.js';
 
-export const handleCarNames = (e) => {
+export const handleSubmitCarNames = (e) => {
   e.preventDefault();
   try {
     const $carNames = e.target.elements[0];
@@ -34,7 +34,7 @@ export const handleCarNames = (e) => {
   }
 };
 
-export const handleTrialCount = (e) => {
+export const handleSubmitTrialCount = (e) => {
   e.preventDefault();
   try {
     const trialCount = e.target.elements[0].valueAsNumber;

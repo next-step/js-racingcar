@@ -12,7 +12,7 @@ export const disableCarNamesForm = () => {
 };
 
 export const showTrialCountForm = () => {
-  $(SELECTOR.TRIAL_COUNT_FORM).classList.remove('hidden');
+  $(SELECTOR.TRIAL_COUNT_FORM).classList.remove('display-none');
 };
 
 export const focusTrialCountInput = () => {
