@@ -65,16 +65,21 @@ class RacingGameController {
   }
 
   isCarNamesCorrectlyRegistered(carNames) {
-    return carNames
-      .split(",")
-      .every((carName) => this.isCarNameLessThanNameLimit(carName.trim()));
+    return carNames.split(",").every((carName) => {
+      const name = carName.trim();
+      return (
+        this.isCarNameLessThanMaximum(name) &&
+        this.isCardNameMoreThanMinimum(name)
+      );
+    });
   }
 
-  isCarNameLessThanNameLimit(carName) {
-    return (
-      RACING_GAME.CAR.NAME_LENGTH_MIN <= carName.length &&
-      carName.length <= RACING_GAME.CAR.NAME_LENGTH_MAX
-    );
+  isCardNameMoreThanMinimum(carName) {
+    return RACING_GAME.CAR.NAME_LENGTH_MIN <= carName.length;
+  }
+
+  isCarNameLessThanMaximum(carName) {
+    return carName.length <= RACING_GAME.CAR.NAME_LENGTH_MAX;
   }
 
   isRacingCountCorrectlyRegistered(count) {
