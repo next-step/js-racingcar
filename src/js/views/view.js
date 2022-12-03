@@ -1,7 +1,8 @@
 class View {
-  constructor($target) {
+  constructor($target, model) {
     this.$target = $target;
-    this.initEventHandler();
+    this.model = model;
+    this.addEventHandler();
     this.render();
   }
 
@@ -11,14 +12,14 @@ class View {
 
   addSubmitEvent() {}
 
-  initEventHandler() {
+  addEventHandler() {
     this.$target.addEventListener('submit', (event) => {
       this.addSubmitEvent(event);
     });
-    this.view.$target.addEventListener('click', (event) => {
+    this.$target.addEventListener('click', (event) => {
       this.addClickEvent(event);
     });
-    this.view.$target.addEventListener('change', (event) => {
+    this.$target.addEventListener('change', (event) => {
       this.addChangeEvent(event);
     });
   }

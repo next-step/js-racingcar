@@ -35,3 +35,5 @@ class CarRacingGame {
     return this.#winners;
   }
 }
+
+export default CarRacingGame;
