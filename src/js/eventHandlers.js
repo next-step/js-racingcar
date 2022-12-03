@@ -10,6 +10,7 @@ import { startGame } from './service/game.js';
 import {
   disableCarNamesForm,
   showTrialCountForm,
+  focusTrialCountInput,
   disableTrialCountForm,
 } from './view/racingCar.js';
 
@@ -26,6 +27,7 @@ export const handleCarNames = (e) => {
 
     disableCarNamesForm();
     showTrialCountForm();
+    focusTrialCountInput();
   } catch (err) {
     alert(err.message);
     console.error(err.message);
