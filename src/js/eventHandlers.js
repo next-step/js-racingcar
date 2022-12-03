@@ -39,9 +39,9 @@ export const handleTrialCount = (e) => {
   try {
     const trialCount = e.target.elements[0].valueAsNumber;
 
-    gameSetting.setTrialCount(trialCount);
-
     validateTrialCount(trialCount);
+
+    gameSetting.setTrialCount(trialCount);
 
     disableTrialCountForm();
 
