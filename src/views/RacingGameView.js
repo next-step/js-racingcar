@@ -11,7 +11,7 @@ class RacingGameView {
   }
 
   showElement(target) {
-    target.classList.remove("hidden");
+    target.classList.remove("hide");
   }
 
   templateRacingSection(Cars) {
