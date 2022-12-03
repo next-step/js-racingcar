@@ -8,4 +8,8 @@ export class View {
 
     displayNone = ($elements) => $elements.forEach($el => $el.style.display = 'none');
     displayBlock = ($elements) => $elements.forEach($el => $el.style.display = 'block');
+
+    setFocus($element) {
+        $element.focus();
+    }
 }

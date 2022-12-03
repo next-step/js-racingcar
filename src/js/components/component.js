@@ -14,11 +14,12 @@ export class Component {
     _initElement() {}
     _subscribe() {}
     _reset() {}
+    _submit() {}
 
     _submitByEnterKey(e) {
-        if (e.key !== 'Enter') return false;
+        if (e.key !== 'Enter') return;
         e.preventDefault();
-        return true;
+        this._submit();
     }
 
     _init() {

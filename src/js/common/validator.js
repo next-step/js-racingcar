@@ -1,20 +1,8 @@
-import { CustomError, ERROR_MESSAGE, OutOfRangeError } from "./error.js";
-import { NAMES } from "./const.js";
+import { CustomError, ERROR_MESSAGE, InputMinInsufficientError, InputOutOfRangeError } from "./error.js";
+import { MIN_ROUND, NAME, VALIDATIONTYPE } from "./const.js";
 
 export class Validator {
-    constructor() {}
-
-    validateCarNames = (names) => {
-        try {
-            names.forEach(name => {
-                if (name.length < NAMES.MIN_RANGE || name.length > NAMES.MAX_RANGE) {
-                    throw new OutOfRangeError(ERROR_MESSAGE.CAR_NAME_OUT_OF_RANGE);
-                }
-            })
-            return true;
-        } catch (e) {
-            this.#catchErrors(e);
-        }
+    constructor() {
     }
 
     #catchErrors(e) {
@@ -22,6 +10,29 @@ export class Validator {
             alert(e.message);
         } else {
             throw e;
+        }
+    }
+
+    #setNameErrors = (names) => {
+        names.forEach(name => {
+            if (name.length < NAME.MIN_RANGE || name.length > NAME.MAX_RANGE) {
+                throw new InputOutOfRangeError(ERROR_MESSAGE.InputOutOfRange);
+            }
+        })
+        return true;
+    }
+
+    #setRoundErrors = (turn) => {
+        if (!turn || turn < MIN_ROUND) throw new InputMinInsufficientError(ERROR_MESSAGE.InputMinInsufficient);
+        return true;
+    }
+
+    validate(type, value) {
+        try {
+            if (type === VALIDATIONTYPE.NAME) return this.#setNameErrors(value);
+            if (type === VALIDATIONTYPE.ROUND) return this.#setRoundErrors(value);
+        } catch (e) {
+            this.#catchErrors(e);
         }
     }
 }

@@ -1,5 +1,8 @@
+import { MIN_ROUND, NAME } from "./const.js";
+
 export const ERROR_MESSAGE = {
-    CAR_NAME_OUT_OF_RANGE: '자동차의 이름은 1자이상, 5자 이하만 가능합니다'
+    InputOutOfRange: `자동차의 이름은 ${NAME.MIN_RANGE}자 이상, ${NAME.MAX_RANGE}자 이하만 가능합니다`,
+    InputMinInsufficient: `레이싱 횟수는 ${MIN_ROUND}이상이어야 합니다.`
 }
 
 export class CustomError extends Error {
@@ -10,8 +13,14 @@ export class CustomError extends Error {
     }
 }
 
-export class OutOfRangeError extends CustomError {
+export class InputOutOfRangeError extends CustomError {
     constructor(message) {
-        super(message, 'OutOfRangeError');
+        super(message, 'InputOutOfRangeError');
+    }
+}
+
+export class InputMinInsufficientError extends CustomError {
+    constructor(message) {
+        super(message, 'InputMinInsufficientError');
     }
 }
