@@ -1,16 +1,6 @@
-import { CAR, DICE } from '../const.js';
+import { CAR, CAR_RACE_STATUS_HTML, DICE } from '../const.js';
 import { $, filledArray, getRandomInt } from '../utils.js';
 import Component from './component.js';
-
-const CAR_RACE_STATUS_HTML = {
-  [CAR.RACE_STATUS.LOADING]:
-    '<div id="spinner" class="d-flex justify-center mt-3">' +
-    '<div class="relative spinner-container">' +
-    '<span class="material spinner"></span>' +
-    '</div></div>',
-  [CAR.RACE_STATUS.GO]: '<div class="forward-icon mt-2">⬇️️</div>',
-  [CAR.RACE_STATUS.STOP]: '',
-};
 
 class CarRace extends Component {
   constructor($target, model) {

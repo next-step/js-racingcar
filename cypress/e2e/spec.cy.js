@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE } from '../../src/js/const.js';
 
-const DEFAULT_CAR_NAMES = 'EAST, WEST, SOUTH, NORTH';
+const DEFAULT_CAR_NAMES = 'EAST,WEST,SOUTH,NORTH';
 const DEFAULT_CARD_RACE_COUNT = 5;
 
 describe('자동차 경주 테스트', () => {
@@ -18,7 +18,7 @@ describe('자동차 경주 테스트', () => {
     context('입력 폼에 이름을 입력했을 때', () => {
       it('입력한 이름이 입력창에 노출된다.', () => {
         cy.typeCarNameInput(DEFAULT_CAR_NAMES);
-        cy.getCarNameInput(DEFAULT_CAR_NAMES);
+        cy.getCarNameInput({ value: DEFAULT_CAR_NAMES });
       });
     });
 
@@ -33,14 +33,20 @@ describe('자동차 경주 테스트', () => {
           );
         });
       });
+
+      it('입력한 이름이 올바른 경우 입력 폼은 disabled 상태가 된다', () => {
+        cy.typeCarNameInput(DEFAULT_CAR_NAMES);
+        cy.clickCarNameSubmitButton();
+        cy.getCarNameInput({ disabled: true, value: DEFAULT_CAR_NAMES });
+        cy.getCarNameSubmitButton({ disabled: true });
+      });
     });
   });
 
   describe('시도할 회수를 입력할 수 있다.', () => {
     beforeEach(() => {
-      cy.visit('/');
       cy.typeCarNameInput(DEFAULT_CAR_NAMES);
-      cy.getCarNameInput(DEFAULT_CAR_NAMES);
+      cy.getCarNameInput({ value: DEFAULT_CAR_NAMES });
       cy.clickCarNameSubmitButton();
     });
 
@@ -53,7 +59,7 @@ describe('자동차 경주 테스트', () => {
     context('입력 폼에 시도할 횟수를 입력했을 때', () => {
       it('입력한 횟수가 입력창에 노출된다.', () => {
         cy.typeCarRaceCountInput(DEFAULT_CARD_RACE_COUNT);
-        cy.getCarRaceCountInput(DEFAULT_CARD_RACE_COUNT);
+        cy.getCarRaceCountInput({ value: DEFAULT_CARD_RACE_COUNT });
       });
     });
 
@@ -68,15 +74,37 @@ describe('자동차 경주 테스트', () => {
           );
         });
       });
+
+      it('입력한 숫자가 올바른 경우 입력 폼은 disabled 상태가 된다', () => {
+        cy.typeCarRaceCountInput(DEFAULT_CARD_RACE_COUNT);
+        cy.clickCarRaceCountSubmitButton();
+        cy.getCarRaceCountInput({
+          disabled: true,
+          value: DEFAULT_CARD_RACE_COUNT,
+        });
+        cy.getCarRaceCountSubmitButton({ disabled: true });
+      });
     });
   });
 
   describe('주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.', () => {
+    beforeEach(() => {
+      cy.typeCarNameInput(DEFAULT_CAR_NAMES);
+      cy.getCarNameInput({ value: DEFAULT_CAR_NAMES });
+      cy.clickCarNameSubmitButton();
+      cy.typeCarRaceCountInput(DEFAULT_CARD_RACE_COUNT);
+      cy.getCarRaceCountInput({ value: DEFAULT_CARD_RACE_COUNT });
+      cy.clickCarRaceCountSubmitButton();
+    });
+
     context('자동차 이름 입력 폼에 확인 버튼을 눌렀을 때', () => {
-      it('부여된 자동차 이름들이 노출된다.', () => {});
-      it('부여된 자동차중 전진한다면 화살표 아이콘이 노출된다.', () => {});
-      it('부여된 자동차중 정지된다면 화살표 아이콘이 노출되지 않는다.', () => {});
-      it('전진 조건을 계산중인 경우 Spinner가 노출된다.', () => {});
+      it('부여된 자동차 이름들이 노출된다.', () => {
+        cy.getCarNames(DEFAULT_CAR_NAMES.split(','));
+      });
+
+      it('부여된 자동차중 전진한다면 화살표 아이콘이 노출된다.', () => {
+        cy.getForwardIcon(DEFAULT_CAR_NAMES.split(','));
+      });
     });
   });
 });
