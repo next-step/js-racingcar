@@ -3,14 +3,12 @@ import Observer from '../observer.js';
 class CarRacingGame extends Observer {
   #carNames;
   #carRaceCount;
-  #result;
   #winners;
 
   constructor() {
     super();
     this.#carNames = [];
     this.#carRaceCount = 0;
-    this.#result = [];
     this.#winners = [];
   }
 
@@ -30,10 +28,6 @@ class CarRacingGame extends Observer {
 
   get carRaceCount() {
     return this.#carRaceCount;
-  }
-
-  get result() {
-    return this.#result;
   }
 
   get winner() {

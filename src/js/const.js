@@ -8,10 +8,22 @@ const RACE_COUNT = {
   MIN: 0,
 };
 
+const RACE_STATUS = {
+  LOADING: 0,
+  GO: 1,
+  STOP: 2,
+};
+
 export const CAR = {
   NAME,
   RACE_COUNT,
   SEPARATOR: ',',
+  RACE_STATUS,
+};
+
+export const DICE = {
+  TOTAL: 9,
+  SEPARATOR_NUMBER: 4,
 };
 
 export const ERROR_MESSAGE = {
