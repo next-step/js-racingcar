@@ -3,6 +3,8 @@ import { INPUT_CONDITION } from '../constants/condition.js';
 
 import { focusCarNamesInput, focusTrialCountInput } from '../view/racingCar.js';
 
+import { isNumber } from '../utils/index.js';
+
 export const validateCarNamesLength = (carNames) => {
   carNames.forEach((name) => {
     if (
@@ -23,7 +25,7 @@ export const validateDuplicatedCarName = (carNames) => {
 };
 
 export const validateTrialCount = (count) => {
-  if (count < INPUT_CONDITION.MIN_TRIAL_COUNT) {
+  if (!isNumber(count) || count < INPUT_CONDITION.MIN_TRIAL_COUNT) {
     focusTrialCountInput();
     throw new Error(ERROR_MESSAGE.INVALID_TRIAL_COUNT);
   }
