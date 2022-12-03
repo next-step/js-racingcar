@@ -4,22 +4,22 @@ import RACING_GAME from "../constants.js";
 import Car from "../models/Car.js";
 
 class RacingGameController {
-  #model;
-  #view;
+  #RacingGame;
+  #RacingGameView;
 
   constructor() {
-    this.#model = new RacingGame();
-    this.#view = new RacingGameView();
+    this.#RacingGame = new RacingGame();
+    this.#RacingGameView = new RacingGameView();
 
     this.#subscribeEvents();
   }
 
   #subscribeEvents() {
-    this.#view.$racingGameForm.addEventListener(
+    this.#RacingGameView.$racingGameForm.addEventListener(
       "submit",
       this.#onSubmitRacingCount.bind(this)
     );
-    this.#view.$carNamesButton.addEventListener(
+    this.#RacingGameView.$carNamesButton.addEventListener(
       "click",
       this.#onSubmitCarNames.bind(this)
     );
@@ -28,40 +28,41 @@ class RacingGameController {
   #onSubmitCarNames(e) {
     e.preventDefault();
 
-    const carNames = this.#view.$carNamesInput.value;
+    const carNames = this.#RacingGameView.$carNamesInput.value;
 
     if (!this.isCarNamesCorrectlyRegistered(carNames)) {
       window.alert(RACING_GAME.MESSAGES.CAR_NAMES_MISMATCH);
       return;
     }
 
-    this.#model.Cars = carNames.split(",").map((carName) => new Car(carName));
-    this.#view.showElement(this.#view.$racingCountFieldSet);
+    this.#RacingGame.Cars = carNames
+      .split(",")
+      .map((carName) => new Car(carName));
+    this.#RacingGameView.showElement(this.#RacingGameView.$racingCountFieldSet);
   }
 
   #onSubmitRacingCount(e) {
     e.preventDefault();
 
-    const racingCount = this.#view.$racingCountInput.value;
+    const racingCount = this.#RacingGameView.$racingCountInput.value;
 
     if (!this.isRacingCountCorrectlyRegistered(racingCount)) {
       window.alert(RACING_GAME.MESSAGES.RACING_COUNT_MISMATCH);
       return;
     }
 
-    this.#model.racingCount = racingCount;
+    this.#RacingGame.racingCount = racingCount;
     this.#onRacingStart();
   }
 
   #onRacingStart() {
-    this.#model.Cars.forEach((Car) => {
-      Car.onRacingStart(this.#model.racingCount);
+    this.#RacingGame.Cars.forEach((Car) => {
+      Car.onMovePer(this.#RacingGame.racingCount);
     });
 
-    this.#view.$racingSection.innerHTML = this.#view.templateRacingSection(
-      this.#model.Cars
-    );
-    this.#view.showElement(this.#view.$racingSection);
+    this.#RacingGameView.$racingSection.innerHTML =
+      this.#RacingGameView.templateRacingSection(this.#RacingGame.Cars);
+    this.#RacingGameView.showElement(this.#RacingGameView.$racingSection);
   }
 
   isCarNamesCorrectlyRegistered(carNames) {

@@ -9,7 +9,7 @@ class Car {
     this.#name = name.trim();
   }
 
-  onRacingStart(racingCount) {
+  onMovePer(racingCount) {
     this.racingCount = +racingCount;
 
     this.#onMove();
