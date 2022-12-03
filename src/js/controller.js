@@ -20,9 +20,13 @@ export const handleNumberOfAttempts = () => {
   showElement(DOM.NUMBER_OF_ATTEMPTS_FIELDSET);
 };
 
-export const handleCarViewAndRace = (event) => {
+export const handleLockAttemptInputAndBtn = (event) => {
   event.preventDefault();
 
   lockElement(DOM.NUMBER_OF_ATTEMPTS_INPUT);
   lockElement(DOM.NUMBER_OF_ATTEMPTS_BTN);
+
+  handleCarViewAndRace();
 };
+
+export const handleCarViewAndRace = (event) => {};
