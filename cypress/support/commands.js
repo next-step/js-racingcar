@@ -23,15 +23,3 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-
-// TODO 개선 필요
-Cypress.Commands.add("alertMessage", ({ selector, message }) => {
-  const alertStub = cy.stub();
-  cy.on("window:alert", alertStub);
-
-  cy.get(selector)
-    .click()
-    .then(() => {
-      expect(alertStub.getCall(0)).to.be.calledWith(message);
-    });
-});
