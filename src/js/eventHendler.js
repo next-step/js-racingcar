@@ -13,6 +13,7 @@ export const handleCarNameButton = (e) => {
     return alert(ALERT_ERROR_MESSAGE.UNCORRECT_RANGE);
   }
   racingAdmin.setCarName(carNames);
+  racingAdmin.setPosition(carNames);
 };
 
 export const handleAttemptNumber = (e) => {
@@ -23,6 +24,7 @@ export const handleAttemptNumber = (e) => {
     return alert(ALERT_ERROR_MESSAGE.UNCORRECT_NUMBER_RANGE);
   }
   racingAdmin.setCount(attemptNumberInputValue);
+  racingAdmin.setResult();
   racingAdmin.showResult();
-  // racingAdmin.showForwardIcon();
+  // racingAdmin.startGame();
 };
