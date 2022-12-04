@@ -2,6 +2,7 @@ import racingCarGameModel from '../model/RacingCarGameModel.js';
 import { RACING_CAR } from '../constants/racingCar.js';
 import { generateRandomNumber } from '../utils/index.js';
 import { hideLoadingSpinner, showLoadingSpinner, renderCarStatus } from '../view/racingCar.js';
+import { isMoveForwardNumber } from '../utils/validator.js';
 
 export const getMoveForwardCount = (arr) => {
   if (!Array.isArray(arr)) return;
@@ -20,7 +21,7 @@ export const getWinners = (record) => {
 export const isMoveForward = () => {
   const randomValue = generateRandomNumber(RACING_CAR.MIN_MOVE_FORWARD_NUMBER, RACING_CAR.MAX_MOVE_FORWARD_NUMBER);
 
-  if (randomValue >= RACING_CAR.STANDARD_MOVE_FORWARD_NUMBER) {
+  if (isMoveForwardNumber(randomValue)) {
     return true;
   }
   return false;
