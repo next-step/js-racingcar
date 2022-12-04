@@ -1,29 +1,25 @@
 import { ALERT_MESSAGE, CAR_RACING } from '../service/constant.js';
-import { getCarNamesArray, isDuplicatedCarNames, isEmptyNames, isMetNamesLength } from '../util/validator.js';
+import { getCarNamesArray, isContainEmptyNames, isDuplicatedCarNames, isMetNamesLength } from '../util/validator.js';
 import { ELEMENT } from './element.js';
 import { selector } from './selector.js';
-
-const getTextFromInput = (element) => {
-  return selector(element).value;
-};
 
 /**
  *
  * @returns {string[]}
  */
 export const getCarNamesFromInput = () => {
-  return getCarNamesArray(getTextFromInput(ELEMENT.INPUT.CAR_NAMES));
+  return getCarNamesArray(selector(ELEMENT.INPUT.CAR_NAMES).value);
 };
 
 export const getAttemtTimesInput = () => {
-  return Number(getTextFromInput(ELEMENT.INPUT.ATTEMPT_TIMES));
+  return selector(ELEMENT.INPUT.ATTEMPT_TIMES).valueAsNumber;
 };
 
 export const validateCarNames = () => {
   const { MAX_LENGTH, MIN_LENGTH } = CAR_RACING.CAR_NAMES;
   const carNames = getCarNamesFromInput();
   if (
-    isEmptyNames(carNames) ||
+    isContainEmptyNames(carNames) ||
     carNames.some((carName) => !isMetNamesLength({ name: carName, minLength: MIN_LENGTH, maxLength: MAX_LENGTH }))
   ) {
     throw new Error(ALERT_MESSAGE.INVALID.CAR_NAMES_LENGTH);
@@ -35,7 +31,7 @@ export const validateCarNames = () => {
 
 export const validateAttemptTimes = () => {
   const attemptTimes = getAttemtTimesInput();
-  if (!attemptTimes || isNaN(Number(attemptTimes))) {
+  if (!attemptTimes || attemptTimes < CAR_RACING.ATTEMPT_TIMES.MIN) {
     throw new Error(ALERT_MESSAGE.INVALID.ATTEMPT_TIMES);
   }
 };

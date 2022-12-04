@@ -21,4 +21,7 @@ export const CAR_RACING = {
     MIN: 0,
     MAX: 10,
   },
+  ATTEMPT_TIMES: {
+    MIN: 1,
+  },
 };

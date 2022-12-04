@@ -16,7 +16,12 @@ export const RacingGame = (carNames, attemptTimes) => {
   let winnerMovedDistance = 0;
   return () => {
     for (let i = 0; i < times; i++) {
-      cars.forEach((car) => car.moveForward(generateNumber(CAR_RACING.RANDOM_VALUE.MIN, CAR_RACING.RANDOM_VALUE.MAX)));
+      cars.forEach((car) => {
+        const distance = generateNumber(CAR_RACING.RANDOM_VALUE.MIN, CAR_RACING.RANDOM_VALUE.MAX);
+        if (distance >= CAR_RACING.CAR.CONDITION.FORWARD) {
+          car.moveForward();
+        }
+      });
     }
     //TODO: 차 궤적 그리기는 추후 setTimeout 등 이벤트루프 개념과 연계된 코드 적용
     updateCarsRut(cars);

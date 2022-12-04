@@ -28,7 +28,7 @@ export const isDuplicatedCarNames = (carNames) => {
  * @param {string[]} names
  * @returns {boolean}
  */
-export const isEmptyNames = (names) => {
+export const isContainEmptyNames = (names) => {
   return names.length !== names.filter((name) => !!name).length;
 };
 

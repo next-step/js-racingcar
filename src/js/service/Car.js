@@ -2,32 +2,30 @@ import { CAR_RACING } from './constant.js';
 
 export class Car {
   #movedDistance = 0;
-  #carName = null;
+  #name = null;
 
   /**
    *
-   * @param {string} carName
+   * @param {string} name
    */
-  constructor(carName) {
-    this.#carName = carName;
+  constructor(name) {
+    this.#name = name;
   }
 
   /**
    *
    * @returns {string}
    */
-  getCarName() {
-    return this.#carName;
+  getName() {
+    return this.#name;
   }
 
   /**
    *
    * @param {number} number
    */
-  moveForward(number) {
-    if (number >= CAR_RACING.CAR.CONDITION.FORWARD) {
-      this.#movedDistance += 1;
-    }
+  moveForward() {
+    this.#movedDistance += 1;
   }
 
   /**
