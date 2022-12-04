@@ -38,7 +38,7 @@ export const handleCarAttemptsCountSubmit = async (e) => {
 
   try {
     const attemptsCount = getCarAttemptsCount();
-    validateCarAttemptsCount(racingCarGameModel.attemptsCount);
+    validateCarAttemptsCount(attemptsCount);
     racingCarGameModel.attemptsCount = attemptsCount;
 
     disableCarAttemptsCountForm();
