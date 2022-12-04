@@ -1,5 +1,4 @@
 import { ERROR_MESSAGE } from '../../src/js/constants/errorMessage.js';
-import { getMoveForwardCount } from '../../src/js/service/racingCar.js';
 import { SELECTOR } from '../constants/selector.js';
 
 beforeEach(() => {
@@ -81,19 +80,19 @@ describe('자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5
     context('random 값이 ', () => {
       it('4 이상이면 전진하고, 3 이하의 값이면 멈춘다.', () => {
         const carName = 'car1, car2, car3, car4';
-        const carNameArray = carName.split(',').map((elem) => elem.trim());
-        const attemptsCount = 2;
+        const carNames = carName.split(',').map((elem) => elem.trim());
+        const attemptsCount = 5;
 
         cy.clock();
         cy.startRacingGame(carName, attemptsCount);
-        cy.tick(3000);
+        cy.tick(6000);
 
         cy.window().then((win) => {
           const { record } = win;
 
           cy.getByDataset(SELECTOR.CAR_FORWARD_ICON_WRAPPER).each(($el, idx) => {
             const viewMoveForwardCount = $el.children().length;
-            const racingCarModelMoveForwardCount = getMoveForwardCount(record[carNameArray[idx]]);
+            const racingCarModelMoveForwardCount = record[carNames[idx]];
 
             expect(viewMoveForwardCount).to.equal(racingCarModelMoveForwardCount);
           });
