@@ -26,19 +26,32 @@ const racingAdmin = {
   focusInput() {
     $carNameInput.focus();
   },
-
-  showCarNames(carNames) {
+  showCarName() {
     let temp = `<div class="mt-4 d-flex">`;
-    carNames.forEach((element) => {
+    const forwardIconElement = document.createElement('div');
+    forwardIconElement.setAttribute('class', 'forward-icon mt-2');
+    forwardIconElement.append('⬇️️');
+
+    this.names.forEach((element) => {
       temp += `
-        <div class="mr-2">
+        <div class="mr-2 car-player-wrap">
             <div class="car-player">${element}</div>
           </div>
         `;
     });
     temp += `</div>`;
     document.querySelector('#car-player-section').innerHTML = temp;
+    document.querySelector('.car-player-wrap').appendChild(forwardIconElement);
+    console.log(forwardIconElement);
+    console.log(document.querySelector('#car-player-section'));
   },
+
+  //   showForwardIcon() {
+  //     const forwardIconElement = document.createElement('div');
+  //     forwardIconElement.setAttribute('class', 'forward-icon mt-2');
+  //     forwardIconElement.append('⬇️️');
+  //     return forwardIconElement;
+  //   },
 };
 
 export default racingAdmin;
