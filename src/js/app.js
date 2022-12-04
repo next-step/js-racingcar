@@ -21,6 +21,6 @@ export class App {
     init() {
         const name = new nameComponent(this.container);
         const round = new roundComponent(this.container);
-        const race = new RaceComponent(this.container)
+        const race = new RaceComponent(this.container);
     }
 }

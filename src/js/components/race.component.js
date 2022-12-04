@@ -1,7 +1,8 @@
 import { Component } from './component.js';
 import { CarModel } from '../models/car.model.js';
-import { $car, $race } from '../views/selector.js';
+
 import { RACETYPE } from "../common/const.js";
+import { $car, $race } from '../views/selector.js';
 
 export class RaceComponent extends Component {
     constructor(container) {

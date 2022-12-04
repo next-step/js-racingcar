@@ -1,10 +1,5 @@
 export class View {
-    constructor() {
-    }
-
-    setTemplate(template) {
-        return this.parseStringToHTML(template);
-    }
+    constructor() {}
 
     parseStringToHTML = (element) => {
         const parser = new DOMParser().parseFromString(element, 'text/html');
