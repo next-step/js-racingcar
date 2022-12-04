@@ -6,7 +6,7 @@ export class RacingCarModel {
   }
 
   get name() {
-    return this.#name.split(',').map((elem) => elem.trim());
+    return this.#name;
   }
 
   set name(name) {

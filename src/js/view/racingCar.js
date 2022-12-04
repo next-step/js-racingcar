@@ -68,12 +68,9 @@ const showWinnersWrapper = () => {
   $(SELECTOR.CAR_WINNERS_CONTAINER).classList.add('d-flex');
 };
 
-export const renderCarRoad = (carName) => {
+export const renderCarRoad = (cars) => {
   showCarRoad();
-  $(SELECTOR.CAR_ROAD_WRAPPER).insertAdjacentHTML(
-    'beforeend',
-    carName.map((car) => makeCarTemplate(car.name)).join(''),
-  );
+  $(SELECTOR.CAR_ROAD_WRAPPER).insertAdjacentHTML('beforeend', cars.map((car) => makeCarTemplate(car.name)).join(''));
 };
 
 export const renderCarStatus = (moveForwardCount) => {
@@ -82,7 +79,7 @@ export const renderCarStatus = (moveForwardCount) => {
   carForwardIconWrapper.forEach(($el) => {
     const { carName } = $el.dataset;
 
-    if (moveForwardCount[carName] === 0) return;
+    if (moveForwardCount[carName] === undefined) return;
 
     $el.insertAdjacentHTML('beforeend', makeMoveTemplate());
   });
