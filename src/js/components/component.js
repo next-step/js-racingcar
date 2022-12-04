@@ -11,6 +11,7 @@ export class Component {
 
     _setEventListeners() {}
     _setEventHandler() {}
+    _setRemoveListeners() {}
     _initElement() {}
     _subscribe() {}
     _reset() {}

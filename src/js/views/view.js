@@ -2,6 +2,15 @@ export class View {
     constructor() {
     }
 
+    setTemplate(template) {
+        return this.parseStringToHTML(template);
+    }
+
+    parseStringToHTML = (element) => {
+        const parser = new DOMParser().parseFromString(element, 'text/html');
+        return parser.body.children[0];
+    }
+
     disableButton = ($button) => {
         $button.disabled = true;
     }
@@ -11,5 +20,13 @@ export class View {
 
     setFocus($element) {
         $element.focus();
+    }
+
+    renderInnerHtml = ($element, value) => {
+        $element.innerHTML = value;
+    }
+
+    append = ($parent, $child) => {
+        $parent.append($child);
     }
 }
