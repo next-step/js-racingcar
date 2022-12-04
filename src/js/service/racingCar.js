@@ -1,6 +1,6 @@
-import racingCarModel from '../model/RacingCarModel.js';
+import racingCarGameModel from '../model/RacingCarGameModel.js';
 import { RACING_CAR } from '../constants/racingCar.js';
-import { generateRandomNumber, sortObjectByValue } from '../utils/index.js';
+import { generateRandomNumber } from '../utils/index.js';
 import { hideLoadingSpinner, showLoadingSpinner, renderCarStatus } from '../view/racingCar.js';
 
 export const getMoveForwardCount = (arr) => {
@@ -11,48 +11,21 @@ export const getMoveForwardCount = (arr) => {
   }, 0);
 };
 
-const getWinnersName = (moveForwardCountArray) => {
-  const MOVE_FORWARD_CAR_NAME_INDEX = 0;
-  const MOVE_FORWARD_COUNT_INDEX = 1;
+export const getWinners = (record) => {
+  const winningCount = Math.max(...Object.values(record));
 
-  const firstWinner = moveForwardCountArray[0][MOVE_FORWARD_CAR_NAME_INDEX];
-  const winners = [firstWinner];
+  const winningNames = Object.keys(record).filter((key) => record[key] === winningCount);
 
-  for (let i = 0; i < moveForwardCountArray.length - 1; i++) {
-    const currentWinner = moveForwardCountArray[i];
-    const nextWinner = moveForwardCountArray[i + 1];
-
-    if (currentWinner[MOVE_FORWARD_COUNT_INDEX] > nextWinner[MOVE_FORWARD_COUNT_INDEX]) break;
-
-    winners.push(nextWinner[MOVE_FORWARD_CAR_NAME_INDEX]);
-  }
-
-  return winners;
+  return winningNames;
 };
 
-export const getWinners = (carName, record) => {
-  const moveForwardCount = {};
+export const isMoveForward = () => {
+  const randomValue = generateRandomNumber(RACING_CAR.MIN_MOVE_FORWARD_NUMBER, RACING_CAR.MAX_MOVE_FORWARD_NUMBER);
 
-  for (let i = 0; i < carName.length; i++) {
-    moveForwardCount[carName[i]] = getMoveForwardCount(record[carName[i]]);
+  if (randomValue >= RACING_CAR.STANDARD_MOVE_FORWARD_NUMBER) {
+    return true;
   }
-
-  const sortedMoveForwardCount = sortObjectByValue(moveForwardCount, 'desc');
-
-  return getWinnersName(sortedMoveForwardCount);
-};
-
-export const moveOrStop = (carName) => {
-  const record = {};
-
-  carName.forEach((name) => {
-    const randomValue = generateRandomNumber(RACING_CAR.MIN_MOVE_FORWARD_NUMBER, RACING_CAR.MAX_MOVE_FORWARD_NUMBER);
-    record[name] = randomValue;
-  });
-
-  renderCarStatus(record);
-
-  return record;
+  return false;
 };
 
 export const gameStart = () => {
@@ -61,17 +34,20 @@ export const gameStart = () => {
 
     showLoadingSpinner();
     const timer = setInterval(() => {
-      const record = moveOrStop(racingCarModel.name);
+      const tempMoveForwardCount = {};
 
-      racingCarModel.name.forEach((elem) => {
-        racingCarModel.record[elem] = !racingCarModel.record[elem]
-          ? [record[elem]]
-          : [...racingCarModel.record[elem], record[elem]];
+      racingCarGameModel.cars.forEach((car) => {
+        // eslint-disable-next-line no-param-reassign
+        if (isMoveForward()) {
+          tempMoveForwardCount[car.name] = 1;
+          racingCarGameModel.record[car.name] += 1;
+        }
       });
+      renderCarStatus(tempMoveForwardCount);
 
       ++count;
 
-      if (count === racingCarModel.attemptsCount) {
+      if (count === racingCarGameModel.attemptsCount) {
         clearInterval(timer);
         hideLoadingSpinner();
         resolve();

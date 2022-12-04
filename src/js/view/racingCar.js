@@ -1,6 +1,5 @@
 import { $, $all } from '../utils/dom.js';
 import { SELECTOR } from '../constants/selector.js';
-import { isMoveForwardNumber } from '../utils/validator.js';
 
 export const makeCarTemplate = (carName) => {
   return `<div class="mr-2 js-car-wrapper" data-cy="car-wrapper">
@@ -71,16 +70,19 @@ const showWinnersWrapper = () => {
 
 export const renderCarRoad = (carName) => {
   showCarRoad();
-  $(SELECTOR.CAR_ROAD_WRAPPER).insertAdjacentHTML('beforeend', carName.map((car) => makeCarTemplate(car)).join(''));
+  $(SELECTOR.CAR_ROAD_WRAPPER).insertAdjacentHTML(
+    'beforeend',
+    carName.map((car) => makeCarTemplate(car.name)).join(''),
+  );
 };
 
-export const renderCarStatus = (record) => {
+export const renderCarStatus = (moveForwardCount) => {
   const carForwardIconWrapper = getCarForwardIconWrapper();
 
   carForwardIconWrapper.forEach(($el) => {
     const { carName } = $el.dataset;
 
-    if (!isMoveForwardNumber(record[carName])) return;
+    if (moveForwardCount[carName] === 0) return;
 
     $el.insertAdjacentHTML('beforeend', makeMoveTemplate());
   });
