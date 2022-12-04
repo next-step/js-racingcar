@@ -1,4 +1,14 @@
-import RACING_GAME from "../../src/constants";
+import RACING_GAME from "../../src/constants.js";
+
+const registerCarNames = (carNames) => {
+  cy.get("#car-names-input").type(carNames);
+  cy.get("#car-names-button").click();
+};
+
+const registerRacingCount = (count) => {
+  cy.get("#racing-count-input").type(count.toString());
+  cy.get("#racing-count-button").click();
+};
 
 describe("레이싱 게임", () => {
   beforeEach(() => {
@@ -69,32 +79,21 @@ describe("레이싱 게임", () => {
   });
 
   context("자동차를 등록하면 등록한 자동차명이 노출된다.", () => {
-    let carNames = "감자, 고구마";
-
-    beforeEach(() => {
-      cy.get("#car-names-input").type(carNames);
-      cy.get("#car-names-button").click();
-      cy.get("#racing-count-input").type("5");
-      cy.get("#racing-count-button").click();
-    });
-
     it("자동차명이 (감자, 고구마)인 경우", () => {
+      const carNames = "감자, 고구마";
+      registerCarNames(carNames);
+      registerRacingCount(5);
+
       cy.get(`#car-name-감자`).should("exist");
       cy.get(`#car-name-고구마`).should("exist");
     });
     it("자동차명에 공백이 있는 경우 제거한다.", () => {
-      carNames = "    감자    ,  고구마 ";
+      const carNames = "    감자    ,  고구마 ";
+      registerCarNames(carNames);
+      registerRacingCount(5);
+
       cy.get(`#car-name-감자`).should("exist");
       cy.get(`#car-name-고구마`).should("exist");
     });
   });
 });
-
-/**
- * 1. 자동차의 이름은 5자 이하만 입력 가능하다.
-
- * 3. 사용자는 몇 번 이동할지 '숫자'만 입력한다.
- * 4. 시도 확인 버튼을 누르면 등록한 차량의 개수만큼 이름이 노출되고, 경주를 시작한다.
- * 4. 입력한 숫자만큼 등록한 차량이 전진하는 조건에 따라 이동한다.
- * 5. 0~9의 랜덤값을 구한 후 random 값이 4이상이면 전진, 3이하의 값이면 멈춘다.
- */
