@@ -6,8 +6,8 @@ export const NAME = {
 export const MIN_ROUND = 1;
 
 export const RACETYPE = {
-    GO: 1,
-    STOP: 0
+    FORWARD: 'FORWARD',
+    STOP: 'STOP'
 }
 
 export const VALIDATIONTYPE = {

@@ -1,6 +1,7 @@
-import { Component } from "./component.js";
-import { $round } from "../views/selector.js";
-import { VALIDATIONTYPE } from "../common/const.js";
+import { Component } from './component.js';
+
+import { $round } from '../views/selector.js';
+import { VALIDATIONTYPE } from '../common/const.js';
 
 export class roundComponent extends Component {
     constructor(container) {
@@ -17,6 +18,10 @@ export class roundComponent extends Component {
         $round.input.addEventListener('keyup', e => this._submitByEnterKey(e));
     }
 
+    _setRemoveListeners() {
+        $round.input.removeEventListener('keyup', e => this._submitByEnterKey(e));
+    }
+
     _initElement() {
         this._view.displayNone([$round.container]);
     }
@@ -28,8 +33,9 @@ export class roundComponent extends Component {
     _submit() {
         if (!this._validator.validate(VALIDATIONTYPE.ROUND, $round.input.value)) return;
 
+        this._setRemoveListeners();
+        this._stateService.race.round = +$round.input.value;
         this._stateService.renderRace = true;
-
         this._view.disableButton($round.button);
     }
 

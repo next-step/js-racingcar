@@ -3,6 +3,7 @@
         "browser": true,
         "es2021": true
     },
+    "eslint.validate": [ "javascript", "javascriptreact", "html"],
     "extends": "airbnb-base",
     "overrides": [
     ],

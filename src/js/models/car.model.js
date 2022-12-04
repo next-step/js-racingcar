@@ -1,21 +1,24 @@
-import { arr, getRandom } from "../common/util.js";
-import { RACETYPE } from "../common/const.js";
+import { arr, getRandom } from '../common/util.js';
+import { RACETYPE } from '../common/const.js';
 
 export class CarModel {
-    #name;
-    #turns;
+    #player;
+    #round;
 
-    constructor(name, turns) {
-        this.#name = name;
-        this.#turns = arr(turns);
+    constructor(player, round) {
+        this.#player = player;
+        this.#round = arr(round);
     }
 
-    getRoute() {
-        return this.#turns.map(() => this.#setRoute());
+    getRaces() {
+        return {
+            player: this.#player,
+            races: this.#round.map(() => this.#setRace())
+        };
     }
 
-    #setRoute = () => {
+    #setRace = () => {
         const random = getRandom(0, 9);
-        return random > 3 ? RACETYPE.GO : RACETYPE.STOP;
+        return random > 3 ? RACETYPE.FORWARD : RACETYPE.STOP;
     }
 }
