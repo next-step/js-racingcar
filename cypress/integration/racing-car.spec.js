@@ -28,14 +28,14 @@ describe("레이싱 게임", () => {
         cy.on("window:alert", alertStub);
       });
 
-      it("자동차명은 공백일 수 없다.", () => {
+      it("자동차명이 공백인 경우", () => {
         cy.get($carNamesInput).type("{backspace}");
 
         whenTargetClicked($carNamesButton, () => {
           alertMessageCalledWith(RACING_GAME.MESSAGES.CAR_NAMES_MISMATCH);
         });
       });
-      it("자동차 명은 1자 이상이다.", () => {
+      it("자동차명은 공백 혹은 빈 문자열만 입력된 경우", () => {
         cy.get($carNamesInput).type("1, 1, ,");
 
         whenTargetClicked($carNamesButton, () => {
@@ -43,7 +43,7 @@ describe("레이싱 게임", () => {
         });
       });
 
-      it("자동차 명은 5자 이하이다.", () => {
+      it("자동차명이 6자 이상 입력된 경우", () => {
         cy.get($carNamesInput).type("123456");
 
         whenTargetClicked($carNamesButton, () => {
@@ -56,9 +56,7 @@ describe("레이싱 게임", () => {
         });
       });
 
-      it("자동차명은 중복되어서는 안된다.", () => {});
-
-      it("특이 케이스 테스트", () => {
+      it("그 외에 예외 케이스들", () => {
         cy.get($carNamesInput).type(",12,23");
         whenTargetClicked($carNamesButton, () => {
           alertMessageCalledWith(RACING_GAME.MESSAGES.CAR_NAMES_MISMATCH);
