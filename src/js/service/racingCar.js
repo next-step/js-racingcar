@@ -14,9 +14,7 @@ export const getMoveForwardCount = (arr) => {
 export const getWinners = (record) => {
   const winningCount = Math.max(...Object.values(record));
 
-  const winningNames = Object.keys(record).filter((key) => record[key] === winningCount);
-
-  return winningNames;
+  return Object.keys(record).filter((key) => record[key] === winningCount);
 };
 
 export const isMoveForward = () => {
