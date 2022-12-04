@@ -1,0 +1,14 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+
+  "extends": ["airbnb", "prettier"],
+
+  "rules": {
+    "no-unused-vars": "warn",
+    "import/extensions": ["error", { "js": "always" }]
+  }
+}

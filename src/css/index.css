@@ -35,3 +35,18 @@ fieldset {
   border: none;
   padding: 0;
 }
+
+.hide {
+  display: none;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  margin: 0 auto;
+}
+
+form {
+  width: 100%;
+}
