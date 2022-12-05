@@ -31,6 +31,10 @@ body {
   justify-content: center;
 }
 
+.hide {
+  visibility: hidden;
+}
+
 fieldset {
   border: none;
   padding: 0;
