@@ -1,11 +1,12 @@
 export default class Observer {
+ #observers;
  constructor() {
-  this._observers = new Set();
+  this.#observers = new Set();
  }
  subscribe(observer) {
-  this._observers.add(observer);
+  this.#observers.add(observer);
  }
  notify() {
-  this._observers.forEach((observer) => observer());
+  this.#observers.forEach((observer) => observer());
  }
 }
