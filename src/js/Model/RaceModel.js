@@ -4,9 +4,11 @@ import Observer from './Observer';
 export default class RaceModel extends Observer {
  #cars;
  #tryCount;
+ #minTryCount;
  constructor() {
   super();
   this.#cars = [];
+  this.#minTryCount = 1;
   this.#tryCount = 0;
  }
  /**
@@ -21,9 +23,11 @@ export default class RaceModel extends Observer {
   * @param {number} tryCount
   */
  #validateTryCount(tryCount) {
-  if (tryCount < 1) {
+  if (tryCount < this.#minTryCount) {
    throw new Error(
-    '입력한 레이싱 횟수가 너무 적습니다. 레이싱 횟수는 1이상이어야 합니다.'
+    `입력한 레이싱 횟수가 너무 적습니다. 레이싱 횟수는 ${
+     this.#minTryCount
+    }이상이어야 합니다.`
    );
   }
  }
