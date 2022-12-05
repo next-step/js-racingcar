@@ -1,10 +1,10 @@
 import { $, $all } from '../utils/dom.js';
 import { SELECTOR } from '../constants/selector.js';
-import { isMoveForwardNumber } from '../utils/validator.js';
 
 export const makeCarTemplate = (carName) => {
-  return `<div class="mr-2 js-car-wrapper" data-car-name="${carName}">
+  return `<div class="mr-2 js-car-wrapper" data-cy="car-wrapper">
     <div class="car-player js-car-player" data-cy="car-player">${carName}</div>
+    <div class='js-car-forward-icon-wrapper' data-car-name="${carName}" data-cy="car-forward-icon-wrapper"></div>
   </div>`;
 };
 
@@ -33,8 +33,8 @@ export const getCarAttemptsCount = () => {
   return Number($(SELECTOR.CAR_ATTEMPTS_COUNT_INPUT).value);
 };
 
-export const getCarWrapper = () => {
-  return Array.from($all(SELECTOR.CAR_WRAPPER));
+export const getCarForwardIconWrapper = () => {
+  return Array.from($all(SELECTOR.CAR_FORWARD_ICON_WRAPPER));
 };
 
 export const showCarAttemptsCountForm = () => {
@@ -63,19 +63,29 @@ const showCarRoad = () => {
   $(SELECTOR.CAR_ROAD).classList.add('d-flex');
 };
 
-export const renderCarRoad = (carName) => {
-  showCarRoad();
-  $(SELECTOR.CAR_ROAD_WRAPPER).insertAdjacentHTML('beforeend', carName.map((car) => makeCarTemplate(car)).join(''));
+const showWinnersWrapper = () => {
+  $(SELECTOR.CAR_WINNERS_CONTAINER).classList.remove('d-none');
+  $(SELECTOR.CAR_WINNERS_CONTAINER).classList.add('d-flex');
 };
 
-export const renderCarStatus = (record) => {
-  const carWrapper = getCarWrapper();
+export const renderCarRoad = (cars) => {
+  showCarRoad();
+  $(SELECTOR.CAR_ROAD_WRAPPER).insertAdjacentHTML('beforeend', cars.map((car) => makeCarTemplate(car.name)).join(''));
+};
 
-  carWrapper.forEach(($el) => {
+export const renderCarStatus = (moveForwardCount) => {
+  const carForwardIconWrapper = getCarForwardIconWrapper();
+
+  carForwardIconWrapper.forEach(($el) => {
     const { carName } = $el.dataset;
 
-    if (!isMoveForwardNumber(record[carName])) return;
+    if (moveForwardCount[carName] === undefined) return;
 
     $el.insertAdjacentHTML('beforeend', makeMoveTemplate());
   });
+};
+
+export const renderWinners = (winners) => {
+  showWinnersWrapper();
+  $(SELECTOR.CAR_WINNERS_NAME).textContent = winners;
 };

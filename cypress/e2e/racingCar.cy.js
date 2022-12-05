@@ -1,5 +1,4 @@
 import { ERROR_MESSAGE } from '../../src/js/constants/errorMessage.js';
-import model from '../../src/js/model/Model.js';
 import { SELECTOR } from '../constants/selector.js';
 
 beforeEach(() => {
@@ -80,9 +79,38 @@ describe('자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5
   describe('주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.', () => {
     context('random 값이 ', () => {
       it('4 이상이면 전진하고, 3 이하의 값이면 멈춘다.', () => {
-        cy.startRacingGame('car1, car2, car3, car4', 2);
+        const carName = 'car1, car2, car3, car4';
+        const carNames = carName.split(',').map((elem) => elem.trim());
+        const attemptsCount = 5;
 
-        console.log(model.record);
+        cy.clock();
+        cy.startRacingGame(carName, attemptsCount);
+        cy.tick(6000);
+
+        cy.window().then((win) => {
+          const { record } = win;
+
+          cy.getByDataset(SELECTOR.CAR_FORWARD_ICON_WRAPPER).each(($el, idx) => {
+            const viewMoveForwardCount = $el.children().length;
+            const racingCarModelMoveForwardCount = record[carNames[idx]];
+
+            expect(viewMoveForwardCount).to.equal(racingCarModelMoveForwardCount);
+          });
+        });
+      });
+    });
+  });
+
+  describe('자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.', () => {
+    context('우승자는', () => {
+      it('전진한 횟수가 가장 많은 사람이다.', () => {
+        cy.clock();
+        cy.startRacingGame('car1, car2, car3', 3);
+        cy.tick(4000);
+
+        cy.window().then((win) => {
+          cy.getByDataset(SELECTOR.CAR_WINNERS_NAME).should('have.text', win.winners);
+        });
       });
     });
   });
