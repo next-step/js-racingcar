@@ -6,7 +6,7 @@ const observer = (() => {
 
   const observe = (fn) => {
     currentObserver = debounceFrame(fn);
-    currentObserver = fn;
+    // currentObserver = fn;
     fn();
     currentObserver = null;
   };
