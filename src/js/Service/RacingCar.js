@@ -59,8 +59,7 @@ export default class RacingCar {
   * @returns {boolean}
   */
  #isMove() {
-  const moveLimit = 4;
-  if (this.#getRandomNumber() >= moveLimit) return true;
-  return false;
+  const MOVE_LIMIT = 4;
+  return this.#getRandomNumber() >= MOVE_LIMIT;
  }
 }
