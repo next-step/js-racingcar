@@ -12,13 +12,12 @@ const racingAdmin = {
   setCount(newCount) {
     this.count = newCount;
   },
-  // false, false, false, false
+
   setPosition(carNames) {
     this.position = new Array(carNames.length).fill(false).map(() => {
       const randomNumber = this.generateRandomNumber(0, 9);
       return this.moveCar(randomNumber);
     });
-    console.log(this.position);
   },
 
   setResult() {
@@ -51,27 +50,28 @@ const racingAdmin = {
 
     for (let i = 0; i < this.result[0].length; i++) {
       let str = '';
-      if (this.result[1][i]) {
-        for (let j = 0; j < this.result[1][i]; j++) {
+      temp += `
+      <div class="mr-2 car-player-wrap">
+          <div class="car-player">${this.result[0][i]}</div>
+          ${str}
+  `;
+      for (let j = 0; j < this.result[1][i]; j++) {
+        if (this.result[1][i]) {
           str += `<div class="forward-icon mt-2">⬇️️</div>`;
         }
+        str += `
+          <div class="d-flex justify-center mt-3">
+            <div class="relative spinner-container">
+                <span class="material spinner"></span>
+            </div>
+          </div>`;
       }
-      str += `
-      <div class="d-flex justify-center mt-3">
-        <div class="relative spinner-container">
-            <span class="material spinner"></span>
-        </div>
-      </div>`;
-
-      temp += `
-              <div class="mr-2 car-player-wrap">
-                  <div class="car-player">${this.result[0][i]}</div>
-                  ${str}
-              </div>
-          `;
+      temp += str;
+      temp += `</div>`;
     }
 
     document.querySelector('#car-player-section').innerHTML = temp;
+    console.log(temp);
   },
 };
 export default racingAdmin;

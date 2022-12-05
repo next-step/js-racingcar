@@ -26,5 +26,4 @@ export const handleAttemptNumber = (e) => {
   racingAdmin.setCount(attemptNumberInputValue);
   racingAdmin.setResult();
   racingAdmin.showResult();
-  // racingAdmin.startGame();
 };
