@@ -1,14 +1,9 @@
 export const withErrorHandling = function (fn) {
- return function () {
-  if (fn.constructor.name == 'AsyncFunction') {
-   return fn.apply(this, arguments).catch((e) => {
-    alert(e.message);
-   });
-  }
+ return async function () {
   try {
-   return fn.apply(this, arguments);
-  } catch (e) {
-   alert(e.message);
+   await fn.apply(this, arguments);
+  } catch (err) {
+   alert(err.message);
   }
  };
 };
