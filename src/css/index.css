@@ -35,3 +35,9 @@ fieldset {
   border: none;
   padding: 0;
 }
+
+legend {
+  display: block;
+  padding-block-start: 1em;
+  margin-block-end: 1em;
+}
