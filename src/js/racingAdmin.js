@@ -71,7 +71,6 @@ const racingAdmin = {
     }
 
     document.querySelector('#car-player-section').innerHTML = temp;
-    console.log(temp);
   },
 };
 export default racingAdmin;
