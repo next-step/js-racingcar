@@ -35,8 +35,11 @@ export default class RaceModel extends Observer {
  /**
   * @returns {[string,number][]}
   */
- getCarsPosition() {
-  return this.#cars.map((car) => [car.getName(), car.getPosition()]);
+ getCarNamesAndPositions() {
+  return this.#cars.map((car) => ({
+   name: car.getName(),
+   position: car.getPosition(),
+  }));
  }
  /**
   * 경기가 끝났는지 아닌지를 반환합니다.

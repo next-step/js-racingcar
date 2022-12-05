@@ -1,4 +1,3 @@
-import { NAME, SELECTOR } from '../constants';
 import View from './View';
 
 export default class ProcessView extends View {
@@ -7,11 +6,11 @@ export default class ProcessView extends View {
   this.model.subscribe(this.render.bind(this));
  }
 
- #getCarTemplate([carName, carPosition]) {
+ #getCarTemplate({ name, position }) {
   return String.raw`<div class="mr-2">
-    <div class="car-player">${carName}</div>
+    <div class="car-player">${name}</div>
     ${Array.from(
-     { length: carPosition },
+     { length: position },
      () => '<div class="forward-icon mt-2">⬇️️</div>'
     ).join('')}
     
@@ -28,9 +27,12 @@ export default class ProcessView extends View {
 `;
  }
  getTemplate() {
-  const positions = this.model.getCarsPosition();
+  const carsPosition = this.model.getCarNamesAndPositions();
   return String.raw`<div class="mt-4 d-flex">
-    ${positions.map((value) => this.#getCarTemplate(value)).join('')}
+    ${carsPosition
+     .map((carPosition) => this.#getCarTemplate(carPosition))
+     .join('')}
+     
 </div>`;
  }
 }
