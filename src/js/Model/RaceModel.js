@@ -46,16 +46,20 @@ export default class RaceModel extends Observer {
   return this.#tryCount <= 0;
  }
 
+ async #moveCars() {
+  while (this.#tryCount--) {
+   await Promise.all(this.#cars.map((car) => car.move()));
+   this.notify();
+  }
+ }
+
  /**
   * @param {number} tryCount
   */
- async play(tryCount) {
+ play(tryCount) {
   this.#validateTryCount(tryCount);
-
   this.#tryCount = tryCount;
-  while (this.#tryCount--) {
-   this.notify();
-   await Promise.all(this.#cars.map((car) => car.move()));
-  }
+  this.notify();
+  this.#moveCars();
  }
 }
