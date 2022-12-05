@@ -37,16 +37,17 @@ Cypress.Commands.add("submitCarNames", (names) => {
   cy.get(".btn-name-submit").click();
 });
 
+Cypress.Commands.add("submitNumberOfAttempts", (number) => {
+  cy.get(".input-number-attempts").type(number);
+  cy.get(".btn-attempts-submit").click();
+});
+
 Cypress.Commands.add("disabledCarNamesAfterSubmit", (target) => {
   cy.get(target).should("be.disabled");
 });
 
 Cypress.Commands.add("containCarPlayer", (player) => {
   cy.get(".car-player").contains(player);
-});
-
-Cypress.Commands.add("submitNumberOfAttempts", (attempts) => {
-  cy.get(".number-of-attempts").type(attempts);
 });
 
 Cypress.Commands.add("alertMessage", (message) => {

@@ -25,11 +25,17 @@ describe("자동차 경주 게임", () => {
       cy.submitCarNames(INVALID_INPUT_CAR_NAMES);
       cy.alertMessage(ALERT_MESSAGE.INVALID_INPUT_CAR_NAMES);
     });
+
+    it("레이싱 시도횟수는 1이상이어야 한다.", () => {
+      cy.submitCarNames(INPUT_CAR_NAMES);
+      cy.submitNumberOfAttempts(-1);
+      cy.alertMessage(ALERT_MESSAGE.INVALID_INPUT_NUMBER_OF_ATTEMPTS);
+    });
   });
 
-  context("자동차 경주 게임 시작 후", () => {
-    it("주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.", () => {});
+  // context("자동차 경주 게임 시작 후", () => {
+  //   it("주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.", () => {});
 
-    it("전진하는 조건은 0에서 9 사이에서 random 값을 구한 후 random 값이 4 이상일 경우 전진하고, 3 이하의 값이면 멈춘다.", () => {});
-  });
+  //   it("전진하는 조건은 0에서 9 사이에서 random 값을 구한 후 random 값이 4 이상일 경우 전진하고, 3 이하의 값이면 멈춘다.", () => {});
+  // });
 });
