@@ -82,6 +82,7 @@ export const makeDataAttributeIdForm = (dataIdsObject) => {
 };
 
 export const deepDiffMapper = () => {
+  //*Reference: https://stackoverflow.com/questions/8572826/generic-deep-diff-between-two-objects
   let UPDATE_COUNT = 0;
   return {
     VALUE_CREATED: 'created',
@@ -138,16 +139,14 @@ export const deepDiffMapper = () => {
         return this.VALUE_UNCHANGED;
       }
       if (value1 === undefined) {
-        console.log('value1 === undefined');
         UPDATE_COUNT += 1;
         return this.VALUE_CREATED;
       }
       if (value2 === undefined) {
-        console.log('value2 === undefined');
         UPDATE_COUNT += 1;
         return this.VALUE_DELETED;
       }
-      console.log('update', value1, value2);
+
       UPDATE_COUNT += 1;
       return this.VALUE_UPDATED;
     },
@@ -168,20 +167,3 @@ export const deepDiffMapper = () => {
     },
   };
 };
-
-// export const isDiff = (currentObject, nextObject) => {
-//   let isSame = true;
-//   Object.entries(currentObject).forEach(([key, value]) => {
-//     if (typeof value === 'object') {
-//       return isDiff(currentObject[key], nextObject[key]);
-//     } else if (typeof value === 'array') {
-//       return isDiffInArr(currentObject[key], nextObject[key]);
-//     } else {
-//       if (currentObject[key] !== nextObject[key]) {
-//         isSame = false;
-//         return;
-//       }
-//     }
-//   });
-//   return isSame;
-// };

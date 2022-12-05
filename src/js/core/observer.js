@@ -1,12 +1,12 @@
-import { debounceFrame } from '../utils/index.js';
+import { debounceFrame, deepDiffMapper } from '../utils/index.js';
 
 const observer = (() => {
+  //*Reference: https://junilhwang.github.io/TIL/Javascript/Design/Vanilla-JS-Store/#_2-component%E1%84%85%E1%85%A9-%E1%84%8E%E1%85%AE%E1%84%89%E1%85%A1%E1%86%BC%E1%84%92%E1%85%AA%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5
   let currentObserver = null;
   const observableMap = new Map();
 
   const observe = (fn) => {
     currentObserver = debounceFrame(fn);
-    // currentObserver = fn;
     fn();
     currentObserver = null;
   };
@@ -26,7 +26,8 @@ const observer = (() => {
       },
       set(target, name, value) {
         if (target[name] === value) return true;
-        //*TODO: Depth가 깊은 State비교를 위해 Recursive diff function을 만들어서 활용할 필요가 있음
+        if (!deepDiffMapper().check(target[name], value).isDiff) return true;
+
         target[name] = value;
         observableMap.get(name).forEach((fn) => fn());
         return true;

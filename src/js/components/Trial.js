@@ -65,12 +65,7 @@ class Trial extends Component {
 
   async onSubmitTrials(event) {
     const { racingMap, trialNumber } = store.state;
-    console.log(
-      { trialNumber },
-      !trialNumber,
-      !Number.isInteger(trialNumber),
-      !Number.isSafeInteger(trialNumber)
-    );
+
     if (!Number.isInteger(trialNumber) || !trialNumber) return;
 
     store.setState({
