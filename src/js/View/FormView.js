@@ -15,15 +15,16 @@ export default class FormView extends View {
  setEvent() {
   this.addEvent('submit', 'form', async (e) => {
    e.preventDefault();
-   for (const el of e.target) {
-    if (this.#isTargetFieldset(NAME.CAR_NAME, el)) {
-     this.model.setCarNames(el.value.split(','));
+   for (const targetElement of e.target) {
+    if (this.#isTargetFieldset(NAME.CAR_NAME, targetElement)) {
+     const carNames = targetElement.value.split(',');
+     this.model.setCarNames(carNames);
      this.$carNameFieldset.disabled = true;
      this.$raceCountFieldset.classList.remove('hidden');
      return;
     }
-    if (this.#isTargetFieldset(NAME.RACING_COUNT, el)) {
-     await this.model.play(+el.value);
+    if (this.#isTargetFieldset(NAME.RACING_COUNT, targetElement)) {
+     await this.model.play(+targetElement.value);
      this.$raceCountFieldset.disabled = true;
     }
    }
