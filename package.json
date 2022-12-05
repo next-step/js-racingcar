@@ -1,0 +1,17 @@
+{
+  "name": "racingcar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --watch",
+    "test:e2e": "cypress open"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.2",
+    "@babel/preset-env": "^7.20.2",
+    "babel-jest": "^29.3.1",
+    "cypress": "^11.0.1",
+    "jest": "^29.3.1"
+  }
+}
