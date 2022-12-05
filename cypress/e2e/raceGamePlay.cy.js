@@ -17,10 +17,10 @@ describe('자동차 경주 게임울 시작한다.', () => {
    });
   });
  });
- it('자동차 경주 게임이 진행되는 동안, 로딩바가 보이고 게임이 끝나면 로딩바가 사라진다.', async () => {
-  await cy.wait(0);
-  await cy.get('.spinner').should('exist');
-  await cy.wait(COUNT * SEC);
-  await cy.get('.spinner').should('not.exist');
+ it('자동차 경주 게임이 진행되는 동안, 로딩바가 보이고 게임이 끝나면 로딩바가 사라진다.', () => {
+  cy.wait(0);
+  cy.get('.spinner').should('exist');
+  cy.wait(COUNT * SEC);
+  cy.get('.spinner').should('not.exist');
  });
 });
