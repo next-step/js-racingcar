@@ -4,7 +4,7 @@ const alertMessage = '유효하지 않은 이름 길이입니다. 자동차의 �
 
 describe('Car Name Input', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:5000')
+    cy.visit('http://localhost:5000');
   });
 
   it('5글자 이상의 이름들이 주어지면, alert을 띄운다.', () => {
