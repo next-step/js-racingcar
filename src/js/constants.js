@@ -5,12 +5,12 @@ export const NAME = {
 
 export const SELECTOR = {
   FIELDSET: {
-    CAR_NAME: `fieldset[name="${NAME.CAR_NAME}"]`,
-    RACING_COUNT: `fieldset[name="${NAME.RACING_COUNT}"]`,
+    CAR_NAME: `fieldset[name="${NAME.CAR_NAME}-fieldset"]`,
+    RACING_COUNT: `fieldset[name="${NAME.RACING_COUNT}-fieldset"]`,
   },
   INPUT: {
-    CAR_NAME: `input[name="${NAME.CAR_NAME}"]`,
-    RACING_COUNT: `input[name="${NAME.RACING_COUNT}"]`,
+    CAR_NAME: `input[name="${NAME.CAR_NAME}-input"]`,
+    RACING_COUNT: `input[name="${NAME.RACING_COUNT}-input"]`,
   },
   ID: {
     RACE_FORM: '#race-form',
