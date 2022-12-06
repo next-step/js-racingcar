@@ -17,7 +17,6 @@ class OneTrack {
     titleElement.textContent = title;
     this.titleElement = titleElement;
     rootElement.appendChild(this.titleElement);
-
     rootElement.appendChild(createSpinElement());
   }
 

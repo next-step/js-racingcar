@@ -23,11 +23,11 @@ class RaceTrackView extends View {
 
   readyRaceTrack = (carNames) => {
     const tracks = carNames.map((carName) => new OneTrack(carName));
-    this.rootElement.appendChild(tracks);
+    tracks.forEach((track) => this.rootElement.appendChild(track.rootElement));
     this.tracks = tracks;
   };
 
-  refreshTrack = (results) => {
+  continueRace = (results) => {
     results.forEach((isForward, i) => {
       if (isForward) {
         this.tracks[i].moveForward();
