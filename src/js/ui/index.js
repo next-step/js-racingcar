@@ -17,6 +17,5 @@ export function setListeners() {
   // STEP2. 자동차 시도 횟수 입력
   setClickListener(ELEMENT.BUTTON.ATTEMT_TIMES_CONFIRM, handleAttemptTimes);
   setInputEnterListener(ELEMENT.INPUT.ATTEMPT_TIMES, handleAttemptTimes);
-
   setClickListener(ELEMENT.BUTTON.RESTART, handlerResetGame);
 }
