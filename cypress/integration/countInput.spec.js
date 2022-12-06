@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('Car Name Input', () => {
+describe('Iteration Count Input', () => {
   beforeEach(() => {
     cy.visit('http://localhost:5000');
 
