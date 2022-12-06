@@ -1,4 +1,3 @@
-import { isValidNames, isValidTrialCount } from '../validate/validate.js';
 import racingManager from '../model/racingcar.js';
 
 import {
@@ -17,7 +16,7 @@ export const handleSubmitName = event => {
   const trimmedValue = racingManager.trimNames(nameInputValue);
   const names = racingManager.splitName(trimmedValue);
 
-  if (!isValidNames(names)) {
+  if (!racingManager.isValidNames(names)) {
     focusNameInput();
     return;
   }
@@ -31,7 +30,7 @@ export const handleSubmitTrialCount = event => {
   event.preventDefault();
   const trialCount = Number(event.target.elements['trial-count'].value);
 
-  if (!isValidTrialCount(trialCount)) {
+  if (!racingManager.isValidTrialCount(trialCount)) {
     focusTrialInput();
     return;
   }

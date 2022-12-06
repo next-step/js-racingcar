@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 import { $ } from '../utils/selector.js';
 
 export const showTrialForm = () => {
@@ -42,4 +43,14 @@ export const updateResult = gameResult => {
         )
         .join('')}
 		</div>`;
+};
+
+export const alertIfError = callback => {
+  return (...args) => {
+    try {
+      return callback(...args);
+    } catch (error) {
+      return alert(error.message);
+    }
+  };
 };
