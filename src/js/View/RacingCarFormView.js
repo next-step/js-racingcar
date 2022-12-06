@@ -1,7 +1,7 @@
 import { NAME, SELECTOR } from '../constants';
 import View from './View';
 
-export default class FormView extends View {
+export default class RacingCarFormView extends View {
   constructor(target, model) {
     super(target, model);
     this.$carNameFieldset = this.$target.querySelector(
