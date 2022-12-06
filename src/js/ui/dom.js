@@ -55,7 +55,7 @@ export const renderRace = () => {
   const template = `<section class="d-flex justify-center mt-5">
     <div class="mt-4 d-flex">${getCarName().map(
       (name) => `
-      <div class="mr-2">
+      <div class="mr-2 ${name}">
         ${createCarElement(name)}
       </div>
     `
@@ -63,4 +63,18 @@ export const renderRace = () => {
     </section>
   `;
   $(SELECTOR.RACE_PROCESS_COMPONENT).insertAdjacentHTML('afterbegin', template);
+};
+
+export const renderWinner = (winner) => {
+  const template = `
+  <section class="d-flex justify-center mt-5">
+    <div>
+      <h2>🏆 최종 우승자: ${winner.join(',')} 🏆</h2>
+      <div class="d-flex justify-center">
+        <button type="button" class="btn btn-cyan">다시 시작하기</button>
+      </div>
+    </div>
+  </section>`;
+
+  $(SELECTOR.RACE_RESULT_COMPONENT).insertAdjacentHTML('afterbegin', template);
 };

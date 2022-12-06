@@ -2,7 +2,7 @@ import { CAR_RACE } from '../constant.js';
 
 export class Car {
   #name = null;
-  step = 0;
+  #step = 0;
   constructor(name) {
     this.#name = name;
   }
@@ -11,9 +11,13 @@ export class Car {
     return this.#name;
   }
 
+  get step() {
+    return this.#step;
+  }
+
   forwardStep(condition) {
     if (condition >= CAR_RACE.FORWARD) {
-      this.step += 1;
+      this.#step += 1;
     }
   }
 }

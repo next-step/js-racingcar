@@ -1,8 +1,10 @@
 export const $ = (selector) => document.querySelector(selector);
 export const SELECTOR = {
+  CAR_NAME_FORM: '.name-form',
   CAR_NAME_INPUT: '.car-name',
   CAR_NAME_BUTTON: '.car-name-submit-btn',
 
+  TRIAL_NUMBER_FORM: '.times-form',
   TRIAL_NUMBER_INPUT: '.trial-number',
   TRIAL_NUMBER_BUTTON: '.trial-number-submit-btn',
 

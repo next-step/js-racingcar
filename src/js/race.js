@@ -1,14 +1,5 @@
 import { CAR_RACE } from './constant.js';
-import { Car } from './model/Car.js';
-import { getCarName, getTrialTimes, renderRace } from './ui/dom.js';
 import { getNumberList, shuffle } from './utils/util.js';
-
-export const readyRace = () => {
-  const cars = getCarName().map((name) => new Car(name));
-  const times = getTrialTimes();
-  renderRace();
-  return { cars, times };
-};
 
 export const startRace = (cars, times) => {
   return new Promise((resolve) => {
@@ -22,6 +13,13 @@ export const startRace = (cars, times) => {
         clearInterval(intervalId);
         resolve(cars);
       }
-    }, 1000);
+    }, CAR_RACE.INTERVAL);
   });
+};
+
+export const getWinner = (raceResult) => {
+  const maxStep = Math.max(...raceResult.map((car) => car.step));
+  return raceResult
+    .filter((car) => car.step === maxStep)
+    .map((car) => car.name);
 };

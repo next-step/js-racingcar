@@ -1,34 +1,46 @@
-import { isValidName, isValidNumber } from './utils/validator.js';
+import { Car } from './model/Car.js';
+import Cars from './model/Cars.js';
+import { getWinner, startRace } from './race.js';
 import {
   disableCarName,
   disableTrialNumber,
-  getCarName,
-  getTrialTimes,
   renderRace,
+  renderWinner,
   visibleRaceTimes,
 } from './ui/dom.js';
-import { readyRace, startRace } from './race.js';
-import { CAR_NAME, ERROR_MESSAGE } from './constant.js';
+import { showErrorMessage, validate } from './utils/util.js';
+import { nameValidations, trialTimesValidations } from './utils/validations.js';
 
-export const handleSubmitCarName = () => {
-  const isValidCarName = isValidName(getCarName(), CAR_NAME.MIN, CAR_NAME.MAX);
-  if (isValidCarName) {
+export const handleFormNameSubmit = (event) => {
+  const [nameInput] = event.target;
+  event.preventDefault();
+
+  try {
+    const names = nameInput.value.split(',').map((name) => name.trim());
+    validate(names, nameValidations);
+
+    Cars.cars = names.map((name) => new Car(name));
     visibleRaceTimes();
     disableCarName();
-  } else {
-    alert(ERROR_MESSAGE.INVALID_CAR_NAME_LENGTH);
+  } catch (error) {
+    showErrorMessage(error);
   }
 };
 
-export const handleSubmitTrialTimes = async () => {
-  const isValidTrialTimes = isValidNumber(getTrialTimes(), 1);
-  if (isValidTrialTimes) {
+export const handleFormTrialTimesForm = async (event) => {
+  const [trialTimesInput] = event.target;
+  event.preventDefault();
+
+  try {
+    const trialTimes = parseInt(trialTimesInput.value);
+    validate(trialTimes, trialTimesValidations);
+
     renderRace();
     disableTrialNumber();
 
-    const { cars, times } = readyRace();
-    const raceResult = await startRace(cars, times);
-  } else {
-    alert(ERROR_MESSAGE.INVALID_TRIAL_NUMBER);
+    const raceResult = await startRace(Cars.cars, trialTimes);
+    renderWinner(getWinner(raceResult));
+  } catch (error) {
+    showErrorMessage(error);
   }
 };
