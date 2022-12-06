@@ -1,8 +1,8 @@
-import { CAR_RACING } from './constant.js';
+import { ALERT_MESSAGE, CAR_RACING } from './constant.js';
 import { generateNumber } from '../util/validator.js';
 // eslint-disable-next-line no-unused-vars
 import { Car } from './Car.js';
-import { updateCarsRut } from '../ui/function.js';
+import { removeSpinners, updateCarsRut, updateWinners } from '../ui/function.js';
 
 /**
  *
@@ -12,20 +12,51 @@ import { updateCarsRut } from '../ui/function.js';
  */
 export const RacingGame = (carNames, attemptTimes) => {
   const cars = carNames.map((carName) => new Car(carName));
+  const someCarArrived = () => cars.some((car) => car.getMovedDistance() === times);
   const times = Number(attemptTimes);
   let winnerMovedDistance = 0;
-  return () => {
-    for (let i = 0; i < times; i++) {
-      cars.forEach((car) => {
-        const distance = generateNumber(CAR_RACING.RANDOM_VALUE.MIN, CAR_RACING.RANDOM_VALUE.MAX);
-        if (distance >= CAR_RACING.CAR.CONDITION.FORWARD) {
-          car.moveForward();
-        }
-      });
+  let current = 0;
+  let intervalId = 0;
+
+  const moveForwards = () => {
+    if (current > times || someCarArrived()) {
+      finalizeGame();
+      setTimeout(() => alert(ALERT_MESSAGE.GAME.FINALIZED), CAR_RACING.RACING_SPEED);
+      return;
     }
-    //TODO: 차 궤적 그리기는 추후 setTimeout 등 이벤트루프 개념과 연계된 코드 적용
+    cars.forEach((car) => {
+      const distance = generateNumber(CAR_RACING.RANDOM_VALUE.MIN, CAR_RACING.RANDOM_VALUE.MAX);
+      if (distance >= CAR_RACING.CAR.CONDITION.FORWARD) {
+        car.moveForward();
+      }
+    });
+    current += 1;
     updateCarsRut(cars);
+  };
+
+  /**
+   *
+   * @param {Car[]} wonCars
+   */
+  const setWinners = (wonCars) => {
+    updateWinners(wonCars);
+  };
+
+  const getWinners = () => {
     winnerMovedDistance = Math.max(...cars.map((car) => car.getMovedDistance()));
+    console.log(winnerMovedDistance);
     return cars.filter((car) => car.getMovedDistance() === winnerMovedDistance);
+  };
+
+  const finalizeGame = () => {
+    removeSpinners();
+    setWinners(getWinners());
+    clearInterval(intervalId);
+  };
+
+  return () => {
+    updateCarsRut(cars);
+    intervalId = setInterval(moveForwards, CAR_RACING.RACING_SPEED);
+    return getWinners;
   };
 };

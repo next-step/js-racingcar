@@ -19,8 +19,7 @@ export const handleAttemptTimes = () => {
     validateAttemptTimes();
     removeClass(selector(ELEMENT.SECTION.CAR_RACING), 'hidden');
     const game = RacingGame(getCarNamesFromInput(), getAttemtTimesInput());
-    const winners = game();
-    updateWinners(winners);
+    game();
     removeClass(selector(ELEMENT.SECTION.WINNER), 'hidden');
   } catch (error) {
     alert(error.message);
