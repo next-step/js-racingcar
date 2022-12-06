@@ -6,6 +6,6 @@ import FormView from './js/View/FormView';
 import ProcessView from './js/View/ProcessView';
 
 new App(RaceModel, [
- { view: FormView, target: $raceFormSection },
- { view: ProcessView, target: $raceProcessSection },
+  { view: FormView, target: $raceFormSection },
+  { view: ProcessView, target: $raceProcessSection },
 ]);

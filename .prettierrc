@@ -1,6 +1,6 @@
 {
-    "singleQuote": true,
-    "semi": true,
-    "useTabs": false,
-    "endOfLine": "auto"
+  "singleQuote": true,
+  "semi": true,
+  "useTabs": false,
+  "endOfLine": "auto"
 }

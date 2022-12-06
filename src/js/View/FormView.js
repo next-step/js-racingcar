@@ -2,45 +2,45 @@ import { NAME, SELECTOR } from '../constants';
 import View from './View';
 
 export default class FormView extends View {
- constructor(target, model) {
-  super(target, model);
-  this.$carNameFieldset = this.$target.querySelector(
-   SELECTOR.FIELDSET.CAR_NAME
-  );
-  this.$raceCountFieldset = this.$target.querySelector(
-   SELECTOR.FIELDSET.RACING_COUNT
-  );
- }
+  constructor(target, model) {
+    super(target, model);
+    this.$carNameFieldset = this.$target.querySelector(
+      SELECTOR.FIELDSET.CAR_NAME
+    );
+    this.$raceCountFieldset = this.$target.querySelector(
+      SELECTOR.FIELDSET.RACING_COUNT
+    );
+  }
 
- setEvent() {
-  this.addEvent('submit', 'form', async (e) => {
-   e.preventDefault();
-   for (const targetElement of e.target) {
-    if (this.#isTargetFieldset(NAME.CAR_NAME, targetElement)) {
-     const carNames = targetElement.value.split(',');
-     this.model.setCarNames(carNames);
-     this.$carNameFieldset.disabled = true;
-     this.$raceCountFieldset.classList.remove('hidden');
-     return;
-    }
-    if (this.#isTargetFieldset(NAME.RACING_COUNT, targetElement)) {
-     await this.model.play(+targetElement.value);
-     this.$raceCountFieldset.disabled = true;
-    }
-   }
-  });
- }
+  setEvent() {
+    this.addEvent('submit', 'form', async (e) => {
+      e.preventDefault();
+      for (const targetElement of e.target) {
+        if (this.#isTargetFieldset(NAME.CAR_NAME, targetElement)) {
+          const carNames = targetElement.value.split(',');
+          this.model.setCarNames(carNames);
+          this.$carNameFieldset.disabled = true;
+          this.$raceCountFieldset.classList.remove('hidden');
+          return;
+        }
+        if (this.#isTargetFieldset(NAME.RACING_COUNT, targetElement)) {
+          await this.model.play(+targetElement.value);
+          this.$raceCountFieldset.disabled = true;
+        }
+      }
+    });
+  }
 
- #isTargetFieldset(targetName, target) {
-  return (
-   !target.closest('fieldset').disabled &&
-   target.value !== undefined &&
-   target.name === targetName
-  );
- }
+  #isTargetFieldset(targetName, target) {
+    return (
+      !target.closest('fieldset').disabled &&
+      target.value !== undefined &&
+      target.name === targetName
+    );
+  }
 
- getTemplate() {
-  return String.raw` <form>
+  getTemplate() {
+    return String.raw` <form>
     <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
     <fieldset name="car-name">
       <legend>
@@ -60,5 +60,5 @@ export default class FormView extends View {
       </div>
     </fieldset>
   </form>`;
- }
+  }
 }
