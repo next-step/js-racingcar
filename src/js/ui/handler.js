@@ -1,7 +1,7 @@
 import { RacingGame } from '../service/RacingGame.js';
 import { ELEMENT } from './element.js';
 import { selector } from './selector.js';
-import { removeClass, updateWinners } from './function.js';
+import { removeClass } from './function.js';
 import { getAttemtTimesInput, getCarNamesFromInput, validateAttemptTimes, validateCarNames } from './validator.js';
 
 export const handleCarNames = () => {

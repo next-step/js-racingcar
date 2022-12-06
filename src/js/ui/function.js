@@ -82,7 +82,7 @@ export const getCarRuts = (car) => {
       .join('');
   };
   return `
-  <div class="mr-2">
+  <div class="mr-2" data-car-name=${car.getName()}>
     ${carNameDiv}
     ${getCarRutDiv(car.getMovedDistance())}
     ${SPINNER}
