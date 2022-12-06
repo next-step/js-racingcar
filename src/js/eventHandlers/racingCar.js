@@ -10,7 +10,7 @@ import {
   showCarAttemptsCountForm,
 } from '../view/racingCar.js';
 import { validateCarAttemptsCount, validateCarName } from '../utils/validator.js';
-import { gameStart, getWinners } from '../service/racingCar.js';
+import { gameStart, getRecord, getWinners } from '../service/racingCar.js';
 
 export const handleCarNameSubmit = (e) => {
   e.preventDefault();
@@ -45,6 +45,7 @@ export const handleCarAttemptsCountSubmit = async (e) => {
     renderCarRoad(racingCarGameModel.cars);
 
     await gameStart();
+    racingCarGameModel.record = getRecord(racingCarGameModel.cars);
     window.record = racingCarGameModel.record;
 
     racingCarGameModel.winners = getWinners(racingCarGameModel.record);
