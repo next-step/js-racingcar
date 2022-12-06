@@ -1,1 +1,3 @@
-console.log('code here');
+import { initCarNameFormView } from './views/carNameForm.js';
+
+initCarNameFormView();
