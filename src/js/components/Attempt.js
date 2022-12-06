@@ -1,12 +1,13 @@
 import { EVENT_MAP } from '../constants.js';
 import Component from '../core/Component.js';
-import { store } from '../store/index.js';
+import store from '../core/Store.js';
 import {
   makeDefaultRacingMap,
   splitingCarNames,
   validateCarNames,
 } from '../utils/index.js';
 import Trial from './Trial.js';
+console.log(store);
 
 class Attempt extends Component {
   constructor({ $target, props = {} }) {
@@ -34,7 +35,7 @@ class Attempt extends Component {
   }
 
   onSubmitCarname(event) {
-    const { carNames } = store.state;
+    const carNames = store.getState({ name: 'carNames', that: this });
     const splitedCarNames = splitingCarNames(carNames);
 
     event.preventDefault();
@@ -56,8 +57,12 @@ class Attempt extends Component {
   }
 
   render() {
+    console.log('rerender');
     const { $target } = this;
-    const { isVisibleTrial, carNames } = store.state;
+    const { getState } = store;
+    const isVisibleTrial = getState({ name: 'isVisibleTrial', that: this });
+    const carNames = getState({ name: 'carNames', that: this });
+    console.log({ carNames });
     const $trialWrapper = $target.querySelector('.trial-count-wrapper');
     const $carNameInput = $target.querySelector('[data-id=car-name-input]');
     const $carSubmitButton = $target.querySelector('[data-id=submit-carname]');
