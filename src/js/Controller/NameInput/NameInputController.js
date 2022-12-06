@@ -1,8 +1,9 @@
 // 컨트롤러는 앱의 사용자로부터의 입력에 대한 응답으로 모델 및 뷰를 업데이트하는 로직을 포함합니다.
 // 따라서 instance로 존재할 필요는 없다고 판단했습니다.
 
-import { carNameInputSetView } from '../Views/CarNameInputView.js';
-import { countInputSetView } from '../Views/CountInputView.js';
+import { dispatch } from '../../Model/global.js';
+import { carNameInputSetView } from '../../Views/CarNameInputView.js';
+import { countInputSetView } from '../../Views/CountInputView.js';
 
 carNameInputSetView.onClick({
   onClickButton: ({ inputElement }) => {
@@ -14,6 +15,7 @@ carNameInputSetView.onClick({
       return;
     }
 
+    dispatch('addCarNames', inputValues);
     carNameInputSetView.disable();
     countInputSetView.show();
   },
