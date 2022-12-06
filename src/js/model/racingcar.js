@@ -1,6 +1,6 @@
 import { getRandomNumber } from '../utils/random.js';
 import { NAME_LENGTH_MIN, NAME_LENGTH_MAX } from '../constant/racingcar.js';
-import { catchMessage } from '../validate/validate.js';
+import { catchMessage, getType } from '../validate/validate.js';
 import ERROR_MESSAGES from '../constant/errorMessages.js';
 
 const racingManager = {
@@ -38,11 +38,13 @@ const racingManager = {
   isValidNames: catchMessage(inputNames => {
     if (!racingManager.isInRange(inputNames)) throw new Error(ERROR_MESSAGES.NAME_OUT_OF_RANGE);
     if (!racingManager.isUnique(inputNames)) throw new Error(ERROR_MESSAGES.DUPLICATED_NAME);
+    if (getType(inputNames) !== 'Array') throw new Error(ERROR_MESSAGES.INVALID_TYPE);
     return true;
   }),
 
   isValidTrialCount: catchMessage(trialCount => {
     if (trialCount < 1) throw new Error(ERROR_MESSAGES.INVALID_TRIAL_COUNT);
+    if (getType(trialCount) !== 'Number') throw new Error(ERROR_MESSAGES.INVALID_TYPE);
     return true;
   }),
 
