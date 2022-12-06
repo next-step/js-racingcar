@@ -22,7 +22,7 @@
               placeholder="자동차 이름"
               data-cy="car-name-input"
             />
-            <button type="submit" class="btn btn-cyan js-car-name-button">확인</button>
+            <button type="submit" class="btn btn-cyan js-car-name-button" data-cy="car-name-button">확인</button>
           </div>
         </form>
 
@@ -35,18 +35,22 @@
               placeholder="시도 횟수"
               data-cy="car-attempts-count-input"
             />
-            <button type="submit" class="btn btn-cyan js-car-attempts-count-button">확인</button>
+            <button type="submit" class="btn btn-cyan js-car-attempts-count-button" data-cy="car-attempts-count-button">
+              확인
+            </button>
           </div>
         </form>
       </section>
       <section class="d-none justify-center mt-5 js-car-road" data-cy="car-road">
         <div class="mt-4 d-flex js-car-road-wrapper"></div>
       </section>
-      <section class="d-none justify-center mt-5 js-car-winners-container">
+      <section class="d-none justify-center mt-5 js-car-winners-container" data-cy="car-winners-container">
         <div>
           <h2>🏆 최종 우승자: <span class="js-car-winners-name" data-cy="car-winners-name"></span> 🏆</h2>
           <div class="d-flex justify-center">
-            <button type="button" class="btn btn-cyan">다시 시작하기</button>
+            <button type="button" class="btn btn-cyan js-car-game-restart-button" data-cy="car-game-restart-button">
+              다시 시작하기
+            </button>
           </div>
         </div>
       </section>

@@ -1,3 +1,4 @@
+// /view/racingCar.js
 import { $, $all } from '../utils/dom.js';
 import { SELECTOR } from '../constants/selector.js';
 
@@ -29,6 +30,11 @@ export const disableCarNameForm = () => {
   $(SELECTOR.CAR_NAME_BUTTON).disabled = true;
 };
 
+export const ableCarNameForm = () => {
+  $(SELECTOR.CAR_NAME_INPUT).disabled = false;
+  $(SELECTOR.CAR_NAME_BUTTON).disabled = false;
+};
+
 export const getCarAttemptsCount = () => {
   return Number($(SELECTOR.CAR_ATTEMPTS_COUNT_INPUT).value);
 };
@@ -41,9 +47,18 @@ export const showCarAttemptsCountForm = () => {
   $(SELECTOR.CAR_ATTEMPTS_COUNT_FORM).classList.remove('d-none');
 };
 
+export const hideCarAttemptsCountForm = () => {
+  $(SELECTOR.CAR_ATTEMPTS_COUNT_FORM).classList.add('d-none');
+};
+
 export const disableCarAttemptsCountForm = () => {
   $(SELECTOR.CAR_ATTEMPTS_COUNT_INPUT).disabled = true;
   $(SELECTOR.CAR_ATTEMPTS_COUNT_BUTTON).disabled = true;
+};
+
+export const ableCarAttemptsCountForm = () => {
+  $(SELECTOR.CAR_ATTEMPTS_COUNT_INPUT).disabled = false;
+  $(SELECTOR.CAR_ATTEMPTS_COUNT_BUTTON).disabled = false;
 };
 
 export const showLoadingSpinner = () => {
@@ -63,14 +78,29 @@ const showCarRoad = () => {
   $(SELECTOR.CAR_ROAD).classList.add('d-flex');
 };
 
+const hideCarRoad = () => {
+  $(SELECTOR.CAR_ROAD).classList.remove('d-flex');
+  $(SELECTOR.CAR_ROAD).classList.add('d-none');
+};
+
 const showWinnersWrapper = () => {
   $(SELECTOR.CAR_WINNERS_CONTAINER).classList.remove('d-none');
   $(SELECTOR.CAR_WINNERS_CONTAINER).classList.add('d-flex');
 };
 
+const hideWinnersWrapper = () => {
+  $(SELECTOR.CAR_WINNERS_CONTAINER).classList.remove('d-flex');
+  $(SELECTOR.CAR_WINNERS_CONTAINER).classList.add('d-none');
+};
+
 export const renderCarRoad = (cars) => {
   showCarRoad();
   $(SELECTOR.CAR_ROAD_WRAPPER).insertAdjacentHTML('beforeend', cars.map((car) => makeCarTemplate(car.name)).join(''));
+};
+
+export const resetCarRoad = () => {
+  hideCarRoad();
+  $(SELECTOR.CAR_ROAD_WRAPPER).innerHTML = '';
 };
 
 export const renderCarStatus = (moveForwardCount) => {
@@ -88,4 +118,23 @@ export const renderCarStatus = (moveForwardCount) => {
 export const renderWinners = (winners) => {
   showWinnersWrapper();
   $(SELECTOR.CAR_WINNERS_NAME).textContent = winners;
+};
+
+const resetCarNameForm = () => {
+  ableCarNameForm();
+  $(SELECTOR.CAR_NAME_FORM).reset();
+};
+
+const resetCarAttemptsCountForm = () => {
+  hideCarAttemptsCountForm();
+  ableCarAttemptsCountForm();
+  $(SELECTOR.CAR_ATTEMPTS_COUNT_FORM).reset();
+};
+
+export const resetRacingCarView = () => {
+  hideWinnersWrapper();
+
+  resetCarRoad();
+  resetCarNameForm();
+  resetCarAttemptsCountForm();
 };

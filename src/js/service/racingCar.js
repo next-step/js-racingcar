@@ -1,7 +1,7 @@
 import racingCarGameModel from '../model/RacingCarGameModel.js';
 import { RACING_CAR } from '../constants/racingCar.js';
 import { generateRandomNumber } from '../utils/index.js';
-import { hideLoadingSpinner, showLoadingSpinner, renderCarStatus } from '../view/racingCar.js';
+import { hideLoadingSpinner, showLoadingSpinner, renderCarStatus, resetRacingCarView } from '../view/racingCar.js';
 import { isMoveForwardNumber } from '../utils/validator.js';
 
 export const getMoveForwardCount = (arr) => {
@@ -60,4 +60,16 @@ export const gameStart = () => {
       }
     }, RACING_CAR.MOVE_FORWARD_WAITING_TIME);
   });
+};
+
+const resetRacingCarGameModel = () => {
+  racingCarGameModel.cars = [];
+  racingCarGameModel.attemptsCount = RACING_CAR.MIN_ATTEMPTS_COUNT;
+  racingCarGameModel.record = {};
+  racingCarGameModel.winners = [];
+};
+
+export const restart = () => {
+  resetRacingCarGameModel();
+  resetRacingCarView();
 };
