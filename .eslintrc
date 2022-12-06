@@ -8,7 +8,7 @@
   "extends": ["eslint:recommended", "prettier", "plugin:cypress/recommended"],
   "plugins": ["cypress"],
   "parserOptions": {
-    "ecmaVersion": 12,
+    "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "rules": {}
