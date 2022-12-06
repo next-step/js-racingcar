@@ -44,7 +44,6 @@ export const RacingGame = (carNames, attemptTimes) => {
 
   const getWinners = () => {
     winnerMovedDistance = Math.max(...cars.map((car) => car.getMovedDistance()));
-    console.log(winnerMovedDistance);
     return cars.filter((car) => car.getMovedDistance() === winnerMovedDistance);
   };
 
@@ -57,6 +56,5 @@ export const RacingGame = (carNames, attemptTimes) => {
   return () => {
     updateCarsRut(cars);
     intervalId = setInterval(moveForwards, CAR_RACING.RACING_SPEED);
-    return getWinners;
   };
 };

@@ -1,11 +1,16 @@
 /* eslint-disable no-undef */
 
-import { ALERT_MESSAGE } from '../../src/js/service/constant';
+import { ALERT_MESSAGE, CAR_RACING } from '../../src/js/service/constant';
 import { ELEMENT } from '../../src/js/ui/element';
 
 describe('자동차 경주 게임 요구사항을 점검한다', () => {
   const URL = '../../index.html';
   const STRING_CAR_NAMES = '갑,을,병,정,무,기,경,신,임,계';
+  const STRING_CAR_NAMES_ARRAY = STRING_CAR_NAMES.split(',');
+
+  const sleep = (milliseconds) => {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  };
 
   beforeEach(() => {
     cy.visit(URL);
@@ -71,10 +76,41 @@ describe('자동차 경주 게임 요구사항을 점검한다', () => {
     });
   });
 
-  describe('3단계: 경주를 시작한다', () => {
-    it('경주 종료 후 화살표의 개수는 "시도횟수-1개"이다', () => {
-      expect(false).to.be.true;
+  describe.only('3단계: 경주를 시작한다', () => {
+    const ATTEMPT_TIMES = 5;
+    const TIMEOUT = CAR_RACING.RACING_SPEED * (ATTEMPT_TIMES + 1);
+
+    beforeEach(() => {
+      cy.get(ELEMENT.INPUT.CAR_NAMES).type(STRING_CAR_NAMES).type('{enter}');
+      cy.get(ELEMENT.INPUT.ATTEMPT_TIMES).type(ATTEMPT_TIMES).type('{enter}');
     });
-    // TODO: 2단계와 3단계 요구사항은 STEP2 이후에 입력
+
+    /**
+     *
+     * @param {function} callback
+     */
+    const lazyStart = (callback) => {
+      cy.then({ timeout: TIMEOUT }, async () => {
+        await sleep(TIMEOUT);
+        callback();
+      });
+    };
+
+    it('경주 종료 후 화살표의 개수 최대치는 "시도횟수"만큼이다', () => {
+      lazyStart(() => {
+        STRING_CAR_NAMES_ARRAY.forEach((carName) => {
+          cy.get(`[data-car-name="${carName}"] .forward-icon`).should('have.length.lessThan', ATTEMPT_TIMES + 1);
+        });
+      });
+    });
+
+    it('다시 시작하기 버튼을 누르면 게임을 초기화하고 자동차 이름을 입력하는 화면으로 돌아간다', () => {
+      lazyStart(() => {
+        cy.get(ELEMENT.BUTTON.RESTART).click();
+        cy.get(ELEMENT.FIELD.ATTEMPT_TIMES).should('not.be.visible');
+        cy.get(ELEMENT.SECTION.CAR_RACING).should('not.be.visible');
+        cy.get(ELEMENT.SECTION.WINNER).should('not.be.visible');
+      });
+    });
   });
 });

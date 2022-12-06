@@ -1,7 +1,7 @@
 import { RacingGame } from '../service/RacingGame.js';
 import { ELEMENT } from './element.js';
 import { selector } from './selector.js';
-import { removeClass } from './function.js';
+import { addClass, removeClass } from './function.js';
 import { getAttemtTimesInput, getCarNamesFromInput, validateAttemptTimes, validateCarNames } from './validator.js';
 
 export const handleCarNames = () => {
@@ -24,5 +24,17 @@ export const handleAttemptTimes = () => {
   } catch (error) {
     alert(error.message);
     console.error(error);
+  }
+};
+
+export const handlerResetGame = () => {
+  try {
+    selector(ELEMENT.INPUT.CAR_NAMES).value = '';
+    selector(ELEMENT.INPUT.ATTEMPT_TIMES).value = '';
+    addClass(selector(ELEMENT.FIELD.ATTEMPT_TIMES), 'hidden');
+    addClass(selector(ELEMENT.SECTION.CAR_RACING), 'hidden');
+    addClass(selector(ELEMENT.SECTION.WINNER), 'hidden');
+  } catch (error) {
+    alert(error.message);
   }
 };
