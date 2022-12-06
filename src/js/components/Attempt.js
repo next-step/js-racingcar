@@ -57,12 +57,10 @@ class Attempt extends Component {
   }
 
   render() {
-    console.log('rerender');
     const { $target } = this;
     const { getState } = store;
     const isVisibleTrial = getState({ name: 'isVisibleTrial', that: this });
     const carNames = getState({ name: 'carNames', that: this });
-    console.log({ carNames });
     const $trialWrapper = $target.querySelector('.trial-count-wrapper');
     const $carNameInput = $target.querySelector('[data-id=car-name-input]');
     const $carSubmitButton = $target.querySelector('[data-id=submit-carname]');

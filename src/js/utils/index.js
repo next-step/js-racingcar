@@ -167,3 +167,12 @@ export const deepDiffMapper = () => {
     },
   };
 };
+
+export const makeDefaultStateInForm = (defaultState) => {
+  const object = {};
+  for (const [key, value] of Object.entries(defaultState)) {
+    object[key] = { value, enrollComponents: [] };
+  }
+
+  return object;
+};

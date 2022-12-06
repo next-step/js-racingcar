@@ -1,13 +1,18 @@
 import Component from '../core/Component.js';
-import { store } from '../store/index.js';
+import store from '../core/Store.js';
 
 class Result extends Component {
   render() {
-    if (store.state.isVisibleResult) {
+    const isVisibleResult = store.getState({
+      name: 'isVisibleResult',
+      that: this,
+    });
+
+    if (isVisibleResult) {
       this.$target.innerHTML = this.template();
     }
 
-    if (!store.state.isVisibleResult && this.$target.innerHTML.length) {
+    if (!isVisibleResult && this.$target.innerHTML.length) {
       this.$target.innerHTML = '';
     }
   }

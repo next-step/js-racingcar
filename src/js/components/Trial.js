@@ -1,6 +1,6 @@
 import { EVENT_MAP } from '../constants.js';
 import Component from '../core/Component.js';
-import { store } from '../store/index.js';
+import store from '../core/Store.js';
 import {
   getRacingWinner,
   makeNewRacingMap,
@@ -14,7 +14,12 @@ class Trial extends Component {
   render() {
     const $moveInput = this.$target.querySelector('[data-id=move-input]');
     const $moveButton = this.$target.querySelector('[data-id=move-submit]');
-    const { trialNumber, isVisibleProgress } = store.state;
+    const trialNumber = store.getState({ name: 'trialNumber', that: this });
+    const isVisibleProgress = store.getState({
+      name: 'isVisibleProgress',
+      that: this,
+    });
+
     const isDisbledButton = isVisibleProgress || !trialNumber;
     const isDisabledInput = isVisibleProgress;
 
@@ -40,8 +45,20 @@ class Trial extends Component {
   }
 
   async componentUpdated() {
-    const { racingMap, trialNumber, isVisibleProgress, isRacingEnd } =
-      store.state;
+    const racingMap = store.getState({ name: 'racingMap', that: this });
+    const trialNumber = store.getState({
+      name: 'trialNumber',
+      that: this,
+    });
+    const isVisibleProgress = store.getState({
+      name: 'isVisibleProgress',
+      that: this,
+    });
+    const isRacingEnd = store.getState({
+      name: 'isRacingEnd',
+      that: this,
+    });
+
     const winner = getRacingWinner({ racingMap, trialNumber });
 
     if (isRacingEnd) {
@@ -64,7 +81,11 @@ class Trial extends Component {
   }
 
   async onSubmitTrials(event) {
-    const { racingMap, trialNumber } = store.state;
+    const racingMap = store.getState({ name: 'racingMap', that: this });
+    const trialNumber = store.getState({
+      name: 'trialNumber',
+      that: this,
+    });
 
     if (!Number.isInteger(trialNumber) || !trialNumber) return;
 

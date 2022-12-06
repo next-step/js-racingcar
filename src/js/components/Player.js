@@ -1,5 +1,5 @@
 import Component from '../core/Component.js';
-import { store } from '../store/index.js';
+import store from '../core/Store.js';
 
 class Player extends Component {
   constructor({ $target, props = {} }) {
@@ -17,7 +17,9 @@ class Player extends Component {
   }
 
   render() {
-    const { racingMap, isRacingEnd } = store.state;
+    const racingMap = store.getState({ name: 'racingMap', that: this });
+    const isRacingEnd = store.getState({ name: 'isRacingEnd', that: this });
+
     this.wrapper.innerHTML = /*html*/ `
       <div class="mr-2 progress-block-${this.props.carId}">
         <div class="car-player">${this.props.carName}</div>

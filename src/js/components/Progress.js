@@ -1,5 +1,5 @@
 import Component from '../core/Component.js';
-import { store } from '../store/index.js';
+import store from '../core/Store.js';
 import { splitingCarNames } from '../utils/index.js';
 import Player from './Player.js';
 class Progress extends Component {
@@ -8,9 +8,18 @@ class Progress extends Component {
   }
 
   render() {
-    if (!store.state.isVisibleProgress) return;
+    const isVisibleProgress = store.getState({
+      name: 'isVisibleProgress',
+      that: this,
+    });
 
-    splitingCarNames(store.state.carNames)
+    const carNames = store.getState({
+      name: 'carNames',
+      that: this,
+    });
+    if (!isVisibleProgress) return;
+
+    splitingCarNames(carNames)
       .map((carName, idx) => {
         const carId = `${carName}-${idx}`;
 

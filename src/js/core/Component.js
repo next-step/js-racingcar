@@ -1,5 +1,3 @@
-import observer from '../core/observer.js';
-
 export default class Component {
   constructor({ $target, props = {} }) {
     this.$target = $target;
@@ -15,11 +13,8 @@ export default class Component {
   }
 
   setup() {
-    observer.observe(() => {
-      //*TODO: Component를 확장한 클래스 중 store의 state를 변경한 곳만 리렌더를 발생시켜야함.
-      this.render();
-      this.addEventListener();
-    });
+    this.render();
+    this.addEventListener();
   }
 
   mounted() {
