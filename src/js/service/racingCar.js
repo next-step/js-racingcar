@@ -12,6 +12,16 @@ export const getMoveForwardCount = (arr) => {
   }, 0);
 };
 
+export const getRecord = (cars) => {
+  const record = {};
+
+  cars.forEach((car) => {
+    record[car.name] = car.moveForwardCount;
+  });
+
+  return record;
+};
+
 export const getWinners = (record) => {
   const winningCount = Math.max(...Object.values(record));
 
@@ -33,10 +43,10 @@ export const gameStart = () => {
       const tempMoveForwardCount = {};
 
       racingCarGameModel.cars.forEach((car) => {
-        // eslint-disable-next-line no-param-reassign
         if (isMoveForward()) {
+          // eslint-disable-next-line no-param-reassign
+          ++car.moveForwardCount;
           tempMoveForwardCount[car.name] = 1;
-          racingCarGameModel.record[car.name] += 1;
         }
       });
       renderCarStatus(tempMoveForwardCount);
