@@ -1,5 +1,5 @@
 import { DEFAULT_STORE_STATE } from '../constants.js';
-import { makeDefaultStateInForm } from '../utils/index.js';
+import { makeEnrollComponents } from '../utils/index.js';
 /*
 1. state를 전역의 객체로 가지고 있을 것이다.
 2. getState, setState를 통해 해당 객체에 저장된 값을 업데이트 할 생각이다.
@@ -11,7 +11,8 @@ observer한 개념이나 내장된 함수 또는 자료형을 활용한 개발�
 
 class Store {
   constructor() {
-    this.state = makeDefaultStateInForm(DEFAULT_STORE_STATE);
+    this.state = { ...DEFAULT_STORE_STATE };
+    this.enrollComponents = makeEnrollComponents(DEFAULT_STORE_STATE);
   }
 
   isExist = (name) => {
@@ -20,7 +21,7 @@ class Store {
   };
 
   updateEnrollComponents = (name, that) => {
-    const { enrollComponents } = this.state[name];
+    const enrollComponents = this.enrollComponents[name];
 
     if (!enrollComponents.includes(that)) {
       enrollComponents.push(that);
@@ -29,25 +30,25 @@ class Store {
 
   getState = ({ name, that }) => {
     this.isExist(name);
-
     this.updateEnrollComponents(name, that);
 
-    return this.state[name].value;
+    return this.state[name];
   };
 
   setState = (nextState) => {
     const componentsSet = new Set();
 
-    for (const [name, value] of Object.entries(nextState)) {
+    for (const name of Object.keys(nextState)) {
       this.isExist(name);
       //update value
-      this.state[name] = { ...this.state[name], value };
+      this.state = { ...this.state, ...nextState };
 
       //make rerender set
-      this.state[name].enrollComponents.forEach((that) => {
+      this.enrollComponents[name].forEach((that) => {
         if (!that.render) {
           throw new Error('적합하지 않은 컴포넌트 형태입니다.');
         }
+
         componentsSet.add(that);
       });
     }
