@@ -21,10 +21,7 @@ export const getWinners = (record) => {
 export const isMoveForward = () => {
   const randomValue = generateRandomNumber(RACING_CAR.MIN_MOVE_FORWARD_NUMBER, RACING_CAR.MAX_MOVE_FORWARD_NUMBER);
 
-  if (isMoveForwardNumber(randomValue)) {
-    return true;
-  }
-  return false;
+  return isMoveForwardNumber(randomValue);
 };
 
 export const gameStart = () => {
