@@ -1,4 +1,5 @@
 import { ERROR_MESSAGE } from '../../src/js/constants/errorMessage.js';
+import { RACING_CAR } from '../../src/js/constants/racingCar.js';
 import { SELECTOR } from '../constants/selector.js';
 
 beforeEach(() => {
@@ -111,6 +112,40 @@ describe('자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5
         cy.window().then((win) => {
           cy.getByDataset(SELECTOR.CAR_WINNERS_NAME).should('have.text', win.winners);
         });
+      });
+    });
+  });
+
+  describe('정상적으로 게임의 턴이 다 동작된 후에는 결과를 보여준다.', () => {
+    context('게임의 턴이 다 동작하면', () => {
+      it('결과를 보여준다.', () => {
+        cy.startRacingGame('car1, car2, car3', 3);
+        cy.wait(RACING_CAR.MOVE_FORWARD_WAITING_TIME * 3);
+
+        cy.getByDataset(SELECTOR.CAR_WINNERS_CONTAINER).should('have.class', 'd-flex');
+      });
+
+      it('2초 뒤에 축하의 alert 메시지를 띄운다.', () => {
+        const alertStub = cy.stub();
+        cy.on('window:alert', alertStub);
+        cy.startRacingGame('car1, car2, car3', 3);
+
+        cy.wait(RACING_CAR.MOVE_FORWARD_WAITING_TIME * 3 + 2_000).then(() => {
+          expect(alertStub.getCall(0)).to.be.calledWith(RACING_CAR.ENDING_MESSAGE);
+        });
+      });
+
+      it('다시 시작하기 버튼을 클릭하면 첫 화면으로 돌아간다', () => {
+        cy.startRacingGame('car1, car2, car3', 3);
+        cy.wait(RACING_CAR.MOVE_FORWARD_WAITING_TIME * 3);
+        cy.getByDataset(SELECTOR.CAR_GAME_RESTART_BUTTON).click();
+
+        cy.getByDataset(SELECTOR.CAR_ROAD).should('have.class', 'd-none');
+        cy.getByDataset(SELECTOR.CAR_NAME_INPUT).should('not.be.disabled');
+        cy.getByDataset(SELECTOR.CAR_NAME_BUTTON).should('not.be.disabled');
+        cy.getByDataset(SELECTOR.CAR_ATTEMPTS_COUNT_FORM).should('have.class', 'd-none');
+        cy.getByDataset(SELECTOR.CAR_ATTEMPTS_COUNT_INPUT).should('not.be.disabled');
+        cy.getByDataset(SELECTOR.CAR_ATTEMPTS_COUNT_BUTTON).should('not.be.disabled');
       });
     });
   });
