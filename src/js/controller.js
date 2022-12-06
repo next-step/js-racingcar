@@ -56,5 +56,5 @@ export const progressRacingCar = (racingCar, count = 1) => {
     if (isFinishRacing) {
       clearInterval(intervalId);
     }
-  }, 5000);
+  }, 1000);
 };
