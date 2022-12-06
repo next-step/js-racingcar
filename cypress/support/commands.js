@@ -55,3 +55,7 @@ Cypress.Commands.add("alertMessage", (message) => {
     expect(text).to.contain(message);
   });
 });
+
+Cypress.Commands.add("renderCarPlayer", (section, player) => {
+  cy.get(section).find(player).should("have.length", 4);
+});

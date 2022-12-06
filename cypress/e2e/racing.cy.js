@@ -33,9 +33,26 @@ describe("자동차 경주 게임", () => {
     });
   });
 
-  // context("자동차 경주 게임 시작 후", () => {
-  //   it("주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.", () => {});
+  context("자동차 경주 게임 시작 후", () => {
+    it("시도횟수를 입력하고 확인을 누른 뒤 자동차 이름이 화면에 표시된다", () => {
+      cy.submitCarNames(INPUT_CAR_NAMES);
+      cy.submitNumberOfAttempts(2);
+      cy.isVisible(".car-player");
+      cy.renderCarPlayer(".section-car-render", ".car-player");
+    });
 
-  //   it("전진하는 조건은 0에서 9 사이에서 random 값을 구한 후 random 값이 4 이상일 경우 전진하고, 3 이하의 값이면 멈춘다.", () => {});
-  // });
+    it("멈춘차량은 스피너가 표시된다.", () => {
+      cy.submitCarNames(INPUT_CAR_NAMES);
+      cy.submitNumberOfAttempts(2);
+
+      cy.isVisible(".forward-icon");
+    });
+
+    it("전진하는 차량은 화살표가 표시된다.", () => {
+      cy.submitCarNames(INPUT_CAR_NAMES);
+      cy.submitNumberOfAttempts(2);
+
+      cy.isVisible(".spinner-wrapper");
+    });
+  });
 });
