@@ -9,8 +9,9 @@ export default class RaceModel extends Observer {
     super();
     this.#cars = [];
     this.#minTryCount = 1;
-    this.#tryCount = 0;
+    this.#tryCount = null;
   }
+
   /**
    * 참가하는 차들의 이름을 추가합니다.
    * @param {string[]} cars
@@ -46,7 +47,7 @@ export default class RaceModel extends Observer {
    * @returns {boolean}
    */
   isFinished() {
-    return this.#tryCount <= 0;
+    return this.#tryCount !== null && this.#tryCount <= 0;
   }
 
   async #moveCars() {
@@ -54,6 +55,14 @@ export default class RaceModel extends Observer {
       await Promise.all(this.#cars.map((car) => car.move()));
       this.notify();
     }
+  }
+
+  getWinners() {
+    const maxPosition = Math.max(...this.#cars.map((car) => car.getPosition()));
+    return this.#cars
+      .filter((car) => car.getPosition() === maxPosition)
+      .map((car) => car.getName())
+      .join(', ');
   }
 
   /**

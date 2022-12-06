@@ -12,6 +12,7 @@ export default class RacingCarFormView extends View {
 
       if ($carNameFieldset.disabled) {
         await this.model.play(+$raceCountInput.value);
+        $raceCountFieldset.disabled = true;
         return;
       }
       const carNames = $carNameInput.value.split(',');
