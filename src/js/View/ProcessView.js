@@ -26,8 +26,12 @@ export default class ProcessView extends View {
     </div>
 `;
   }
+
   getTemplate() {
     const carsPosition = this.model.getCarNamesAndPositions();
+    if (!this.model.isReady()) {
+      return '';
+    }
     return String.raw`<div class="mt-4 d-flex">
     ${carsPosition
       .map((carPosition) => this.#getCarTemplate(carPosition))

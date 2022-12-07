@@ -2,49 +2,83 @@ import { NAME } from '../constants';
 import View from './View';
 
 export default class RacingCarFormView extends View {
+  constructor(target, model) {
+    super(target, model);
+    this.model.subscribe(this.render.bind(this));
+    this.render();
+  }
+
+  setInitialState() {
+    this.carNames = '';
+    this.tryCount = '';
+  }
+
   setEvent() {
-    document.addEventListener('reset', () => {
-      this.render();
-    });
     this.addEvent('submit', 'form', async (e) => {
       e.preventDefault();
       const $carNameInput = e.target[NAME.CAR_NAME + '-input'];
-      const $carNameFieldset = e.target[NAME.CAR_NAME + '-fieldset'];
       const $raceCountInput = e.target[NAME.RACING_COUNT + '-input'];
-      const $raceCountFieldset = e.target[NAME.RACING_COUNT + '-fieldset'];
 
-      if ($carNameFieldset.disabled) {
-        await this.model.play(+$raceCountInput.value);
-        $raceCountFieldset.disabled = true;
+      if (this.model.isCarNamesEmpty()) {
+        const carNames = $carNameInput.value.split(',');
+        this.carNames = $carNameInput.value;
+        this.model.setCarNames(carNames);
         return;
       }
-      const carNames = $carNameInput.value.split(',');
-      this.model.setCarNames(carNames);
-      $carNameFieldset.disabled = true;
-      $raceCountFieldset.classList.remove('hidden');
+      this.tryCount = $raceCountInput.value;
+      await this.model.play(+$raceCountInput.value);
     });
   }
 
+  componentWillMount() {
+    const isReset = this.model.isCarNamesEmpty();
+    if (isReset) {
+      this.setInitialState();
+    }
+  }
+
+  #getCarNameFieldsetTemplate({ disabled, value }) {
+    return String.raw`<fieldset name="car-name-fieldset" ${
+      disabled ? 'disabled' : ''
+    }>
+    <legend>
+      5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
+      예시) EAST, WEST, SOUTH, NORTH
+    </legend>
+    <div class="d-flex">
+      <input name="car-name-input" type="text" class="w-100 mr-2" placeholder="자동차 이름" value="${value}"/>
+      <button type="submit" class="btn btn-cyan">확인</button>
+    </div>
+  </fieldset>`;
+  }
+
+  #getRaceCountFieldsetTemplate({ isShow, disabled, value }) {
+    return String.raw`<fieldset name="racing-count-fieldset" ${
+      isShow ? '' : 'class="hidden"'
+    } ${disabled ? 'disabled' : ''}>
+    <legend>시도할 횟수를 입력해주세요.</legend>
+    <div class="d-flex">
+      <input name="racing-count-input" type="number" class="w-100 mr-2" placeholder="시도 횟수" value="${value}"/>
+      <button type="submit" class="btn btn-cyan">확인</button>
+    </div>
+  </fieldset>`;
+  }
+
   getTemplate() {
-    return String.raw` <form>
+    const isCarNameDisabled = !this.model.isCarNamesEmpty();
+    const isRaceCountDisabled = this.model.isReady();
+
+    return String.raw`<form>
     <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
-    <fieldset name="car-name-fieldset">
-      <legend>
-        5자 이하의 자동차 이름을 콤마로 구분하여 입력해주세요. <br />
-        예시) EAST, WEST, SOUTH, NORTH
-      </legend>
-      <div class="d-flex">
-        <input name="car-name-input" type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-        <button type="submit" class="btn btn-cyan">확인</button>
-      </div>
-    </fieldset>
-    <fieldset name="racing-count-fieldset" class="hidden">
-      <legend>시도할 횟수를 입력해주세요.</legend>
-      <div class="d-flex">
-        <input name="racing-count-input" type="number" class="w-100 mr-2" placeholder="시도 횟수" />
-        <button type="submit" class="btn btn-cyan">확인</button>
-      </div>
-    </fieldset>
+   ${this.#getCarNameFieldsetTemplate({
+     disabled: isCarNameDisabled,
+     value: this.carNames,
+   })}
+ ${this.#getRaceCountFieldsetTemplate({
+   disabled: isRaceCountDisabled,
+   isShow: isCarNameDisabled,
+   value: this.tryCount,
+ })}
   </form>`;
   }
 }

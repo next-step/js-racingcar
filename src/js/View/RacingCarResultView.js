@@ -6,9 +6,7 @@ export default class RacingCarResultView extends View {
     this.model.subscribe(this.render.bind(this));
   }
   setEvent() {
-    this.addEvent('click', 'button', (e) => {
-      const event = new CustomEvent('reset', { bubbles: true });
-      this.$target.dispatchEvent(event);
+    this.addEvent('click', 'button', () => {
       this.model.reset();
     });
   }

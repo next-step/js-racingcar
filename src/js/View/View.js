@@ -8,12 +8,16 @@ export default class View {
     this.$target = target;
     this.model = model;
     this.setEvent();
-    this.render();
+    this.setInitialState();
   }
+  setInitialState() {}
 
   setEvent() {}
 
+  componentWillMount() {}
+
   render() {
+    this.componentWillMount();
     if (this.$target.children.length !== 0) {
       this.$target.replaceChildren();
     }

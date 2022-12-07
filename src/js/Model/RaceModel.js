@@ -18,6 +18,7 @@ export default class RaceModel extends Observer {
    */
   setCarNames(cars) {
     this.#cars = cars.map((car) => new RacingCar(car.trim()));
+    this.notify();
   }
 
   /**
@@ -34,7 +35,7 @@ export default class RaceModel extends Observer {
   }
 
   /**
-   * @returns {[string,number][]}
+   * @returns {{name, position}[]}
    */
   getCarNamesAndPositions() {
     return this.#cars.map((car) => ({
@@ -42,6 +43,15 @@ export default class RaceModel extends Observer {
       position: car.getPosition(),
     }));
   }
+
+  isCarNamesEmpty() {
+    return this.#cars.length === 0;
+  }
+
+  isReady() {
+    return this.#cars.length !== 0 && this.#tryCount !== null;
+  }
+
   /**
    * 경기가 끝났는지 아닌지를 반환합니다.
    * @returns {boolean}
