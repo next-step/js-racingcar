@@ -3,6 +3,9 @@ import View from './View';
 
 export default class RacingCarFormView extends View {
   setEvent() {
+    document.addEventListener('reset', () => {
+      this.render();
+    });
     this.addEvent('submit', 'form', async (e) => {
       e.preventDefault();
       const $carNameInput = e.target[NAME.CAR_NAME + '-input'];

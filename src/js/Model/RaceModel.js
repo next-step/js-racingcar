@@ -57,6 +57,12 @@ export default class RaceModel extends Observer {
     }
   }
 
+  reset() {
+    this.#cars = [];
+    this.#tryCount = null;
+    this.notify();
+  }
+
   getWinners() {
     const maxPosition = Math.max(...this.#cars.map((car) => car.getPosition()));
     return this.#cars
