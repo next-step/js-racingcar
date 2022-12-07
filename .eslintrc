@@ -9,6 +9,7 @@
 
   "rules": {
     "no-unused-vars": "warn",
-    "import/extensions": ["error", { "js": "always" }]
+    "import/extensions": ["error", { "js": "always" }],
+    "import/prefer-default-export": "off"
   }
 }

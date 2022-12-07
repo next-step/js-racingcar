@@ -68,12 +68,11 @@ const racingManager = {
 
   getWinner() {
     const maxValue = this.getMaxWinnerCount();
-    const winners = Object.entries(this.gameResult).reduce((acc, [key, value]) => {
+
+    return Object.entries(this.gameResult).reduce((acc, [key, value]) => {
       if (value.filter(Boolean).length === maxValue) return [...acc, key];
       return acc;
     }, []);
-
-    return winners;
   },
 };
 

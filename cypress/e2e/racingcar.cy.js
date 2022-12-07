@@ -90,17 +90,13 @@ describe('레이싱 카 어플리케이션 테스트', () => {
 
   describe('자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다.', () => {
     beforeEach(() => {
-      cy.setName('Benz, k5, Audi, BMW');
+      cy.setName('BMW');
       cy.setTrialCount(20);
     });
 
     it('시도할 횟수를 입력하면 우승자가 보인다.', () => {
       cy.get('.winner-section').should('exist');
-      const names = ['Benz', 'k5', 'Audi', 'BMW'];
-
-      cy.get('.car-player').each(($el, index) => {
-        expect($el.text()).to.equal(names[index]);
-      });
+      cy.get('.winners').contains('BMW');
     });
 
     it('다시 시작하기 버튼을 누르면 처음 화면으로 되돌아 간다.', () => {

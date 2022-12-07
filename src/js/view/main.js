@@ -79,7 +79,6 @@ export const hideWinner = () => {
   $('.winner-section').classList.add('hide');
 };
 
-
 export const updateWinner = winners => {
   $('.winners').innerHTML = `
 	🏆 최종 우승자: ${winners.map(winner => `${winner}`).join(', 	')} 🏆</h2>`;

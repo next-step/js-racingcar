@@ -8,4 +8,3 @@ import {
 $('.name-form').addEventListener('submit', handleSubmitName);
 $('.trial-form').addEventListener('submit', handleSubmitTrialCount);
 $('.reset-btn').addEventListener('click', handleClickReset);
-// 숨겨져 있어서 이벤트를 못건다.
