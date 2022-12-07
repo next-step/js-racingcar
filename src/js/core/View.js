@@ -20,7 +20,7 @@ class View {
     // parameter에서 object를 받아 여러 callback을 받으면 여러 callback을 적용할 수 있다.
   }
 
-  initial() {
+  init() {
     // override
   }
 }

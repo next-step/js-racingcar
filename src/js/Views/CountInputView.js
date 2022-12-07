@@ -17,7 +17,8 @@ class CountInputSetView extends View {
     });
   };
 
-  initial = () => {
+  init = () => {
+    this.hide();
     this.rootElement.removeAttribute('disabled');
     this.inputElement.value = '';
   };

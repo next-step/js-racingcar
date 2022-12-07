@@ -17,7 +17,7 @@ class CarNameInputView extends View {
     });
   };
 
-  initial = () => {
+  init = () => {
     this.rootElement.removeAttribute('disabled');
     this.inputElement.value = '';
   };

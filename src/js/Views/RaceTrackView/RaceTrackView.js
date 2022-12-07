@@ -16,9 +16,8 @@ class RaceTrackView extends View {
   }
 
   init = () => {
-    this.rootElement.classList.add('hide');
+    this.hide();
     this.tracks = [];
-    document.createElement('div').innerHTML = '';
   };
 
   readyRaceTrack = (carNames) => {
