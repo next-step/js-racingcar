@@ -9,6 +9,9 @@ describe('자동차 경주 게임 step1 ', () => {
   const getCarNamesInput = () => cy.get('#carNamesInput');
   const getCarNamesSubmit = () => cy.get('#carNamesSubmit');
   const getRacingCountForm = () => cy.get('#racingCountForm');
+  const getRacingCountInput = () => cy.get('#racingCountInput');
+  const getRacingCountSubmit = () => cy.get('#racingCountSubmit');
+
   const getAlertObj = () => {
     const alertStub = cy.stub();
     cy.on('window:alert', alertStub);
@@ -83,5 +86,22 @@ describe('자동차 경주 게임 step1 ', () => {
         });
     });
   });
+
+  describe('사용자는 몇 번의 이동을 할 것인지 입력할 수 있다.', () => {
+    beforeEach(() => {
+      getCarNamesInput().type('123, 456, 789');
+      getCarNamesSubmit().click();
+    });
+
+    it('자동차 이름을 입력하고 확인 버튼을 누르면 해당 버튼이 비활성화 된다.', () => {
+      getCarNamesSubmit().should('be.disabled');
+    });
+
+    it('자동차 이름을 입력하고 확인 버튼을 누르면 이동 횟수를 부여할 input과 이를 제출할 버튼이 존재한다.', () => {
+      getRacingCountInput().should('exist');
+      getRacingCountInput().should('be.visible');
+      getRacingCountSubmit().should('exist');
+      getRacingCountSubmit().should('be.visible');
+    });
   });
 });

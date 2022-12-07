@@ -28,10 +28,13 @@ const handleSubmitCarName = () => {
   });
 
   if (submittedNames.length === RacingGameModel.getCars().length) {
+    disableButton();
     showRacingCountForm();
   }
 };
 
+const disableButton = () => {
+  $carNamesSubmitButton.disabled = true;
 };
 
 const showRacingCountForm = () => {
