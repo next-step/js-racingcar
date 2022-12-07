@@ -7,11 +7,11 @@ import {
   $raceResultSection,
 } from './js/View/dom';
 import RacingCarFormView from './js/View/RacingCarFormView';
-import ProcessView from './js/View/ProcessView';
+import RacingCarProcessView from './js/View/RacingCarProcessView';
 import RacingCarResultView from './js/View/RacingCarResultView';
 
 new App(RaceModel, [
   { view: RacingCarFormView, target: $raceFormSection },
-  { view: ProcessView, target: $raceProcessSection },
+  { view: RacingCarProcessView, target: $raceProcessSection },
   { view: RacingCarResultView, target: $raceResultSection },
 ]);

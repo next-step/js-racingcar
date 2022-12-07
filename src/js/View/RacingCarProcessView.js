@@ -1,7 +1,7 @@
 import View from './View';
 import { GAME_STATE } from '../constants';
 
-export default class ProcessView extends View {
+export default class RacingCarProcessView extends View {
   constructor(target, model) {
     super(target, model);
     this.model.subscribe(this.render.bind(this));

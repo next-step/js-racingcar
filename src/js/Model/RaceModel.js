@@ -51,7 +51,7 @@ export default class RaceModel extends Observer {
     }));
   }
 
-  getGameState() {
+  #getGameState() {
     if (this.#isFinished()) return GAME_STATE.FINISHED;
     return this.#gameState;
   }
@@ -61,7 +61,7 @@ export default class RaceModel extends Observer {
    * @returns {boolean}
    */
   isGameState(targetStates) {
-    return targetStates.includes(this.getGameState());
+    return targetStates.includes(this.#getGameState());
   }
 
   /**
