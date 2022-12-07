@@ -98,6 +98,13 @@ describe('레이싱 카 어플리케이션 테스트', () => {
       cy.get('.winner-section').should('exist');
       cy.get('.winners').contains('BMW');
     });
+  });
+
+  describe('자동차 경주 게임을 리셋할 수 있다.', () => {
+    beforeEach(() => {
+      cy.setName('BMW');
+      cy.setTrialCount(20);
+    });
 
     it('다시 시작하기 버튼을 누르면 처음 화면으로 되돌아 간다.', () => {
       cy.get('.reset-btn').click();

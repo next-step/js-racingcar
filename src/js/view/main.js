@@ -81,5 +81,5 @@ export const hideWinner = () => {
 
 export const updateWinner = winners => {
   $('.winners').innerHTML = `
-	🏆 최종 우승자: ${winners.map(winner => `${winner}`).join(', 	')} 🏆</h2>`;
+	🏆 최종 우승자: ${winners.map(winner => `${winner}`).join(', ')} 🏆</h2>`;
 };
