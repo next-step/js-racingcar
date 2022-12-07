@@ -7,7 +7,10 @@ export const DEFAULT_STORE_STATE = {
   isVisibleResult: false,
   isRacingEnd: false,
   racingMap: null,
+  winners: '',
 };
+
+export const MAX_TRIAL_NUMBER = 30;
 
 export const EVENT_MAP = {
   CLICK: new Map(),

@@ -1,4 +1,4 @@
-import { EVENT_MAP } from '../constants.js';
+import { EVENT_MAP, MAX_TRIAL_NUMBER } from '../constants.js';
 import Component from '../core/Component.js';
 import store from '../core/Store.js';
 import {
@@ -35,6 +35,7 @@ class Trial extends Component {
 
   onTypeMovement(event) {
     const { value } = event.target;
+
     const isSubmit = event.key === 'Enter' && value.length;
 
     if (isSubmit) {
@@ -67,9 +68,10 @@ class Trial extends Component {
     if (!isVisibleProgress) return;
 
     if (winner.length) {
-      alert('레이싱이 끝났습니다');
+      alert(`레이싱이 끝났습니다 : ${winner.join(',')}`);
 
-      !isRacingEnd && store.setState({ isRacingEnd: true });
+      !isRacingEnd &&
+        store.setState({ isRacingEnd: true, winners: winner.join(',') });
       return;
     }
 
@@ -87,7 +89,12 @@ class Trial extends Component {
       that: this,
     });
 
-    if (!Number.isInteger(trialNumber) || !trialNumber) return;
+    if (trialNumber > MAX_TRIAL_NUMBER) {
+      alert('30회 이하의 시도를 입력해주세요');
+      return;
+    }
+
+    if (!trialNumber) return;
 
     store.setState({
       isVisibleProgress: true,

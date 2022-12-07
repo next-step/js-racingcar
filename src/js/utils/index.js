@@ -32,6 +32,10 @@ export const getProgressOrNot = () => {
 export const waitUntil = (delay) =>
   new Promise((resolve) => setTimeout(resolve, delay));
 
+const getCarNameInCarId = (carId) => {
+  return carId.split('-')[0];
+};
+
 export const getRacingWinner = ({ racingMap, trialNumber }) => {
   if (!racingMap || !racingMap.size) return false;
 
@@ -41,7 +45,7 @@ export const getRacingWinner = ({ racingMap, trialNumber }) => {
       if (
         progressArray.filter((el) => el === true).length === Number(trialNumber)
       ) {
-        return carId;
+        return getCarNameInCarId(carId);
       }
     })
     .filter((el) => Boolean(el));

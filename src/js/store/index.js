@@ -1,3 +1,5 @@
+//* UNUSED: replace with Store.js
+
 import { DEFAULT_STORE_STATE } from '../constants.js';
 import observer from '../core/observer.js';
 
