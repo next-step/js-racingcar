@@ -20,7 +20,7 @@
               <button type="button" id="btn-submit-player" class="btn btn-cyan">확인</button>
             </div>
           </fieldset>
-          <fieldset class="round-wrap">
+          <fieldset class="round-wrap hide">
             <p>시도할 횟수를 입력해주세요.</p>
             <div class="d-flex">
               <input type="number" id="input-round" class="w-100 mr-2" placeholder="시도 횟수" />
@@ -29,36 +29,36 @@
           </fieldset>
         </form>
       </section>
-      <section class="racing-wrap d-flex justify-center mt-5">
+      <section class="racing-wrap d-flex justify-center mt-5 hide">
         <div class="car-list mt-4 d-flex">
-          <div class="mr-2">
-            <div class="car-player">EAST</div>
-            <div class="forward-icon mt-2">⬇️️</div>
-            <div class="forward-icon mt-2">⬇️️</div>
-          </div>
-          <div class="mr-2">
-            <div class="car-player">WEST</div>
-            <div class="forward-icon mt-2">⬇️️</div>
-          </div>
-          <div class="mr-2">
-            <div class="car-player">SOUTH</div>
-            <div class="d-flex justify-center mt-3">
-              <div class="relative spinner-container">
-                <span class="material spinner"></span>
-              </div>
-            </div>
-          </div>
-          <div class="mr-2">
-            <div class="car-player">NORTH</div>
-            <div class="d-flex justify-center mt-3">
-              <div class="relative spinner-container">
-                <span class="material spinner"></span>
-              </div>
-            </div>
-          </div>
+<!--          <div class="mr-2">-->
+<!--            <div class="car-player">EAST</div>-->
+<!--            <div class="forward-icon mt-2">⬇️️</div>-->
+<!--            <div class="forward-icon mt-2">⬇️️</div>-->
+<!--          </div>-->
+<!--          <div class="mr-2">-->
+<!--            <div class="car-player">WEST</div>-->
+<!--            <div class="forward-icon mt-2">⬇️️</div>-->
+<!--          </div>-->
+<!--          <div class="mr-2">-->
+<!--            <div class="car-player">SOUTH</div>-->
+<!--            <div class="d-flex justify-center mt-3">-->
+<!--              <div class="relative spinner-container">-->
+<!--                <span class="material spinner"></span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="mr-2">-->
+<!--            <div class="car-player">NORTH</div>-->
+<!--            <div class="d-flex justify-center mt-3">-->
+<!--              <div class="relative spinner-container">-->
+<!--                <span class="material spinner"></span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
       </section>
-      <section class="result-wrap d-flex justify-center mt-5">
+      <section class="result-wrap d-flex justify-center mt-5 hide">
         <div>
           <h2>🏆 최종 우승자: EAST, WEST 🏆</h2>
           <div class="d-flex justify-center">
@@ -67,5 +67,6 @@
         </div>
       </section>
     </div>
+    <script type="module" src="./src/js/index.js"></script>
   </body>
 </html>

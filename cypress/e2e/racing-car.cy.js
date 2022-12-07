@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { ErrorMessage } from '../../src/js/common/enum.js';
 
 const $inputPlayer = '#input-player';
 const $btnSubmitPlayer = '#btn-submit-player';
@@ -30,16 +31,6 @@ Cypress.Commands.addAll({
   checkInvisible(element) {
     cy.get(element).should('not.be.visible');
   },
-  checkAlertMessage(event, message) {
-    const alertStub = cy.stub();
-    cy.on('window:alert', alertStub);
-
-    event.then(() => {
-      const actualMessage = alertStub.getCall(0).lastArg;
-
-      expect(actualMessage).to.equal(message);
-    });
-  },
 });
 
 function generateName(min = 0, max = 10) {
@@ -68,10 +59,15 @@ describe('플레이어 이름 입력', () => {
   });
 
   it('이름은 다섯자 이하만 허용한다', () => {
-    const errorMessage = '1~5자 사이의 이름을 입력해주세요';
+    const alertStub = cy.stub();
 
+    cy.on('window:alert', alertStub);
     cy.typingOnElement($inputPlayer, generateName(6));
-    cy.checkAlertMessage(cy.clickElement($btnSubmitPlayer), errorMessage);
+    cy.clickElement($btnSubmitPlayer).then(() => {
+      const actualMessage = alertStub.getCall(0).lastArg;
+
+      expect(actualMessage).to.equal(ErrorMessage.INVALID_PLAYER);
+    });
   });
 
   it('올바른 값 입력 시, 횟수를 입력하는 필드를 노출한다', () => {
@@ -90,16 +86,20 @@ describe('라운드 횟수 입력', () => {
   });
 
   it('0 이하의 값은 허용하지 않는다', () => {
-    const errorMessage = '1 이상의 값을 입력해주세요';
+    const alertStub = cy.stub();
 
+    cy.on('window:alert', alertStub);
     cy.typingOnElement($inputRound, '0');
-    cy.checkAlertMessage(cy.clickElement($btnSubmitRound), errorMessage);
+    cy.clickElement($btnSubmitRound).then(() => {
+      const actualMessage = alertStub.getCall(0).lastArg;
+
+      expect(actualMessage).to.equal(ErrorMessage.INVALID_ROUND);
+    });
   });
 
   it('올바른 값 입력 시, 레이싱 필드를 노출한다', () => {
     cy.checkInvisible($racingWrap);
 
-    inputRandomName();
     inputRandomRound();
     cy.checkVisible($racingWrap);
   });
@@ -115,8 +115,7 @@ describe('자동차 데이터 확인', () => {
 
   it('입력한 플레이어 수와 일치하는지 확인한다', () => {
     cy.get($inputPlayer).invoke('val').then(v => {
-      const length = v.split(',').length - 1;
-      cy.checkToHave(`${$carList} > div`, 'length', length);
+      cy.checkToHave(`${$carList} > div`, 'length', v.split(',').length);
     });
   });
 
