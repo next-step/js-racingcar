@@ -16,12 +16,10 @@ function setResult(raceState) {
       resetViews();
       resetModels();
     },
-  })
-
-  return this;
+  });
 }
 
-function getWinnersName(carDistances) {
+export function getWinnersName(carDistances) {
   let max = -1;
   const winnerName = [];
 
