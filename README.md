@@ -21,6 +21,28 @@
   <a href="https://next-step.github.io/js-racingcar/">🖥️ 데모 링크</a>
 </p>
 
+# TODO
+
+[x] View, Controller로 나누고, State를 담을 base 만들기
+---
+[x] 이름작성 기능 분리하기
+----
+[x] 시도할 횟수 테스트 작성
+[x] 시도할 횟수 기능 코드 작성
+---
+[x] Model 통신 작성
+---
+[x] 하나씩 component로 떼어내기
+[x] 테스트코드 작성
+[x] 랜덤 숫자에 대해 전진/비전진 제대로 나오는지 jest로 확인
+[x] 전진 로직 적용
+---
+[x] 최종 우승자 테스트코드
+[x] 결과 정돈해서 최종 우승자 보여주기
+[x] reset 테스트코드
+[x] 다시 시작하기 기능 넣기
+---
+
 <br>
 
 ## ⚙️ Before Started
