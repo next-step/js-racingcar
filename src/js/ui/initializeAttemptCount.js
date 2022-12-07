@@ -1,9 +1,9 @@
-import startGame from '../model/startGame.js';
+import startGame from '../service/startGame.js';
 import validateAttemptCount from '../model/validateAttemptCount.js';
 import disableElements from './disableElements.js';
 
 export default function initializeAttemptCount(e) {
-  if(e.key !== 'Enter' && e.type !== 'click') return;
+  if (e.key !== 'Enter' && e.type !== 'click') return;
   e.preventDefault();
 
   const attemptCount = document.querySelector('.attempts-count');
