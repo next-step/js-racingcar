@@ -10,8 +10,7 @@ import {
   showCarAttemptsCountForm,
 } from '../view/racingCar.js';
 import { validateCarAttemptsCount, validateCarName } from '../utils/validator.js';
-import { gameStart, getRecord, getWinners, restart } from '../service/racingCar.js';
-import { RACING_CAR } from '../constants/racingCar.js';
+import { alertCelebrationMessage, gameStart, getRecord, getWinners, restart } from '../service/racingCar.js';
 
 export const handleCarNameSubmit = (e) => {
   e.preventDefault();
@@ -54,9 +53,7 @@ export const handleCarAttemptsCountSubmit = async (e) => {
 
     renderWinners(racingCarGameModel.winners);
 
-    setTimeout(() => {
-      alert(RACING_CAR.ENDING_MESSAGE);
-    }, RACING_CAR.ENDING_MESSAGE_DELAY);
+    alertCelebrationMessage();
   } catch (error) {
     alert(error.message);
   }

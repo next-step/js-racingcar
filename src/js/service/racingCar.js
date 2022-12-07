@@ -62,6 +62,12 @@ export const gameStart = () => {
   });
 };
 
+export const alertCelebrationMessage = () => {
+  setTimeout(() => {
+    alert(RACING_CAR.ENDING_MESSAGE);
+  }, RACING_CAR.ENDING_MESSAGE_DELAY);
+};
+
 const resetRacingCarGameModel = () => {
   racingCarGameModel.cars = [];
   racingCarGameModel.attemptsCount = RACING_CAR.MIN_ATTEMPTS_COUNT;
