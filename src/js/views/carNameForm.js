@@ -6,6 +6,7 @@ import { getCarNames } from '../utils/getCarNames.js';
 
 const $carNamesInput = document.querySelector('#carNamesInput');
 const $carNamesSubmitButton = document.querySelector('#carNamesSubmit');
+const $racingCountForm = document.querySelector('#racingCountForm');
 
 const handleSubmitCarName = () => {
   const submittedNames = getCarNames($carNamesInput.value);
@@ -25,6 +26,16 @@ const handleSubmitCarName = () => {
     enrolledCar.enrollCar(submittedName);
     RacingGameModel.setCars(enrolledCar);
   });
+
+  if (submittedNames.length === RacingGameModel.getCars().length) {
+    showRacingCountForm();
+  }
+};
+
+};
+
+const showRacingCountForm = () => {
+  $racingCountForm.style.display = 'block';
 };
 
 export const initCarNameFormView = () => {

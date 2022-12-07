@@ -8,6 +8,7 @@ describe('자동차 경주 게임 step1 ', () => {
 
   const getCarNamesInput = () => cy.get('#carNamesInput');
   const getCarNamesSubmit = () => cy.get('#carNamesSubmit');
+  const getRacingCountForm = () => cy.get('#racingCountForm');
   const getAlertObj = () => {
     const alertStub = cy.stub();
     cy.on('window:alert', alertStub);
@@ -71,5 +72,16 @@ describe('자동차 경주 게임 step1 ', () => {
           expect(actualMessage).to.equal(HAS_SAME_CAR_NAME_MESSAGE);
         });
     });
+
+    it('자동차이름을 정상적으로 입력한 뒤 제출하면 이동 횟수 입력 폼을 띄운다.', () => {
+      getCarNamesInput().type('123, 456, 789');
+      getCarNamesSubmit()
+        .click()
+        .then(() => {
+          getRacingCountForm().should('exist');
+          getRacingCountForm().should('be.visible');
+        });
+    });
+  });
   });
 });
