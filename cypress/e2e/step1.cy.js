@@ -1,4 +1,9 @@
-import { HAS_SAME_CAR_NAME_MESSAGE, INVALID_CAR_NAME_MESSAGE } from '../../src/js/constants.js';
+import {
+  HAS_SAME_CAR_NAME_MESSAGE,
+  INVALID_CAR_NAME_MESSAGE,
+  INVALID_RACING_COUNT_MESSAGE,
+  MIN_RACING_COUNT,
+} from '../../src/js/constants.js';
 import { getCarNames } from '../../src/js/utils/getCarNames.js';
 
 describe('자동차 경주 게임 step1 ', () => {
@@ -102,6 +107,35 @@ describe('자동차 경주 게임 step1 ', () => {
       getRacingCountInput().should('be.visible');
       getRacingCountSubmit().should('exist');
       getRacingCountSubmit().should('be.visible');
+    });
+
+    it('이동 횟수 입력에는 숫자만 입력이 가능하다.', () => {
+      getRacingCountInput().type('10a').should('have.value', '10');
+      getRacingCountInput().clear();
+      getRacingCountInput().type('abc').should('have.value', '');
+    });
+
+    it(`이동 횟수 입력은 ${MIN_RACING_COUNT}부터 입력이 가능하다.`, () => {
+      getRacingCountInput().type('1').should('have.value', MIN_RACING_COUNT);
+    });
+
+    it(`이동 횟수는 반드시 입력해야 하며, 공백 혹은 0을 입력하고 확인 버튼 클릭 시, ${INVALID_RACING_COUNT_MESSAGE}라는 경고창을 호출한다.`, () => {
+      const alert = getAlertObj();
+      getRacingCountInput().type(' ');
+      getRacingCountSubmit()
+        .click()
+        .then(() => {
+          const actualMessage = alert.getCall(0).lastArg;
+          expect(actualMessage).to.equal(INVALID_RACING_COUNT_MESSAGE);
+        });
+      getRacingCountInput().clear();
+      getRacingCountInput().type('0');
+      getRacingCountSubmit()
+        .click()
+        .then(() => {
+          const actualMessage = alert.getCall(0).lastArg;
+          expect(actualMessage).to.equal(INVALID_RACING_COUNT_MESSAGE);
+        });
     });
   });
 });

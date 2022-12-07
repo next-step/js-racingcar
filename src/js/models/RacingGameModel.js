@@ -1,5 +1,6 @@
 class RacingGameModel {
   #cars = [];
+  #racingCount = 1;
 
   constructor() {}
 
@@ -8,6 +9,14 @@ class RacingGameModel {
   }
   setCars(cars) {
     this.#cars.push(cars);
+  }
+
+  getRacingCount() {
+    return this.#racingCount;
+  }
+
+  setRacingCount(count) {
+    this.#racingCount = count;
   }
 }
 
