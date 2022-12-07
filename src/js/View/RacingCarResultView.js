@@ -1,5 +1,5 @@
 import View from './View';
-import { GAME_STATE } from '../constants';
+import { ALERT_MASSAGE, GAME_STATE } from '../constants';
 
 export default class RacingCarResultView extends View {
   constructor(target, model) {
@@ -10,6 +10,13 @@ export default class RacingCarResultView extends View {
     this.addEvent('click', 'button', () => {
       this.model.reset();
     });
+  }
+
+  componentWillMount() {
+    const DELAY = 2000;
+    if (this.model.isGameState([GAME_STATE.FINISHED])) {
+      setTimeout(() => alert(ALERT_MASSAGE.FINISH), DELAY);
+    }
   }
 
   getTemplate() {
