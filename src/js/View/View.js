@@ -2,6 +2,9 @@ import { withErrorHandling } from '../utils';
 
 export default class View {
   constructor(target, model) {
+    if (!target) throw new Error('target이 없습니다.');
+    if (!model) throw new Error('model이 없습니다.');
+
     this.$target = target;
     this.model = model;
     this.setEvent();
