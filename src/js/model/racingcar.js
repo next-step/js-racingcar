@@ -20,11 +20,13 @@ const racingManager = {
     return randomNum > 3;
   },
 
+  goCondition() {
+    const randomNum = getRandomNumber(0, 9);
+    return this.isGoOrStop(randomNum);
+  },
+
   getGameResult() {
-    return new Array(this.trialCount).fill(false).map(_ => {
-      const randomNum = getRandomNumber(0, 9);
-      return this.isGoOrStop(randomNum);
-    });
+    return new Array(this.trialCount).fill(false).map(_ => this.goCondition());
   },
 
   isInRange(names) {
@@ -51,6 +53,28 @@ const racingManager = {
   generateGame() {
     return this.names.reduce((acc, name) => ({ ...acc, [name]: this.getGameResult() }), {});
   },
+
+  getMaxWinnerCount() {
+    return Math.max(
+      ...Object.entries(this.gameResult).map(([_, value]) => value.filter(Boolean).length),
+    );
+  },
+
+  getWinner() {
+    const maxValue = this.getMaxWinnerCount();
+    console.log(this.gameResult);
+    console.log(maxValue);
+
+    const winners = Object.entries(this.gameResult).reduce((acc, [key, value]) => {
+      if (value.filter(Boolean).length === maxValue) return [...acc, key];
+      return acc;
+    }, []);
+    console.log(winners);
+
+    return winners;
+  },
+
+  updateWinner() {},
 };
 
 export default racingManager;

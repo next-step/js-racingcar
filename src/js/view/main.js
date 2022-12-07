@@ -54,3 +54,13 @@ export const alertIfError = callback => {
     }
   };
 };
+
+export const updateWinner = winners => {
+  $('.winner-section').innerHTML = `
+		<div>
+			<h2 class="text-center">🏆 최종 우승자: ${winners.map(winner => `${winner}`).join(', 	')} 🏆</h2>
+			<div class="d-flex justify-center ">
+				<button type="button" class="btn btn-cyan">다시 시작하기</button>
+			</div>
+		</div>`;
+};
