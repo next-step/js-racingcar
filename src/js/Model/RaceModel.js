@@ -1,4 +1,4 @@
-import { GAME_STATE } from '../constants';
+import { ALERT_MASSAGE, GAME_STATE } from '../constants';
 import RacingCar from '../Service/RacingCar';
 import Observer from './Observer';
 /**
@@ -37,11 +37,7 @@ export default class RaceModel extends Observer {
    */
   #validateTryCount(tryCount) {
     if (tryCount < this.#minTryCount) {
-      throw new Error(
-        `입력한 레이싱 횟수가 너무 적습니다. 레이싱 횟수는 ${
-          this.#minTryCount
-        }이상이어야 합니다.`
-      );
+      throw new Error(ALERT_MASSAGE.INVALID_RACING_COUNT(this.#minTryCount));
     }
   }
 
