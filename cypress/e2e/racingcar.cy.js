@@ -102,5 +102,19 @@ describe('레이싱 카 어플리케이션 테스트', () => {
         expect($el.text()).to.equal(names[index]);
       });
     });
+
+    it('다시 시작하기 버튼을 누르면 처음 화면으로 되돌아 간다.', () => {
+      cy.get('.reset-btn').click();
+      cy.get('.trial-form').should('have.class', 'hide');
+      cy.get('.game-result').should('have.class', 'hide');
+      cy.get('.winner-section').should('have.class', 'hide');
+
+      cy.get('.car-name-input').should('not.be.disabled');
+      cy.get('.car-name-submit-btn').should('not.be.disabled');
+      cy.get('.trial-submit-btn').should('not.be.disabled');
+      cy.get('.trial-input').should('not.be.disabled');
+
+      cy.get('.car-name-input').should('have.text', '');
+    });
   });
 });

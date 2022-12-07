@@ -1,13 +1,19 @@
 import racingManager from '../model/racingcar.js';
-
 import {
   showTrialForm,
   focusNameInput,
-  disabledNameForm,
   focusTrialInput,
-  disabledTrialForm,
   updateResult,
+  resetTrialForm,
   updateWinner,
+  showWinner,
+  showResult,
+  hideResult,
+  hideWinner,
+  toggleDisabledName,
+  resetNameForm,
+  hideTrialForm,
+  toggleDisabledTrial,
 } from '../view/main.js';
 
 export const handleSubmitName = event => {
@@ -22,7 +28,7 @@ export const handleSubmitName = event => {
   }
 
   racingManager.names = names;
-  disabledNameForm();
+  toggleDisabledName();
   showTrialForm();
 };
 
@@ -36,7 +42,7 @@ export const handleSubmitTrialCount = event => {
   }
 
   racingManager.trialCount = trialCount;
-  disabledTrialForm();
+  toggleDisabledTrial();
 
   const gameResult = racingManager.generateGame();
   racingManager.gameResult = gameResult;
@@ -44,5 +50,24 @@ export const handleSubmitTrialCount = event => {
   racingManager.winners = winners;
 
   updateResult(gameResult);
+  showResult();
   updateWinner(winners);
+  showWinner();
+};
+
+export const handleClickReset = () => {
+  racingManager.resetAll();
+  resetNameForm();
+  toggleDisabledName();
+
+  resetTrialForm();
+  toggleDisabledTrial();
+  hideTrialForm();
+
+  updateResult(racingManager.gameResult);
+  hideResult();
+  updateWinner(racingManager.winners);
+  hideWinner();
+
+  focusNameInput();
 };

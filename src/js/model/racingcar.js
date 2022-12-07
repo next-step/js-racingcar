@@ -8,6 +8,12 @@ const racingManager = {
   trialCount: 0,
   gameResult: [],
 
+  resetAll() {
+    this.names = [];
+    this.trialCount = 0;
+    this.gameResult = [];
+  },
+
   trimNames(value) {
     return value.replace(/\s*,\s*/g, ',').trim();
   },
