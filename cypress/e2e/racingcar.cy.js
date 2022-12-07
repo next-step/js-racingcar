@@ -96,6 +96,11 @@ describe('레이싱 카 어플리케이션 테스트', () => {
 
     it('시도할 횟수를 입력하면 우승자가 보인다.', () => {
       cy.get('.winner-section').should('exist');
+      const names = ['Benz', 'k5', 'Audi', 'BMW'];
+
+      cy.get('.car-player').each(($el, index) => {
+        expect($el.text()).to.equal(names[index]);
+      });
     });
   });
 });

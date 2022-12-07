@@ -41,9 +41,8 @@ export const handleSubmitTrialCount = event => {
   const gameResult = racingManager.generateGame();
   racingManager.gameResult = gameResult;
   const winners = racingManager.getWinner();
-  console.log(winners);
   racingManager.winners = winners;
+
   updateResult(gameResult);
   updateWinner(winners);
-  // showResult();
 };
