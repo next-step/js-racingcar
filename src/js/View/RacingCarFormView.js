@@ -1,6 +1,5 @@
-import { NAME } from '../constants';
+import { NAME, GAME_STATE } from '../constants';
 import View from './View';
-
 export default class RacingCarFormView extends View {
   constructor(target, model) {
     super(target, model);
@@ -19,19 +18,19 @@ export default class RacingCarFormView extends View {
       const $carNameInput = e.target[NAME.CAR_NAME + '-input'];
       const $raceCountInput = e.target[NAME.RACING_COUNT + '-input'];
 
-      if (this.model.isCarNamesEmpty()) {
-        const carNames = $carNameInput.value.split(',');
-        this.carNames = $carNameInput.value;
-        this.model.setCarNames(carNames);
+      if (this.model.isGameState([GAME_STATE.READY])) {
+        this.tryCount = $raceCountInput.value;
+        await this.model.play(+$raceCountInput.value);
         return;
       }
-      this.tryCount = $raceCountInput.value;
-      await this.model.play(+$raceCountInput.value);
+      const carNames = $carNameInput.value.split(',');
+      this.carNames = $carNameInput.value;
+      this.model.setCarNames(carNames);
     });
   }
 
   componentWillMount() {
-    const isReset = this.model.isCarNamesEmpty();
+    const isReset = this.model.isGameState([GAME_STATE.INITIAL]);
     if (isReset) {
       this.setInitialState();
     }
@@ -65,8 +64,15 @@ export default class RacingCarFormView extends View {
   }
 
   getTemplate() {
-    const isCarNameDisabled = !this.model.isCarNamesEmpty();
-    const isRaceCountDisabled = this.model.isReady();
+    const isCarNameDisabled = this.model.isGameState([
+      GAME_STATE.READY,
+      GAME_STATE.PLAYING,
+      GAME_STATE.FINISHED,
+    ]);
+    const isRaceCountDisabled = this.model.isGameState([
+      GAME_STATE.PLAYING,
+      GAME_STATE.FINISHED,
+    ]);
 
     return String.raw`<form>
     <h1 class="text-center">🏎️ 자동차 경주 게임</h1>

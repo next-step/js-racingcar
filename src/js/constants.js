@@ -3,6 +3,13 @@ export const NAME = {
   RACING_COUNT: 'racing-count',
 };
 
+export const GAME_STATE = {
+  INITIAL: 'initial',
+  READY: 'ready',
+  PLAYING: 'playing',
+  FINISHED: 'finished',
+};
+
 export const SELECTOR = {
   FIELDSET: {
     CAR_NAME: `fieldset[name="${NAME.CAR_NAME}-fieldset"]`,

@@ -1,4 +1,5 @@
 import View from './View';
+import { GAME_STATE } from '../constants';
 
 export default class RacingCarResultView extends View {
   constructor(target, model) {
@@ -12,7 +13,7 @@ export default class RacingCarResultView extends View {
   }
 
   getTemplate() {
-    if (!this.model.isFinished()) return '';
+    if (!this.model.isGameState([GAME_STATE.FINISHED])) return '';
     return `
     <div>
     <h2>🏆 최종 우승자: ${this.model.getWinners()} 🏆</h2>

@@ -1,4 +1,5 @@
 import View from './View';
+import { GAME_STATE } from '../constants';
 
 export default class ProcessView extends View {
   constructor(target, model) {
@@ -15,7 +16,7 @@ export default class ProcessView extends View {
     ).join('')}
     
     ${
-      this.model.isFinished()
+      this.model.isGameState([GAME_STATE.FINISHED])
         ? ''
         : `<div class="mt-2 d-flex justify-center">
     <div class="relative spinner-container">
@@ -29,7 +30,7 @@ export default class ProcessView extends View {
 
   getTemplate() {
     const carsPosition = this.model.getCarNamesAndPositions();
-    if (!this.model.isReady()) {
+    if (this.model.isGameState([GAME_STATE.INITIAL, GAME_STATE.READY])) {
       return '';
     }
     return String.raw`<div class="mt-4 d-flex">

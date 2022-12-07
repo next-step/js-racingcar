@@ -1,15 +1,25 @@
+import { GAME_STATE } from '../constants';
 import RacingCar from '../Service/RacingCar';
 import Observer from './Observer';
-
+/**
+ * @class RaceModel
+ * @extends Observer
+ * @property {RacingCar[]} #cars
+ * @property {number | null} #tryCount
+ * @property {number} #minTryCount
+ * @property {'initial'| 'ready' | 'playing' | 'finished'} #gameState
+ */
 export default class RaceModel extends Observer {
   #cars;
   #tryCount;
   #minTryCount;
+  #gameState;
   constructor() {
     super();
     this.#cars = [];
     this.#minTryCount = 1;
     this.#tryCount = null;
+    this.#gameState = GAME_STATE.INITIAL;
   }
 
   /**
@@ -18,6 +28,7 @@ export default class RaceModel extends Observer {
    */
   setCarNames(cars) {
     this.#cars = cars.map((car) => new RacingCar(car.trim()));
+    this.#gameState = GAME_STATE.READY;
     this.notify();
   }
 
@@ -44,19 +55,24 @@ export default class RaceModel extends Observer {
     }));
   }
 
-  isCarNamesEmpty() {
-    return this.#cars.length === 0;
+  getGameState() {
+    if (this.#isFinished()) return GAME_STATE.FINISHED;
+    return this.#gameState;
   }
-
-  isReady() {
-    return this.#cars.length !== 0 && this.#tryCount !== null;
+  /**
+   *
+   * @param {gameState[]} targetStates
+   * @returns {boolean}
+   */
+  isGameState(targetStates) {
+    return targetStates.includes(this.getGameState());
   }
 
   /**
    * 경기가 끝났는지 아닌지를 반환합니다.
    * @returns {boolean}
    */
-  isFinished() {
+  #isFinished() {
     return this.#tryCount !== null && this.#tryCount <= 0;
   }
 
@@ -65,11 +81,13 @@ export default class RaceModel extends Observer {
       await Promise.all(this.#cars.map((car) => car.move()));
       this.notify();
     }
+    this.#gameState = GAME_STATE.FINISHED;
   }
 
   reset() {
     this.#cars = [];
     this.#tryCount = null;
+    this.#gameState = GAME_STATE.INITIAL;
     this.notify();
   }
 
@@ -87,6 +105,7 @@ export default class RaceModel extends Observer {
   play(tryCount) {
     this.#validateTryCount(tryCount);
     this.#tryCount = tryCount;
+    this.#gameState = GAME_STATE.PLAYING;
     this.notify();
     this.#moveCars();
   }
