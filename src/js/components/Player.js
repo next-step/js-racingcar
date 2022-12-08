@@ -19,6 +19,7 @@ class Player extends Component {
   render() {
     const racingMap = store.getState({ name: 'racingMap', that: this });
     const isRacingEnd = store.getState({ name: 'isRacingEnd', that: this });
+    if (!racingMap) return;
 
     this.wrapper.innerHTML = /*html*/ `
       <div class="mr-2 progress-block-${this.props.carId}">

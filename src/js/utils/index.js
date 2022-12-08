@@ -179,3 +179,17 @@ export const makeEnrollComponents = (defaultState) => {
   });
   return object;
 };
+
+export default {
+  validateCarNames,
+  splitingCarNames,
+  makeRandomNumber,
+  waitUntil,
+  getRacingWinner,
+  makeNewRacingMap,
+  makeDefaultRacingMap,
+  makeDataAttributeIdForm,
+  deepDiffMapper,
+  makeEnrollComponents,
+  getProgressOrNot,
+};

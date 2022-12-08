@@ -19,6 +19,11 @@ class Trial extends Component {
       name: 'isVisibleProgress',
       that: this,
     });
+    const isVisibleResult = store.getState({
+      name: 'isVisibleResult',
+      that: this,
+    });
+    if (!$moveButton || !$moveButton) return;
 
     const isDisbledButton = isVisibleProgress || !trialNumber;
     const isDisabledInput = isVisibleProgress;
@@ -68,10 +73,14 @@ class Trial extends Component {
     if (!isVisibleProgress) return;
 
     if (winner.length) {
-      alert(`레이싱이 끝났습니다 : ${winner.join(',')}`);
+      // alert(`레이싱이 끝났습니다 : ${winner.join(',')}`);
 
       !isRacingEnd &&
-        store.setState({ isRacingEnd: true, winners: winner.join(',') });
+        store.setState({
+          isRacingEnd: true,
+          winners: winner.join(','),
+          isVisibleResult: true,
+        });
       return;
     }
 
@@ -82,8 +91,9 @@ class Trial extends Component {
     });
   }
 
-  async onSubmitTrials(event) {
+  onSubmitTrials(event) {
     const racingMap = store.getState({ name: 'racingMap', that: this });
+    const newRacingMap = makeNewRacingMap(racingMap);
     const trialNumber = store.getState({
       name: 'trialNumber',
       that: this,
@@ -98,7 +108,7 @@ class Trial extends Component {
 
     store.setState({
       isVisibleProgress: true,
-      racingMap: makeNewRacingMap(racingMap),
+      racingMap: newRacingMap,
     });
   }
 
@@ -109,6 +119,7 @@ class Trial extends Component {
         <input type="number" class="w-100 mr-2 move-input" placeholder="시도 횟수" data-id="move-input"/>
         <button type="button" class="btn btn-cyan move-submit-button" data-id="move-submit">확인</button>
       </div>
+      
     `;
   }
 

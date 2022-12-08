@@ -7,7 +7,6 @@ import {
   validateCarNames,
 } from '../utils/index.js';
 import Trial from './Trial.js';
-console.log(store);
 
 class Attempt extends Component {
   constructor({ $target, props = {} }) {

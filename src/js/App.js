@@ -41,6 +41,10 @@ export class App extends Component {
 
     $target.addEventListener('click', (event) => {
       if (EVENT_MAP.CLICK.has(event.target.dataset.id)) {
+        console.log(
+          EVENT_MAP.CLICK,
+          EVENT_MAP.CLICK.get(event.target.dataset.id)
+        );
         EVENT_MAP.CLICK.get(event.target.dataset.id)(event);
       }
     });

@@ -17,18 +17,20 @@ class Progress extends Component {
       name: 'carNames',
       that: this,
     });
-    if (!isVisibleProgress) return;
+    if (!isVisibleProgress) {
+      this.$target.innerHTML = '';
+    } else {
+      splitingCarNames(carNames)
+        .map((carName, idx) => {
+          const carId = `${carName}-${idx}`;
 
-    splitingCarNames(carNames)
-      .map((carName, idx) => {
-        const carId = `${carName}-${idx}`;
-
-        new Player({
-          $target: this.$target,
-          props: { carName, carId },
-        });
-      })
-      .join('');
+          new Player({
+            $target: this.$target,
+            props: { carName, carId },
+          });
+        })
+        .join('');
+    }
   }
 }
 
