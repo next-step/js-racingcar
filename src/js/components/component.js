@@ -8,7 +8,17 @@ export class Component {
     this.roundState = services.stateManager.roundState;
   }
 
-  setEventHandler() { }
+  setEventListener(events = []) {
+    if (!events.length) {
+      return;
+    }
+
+    events.forEach(e => {
+      const target = document.querySelector(e.target);
+
+      target.addEventListener(e.event, e.handler);
+    });
+  }
 
   render(hostElement, template = this.template) {
     document.querySelector(hostElement).insertAdjacentHTML('beforeend', template);

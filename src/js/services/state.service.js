@@ -5,18 +5,6 @@ export class StateService {
     this.element = document.querySelector(element);
   }
 
-  setEventListener(events = []) {
-    if (!events.length) {
-      return;
-    }
-
-    events.forEach(e => {
-      const target = document.querySelector(e.target);
-
-      target.addEventListener(e.event, e.handler);
-    });
-  }
-
   noValue() {
     return !this.element.value;
   }

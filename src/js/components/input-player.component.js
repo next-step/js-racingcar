@@ -11,10 +11,10 @@ export default class InputPlayerComponent extends Component {
     super(services);
 
     this.#inputPlayerState = new InputPlayerStateService(this.$inputPlayer);
-    this.setEventHandler();
+    this.setEvent();
   }
 
-  setEventHandler() {
+  setEvent() {
     const events = [
       {
         target: this.$btnSubmit,
@@ -23,7 +23,7 @@ export default class InputPlayerComponent extends Component {
       },
     ];
 
-    this.#inputPlayerState.setEventListener(events);
+    this.setEventListener(events);
   }
 
   submit = () => {
