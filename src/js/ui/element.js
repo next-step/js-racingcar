@@ -23,5 +23,5 @@ export const ELEMENT = {
   DIV: {
     CAR_RACING: '.div-car-racing',
   },
-  SPINNER: '.mt-3',
+  SPINNER: '.spinner',
 };

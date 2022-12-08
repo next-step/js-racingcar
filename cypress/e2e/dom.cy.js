@@ -2,15 +2,12 @@
 
 import { ALERT_MESSAGE, CAR_RACING } from '../../src/js/service/constant';
 import { ELEMENT } from '../../src/js/ui/element';
+import { sleep } from '../../src/js/util/delay';
 
 describe('자동차 경주 게임 요구사항을 점검한다', () => {
   const URL = '../../index.html';
   const STRING_CAR_NAMES = '갑,을,병,정,무,기,경,신,임,계';
-  const STRING_CAR_NAMES_ARRAY = STRING_CAR_NAMES.split(',');
-
-  const sleep = (milliseconds) => {
-    return new Promise((resolve) => setTimeout(resolve, milliseconds));
-  };
+  const STRING_CAR_NAMES_ARRAY = STRING_CAR_NAMES.split(CAR_RACING.CAR_NAMES.DELIMITER);
 
   beforeEach(() => {
     cy.visit(URL);
@@ -76,7 +73,7 @@ describe('자동차 경주 게임 요구사항을 점검한다', () => {
     });
   });
 
-  describe.only('3단계: 경주를 시작한다', () => {
+  describe('3단계: 경주를 시작한다', () => {
     const ATTEMPT_TIMES = 5;
     const TIMEOUT = CAR_RACING.RACING_SPEED * (ATTEMPT_TIMES + 1);
 

@@ -11,9 +11,12 @@ export const ALERT_MESSAGE = {
 
 export const CAR_RACING = {
   RACING_SPEED: 1000,
+  DELAY_FOR_ALERT_MESSAGE: 2000,
   CAR_NAMES: {
     MIN_LENGTH: 1,
     MAX_LENGTH: 5,
+    DELIMITER: ',',
+    VICTOR_DELIMITER: ', ',
   },
   CAR: {
     CONDITION: {

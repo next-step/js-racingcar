@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { Car } from '../service/Car.js';
+import { CAR_RACING } from '../service/constant.js';
 import { ELEMENT } from './element.js';
 import { selector, selectorAll } from './selector.js';
 
@@ -49,7 +50,7 @@ export const setInputEnterListener = (element, callback) => {
  * @returns {string}
  */
 const getWinnerText = (cars) => {
-  return `🏆 최종 우승자: ${cars.map((car) => car.getName()).join(', ')} 🏆`;
+  return `🏆 최종 우승자: ${cars.map((car) => car.getName()).join(CAR_RACING.CAR_NAMES.VICTOR_DELIMITER)} 🏆`;
 };
 
 /**
@@ -61,7 +62,7 @@ export const updateWinners = (winners) => {
 };
 
 export const SPINNER = `
-  <div class="d-flex justify-center mt-3">
+  <div class="d-flex justify-center mt-3 spinner">
     <div class="relative spinner-container">
       <span class="material spinner"></span>
     </div>
@@ -82,7 +83,7 @@ export const getCarRuts = (car) => {
       .join('');
   };
   return `
-  <div class="mr-2" data-car-name=${car.getName()}>
+  <div class="mr-2">
     ${carNameDiv}
     ${getCarRutDiv(car.getMovedDistance())}
     ${SPINNER}

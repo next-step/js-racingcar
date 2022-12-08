@@ -3,6 +3,7 @@ import { generateNumber } from '../util/validator.js';
 // eslint-disable-next-line no-unused-vars
 import { Car } from './Car.js';
 import { removeSpinners, updateCarsRut, updateWinners } from '../ui/function.js';
+import { lazyStart } from '../util/delay.js';
 
 /**
  *
@@ -10,18 +11,18 @@ import { removeSpinners, updateCarsRut, updateWinners } from '../ui/function.js'
  * @param {number|string} attetmptTimes
  * @returns {function}
  */
-export const RacingGame = (carNames, attemptTimes) => {
+export const setupRacingGame = (carNames, attemptTimes) => {
   const cars = carNames.map((carName) => new Car(carName));
   const someCarArrived = () => cars.some((car) => car.getMovedDistance() === times);
   const times = Number(attemptTimes);
   let winnerMovedDistance = 0;
-  let current = 0;
-  let intervalId = 0;
+  let step = undefined;
+  let intervalId = undefined;
 
   const moveForwards = () => {
-    if (current > times || someCarArrived()) {
+    if (step >= times || someCarArrived()) {
       finalizeGame();
-      setTimeout(() => alert(ALERT_MESSAGE.GAME.FINALIZED), CAR_RACING.RACING_SPEED);
+      lazyStart(() => alert(ALERT_MESSAGE.GAME.FINALIZED), CAR_RACING.DELAY_FOR_ALERT_MESSAGE);
       return;
     }
     cars.forEach((car) => {
@@ -30,16 +31,8 @@ export const RacingGame = (carNames, attemptTimes) => {
         car.moveForward();
       }
     });
-    current += 1;
+    step += 1;
     updateCarsRut(cars);
-  };
-
-  /**
-   *
-   * @param {Car[]} wonCars
-   */
-  const setWinners = (wonCars) => {
-    updateWinners(wonCars);
   };
 
   const getWinners = () => {
@@ -49,7 +42,7 @@ export const RacingGame = (carNames, attemptTimes) => {
 
   const finalizeGame = () => {
     removeSpinners();
-    setWinners(getWinners());
+    updateWinners(getWinners());
     clearInterval(intervalId);
   };
 
