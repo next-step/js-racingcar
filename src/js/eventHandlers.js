@@ -30,7 +30,9 @@ export const handleSubmitCarNames = (e) => {
     showTrialCountForm();
     focusTrialCountInput();
   } catch (err) {
-    alert(err.message);
+    if (err instanceof ValidationError) {
+      alert(err.message);
+    }
     console.error(err.message);
   }
 };
