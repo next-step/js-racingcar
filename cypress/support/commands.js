@@ -31,7 +31,7 @@
 
 const $element = {
   nameSubmitButton: '.name-submit-button',
-  carNameInput: '.car-name-input',
+  carNameInput: '.name-input',
   moveExplanation: '.move-explanation',
   movesInput: '.move-input',
   moveSubmitButton: '.move-submit-button',

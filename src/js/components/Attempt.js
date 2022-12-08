@@ -23,7 +23,7 @@ class Attempt extends Component {
             예시) EAST, WEST, SOUTH, NORTH
           </p>
           <div class="d-flex">
-            <input type="text" class="w-100 mr-2 car-name-input" placeholder="자동차 이름" data-id="car-name-input"/>
+            <input type="text" class="w-100 mr-2 name-input" placeholder="자동차 이름" data-id="name-input"/>
             <button type="button" class="btn btn-cyan name-submit-button" data-id="submit-carname">확인</button>
           </div>
         </fieldset>
@@ -61,7 +61,7 @@ class Attempt extends Component {
     const isVisibleTrial = getState({ name: 'isVisibleTrial', that: this });
     const carNames = getState({ name: 'carNames', that: this });
     const $trialWrapper = $target.querySelector('.trial-count-wrapper');
-    const $carNameInput = $target.querySelector('[data-id=car-name-input]');
+    const $carNameInput = $target.querySelector('[data-id=name-input]');
     const $carSubmitButton = $target.querySelector('[data-id=submit-carname]');
     const isDisabledButton = isVisibleTrial || !carNames;
     const isDisabledInput = isVisibleTrial;
@@ -71,8 +71,8 @@ class Attempt extends Component {
     if (isDisabledInput) $carNameInput.setAttribute('disabled', '');
     if (!isDisabledInput) $carNameInput.focus();
 
-    $carNameInput.setAttribute('value', carNames);
-
+    // $carNameInput.setAttribute('value', carNames);
+    $carNameInput.value = carNames;
     if (isVisibleTrial) {
       new Trial({
         $target: $trialWrapper,
@@ -84,7 +84,7 @@ class Attempt extends Component {
 
   addEventListener() {
     EVENT_MAP.CLICK.set('submit-carname', this.onSubmitCarname.bind(this));
-    EVENT_MAP.KEY_UP.set('car-name-input', this.onTypeCarNames.bind(this));
+    EVENT_MAP.KEY_UP.set('name-input', this.onTypeCarNames.bind(this));
     EVENT_MAP.SUBMIT.set('submit-carname', this.onSubmitCarname.bind(this));
   }
 }
