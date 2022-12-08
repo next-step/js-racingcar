@@ -81,10 +81,10 @@ class RacingInputFormView {
     }
   };
 
-  onCountConfirmBtnClick = () => {
+  onCountConfirmBtnClick = async () => {
     try {
       const { valueAsNumber } = this.$moveCountInput;
-      this.racingInputFormController.handleCountConfirm(valueAsNumber);
+      await this.racingInputFormController.handleCountConfirm(valueAsNumber);
     } catch (error) {
       alert(error);
     }
@@ -97,7 +97,9 @@ class RacingInputFormView {
     this.$moveCountInput = $("#move-count-input");
     this.$countConfirmBtn = $("#count-confirm-btn");
 
-    this.$countConfirmBtn.addEventListener("click", this.onCountConfirmBtnClick);
+    this.$countConfirmBtn.addEventListener("click", async () => {
+      await this.onCountConfirmBtnClick();
+    });
   };
 
   dettachCountInput = () => {

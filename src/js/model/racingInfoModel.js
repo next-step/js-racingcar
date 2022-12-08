@@ -50,6 +50,14 @@ class RacingInfoModel {
     });
   }
 
+  moveCarsOneTime() {
+    this.entires.forEach((_, idx) => {
+      if (this.#canMove()) {
+        this.movingDistPerCar[idx] += 1;
+      }
+    });
+  }
+
   getRacingResult() {
     const maxDist = Math.max(...this.movingDistPerCar);
     this.racingWinner = this.entires.filter((_, idx) => this.movingDistPerCar[idx] === maxDist);

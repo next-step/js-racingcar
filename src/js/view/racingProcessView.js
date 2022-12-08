@@ -11,15 +11,23 @@ const racingProcessWrapperTemplate = (children) => /* html */ `
     </section>
 `;
 
-const carInfoTempalte = (carName, children) => /* html */ `
+const carInfoTempalte = (carName, ...children) => /* html */ `
     <div class="mr-2">
         <div class="car-player">${carName}</div>
-        ${children}
+        ${children.join("")}
     </div>
 `;
 
 const moveArrowTemplate = /* html */ `
     <div class="forward-icon mt-2">⬇️️</div>
+`;
+
+const moveWatingSpinner = /* html */ `
+  <div class="d-flex justify-center mt-3">
+    <div class="relative spinner-container">
+      <span class="material spinner"></span>
+    </div>
+  </div>
 `;
 
 class RacingProcessView {
@@ -41,20 +49,24 @@ class RacingProcessView {
     return Array.from({ length: dist }, () => moveArrowTemplate).join("");
   }
 
-  renderRacingProcess(entries, movingDistPerCar) {
+  renderRacingProcess(entries, movingDistPerCar, isFinished) {
     const $racingProcessStatus = entries
       .map((carName, idx) => {
         const curCarMovedDist = movingDistPerCar[idx];
         const $movedDistance = this.renderMovedDistance(curCarMovedDist);
-        return carInfoTempalte(carName, $movedDistance);
+        return carInfoTempalte(carName, $movedDistance, isFinished ? "" : moveWatingSpinner);
       })
       .join("");
 
     return racingProcessWrapperTemplate($racingProcessStatus);
   }
 
-  attachRacingProcessPanel = (entries, movingDistPerCar) => {
-    this.$app.insertAdjacentHTML("beforeEnd", this.renderRacingProcess(entries, movingDistPerCar));
+  attachRacingProcessPanel = (entries, movingDistPerCar, isFinished) => {
+    if (this.$raceProcessSection) {
+      this.$app.removeChild(this.$raceProcessSection);
+    }
+
+    this.$app.insertAdjacentHTML("beforeEnd", this.renderRacingProcess(entries, movingDistPerCar, isFinished));
 
     this.$raceProcessSection = $("#race-process-section");
   };
