@@ -11,6 +11,10 @@ class RacingGame {
     this.#Cars = Cars;
   }
 
+  get winners() {
+    return this.Cars.map((Cars) => Cars.name);
+  }
+
   get racingCount() {
     return this.#racingCount;
   }

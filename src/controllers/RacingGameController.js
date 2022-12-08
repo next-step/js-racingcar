@@ -63,6 +63,25 @@ class RacingGameController {
     this.#RacingGameView.$racingSection.innerHTML =
       this.#RacingGameView.templateRacingSection(this.#RacingGame.Cars);
     this.#RacingGameView.showElement(this.#RacingGameView.$racingSection);
+
+    // TODO STEP3 진행하면서 개선할 것
+    this.#onRacingEnd();
+  }
+
+  #onRacingEnd() {
+    const movementResults = this.#RacingGame.Cars.map(
+      (Car) => Car.movementResult
+    );
+    const winnerMovementCount = Math.max(...movementResults);
+    const winnersCarNames = this.#RacingGame.Cars.filter(
+      (Car) => Car.movementResult === winnerMovementCount
+    ).map((Car) => Car.name);
+
+    console.log(this.#RacingGame.Cars);
+
+    this.#RacingGameView.$winnerSection.innerHTML =
+      this.#RacingGameView.templateWinners(winnersCarNames);
+    this.#RacingGameView.showElement(this.#RacingGameView.$winnerSection);
   }
 
   isCarNamesCorrectlyRegistered(carNames) {

@@ -8,6 +8,7 @@ class RacingGameView {
       "racing-count-fieldset"
     );
     this.$racingSection = document.getElementById("racing-section");
+    this.$winnerSection = document.getElementById("winner-section");
   }
 
   showElement(target) {
@@ -16,6 +17,19 @@ class RacingGameView {
 
   templateRacingSection(Cars) {
     return Cars.map((Car) => Car.templateCarName()).join("");
+  }
+
+  templateWinners(winners) {
+    return `
+        <div>
+          <h2>🏆 최종 우승자: ${winners
+            .map((winner) => winner)
+            .join("")} 🏆</h2>
+          <div class="d-flex justify-center">
+            <button type="button" class="btn btn-cyan">다시 시작하기</button>
+          </div>
+        </div>
+    `;
   }
 }
 
