@@ -4,6 +4,7 @@ import {
   validateCarNamesLength,
   validateDuplicatedCarName,
   validateTrialCount,
+  ValidationError,
 } from './service/validator.js';
 import { startGame } from './service/game.js';
 
@@ -47,7 +48,9 @@ export const handleSubmitTrialCount = (e) => {
 
     startGame();
   } catch (err) {
-    alert(err.message);
-    console.error(err.message);
+    if (err instanceof ValidationError) {
+      alert(err.message);
+      console.error(err.stack);
+    }
   }
 };
