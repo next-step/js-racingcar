@@ -1,7 +1,7 @@
 import { validateAttemptNumber, validateCarName } from "../validates/index.js";
-import { $attemptNumberInput, $racingcarNameInput, showAttemptFieldset } from "../views/form.js";
-import { renderCarName, renderRacingGame, showRacingcarSection } from "../views/racing.js";
-import { runRacingGame } from "./racing.js";
+import { $attemptNumberInput, $racingcarNameInput, hideAttemptFieldset, showAttemptFieldset } from "../views/form.js";
+import { hideRacingcarSection, hideResultSection, renderCarName, renderRacingGame, renderWinners, showRacingcarSection, showResultSection } from "../views/racing.js";
+import { getRacingResult, getWinners } from "./racing.js";
 
 export const handleRacingCarNameButton = () => {
   const inputValue = $racingcarNameInput.value;
@@ -19,10 +19,10 @@ export const handleRacingCarNameButton = () => {
   renderCarName(cars);
 }
 
-
 export const handleAttemptNumberButton = () => {
   const cars = $racingcarNameInput.value.split(',');
   const inputValue = $attemptNumberInput.value;
+  const result = getRacingResult(inputValue, cars);
 
   try {
     validateAttemptNumber(inputValue);
@@ -30,7 +30,16 @@ export const handleAttemptNumberButton = () => {
     alert(error);
     return
   }
-
   showRacingcarSection();
-  runRacingGame(inputValue, cars, renderRacingGame);
+  renderRacingGame(result);
+  showResultSection();
+  renderWinners(getWinners(cars))
+}
+
+export const handleResetButton = () => {
+  $racingcarNameInput.value = ''
+  $attemptNumberInput.value = ''
+  hideAttemptFieldset();
+  hideRacingcarSection();
+  hideResultSection();
 }

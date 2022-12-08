@@ -40,9 +40,33 @@ describe("레이싱 어플리케이션 1단계 스펙", () => {
 
     cy.fillAndClickInputValue('input[name=attempt-number]', 4);
 
-    const names = ['BENZ', 'AUDI', 'BMW'];
+    const names = ['benz', 'audi', 'bmw'];
     names.map((name, index) => {
       cy.get('.car-player').eq(index).contains(name);
     });
   });
+
+  it('시도 횟수를 입력 후 최종 우승자가 보여야 한다.', () => {
+    const cars = ['benz', 'audi', 'bmw'];
+    cy.fillAndClickInputValue('input[name=car-name]', cars.join(', '));
+
+    cy.fillAndClickInputValue('input[name=attempt-number]', 4);
+
+    cy.isVisible('#result');
+  })
+
+
+  it('다시 시작하기 버튼을 클릭하면 자동차 이름 Input 만 보여야 한다.', () => {
+    const cars = ['benz', 'audi', 'bmw'];
+    cy.fillAndClickInputValue('input[name=car-name]', cars.join(', '));
+
+    cy.fillAndClickInputValue('input[name=attempt-number]', 4);
+
+    cy.get('.reset').click();
+    cy.isVisible('fieldset.car-name')
+    
+    cy.isDisplayNone('fieldset.attempt')
+    cy.isDisplayNone('section#racingcar')
+    cy.isDisplayNone('section#result')
+  })
 });
