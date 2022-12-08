@@ -3,6 +3,7 @@ export const CAR = {
   NAME_MAX_LENGTH: 5,
   MIN_NUMBER_OF_ATTEMPTS: 1,
   NUMBER_OF_ATTEMPTS_ZERO: 0,
+  PROGRESSIVE_TIME: 1000,
 };
 
 export const ALERT_MESSAGE = {

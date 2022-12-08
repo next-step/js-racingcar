@@ -1,10 +1,6 @@
 import {CAR} from "./constants/constants.js";
 import {$$, showElement, getRandomNumber} from "./utils/index.js";
 
-export const handleNumberOfAttempts = (domElement) => {
-  showElement(domElement);
-};
-
 export const handleCarViewAndRace = (carNamesArr, renderSection) => {
   const createdRacingCar = createRacingCar(carNamesArr);
   renderSection.appendChild(createdRacingCar);

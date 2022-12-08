@@ -6,7 +6,7 @@ export const showElement = (element) => {
   element.classList.remove("d-none");
 };
 
-export const lockElement = (element) => {
+export const disabledElement = (element) => {
   element.disabled = true;
 };
 
