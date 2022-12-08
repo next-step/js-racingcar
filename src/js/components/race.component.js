@@ -3,10 +3,11 @@ import { CarModel } from '../models/car.model.js';
 
 import { RACETYPE } from "../common/const.js";
 import { $car, $race } from '../views/selector.js';
+import { appendElement, parseStringToHTML } from "../common/util.js";
 
 export class RaceComponent extends Component {
-    constructor(container) {
-        super(container);
+    constructor(stateService) {
+        super(stateService);
         this._init();
     }
 
@@ -15,36 +16,37 @@ export class RaceComponent extends Component {
     }
 
     _subscribe() {
-        this._stateService.observers.push({ renderRace: () => this.#render() });
+        this._stateService.renderState.observers.push({ renderRace: () => this.#render() });
     }
 
     #render() {
         const cars = this.#getCars();
 
         cars.map(({ player, races }) => {
-            const $container = this._view.parseStringToHTML($car.container);
-            $container.append(this.#renderPlayer(player));
+            const $container = parseStringToHTML($car.container);
+            appendElement($container, this.#renderPlayer(player));
             return this.#renderRaces($container, races);
         }).forEach(car => {
-            this._view.append($race.container, car);
+            appendElement($race.container, car);
         });
 
     }
 
     #getCars = () => {
-        const { names, round } = this._stateService.race;
+        const { names, round } = this._stateService.raceState;
         return names.map(name => new CarModel(name, round).getRaces());
     }
 
     #renderPlayer = (player) => {
-        const $player = `<div class="race-player">${ player }</div>`
-        return this._view.parseStringToHTML($player);
+         const $player = `<div class="race-player">${ player }</div>`;
+         return parseStringToHTML($player);
+
     }
 
     #renderRaces = ($container, races) => {
         races.forEach((race, i) => {
             const delay = (i + 1) * 1000;
-            const $forward = this._view.parseStringToHTML($car.forward);
+            const $forward = parseStringToHTML($car.forward);
 
             setTimeout(() => {
                 if (race === RACETYPE.STOP) return;
@@ -58,7 +60,7 @@ export class RaceComponent extends Component {
     }
 
     #renderSpinner = ($container, i) => {
-        const $spinner = this._view.parseStringToHTML($race.spinner);
+        const $spinner = parseStringToHTML($race.spinner);
         setTimeout(() => $container.append($spinner), i * 1000);
         setTimeout(() => $container.removeChild($spinner), (i + 1) * 1000);
     }

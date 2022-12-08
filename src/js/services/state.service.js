@@ -1,30 +1,59 @@
-const state = {
-    race: {
+export class StateService {
+    static instance;
+    raceState = {
         names: [],
         round: 0
-    },
-    renderRace: false,
-    renderRound: false,
-    observers: [],
-    reset: []
-}
+    };
+    renderState = {
+        renderRace: false,
+        renderRound: false,
+        observers: []
+    }
+    resetState = {
+        reset: [],
+        observers: []
+    }
 
-export default function stateService() {
-    return new Proxy(state, {
-        get(target, prop) {
-            return target[prop];
-        },
-        set(target, prop, value) {
-            const hasProp = Object.keys(state).includes(prop.toString());
-            if (!hasProp) return;
 
-            Reflect.set(target, prop, value);
+    constructor() {
+        this.raceState = this.getRaceState();
+        this.renderState = this.setObserverState(this.renderState);
+        this.resetState = this.setObserverState(this.resetState);
+    }
 
-            if (value) {
-                Reflect.get(target.observers.find(row => row[prop]), prop)();
-            }
-
-            return true;
+    static getInstance() {
+        if (!StateService.instance) {
+            StateService.instance = new StateService();
         }
-    });
+
+        return StateService.instance;
+    }
+
+    getRaceState() {
+        return new Proxy(this.raceState, {
+            get(target, prop) {
+                return target[prop];
+            },
+            set(target, prop, value) {
+                Reflect.set(target, prop, value);
+
+                return true;
+            }
+        });
+    }
+
+    setObserverState(state) {
+        return new Proxy(state, {
+            set(target, prop, value) {
+                Reflect.set(target, prop, value);
+
+                if (value) {
+                    Reflect.get(target.observers.find(row => row[prop]), prop)();
+                }
+
+                return true;
+            }
+        });
+    }
+
 }

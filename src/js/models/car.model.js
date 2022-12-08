@@ -1,5 +1,5 @@
 import { arr, getRandom } from '../common/util.js';
-import { RACETYPE } from '../common/const.js';
+import { CAR, RACETYPE } from '../common/const.js';
 
 export class CarModel {
     #player;
@@ -18,7 +18,7 @@ export class CarModel {
     }
 
     #setRace = () => {
-        const random = getRandom(0, 9);
-        return random > 3 ? RACETYPE.FORWARD : RACETYPE.STOP;
+        const random = getRandom(CAR.MIN_POINT, CAR.MAX_POINT);
+        return random > CAR.TURNING_POINT ? RACETYPE.FORWARD : RACETYPE.STOP;
     }
 }

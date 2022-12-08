@@ -3,6 +3,12 @@ export const NAME = {
     MAX_RANGE: 5
 }
 
+export const CAR = {
+    MIN_POINT: 0,
+    MAX_POINT: 9,
+    TURNING_POINT: 3
+}
+
 export const MIN_ROUND = 1;
 
 export const RACETYPE = {
@@ -10,10 +16,4 @@ export const RACETYPE = {
     STOP: 'STOP'
 }
 
-export const VALIDATIONTYPE = {
-    NAME: 'NAME',
-    ROUND: 'ROUND'
-}
-
 Object.freeze(RACETYPE);
-Object.freeze(VALIDATIONTYPE);

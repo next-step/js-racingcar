@@ -1,26 +1,19 @@
-import { nameComponent } from './components/nameComponent.js';
-import { roundComponent } from './components/roundComponent.js';
+import { NameComponent } from './components/nameComponent.js';
+import { RoundComponent } from './components/roundComponent.js';
 import { RaceComponent } from './components/race.component.js';
 
-import { View } from './views/view.js';
-import { Validator } from './common/validator.js';
-import stateService from './services/state.service.js';
+import { StateService } from "./services/state.service.js";
 
 export class App {
-    container;
+    stateService;
 
     constructor() {
-        this.container = {
-            view: new View(),
-            validator: new Validator(),
-            stateService: stateService()
-        }
-        this.init();
+        this.stateService = StateService.getInstance();
     }
 
     init() {
-        const name = new nameComponent(this.container);
-        const round = new roundComponent(this.container);
-        const race = new RaceComponent(this.container);
+        const nameComponent = new NameComponent(this.stateService);
+        const roundComponent = new RoundComponent(this.stateService);
+        const raceComponent = new RaceComponent(this.stateService);
     }
 }

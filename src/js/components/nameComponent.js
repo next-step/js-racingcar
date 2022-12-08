@@ -1,11 +1,13 @@
 import { Component } from './component.js';
 
 import { $name, $round } from '../views/selector.js';
-import { VALIDATIONTYPE } from '../common/const.js';
+import { NAME } from '../common/const.js';
+import { CustomError, ERROR_MESSAGE, InputOutOfRangeError } from "../common/error.js";
+import { disableButton, setFocus } from "../common/util.js";
 
-export class nameComponent extends Component {
-    constructor(container) {
-        super(container);
+export class NameComponent extends Component {
+    constructor(stateService) {
+        super(stateService);
         this._init();
     }
 
@@ -14,32 +16,52 @@ export class nameComponent extends Component {
     }
 
     _setEventListeners() {
-        $name.button.addEventListener('click', () => this._submit());
-        $name.input.addEventListener('keyup', e => this._submitByEnterKey(e));
+        $name.button.addEventListener('click', () => this.submit());
+        $name.input.addEventListener('keyup', e => this.submitByEnterKey(e));
     }
 
     _setRemoveListeners() {
-        $name.input.removeEventListener('keyup', e => this._submitByEnterKey(e));
+        $name.input.removeEventListener('keyup', e => this.submitByEnterKey(e));
     }
 
-    _submit() {
+    submit() {
         const names = this.#setNames();
 
-        if (!this._validator.validate(VALIDATIONTYPE.NAME, names)) return;
+        if (!this.#IsValidated()) return;
 
         this._setRemoveListeners();
-        this._stateService.renderRound = true;
-        this._stateService.race.names = names;
+        this._stateService.renderState.renderRound = true;
+        this._stateService.raceState.names = names;
 
-        this._view.disableButton($name.button);
-        this._view.setFocus($round.input);
+        disableButton($name.button);
+        setFocus($round.input);
     }
 
-    _submitByEnterKey(e) {
-        super._submitByEnterKey(e);
+    submitByEnterKey(e) {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        this.submit();
     }
 
     #setNames = () => {
         return $name.input.value.split(',').map(name => name.trim());
+    }
+
+    #IsValidated = () => {
+        const names = this.#setNames();
+        try {
+            names.forEach(name => {
+                if (name.length < NAME.MIN_RANGE || name.length > NAME.MAX_RANGE) {
+                    throw new InputOutOfRangeError(ERROR_MESSAGE.InputOutOfRange);
+                }
+            });
+            return true;
+        } catch (e) {
+            if (e instanceof CustomError) {
+                alert(e.message);
+            } else {
+                throw e;
+            }
+        }
     }
 }
