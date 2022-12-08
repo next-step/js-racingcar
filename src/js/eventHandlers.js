@@ -50,7 +50,7 @@ export const handleSubmitTrialCount = (e) => {
   } catch (err) {
     if (err instanceof ValidationError) {
       alert(err.message);
-      console.error(err.stack);
     }
+    console.error(err.stack);
   }
 };
