@@ -14,4 +14,6 @@ export const SELECTOR = {
 
   CAR_WINNERS_CONTAINER: '.js-car-winners-container',
   CAR_WINNERS_NAME: '.js-car-winners-name',
+
+  CAR_GAME_RESTART_BUTTON: '.js-car-game-restart-button',
 };

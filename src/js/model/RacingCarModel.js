@@ -1,6 +1,8 @@
 export class RacingCarModel {
   #name = '';
 
+  #moveForwardCount = 0;
+
   constructor(name) {
     this.#name = name;
   }
@@ -11,5 +13,13 @@ export class RacingCarModel {
 
   set name(name) {
     this.#name = name;
+  }
+
+  get moveForwardCount() {
+    return this.#moveForwardCount;
+  }
+
+  set moveForwardCount(moveForwardCount) {
+    this.#moveForwardCount = moveForwardCount;
   }
 }

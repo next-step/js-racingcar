@@ -6,4 +6,7 @@ export const RACING_CAR = {
   MIN_MOVE_FORWARD_NUMBER: 0,
   MAX_MOVE_FORWARD_NUMBER: 9,
   STANDARD_MOVE_FORWARD_NUMBER: 4,
+
+  ENDING_MESSAGE: '🚀🚀🚀🚀 축하합니다! 🚀🚀🚀🚀',
+  ENDING_MESSAGE_DELAY: 2000,
 };

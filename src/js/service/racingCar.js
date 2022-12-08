@@ -1,7 +1,7 @@
 import racingCarGameModel from '../model/RacingCarGameModel.js';
 import { RACING_CAR } from '../constants/racingCar.js';
 import { generateRandomNumber } from '../utils/index.js';
-import { hideLoadingSpinner, showLoadingSpinner, renderCarStatus } from '../view/racingCar.js';
+import { hideLoadingSpinner, showLoadingSpinner, renderCarStatus, resetRacingCarView } from '../view/racingCar.js';
 import { isMoveForwardNumber } from '../utils/validator.js';
 
 export const getMoveForwardCount = (arr) => {
@@ -10,6 +10,16 @@ export const getMoveForwardCount = (arr) => {
   return arr.reduce((acc, cur) => {
     return cur >= RACING_CAR.STANDARD_MOVE_FORWARD_NUMBER ? acc + 1 : acc;
   }, 0);
+};
+
+export const getRecord = (cars) => {
+  const record = {};
+
+  cars.forEach((car) => {
+    record[car.name] = car.moveForwardCount;
+  });
+
+  return record;
 };
 
 export const getWinners = (record) => {
@@ -21,10 +31,7 @@ export const getWinners = (record) => {
 export const isMoveForward = () => {
   const randomValue = generateRandomNumber(RACING_CAR.MIN_MOVE_FORWARD_NUMBER, RACING_CAR.MAX_MOVE_FORWARD_NUMBER);
 
-  if (isMoveForwardNumber(randomValue)) {
-    return true;
-  }
-  return false;
+  return isMoveForwardNumber(randomValue);
 };
 
 export const gameStart = () => {
@@ -36,10 +43,10 @@ export const gameStart = () => {
       const tempMoveForwardCount = {};
 
       racingCarGameModel.cars.forEach((car) => {
-        // eslint-disable-next-line no-param-reassign
         if (isMoveForward()) {
+          // eslint-disable-next-line no-param-reassign
+          ++car.moveForwardCount;
           tempMoveForwardCount[car.name] = 1;
-          racingCarGameModel.record[car.name] += 1;
         }
       });
       renderCarStatus(tempMoveForwardCount);
@@ -53,4 +60,22 @@ export const gameStart = () => {
       }
     }, RACING_CAR.MOVE_FORWARD_WAITING_TIME);
   });
+};
+
+export const alertCelebrationMessage = () => {
+  setTimeout(() => {
+    alert(RACING_CAR.ENDING_MESSAGE);
+  }, RACING_CAR.ENDING_MESSAGE_DELAY);
+};
+
+const resetRacingCarGameModel = () => {
+  racingCarGameModel.cars = [];
+  racingCarGameModel.attemptsCount = RACING_CAR.MIN_ATTEMPTS_COUNT;
+  racingCarGameModel.record = {};
+  racingCarGameModel.winners = [];
+};
+
+export const restart = () => {
+  resetRacingCarGameModel();
+  resetRacingCarView();
 };
