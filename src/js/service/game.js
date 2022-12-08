@@ -1,43 +1,47 @@
 import { GAME_CONDITION } from '../constants/condition.js';
 
 import gameSetting from '../model/GameSetting.js';
+import Car from '../model/Car.js';
 
 import { generateRandomNumber } from '../utils/index.js';
 
-const isMovable = (randomNumber) => randomNumber >= GAME_CONDITION.MOVABLE_MIN_NUMBER;
+class GameController {
+  #cars = [];
 
-const getResultOfOneTurn = (carNames) => {
-  return new Array(carNames.length).fill(false).map(() => {
-    const randomNumber = generateRandomNumber(
-      GAME_CONDITION.MIN_RANDOM_NUMBER,
-      GAME_CONDITION.MAX_RANDOM_NUMBER,
-    );
-    return isMovable(randomNumber);
-  });
-};
+  #trialCount = null;
 
-const getTotalResult = ({ carNames, trialCount }) => {
-  const totalResult = {};
+  constructor(cars, trialCount) {
+    this.#cars = cars;
+    this.#trialCount = trialCount;
+  }
 
-  carNames.forEach((name) => {
-    totalResult[name] = GAME_CONDITION.INIT_DISTANCE_STATE;
-  });
+  #isMovable(randomNumber) {
+    return randomNumber >= GAME_CONDITION.MOVABLE_MIN_NUMBER;
+  }
 
-  for (let i = 0; i < trialCount; i++) {
-    getResultOfOneTurn(carNames).forEach((result, idx) => {
-      const name = carNames[idx];
-      if (result === true) {
-        totalResult[name] += GAME_CONDITION.UNIT_OF_DISTANCE;
+  getOneTurnResult() {
+    const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER } = GAME_CONDITION;
+
+    this.#cars.forEach((car) => {
+      const randomNumber = generateRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
+
+      if (this.#isMovable(randomNumber)) {
+        car.move();
       }
     });
   }
 
-  return totalResult;
-};
+  getTotalResult() {
+    Array.from({ length: this.#trialCount }).forEach((_) => this.getOneTurnResult());
+  }
+}
 
 export const startGame = () => {
   const carNames = gameSetting.getNames();
   const trialCount = gameSetting.getTrialCount();
 
-  const totalResult = getTotalResult({ carNames, trialCount });
+  const cars = carNames.map((carName) => new Car(carName));
+  const gameController = new GameController(cars, trialCount);
+
+  gameController.getTotalResult();
 };
