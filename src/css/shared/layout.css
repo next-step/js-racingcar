@@ -50,6 +50,10 @@
   margin-right: 8px;
 }
 
+.flex-column {
+  flex-direction: column;
+}
+
 /* Box Alignment - Justify Content*/
 .justify-start {
   justify-content: flex-start;
