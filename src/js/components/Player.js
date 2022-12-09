@@ -5,7 +5,7 @@ class Player extends Component {
   constructor({ $target, props = {} }) {
     super({ $target, props });
     this.props = props;
-    this.wrapper;
+    this.$wrapper;
   }
 
   mounted() {
@@ -13,27 +13,32 @@ class Player extends Component {
     wrapper.setAttribute('class', 'mr-2');
 
     this.$target.append(wrapper);
-    this.wrapper = wrapper;
+    this.$wrapper = wrapper;
   }
 
   render() {
+    // this.makePlayerWrapper();
+
     const racingMap = store.getState({ name: 'racingMap', that: this });
     const isRacingEnd = store.getState({ name: 'isRacingEnd', that: this });
-    if (!racingMap) return;
+    const { carId, carName } = this.props;
 
-    this.wrapper.innerHTML = /*html*/ `
-      <div class="mr-2 progress-block-${this.props.carId}">
-        <div class="car-player">${this.props.carName}</div>
-        ${racingMap
-          .get(this.props.carId)
-          .map((isProgress) =>
-            isProgress
-              ? `
+    this.$wrapper.innerHTML = /*html*/ `
+      <div class="mr-2 progress-block-${carId}">
+        <div class="car-player">${carName}</div>
+        ${
+          racingMap &&
+          racingMap
+            .get(carId)
+            .map((isProgress) =>
+              isProgress
+                ? `
             <div class="forward-icon mt-2">⬇️️</div>
               `
-              : ``
-          )
-          .join('')}
+                : ``
+            )
+            .join('')
+        }
           ${
             isRacingEnd
               ? ''
@@ -45,10 +50,10 @@ class Player extends Component {
             </div>
             `
           }
-
         </div>
       </div>
     `;
   }
 }
+
 export default Player;

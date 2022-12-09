@@ -20,7 +20,9 @@ export default class Component {
   mounted() {
     this.$target.innerHTML = this.template();
   }
+
   componentUpdated() {}
+
   render() {
     this.componentUpdated();
   }

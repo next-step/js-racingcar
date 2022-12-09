@@ -1,4 +1,4 @@
-import { EVENT_MAP } from '../constants.js';
+import { ALERT, EVENT_MAP } from '../constants.js';
 import Component from '../core/Component.js';
 import store from '../core/Store.js';
 import {
@@ -9,10 +9,6 @@ import {
 import Trial from './Trial.js';
 
 class Attempt extends Component {
-  constructor({ $target, props = {} }) {
-    super({ $target, props });
-  }
-
   template() {
     return /*html*/ `
       <form class="attempt-wrapper">
@@ -40,9 +36,7 @@ class Attempt extends Component {
     event.preventDefault();
 
     if (!validateCarNames(splitedCarNames)) {
-      alert(
-        '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.'
-      );
+      alert(ALERT.INVALID_CARNAME);
       return;
     }
 
@@ -60,12 +54,13 @@ class Attempt extends Component {
     const $carSubmitButton = this.$target.querySelector(
       '[data-id=submit-carname]'
     );
-    const isDisabledButton = isVisibleTrial || !carNames;
     const isVisibleTrial = store.getState({
       name: 'isVisibleTrial',
       that: this,
     });
     const carNames = store.getState({ name: 'carNames', that: this });
+
+    const isDisabledButton = isVisibleTrial || !carNames;
 
     if (isDisabledButton) $carSubmitButton.setAttribute('disabled', '');
     if (!isDisabledButton) $carSubmitButton.removeAttribute('disabled');
@@ -73,12 +68,12 @@ class Attempt extends Component {
 
   handleCarNameInput() {
     const $carNameInput = this.$target.querySelector('[data-id=name-input]');
-    const isDisabledInput = isVisibleTrial;
     const isVisibleTrial = store.getState({
       name: 'isVisibleTrial',
       that: this,
     });
     const carNames = store.getState({ name: 'carNames', that: this });
+    const isDisabledInput = isVisibleTrial;
 
     if (isDisabledInput) $carNameInput.setAttribute('disabled', '');
     if (!isDisabledInput) $carNameInput.focus();

@@ -67,21 +67,14 @@ class Trial extends Component {
 
     const winner = getRacingWinner({ racingMap, trialNumber });
 
-    if (isRacingEnd) {
-      return;
-    }
-    if (!isVisibleProgress) return;
+    if (isRacingEnd || !isVisibleProgress) return;
 
     if (winner.length) {
-      // alert(`레이싱이 끝났습니다 : ${winner.join(',')}`);
-
-      !isRacingEnd &&
-        store.setState({
-          isRacingEnd: true,
-          winners: winner.join(','),
-          isVisibleResult: true,
-        });
-      return;
+      return store.setState({
+        isRacingEnd: true,
+        winners: winner.join(','),
+        isVisibleResult: true,
+      });
     }
 
     await waitUntil(700);
