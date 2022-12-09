@@ -1,4 +1,4 @@
-import {CAR} from "./constants/constants.js";
+import {CAR} from "../constants/constants.js";
 
 export const validateCarNames = (namesArr) => {
   const namesError = namesArr
@@ -12,17 +12,3 @@ export const validateCarNames = (namesArr) => {
 };
 
 export const validateAttempts = (attempts) => (attempts <= 0 ? false : true);
-
-export class Car {
-  constructor(name) {
-    this.name = name;
-    this.position = 0;
-  }
-
-  forward() {
-    this.position += 1;
-  }
-}
-
-export const getCarNamesArr = (element) =>
-  element.value.split(",").map((carName) => new Car(carName.trim()));
