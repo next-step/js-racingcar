@@ -1,8 +1,8 @@
 import {showElement} from "./utils/index.js";
 
-export const handleCarViewAndRace = (carNamesArr, renderSection) => {
-  const createdRacingCar = createRacingCar(carNamesArr);
-  renderSection.appendChild(createdRacingCar);
+export const renderRacingCar = (racingCar, renderSection) => {
+  const createRacingLaneTemplate = createRacingCar(racingCar);
+  renderSection.appendChild(createRacingLaneTemplate);
   showElement(renderSection);
 };
 

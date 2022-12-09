@@ -1,19 +1,16 @@
 import {DOM} from "./constants/dom.js";
 import {ALERT_MESSAGE, CAR} from "../js/constants/constants.js";
-import {
-  validateCarNames,
-  validateAttempts,
-  getCarNamesArr,
-} from "../js/model.js";
+import {getCarClassList} from "./model/model.js";
+import {validateCarNames, validateAttempts} from "./model/validation.js";
 import {
   $$,
   disabledElement,
-  resetElement,
+  clearElementValue,
   showElement,
   getRandomNumber,
 } from "./utils/index.js";
 import {
-  handleCarViewAndRace,
+  renderRacingCar,
   removePrevSpinner,
   renderLoadingIcon,
   renderForwardIcon,
@@ -28,7 +25,7 @@ export const handleSubmitCarNames = (event) => {
     showElement(DOM.NUMBER_OF_ATTEMPTS_FIELDSET);
   } else {
     alert(ALERT_MESSAGE.INVALID_INPUT_CAR_NAMES);
-    resetElement(DOM.CAR_NAMES_ID_INPUT);
+    clearElementValue(DOM.CAR_NAMES_ID_INPUT);
   }
 };
 
@@ -40,14 +37,14 @@ export const handleSubmitAttempts = (event) => {
     disabledElement(DOM.NUMBER_OF_ATTEMPTS_INPUT);
     disabledElement(DOM.NUMBER_OF_ATTEMPTS_BTN);
 
-    handleCarViewAndRace(
-      getCarNamesArr(DOM.CAR_NAMES_ID_INPUT),
+    renderRacingCar(
+      getCarClassList(DOM.CAR_NAMES_ID_INPUT),
       DOM.RACING_CAR_RENDER_SECTION
     );
-    progressRacingCar(getCarNamesArr(DOM.CAR_NAMES_ID_INPUT));
+    progressRacingCar(getCarClassList(DOM.CAR_NAMES_ID_INPUT));
   } else {
     alert(ALERT_MESSAGE.INVALID_INPUT_NUMBER_OF_ATTEMPTS);
-    resetElement(DOM.NUMBER_OF_ATTEMPTS_INPUT);
+    clearElementValue(DOM.NUMBER_OF_ATTEMPTS_INPUT);
   }
 };
 

@@ -10,7 +10,7 @@ export const disabledElement = (element) => {
   element.disabled = true;
 };
 
-export const resetElement = (element) => {
+export const clearElementValue = (element) => {
   element.value = "";
 };
 
