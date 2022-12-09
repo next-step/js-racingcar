@@ -5,43 +5,32 @@ import Car from '../model/Car.js';
 
 import { generateRandomNumber } from '../utils/index.js';
 
-class GameController {
-  #cars = [];
+const isMovable = () => {
+  const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER } = GAME_CONDITION;
+  const randomNumber = generateRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
 
-  #trialCount = null;
+  return randomNumber >= GAME_CONDITION.MOVABLE_MIN_NUMBER;
+};
 
-  constructor(cars, trialCount) {
-    this.#cars = cars;
-    this.#trialCount = trialCount;
+const updateCarDistance = (car) => {
+  if (isMovable()) {
+    car.move();
   }
+};
 
-  #isMovable(randomNumber) {
-    return randomNumber >= GAME_CONDITION.MOVABLE_MIN_NUMBER;
-  }
+const raceOneTurn = (cars) => {
+  cars.forEach((car) => updateCarDistance(car));
+};
 
-  getOneTurnResult() {
-    const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER } = GAME_CONDITION;
-
-    this.#cars.forEach((car) => {
-      const randomNumber = generateRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
-
-      if (this.#isMovable(randomNumber)) {
-        car.move();
-      }
-    });
-  }
-
-  getTotalResult() {
-    Array.from({ length: this.#trialCount }).forEach((_) => this.getOneTurnResult());
-  }
-}
+const raceTotalTurn = ({ cars, trialCount }) => {
+  [...Array(trialCount)].forEach(() => raceOneTurn(cars));
+};
 
 export const startGame = () => {
   const carNames = gameSetting.getNames();
   const trialCount = gameSetting.getTrialCount();
 
   const cars = carNames.map((carName) => new Car(carName));
-  const gameController = new GameController(cars, trialCount);
 
-  gameController.getTotalResult();
+  raceTotalTurn({ cars, trialCount });
 };
