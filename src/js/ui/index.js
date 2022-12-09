@@ -1,6 +1,6 @@
 import { ELEMENT } from './element.js';
 import { addClass, setClickListener, setInputEnterListener } from './function.js';
-import { handleAttemptTimes, handleCarNames } from './handler.js';
+import { handleAttemptTimes, handleCarNames, handlerResetGame } from './handler.js';
 import { selector } from './selector.js';
 
 export const initialize = () => {
@@ -17,4 +17,5 @@ export function setListeners() {
   // STEP2. 자동차 시도 횟수 입력
   setClickListener(ELEMENT.BUTTON.ATTEMT_TIMES_CONFIRM, handleAttemptTimes);
   setInputEnterListener(ELEMENT.INPUT.ATTEMPT_TIMES, handleAttemptTimes);
+  setClickListener(ELEMENT.BUTTON.RESTART, handlerResetGame);
 }

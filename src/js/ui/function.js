@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import { Car } from '../service/Car.js';
+import { CAR_RACING } from '../service/constant.js';
 import { ELEMENT } from './element.js';
-import { selector } from './selector.js';
+import { selector, selectorAll } from './selector.js';
 
 /**
  *
@@ -49,7 +50,7 @@ export const setInputEnterListener = (element, callback) => {
  * @returns {string}
  */
 const getWinnerText = (cars) => {
-  return `🏆 최종 우승자: ${cars.map((car) => car.getName()).join(', ')} 🏆`;
+  return `🏆 최종 우승자: ${cars.map((car) => car.getName()).join(CAR_RACING.CAR_NAMES.VICTOR_DELIMITER)} 🏆`;
 };
 
 /**
@@ -59,6 +60,14 @@ const getWinnerText = (cars) => {
 export const updateWinners = (winners) => {
   selector(ELEMENT.SUBTITLE.WINNER).innerText = getWinnerText(winners);
 };
+
+export const SPINNER = `
+  <div class="d-flex justify-center mt-3 spinner">
+    <div class="relative spinner-container">
+      <span class="material spinner"></span>
+    </div>
+  </div>
+`;
 
 /**
  *
@@ -76,7 +85,8 @@ export const getCarRuts = (car) => {
   return `
   <div class="mr-2">
     ${carNameDiv}
-    ${getCarRutDiv(car.getMovedDistance())}  
+    ${getCarRutDiv(car.getMovedDistance())}
+    ${SPINNER}
   </div>
   `;
 };
@@ -87,4 +97,8 @@ export const getCarRuts = (car) => {
  */
 export const updateCarsRut = (cars) => {
   selector(ELEMENT.DIV.CAR_RACING).innerHTML = cars.map((car) => getCarRuts(car)).join('');
+};
+
+export const removeSpinners = () => {
+  selectorAll(ELEMENT.SPINNER).forEach((el) => el.remove());
 };

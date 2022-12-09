@@ -1,3 +1,4 @@
+import { CAR_RACING } from '../service/constant.js';
 import { removeSpaces } from './string.js ';
 
 /**
@@ -12,7 +13,7 @@ import { removeSpaces } from './string.js ';
  * @return {string[]}
  */
 export const getCarNamesArray = (names) => {
-  return removeSpaces(names).split(',');
+  return removeSpaces(names).split(CAR_RACING.CAR_NAMES.DELIMITER);
 };
 
 /**
