@@ -23,9 +23,12 @@ class Progress extends Component {
       splitingCarNames(carNames)
         .map((carName, idx) => {
           const carId = `${carName}-${idx}`;
+          const $wrapper = document.createElement('div');
+          $wrapper.setAttribute('class', 'mr-2');
+          this.$target.append($wrapper);
 
           new Player({
-            $target: this.$target,
+            $target: $wrapper,
             props: { carName, carId },
           });
         })

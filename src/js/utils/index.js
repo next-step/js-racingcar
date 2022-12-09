@@ -54,16 +54,10 @@ export const getRacingWinner = ({ racingMap, trialNumber }) => {
 export function makeNewRacingMap(prevRacingMap) {
   if (!prevRacingMap.size) return prevRacingMap;
 
-  const updatedRacingMap = new Map([...prevRacingMap]);
-
-  [...updatedRacingMap.keys()].forEach((key) => {
-    updatedRacingMap.set(key, [
-      ...updatedRacingMap.get(key),
-      getProgressOrNot(),
-    ]);
-  });
-
-  return updatedRacingMap;
+  return Array.from(prevRacingMap).reduce((map, [key, values]) => {
+    map.set(key, [...values, getProgressOrNot()]);
+    return map;
+  }, new Map());
 }
 
 export const makeDefaultRacingMap = (carNames) =>

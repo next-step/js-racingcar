@@ -1,10 +1,14 @@
 export default class Component {
   constructor({ $target, props = {} }) {
+    if (this.constructor == Component) {
+      throw new Error('추상 클래스이므로 확장이 필요합니다.');
+    }
     this.$target = $target;
     this.state = {};
     this.props = props;
-    this.mounted();
-    this.setup();
+    this.mount();
+    this.render();
+    this.addEventListener();
   }
 
   setState(newState) {
@@ -12,20 +16,15 @@ export default class Component {
     this.render();
   }
 
-  setup() {
-    this.render();
-    this.addEventListener();
-  }
-
-  mounted() {
+  mount() {
     this.$target.innerHTML = this.template();
   }
-
-  componentUpdated() {}
 
   render() {
     this.componentUpdated();
   }
+
+  componentUpdated() {}
 
   template() {
     return '';
