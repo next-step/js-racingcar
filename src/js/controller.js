@@ -5,8 +5,19 @@ import {
   validateAttempts,
   getCarNamesArr,
 } from "../js/model.js";
-import {disabledElement, resetElement, showElement} from "./utils/index.js";
-import {handleCarViewAndRace, startRacingCar} from "./view.js";
+import {
+  $$,
+  disabledElement,
+  resetElement,
+  showElement,
+  getRandomNumber,
+} from "./utils/index.js";
+import {
+  handleCarViewAndRace,
+  removePrevSpinner,
+  renderLoadingIcon,
+  renderForwardIcon,
+} from "./view.js";
 
 export const handleSubmitCarNames = (event) => {
   event.preventDefault();
@@ -42,15 +53,28 @@ export const handleSubmitAttempts = (event) => {
 
 export const progressRacingCar = (racingCar, step = 1) => {
   const numberOfAttempts = DOM.NUMBER_OF_ATTEMPTS_INPUT.valueAsNumber;
-
   startRacingCar(racingCar);
 
   const intervalId = setInterval(() => {
-    const isFinishRacing = step++ === numberOfAttempts;
+    const isFinishRacing = step++ === numberOfAttempts - 1;
+
     startRacingCar(racingCar);
 
     if (isFinishRacing) {
       clearInterval(intervalId);
     }
   }, CAR.PROGRESSIVE_TIME);
+};
+
+export const startRacingCar = (racingCars) => {
+  $$(".car").forEach((car, idx) => {
+    removePrevSpinner(car);
+
+    if (CAR.GO_OR_STOP_STANDARD < getRandomNumber(0, 9)) {
+      racingCars[idx].forward;
+      renderForwardIcon(car.lastChild);
+    } else {
+      renderLoadingIcon(car.lastChild);
+    }
+  });
 };

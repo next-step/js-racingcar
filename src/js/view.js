@@ -1,5 +1,4 @@
-import {CAR} from "./constants/constants.js";
-import {$$, showElement, getRandomNumber} from "./utils/index.js";
+import {showElement} from "./utils/index.js";
 
 export const handleCarViewAndRace = (carNamesArr, renderSection) => {
   const createdRacingCar = createRacingCar(carNamesArr);
@@ -46,19 +45,6 @@ export const renderLoadingIcon = (carWrapper) => {
   spinnerFlexContainer.appendChild(spinnerContainer);
 
   carWrapper.insertAdjacentElement("afterend", spinnerFlexContainer);
-};
-
-export const startRacingCar = (racingCars) => {
-  $$(".car").forEach((car, idx) => {
-    removePrevSpinner(car);
-
-    if (CAR.GO_OR_STOP_STANDARD < getRandomNumber(0, 9)) {
-      racingCars[idx].forward();
-      renderForwardIcon(car.lastChild);
-    } else {
-      renderLoadingIcon(car.lastChild);
-    }
-  });
 };
 
 export const removePrevSpinner = (car) => {
