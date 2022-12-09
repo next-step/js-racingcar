@@ -163,11 +163,13 @@ export const deepDiffMapper = () => {
 };
 
 export const makeEnrollComponents = (defaultState) => {
-  const object = {};
-  Object.keys(defaultState).forEach((key) => {
-    object[key] = [];
-  });
-  return object;
+  return Object.keys(defaultState).reduce(
+    (enrollComponentsObject, stateName) => {
+      enrollComponentsObject[stateName] = [];
+      return enrollComponentsObject;
+    },
+    {}
+  );
 };
 
 export default {
