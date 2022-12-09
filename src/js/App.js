@@ -40,22 +40,20 @@ export class App extends Component {
     const { $target } = this;
 
     $target.addEventListener('click', (event) => {
-      if (EVENT_MAP.CLICK.has(event.target.dataset.id)) {
-        console.log(
-          EVENT_MAP.CLICK,
-          EVENT_MAP.CLICK.get(event.target.dataset.id)
-        );
-        EVENT_MAP.CLICK.get(event.target.dataset.id)(event);
-      }
+      const { id: dataId } = event.target.dataset;
+      const { CLICK } = EVENT_MAP;
+
+      if (CLICK.has(dataId)) CLICK.get(dataId)(event);
     });
 
     $target.addEventListener('keyup', (event) => {
-      if (EVENT_MAP.KEY_UP.has(event.target.dataset.id)) {
-        EVENT_MAP.KEY_UP.get(event.target.dataset.id)(event);
-      }
+      const { id: dataId } = event.target.dataset;
+      const { KEY_UP } = EVENT_MAP;
+
+      if (KEY_UP.has(dataId)) KEY_UP.get(dataId)(event);
     });
-    //*TODO: document에 submit이벤트를 거는 것 이 맞는지 확인 필요
-    document.addEventListener('submit', (event) => {
+
+    $target.addEventListener('submit', (event) => {
       Array.from(EVENT_MAP.SUBMIT.values()).forEach((el) => {
         el(event);
       });

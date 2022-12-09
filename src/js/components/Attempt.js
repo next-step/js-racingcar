@@ -38,6 +38,7 @@ class Attempt extends Component {
     const splitedCarNames = splitingCarNames(carNames);
 
     event.preventDefault();
+
     if (!validateCarNames(splitedCarNames)) {
       alert(
         '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.'
@@ -51,40 +52,70 @@ class Attempt extends Component {
     });
   }
 
-  onTypeCarNames(event) {
+  onInputCarNames(event) {
     store.setState({ carNames: event.target.value });
   }
 
-  render() {
-    const { $target } = this;
-    const { getState } = store;
-    const isVisibleTrial = getState({ name: 'isVisibleTrial', that: this });
-    const carNames = getState({ name: 'carNames', that: this });
-    const $trialWrapper = $target.querySelector('.trial-count-wrapper');
-    const $carNameInput = $target.querySelector('[data-id=name-input]');
-    const $carSubmitButton = $target.querySelector('[data-id=submit-carname]');
+  handleButtonAttribute() {
+    const $carSubmitButton = this.$target.querySelector(
+      '[data-id=submit-carname]'
+    );
     const isDisabledButton = isVisibleTrial || !carNames;
-    const isDisabledInput = isVisibleTrial;
+    const isVisibleTrial = store.getState({
+      name: 'isVisibleTrial',
+      that: this,
+    });
+    const carNames = store.getState({ name: 'carNames', that: this });
 
     if (isDisabledButton) $carSubmitButton.setAttribute('disabled', '');
     if (!isDisabledButton) $carSubmitButton.removeAttribute('disabled');
+  }
+
+  handleCarNameInput() {
+    const $carNameInput = this.$target.querySelector('[data-id=name-input]');
+    const isDisabledInput = isVisibleTrial;
+    const isVisibleTrial = store.getState({
+      name: 'isVisibleTrial',
+      that: this,
+    });
+    const carNames = store.getState({ name: 'carNames', that: this });
+
     if (isDisabledInput) $carNameInput.setAttribute('disabled', '');
     if (!isDisabledInput) $carNameInput.focus();
-
-    // $carNameInput.setAttribute('value', carNames);
     $carNameInput.value = carNames;
+  }
+
+  renderTrialComponent() {
+    const $trialWrapper = this.$target.querySelector('.trial-count-wrapper');
+    const isVisibleTrial = store.getState({
+      name: 'isVisibleTrial',
+      that: this,
+    });
+
     if (isVisibleTrial) {
       new Trial({
         $target: $trialWrapper,
       });
     }
+  }
+
+  render() {
+    const $trialWrapper = this.$target.querySelector('.trial-count-wrapper');
+    const isVisibleTrial = store.getState({
+      name: 'isVisibleTrial',
+      that: this,
+    });
+
+    this.handleButtonAttribute();
+    this.handleCarNameInput();
+    this.renderTrialComponent();
 
     if (!isVisibleTrial) $trialWrapper.innerHTML = '';
   }
 
   addEventListener() {
     EVENT_MAP.CLICK.set('submit-carname', this.onSubmitCarname.bind(this));
-    EVENT_MAP.KEY_UP.set('name-input', this.onTypeCarNames.bind(this));
+    EVENT_MAP.KEY_UP.set('name-input', this.onInputCarNames.bind(this));
     EVENT_MAP.SUBMIT.set('submit-carname', this.onSubmitCarname.bind(this));
   }
 }
