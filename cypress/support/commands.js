@@ -40,16 +40,13 @@ const $element = {
   forwardIcon: '.forward-icon',
 };
 
-Cypress.Commands.add('startRace', (carNames, trialNumber) => {
-  cy.get($element.carNameInput).type(carNames.join(','));
+Cypress.Commands.add('submitCarNames', (carNames) => {
+  cy.get($element.carNameInput).type(carNames);
   cy.get($element.nameSubmitButton).click();
+});
+
+Cypress.Commands.add('submitTrial', (trialNumber) => {
   cy.get($element.movesInput).type(trialNumber);
   cy.get($element.moveSubmitButton).click();
-  cy.get($element.carPlayer).each((eachElement, index) => {
-    cy.get(eachElement).should('have.text', carNames[index]);
-  });
-  // cy.get($element.spinner).should(
-  //   'have.length',
-  //   carNames.length
-  // );
+  cy.get($element.moveSubmitButton).should('be.disabled');
 });
