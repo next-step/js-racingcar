@@ -66,23 +66,19 @@ export function makeNewRacingMap(prevRacingMap) {
   return updatedRacingMap;
 }
 
-export const makeDefaultRacingMap = (carNames) => {
-  const map = new Map();
-  splitingCarNames(carNames).forEach((el, idx) => {
-    const carId = `${el}-${idx}`;
-
+export const makeDefaultRacingMap = (carNames) =>
+  splitingCarNames(carNames).reduce((map, carName, currIdx) => {
+    const carId = `${carName}-${currIdx}`;
     map.set(carId, []);
-  });
 
-  return map;
-};
+    return map;
+  }, new Map());
 
 export const makeDataAttributeIdForm = (dataIdsObject) => {
-  const formedObject = {};
-  Object.entries(dataIdsObject).forEach(
-    ([key, value]) => (formedObject[key] = `[data-id=${value}]`)
-  );
-  return formedObject;
+  return Object.entries(dataIdsObject).reduce((acc, [key, value], index) => {
+    acc[key] = `[data-id=${value}]`;
+    return acc;
+  }, {});
 };
 
 export const deepDiffMapper = () => {
