@@ -5,6 +5,7 @@ import { ErrorMessage } from '../common/enum.js';
 export default class InputPlayerComponent extends Component {
   #inputPlayerState;
   #playerState;
+  $playerField = '#player-field';
   $inputPlayer = '#input-player';
   $btnSubmit = '#btn-submit-player';
 
@@ -31,11 +32,11 @@ export default class InputPlayerComponent extends Component {
   submit = () => {
     if (!this.#inputPlayerState.validate()) {
       document.defaultView.alert(ErrorMessage.INVALID_PLAYER);
+
       return;
     }
 
-    this.#inputPlayerState.disable(this.$inputPlayer);
-    this.#inputPlayerState.disable(this.$btnSubmit);
+    this.#inputPlayerState.disable(this.$playerField);
     this.#playerState.player = this.#inputPlayerState.getValue();
   };
 }

@@ -6,9 +6,9 @@ export default class InputRoundComponent extends Component {
   #inputRoundState;
   #playerState;
   #roundState;
-  $roundWrap = '.round-wrap';
+  $racingForm = '#racing-form';
+  $roundField = '#round-field';
   $inputRound = '#input-round';
-  $btnSubmit = '#btn-submit-round';
 
   constructor(services) {
     super(services);
@@ -21,14 +21,14 @@ export default class InputRoundComponent extends Component {
   }
 
   init = () => {
-    this.show(this.$roundWrap);
+    this.show(this.$roundField);
   };
 
   setEventListener() {
     const events = [
       {
-        target: this.$btnSubmit,
-        event: 'click',
+        target: this.$racingForm,
+        event: 'submit',
         handler: this.submit,
       },
     ];
@@ -36,14 +36,16 @@ export default class InputRoundComponent extends Component {
     super.setEventListener(events);
   }
 
-  submit = () => {
+  submit = (e) => {
+    e.preventDefault();
+
     if (!this.#inputRoundState.validate()) {
       document.defaultView.alert(ErrorMessage.INVALID_ROUND);
+
       return;
     }
 
-    this.#inputRoundState.disable(this.$inputRound);
-    this.#inputRoundState.disable(this.$btnSubmit);
+    this.#inputRoundState.disable(this.$roundField);
     this.#roundState.round = this.#inputRoundState.getValue();
   };
 }
