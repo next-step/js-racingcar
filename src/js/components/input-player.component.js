@@ -1,9 +1,9 @@
 import { Component } from './component.js';
-import { InputPlayerStateService } from '../services/input-player-state.service.js';
+import { PlayerFormControlService } from '../services/player-form-control.service.js';
 import { ErrorMessage } from '../common/enum.js';
 
 export default class InputPlayerComponent extends Component {
-  #inputPlayerState;
+  #playerFormControl;
   #playerState;
   $playerField = '#player-field';
   $inputPlayer = '#input-player';
@@ -13,7 +13,7 @@ export default class InputPlayerComponent extends Component {
     super(services);
 
     this.#playerState = this.services.stateManager.playerState;
-    this.#inputPlayerState = new InputPlayerStateService(this.$inputPlayer);
+    this.#playerFormControl = new PlayerFormControlService(this.$inputPlayer);
     this.setEventListener();
   }
 
@@ -30,13 +30,13 @@ export default class InputPlayerComponent extends Component {
   }
 
   submit = () => {
-    if (!this.#inputPlayerState.validate()) {
+    if (!this.#playerFormControl.validate()) {
       document.defaultView.alert(ErrorMessage.INVALID_PLAYER);
 
       return;
     }
 
-    this.#inputPlayerState.disable(this.$playerField);
-    this.#playerState.player = this.#inputPlayerState.getValue();
+    this.#playerFormControl.disable(this.$playerField);
+    this.#playerState.player = this.#playerFormControl.getValue();
   };
 }

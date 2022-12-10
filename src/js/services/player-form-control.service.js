@@ -1,8 +1,8 @@
-import { StateService } from './state.service.js';
+import { FormControlService } from './form-control.service.js';
 import { PlayerRule } from '../common/enum.js';
 import { ArrayUtil } from '../utils/array.util.js';
 
-export class InputPlayerStateService extends StateService {
+export class PlayerFormControlService extends FormControlService {
   validate() {
     return !(this.noValue() || this.#inValidLength());
   }

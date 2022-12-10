@@ -1,4 +1,4 @@
-export class StateService {
+export class FormControlService {
   element;
 
   constructor(selector) {

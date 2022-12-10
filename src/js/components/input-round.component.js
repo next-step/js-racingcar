@@ -1,9 +1,9 @@
 import { Component } from './component.js';
-import { InputRoundStateService } from '../services/input-round-state.service.js';
+import { RoundFormControlService } from '../services/round-form-control.service.js';
 import { ErrorMessage } from '../common/enum.js';
 
 export default class InputRoundComponent extends Component {
-  #inputRoundState;
+  #roundFormControl;
   #playerState;
   #roundState;
   $racingForm = '#racing-form';
@@ -15,7 +15,7 @@ export default class InputRoundComponent extends Component {
 
     this.#playerState = this.services.stateManager.playerState;
     this.#roundState = this.services.stateManager.roundState;
-    this.#inputRoundState = new InputRoundStateService(this.$inputRound);
+    this.#roundFormControl = new RoundFormControlService(this.$inputRound);
     this.#playerState.observers = [...this.#playerState.observers, this.init];
     this.setEventListener();
   }
@@ -39,13 +39,13 @@ export default class InputRoundComponent extends Component {
   submit = (e) => {
     e.preventDefault();
 
-    if (!this.#inputRoundState.validate()) {
+    if (!this.#roundFormControl.validate()) {
       document.defaultView.alert(ErrorMessage.INVALID_ROUND);
 
       return;
     }
 
-    this.#inputRoundState.disable(this.$roundField);
-    this.#roundState.round = this.#inputRoundState.getValue();
+    this.#roundFormControl.disable(this.$roundField);
+    this.#roundState.round = this.#roundFormControl.getValue();
   };
 }

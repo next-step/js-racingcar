@@ -11,3 +11,7 @@ export const PlayerRule = {
 export const RoundRule = {
   MIN: 1,
 };
+
+export const RacingRule = {
+  MOVEMENT_CONDITION: 4,
+};

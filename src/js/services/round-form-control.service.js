@@ -1,7 +1,7 @@
-import { StateService } from './state.service.js';
+import { FormControlService } from './form-control.service.js';
 import { RoundRule } from '../common/enum.js';
 
-export class InputRoundStateService extends StateService {
+export class RoundFormControlService extends FormControlService {
   validate() {
     return !(this.noValue() || this.#outOfRange());
   }

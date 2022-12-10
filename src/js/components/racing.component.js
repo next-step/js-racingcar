@@ -1,5 +1,6 @@
 import { Component } from './component.js';
 import { NumberUtil } from '../utils/number.util.js';
+import { RacingRule } from '../common/enum.js';
 
 export class RacingComponent extends Component {
   #playerState;
@@ -29,7 +30,7 @@ export class RacingComponent extends Component {
   #startRace() {
     for (let i = 0; i < this.#roundState.round; i += 1) {
       this.#playerState.player.forEach((player, index) => {
-        if (4 <= NumberUtil.randomNumber()) {
+        if (RacingRule.MOVEMENT_CONDITION <= NumberUtil.randomNumber()) {
           this.#renderForward(index);
         }
       });
