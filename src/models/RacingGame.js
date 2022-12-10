@@ -3,6 +3,11 @@ class RacingGame {
   #racingCount = 0;
   constructor() {}
 
+  onClear() {
+    this.racingCount = 0;
+    this.Cars = [];
+  }
+
   get Cars() {
     return this.#Cars;
   }
@@ -11,8 +16,13 @@ class RacingGame {
     this.#Cars = Cars;
   }
 
-  get winners() {
-    return this.Cars.map((Cars) => Cars.name);
+  get winnerCars() {
+    const movementResults = this.#Cars.map((Car) => Car.movementResult);
+    const winnerMovementCount = Math.max(...movementResults);
+
+    return this.#Cars.filter(
+      (Car) => Car.movementResult === winnerMovementCount
+    );
   }
 
   get racingCount() {

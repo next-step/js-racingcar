@@ -10,6 +10,7 @@ class RacingGameView {
     );
     this.$racingSection = document.getElementById("racing-section");
     this.$winnerSection = document.getElementById("winner-section");
+    this.$resetButton = document.getElementById("retry-button");
   }
 
   enableElement($target) {
@@ -24,6 +25,10 @@ class RacingGameView {
 
   showElement($target) {
     $target.classList.remove("hide");
+  }
+
+  hideElement($target) {
+    $target.classList.add("hide");
   }
 
   templateRacingSection(Cars) {

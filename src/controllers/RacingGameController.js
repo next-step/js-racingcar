@@ -23,6 +23,10 @@ class RacingGameController {
       "click",
       this.#onSubmitCarNames.bind(this)
     );
+    this.#RacingGameView.$resetButton.addEventListener(
+      "click",
+      this.#onClear.bind(this)
+    );
   }
 
   #onSubmitCarNames(e) {
@@ -76,13 +80,7 @@ class RacingGameController {
   }
 
   #onRacingEnd() {
-    const movementResults = this.#RacingGame.Cars.map(
-      (Car) => Car.movementResult
-    );
-    const winnerMovementCount = Math.max(...movementResults);
-    const winnersCarNames = this.#RacingGame.Cars.filter(
-      (Car) => Car.movementResult === winnerMovementCount
-    )
+    const winnersCarNames = this.#RacingGame.winnerCars
       .map((Car) => Car.name)
       .join(", ");
 
@@ -94,7 +92,18 @@ class RacingGameController {
   }
 
   #onClear() {
+    this.#RacingGame.onClear();
     this.#RacingGameView.$racingGameForm.reset();
+
+    this.#RacingGameView.enableElement(this.#RacingGameView.$carNamesInput);
+    this.#RacingGameView.enableElement(this.#RacingGameView.$carNamesButton);
+
+    this.#RacingGameView.hideElement(this.#RacingGameView.$racingCountFieldSet);
+    this.#RacingGameView.enableElement(this.#RacingGameView.$racingCountInput);
+    this.#RacingGameView.enableElement(this.#RacingGameView.$racingCountButton);
+
+    this.#RacingGameView.hideElement(this.#RacingGameView.$racingSection);
+    this.#RacingGameView.hideElement(this.#RacingGameView.$winnerSection);
   }
 
   isCarNamesCorrectlyRegistered(carNames) {
