@@ -38,6 +38,6 @@ export class RacingComponent extends Component {
 
   #renderForward(index) {
     const template = '<div class="forward-icon mt-2">⬇️️</div>';
-    this.render(`${this.$carList} > div:nth-child(${index + 1})`, template);
+    this.insertHTML(`${this.$carList} > div:nth-child(${index + 1})`, template);
   }
 }

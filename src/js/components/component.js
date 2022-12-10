@@ -19,14 +19,18 @@ export class Component {
   }
 
   render(hostElement, template = this.template) {
-    document.querySelector(hostElement).insertAdjacentHTML('beforeend', template);
+    document.querySelector(hostElement).innerHTML = template;
+  }
+
+  insertHTML(hostElement, template = this.template, position = 'beforeend') {
+    document.querySelector(hostElement).insertAdjacentHTML(position, template);
   }
 
   show(element) {
-    document.querySelector(element).classList.remove('hide');
+    document.querySelector(element).style.display = 'block';
   }
 
   hide(element) {
-    document.querySelector(element).classList.add('hide');
+    document.querySelector(element).style.display = 'none';
   }
 }

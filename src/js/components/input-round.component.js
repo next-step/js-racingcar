@@ -17,14 +17,14 @@ export default class InputRoundComponent extends Component {
     this.#roundState = this.services.stateManager.roundState;
     this.#inputRoundState = new InputRoundStateService(this.$inputRound);
     this.#playerState.observers = [...this.#playerState.observers, this.init];
-    this.setEvent();
+    this.setEventListener();
   }
 
   init = () => {
     this.show(this.$roundWrap);
   };
 
-  setEvent() {
+  setEventListener() {
     const events = [
       {
         target: this.$btnSubmit,
@@ -33,7 +33,7 @@ export default class InputRoundComponent extends Component {
       },
     ];
 
-    this.setEventListener(events);
+    super.setEventListener(events);
   }
 
   submit = () => {
