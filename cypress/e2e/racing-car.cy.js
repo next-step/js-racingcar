@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { ErrorMessage } from '../../src/js/common/enum.js';
+import { ErrorMessage, PlayerRule } from '../../src/js/common/enum.js';
 
 const $inputPlayer = '#input-player';
 const $btnSubmitPlayer = '#btn-submit-player';
@@ -9,43 +9,19 @@ const $btnSubmitRound = '#btn-submit-round';
 const $racingWrap = '.racing-wrap';
 const $carList = '.car-list';
 
-Cypress.Commands.addAll({
-  typingOnElement(element, value) {
-    cy.get(element).type(value);
-  },
-  clickElement(element) {
-    cy.get(element).click();
-  },
-  checkToHave(element, chainer, value) {
-    cy.get(element).should(`have.${chainer}`, value);
-  },
-  clearValue(element) {
-    cy.get(element).clear();
-  },
-  checkExist(element) {
-    cy.get(element).should('exist');
-  },
-  checkVisible(element) {
-    cy.get(element).should('be.visible');
-  },
-  checkInvisible(element) {
-    cy.get(element).should('not.be.visible');
-  },
-});
-
-function generateName(min = 0, max = 10) {
+function generateName(min = PlayerRule.MIN_LENGTH, max = PlayerRule.MAX_LENGTH) {
   return faker.word.adjective({ length: { min, max } });
 }
 
-function inputRandomName() {
+function inputValidName() {
   const number = faker.random.numeric();
-  const names = Array.from({ length: number }, () => generateName(1, 5));
+  const names = Array.from({ length: number }, () => generateName());
 
   cy.typingOnElement($inputPlayer, names.join(','));
   cy.clickElement($btnSubmitPlayer);
 }
 
-function inputRandomRound() {
+function inputValidRound() {
   const number = faker.random.numeric({ bannedDigits: ['0'] });
 
   cy.typingOnElement($inputRound, number);
@@ -55,10 +31,20 @@ function inputRandomRound() {
 describe('플레이어 이름 입력', () => {
   beforeEach(() => {
     cy.visit('/');
-    cy.checkExist($inputPlayer);
   });
 
-  it('이름은 다섯자 이하만 허용한다', () => {
+  it('이름의 글자수는 1~5 로 제한한다, 조건에 맞지 않을 시 alert을 노출한다 : 미입력', () => {
+    const alertStub = cy.stub();
+
+    cy.on('window:alert', alertStub);
+    cy.clickElement($btnSubmitPlayer).then(() => {
+      const actualMessage = alertStub.getCall(0).lastArg;
+
+      expect(actualMessage).to.equal(ErrorMessage.INVALID_PLAYER);
+    });
+  });
+
+  it('이름의 글자수는 1~5 로 제한한다, 조건에 맞지 않을 시 alert을 노출한다 : 6 이상의 값 입력', () => {
     const alertStub = cy.stub();
 
     cy.on('window:alert', alertStub);
@@ -73,7 +59,7 @@ describe('플레이어 이름 입력', () => {
   it('올바른 값 입력 시, 횟수를 입력하는 필드를 노출한다', () => {
     cy.checkInvisible($roundWrap);
 
-    inputRandomName();
+    inputValidName();
     cy.checkVisible($roundWrap);
   });
 });
@@ -81,11 +67,10 @@ describe('플레이어 이름 입력', () => {
 describe('라운드 횟수 입력', () => {
   beforeEach(() => {
     cy.visit('/');
-    inputRandomName();
-    cy.checkVisible($roundWrap);
+    inputValidName();
   });
 
-  it('0 이하의 값은 허용하지 않는다', () => {
+  it('0 이하의 값은 허용하지 않는다, 조건에 맞지 않을 시 alert을 노출한다 : 0 입력', () => {
     const alertStub = cy.stub();
 
     cy.on('window:alert', alertStub);
@@ -100,7 +85,7 @@ describe('라운드 횟수 입력', () => {
   it('올바른 값 입력 시, 레이싱 필드를 노출한다', () => {
     cy.checkInvisible($racingWrap);
 
-    inputRandomRound();
+    inputValidRound();
     cy.checkVisible($racingWrap);
   });
 });
@@ -108,9 +93,8 @@ describe('라운드 횟수 입력', () => {
 describe('자동차 데이터 확인', () => {
   beforeEach(() => {
     cy.visit('/');
-    inputRandomName();
-    inputRandomRound();
-    cy.checkVisible($racingWrap);
+    inputValidName();
+    inputValidRound();
   });
 
   it('입력한 플레이어 수와 일치하는지 확인한다', () => {

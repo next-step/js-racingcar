@@ -4,8 +4,8 @@ export const ErrorMessage = {
 };
 
 export const PlayerRule = {
-  MIN: 1,
-  MAX: 5,
+  MIN_LENGTH: 1,
+  MAX_LENGTH: 5,
 };
 
 export const RoundRule = {
