@@ -1,5 +1,9 @@
-class RacingGameView {
+import View from "./View.js";
+
+class RacingGameView extends View {
   constructor() {
+    super();
+
     this.$carNamesInput = document.getElementById("car-names-input");
     this.$carNamesButton = document.getElementById("car-names-button");
     this.$racingCountInput = document.getElementById("racing-count-input");
@@ -11,24 +15,6 @@ class RacingGameView {
     this.$racingSection = document.getElementById("racing-section");
     this.$winnerSection = document.getElementById("winner-section");
     this.$resetButton = document.getElementById("retry-button");
-  }
-
-  enableElement($target) {
-    $target.removeAttribute("disabled");
-    $target.classList.remove("disabled");
-  }
-
-  disableElement($target) {
-    $target.setAttribute("disabled", "");
-    $target.classList.add("disabled");
-  }
-
-  showElement($target) {
-    $target.classList.remove("hide");
-  }
-
-  hideElement($target) {
-    $target.classList.add("hide");
   }
 
   templateRacingSection(Cars) {
