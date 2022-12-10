@@ -1,4 +1,5 @@
 import RACING_GAME from "../../src/constants.js";
+import Car from "../../src/models/Car.js";
 
 const $carNamesInput = "#car-names-input";
 const $carNamesButton = "#car-names-button";
@@ -123,4 +124,26 @@ describe("레이싱 게임", () => {
       cy.get(`#car-name-고구마`).should("exist");
     });
   });
+
+  context("자동차는 random 값이 4 이상인 경우 전진 가능하다.", () => {
+    const car = new Car("random");
+
+    it("random 값이 4인 경우 전진 가능하다.", () => {
+      expect(car.isMovable(4)).to.be.true;
+    });
+    it("random 값이 9인 경우 전진 가능하다.", () => {
+      expect(car.isMovable(9)).to.be.true;
+    });
+    it("random 값이 0인 경우 전진 불가능하다.", () => {
+      expect(car.isMovable(0)).to.be.false;
+    });
+    it("random 값이 3인 경우 전진 불가능하다.", () => {
+      expect(car.isMovable(3)).to.be.false;
+    });
+  });
+
+  /**
+   * 우승차 이름 노출에 대한 테스트 코드 작성
+   * 랜덤값을 컨트롤 할 수 있도록 구성해야해
+   */
 });
