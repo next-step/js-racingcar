@@ -4,12 +4,14 @@ import { ErrorMessage } from '../common/enum.js';
 
 export default class InputPlayerComponent extends Component {
   #inputPlayerState;
+  #playerState;
   $inputPlayer = '#input-player';
   $btnSubmit = '#btn-submit-player';
 
   constructor(services) {
     super(services);
 
+    this.#playerState = this.services.stateManager.playerState;
     this.#inputPlayerState = new InputPlayerStateService(this.$inputPlayer);
     this.setEvent();
   }
@@ -34,6 +36,6 @@ export default class InputPlayerComponent extends Component {
 
     this.#inputPlayerState.disable(this.$inputPlayer);
     this.#inputPlayerState.disable(this.$btnSubmit);
-    this.playerState.player = this.#inputPlayerState.getValue();
+    this.#playerState.player = this.#inputPlayerState.getValue();
   };
 }

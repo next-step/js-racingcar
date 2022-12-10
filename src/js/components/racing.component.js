@@ -2,19 +2,20 @@ import { Component } from './component.js';
 import { NumberUtil } from '../utils/number.util.js';
 
 export class RacingComponent extends Component {
+  #playerState;
+  #roundState;
   $racingWrap = '.racing-wrap';
   $carList = '.car-list';
-  #players;
 
   constructor(services) {
     super(services);
 
-    this.roundState.observers = [...this.roundState.observers, this.init];
+    this.#playerState = this.services.stateManager.playerState;
+    this.#roundState = this.services.stateManager.roundState;
+    this.#roundState.observers = [...this.#roundState.observers, this.init];
   }
 
   init = () => {
-    this.#players = this.playerState.player;
-
     this.#setTemplate();
     this.render(this.$carList);
     this.show(this.$racingWrap);
@@ -22,12 +23,12 @@ export class RacingComponent extends Component {
   };
 
   #setTemplate() {
-    this.template = this.#players.map((player) => (`<div class="mr-2"><div class="car-player">${player}</div></div>`)).join('');
+    this.template = this.#playerState.player.map((player) => (`<div class="mr-2"><div class="car-player">${player}</div></div>`)).join('');
   }
 
   #startRace() {
-    for (let i = 0; i < this.roundState.round; i += 1) {
-      this.#players.forEach((player, index) => {
+    for (let i = 0; i < this.#roundState.round; i += 1) {
+      this.#playerState.player.forEach((player, index) => {
         if (4 <= NumberUtil.randomNumber()) {
           this.#renderForward(index);
         }

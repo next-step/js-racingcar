@@ -1,11 +1,9 @@
 export class Component {
-  playerState;
-  roundState;
+  services;
   template;
 
   constructor(services) {
-    this.playerState = services.stateManager.playerState;
-    this.roundState = services.stateManager.roundState;
+    this.services = services;
   }
 
   setEventListener(events = []) {

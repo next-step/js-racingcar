@@ -1,8 +1,8 @@
 export class StateService {
   element;
 
-  constructor(element) {
-    this.element = document.querySelector(element);
+  constructor(selector) {
+    this.element = document.querySelector(selector);
   }
 
   noValue() {
