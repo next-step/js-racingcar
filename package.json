@@ -1,0 +1,23 @@
+{
+  "name": "js-racingcar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaein-vlv/js-racingcar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaein-vlv/js-racingcar/issues"
+  },
+  "homepage": "https://github.com/jaein-vlv/js-racingcar#readme",
+  "devDependencies": {
+    "cypress": "^11.2.0",
+    "eslint": "^8.28.0",
+    "eslint-plugin-cypress": "^2.12.1"
+  }
+}
