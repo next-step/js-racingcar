@@ -4,6 +4,7 @@ class RacingGameView {
     this.$carNamesButton = document.getElementById("car-names-button");
     this.$racingCountInput = document.getElementById("racing-count-input");
     this.$racingGameForm = document.getElementById("racing-game-form");
+    this.$racingCountButton = document.getElementById("racing-count-button");
     this.$racingCountFieldSet = document.getElementById(
       "racing-count-fieldset"
     );
@@ -11,8 +12,18 @@ class RacingGameView {
     this.$winnerSection = document.getElementById("winner-section");
   }
 
-  showElement(target) {
-    target.classList.remove("hide");
+  enableElement($target) {
+    $target.removeAttribute("disabled");
+    $target.classList.remove("disabled");
+  }
+
+  disableElement($target) {
+    $target.setAttribute("disabled", "");
+    $target.classList.add("disabled");
+  }
+
+  showElement($target) {
+    $target.classList.remove("hide");
   }
 
   templateRacingSection(Cars) {
@@ -20,16 +31,7 @@ class RacingGameView {
   }
 
   templateWinners(winners) {
-    return `
-        <div>
-          <h2>🏆 최종 우승자: ${winners
-            .map((winner) => winner)
-            .join("")} 🏆</h2>
-          <div class="d-flex justify-center">
-            <button type="button" class="btn btn-cyan">다시 시작하기</button>
-          </div>
-        </div>
-    `;
+    return `<h2>🏆 최종 우승자: ${winners} 🏆</h2>`;
   }
 }
 

@@ -1,4 +1,5 @@
 import RACING_GAME from "../constants.js";
+import { getRandomNumberZeroToNine } from "../utils.js";
 
 class Car {
   #name = "";
@@ -12,21 +13,19 @@ class Car {
   onMovePer(racingCount) {
     this.racingCount = +racingCount;
 
-    this.#onMove();
+    this.onMove();
   }
 
-  #onMove() {
+  onMove() {
     [...new Array(this.racingCount)].forEach(() => {
-      if (this.isMovable()) {
+      if (this.isMovable(getRandomNumberZeroToNine())) {
         this.#movementResult += 1;
       }
     });
   }
 
-  isMovable() {
-    const random = Math.floor(Math.random() * 10);
-
-    return random > RACING_GAME.CAR.MOVABLE_MIN_NUMBER;
+  isMovable(randomNumber) {
+    return randomNumber >= RACING_GAME.CAR.MOVABLE_MIN_NUMBER;
   }
 
   get name() {

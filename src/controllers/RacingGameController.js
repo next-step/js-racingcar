@@ -39,6 +39,9 @@ class RacingGameController {
       .split(",")
       .map((carName) => new Car(carName));
     this.#RacingGameView.showElement(this.#RacingGameView.$racingCountFieldSet);
+    this.#RacingGameView.disableElement(this.#RacingGameView.$carNamesInput);
+    this.#RacingGameView.disableElement(this.#RacingGameView.$carNamesButton);
+    // disabled element
   }
 
   #onSubmitRacingCount(e) {
@@ -63,6 +66,10 @@ class RacingGameController {
     this.#RacingGameView.$racingSection.innerHTML =
       this.#RacingGameView.templateRacingSection(this.#RacingGame.Cars);
     this.#RacingGameView.showElement(this.#RacingGameView.$racingSection);
+    this.#RacingGameView.disableElement(this.#RacingGameView.$racingCountInput);
+    this.#RacingGameView.disableElement(
+      this.#RacingGameView.$racingCountButton
+    );
 
     // TODO STEP3 진행하면서 개선할 것
     this.#onRacingEnd();
@@ -75,13 +82,19 @@ class RacingGameController {
     const winnerMovementCount = Math.max(...movementResults);
     const winnersCarNames = this.#RacingGame.Cars.filter(
       (Car) => Car.movementResult === winnerMovementCount
-    ).map((Car) => Car.name);
+    )
+      .map((Car) => Car.name)
+      .join(", ");
 
-    console.log(this.#RacingGame.Cars);
-
-    this.#RacingGameView.$winnerSection.innerHTML =
-      this.#RacingGameView.templateWinners(winnersCarNames);
+    this.#RacingGameView.$winnerSection.insertAdjacentHTML(
+      "afterbegin",
+      this.#RacingGameView.templateWinners(winnersCarNames)
+    );
     this.#RacingGameView.showElement(this.#RacingGameView.$winnerSection);
+  }
+
+  #onClear() {
+    this.#RacingGameView.$racingGameForm.reset();
   }
 
   isCarNamesCorrectlyRegistered(carNames) {

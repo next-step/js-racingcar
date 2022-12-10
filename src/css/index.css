@@ -39,6 +39,10 @@ body {
   display: none;
 }
 
+.disabled {
+  cursor: not-allowed;
+}
+
 fieldset {
   border: none;
   padding: 0;
