@@ -1,14 +1,25 @@
 import { CAR_RACE } from './constant.js';
+import { renderForward } from './ui/dom.js';
 import { getNumberList, shuffle } from './utils/util.js';
 
 export const startRace = (cars, times) => {
   return new Promise((resolve) => {
     let count = 0;
+
     const intervalId = setInterval(() => {
       count += 1;
-      cars.map((car) =>
-        car.forwardStep(shuffle(getNumberList(CAR_RACE.MAX), CAR_RACE.COUNT))
-      );
+      cars.map((car) => {
+        const forwardedStep = shuffle(
+          getNumberList(CAR_RACE.MAX),
+          CAR_RACE.COUNT
+        );
+        car.forwardStep(forwardedStep);
+
+        if (forwardedStep >= CAR_RACE.FORWARD) {
+          renderForward(car.name);
+        }
+      });
+
       if (count === times) {
         clearInterval(intervalId);
         resolve(cars);

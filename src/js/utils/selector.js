@@ -1,4 +1,5 @@
 export const $ = (selector) => document.querySelector(selector);
+export const $$ = (selector) => document.querySelectorAll(selector);
 export const SELECTOR = {
   CAR_NAME_FORM: '.name-form',
   CAR_NAME_INPUT: '.car-name',
@@ -15,4 +16,6 @@ export const SELECTOR = {
   RACE_TIMES_SECTION: '.race-times',
   RACE_PROCESS_COMPONENT: '.race-process-component',
   RACE_RESULT_COMPONENT: '.race-result-component',
+
+  SPINNER_WRAPPER: '.spinner-wrapper',
 };
