@@ -61,20 +61,19 @@ class RacingGameController {
     this.#onRacingStart();
   }
 
-  #onRacingStart() {
-    this.#RacingGame.Cars.forEach((Car) => {
-      Car.onMovePer(this.#RacingGame.racingCount);
-    });
-
-    this.#RacingGameView.$racingSection.innerHTML =
-      this.#RacingGameView.templateRacingSection(this.#RacingGame.Cars);
+  async #onRacingStart() {
     this.#RacingGameView.showElement(this.#RacingGameView.$racingSection);
     this.#RacingGameView.disableElement(this.#RacingGameView.$racingCountInput);
     this.#RacingGameView.disableElement(
       this.#RacingGameView.$racingCountButton
     );
 
-    // TODO STEP3 진행하면서 개선할 것
+    await Promise.all(
+      this.#RacingGame.Cars.map(async (car) => {
+        await car.onMovePer(this.#RacingGame.racingCount);
+      })
+    );
+
     this.#onRacingEnd();
   }
 
