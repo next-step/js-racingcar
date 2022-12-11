@@ -15,6 +15,11 @@ class CountInputSetView extends View {
     this.submitButton.addEventListener('click', (e) => {
       onClickButton({ inputElement: this.inputElement }, e);
     });
+    this.submitButton.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        onClickButton({ inputElement: this.inputElement });
+      }
+    });
   };
 
   init = () => {
