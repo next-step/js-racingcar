@@ -20,26 +20,8 @@ function setResult(raceState) {
 }
 
 export function getWinnersName(carDistances) {
-  let max = -1;
-  const winnerName = [];
-
-  carDistances.forEach(({ name, distance }) => {
-    if (max < distance) {
-      winnerName.length = 0;
-      winnerName.push(name);
-      max = distance;
-      return;
-    }
-
-    if (max === distance) {
-      winnerName.push(name);
-      return;
-    }
-
-    return;
-  });
-
-  return winnerName;
+  const winnerDistance = Math.max(...carDistances.map(car => car.distance));
+  return carDistances.filter(car => car.distance === winnerDistance);
 }
 
 subscribe(setResult);
