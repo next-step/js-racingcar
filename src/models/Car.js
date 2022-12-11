@@ -17,11 +17,14 @@ class Car {
   }
 
   onMove() {
+    let movement = 0;
     [...new Array(this.racingCount)].forEach(() => {
       if (this.isMovable(getRandomNumberZeroToNine())) {
-        this.#movementResult += 1;
+        movement += 1;
       }
     });
+
+    this.movementResult = movement;
   }
 
   isMovable(randomNumber) {
@@ -34,6 +37,10 @@ class Car {
 
   get movementResult() {
     return this.#movementResult;
+  }
+
+  set movementResult(movement) {
+    this.#movementResult = movement;
   }
 
   // TODO 다음 step에서 역할 분리할 것

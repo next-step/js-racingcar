@@ -45,7 +45,6 @@ class RacingGameController {
     this.#RacingGameView.showElement(this.#RacingGameView.$racingCountFieldSet);
     this.#RacingGameView.disableElement(this.#RacingGameView.$carNamesInput);
     this.#RacingGameView.disableElement(this.#RacingGameView.$carNamesButton);
-    // disabled element
   }
 
   #onSubmitRacingCount(e) {
@@ -102,6 +101,9 @@ class RacingGameController {
     this.#RacingGameView.enableElement(this.#RacingGameView.$racingCountInput);
     this.#RacingGameView.enableElement(this.#RacingGameView.$racingCountButton);
 
+    // TODO 다른 API로 개선해보기
+    this.#RacingGameView.$racingSection.innerHTML = "";
+    this.#RacingGameView.$winnerSection.innerHTML = "";
     this.#RacingGameView.hideElement(this.#RacingGameView.$racingSection);
     this.#RacingGameView.hideElement(this.#RacingGameView.$winnerSection);
   }
