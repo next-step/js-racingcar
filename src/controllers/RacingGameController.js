@@ -2,6 +2,7 @@ import RacingGame from "../models/RacingGame.js";
 import RacingGameView from "../views/RacingGameView.js";
 import RACING_GAME from "../constants.js";
 import Car from "../models/Car.js";
+import { insertElement } from "../utils.js";
 
 class RacingGameController {
   #RacingGame;
@@ -41,7 +42,8 @@ class RacingGameController {
 
     this.#RacingGame.Cars = carNames
       .split(",")
-      .map((carName) => new Car(carName));
+      .map((carName) => new Car(this.#RacingGameView.$racingSection, carName));
+
     this.#RacingGameView.showElement(this.#RacingGameView.$racingCountFieldSet);
     this.#RacingGameView.disableElement(this.#RacingGameView.$carNamesInput);
     this.#RacingGameView.disableElement(this.#RacingGameView.$carNamesButton);
@@ -82,8 +84,7 @@ class RacingGameController {
       .map((Car) => Car.name)
       .join(", ");
 
-    this.#RacingGameView.$winnerSection.insertAdjacentHTML(
-      "afterbegin",
+    insertElement(this.#RacingGameView.$winnerSection).afterBegin(
       this.#RacingGameView.templateWinners(winnersCarNames)
     );
     this.#RacingGameView.showElement(this.#RacingGameView.$winnerSection);

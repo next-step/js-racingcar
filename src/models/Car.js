@@ -1,25 +1,34 @@
 import RACING_GAME from "../constants.js";
-import { getRandomNumberZeroToNine } from "../utils.js";
+import { getRandomNumberZeroToNine, insertElement } from "../utils.js";
 
 class Car {
   #name = "";
   #movementResult = 0;
 
-  constructor(name) {
-    this.$parent = document.getElementById("racing-section");
-
+  constructor($parent, name) {
     this.#name = name.trim();
-    this.$parent.insertAdjacentHTML("beforeend", this.templateCarName());
-    this.$element = document.getElementById(`car-name-${this.name}`);
-    this.$section = document.getElementById(`${this.name}-car-section`);
+    // $parent를 외부에서 주입받아서 beforeEnd로 무조건 처리하면 확장성이 좋지 않을거 같은데
+    insertElement($parent).beforeEnd(this.initTemplate());
+
+    this.$container = document.getElementById(`${this.name}-container`);
+    this.$carName = document.getElementById(`car-name-${this.name}`);
     this.$loading = document.getElementById(`${this.name}-loading`);
+  }
+
+  initTemplate() {
+    return `
+      <div id="${this.name}-container" class="mr-2 hide">
+        <span id="car-name-${this.name}" class="car-player">${this.name}</span>
+        ${this.templateLoading()}      
+      </div>
+    `;
   }
 
   async onMovePer(racingCount) {
     const count = +racingCount;
     let movement = 0;
 
-    this.$section.classList.remove("hide");
+    this.$container.classList.remove("hide");
 
     for await (const index of [...Array(count)]) {
       this.$loading.classList.remove("hide");
@@ -28,10 +37,7 @@ class Car {
 
       if (res) {
         movement += 1;
-        this.$element.insertAdjacentHTML(
-          "afterend",
-          this.templateMoveForward()
-        );
+        insertElement(this.$carName).afterEnd(this.templateMoveForward());
       }
     }
 
@@ -64,25 +70,13 @@ class Car {
     this.#movementResult = movement;
   }
 
-  // TODO 다음 step에서 역할 분리할 것
-  templateCarName() {
-    return `
-            <div id="${this.name}-car-section" class="mr-2 hide">
-              <div id="car-name-${this.name}" class="car-player">
-                ${this.name}
-              </div>
-              ${this.templateLoading()}
-            </div>
-            `;
-  }
-
   templateMoveForward() {
     return `<div class="forward-icon mt-2">⬇️️</div>`;
   }
 
   templateLoading() {
     return `
-            <div id="${this.name}-loading" class="d-flex justify-center mt-3">
+            <div id="${this.name}-loading" class="d-flex justify-center mt-3 hide">
               <div class="relative spinner-container">
                 <span class="material spinner"></span>
               </div>
