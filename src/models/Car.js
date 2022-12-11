@@ -8,7 +8,7 @@ class Car {
   constructor($parent, name) {
     this.#name = name.trim();
     // $parent를 외부에서 주입받아서 beforeEnd로 무조건 처리하면 확장성이 좋지 않을거 같은데
-    insertElement($parent).beforeEnd(this.initTemplate());
+    insertElement(this.initTemplate()).to($parent).beforeEnd();
 
     this.$container = document.getElementById(`${this.name}-container`);
     this.$carName = document.getElementById(`car-name-${this.name}`);
@@ -32,12 +32,12 @@ class Car {
 
     for await (const index of [...Array(count)]) {
       this.$loading.classList.remove("hide");
-      const res = await this.getRandom();
+      const isMovable = await this.getDelayedMovableResult();
       this.$loading.classList.add("hide");
 
-      if (res) {
+      if (isMovable) {
         movement += 1;
-        insertElement(this.$carName).afterEnd(this.templateMoveForward());
+        insertElement(this.templateMoveForward()).to(this.$carName).afterEnd();
       }
     }
 
@@ -45,7 +45,7 @@ class Car {
     return movement;
   }
 
-  getRandom() {
+  getDelayedMovableResult() {
     return new Promise((resolve) => {
       const interval = setInterval(() => {
         resolve(this.isMovable(getRandomNumberZeroToNine()));

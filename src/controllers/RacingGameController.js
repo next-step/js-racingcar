@@ -84,9 +84,9 @@ class RacingGameController {
       .map((Car) => Car.name)
       .join(", ");
 
-    insertElement(this.#RacingGameView.$winnerSection).afterBegin(
-      this.#RacingGameView.templateWinners(winnersCarNames)
-    );
+    insertElement(this.#RacingGameView.templateWinners(winnersCarNames))
+      .to(this.#RacingGameView.$winnerSection)
+      .afterBegin();
     this.#RacingGameView.showElement(this.#RacingGameView.$winnerSection);
   }
 
