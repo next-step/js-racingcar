@@ -3,6 +3,14 @@ import { NAME_LENGTH_MIN, NAME_LENGTH_MAX } from '../constant/racingcar.js';
 import { catchMessage, getType } from '../validate/validate.js';
 import ERROR_MESSAGES from '../constant/errorMessages.js';
 
+const TRIM_BETWEEN_COMMA = /\s*,\s*/g;
+const COMMA = ',';
+const TRIAL_COUNT_MIN = 1;
+const GENERATION_MIN = 0;
+const GENERATION_MAX = 9;
+const GO_OR_STOP_CONDITION = 3;
+
+
 const racingManager = {
   names: [],
   trialCount: 0,
@@ -15,19 +23,19 @@ const racingManager = {
   },
 
   trimNames(value) {
-    return value.replace(/\s*,\s*/g, ',').trim();
+    return value.replace(TRIM_BETWEEN_COMMA, COMMA).trim();
   },
 
   splitName(name) {
-    return name.split(',');
+    return name.split(COMMA);
   },
 
   isGoOrStop(randomNum) {
-    return randomNum > 3;
+    return randomNum > GO_OR_STOP_CONDITION;
   },
 
   goCondition() {
-    const randomNum = getRandomNumber(0, 9);
+    const randomNum = getRandomNumber(GENERATION_MIN, GENERATION_MAX);
     return this.isGoOrStop(randomNum);
   },
 
@@ -51,7 +59,7 @@ const racingManager = {
   }),
 
   isValidTrialCount: catchMessage(trialCount => {
-    if (trialCount < 1) throw new Error(ERROR_MESSAGES.INVALID_TRIAL_COUNT);
+    if (trialCount < TRIAL_COUNT_MIN) throw new Error(ERROR_MESSAGES.INVALID_TRIAL_COUNT);
     if (getType(trialCount) !== 'Number') throw new Error(ERROR_MESSAGES.INVALID_TYPE);
     return true;
   }),
