@@ -16,6 +16,7 @@ describe('자동차 경주 게임 step1 ', () => {
   const getRacingCountForm = () => cy.get('#racingCountForm');
   const getRacingCountInput = () => cy.get('#racingCountInput');
   const getRacingCountSubmit = () => cy.get('#racingCountSubmit');
+  const getRacingCars = () => cy.get('.car-player');
 
   const getAlertObj = () => {
     const alertStub = cy.stub();
@@ -136,6 +137,36 @@ describe('자동차 경주 게임 step1 ', () => {
           const actualMessage = alert.getCall(0).lastArg;
           expect(actualMessage).to.equal(INVALID_RACING_COUNT_MESSAGE);
         });
+    });
+  });
+
+  describe('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
+    it('이름과 이동회수를 제출하면, 기입한 자동차의 이름이 출력되어야 한다.', () => {
+      getCarNamesInput().type('one, two, three');
+      getCarNamesSubmit().click();
+      getRacingCountInput().type('1');
+      getRacingCountSubmit().click();
+      getRacingCars().should('have.length', '3');
+      getRacingCars().eq(0).should('contain', 'one');
+      getRacingCars().eq(1).should('contain', 'two');
+      getRacingCars().eq(2).should('contain', 'three');
+    });
+  });
+
+  describe('주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.', () => {
+    it('전진한 자동차는 화살표가 표시된다', () => {
+      // cy.get(carNameSelector).type('Car1,Car2,Car3,Car4');
+      // cy.get(carNameButtonSelector).click();
+      // cy.get(trialNumberSelector).type('3');
+      // cy.get(trialNumberButtonSelector).click();
+      // cy.get(forwardIconSelector).should('exist');
+    });
+    it('멈춘 자동차는 스피너가 표시된다', () => {
+      // cy.get(carNameSelector).type('Car1,Car2,Car3,Car4');
+      // cy.get(carNameButtonSelector).click();
+      // cy.get(trialNumberSelector).type('3');
+      // cy.get(trialNumberButtonSelector).click();
+      // cy.get(spinnerSelector).should('exist');
     });
   });
 });
