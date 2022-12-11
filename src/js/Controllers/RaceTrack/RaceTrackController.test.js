@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 const { checkIsCanBeAdvanced, progressRace } = require('./RaceTrackController.js');
-const { getState, dispatch: dispatchRaceState } = require('../../Model/race.js');
-const { dispatch } = require('../../Model/global.js');
+const { getState, dispatch: dispatchRaceState } = require('../../Models/race.js');
+const { dispatch } = require('../../Models/global.js');
 
 describe('Race Controller Test', () => {
   describe('랜덤숫자를 뽑고 4이상이면 전진한다.', () => {

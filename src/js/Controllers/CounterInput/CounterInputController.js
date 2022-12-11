@@ -1,5 +1,5 @@
-import { dispatch, getState } from '../../Model/global.js';
-import { dispatch as dispatchRaceState } from '../../Model/race.js';
+import { dispatch, getState } from '../../Models/global.js';
+import { dispatch as dispatchRaceState } from '../../Models/race.js';
 import { countInputSetView } from '../../Views/CountInputView.js';
 import { raceTrackView } from '../../Views/RaceTrackView/RaceTrackView.js';
 

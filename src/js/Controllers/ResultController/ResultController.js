@@ -1,7 +1,7 @@
-import { subscribe } from '../../Model/race.js';
+import { subscribe } from '../../Models/race.js';
 import { resultView } from '../../Views/ResultView.js';
 import { resetViews } from '../../Views/index.js';
-import { resetModels } from '../../Model/index.js';
+import { resetModels } from '../../Models/index.js';
 
 function setResult(raceState) {
   if (raceState.raceState !== 'done') return;
