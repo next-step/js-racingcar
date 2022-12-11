@@ -22,7 +22,11 @@ class RaceTrackView extends View {
 
   readyRaceTrack = (carNames) => {
     const tracks = carNames.map((carName) => new OneTrack(carName));
-    tracks.forEach((track) => this.rootElement.appendChild(track.rootElement));
+
+    const fragment = document.createDocumentFragment();
+    tracks.forEach((track) => fragment.appendChild(track.rootElement));
+
+    this.rootElement.appendChild(fragment);
     this.tracks = tracks;
   };
 
