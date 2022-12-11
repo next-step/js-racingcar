@@ -44,12 +44,8 @@ class RacingGameController {
       .split(",")
       .map((carName) => new Car(this.#RacingGameView.$racingSection, carName));
 
-    this.#RacingGameView.showElement(this.#RacingGameView.$racingCountFieldSet);
-    this.#RacingGameView.disableElement(this.#RacingGameView.$carNamesInput);
-    this.#RacingGameView.disableElement(this.#RacingGameView.$carNamesButton);
-
-    this.#RacingGameView.enableElement(this.#RacingGameView.$racingCountInput);
-    this.#RacingGameView.enableElement(this.#RacingGameView.$racingCountButton);
+    this.#RacingGameView.onFinishInputCarNames();
+    this.#RacingGameView.onStartInputRacingCount();
   }
 
   #onSubmitRacingCount(e) {
@@ -67,11 +63,7 @@ class RacingGameController {
   }
 
   async #onRacingStart() {
-    this.#RacingGameView.showElement(this.#RacingGameView.$racingSection);
-    this.#RacingGameView.disableElement(this.#RacingGameView.$racingCountInput);
-    this.#RacingGameView.disableElement(
-      this.#RacingGameView.$racingCountButton
-    );
+    this.#RacingGameView.onFinishInputRacingCount();
 
     await Promise.all(
       this.#RacingGame.Cars.map(async (car) => {
@@ -94,7 +86,7 @@ class RacingGameController {
   }
 
   #onClear() {
-    this.#RacingGame.onClear();
+    this.#RacingGame.init();
     this.#RacingGameView.init();
     this.#RacingGameView.$racingGameForm.reset();
   }

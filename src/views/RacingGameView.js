@@ -31,6 +31,23 @@ class RacingGameView extends View {
     this.hideElement(this.$racingCountFieldSet);
   }
 
+  onFinishInputCarNames() {
+    this.disableElement(this.$carNamesInput);
+    this.disableElement(this.$carNamesButton);
+  }
+
+  onStartInputRacingCount() {
+    this.showElement(this.$racingCountFieldSet);
+    this.enableElement(this.$racingCountInput);
+    this.enableElement(this.$racingCountButton);
+  }
+
+  onFinishInputRacingCount() {
+    this.showElement(this.$racingSection);
+    this.disableElement(this.$racingCountInput);
+    this.disableElement(this.$racingCountButton);
+  }
+
   removeWinners() {
     const $winnerTags = this.$winnerSection.getElementsByTagName("h2");
     if ($winnerTags.length > 0) {

@@ -3,7 +3,7 @@ class RacingGame {
   #racingCount = 0;
   constructor() {}
 
-  onClear() {
+  init() {
     this.racingCount = 0;
     this.Cars = [];
   }
