@@ -7,7 +7,6 @@ class Car {
 
   constructor($parent, name) {
     this.#name = name.trim();
-    // $parent를 외부에서 주입받아서 beforeEnd로 무조건 처리하면 확장성이 좋지 않을거 같은데
     insertElement(this.initTemplate()).to($parent).beforeEnd();
 
     this.$container = document.getElementById(`${this.name}-container`);
