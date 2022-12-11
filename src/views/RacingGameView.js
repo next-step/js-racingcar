@@ -15,10 +15,27 @@ class RacingGameView extends View {
     this.$racingSection = document.getElementById("racing-section");
     this.$winnerSection = document.getElementById("winner-section");
     this.$resetButton = document.getElementById("retry-button");
+
+    this.init();
   }
 
-  templateRacingSection(Cars) {
-    return Cars.map((Car) => Car.templateCarName()).join("");
+  init() {
+    this.enableElement(this.$carNamesInput);
+    this.enableElement(this.$carNamesButton);
+
+    this.$racingSection.innerHTML = "";
+
+    this.removeWinners();
+    this.hideElement(this.$racingSection);
+    this.hideElement(this.$winnerSection);
+    this.hideElement(this.$racingCountFieldSet);
+  }
+
+  removeWinners() {
+    const $winnerTags = this.$winnerSection.getElementsByTagName("h2");
+    if ($winnerTags.length > 0) {
+      this.$winnerSection.firstChild.remove();
+    }
   }
 
   templateWinners(winners) {

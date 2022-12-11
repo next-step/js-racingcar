@@ -47,6 +47,9 @@ class RacingGameController {
     this.#RacingGameView.showElement(this.#RacingGameView.$racingCountFieldSet);
     this.#RacingGameView.disableElement(this.#RacingGameView.$carNamesInput);
     this.#RacingGameView.disableElement(this.#RacingGameView.$carNamesButton);
+
+    this.#RacingGameView.enableElement(this.#RacingGameView.$racingCountInput);
+    this.#RacingGameView.enableElement(this.#RacingGameView.$racingCountButton);
   }
 
   #onSubmitRacingCount(e) {
@@ -92,20 +95,8 @@ class RacingGameController {
 
   #onClear() {
     this.#RacingGame.onClear();
+    this.#RacingGameView.init();
     this.#RacingGameView.$racingGameForm.reset();
-
-    this.#RacingGameView.enableElement(this.#RacingGameView.$carNamesInput);
-    this.#RacingGameView.enableElement(this.#RacingGameView.$carNamesButton);
-
-    this.#RacingGameView.hideElement(this.#RacingGameView.$racingCountFieldSet);
-    this.#RacingGameView.enableElement(this.#RacingGameView.$racingCountInput);
-    this.#RacingGameView.enableElement(this.#RacingGameView.$racingCountButton);
-
-    // TODO 다른 API로 개선해보기
-    this.#RacingGameView.$racingSection.innerHTML = "";
-    this.#RacingGameView.$winnerSection.innerHTML = "";
-    this.#RacingGameView.hideElement(this.#RacingGameView.$racingSection);
-    this.#RacingGameView.hideElement(this.#RacingGameView.$winnerSection);
   }
 
   isCarNamesCorrectlyRegistered(carNames) {
