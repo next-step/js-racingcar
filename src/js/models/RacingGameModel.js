@@ -7,8 +7,8 @@ class RacingGameModel {
   getCars() {
     return this.#cars;
   }
-  setCars(cars) {
-    this.#cars.push(cars);
+  setCars(car) {
+    this.#cars.push(car);
   }
 
   getRacingCount() {
@@ -20,4 +20,4 @@ class RacingGameModel {
   }
 }
 
-export default new RacingGameModel();
+export default RacingGameModel;

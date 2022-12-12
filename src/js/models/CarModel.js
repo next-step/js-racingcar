@@ -1,7 +1,9 @@
-import { MAX_CAR_NAME_LENGTH, MIN_CAR_NAME_LENGTH } from '../constants.js';
+import { CAN_MOVE_NUM, MAX_CAR_NAME_LENGTH, MIN_CAR_NAME_LENGTH } from '../constants.js';
+import { getRandomNumber } from '../utils/getRandomNumber.js';
 
 class CarModel {
   name = '';
+  moves = [];
 
   constructor() {}
 
@@ -15,6 +17,13 @@ class CarModel {
 
   enrollCar(name) {
     this.name = name;
+  }
+
+  setCarMoves(racingCount) {
+    const carMoves = Array.from({ length: racingCount })
+      .fill(0)
+      .map(() => (getRandomNumber() > CAN_MOVE_NUM ? true : false));
+    this.moves = carMoves;
   }
 }
 

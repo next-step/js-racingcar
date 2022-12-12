@@ -155,18 +155,18 @@ describe('자동차 경주 게임 step1 ', () => {
 
   describe('주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.', () => {
     it('전진한 자동차는 화살표가 표시된다', () => {
-      // cy.get(carNameSelector).type('Car1,Car2,Car3,Car4');
-      // cy.get(carNameButtonSelector).click();
-      // cy.get(trialNumberSelector).type('3');
-      // cy.get(trialNumberButtonSelector).click();
-      // cy.get(forwardIconSelector).should('exist');
+      getCarNamesInput().type('one, two, three');
+      getCarNamesSubmit().click();
+      getRacingCountInput().type('3');
+      getRacingCountSubmit().click();
+      cy.get('.forward-icon').should('exist');
     });
     it('멈춘 자동차는 스피너가 표시된다', () => {
-      // cy.get(carNameSelector).type('Car1,Car2,Car3,Car4');
-      // cy.get(carNameButtonSelector).click();
-      // cy.get(trialNumberSelector).type('3');
-      // cy.get(trialNumberButtonSelector).click();
-      // cy.get(spinnerSelector).should('exist');
+      getCarNamesInput().type('one, two, three');
+      getCarNamesSubmit().click();
+      getRacingCountInput().type('3');
+      getRacingCountSubmit().click();
+      cy.get('.spinner').should('exist');
     });
   });
 });

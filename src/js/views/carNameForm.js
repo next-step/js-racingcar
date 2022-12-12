@@ -1,6 +1,5 @@
 import { handleAddEventListener } from '../utils/eventListener.js';
 import CarModel from '../models/CarModel.js';
-import RacingGameModel from '../models/RacingGameModel.js';
 import { HAS_SAME_CAR_NAME_MESSAGE, INVALID_CAR_NAME_MESSAGE } from '../constants.js';
 import { getCarNames } from '../utils/getCarNames.js';
 
@@ -8,7 +7,8 @@ const $carNamesInput = document.querySelector('#carNamesInput');
 const $carNamesSubmitButton = document.querySelector('#carNamesSubmit');
 const $racingCountForm = document.querySelector('#racingCountForm');
 
-const handleSubmitCarName = () => {
+const handleSubmitCarName = (racingGameModel) => {
+  const enrolledCars = racingGameModel.getCars();
   const submittedNames = getCarNames($carNamesInput.value);
 
   submittedNames.forEach((submittedName) => {
@@ -18,16 +18,16 @@ const handleSubmitCarName = () => {
       alert(INVALID_CAR_NAME_MESSAGE);
       return;
     }
-    const hasSameName = enrolledCar.hasSameName(RacingGameModel.getCars(), submittedName);
+    const hasSameName = enrolledCar.hasSameName(enrolledCars, submittedName);
     if (hasSameName) {
       alert(HAS_SAME_CAR_NAME_MESSAGE);
       return;
     }
     enrolledCar.enrollCar(submittedName);
-    RacingGameModel.setCars(enrolledCar);
+    racingGameModel.setCars(enrolledCar);
   });
 
-  if (submittedNames.length === RacingGameModel.getCars().length) {
+  if (submittedNames.length === enrolledCars.length) {
     disableButton();
     showRacingCountForm();
   }
@@ -41,10 +41,12 @@ const showRacingCountForm = () => {
   $racingCountForm.style.display = 'block';
 };
 
-export const initCarNameFormView = () => {
+export const initCarNameFormView = (racingGameModel) => {
   handleAddEventListener({
     targetDom: $carNamesSubmitButton,
     event: 'click',
-    callback: handleSubmitCarName,
+    callback: function () {
+      handleSubmitCarName(racingGameModel);
+    },
   });
 };
