@@ -16,4 +16,6 @@ export const RACETYPE = {
     STOP: 'STOP'
 }
 
+export const MESSAGE_FOR_CELEBRATION = '🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇';
+
 Object.freeze(RACETYPE);

@@ -1,7 +1,7 @@
 import { Component } from './component.js';
 import { CarModel } from '../models/car.model.js';
 
-import { RACETYPE } from "../common/const.js";
+import { MESSAGE_FOR_CELEBRATION, RACETYPE } from "../common/const.js";
 import { $car, $race, $reset, $round, $winner } from '../views/selector.js';
 import {
     appendElement,
@@ -113,7 +113,7 @@ export class RaceComponent extends Component {
 
         displayFlex([$winner.container]);
         renderInnerHtml($winner.player, `🏆 최종 우승자: ${winners} 🏆`);
-        setTimeout(() => alert('🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇'), 2000);
+        setTimeout(() => alert(MESSAGE_FOR_CELEBRATION), 2000);
     }
 
     #reset() {
