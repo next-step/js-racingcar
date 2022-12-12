@@ -15,7 +15,6 @@ export class Component {
         this._setEventListeners();
         this._setEventHandler();
         this._initElement();
-        this._subscribe()
     }
 
 }

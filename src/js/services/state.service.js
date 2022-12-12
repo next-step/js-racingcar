@@ -29,6 +29,14 @@ export class StateService {
         return StateService.instance;
     }
 
+    refreshState() {
+        this.raceState.names = [];
+        this.raceState.round = 0;
+        this.renderState.renderRace = false;
+        this.renderState.renderRound = false;
+        this.resetState.reset = false;
+    }
+
     getRaceState() {
         return new Proxy(this.raceState, {
             get(target, prop) {
@@ -47,7 +55,7 @@ export class StateService {
             set(target, prop, value) {
                 Reflect.set(target, prop, value);
 
-                if (value) {
+                if (value && target.observers.length !== 0) {
                     Reflect.get(target.observers.find(row => row[prop]), prop)();
                 }
 

@@ -9,6 +9,7 @@ export class RoundComponent extends Component {
     constructor(stateService) {
         super(stateService);
         this._init();
+        this._subscribe();
     }
 
     _init() {
@@ -25,20 +26,29 @@ export class RoundComponent extends Component {
     }
 
     _initElement() {
+        disableButton($round.button, false);
         displayNone([$round.container]);
     }
 
     _subscribe() {
         this._stateService.renderState.observers.push({ renderRound: () => this.#render() });
+        this._stateService.resetState.observers.push({ reset: () => this._init() });
     }
 
     submit() {
-        if (!this.#isValidated()) return;
+        try {
+            if (!this.#isValidated()) return;
+        } catch (e) {
+            if (!e instanceof CustomError) {
+                throw e;
+            }
+            alert(e.message);
+        }
 
         this._setRemoveListeners();
         this._stateService.raceState.round = +$round.input.value;
         this._stateService.renderState.renderRace = true;
-        disableButton($round.button);
+        disableButton($round.button, true);
     }
 
     submitByEnterKey(e) {
@@ -52,17 +62,9 @@ export class RoundComponent extends Component {
     }
 
     #isValidated = () => {
-        try {
-            if (!$round.input.value || $round.input.value < MIN_ROUND) {
-                throw new InputMinInsufficientError(ERROR_MESSAGE.InputMinInsufficient);
-            }
-            return true;
-        } catch (e) {
-            if (e instanceof CustomError) {
-                alert(e.message);
-            } else {
-                throw e;
-            }
+        if (!$round.input.value || $round.input.value < MIN_ROUND) {
+            throw new InputMinInsufficientError(ERROR_MESSAGE.InputMinInsufficient);
         }
+        return true;
     }
 }
