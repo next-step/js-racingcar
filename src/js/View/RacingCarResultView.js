@@ -7,9 +7,7 @@ export default class RacingCarResultView extends View {
     this.model.subscribe(this.render.bind(this));
   }
   setEvent() {
-    this.addEvent('click', 'button', () => {
-      this.model.reset();
-    });
+    this.addEvent('click', 'button', this.model.reset.bind(this.model))
   }
 
   componentWillMount() {
@@ -20,8 +18,7 @@ export default class RacingCarResultView extends View {
   }
 
   getTemplate() {
-    if (!this.model.isGameState([GAME_STATE.FINISHED])) return '';
-    return `
+    if (this.model.isGameState([GAME_STATE.FINISHED])) return `
     <div>
     <h2>🏆 최종 우승자: ${this.model.getWinners()} 🏆</h2>
     <div class="d-flex justify-center">
@@ -29,5 +26,6 @@ export default class RacingCarResultView extends View {
     </div>
   </div>
         `;
+    return ''
   }
 }

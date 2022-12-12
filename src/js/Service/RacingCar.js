@@ -1,14 +1,11 @@
 export default class RacingCar {
   #position;
   #name;
-  #minNameLength;
-  #maxNameLength;
   constructor(name) {
     this.#validateCarName(name);
     this.#name = name;
     this.#position = 0;
-    this.#minNameLength = 1;
-    this.#maxNameLength = 5;
+
   }
 
   /**
@@ -52,14 +49,16 @@ export default class RacingCar {
    */
 
   #validateCarName(carName) {
+    const minNameLength = 1
+    const maxNameLength = 5
     if (
-      carName.length < this.#minNameLength ||
-      carName.length > this.#maxNameLength
+      carName.length < minNameLength ||
+      carName.length > maxNameLength
     ) {
       throw new Error(
         ALERT_MASSAGE.INVALID_CAR_NAME_LENGTH(
-          this.#minNameLength,
-          this.#maxNameLength
+          minNameLength,
+          maxNameLength
         )
       );
     }

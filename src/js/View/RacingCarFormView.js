@@ -64,7 +64,7 @@ export default class RacingCarFormView extends View {
   }
 
   getTemplate() {
-    const isCarNameDisabled = this.model.isGameState([
+    const isDisabledCarName = this.model.isGameState([
       GAME_STATE.READY,
       GAME_STATE.PLAYING,
       GAME_STATE.FINISHED,
@@ -77,12 +77,12 @@ export default class RacingCarFormView extends View {
     return String.raw`<form>
     <h1 class="text-center">🏎️ 자동차 경주 게임</h1>
    ${this.#getCarNameFieldsetTemplate({
-     disabled: isCarNameDisabled,
+     disabled: isDisabledCarName,
      value: this.carNames,
    })}
  ${this.#getRaceCountFieldsetTemplate({
    disabled: isRaceCountDisabled,
-   isShow: isCarNameDisabled,
+   isShow: isDisabledCarName,
    value: this.tryCount,
  })}
   </form>`;

@@ -6,18 +6,15 @@ import Observer from './Observer';
  * @extends Observer
  * @property {RacingCar[]} #cars
  * @property {number | null} #tryCount
- * @property {number} #minTryCount
  * @property {'initial'| 'ready' | 'playing' | 'finished'} #gameState
  */
 export default class RaceModel extends Observer {
   #cars;
   #tryCount;
-  #minTryCount;
   #gameState;
   constructor() {
     super();
     this.#cars = [];
-    this.#minTryCount = 1;
     this.#tryCount = null;
     this.#gameState = GAME_STATE.INITIAL;
   }
@@ -36,8 +33,9 @@ export default class RaceModel extends Observer {
    * @param {number} tryCount
    */
   #validateTryCount(tryCount) {
-    if (tryCount < this.#minTryCount) {
-      throw new Error(ALERT_MASSAGE.INVALID_RACING_COUNT(this.#minTryCount));
+    const minTryCount = 1;
+    if (tryCount < minTryCount) {
+      throw new Error(ALERT_MASSAGE.INVALID_RACING_COUNT(minTryCount));
     }
   }
 
