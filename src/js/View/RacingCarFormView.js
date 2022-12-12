@@ -53,7 +53,7 @@ export default class RacingCarFormView extends View {
 
   #getRaceCountFieldsetTemplate({ isShow, disabled, value }) {
     return String.raw`<fieldset name="racing-count-fieldset" ${
-      isShow ? '' : 'class="hidden"'
+      isShow ? '' : "hidden"
     } ${disabled ? 'disabled' : ''}>
     <legend>시도할 횟수를 입력해주세요.</legend>
     <div class="d-flex">
