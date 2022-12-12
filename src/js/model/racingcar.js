@@ -10,7 +10,6 @@ const GENERATION_MIN = 0;
 const GENERATION_MAX = 9;
 const GO_OR_STOP_CONDITION = 3;
 
-
 const racingManager = {
   names: [],
   trialCount: 0,
@@ -28,19 +27,6 @@ const racingManager = {
 
   splitName(name) {
     return name.split(COMMA);
-  },
-
-  isGoOrStop(randomNum) {
-    return randomNum > GO_OR_STOP_CONDITION;
-  },
-
-  goCondition() {
-    const randomNum = getRandomNumber(GENERATION_MIN, GENERATION_MAX);
-    return this.isGoOrStop(randomNum);
-  },
-
-  getGameResult() {
-    return new Array(this.trialCount).fill(false).map(_ => this.goCondition());
   },
 
   isInRange(names) {
@@ -63,6 +49,22 @@ const racingManager = {
     if (getType(trialCount) !== 'Number') throw new Error(ERROR_MESSAGES.INVALID_TYPE);
     return true;
   }),
+
+  calculateWinner: {
+    getRandomNumber,
+    isGoOrStop: randomNum => randomNum > GO_OR_STOP_CONDITION,
+  },
+
+  goConditions(condition, param = null) {
+    return this.calculateWinner[condition](param);
+  },
+
+  getGameResult() {
+    return new Array(this.trialCount).fill(false).map(_ => {
+      const randomNumber = this.goConditions('getRandomNumber', { GENERATION_MIN, GENERATION_MAX });
+      return this.goConditions('isGoOrStop', randomNumber);
+    });
+  },
 
   generateGame() {
     return this.names.reduce((acc, name) => ({ ...acc, [name]: this.getGameResult() }), {});
