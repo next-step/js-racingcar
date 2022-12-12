@@ -50,13 +50,13 @@ const racingManager = {
     return true;
   }),
 
-  calculateWinner: {
+  gameStrategy: {
     getRandomNumber,
     isGoOrStop: randomNum => randomNum > GO_OR_STOP_CONDITION,
   },
 
   goConditions(condition, param = null) {
-    return this.calculateWinner[condition](param);
+    return this.gameStrategy[condition](param);
   },
 
   getGameResult() {

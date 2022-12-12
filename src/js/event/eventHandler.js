@@ -1,4 +1,4 @@
-import racingManager from '../model/racingcar.js';
+import racingManager from '../model/racingManager.js';
 import {
   showTrialForm,
   focusNameInput,
