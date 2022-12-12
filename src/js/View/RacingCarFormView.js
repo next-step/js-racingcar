@@ -12,10 +12,9 @@ export default class RacingCarFormView extends View {
     this.tryCount = '';
   }
 
-  setEvent() {
-    this.addEvent('submit', 'form', async (e) => {
-      e.preventDefault();
-      const $carNameInput = e.target[NAME.CAR_NAME + '-input'];
+  async submitCarNamesAndRaceCount(e) {
+    e.preventDefault();
+    const $carNameInput = e.target[NAME.CAR_NAME + '-input'];
       const $raceCountInput = e.target[NAME.RACING_COUNT + '-input'];
 
       if (this.model.isGameState([GAME_STATE.READY])) {
@@ -26,8 +25,13 @@ export default class RacingCarFormView extends View {
       const carNames = $carNameInput.value.split(',');
       this.carNames = $carNameInput.value;
       this.model.setCarNames(carNames);
-    });
   }
+
+
+  setEvent() {
+    this.addEvent('submit', 'form', this.submitCarNamesAndRaceCount.bind(this))
+  }
+  
 
   componentWillMount() {
     const isReset = this.model.isGameState([GAME_STATE.INITIAL]);
