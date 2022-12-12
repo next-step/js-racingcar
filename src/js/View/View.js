@@ -2,6 +2,9 @@ import { withErrorHandling } from '../utils';
 
 export default class View {
   constructor(target, model) {
+    if (this.constructor === View) {
+      throw new Error("추상 클래스로 인스턴스를 생성하였습니다.");
+    }
     if (!target) throw new Error('target이 없습니다.');
     if (!model) throw new Error('model이 없습니다.');
 
@@ -38,6 +41,6 @@ export default class View {
   }
 
   getTemplate() {
-    return '';
+    throw new Error('추상 메서드는 오버라이딩이 필요합니다.');
   }
 }
