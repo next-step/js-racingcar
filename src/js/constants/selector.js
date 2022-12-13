@@ -6,4 +6,6 @@ export const SELECTOR = {
   TRIAL_COUNT_FORM: '.trial-count-form',
   TRIAL_COUNT_INPUT: '.trial-count-input',
   TRIAL_COUNT_BTN: '.trial-count-btn',
+
+  PLAY_GAME: '.play-racing-car-game',
 };

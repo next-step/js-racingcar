@@ -5,6 +5,8 @@ import Car from '../model/Car.js';
 
 import { generateRandomNumber } from '../utils/index.js';
 
+import { showPlayGame } from '../view/playGame.js';
+
 const isMovable = () => {
   const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER } = GAME_CONDITION;
   const randomNumber = generateRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
@@ -22,15 +24,13 @@ const raceOneTurn = (cars) => {
   cars.forEach((car) => updateCarDistance(car));
 };
 
-const raceTotalTurn = ({ cars, trialCount }) => {
-  [...Array(trialCount)].forEach(() => raceOneTurn(cars));
-};
-
 export const startGame = () => {
   const carNames = gameSetting.getNames();
   const trialCount = gameSetting.getTrialCount();
 
   const cars = carNames.map((carName) => new Car(carName));
 
-  raceTotalTurn({ cars, trialCount });
+  [...Array(trialCount)].forEach(() => raceOneTurn(cars));
+
+  showPlayGame(cars);
 };
