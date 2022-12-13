@@ -6,6 +6,7 @@ import Car from '../model/Car.js';
 import { generateRandomNumber } from '../utils/index.js';
 
 import { showPlayGame } from '../view/playGame.js';
+import { showWinners } from '../view/gameWinner.js';
 
 const isMovable = () => {
   const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER } = GAME_CONDITION;
@@ -24,6 +25,20 @@ const raceOneTurn = (cars) => {
   cars.forEach((car) => updateCarDistance(car));
 };
 
+const getWinners = (cars) => {
+  const distanceByCar = cars.map((car) => car.getDistance());
+  const maxDistance = Math.max(...distanceByCar);
+  const winners = [];
+
+  distanceByCar.forEach((distance, idx) => {
+    if (distance === maxDistance) {
+      winners.push(cars[idx].getName());
+    }
+  });
+
+  return winners;
+};
+
 export const startGame = () => {
   const carNames = gameSetting.getNames();
   const trialCount = gameSetting.getTrialCount();
@@ -33,4 +48,7 @@ export const startGame = () => {
   [...Array(trialCount)].forEach(() => raceOneTurn(cars));
 
   showPlayGame(cars);
+
+  const winners = getWinners(cars);
+  showWinners(winners);
 };

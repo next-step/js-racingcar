@@ -8,4 +8,5 @@ export const SELECTOR = {
   TRIAL_COUNT_BTN: '.trial-count-btn',
 
   PLAY_GAME: '.play-racing-car-game',
+  FINISH_GAME: '.finish-racing-car-game',
 };
