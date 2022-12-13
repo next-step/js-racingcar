@@ -1,7 +1,7 @@
 import { ERROR_MESSAGE } from '../constants/errorMessage.js';
 import { INPUT_CONDITION } from '../constants/condition.js';
 
-import { focusCarNamesInput, focusTrialCountInput } from '../view/racingCar.js';
+import { focusCarNamesInput, focusTrialCountInput } from '../view/gameSettingForm.js';
 
 import { isNumber } from '../utils/index.js';
 

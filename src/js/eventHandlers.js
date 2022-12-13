@@ -13,7 +13,7 @@ import {
   showTrialCountForm,
   focusTrialCountInput,
   disableTrialCountForm,
-} from './view/racingCar.js';
+} from './view/gameSettingForm.js';
 
 export const handleSubmitCarNames = (e) => {
   e.preventDefault();
