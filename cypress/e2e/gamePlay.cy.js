@@ -1,6 +1,6 @@
 import { INPUT_CONDITION } from '../../src/js/constants/condition.js';
 
-describe('게임 결과 테스트', () => {
+describe('게임 플레이 테스트', () => {
   const TYPE = {
     CAR_NAMES: '가,나,다',
     TRIAL_COUNT: 6,
