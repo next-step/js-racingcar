@@ -6,7 +6,9 @@
   },
 
   "extends": ["airbnb", "prettier"],
-
+  "parserOptions": {
+    "ecmaVersion": 13
+  },
   "rules": {
     "no-unused-vars": "warn",
     "import/extensions": ["error", { "js": "always" }],

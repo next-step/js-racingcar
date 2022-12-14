@@ -2,6 +2,7 @@ import { getRandomNumber } from '../utils/random.js';
 import { NAME_LENGTH_MIN, NAME_LENGTH_MAX } from '../constant/racingcar.js';
 import { catchMessage, getType } from '../validate/validate.js';
 import ERROR_MESSAGES from '../constant/errorMessages.js';
+import car from './Car.js';
 
 const TRIM_BETWEEN_COMMA = /\s*,\s*/g;
 const COMMA = ',';
@@ -11,14 +12,10 @@ const GENERATION_MAX = 9;
 const GO_OR_STOP_CONDITION = 3;
 
 const racingManager = {
-  names: [],
-  trialCount: 0,
-  gameResult: [],
-
   resetAll() {
-    this.names = [];
-    this.trialCount = 0;
-    this.gameResult = [];
+    car.names = [];
+    car.trialCount = 0;
+    car.gameResult = [];
   },
 
   trimNames(value) {
@@ -60,26 +57,26 @@ const racingManager = {
   },
 
   getGameResult() {
-    return new Array(this.trialCount).fill(false).map(_ => {
+    return new Array(car.trialCount).fill(false).map(_ => {
       const randomNumber = this.goConditions('getRandomNumber', { GENERATION_MIN, GENERATION_MAX });
       return this.goConditions('isGoOrStop', randomNumber);
     });
   },
 
   generateGame() {
-    return this.names.reduce((acc, name) => ({ ...acc, [name]: this.getGameResult() }), {});
+    return car.names.reduce((acc, name) => ({ ...acc, [name]: this.getGameResult() }), {});
   },
 
   getMaxWinnerCount() {
     return Math.max(
-      ...Object.entries(this.gameResult).map(([_, value]) => value.filter(Boolean).length),
+      ...Object.entries(car.gameResult).map(([_, value]) => value.filter(Boolean).length),
     );
   },
 
   getWinner() {
     const maxValue = this.getMaxWinnerCount();
 
-    return Object.entries(this.gameResult).reduce((acc, [key, value]) => {
+    return Object.entries(car.gameResult).reduce((acc, [key, value]) => {
       if (value.filter(Boolean).length === maxValue) return [...acc, key];
       return acc;
     }, []);
