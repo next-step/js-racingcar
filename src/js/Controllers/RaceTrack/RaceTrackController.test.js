@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-const { checkIsCanBeAdvanced, progressRace } = require('./RaceTrackController.js');
+const { checkIsCanBeAdvanced, attachNextRaceState } = require('./RaceTrackController.js');
 const { getState, dispatch: dispatchRaceState } = require('../../Models/race.js');
 const { dispatch } = require('../../Models/global.js');
 
@@ -25,32 +25,27 @@ describe('Race Controller Test', () => {
     });
   });
 
-  describe('경기 진행 기록', () => {
-    it('경기 진행 상황이 state에 기록되어야한다.', async () => {
-      const carDistances = [
+  describe('레이스 진행 테스트', () => {
+    it('레이스를 진행하면 기존 race State의 distance가 변화되고 변화 내용은 진행판단 boolean과 일치해야한다.', () => {
+      const mockRaceState = [
         {
-          name: 'first',
+          name: 'car1',
           distance: 0,
         },
         {
-          name: 'second',
+          name: 'car2',
+          distance: 0,
+        },
+        {
+          name: 'car3',
           distance: 0,
         }
       ];
 
-      progressRace({ carDistances });
-      await new Promise((r) => setTimeout(r, 3001));
-      const { raceCount } = getState();
-      expect(raceCount).toBe(1);
-    });
-
-    it('iterateCount를 3번 입력했으면 raceCount가 3으로 찍혀야 한다.', async () => {
-      dispatch('iterationCount', 3);
-      dispatchRaceState('ready', ['123', '456']);
-
-      await new Promise((r) => setTimeout(r, 3001));
-      const { raceCount } = getState();
-      expect(raceCount).toBe(3);
+      const [carShouldAdvanceResults, newRaceState] = attachNextRaceState(mockRaceState);
+      newRaceState.forEach(({ distance }, i) => {
+        expect(!!distance).toBe(carShouldAdvanceResults[i]);
+      });
     });
   });
 });
