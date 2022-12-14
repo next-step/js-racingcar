@@ -1,4 +1,4 @@
-import { NAME_LENGTH_MIN, NAME_LENGTH_MAX } from '../constant/racingCar.js';
+import { NAME_LENGTH_MIN, NAME_LENGTH_MAX } from '../constant/racingcar.js';
 import { catchMessage, getType } from '../validate/validate.js';
 import ERROR_MESSAGES from '../constant/errorMessages.js';
 
