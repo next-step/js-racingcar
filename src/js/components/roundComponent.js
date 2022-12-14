@@ -27,27 +27,27 @@ export class RoundComponent extends Component {
 
     _initElement() {
         disableButton($round.button, false);
-        displayNone([$round.container]);
+        displayNone($round.container);
     }
 
     _subscribe() {
-        this._stateService.renderState.observers.push({ renderRound: () => this.#render() });
-        this._stateService.resetState.observers.push({ reset: () => this._init() });
+        this._stateService.render.observers.push({ round: () => this.#render() });
+        this._stateService.reset.observers.push({ resets: () => this._init() });
     }
 
     submit() {
         try {
-            if (!this.#isValidated()) return;
+            this.#isValidated();
         } catch (e) {
             if (!e instanceof CustomError) {
                 throw e;
             }
-            alert(e.message);
+            return alert(e.message);
         }
 
         this._setRemoveListeners();
-        this._stateService.raceState.round = +$round.input.value;
-        this._stateService.renderState.renderRace = true;
+        this._stateService.race.round = +$round.input.value;
+        this._stateService.render.race = true;
         disableButton($round.button, true);
     }
 
@@ -58,13 +58,12 @@ export class RoundComponent extends Component {
     }
 
     #render() {
-        displayBlock([$round.container]);
+        displayBlock($round.container);
     }
 
     #isValidated = () => {
         if (!$round.input.value || $round.input.value < MIN_ROUND) {
             throw new InputMinInsufficientError(ERROR_MESSAGE.InputMinInsufficient);
         }
-        return true;
     }
 }

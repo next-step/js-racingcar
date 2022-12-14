@@ -6,9 +6,10 @@ import { $car, $race, $reset, $round, $winner } from '../views/selector.js';
 import {
     appendElement,
     displayFlex,
-    displayNone,
-    parseStringToHTML, removeChildNodes,
-    renderInnerHtml, renderInputValue
+    displayNones,
+    parseStringToHTML,
+    removeChildNodes,
+    renderInputValue
 } from "../common/util.js";
 
 export class RaceComponent extends Component {
@@ -20,7 +21,7 @@ export class RaceComponent extends Component {
 
     _init() {
         super._init();
-        displayNone([$winner.container, $race.container]);
+        displayNones([$winner.container, $race.container]);
         renderInputValue($round.input);
     }
 
@@ -29,56 +30,54 @@ export class RaceComponent extends Component {
     }
 
     _subscribe() {
-        this._stateService.renderState.observers.push({ renderRace: () => this.#render() });
-        this._stateService.resetState.observers.push({ reset: () => this.#reset() });
+        this._stateService.render.observers.push({ race: () => this.#render() });
+        this._stateService.reset.observers.push({ resets: () => this.#reset() });
     }
 
     async #render() {
-        displayFlex([$race.container]);
+        displayFlex($race.container);
         const cars = this.#getCars();
 
-        const delay = this._stateService.raceState.round * 1000;
+        const delay = this._stateService.race.round * 1000;
         await this.#renderRace(cars);
         setTimeout(() => this.#renderWinners(cars), delay);
     }
 
     #getCars = () => {
-        const { names, round } = this._stateService.raceState;
+        const { names, round } = this._stateService.race;
         return names.map(name => new CarModel(name, round).getRaces());
     }
 
     #getWinners = (cars) => {
-        const playerScore = cars.reduce((scores, car) => {
-            return [...scores, {
+        const playerScore = cars.map((car) => {
+            return {
                 name: car.player,
                 score: this.#getMaxScore(car.races)
-            }]
-        }, []);
+            }
+        });
 
         const winnerScore = Math.max(...playerScore.map(winner => winner.score));
         return playerScore
             .filter(player => player.score === winnerScore)
-            .map(player => player.name).join(', ');
+            .map(player => player.name);
     }
 
     #getMaxScore = (races) => {
-        return races.reduce((score, step) => {
-            if (step === RACETYPE.FORWARD) score++;
-            return score;
-        }, 0);
+        return races.filter(race => race === RACETYPE.FORWARD).length;
     }
 
     #renderRace(cars) {
-        return new Promise((resolve) => {
-            cars.map(({ player, races }) => {
+        try {
+            return cars.map(async ({ player, races }) => {
                 const $container = parseStringToHTML($car.container);
                 appendElement($container, this.#renderPlayer(player));
-                return this.#renderRaces($container, races);
+                return await this.#renderRaces($container, races);
             }).forEach(car => {
-                appendElement($race.container, car);
-            })
-            resolve();
-        });
+                car.then(c => appendElement($race.container, c));
+            });
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     #renderPlayer = (player) => {
@@ -109,16 +108,16 @@ export class RaceComponent extends Component {
     }
 
     #renderWinners(cars) {
-        const winners = this.#getWinners(cars);
+        const winners = this.#getWinners(cars).join(', ');
 
-        displayFlex([$winner.container]);
-        renderInnerHtml($winner.player, `🏆 최종 우승자: ${winners} 🏆`);
+        displayFlex($winner.container);
+        $winner.player.innerHTML = `🏆 최종 우승자: ${winners} 🏆`;
         setTimeout(() => alert(MESSAGE_FOR_CELEBRATION), 2000);
     }
 
     #reset() {
-        this._stateService.resetState.reset = true;
-        this._stateService.refreshState();
+        this._stateService.reset.resets = true;
+        this._stateService.resetState();
         removeChildNodes($race.container);
         this._init();
     }

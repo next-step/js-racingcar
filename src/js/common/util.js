@@ -29,31 +29,29 @@ export const parseStringToHTML = (element) => {
 export const disableButton = ($button, isDisabled) => $button.disabled = isDisabled;
 
 /**
+ * @param {HTMLElement} $element - display: none 시킬 요소
+ */
+export const displayNone = ($element) => $element.style.display = 'none';
+
+/**
  * @param {Element[]} $elements - display: none 시킬 요소의 배열
  */
-export const displayNone = ($elements) => $elements.forEach($el => $el.style.display = 'none');
+export const displayNones = ($elements) => $elements.forEach($element => displayNone($element));
 
 /**
- * @param {Element[]} $elements - display: block 시킬 요소의 배열
+ * @param {HTMLElement} $element - display: block 시킬 요소
  */
-export const displayBlock = ($elements) => $elements.forEach($el => $el.style.display = 'block');
+export const displayBlock = ($element) => $element.style.display = 'block';
 
 /**
- * @param {Element[]} $elements - display: flex 시킬 요소의 배열
+ * @param {HTMLElement} $element - display: flex 시킬 요소
  */
-export const displayFlex = ($elements) => $elements.forEach($el => $el.style.display = 'flex');
+export const displayFlex = ($element) => $element.style.display = 'flex';
 
 /**
  * @param {HTMLInputElement} $element - focus 를 줄 HTML Input 요소
  */
 export const setFocus = ($element) => $element.focus();
-
-/**
- * @param {HTMLElement} $element - innerHTML 을 적용시켜줄 HTML 대상 요소
- * @param {string || null} value - innerHTML 에 적용될 값
- */
-export const renderInnerHtml = ($element, value = null) => $element.innerHTML = value;
-
 
 /**
  * @param {HTMLInputElement} $input - HTML input 요소

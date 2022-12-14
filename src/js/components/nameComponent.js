@@ -27,29 +27,29 @@ export class NameComponent extends Component {
 
     _initElement() {
         disableButton($name.button, false);
-        displayNone([$round.container]);
+        displayNone($round.container);
         renderInputValue($name.input);
     }
 
     _subscribe() {
-        this._stateService.resetState.observers.push({ reset: () => this._init() });
+        this._stateService.reset.observers.push({ resets: () => this._init() });
     }
 
     submit() {
         const names = this.#setNames();
 
-        try{
-            if (!this.#IsValidated()) return;
+        try {
+            this.#IsValidated();
         } catch (e) {
             if (!e instanceof CustomError) {
                 throw e;
             }
-            alert(e.message);
+            return alert(e.message);
         }
 
         this._setRemoveListeners();
-        this._stateService.renderState.renderRound = true;
-        this._stateService.raceState.names = names;
+        this._stateService.render.round = true;
+        this._stateService.race.names = names;
 
         disableButton($name.button, true);
         setFocus($round.input);
@@ -72,6 +72,5 @@ export class NameComponent extends Component {
                 throw new InputOutOfRangeError(ERROR_MESSAGE.InputOutOfRange);
             }
         });
-        return true;
     }
 }
