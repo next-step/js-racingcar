@@ -13,6 +13,10 @@
   border-color: #00bcd4 !important;
 }
 
-.btn.btn-cyan:hover {
+.btn.btn-cyan:not(:disabled):hover {
   background-color: #018c9e !important;
+}
+
+.btn:disabled:hover {
+  cursor: default;
 }
