@@ -1,10 +1,10 @@
-let state = {
+let state = Object.freeze({
   carNames: [],
   iterationCount: 0,
-};
+});
 
 function setState(newState) {
-  state = newState;
+  state = Object.freeze(newState);
 }
 
 export function dispatch(action, payload) {

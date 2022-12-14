@@ -1,13 +1,13 @@
-let state = {
+let state = Object.freeze({
   carDistances: [],
   raceState: 'wait',
   raceCount: 0,
-};
+});
 
 const subscribers = [];
 
 function setState(newState) {
-  state = newState;
+  state = Object.freeze(newState);
 }
 
 export function dispatch(action, payload) {
