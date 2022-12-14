@@ -18,6 +18,7 @@ function startRace(raceState) {
 
 const MAX_RANDOM_NUMBER = 9;
 const JUDGEMENT_NUMBER = 4;
+const RACE_INTERVAL_TIME = 1000;
 
 function progressRace({ carStates }) {
   setTimeout(() => {
@@ -25,7 +26,7 @@ function progressRace({ carStates }) {
 
     raceTrackView.continueRace(carShouldAdvanceResults);
     dispatch(actions.PROGRESS, newRaceState);
-  }, 1000);
+  }, RACE_INTERVAL_TIME);
 }
 
 export function attachNextRaceState(carStates) {
