@@ -1,4 +1,4 @@
-import { subscribe } from '../../Models/race.js';
+import { subscribe, RACE_STATES } from '../../Models/race/index.js';
 import { resultView } from '../../Views/ResultView.js';
 import { resetViews } from '../../Views/index.js';
 import { resetModels } from '../../Models/index.js';
@@ -6,7 +6,7 @@ import { resetModels } from '../../Models/index.js';
 import { getWinnersName } from './ResultControllerUtils.js';
 
 function setResult(raceState) {
-  if (raceState.raceState !== 'done') return;
+  if (raceState.raceState !== RACE_STATES.DONE) return;
 
   resultView.show();
 

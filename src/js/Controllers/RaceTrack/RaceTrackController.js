@@ -1,10 +1,10 @@
 import { createRandomNumber } from "../../utils/utils.js";
 import { getState } from "../../Models/global/global.js";
-import { subscribe, dispatch } from "../../Models/race.js";
+import { subscribe, dispatch, actions, RACE_STATES } from "../../Models/race/index.js";
 import { raceTrackView } from "../../Views/RaceTrackView/RaceTrackView.js";
 
 function startRace(raceState) {
-  if (raceState.raceState !== 'doing') { return; }
+  if (raceState.raceState !== RACE_STATES.DOING) { return; }
 
   const { iterationCount } = getState();
 
@@ -13,7 +13,7 @@ function startRace(raceState) {
     return;
   }
 
-  dispatch('done');
+  dispatch(actions.DONE);
 }
 
 const MAX_RANDOM_NUMBER = 9;
@@ -24,7 +24,7 @@ function progressRace({ carStates }) {
     const [carShouldAdvanceResults, newRaceState] = attachNextRaceState(carStates);
 
     raceTrackView.continueRace(carShouldAdvanceResults);
-    dispatch('progress', newRaceState);
+    dispatch(actions.PROGRESS, newRaceState);
   }, 1000);
 }
 

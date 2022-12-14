@@ -1,5 +1,5 @@
 import { dispatch, getState, actions } from '../../Models/global/index.js';
-import { dispatch as dispatchRaceState } from '../../Models/race.js';
+import { dispatch as dispatchRaceState, actions as raceActions } from '../../Models/race/index.js';
 import { countInputSetView } from '../../Views/CountInputView.js';
 import { raceTrackView } from '../../Views/RaceTrackView/RaceTrackView.js';
 
@@ -16,5 +16,5 @@ countInputSetView.addButtonClickListener(({ inputElement }) => {
   const { carNames } = getState();
   raceTrackView.show();
   raceTrackView.readyRaceTrack(carNames);
-  dispatchRaceState('ready', carNames);
+  dispatchRaceState(raceActions.READY, carNames);
 });

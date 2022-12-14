@@ -1,5 +1,5 @@
 import { dispatch as dispatchGlobal } from './global/global.js';
-import { dispatch as dispatchRace } from './race.js';
+import { dispatch as dispatchRace } from './race/race.js';
 
 export function resetModels() {
   const models = [dispatchGlobal, dispatchRace];

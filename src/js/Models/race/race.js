@@ -1,6 +1,9 @@
+import { DONE, PROGRESS, READY } from './actions.js';
+import { RACE_STATES } from './constants.js';
+
 let state = Object.freeze({
   carStates: [],
-  raceState: 'wait',
+  raceState: RACE_STATES.WAIT,
   raceCount: 0,
 });
 
@@ -12,14 +15,14 @@ function setState(newState) {
 
 export function dispatch(action, payload) {
   switch(action) {
-    case('ready'): {
+    case(READY): {
       const carStates = payload.map((carName) => {
         return {
           name: carName,
           distance: 0,
         };
       });
-      const raceState = 'doing';
+      const raceState = RACE_STATES.DOING;
 
       setState({
         ...state,
@@ -28,7 +31,7 @@ export function dispatch(action, payload) {
       });
       break;
     }
-    case('progress'): {
+    case(PROGRESS): {
       const carStates = payload;
       const raceCount = state.raceCount + 1;
 
@@ -39,8 +42,8 @@ export function dispatch(action, payload) {
       });
       break;
     }
-    case('done'): {
-      const raceState = 'done';
+    case(DONE): {
+      const raceState = RACE_STATES.DONE;
 
       setState({
         ...state,
