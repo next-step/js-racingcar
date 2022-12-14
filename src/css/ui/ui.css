@@ -1,0 +1,21 @@
+#car-racing-setting-section {
+  display: flex;
+  justify-content: center;
+}
+
+#attempt-count-fieldset {
+  display: none;
+  margin: 20px 0 0;
+}
+
+#racing-ground-section {
+  display: none;
+  justify-content: center;
+  margin: 20px 0 0;
+}
+
+#result-section {
+  display: none;
+  justify-content: center;
+  margin: 20px 0 0;
+}
