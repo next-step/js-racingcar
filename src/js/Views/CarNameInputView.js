@@ -11,14 +11,14 @@ class CarNameInputView extends View {
     this.submitButton = rootElement.getElementsByTagName('button')[0];
   }
 
-  onClick = ({ onClickButton }) => {
+  addButtonClickListener = (onClick) => {
     this.submitButton.addEventListener('click', (e) => {
-      onClickButton({ inputElement: this.inputElement }, e);
+      onClick({ inputElement: this.inputElement }, e);
     });
     this.rootElement.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         e.stopPropagation();
-        onClickButton({ inputElement: this.inputElement });
+        onClick({ inputElement: this.inputElement });
       }
     });
   };

@@ -11,11 +11,9 @@ function setResult(raceState) {
   const winners = getWinnersName(raceState.carDistances);
   resultView.setResult(winners);
 
-  resultView.onClick({
-    onClickResetButton: () => {
-      resetViews();
-      resetModels();
-    },
+  resultView.addResetButtonClickListener(() => {
+    resetViews();
+    resetModels();
   });
 }
 
