@@ -19,27 +19,32 @@ function startRace(raceState) {
 const MAX_RANDOM_NUMBER = 9;
 const JUDGEMENT_NUMBER = 4;
 
-export function progressRace({ carDistances }) {
+function progressRace({ carDistances }) {
   setTimeout(() => {
-    const carShouldAdvanceResults = [];
-
-    const newRaceState = carDistances.map((el) => {
-      const shouldAdvance = checkIsCanBeAdvanced(createRandomNumber(MAX_RANDOM_NUMBER));
-      carShouldAdvanceResults.push(shouldAdvance);
-
-      if (shouldAdvance) {
-        return {
-          ...el,
-          distance: el.distance + 1,
-        };
-      }
-
-      return el;
-    });
+    const [carShouldAdvanceResults, newRaceState] = attachNextRaceState(carDistances);
 
     raceTrackView.continueRace(carShouldAdvanceResults);
     dispatch('progress', newRaceState);
   }, 1000);
+}
+
+export function attachNextRaceState(carDistances) {
+  const carShouldAdvanceResults = [];
+  const newRaceState = carDistances.map((el) => {
+    const shouldAdvance = checkIsCanBeAdvanced(createRandomNumber(MAX_RANDOM_NUMBER));
+    carShouldAdvanceResults.push(shouldAdvance);
+
+    if (shouldAdvance) {
+      return {
+        ...el,
+        distance: el.distance + 1,
+      };
+    }
+
+    return el;
+  });
+
+  return [carShouldAdvanceResults, newRaceState];
 }
 
 export function checkIsCanBeAdvanced(givenNumber) {
