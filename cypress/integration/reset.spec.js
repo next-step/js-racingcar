@@ -9,12 +9,14 @@ describe('reset test', () => {
     const carNameSubmitButton = cy.get('#car-name-input-set').find('button');
     carNameSubmitButton.click();
 
+    const iterationCount = 3;
+    const waitMs = iterationCount * 1000;
     const countInput = cy.get('#count-input-set').find('input');
-    countInput.type('3');
+    countInput.type(String(iterationCount));
     const countInputButton = cy.get('#count-input-set').find('button');
     countInputButton.click();
 
-    cy.wait(3001);
+    cy.wait(waitMs);
   });
 
   it('reset 버튼을 누르면 모든 입력창이 비워지고, disable이 사라지며 race Track과 경기 결과 창이 안보이게 됩니다.', () => {
