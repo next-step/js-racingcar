@@ -1,4 +1,4 @@
-export function getWinnersName(carDistances) {
-  const winnerDistance = Math.max(...carDistances.map(car => car.distance));
-  return carDistances.filter(car => car.distance === winnerDistance);
+export function getWinnersName(carStates) {
+  const winnerDistance = Math.max(...carStates.map(car => car.distance));
+  return carStates.filter(car => car.distance === winnerDistance);
 }

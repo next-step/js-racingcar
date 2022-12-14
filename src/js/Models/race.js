@@ -1,5 +1,5 @@
 let state = Object.freeze({
-  carDistances: [],
+  carStates: [],
   raceState: 'wait',
   raceCount: 0,
 });
@@ -13,7 +13,7 @@ function setState(newState) {
 export function dispatch(action, payload) {
   switch(action) {
     case('ready'): {
-      const carDistances = payload.map((carName) => {
+      const carStates = payload.map((carName) => {
         return {
           name: carName,
           distance: 0,
@@ -23,18 +23,18 @@ export function dispatch(action, payload) {
 
       setState({
         ...state,
-        carDistances,
+        carStates,
         raceState,
       });
       break;
     }
     case('progress'): {
-      const carDistances = payload;
+      const carStates = payload;
       const raceCount = state.raceCount + 1;
 
       setState({
         ...state,
-        carDistances,
+        carStates,
         raceCount,
       });
       break;
@@ -50,7 +50,7 @@ export function dispatch(action, payload) {
     }
     default: {
       setState({
-        carDistances: [],
+        carStates: [],
         isRaceDone: false,
         raceCount: 0,
       });

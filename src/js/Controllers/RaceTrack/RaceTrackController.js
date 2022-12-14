@@ -19,18 +19,18 @@ function startRace(raceState) {
 const MAX_RANDOM_NUMBER = 9;
 const JUDGEMENT_NUMBER = 4;
 
-function progressRace({ carDistances }) {
+function progressRace({ carStates }) {
   setTimeout(() => {
-    const [carShouldAdvanceResults, newRaceState] = attachNextRaceState(carDistances);
+    const [carShouldAdvanceResults, newRaceState] = attachNextRaceState(carStates);
 
     raceTrackView.continueRace(carShouldAdvanceResults);
     dispatch('progress', newRaceState);
   }, 1000);
 }
 
-export function attachNextRaceState(carDistances) {
+export function attachNextRaceState(carStates) {
   const carShouldAdvanceResults = [];
-  const newRaceState = carDistances.map((el) => {
+  const newRaceState = carStates.map((el) => {
     const shouldAdvance = checkIsCanBeAdvanced(createRandomNumber(MAX_RANDOM_NUMBER));
     carShouldAdvanceResults.push(shouldAdvance);
 

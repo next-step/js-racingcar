@@ -10,7 +10,7 @@ function setResult(raceState) {
 
   resultView.show();
 
-  const winners = getWinnersName(raceState.carDistances);
+  const winners = getWinnersName(raceState.carStates);
   resultView.setResult(winners);
 
   resultView.addResetButtonClickListener(() => {
