@@ -61,16 +61,6 @@ export const updateResult = gameResult => {
 		</div>`;
 };
 
-export const alertIfError = callback => {
-  return (...args) => {
-    try {
-      return callback(...args);
-    } catch (error) {
-      return alert(error.message);
-    }
-  };
-};
-
 export const showWinner = () => {
   $('.winner-section').classList.remove('hide');
 };

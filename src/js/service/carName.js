@@ -1,4 +1,4 @@
-import { NAME_LENGTH_MIN, NAME_LENGTH_MAX } from '../constant/racingcar.js';
+import { NAME_LENGTH_MIN, NAME_LENGTH_MAX } from '../constant/racingCar.js';
 import { catchMessage, getType } from '../validate/validate.js';
 import ERROR_MESSAGES from '../constant/errorMessages.js';
 
@@ -22,7 +22,7 @@ const carName = {
     return inputNames.length === new Set(inputNames).size;
   },
 
-  isValidNames: catchMessage(inputNames => {
+  isValidNames: catchMessage('window', inputNames => {
     if (!carName.isInRange(inputNames)) throw new Error(ERROR_MESSAGES.NAME_OUT_OF_RANGE);
     if (!carName.isUnique(inputNames)) throw new Error(ERROR_MESSAGES.DUPLICATED_NAME);
     if (getType(inputNames) !== 'Array') throw new Error(ERROR_MESSAGES.INVALID_TYPE);

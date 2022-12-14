@@ -1,4 +1,4 @@
-import { NAME_LENGTH_MIN, NAME_LENGTH_MAX } from './racingcar.js';
+import { NAME_LENGTH_MIN, NAME_LENGTH_MAX } from './racingCar.js';
 
 const ERROR_MESSAGES = {
   NAME_OUT_OF_RANGE: `유효하지 않은 이름 길이입니다. 자동차의 이름은 ${NAME_LENGTH_MIN}자이상, ${NAME_LENGTH_MAX}자 이하만 가능합니다.`,

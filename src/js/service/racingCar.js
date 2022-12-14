@@ -12,7 +12,7 @@ const racingCar = {
     car.gameResult = [];
   },
 
-  isValidTrialCount: catchMessage(trialCount => {
+  isValidTrialCount: catchMessage('window', trialCount => {
     if (trialCount < TRIAL_COUNT_MIN) throw new Error(ERROR_MESSAGES.INVALID_TRIAL_COUNT);
     if (getType(trialCount) !== 'Number') throw new Error(ERROR_MESSAGES.INVALID_TYPE);
     return true;
