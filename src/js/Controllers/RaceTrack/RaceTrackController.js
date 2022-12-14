@@ -1,4 +1,4 @@
-import { createRandomNumber } from "../../../utils/utils.js";
+import { createRandomNumber } from "../../utils/utils.js";
 import { getState } from "../../Models/global.js";
 import { subscribe, dispatch } from "../../Models/race.js";
 import { raceTrackView } from "../../Views/RaceTrackView/RaceTrackView.js";
