@@ -1,4 +1,4 @@
-import './Controller/NameInput/NameInputController.js';
-import './Controller/CounterInput/CounterInputController.js';
-import './Controller/RaceTrack/RaceTrackController.js';
-import './Controller/ResultController/ResultController.js';
+import './Controllers/NameInput/NameInputController.js';
+import './Controllers/CounterInput/CounterInputController.js';
+import './Controllers/RaceTrack/RaceTrackController.js';
+import './Controllers/ResultController/ResultController.js';
