@@ -1,4 +1,4 @@
-import { dispatch, getState } from '../../Models/global.js';
+import { dispatch, getState, actions } from '../../Models/global/index.js';
 import { dispatch as dispatchRaceState } from '../../Models/race.js';
 import { countInputSetView } from '../../Views/CountInputView.js';
 import { raceTrackView } from '../../Views/RaceTrackView/RaceTrackView.js';
@@ -10,7 +10,7 @@ countInputSetView.addButtonClickListener(({ inputElement }) => {
     return;
   }
 
-  dispatch('iterationCount', Number(iterationCount));
+  dispatch(actions.ITERATION_COUNT, Number(iterationCount));
   countInputSetView.disable();
 
   const { carNames } = getState();

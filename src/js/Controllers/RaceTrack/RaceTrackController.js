@@ -1,5 +1,5 @@
 import { createRandomNumber } from "../../utils/utils.js";
-import { getState } from "../../Models/global.js";
+import { getState } from "../../Models/global/global.js";
 import { subscribe, dispatch } from "../../Models/race.js";
 import { raceTrackView } from "../../Views/RaceTrackView/RaceTrackView.js";
 
