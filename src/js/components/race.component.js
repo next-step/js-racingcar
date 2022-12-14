@@ -35,10 +35,10 @@ export class RaceComponent extends Component {
     }
 
     async #render() {
-        displayFlex($race.container);
         const cars = this.#getCars();
-
         const delay = this._stateService.race.round * 1000;
+
+        displayFlex($race.container);
         await this.#renderRace(cars);
         setTimeout(() => this.#renderWinners(cars), delay);
     }
@@ -49,21 +49,21 @@ export class RaceComponent extends Component {
     }
 
     #getWinners = (cars) => {
-        const playerScore = cars.map((car) => {
-            return {
-                name: car.player,
-                score: this.#getMaxScore(car.races)
-            }
-        });
-
+        const playerScore = this.#getPlayerScore(cars);
         const winnerScore = Math.max(...playerScore.map(winner => winner.score));
+
         return playerScore
             .filter(player => player.score === winnerScore)
             .map(player => player.name);
     }
 
-    #getMaxScore = (races) => {
-        return races.filter(race => race === RACETYPE.FORWARD).length;
+    #getPlayerScore = (cars) => {
+        return cars.map((car) => {
+            return {
+                name: car.player,
+                score: car.races.filter(race => race === RACETYPE.FORWARD).length
+            }
+        });
     }
 
     #renderRace(cars) {
@@ -71,6 +71,7 @@ export class RaceComponent extends Component {
             return cars.map(async ({ player, races }) => {
                 const $container = parseStringToHTML($car.container);
                 appendElement($container, this.#renderPlayer(player));
+
                 return await this.#renderRaces($container, races);
             }).forEach(car => {
                 car.then(c => appendElement($race.container, c));
@@ -91,7 +92,6 @@ export class RaceComponent extends Component {
             const $forward = parseStringToHTML($car.forward);
 
             setTimeout(() => {
-                if (race === RACETYPE.STOP) return;
                 if (race === RACETYPE.FORWARD) return $container.append($forward);
             }, delay);
 

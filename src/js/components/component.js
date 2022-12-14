@@ -1,8 +1,13 @@
+import { ERROR_MESSAGE, NotAllowedInstanceOfAbstractError } from '../common/error.js';
+
 export class Component {
     _stateService;
 
     constructor(stateService) {
         this._stateService = stateService;
+        if (this.constructor === Component) {
+            throw new NotAllowedInstanceOfAbstractError(ERROR_MESSAGE.NotAllowedInstanceOfAbstract);
+        }
     }
 
     _setEventListeners() {}

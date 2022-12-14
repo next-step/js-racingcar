@@ -17,12 +17,12 @@ export class RoundComponent extends Component {
     }
 
     _setEventListeners() {
-        $round.button.addEventListener('click', () => this.submit());
-        $round.input.addEventListener('keyup', e => this.submitByEnterKey(e));
+        $round.button.addEventListener('click', () => this.#submit());
+        $round.input.addEventListener('keyup', e => this.#submitByEnterKey(e));
     }
 
     _setRemoveListeners() {
-        $round.input.removeEventListener('keyup', e => this.submitByEnterKey(e));
+        $round.input.removeEventListener('keyup', e => this.#submitByEnterKey(e));
     }
 
     _initElement() {
@@ -35,7 +35,7 @@ export class RoundComponent extends Component {
         this._stateService.reset.observers.push({ resets: () => this._init() });
     }
 
-    submit() {
+    #submit() {
         try {
             this.#isValidated();
         } catch (e) {
@@ -51,10 +51,10 @@ export class RoundComponent extends Component {
         disableButton($round.button, true);
     }
 
-    submitByEnterKey(e) {
+    #submitByEnterKey(e) {
         if (e.key !== 'Enter') return;
         e.preventDefault();
-        this.submit();
+        this.#submit();
     }
 
     #render() {
