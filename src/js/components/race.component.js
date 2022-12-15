@@ -41,6 +41,7 @@ export class RaceComponent extends Component {
         displayFlex($race.container);
         await this.#renderRace(cars);
         setTimeout(() => this.#renderWinners(cars), delay);
+        
     }
 
     #getCars = () => {
