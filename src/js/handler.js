@@ -9,7 +9,7 @@ import {
   visibleRaceTimes,
 } from './ui/dom.js';
 import { showErrorMessage, validate } from './utils/util.js';
-import { nameValidations, trialTimesValidations } from './utils/validations.js';
+import { nameValidations, trialTimesValidations } from './validations.js';
 
 export const handleFormNameSubmit = (event) => {
   const [nameInput] = event.target;
@@ -35,7 +35,7 @@ export const handleFormTrialTimesForm = async (event) => {
     const trialTimes = parseInt(trialTimesInput.value);
     validate(trialTimes, trialTimesValidations);
 
-    renderRace();
+    renderRace(Cars.cars);
     disableTrialNumber();
 
     const raceResult = await startRace(Cars.cars, trialTimes);

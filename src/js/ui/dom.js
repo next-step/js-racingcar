@@ -1,4 +1,5 @@
-import { $, $$, SELECTOR } from '../utils/selector.js';
+import { SELECTOR } from '../constant.js';
+import { $, $$ } from '../utils/selector.js';
 
 export const visibleRaceTimes = () => {
   $(SELECTOR.RACE_TIMES_SECTION).style.display = 'block';
@@ -24,10 +25,8 @@ export const enbleTrialNumber = () => {
   $(SELECTOR.TRIAL_NUMBER_BUTTON).disabled = false;
 };
 
-export const getCarName = () => {
-  return $(SELECTOR.CAR_NAME_INPUT)
-    .value.split(',')
-    .map((name) => name.trim());
+export const getCarSpinner = (name) => {
+  return `#car-${name} > ${SELECTOR.SPINNER_WRAPPER}`;
 };
 
 export const getTrialTimes = () => {
@@ -50,13 +49,13 @@ export const createForwardElement = () => {
   return `<div class="forward-icon mt-2">⬇️️</div>`;
 };
 
-export const renderRace = () => {
+export const renderRace = (cars) => {
   $(SELECTOR.RACE_PROCESS_COMPONENT).replaceChildren();
   const template = `<section class="d-flex justify-center mt-5">
-    <div class="mt-4 d-flex">${getCarName().map(
-      (name) => `
-      <div class="mr-2 name-label" id="car-${name}">
-        ${createCarElement(name)}
+    <div class="mt-4 d-flex">${cars.map(
+      (car) => `
+      <div class="mr-2 name-label" id="car-${car.name}">
+        ${createCarElement(car.name)}
         ${createSpinnerElement()}
       </div>
     `
@@ -86,6 +85,6 @@ export const hideSpinner = () => {
 };
 
 export const renderForward = (name) => {
-  const carSpinner = $(`#car-${name} > ${SELECTOR.SPINNER_WRAPPER}`);
+  const carSpinner = $(getCarSpinner(name));
   carSpinner.insertAdjacentHTML('beforebegin', createForwardElement());
 };
