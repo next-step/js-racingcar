@@ -12,4 +12,5 @@ export const SELECTOR = {
 
   FINISH_GAME: '.finish-racing-car-game',
   WINNERS: '.game-winners',
+  RESTART_GAME_BTN: '.restart-game-btn',
 };
