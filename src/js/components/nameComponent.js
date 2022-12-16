@@ -3,12 +3,13 @@ import { Component } from './component.js';
 import { $name, $round } from '../views/selector.js';
 import { NAME } from '../common/const.js';
 import { CustomError, ERROR_MESSAGE, InputOutOfRangeError } from "../common/error.js";
-import { disableButton, setFocus } from "../common/util.js";
+import { disableButton, displayNone, renderInputValue, setFocus } from "../common/util.js";
 
 export class NameComponent extends Component {
     constructor(stateService) {
         super(stateService);
         this._init();
+        this._subscribe();
     }
 
     _init() {
@@ -16,52 +17,54 @@ export class NameComponent extends Component {
     }
 
     _setEventListeners() {
-        $name.button.addEventListener('click', () => this.submit());
-        $name.input.addEventListener('keyup', e => this.submitByEnterKey(e));
+        $name.button.addEventListener('click', () => this.#submit());
+        $name.input.addEventListener('keyup', e => this.#submitByEnterKey(e));
     }
 
-    _setRemoveListeners() {
-        $name.input.removeEventListener('keyup', e => this.submitByEnterKey(e));
+    _initElement() {
+        disableButton($name.button, false);
+        displayNone($round.container);
+        renderInputValue($name.input);
     }
 
-    submit() {
+    _subscribe() {
+        this._stateService.reset.observers.push({ resets: () => this._init() });
+    }
+
+    #submit() {
         const names = this.#setNames();
 
-        if (!this.#IsValidated()) return;
+        try {
+            this.#IsValidated(names);
+        } catch (e) {
+            if (!e instanceof CustomError) {
+                throw e;
+            }
+            return alert(e.message);
+        }
 
-        this._setRemoveListeners();
-        this._stateService.renderState.renderRound = true;
-        this._stateService.raceState.names = names;
+        this._stateService.render.round = true;
+        this._stateService.race.names = names;
 
-        disableButton($name.button);
+        disableButton($name.button, true);
         setFocus($round.input);
     }
 
-    submitByEnterKey(e) {
-        if (e.key !== 'Enter') return;
+    #submitByEnterKey(e) {
+        if (e.key !== 'Enter' || this._stateService.render.round) return;
         e.preventDefault();
-        this.submit();
+        this.#submit();
     }
 
     #setNames = () => {
         return $name.input.value.split(',').map(name => name.trim());
     }
 
-    #IsValidated = () => {
-        const names = this.#setNames();
-        try {
-            names.forEach(name => {
-                if (name.length < NAME.MIN_RANGE || name.length > NAME.MAX_RANGE) {
-                    throw new InputOutOfRangeError(ERROR_MESSAGE.InputOutOfRange);
-                }
-            });
-            return true;
-        } catch (e) {
-            if (e instanceof CustomError) {
-                alert(e.message);
-            } else {
-                throw e;
+    #IsValidated = (names) => {
+        names.forEach(name => {
+            if (name.length < NAME.MIN_RANGE || name.length > NAME.MAX_RANGE) {
+                throw new InputOutOfRangeError(ERROR_MESSAGE.InputOutOfRange);
             }
-        }
+        });
     }
 }

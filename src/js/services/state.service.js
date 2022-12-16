@@ -1,24 +1,24 @@
 export class StateService {
     static instance;
-    raceState = {
+    race = {
         names: [],
         round: 0
     };
-    renderState = {
-        renderRace: false,
-        renderRound: false,
+    render = {
+        race: false,
+        round: false,
         observers: []
     }
-    resetState = {
-        reset: [],
+    reset = {
+        resets: [],
         observers: []
     }
 
 
     constructor() {
-        this.raceState = this.getRaceState();
-        this.renderState = this.setObserverState(this.renderState);
-        this.resetState = this.setObserverState(this.resetState);
+        this.race = this.getRaceState();
+        this.render = this.setObserverState(this.render);
+        this.reset = this.setObserverState(this.reset);
     }
 
     static getInstance() {
@@ -29,8 +29,16 @@ export class StateService {
         return StateService.instance;
     }
 
+    resetState() {
+        this.race.names = [];
+        this.race.round = 0;
+        this.render.race = false;
+        this.render.round = false;
+        this.reset.resets = false;
+    }
+
     getRaceState() {
-        return new Proxy(this.raceState, {
+        return new Proxy(this.race, {
             get(target, prop) {
                 return target[prop];
             },
@@ -47,7 +55,7 @@ export class StateService {
             set(target, prop, value) {
                 Reflect.set(target, prop, value);
 
-                if (value) {
+                if (value && target.observers.length !== 0) {
                     Reflect.get(target.observers.find(row => row[prop]), prop)();
                 }
 

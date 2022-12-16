@@ -9,6 +9,7 @@ export class RoundComponent extends Component {
     constructor(stateService) {
         super(stateService);
         this._init();
+        this._subscribe();
     }
 
     _init() {
@@ -16,53 +17,48 @@ export class RoundComponent extends Component {
     }
 
     _setEventListeners() {
-        $round.button.addEventListener('click', () => this.submit());
-        $round.input.addEventListener('keyup', e => this.submitByEnterKey(e));
-    }
-
-    _setRemoveListeners() {
-        $round.input.removeEventListener('keyup', e => this.submitByEnterKey(e));
+        $round.button.addEventListener('click', () => this.#submit());
+        $round.input.addEventListener('keyup', e => this.#submitByEnterKey(e));
     }
 
     _initElement() {
-        displayNone([$round.container]);
+        disableButton($round.button, false);
+        displayNone($round.container);
     }
 
     _subscribe() {
-        this._stateService.renderState.observers.push({ renderRound: () => this.#render() });
+        this._stateService.render.observers.push({ round: () => this.#render() });
+        this._stateService.reset.observers.push({ resets: () => this._init() });
     }
 
-    submit() {
-        if (!this.#isValidated()) return;
+    #submit() {
+        try {
+            this.#isValidated();
+        } catch (e) {
+            if (!e instanceof CustomError) {
+                throw e;
+            }
+            return alert(e.message);
+        }
 
-        this._setRemoveListeners();
-        this._stateService.raceState.round = +$round.input.value;
-        this._stateService.renderState.renderRace = true;
-        disableButton($round.button);
+        this._stateService.race.round = +$round.input.value;
+        this._stateService.render.race = true;
+        disableButton($round.button, true);
     }
 
-    submitByEnterKey(e) {
-        if (e.key !== 'Enter') return;
+    #submitByEnterKey(e) {
+        if (e.key !== 'Enter' || this._stateService.render.race) return;
         e.preventDefault();
-        this.submit();
+        this.#submit();
     }
 
     #render() {
-        displayBlock([$round.container]);
+        displayBlock($round.container);
     }
 
     #isValidated = () => {
-        try {
-            if (!$round.input.value || $round.input.value < MIN_ROUND) {
-                throw new InputMinInsufficientError(ERROR_MESSAGE.InputMinInsufficient);
-            }
-            return true;
-        } catch (e) {
-            if (e instanceof CustomError) {
-                alert(e.message);
-            } else {
-                throw e;
-            }
+        if (!$round.input.value || $round.input.value < MIN_ROUND) {
+            throw new InputMinInsufficientError(ERROR_MESSAGE.InputMinInsufficient);
         }
     }
 }

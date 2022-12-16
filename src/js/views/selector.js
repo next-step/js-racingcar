@@ -23,3 +23,12 @@ export const $car = {
     player: `<div class="race-player"></div>`,
     forward: `<div class="forward-icon mt-2">⬇️️</div>`,
 }
+
+export const $winner = {
+    container: document.querySelector('.winner-container'),
+    player: document.querySelector('.winner-player'),
+}
+
+export const $reset = {
+    button: document.querySelector('.btn-reset')
+}

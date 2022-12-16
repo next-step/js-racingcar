@@ -16,4 +16,11 @@ export const RACETYPE = {
     STOP: 'STOP'
 }
 
+export const MESSAGE_FOR_CELEBRATION = '🎇🎇🎇🎇축하합니다!🎇🎇🎇🎇';
+
+export const DELAY_TIME = {
+    SPINNER: 1000,
+    WINNER: 2000
+}
+
 Object.freeze(RACETYPE);

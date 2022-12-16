@@ -24,18 +24,29 @@ export const parseStringToHTML = (element) => {
 
 /**
  * @param {HTMLButtonElement} $button - disabled 시킬 HTML 버튼 요소
+ * @param {boolean} isDisabled - disabled 여부
  */
-export const disableButton = ($button) => $button.disabled = true;
+export const disableButton = ($button, isDisabled) => $button.disabled = isDisabled;
+
+/**
+ * @param {HTMLElement} $element - display: none 시킬 요소
+ */
+export const displayNone = ($element) => $element.style.display = 'none';
 
 /**
  * @param {Element[]} $elements - display: none 시킬 요소의 배열
  */
-export const displayNone = ($elements) => $elements.forEach($el => $el.style.display = 'none');
+export const displayNones = ($elements) => $elements.forEach($element => displayNone($element));
 
 /**
- * @param {Element[]} $elements - display: block 시킬 요소의 배열
+ * @param {HTMLElement} $element - display: block 시킬 요소
  */
-export const displayBlock = ($elements) => $elements.forEach($el => $el.style.display = 'block');
+export const displayBlock = ($element) => $element.style.display = 'block';
+
+/**
+ * @param {HTMLElement} $element - display: flex 시킬 요소
+ */
+export const displayFlex = ($element) => $element.style.display = 'flex';
 
 /**
  * @param {HTMLInputElement} $element - focus 를 줄 HTML Input 요소
@@ -43,13 +54,22 @@ export const displayBlock = ($elements) => $elements.forEach($el => $el.style.di
 export const setFocus = ($element) => $element.focus();
 
 /**
- * @param {HTMLElement} $element - innerHTML 을 적용시켜줄 HTML 대상 요소
- * @param {string} value - innerHTML 에 적용될 값
+ * @param {HTMLInputElement} $input - HTML input 요소
+ * @param {string || null} value - input value 에 적용될 값
  */
-export const renderInnerHtml = ($element, value) => $element.innerHTML = value;
+export const renderInputValue = ($input, value = null) => $input.value = value;
 
 /**
  * @param {HTMLElement} $parent - append 를 적용할 부모 HTML 요소
  * @param {HTMLElement} $child - append 를 적용할 자식 HTML 요소
  */
 export const appendElement = ($parent, $child) => $parent.append($child);
+
+/**
+ * @param {HTMLElement} $element - 제거할 자식 요소의 대상 부모 HTML 요소
+ */
+export const removeChildNodes = ($element) => {
+    while ($element.hasChildNodes()) {
+        $element.removeChild($element.firstChild);
+    }
+}
