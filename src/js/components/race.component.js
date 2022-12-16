@@ -1,7 +1,7 @@
 import { Component } from './component.js';
 import { CarModel } from '../models/car.model.js';
 
-import { MESSAGE_FOR_CELEBRATION, RACETYPE } from "../common/const.js";
+import { DELAY_TIME, MESSAGE_FOR_CELEBRATION, RACETYPE } from "../common/const.js";
 import { $car, $race, $reset, $round, $winner } from '../views/selector.js';
 import {
     appendElement,
@@ -36,11 +36,10 @@ export class RaceComponent extends Component {
 
     async #render() {
         const cars = this.#getCars();
-        const delay = this._stateService.race.round * 1000;
 
         displayFlex($race.container);
         await this.#renderRace(cars);
-        setTimeout(() => this.#renderWinners(cars), delay);
+        await this.#renderWinners(cars);
     }
 
     #getCars = () => {
@@ -67,18 +66,16 @@ export class RaceComponent extends Component {
     }
 
     #renderRace(cars) {
-        try {
-            return cars.map(async ({ player, races }) => {
-                const $container = parseStringToHTML($car.container);
-                appendElement($container, this.#renderPlayer(player));
+        const promises = [];
+        for (const car of cars) {
+            const $container = parseStringToHTML($car.container);
+            appendElement($container, this.#renderPlayer(car.player));
+            appendElement($race.container, $container);
 
-                return await this.#renderRaces($container, races);
-            }).forEach(car => {
-                car.then(c => appendElement($race.container, c));
-            });
-        } catch (e) {
-            console.error(e);
+            promises.push(this.#renderRaces($container, car.races));
         }
+
+        return Promise.all(promises);
     }
 
     #renderPlayer = (player) => {
@@ -86,33 +83,33 @@ export class RaceComponent extends Component {
         return parseStringToHTML($player);
     }
 
-    #renderRaces = ($container, races) => {
-        races.forEach((race, i) => {
-            const delay = (i + 1) * 1000;
-            const $forward = parseStringToHTML($car.forward);
-
-            setTimeout(() => {
-                if (race === RACETYPE.FORWARD) return $container.append($forward);
-            }, delay);
-
-            this.#renderSpinner($container, i);
-        })
-
-        return $container;
-    }
-
-    #renderSpinner = ($container, i) => {
+    #renderRaces = async ($container, races) => {
         const $spinner = parseStringToHTML($race.spinner);
-        setTimeout(() => $container.append($spinner), i * 1000);
-        setTimeout(() => $container.removeChild($spinner), (i + 1) * 1000);
+
+        for (const race of races) {
+            $container.append($spinner);
+            const $forward = parseStringToHTML($car.forward);
+            await this.#delay(DELAY_TIME.SPINNER);
+            $container.removeChild($spinner);
+            if (race === RACETYPE.FORWARD) $container.append($forward);
+        }
     }
 
-    #renderWinners(cars) {
+    #delay = (ms = 0) => {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve();
+            }, ms);
+        });
+    }
+
+    async #renderWinners(cars) {
         const winners = this.#getWinners(cars).join(', ');
 
         displayFlex($winner.container);
         $winner.player.innerHTML = `🏆 최종 우승자: ${winners} 🏆`;
-        setTimeout(() => alert(MESSAGE_FOR_CELEBRATION), 2000);
+        await this.#delay(DELAY_TIME.WINNER);
+        alert(MESSAGE_FOR_CELEBRATION);
     }
 
     #reset() {
