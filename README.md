@@ -13,6 +13,7 @@
 </p>
 
 ## 🔥 Projects!
+
 <p align="middle">
   <img width="400" src="https://techcourse-storage.s3.ap-northeast-2.amazonaws.com/7c76e809d82a4a3aa0fd78a86be25427">
 </p>
@@ -43,7 +44,7 @@ live-server 폴더명
 
 ## 👏 Contributing
 
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요. 
+만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
 
 <br>
 
