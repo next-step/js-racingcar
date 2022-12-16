@@ -1,6 +1,4 @@
-import {ALERT_MESSAGE, CAR} from "../../src/js/constants/constants.js";
-import {Car} from "../../src/js/model/model.js";
-import {getRandomNumber} from "../../src/js/utils/index.js";
+import {ALERT_MESSAGE} from "../../src/js/constants/constants.js";
 
 const INPUT_CAR_NAMES = "EAST, WEST, SOUTH, NORTH";
 const NO_COMMA_INPUT_CAR_NAMES = "EAST WEST SOUTH NORTH";
@@ -69,7 +67,18 @@ describe("자동차 경주 게임", () => {
       cy.renderCarPlayer(".section-car-render", ".car-player");
     });
 
-    it("자동차 경주를 시작한 후, 랜덤 값에 따라서 전진 또는 스피너 아이콘이 랜더링 된다.", () => {
+    it("시도횟수를 입력하고 확인을 누르면 랜덤 값에 따라서 전진 또는 스피너 아이콘이 랜더링 된다.", () => {
+      // given
+      cy.submitCarNames(INPUT_CAR_NAMES);
+      cy.submitNumberOfAttempts(2);
+
+      // when
+
+      // then
+      cy.isVisible(".forward-icon");
+      cy.isVisible(".spinner-wrapper");
+
+      /*
       // given 경기를 시작한 후,
       let racingCarList = null;
       cy.submitCarNames(INPUT_CAR_NAMES).then(() => {
@@ -90,6 +99,8 @@ describe("자동차 경주 게임", () => {
           }
         });
       });
+
+      */
     });
   });
 });

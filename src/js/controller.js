@@ -51,6 +51,7 @@ export const handleSubmitAttempts = (event) => {
 export const progressRacingCar = (racingCar, step = 1) => {
   const numberOfAttempts = DOM.NUMBER_OF_ATTEMPTS_INPUT.valueAsNumber;
   startRacingCar(racingCar);
+  if (numberOfAttempts <= 1) return;
 
   const intervalId = setInterval(() => {
     const isFinishRacing = step++ === numberOfAttempts - 1;
