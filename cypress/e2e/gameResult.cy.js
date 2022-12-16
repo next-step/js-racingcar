@@ -24,4 +24,12 @@ describe('게임 결과 테스트', () => {
     cy.runAllTurns(TYPE.TRIAL_COUNT);
     cy.get(SELECTOR.RESTART_GAME_BTN).should('exist').and('be.visible');
   });
+
+  it('게임이 끝났으면 2초 후 축하 메세지 alert 창이 뜬다.', () => {
+    cy.clock();
+    cy.tick(2000);
+    cy.on('window:alert', (text) => {
+      expect(text).to.contains('축하합니다!');
+    });
+  });
 });
