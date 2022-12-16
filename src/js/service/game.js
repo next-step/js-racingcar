@@ -6,7 +6,7 @@ import Car from '../model/Car.js';
 import { generateRandomNumber } from '../utils/index.js';
 
 import { removeAllSpinners, showCarNames, showMoving } from '../view/playGame.js';
-import { showWinners } from '../view/gameWinner.js';
+import { showWinners, showRestartBtn } from '../view/gameResult.js';
 
 const isMovable = () => {
   const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER, MOVABLE_MIN_NUMBER } = GAME_CONDITION;
@@ -61,7 +61,9 @@ export const startGame = () => {
       removeAllSpinners();
 
       const winners = getWinners(cars);
+
       showWinners(winners);
+      showRestartBtn();
     }
   }, INTERVAL_TIME);
 };

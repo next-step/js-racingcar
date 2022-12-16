@@ -95,8 +95,8 @@ This project is [MIT](https://github.com/next-step/js-racingcar/blob/main/LICENS
 
 2. 우승자와 다시 시작하기 버튼 표시 기능
 - 게임의 턴이 다 동작된 후에는 
-  - [] 우승자를 보여준다.
-  - [] 다시 시작하기 버튼을 보여준다.
+  - [x] 우승자를 보여준다.
+  - [x] 다시 시작하기 버튼을 보여준다.
 
 3. 축하 메세지 표시 기능
 - [] 2초 후에 축하의 alert 메세지를 띄운다.
