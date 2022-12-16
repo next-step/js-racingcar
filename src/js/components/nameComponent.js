@@ -21,10 +21,6 @@ export class NameComponent extends Component {
         $name.input.addEventListener('keyup', e => this.#submitByEnterKey(e));
     }
 
-    _setRemoveListeners() {
-        $name.input.removeEventListener('keyup', e => this.#submitByEnterKey(e));
-    }
-
     _initElement() {
         disableButton($name.button, false);
         displayNone($round.container);
@@ -50,13 +46,12 @@ export class NameComponent extends Component {
         this._stateService.render.round = true;
         this._stateService.race.names = names;
 
-        this._setRemoveListeners();
         disableButton($name.button, true);
         setFocus($round.input);
     }
 
     #submitByEnterKey(e) {
-        if (e.key !== 'Enter') return;
+        if (e.key !== 'Enter' || this._stateService.render.round) return;
         e.preventDefault();
         this.#submit();
     }

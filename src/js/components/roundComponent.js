@@ -21,10 +21,6 @@ export class RoundComponent extends Component {
         $round.input.addEventListener('keyup', e => this.#submitByEnterKey(e));
     }
 
-    _setRemoveListeners() {
-        $round.input.removeEventListener('keyup', e => this.#submitByEnterKey(e));
-    }
-
     _initElement() {
         disableButton($round.button, false);
         displayNone($round.container);
@@ -45,14 +41,13 @@ export class RoundComponent extends Component {
             return alert(e.message);
         }
 
-        this._setRemoveListeners();
         this._stateService.race.round = +$round.input.value;
         this._stateService.render.race = true;
         disableButton($round.button, true);
     }
 
     #submitByEnterKey(e) {
-        if (e.key !== 'Enter') return;
+        if (e.key !== 'Enter' || this._stateService.render.race) return;
         e.preventDefault();
         this.#submit();
     }
