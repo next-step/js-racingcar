@@ -32,7 +32,7 @@ describe('자동차 이름 입력 테스트', () => {
 
         cy.get(SELECTOR.CAR_NAMES_INPUT).should('have.value', CAR_NAMES.VALID_CASE);
       });
-    },
+    }
   );
 
   context(`자동차 이름 input에 "${CAR_NAMES.VALID_CASE}"를 입력하고 enter를 눌렀을 때`, () => {
@@ -112,7 +112,7 @@ describe('레이싱 횟수 입력 테스트', () => {
 
         cy.get(SELECTOR.TRIAL_COUNT_INPUT).should('have.value', TRIAL_COUNT.VALID_CASE);
       });
-    },
+    }
   );
 
   context(`레이싱 횟수 input에 ${TRIAL_COUNT.VALID_CASE}를 입력하고 enter를 눌렀을 때`, () => {
@@ -133,7 +133,7 @@ describe('레이싱 횟수 입력 테스트', () => {
           expect(text).to.contains(ERROR_MESSAGE.INVALID_TRIAL_COUNT);
         });
       });
-    },
+    }
   );
 
   context('레이싱 횟수 입력을 완료했을 때', () => {

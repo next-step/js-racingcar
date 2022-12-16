@@ -1,4 +1,5 @@
 import { INPUT_CONDITION } from '../../src/js/constants/condition.js';
+import { SELECTOR } from '../../src/js/constants/selector.js';
 
 describe('게임 플레이 테스트', () => {
   const TYPE = {
@@ -17,7 +18,7 @@ describe('게임 플레이 테스트', () => {
       name.trim()
     );
 
-    cy.get('.car-player').each(($ele, idx) => {
+    cy.get(SELECTOR.CAR_NAME).each(($ele, idx) => {
       cy.get($ele).should('be.visible');
       cy.get($ele).should('contain', carNamesToArray[idx]);
     });
