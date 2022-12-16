@@ -5,24 +5,25 @@ import Car from '../model/Car.js';
 
 import { generateRandomNumber } from '../utils/index.js';
 
-import { showPlayGame } from '../view/playGame.js';
+import { removeAllSpinners, showCarNames, showMoving } from '../view/playGame.js';
 import { showWinners } from '../view/gameWinner.js';
 
 const isMovable = () => {
-  const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER } = GAME_CONDITION;
+  const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER, MOVABLE_MIN_NUMBER } = GAME_CONDITION;
   const randomNumber = generateRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
 
-  return randomNumber >= GAME_CONDITION.MOVABLE_MIN_NUMBER;
+  return randomNumber >= MOVABLE_MIN_NUMBER;
 };
 
-const updateCarDistance = (car) => {
+const updateCarMoving = (car) => {
   if (isMovable()) {
     car.move();
+    showMoving(car);
   }
 };
 
 const raceOneTurn = (cars) => {
-  cars.forEach((car) => updateCarDistance(car));
+  cars.forEach((car) => updateCarMoving(car));
 };
 
 const getWinners = (cars) => {
@@ -42,13 +43,25 @@ const getWinners = (cars) => {
 export const startGame = () => {
   const carNames = gameSetting.getNames();
   const trialCount = gameSetting.getTrialCount();
+  const { INTERVAL_TIME } = GAME_CONDITION;
 
   const cars = carNames.map((carName) => new Car(carName));
 
-  [...Array(trialCount)].forEach(() => raceOneTurn(cars));
+  showCarNames(cars);
 
-  showPlayGame(cars);
+  let currentCount = 0;
 
-  const winners = getWinners(cars);
-  showWinners(winners);
+  const intervalTimer = setInterval(() => {
+    raceOneTurn(cars);
+
+    currentCount += 1;
+
+    if (currentCount === trialCount) {
+      clearInterval(intervalTimer);
+      removeAllSpinners();
+
+      const winners = getWinners(cars);
+      showWinners(winners);
+    }
+  }, INTERVAL_TIME);
 };
