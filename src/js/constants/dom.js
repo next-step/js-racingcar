@@ -10,6 +10,6 @@ export const DOM = Object.freeze({
 
   RACING_CAR_RENDER_SECTION: $(".section-car-render"),
   RACING_WINNER_RENDER_SECTION: $(".section-winner-render"),
-
   RACING_RENDER_RESULT: $(".winners"),
+  RACING_GAME_RESET: $(".reset"),
 });

@@ -34,7 +34,7 @@ export const renderForwardIcon = (carWrapper) => {
   carWrapper.insertAdjacentElement("afterend", forwardIcon);
 };
 
-export const renderLoadingIcon = (carWrapper) => {
+export const renderSpinnerIcon = (carWrapper) => {
   const spinnerFlexContainer = document.createElement("div");
   const spinnerContainer = document.createElement("div");
   const spinnerIcon = document.createElement("div");
@@ -58,6 +58,12 @@ export const removePrevSpinner = (car) => {
 export const removeAllSpinnerIcon = () => {
   $$(".car").forEach((car) => {
     removePrevSpinner(car);
+  });
+};
+
+export const renderAllSpinnerIcon = () => {
+  $$(".car").forEach((car) => {
+    renderSpinnerIcon(car);
   });
 };
 

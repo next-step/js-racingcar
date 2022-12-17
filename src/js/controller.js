@@ -1,22 +1,26 @@
 import {DOM} from "./constants/dom.js";
 import {ALERT_MESSAGE, CAR} from "../js/constants/constants.js";
-import {getCarClassList, extractWinner} from "./model/model.js";
+import {getCarClassList, extractWinner, Car} from "./model/model.js";
 import {validateCarNames, validateAttempts} from "./model/validation.js";
 import {
   $$,
   disabledElement,
+  ableElement,
   clearElementValue,
+  clearElementInnerHTML,
   showElement,
   getRandomNumber,
+  hideElement,
 } from "./utils/index.js";
 import {
   renderRacingCar,
   removePrevSpinner,
-  renderLoadingIcon,
+  renderSpinnerIcon,
   renderForwardIcon,
   renderGameResult,
   renderCongratulatoryMessage,
   removeAllSpinnerIcon,
+  renderAllSpinnerIcon,
 } from "./view.js";
 
 export const handleSubmitCarNames = (event) => {
@@ -78,7 +82,22 @@ export const startRacingCar = (racingCars) => {
       racingCars[idx].forward;
       renderForwardIcon(car.lastChild);
     } else {
-      renderLoadingIcon(car.lastChild);
+      renderSpinnerIcon(car.lastChild);
     }
   });
+};
+
+export const handleSubmitResetBtn = () => {
+  /**@TODO model view 분리하기 */
+  clearElementValue(DOM.CAR_NAMES_ID_INPUT);
+  clearElementValue(DOM.NUMBER_OF_ATTEMPTS_INPUT);
+  clearElementInnerHTML(DOM.RACING_CAR_RENDER_SECTION);
+
+  ableElement(DOM.CAR_NAMES_ID_INPUT);
+  ableElement(DOM.CAR_NAMES_SUBMIT_BTN);
+  ableElement(DOM.NUMBER_OF_ATTEMPTS_INPUT);
+  ableElement(DOM.NUMBER_OF_ATTEMPTS_BTN);
+
+  hideElement(DOM.NUMBER_OF_ATTEMPTS_FIELDSET);
+  hideElement(DOM.RACING_WINNER_RENDER_SECTION);
 };

@@ -14,6 +14,11 @@ export class Car {
   get forward() {
     return (this.#position += 1);
   }
+
+  get reset() {
+    this.#name = "";
+    this.#position = 0;
+  }
 }
 
 export const getCarClassList = (element) =>
