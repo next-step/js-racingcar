@@ -11,13 +11,13 @@ export class Car {
     return this.#name.trim();
   }
 
-  get forward() {
-    return (this.#position += 1);
+  get position() {
+    return this.#position;
   }
 
-  get reset() {
-    this.#name = "";
-    this.#position = 0;
+  /**@todo set 내용 확인 */
+  forward(number) {
+    return (this.#position += number);
   }
 }
 
@@ -25,12 +25,12 @@ export const getCarClassList = (element) =>
   element.value.split(",").map((carName) => new Car(carName));
 
 export const extractWinner = (racingCars) => {
-  const winnerPosition = racingCars.reduce((max, {forward}) => {
-    return forward > max ? forward : max;
+  const winnerPosition = racingCars.reduce((max, {position}) => {
+    return position > max ? position : max;
   }, 0);
 
   const winner = racingCars.filter((car) => {
-    return car.forward === winnerPosition;
+    return car.position === winnerPosition;
   });
 
   return winner;

@@ -63,7 +63,7 @@ export const removeAllSpinnerIcon = () => {
 
 export const renderAllSpinnerIcon = () => {
   $$(".car").forEach((car) => {
-    renderSpinnerIcon(car);
+    renderSpinnerIcon(car.lastChild);
   });
 };
 

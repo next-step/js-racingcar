@@ -1,6 +1,6 @@
 import {DOM} from "./constants/dom.js";
 import {ALERT_MESSAGE, CAR} from "../js/constants/constants.js";
-import {getCarClassList, extractWinner, Car} from "./model/model.js";
+import {getCarClassList, extractWinner} from "./model/model.js";
 import {validateCarNames, validateAttempts} from "./model/validation.js";
 import {
   $$,
@@ -48,21 +48,23 @@ export const handleSubmitAttempts = (event) => {
       getCarClassList(DOM.CAR_NAMES_ID_INPUT),
       DOM.RACING_CAR_RENDER_SECTION
     );
-    progressRacingCar(getCarClassList(DOM.CAR_NAMES_ID_INPUT));
+    progressRacingCar(
+      getCarClassList(DOM.CAR_NAMES_ID_INPUT),
+      numberOfAttempts
+    );
   } else {
     alert(ALERT_MESSAGE.INVALID_INPUT_NUMBER_OF_ATTEMPTS);
     clearElementValue(DOM.NUMBER_OF_ATTEMPTS_INPUT);
   }
 };
 
-export const progressRacingCar = (racingCar, step = 1) => {
-  const numberOfAttempts = DOM.NUMBER_OF_ATTEMPTS_INPUT.valueAsNumber;
-  startRacingCar(racingCar);
-  if (numberOfAttempts <= 1) return;
+/** @TODO 여기부터 잡아보기 */
+export const progressRacingCar = (racingCar, attempts) => {
+  let step = 0;
+  renderAllSpinnerIcon();
 
   const intervalId = setInterval(() => {
-    const isFinishRacing = step++ === numberOfAttempts - 1;
-
+    const isFinishRacing = step++ === attempts - 1;
     startRacingCar(racingCar);
 
     if (isFinishRacing) {
@@ -78,8 +80,10 @@ export const startRacingCar = (racingCars) => {
   $$(".car").forEach((car, idx) => {
     removePrevSpinner(car);
 
-    if (CAR.GO_OR_STOP_STANDARD < getRandomNumber(0, 9)) {
-      racingCars[idx].forward;
+    let randomNumber = getRandomNumber(0, 9);
+
+    if (CAR.GO_OR_STOP_STANDARD < randomNumber) {
+      racingCars[idx].forward(1);
       renderForwardIcon(car.lastChild);
     } else {
       renderSpinnerIcon(car.lastChild);
