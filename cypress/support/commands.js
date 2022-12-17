@@ -59,3 +59,7 @@ Cypress.Commands.add("alertMessage", (message) => {
 Cypress.Commands.add("renderCarPlayer", (section, player) => {
   cy.get(section).find(player).should("have.length", 4);
 });
+
+Cypress.Commands.add("pressResetBtn", (target) => {
+  cy.get(target).click();
+});

@@ -21,8 +21,8 @@ export const createRacingCar = (racingCars) => {
     const carWrapper = document.createElement("div");
     const carElement = document.createElement("div");
 
-    carWrapper.className = "mt-4 d-flex flex-col car";
-    carElement.className = `car-player ${car.carName}`;
+    carWrapper.className = `mt-4 d-flex flex-col car ${car.carName}`;
+    carElement.className = "car-player";
     carElement.innerText = car.carName;
 
     carWrapper.appendChild(carElement);
