@@ -18,7 +18,6 @@ export class Car {
     return this.#position;
   }
 
-  /**@todo set 내용 확인 */
   forward(number) {
     return (this.#position += number);
   }
