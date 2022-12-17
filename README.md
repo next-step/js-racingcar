@@ -99,7 +99,7 @@ This project is [MIT](https://github.com/next-step/js-racingcar/blob/main/LICENS
   - [x] 다시 시작하기 버튼을 보여준다.
 
 3. 축하 메세지 표시 기능
-- [] 2초 후에 축하의 alert 메세지를 띄운다.
+- [x] 2초 후에 축하의 alert 메세지를 띄운다.
 
 4. 다시 시작하기 버튼 기능
 - 다시 시작하기 버튼을 누르면 

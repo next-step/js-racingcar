@@ -6,7 +6,7 @@ import Car from '../model/Car.js';
 import { generateRandomNumber } from '../utils/index.js';
 
 import { removeAllSpinners, showCarNames, showMoving } from '../view/playGame.js';
-import { showWinners, showRestartBtn } from '../view/gameResult.js';
+import { showWinners, showGameResult } from '../view/gameResult.js';
 
 const isMovable = () => {
   const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER, MOVABLE_MIN_NUMBER } = GAME_CONDITION;
@@ -40,6 +40,12 @@ const getWinners = (cars) => {
   return winners;
 };
 
+const celebrateWinners = (winners) => {
+  setTimeout(() => {
+    alert(`${winners.join(', ')} 축하합니다!`);
+  }, 2000);
+};
+
 export const startGame = () => {
   const carNames = gameSetting.getNames();
   const trialCount = gameSetting.getTrialCount();
@@ -62,8 +68,10 @@ export const startGame = () => {
 
       const winners = getWinners(cars);
 
+      showGameResult();
       showWinners(winners);
-      showRestartBtn();
+
+      celebrateWinners(winners);
     }
   }, INTERVAL_TIME);
 };

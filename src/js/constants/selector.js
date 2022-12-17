@@ -10,7 +10,7 @@ export const SELECTOR = {
   PLAY_GAME: '.play-racing-car-game',
   CAR_NAME: '.car-player',
 
-  FINISH_GAME: '.finish-racing-car-game',
+  GAME_RESULT: '.game-result',
   WINNERS: '.game-winners',
   RESTART_GAME_BTN: '.restart-game-btn',
 };
