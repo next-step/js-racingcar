@@ -1,4 +1,6 @@
-import {showElement} from "./utils/index.js";
+import {ALERT_MESSAGE} from "./constants/constants.js";
+import {DOM} from "./constants/dom.js";
+import {$$, showElement} from "./utils/index.js";
 
 export const renderRacingCar = (racingCar, renderSection) => {
   const createRacingLaneTemplate = createRacingCar(racingCar);
@@ -51,4 +53,23 @@ export const removePrevSpinner = (car) => {
   if (car.lastChild.className.includes("spinner-wrapper")) {
     car.lastChild.remove();
   }
+};
+
+export const removeAllSpinnerIcon = () => {
+  $$(".car").forEach((car) => {
+    removePrevSpinner(car);
+  });
+};
+
+export const renderGameResult = (winnerList) => {
+  showElement(DOM.RACING_WINNER_RENDER_SECTION);
+
+  const winners = winnerList.map((car) => car.carName).join(",");
+  DOM.RACING_RENDER_RESULT.innerHTML = winners;
+};
+
+export const renderCongratulatoryMessage = () => {
+  setTimeout(() => {
+    alert(ALERT_MESSAGE.CONGRATULATORY_MESSAGE);
+  }, 2000);
 };

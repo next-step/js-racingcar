@@ -1,6 +1,6 @@
 import {DOM} from "./constants/dom.js";
 import {ALERT_MESSAGE, CAR} from "../js/constants/constants.js";
-import {getCarClassList} from "./model/model.js";
+import {getCarClassList, extractWinner} from "./model/model.js";
 import {validateCarNames, validateAttempts} from "./model/validation.js";
 import {
   $$,
@@ -14,6 +14,9 @@ import {
   removePrevSpinner,
   renderLoadingIcon,
   renderForwardIcon,
+  renderGameResult,
+  renderCongratulatoryMessage,
+  removeAllSpinnerIcon,
 } from "./view.js";
 
 export const handleSubmitCarNames = (event) => {
@@ -60,6 +63,9 @@ export const progressRacingCar = (racingCar, step = 1) => {
 
     if (isFinishRacing) {
       clearInterval(intervalId);
+      removeAllSpinnerIcon();
+      renderGameResult(extractWinner(racingCar));
+      renderCongratulatoryMessage();
     }
   }, CAR.PROGRESSIVE_TIME);
 };

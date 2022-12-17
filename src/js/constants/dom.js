@@ -9,4 +9,7 @@ export const DOM = Object.freeze({
   NUMBER_OF_ATTEMPTS_BTN: $(".btn-attempts-submit"),
 
   RACING_CAR_RENDER_SECTION: $(".section-car-render"),
+  RACING_WINNER_RENDER_SECTION: $(".section-winner-render"),
+
+  RACING_RENDER_RESULT: $(".winners"),
 });

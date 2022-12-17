@@ -73,11 +73,11 @@ This project is [MIT](https://github.com/next-step/js-racingcar/blob/main/LICENS
 
 <br>
 
-- [ ] 자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다.
-- [ ] 우승자가 여러명일 경우 ,를 이용하여 구분한다.
+- [x] 자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다.
+- [x] 우승자가 여러명일 경우 ,를 이용하여 구분한다.
 
 <br>
 
 - [x] 자동차 경주 게임의 턴이 진행 될 때마다 1초의 텀(progressive 재생)을 두고 진행한다.
 - [x] 애니메이션 구현을 위해 setInterval, setTimeout, requestAnimationFrame 을 활용한다.
-- [ ] 정상적으로 게임의 턴이 다 동작된 후에는 결과를 보여주고, 2초 후에 축하의 alert 메세지를 띄운다.
+- [x] 정상적으로 게임의 턴이 다 동작된 후에는 결과를 보여주고, 2초 후에 축하의 alert 메세지를 띄운다.
