@@ -1,6 +1,12 @@
 import {ALERT_MESSAGE} from "./constants/constants.js";
 import {DOM} from "./constants/dom.js";
-import {$$, showElement} from "./utils/index.js";
+import {
+  $$,
+  showElement,
+  clearElementInnerHTML,
+  ableElement,
+  hideElement,
+} from "./utils/index.js";
 
 export const renderRacingCar = (racingCar, renderSection) => {
   const createRacingLaneTemplate = createRacingCar(racingCar);
@@ -78,4 +84,16 @@ export const renderCongratulatoryMessage = () => {
   setTimeout(() => {
     alert(ALERT_MESSAGE.CONGRATULATORY_MESSAGE);
   }, 2000);
+};
+
+export const resetRacingCarView = () => {
+  clearElementInnerHTML(DOM.RACING_CAR_RENDER_SECTION);
+
+  ableElement(DOM.CAR_NAMES_ID_INPUT);
+  ableElement(DOM.CAR_NAMES_SUBMIT_BTN);
+  ableElement(DOM.NUMBER_OF_ATTEMPTS_INPUT);
+  ableElement(DOM.NUMBER_OF_ATTEMPTS_BTN);
+
+  hideElement(DOM.NUMBER_OF_ATTEMPTS_FIELDSET);
+  hideElement(DOM.RACING_WINNER_RENDER_SECTION);
 };

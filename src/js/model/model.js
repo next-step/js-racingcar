@@ -1,3 +1,6 @@
+import {DOM} from "../constants/dom.js";
+import {clearElementValue} from "../utils/index.js";
+
 export class Car {
   #name = "";
   #position;
@@ -34,4 +37,9 @@ export const extractWinner = (racingCars) => {
   });
 
   return winner;
+};
+
+export const resetRacingCarModel = () => {
+  clearElementValue(DOM.CAR_NAMES_ID_INPUT);
+  clearElementValue(DOM.NUMBER_OF_ATTEMPTS_INPUT);
 };
