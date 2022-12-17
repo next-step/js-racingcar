@@ -1,8 +1,8 @@
 import {CAR} from "../constants/constants.js";
 
 export const Validator = {
-  isLengthOver: (name, maxLength) => {
-    return name.trim().length > maxLength;
+  isLength: (name, maxLength) => {
+    return name.trim().length > maxLength || name.trim().length === 0;
   },
 };
 
@@ -10,7 +10,7 @@ export const validateCarNames = (namesArr) => {
   const isCarValidationValid =
     namesArr
       .split(",")
-      .filter((name) => Validator.isLengthOver(name, CAR.NAME_MAX_LENGTH))
+      .filter((name) => Validator.isLength(name, CAR.NAME_MAX_LENGTH))
       .length === 0;
 
   return isCarValidationValid;
