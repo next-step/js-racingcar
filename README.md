@@ -103,5 +103,5 @@ This project is [MIT](https://github.com/next-step/js-racingcar/blob/main/LICENS
 
 4. 다시 시작하기 버튼 기능
 - 다시 시작하기 버튼을 누르면 
-  - [] 자동차 이름 form만 화면에 표시한다.
-  - [] 자동차 이름과 횟수는 초기화된다.
+  - [x] 자동차 이름 form만 화면에 표시한다.
+  - [x] 자동차 이름과 횟수는 초기화된다.

@@ -27,6 +27,16 @@ export const showCarNames = (cars) => {
   $(SELECTOR.PLAY_GAME).innerHTML = initialTemplate;
 };
 
+export const showGamePlay = () => {
+  if ($(SELECTOR.PLAY_GAME).classList.contains('display-none')) {
+    $(SELECTOR.PLAY_GAME).classList.remove('display-none');
+  }
+};
+
+export const hideGamePlay = () => {
+  $(SELECTOR.PLAY_GAME).classList.add('display-none');
+};
+
 export const showMoving = (car) => {
   const carName = car.getName();
 

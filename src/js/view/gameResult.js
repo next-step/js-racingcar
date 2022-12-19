@@ -9,3 +9,7 @@ export const showWinners = (winners = []) => {
 export const showGameResult = () => {
   $(SELECTOR.GAME_RESULT).parentElement.classList.remove('display-none');
 };
+
+export const hideGameResult = () => {
+  $(SELECTOR.GAME_RESULT).parentElement.classList.add('display-none');
+};
