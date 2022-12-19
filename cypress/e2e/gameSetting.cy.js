@@ -28,7 +28,7 @@ describe('자동차 이름 입력 테스트', () => {
     `자동차 이름 input에 "${CAR_NAMES.VALID_CASE}"를 입력하고 확인 버튼을 클릭했을 때`,
     () => {
       it(`input은 value로 "${CAR_NAMES.VALID_CASE}"를 갖는다.`, () => {
-        cy.registerNamesByButton(CAR_NAMES.VALID_CASE);
+        cy.submitCarNames(CAR_NAMES.VALID_CASE);
 
         cy.get(SELECTOR.CAR_NAMES_INPUT).should('have.value', CAR_NAMES.VALID_CASE);
       });
@@ -45,37 +45,28 @@ describe('자동차 이름 입력 테스트', () => {
 
   context(`이름의 길이가 ${INPUT_CONDITION.MIN_CAR_NAME_LENGTH - 1}인 자동차를 입력했을 때`, () => {
     it('경고창(alert)이 뜬다.', () => {
-      cy.registerNamesByButton(CAR_NAMES.SHORT_CASE);
-
-      cy.on('window:alert', (text) => {
-        expect(text).to.contains(ERROR_MESSAGE.INVALID_CAR_NAMES_LENGTH);
-      });
+      cy.submitCarNames(CAR_NAMES.SHORT_CASE);
+      cy.alertMessage(ERROR_MESSAGE.INVALID_CAR_NAMES_LENGTH);
     });
   });
 
   context(`자동차 이름의 길이가 ${INPUT_CONDITION.MAX_CAR_NAME_LENGTH}를 초과했을 때`, () => {
     it('경고창(alert)이 뜬다.', () => {
-      cy.registerNamesByButton(CAR_NAMES.LONG_CASE);
-
-      cy.on('window:alert', (text) => {
-        expect(text).to.contains(ERROR_MESSAGE.INVALID_CAR_NAMES_LENGTH);
-      });
+      cy.submitCarNames(CAR_NAMES.LONG_CASE);
+      cy.alertMessage(ERROR_MESSAGE.INVALID_CAR_NAMES_LENGTH);
     });
   });
 
   context('중복되는 자동차 이름을 입력했을 때', () => {
     it('경고창(alert)이 뜬다', () => {
-      cy.registerNamesByButton(CAR_NAMES.DUPLICATED_CASE);
-
-      cy.on('window:alert', (text) => {
-        expect(text).to.contains(ERROR_MESSAGE.DUPLICATED_CAR_NAME);
-      });
+      cy.submitCarNames(CAR_NAMES.DUPLICATED_CASE);
+      cy.alertMessage(ERROR_MESSAGE.DUPLICATED_CAR_NAME);
     });
   });
 
   context('자동차 이름 입력을 완료하면', () => {
     beforeEach(() => {
-      cy.registerNamesByButton(CAR_NAMES.VALID_CASE);
+      cy.submitCarNames(CAR_NAMES.VALID_CASE);
     });
 
     it('자동차 이름을 수정할 수 없다.', () => {
@@ -101,14 +92,14 @@ describe('레이싱 횟수 입력 테스트', () => {
   };
 
   beforeEach(() => {
-    cy.registerNamesByButton(CAR_NAMES);
+    cy.submitCarNames(CAR_NAMES);
   });
 
   context(
     `레이싱 횟수 input에 ${TRIAL_COUNT.VALID_CASE}를 입력하고 확인 버튼을 클릭했을 때`,
     () => {
       it(`input은 value로 ${TRIAL_COUNT.VALID_CASE}를 갖는다.`, () => {
-        cy.registerCountByButton(TRIAL_COUNT.VALID_CASE);
+        cy.submitTrialCount(TRIAL_COUNT.VALID_CASE);
 
         cy.get(SELECTOR.TRIAL_COUNT_INPUT).should('have.value', TRIAL_COUNT.VALID_CASE);
       });
@@ -127,18 +118,15 @@ describe('레이싱 횟수 입력 테스트', () => {
     `레이싱 횟수 input에 ${INPUT_CONDITION.MIN_TRIAL_COUNT - 1}이하인 값을 입력했을 때`,
     () => {
       it('경고창(alert)이 뜬다.', () => {
-        cy.registerCountByButton(TRIAL_COUNT.INVALID_CASE);
-
-        cy.on('window:alert', (text) => {
-          expect(text).to.contains(ERROR_MESSAGE.INVALID_TRIAL_COUNT);
-        });
+        cy.submitTrialCount(TRIAL_COUNT.INVALID_CASE);
+        cy.alertMessage(ERROR_MESSAGE.INVALID_TRIAL_COUNT);
       });
     }
   );
 
   context('레이싱 횟수 입력을 완료했을 때', () => {
     beforeEach(() => {
-      cy.registerCountByButton(TRIAL_COUNT.VALID_CASE);
+      cy.submitTrialCount(TRIAL_COUNT.VALID_CASE);
     });
 
     it('횟수를 수정할 수 없다.', () => {
