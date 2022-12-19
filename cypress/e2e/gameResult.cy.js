@@ -20,8 +20,6 @@ describe('게임 결과 테스트', () => {
   });
 
   it('게임이 끝났으면 다시 시작하기 버튼이 화면에 보인다.', () => {
-    cy.clock();
-    cy.runAllTurns(TYPE.TRIAL_COUNT);
     cy.get(SELECTOR.RESTART_GAME_BTN).should('exist').and('be.visible');
   });
 
@@ -30,6 +28,23 @@ describe('게임 결과 테스트', () => {
     cy.tick(2000);
     cy.on('window:alert', (text) => {
       expect(text).to.contains('축하합니다!');
+    });
+  });
+
+  context('다시 시작하기 버튼을 클릭하면', () => {
+    it('자동차 이름은 초기화된다.', () => {
+      cy.get(SELECTOR.RESTART_GAME_BTN).click();
+      cy.get(SELECTOR.TRIAL_COUNT_INPUT).should('have.value', '');
+    });
+    it('시도 횟수는 초기화된다.', () => {
+      cy.get(SELECTOR.TRIAL_COUNT_INPUT).should('have.value', '');
+    });
+    it('자동차 이름 form만 화면에 보인다.', () => {
+      cy.get(SELECTOR.CAR_NAMES_FORM).should('be.visible');
+
+      cy.get(SELECTOR.TRIAL_COUNT_FORM).should('not.be.visible');
+      cy.get(SELECTOR.PLAY_GAME).should('not.be.visible');
+      cy.get(SELECTOR.GAME_RESULT).should('not.be.visible');
     });
   });
 });
