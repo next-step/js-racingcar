@@ -1,29 +1,36 @@
-import { isValidNames, isValidTrialCount } from '../validate/validate.js';
-import racingManager from '../model/racingcar.js';
-
+import carName from '../service/carName.js';
+import racingCar from '../service/racingCar.js';
+import racingResult from '../service/racingResult.js';
 import {
   showTrialForm,
   focusNameInput,
-  disabledNameForm,
   focusTrialInput,
-  disabledTrialForm,
-  showResult,
   updateResult,
+  resetTrialForm,
+  updateWinner,
+  showWinner,
+  showResult,
+  hideResult,
+  hideWinner,
+  toggleDisabledName,
+  resetNameForm,
+  hideTrialForm,
+  toggleDisabledTrial,
 } from '../view/main.js';
+import car from '../model/Car.js';
 
 export const handleSubmitName = event => {
   event.preventDefault();
   const { value: nameInputValue } = event.target.elements['car-name'];
-  const trimmedValue = racingManager.trimNames(nameInputValue);
-  const names = racingManager.splitName(trimmedValue);
+  const trimmedValue = carName.trimNames(nameInputValue);
+  const names = carName.splitName(trimmedValue);
 
-  if (!isValidNames(names)) {
+  if (!carName.isValidNames(names)) {
     focusNameInput();
     return;
   }
-
-  racingManager.names = names;
-  disabledNameForm();
+  car.names = names;
+  toggleDisabledName();
   showTrialForm();
 };
 
@@ -31,16 +38,39 @@ export const handleSubmitTrialCount = event => {
   event.preventDefault();
   const trialCount = Number(event.target.elements['trial-count'].value);
 
-  if (!isValidTrialCount(trialCount)) {
+  if (!racingCar.isValidTrialCount(trialCount)) {
     focusTrialInput();
     return;
   }
 
-  racingManager.trialCount = trialCount;
-  disabledTrialForm();
+  car.trialCount = trialCount;
+  toggleDisabledTrial();
 
-  const gameResult = racingManager.generateGame();
-  racingManager.gameResult = gameResult;
+  const gameResult = racingCar.generateGame();
+  car.gameResult = gameResult;
+
+  const winners = racingResult.getWinner();
+  car.winners = winners;
+
   updateResult(gameResult);
   showResult();
+  updateWinner(winners);
+  showWinner();
+};
+
+export const handleClickReset = () => {
+  racingCar.resetAll();
+  resetNameForm();
+  toggleDisabledName();
+
+  resetTrialForm();
+  toggleDisabledTrial();
+  hideTrialForm();
+
+  updateResult(car.gameResult);
+  hideResult();
+  updateWinner(car.winners);
+  hideWinner();
+
+  focusNameInput();
 };

@@ -87,4 +87,54 @@ describe('레이싱 카 어플리케이션 테스트', () => {
       });
     });
   });
+
+  describe('자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다.', () => {
+    const cars = 'Benz, k5, Audi, BMW';
+
+    beforeEach(() => {
+      cy.setName(cars);
+      cy.setTrialCount(20);
+    });
+
+    it('시도할 횟수를 입력하면 우승자가 보인다.', () => {
+      cy.get('.winner-section').should('exist');
+      let max = 0;
+      const arr = [];
+
+      cy.get('.result-container').each($el => {
+        const length = $el.find('.forward-icon').length;
+        max = Math.max(max, length);
+      });
+
+      cy.get('.result-container').each($el => {
+        const length = $el.find('.forward-icon').length;
+        if (max === length) {
+          arr.push($el.find('.car-player').text());
+        }
+      });
+
+      cy.get('.winners').invoke('text').should('include', arr);
+    });
+  });
+
+  describe('자동차 경주 게임을 리셋할 수 있다.', () => {
+    beforeEach(() => {
+      cy.setName('BMW');
+      cy.setTrialCount(20);
+    });
+
+    it('다시 시작하기 버튼을 누르면 처음 화면으로 되돌아 간다.', () => {
+      cy.get('.reset-btn').click();
+      cy.get('.trial-form').should('have.class', 'hide');
+      cy.get('.game-result').should('have.class', 'hide');
+      cy.get('.winner-section').should('have.class', 'hide');
+
+      cy.get('.car-name-input').should('not.be.disabled');
+      cy.get('.car-name-submit-btn').should('not.be.disabled');
+      cy.get('.trial-submit-btn').should('not.be.disabled');
+      cy.get('.trial-input').should('not.be.disabled');
+
+      cy.get('.car-name-input').should('have.text', '');
+    });
+  });
 });

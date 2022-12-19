@@ -1,1 +1,4 @@
 node_modules
+out/fonts
+out/scripts
+out/styles
