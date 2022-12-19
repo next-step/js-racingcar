@@ -1,16 +1,47 @@
+const $inputCarNamesSelector = "input[name='car-names']";
+const $inputTryNumSelector = "input[name='trynum']";
+const $fieldSetCarNameSelector = "#car-names-fieldset";
+const $fieldSetTryNumSelector = "#trynum-fieldset";
+const $submitCarNamesButtonSelector = "#submit-car-names";
+const $submitTryNumBUttonSelector = "#submit-trynum";
+
 describe("자동차 경주", () => {
   before(() => {
     cy.visit("../../index.html");
+
+    it("자동자 이름 입력폼이 있다", () => {
+      cy.get($inputCarNamesSelector).should("exist");
+    });
+
+    it("자동자 이름 입력폼이 있다", () => {
+      cy.get($inputTryNumSelector).should("exist");
+    });
   });
 
   context("자동자 이름 입력폼이 있다면", () => {
-    it("사용자는 쉼표(,)를 기준으로 5자 이하의 자동차 이름을 지을 수 있다.", () => {});
-    it("5자 초과하는 자동차 이름을 입력 시에는 알럿창을 띄운다.", () => {});
-    it("제출 시 다시 입력할 수 없다.", () => {});
+    it("5자 초과하는 자동차 이름을 입력 시에는 알럿창을 띄운다.", () => {
+      cy.on("uncaught:exception", (err, runnable) => {
+        expect(err.message).to.include("유효하지 않은 입력값입니다.");
+        done();
+        return false;
+      });
+
+      cy.get($inputCarNamesSelector).type("hellooo");
+      cy.get($submitCarNamesButtonSelector).click();
+    });
+
+    it("제출 시 다시 입력할 수 없다.", () => {
+      cy.get($inputCarNamesSelector).type("EAST, WEST, SOUTH, NORTH");
+      cy.get($submitCarNamesButtonSelector)
+        .click()
+        .then(() => {
+          cy.get($fieldSetCarNameSelector).should("be.disabled");
+        });
+    });
   });
 
   context("시도횟수를 입력받는 폼이 있다면", () => {
-    it("사용자는 자동차가 몇 면의 이동을 입력할 수 있늘지 숫자로 입력가능하다", () => {});
+    it("사용자는 자동차가 몇 면의 이동을 입력할 수 있는지 숫자로 입력가능하다", () => {});
     it("제출 시 다시 입력할 수 없다.", () => {});
   });
 
