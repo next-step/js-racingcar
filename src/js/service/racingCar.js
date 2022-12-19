@@ -2,8 +2,7 @@ import { catchMessage, getType } from '../validate/validate.js';
 import ERROR_MESSAGES from '../constant/errorMessages.js';
 import car from '../model/Car.js';
 import racingResult from './racingResult.js';
-
-const TRIAL_COUNT_MIN = 1;
+import { TRIAL_COUNT_MIN } from '../constant/racingcar.js';
 
 const racingCar = {
   resetAll() {
