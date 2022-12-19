@@ -1,3 +1,4 @@
+import { GAME_CONDITION } from '../../src/js/constants/condition.js';
 import { SELECTOR } from '../../src/js/constants/selector.js';
 
 describe('게임 결과 테스트', () => {
@@ -25,7 +26,7 @@ describe('게임 결과 테스트', () => {
 
   it('게임이 끝났으면 2초 후 축하 메세지 alert 창이 뜬다.', () => {
     cy.clock();
-    cy.tick(2000);
+    cy.tick(GAME_CONDITION.CELEBRATE_TIME);
     cy.on('window:alert', (text) => {
       expect(text).to.contains('축하합니다!');
     });

@@ -58,7 +58,7 @@ const getWinners = (cars) => {
 const celebrateWinners = (winners) => {
   setTimeout(() => {
     alert(`${winners.join(', ')} 축하합니다!`);
-  }, 2000);
+  }, GAME_CONDITION.CELEBRATE_TIME);
 };
 
 const restartGame = () => {
@@ -78,7 +78,7 @@ const restartGame = () => {
 export const startGame = () => {
   const carNames = gameSetting.getNames();
   const trialCount = gameSetting.getTrialCount();
-  const { INTERVAL_TIME } = GAME_CONDITION;
+  const { TURN_INTERVAL_TIME } = GAME_CONDITION;
 
   const cars = carNames.map((carName) => new Car(carName));
 
@@ -104,5 +104,5 @@ export const startGame = () => {
 
       $(SELECTOR.RESTART_GAME_BTN).addEventListener('click', restartGame);
     }
-  }, INTERVAL_TIME);
+  }, TURN_INTERVAL_TIME);
 };

@@ -10,5 +10,5 @@ Cypress.Commands.add('registerCountByButton', (value) => {
   cy.get(SELECTOR.TRIAL_COUNT_BTN).click();
 });
 Cypress.Commands.add('runAllTurns', (trialCount) => {
-  cy.tick(GAME_CONDITION.INTERVAL_TIME * trialCount);
+  cy.tick(GAME_CONDITION.TURN_INTERVAL_TIME * trialCount);
 });
