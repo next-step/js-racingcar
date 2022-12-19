@@ -3,7 +3,7 @@ import { ErrorMessage, PlayerRule } from '../../src/js/common/enum.js';
 
 const $inputPlayer = '#input-player';
 const $btnSubmitPlayer = '#btn-submit-player';
-const $roundField = '#round-field';
+const $roundForm = '#round-form';
 const $inputRound = '#input-round';
 const $btnSubmitRound = '#btn-submit-round';
 const $racingWrap = '.racing-wrap';
@@ -57,10 +57,10 @@ describe('플레이어 이름 입력', () => {
   });
 
   it('올바른 값 입력 시, 횟수를 입력하는 필드를 노출한다', () => {
-    cy.checkInvisible($roundField);
+    cy.checkInvisible($roundForm);
 
     inputValidName();
-    cy.checkVisible($roundField);
+    cy.checkVisible($roundForm);
   });
 });
 

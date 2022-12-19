@@ -6,7 +6,7 @@ export default class InputRoundComponent extends Component {
   #roundFormControl;
   #playerState;
   #roundState;
-  $racingForm = '#racing-form';
+  $roundForm = '#round-form';
   $roundField = '#round-field';
   $inputRound = '#input-round';
 
@@ -21,13 +21,13 @@ export default class InputRoundComponent extends Component {
   }
 
   init = () => {
-    this.show(this.$roundField);
+    this.show(this.$roundForm);
   };
 
   setEventListener() {
     const events = [
       {
-        target: this.$racingForm,
+        target: this.$roundForm,
         event: 'submit',
         handler: this.submit,
       },
