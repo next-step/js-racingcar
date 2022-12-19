@@ -4,7 +4,7 @@ const RacingCarGame = {
   carCnt: 0,
 
   set Cars(cars) {
-    this.cars = cars;
+    this.cars = cars.map((carName) => carName.trim());
   },
   get Cars() {
     return this.cars;

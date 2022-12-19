@@ -41,4 +41,8 @@ const showWaitingStatus = (racingCars) => {
   });
 };
 
-export { setCarReady, moveOrStopCars, showWaitingStatus };
+const diableFieldSet = ($selector) => {
+  document.querySelector($selector).disabled = true;
+};
+
+export { setCarReady, moveOrStopCars, showWaitingStatus, diableFieldSet };

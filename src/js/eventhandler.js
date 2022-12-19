@@ -6,6 +6,7 @@ import {
   setCarReady,
   showWaitingStatus,
   moveOrStopCars,
+  diableFieldSet,
 } from "./view/racingCarView.js";
 import { playOneRacingGame } from "./service/racingCarGameService.js";
 
@@ -22,10 +23,10 @@ const onSubmitCarNames = () => {
 
   try {
     if (isValidCarNames(carNames)) {
-      document.querySelector($fieldSetCarNameSelector).disabled = true;
+      diableFieldSet($fieldSetCarNameSelector);
 
       RacingCarGame.CarCnt = carNames.length;
-      RacingCarGame.Cars = carNames.map((carName) => carName.trim());
+      RacingCarGame.Cars = carNames;
     }
   } catch (e) {
     alert(e);
@@ -37,7 +38,7 @@ const onSubmitTryNum = () => {
   if (!tryNum) throw new Error(ERROR_MESSAGES.INVALID_INPUT);
 
   RacingCarGame.TryNum = tryNum;
-  document.querySelector($fieldSetTryNumSelector).disabled = true;
+  diableFieldSet($fieldSetTryNumSelector);
 
   const formSubmitted = new CustomEvent("submitted");
   document.querySelector($racingCarGame).dispatchEvent(formSubmitted);

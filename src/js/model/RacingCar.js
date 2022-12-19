@@ -1,4 +1,5 @@
 import { getOneRandomNumber } from "../utils/random.js";
+import { RACING_CAR } from "../constants.js";
 
 export default class RacingCar {
   constructor(name) {
@@ -10,8 +11,11 @@ export default class RacingCar {
 
     return {
       increase() {
-        const a = getOneRandomNumber(0, 9);
-        if (a >= 4) {
+        const a = getOneRandomNumber(
+          RACING_CAR.MIN_RANDOM,
+          RACING_CAR.MAX_RANDOM
+        );
+        if (a >= RACING_CAR.MOVE_CONDITION_NUMBER) {
           ++counter;
           return 1;
         }

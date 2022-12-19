@@ -1,5 +1,7 @@
+import { ERROR_MESSAGES } from "../constants.js";
+
 const isValidCarNames = (carNames) => {
-  if (!carNames) throw new Error("유효하지 않은 입력값입니다. ");
+  if (!carNames) throw new Error(ERROR_MESSAGES.INVALID_INPUT);
 
   if (
     carNames.some((carName) => {
@@ -7,7 +9,7 @@ const isValidCarNames = (carNames) => {
       return trimmedName.length > 5 || trimmedName.length <= 0;
     })
   ) {
-    throw new Error("유효하지 않은 입력값입니다.");
+    throw new Error(ERROR_MESSAGES.INVALID_INPUT);
   }
 
   return true;
