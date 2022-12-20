@@ -2,7 +2,7 @@ import { Component } from './component.js';
 import { NumberUtil } from '../utils/number.util.js';
 import { RacingRule } from '../common/enum.js';
 
-export class RacingComponent extends Component {
+export default class RacingComponent extends Component {
   #playerState;
   #roundState;
   $racingWrap = '.racing-wrap';
@@ -28,13 +28,45 @@ export class RacingComponent extends Component {
   }
 
   #startRace() {
-    for (let i = 0; i < this.#roundState.round; i += 1) {
-      this.#playerState.player.forEach((player, index) => {
-        if (RacingRule.MOVEMENT_CONDITION <= NumberUtil.randomNumber()) {
-          this.#renderForward(index);
-        }
-      });
-    }
+    const race = setInterval(this.#movePlayer, 1000);
+
+    this.#startLoading();
+
+    setTimeout(() => {
+      clearInterval(race);
+      this.#finishLoading();
+    }, this.#roundState.round * 1000);
+  }
+
+  #startLoading() {
+    this.#playerState.player.forEach((player, index) => {
+      this.#renderSpinner(index);
+    });
+  }
+
+  #finishLoading() {
+    this.#playerState.player.forEach((player, index) => {
+      this.#removeSpinner(index);
+    });
+  }
+
+  #movePlayer = () => {
+    this.#playerState.player.forEach((player, index) => {
+      this.#removeSpinner(index);
+      if (RacingRule.MOVEMENT_CONDITION <= NumberUtil.randomNumber()) {
+        this.#renderForward(index);
+      }
+      this.#renderSpinner(index);
+    });
+  };
+
+  #renderSpinner(index) {
+    const template = '<div class="relative spinner-container mt-3"><span class="material spinner"></span></div>';
+    this.insertHTML(`${this.$carList} > div:nth-child(${index + 1})`, template);
+  }
+
+  #removeSpinner(index) {
+    this.removeHTML(`${this.$carList} > div:nth-child(${index + 1}) .spinner-container`);
   }
 
   #renderForward(index) {

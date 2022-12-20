@@ -26,6 +26,10 @@ export class Component {
     document.querySelector(hostElement).insertAdjacentHTML(position, template);
   }
 
+  removeHTML(hostElement) {
+    document.querySelector(hostElement).remove();
+  }
+
   show(element) {
     document.querySelector(element).style.display = 'block';
   }
