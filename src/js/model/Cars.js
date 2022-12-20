@@ -1,79 +1,62 @@
-import { Car } from './Car.js';
-import { NAME_LENGTH_MIN, NAME_LENGTH_MAX } from '../constant/racingcar.js';
-import { getDataType } from '../utils/dataType.js';
+import { Car, validateName } from './Car.js';
 import ERROR_MESSAGES from '../constant/errorMessages.js';
-
-const isInRange = names =>
-  names.every(name => name.length >= NAME_LENGTH_MIN && name.length <= NAME_LENGTH_MAX);
+import { TRIAL_COUNT_MIN } from '../constant/racingcar.js';
+import { getDataType } from '../utils/dataType.js';
+import RacingGame from './RacingGame.js';
 
 const isUnique = inputNames => inputNames.length === new Set(inputNames).size;
 
 class Cars {
-  #carList;
+  carList;
 
-  #names;
+  trialCount;
 
-  #trialCount;
+  result;
 
-  #gameResult;
-
-  #winners;
+  winners;
 
   constructor() {
-    this.#names = [];
-    this.#trialCount = 0;
-    this.#gameResult = [];
-    this.#winners = [];
+    this.carList = [];
+    this.trialCount = 0;
+    this.result = [];
+    this.winners = [];
   }
 
   setCarNames(carNameList) {
     this.validateNames(carNameList);
-    this.#carList = carNameList.map(carName => new Car(carName));
+    carNameList.forEach(carName => validateName(carName));
+    this.carList = carNameList.map(carName => new Car(carName));
+  }
+
+  setTrialCount(trialCount) {
+    this.validTrialCount(trialCount);
+    this.trialCount = trialCount;
   }
 
   validateNames = carNameList => {
-    if (!isInRange(carNameList)) throw new Error(ERROR_MESSAGES.NAME_OUT_OF_RANGE);
     if (!isUnique(carNameList)) throw new Error(ERROR_MESSAGES.DUPLICATED_NAME);
-    if (getDataType(carNameList) !== 'Array') throw new Error(ERROR_MESSAGES.INVALID_TYPE);
     return true;
   };
 
-  generateCars(carNameList) {
-    // this.#carList = carNameList.map();
-    console.log(carNameList);
-  }
+  validTrialCount = trialCount => {
+    if (trialCount < TRIAL_COUNT_MIN) throw new Error(ERROR_MESSAGES.INVALID_TRIAL_COUNT);
+    if (getDataType(trialCount) !== 'Number') throw new Error(ERROR_MESSAGES.INVALID_TYPE);
+    return true;
+  };
 
-  get names() {
-    return this.#names;
-  }
+  generateGame = () => {
+    const racingGame = new RacingGame(this.carList, this.trialCount);
+    racingGame.run();
+    this.result = racingGame.getResult();
+    this.winners = racingGame.getWinners();
+  };
 
-  set names(name) {
-    this.#names = name;
-  }
-
-  get trialCount() {
-    return this.#trialCount;
-  }
-
-  set trialCount(name) {
-    this.#trialCount = name;
-  }
-
-  get gameResult() {
-    return this.#gameResult;
-  }
-
-  set gameResult(name) {
-    this.#gameResult = name;
-  }
-
-  get winners() {
-    return this.#winners;
-  }
-
-  set winners(name) {
-    this.#winners = name;
-  }
+  resetAll = () => {
+    this.carList = [];
+    this.trialCount = 0;
+    this.result = [];
+    this.winners = [];
+  };
 }
 
 const cars = new Cars();

@@ -43,22 +43,22 @@ export const hideResult = () => {
   $('.game-result').classList.add('hide');
 };
 
-export const updateResult = gameResult => {
+export const updateResult = result => {
   $('.game-result').innerHTML = `
-		<div class="mt-4 d-flex">
-			${Object.entries(gameResult)
+  	<div class="mt-4 d-flex">
+  		${result
         .map(
-          ([key, value]) => `
-					<div class="mr-2 result-container">
-						<div class="car-player">${key}</div>
-						${value
-              .filter(Boolean)
+          ([name, distance]) => `
+  				<div class="mr-2 result-container">
+  					<div class="car-player">${name}</div>
+  					${new Array(distance)
+              .fill('')
               .map(_ => `<div class="forward-icon mt-2">⬇️️</div>`)
               .join('')}
-						</div>`,
+					</div>`,
         )
         .join('')}
-		</div>`;
+  	</div>`;
 };
 
 export const showWinner = () => {
@@ -72,4 +72,21 @@ export const hideWinner = () => {
 export const updateWinner = winners => {
   $('.winners').innerHTML = `
 	🏆 최종 우승자: ${winners.map(winner => `${winner}`).join(', ')} 🏆</h2>`;
+};
+export const resetName = () => {
+  resetNameForm();
+  toggleDisabledName();
+};
+
+export const resetTrial = () => {
+  resetTrialForm();
+  toggleDisabledTrial();
+  hideTrialForm();
+};
+
+export const resetResult = () => {
+  updateResult([]);
+  hideResult();
+  updateWinner([]);
+  hideWinner();
 };
