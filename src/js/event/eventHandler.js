@@ -1,5 +1,6 @@
-import carName from '../service/carName.js';
-import racingCar from '../service/racingCar.js';
+// import  from '../model/Car.js';
+// import CarName from '../model/CarName.js';
+import racingCar from '../model/racingCar.js';
 import racingResult from '../service/racingResult.js';
 import {
   showTrialForm,
@@ -17,21 +18,36 @@ import {
   hideTrialForm,
   toggleDisabledTrial,
 } from '../view/main.js';
-import car from '../model/Car.js';
+import cars from '../model/Cars.js';
+import { trimNameList, splitNameList } from '../racingcar.js';
 
 export const handleSubmitName = event => {
   event.preventDefault();
-  const { value: nameInputValue } = event.target.elements['car-name'];
-  const trimmedValue = carName.trimNames(nameInputValue);
-  const names = carName.splitName(trimmedValue);
+  const { value: carNames } = event.target.elements['car-name'];
+  const trimmedList = trimNameList(carNames);
+  const carNameList = splitNameList(trimmedList);
 
-  if (!carName.isValidNames(names)) {
+  try {
+    cars.setCarNames(carNameList);
+    toggleDisabledName();
+    showTrialForm();
+  } catch (e) {
+    alert(e.message);
     focusNameInput();
-    return;
   }
-  car.names = names;
-  toggleDisabledName();
-  showTrialForm();
+
+  // const trimmedValue = carName.trimNames(carNames);
+  // const names = carName.splitName(trimmedValue);
+
+  // 만약에 error 발생했으면 focusNameInput();
+
+  // if (!carName.isValidNames(names)) {
+  //   focusNameInput();
+  //   return;
+  // }
+  // car.names = names;
+  // toggleDisabledName();
+  // showTrialForm();
 };
 
 export const handleSubmitTrialCount = event => {
@@ -43,14 +59,14 @@ export const handleSubmitTrialCount = event => {
     return;
   }
 
-  car.trialCount = trialCount;
+  cars.trialCount = trialCount;
   toggleDisabledTrial();
 
   const gameResult = racingCar.generateGame();
-  car.gameResult = gameResult;
+  cars.gameResult = gameResult;
 
   const winners = racingResult.getWinner();
-  car.winners = winners;
+  cars.winners = winners;
 
   updateResult(gameResult);
   showResult();
@@ -67,9 +83,9 @@ export const handleClickReset = () => {
   toggleDisabledTrial();
   hideTrialForm();
 
-  updateResult(car.gameResult);
+  updateResult(cars.gameResult);
   hideResult();
-  updateWinner(car.winners);
+  updateWinner(cars.winners);
   hideWinner();
 
   focusNameInput();
