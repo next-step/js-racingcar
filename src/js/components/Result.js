@@ -6,7 +6,9 @@ class Result {
   constructor({ $target }) {
     this.$target = $target;
     $target.innerHTML = this.template();
+    this.$restartContainer = $target.querySelector('.winner-container');
     this.$restartButton = $target.querySelector('[data-id=restart-button]');
+    this.$winnerName = $target.querySelector('.winner-name');
 
     observer.observe(() => {
       this.render();
@@ -14,7 +16,7 @@ class Result {
     });
   }
 
-  onRestartButton(event) {
+  onRestartButton() {
     store.setState({
       ...DEFAULT_STORE_STATE,
     });
@@ -22,7 +24,7 @@ class Result {
 
   template() {
     return /*html*/ `
-      <div>
+      <div class="winner-container">
         <h2 class="winner-name"></h2>
         <div class="d-flex justify-center">
           <button type="button" class="btn btn-cyan restart-button" data-id="restart-button">다시 시작하기</button>
@@ -35,19 +37,19 @@ class Result {
     const { isVisibleResult, winners } = store.state;
 
     if (!isVisibleResult) {
-      this.$target.innerHTML = '';
+      this.$restartContainer.style.display = 'none';
       return;
     }
 
-    this.$target.innerHTML = this.template();
-    this.$target.querySelector('.winner-name').innerText = `
+    this.$restartContainer.style.display = 'block';
+    this.$winnerName.innerText = `
       🏆 최종 우승자: ${winners} 🏆
       `;
   }
 
   addEventListener() {
     this.$restartButton.addEventListener('click', (event) => {
-      this.onRestartButton(event);
+      this.onRestartButton();
     });
   }
 }

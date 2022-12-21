@@ -1,4 +1,3 @@
-import { makeDataAttributeIdForm } from './utils/index.js';
 export const DEFAULT_STORE_STATE = {
   carNames: '',
   trialNumber: null,
@@ -11,12 +10,6 @@ export const DEFAULT_STORE_STATE = {
 };
 
 export const MAX_TRIAL_NUMBER = 30;
-
-export const EVENT_MAP = {
-  CLICK: new Map(),
-  KEY_UP: new Map(),
-  SUBMIT: new Map(),
-};
 
 export const ELEMENT = {
   DATAID: {
@@ -33,8 +26,6 @@ export const ELEMENT = {
     NAME_SUBMIT_BUTTON: 'name-submit-button',
   },
 };
-
-export const ELEMENT_DATA_ID_FORM = makeDataAttributeIdForm(ELEMENT.DATAID);
 
 export const ALERT = {
   INVALID_CARNAME:

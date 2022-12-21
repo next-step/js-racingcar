@@ -1,11 +1,7 @@
 import { ALERT } from '../constants.js';
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
-import {
-  makeDefaultRacingMap,
-  splitingCarNames,
-  validateCarNames,
-} from '../utils/index.js';
+import { splitingCarNames } from '../utils/index.js';
 import Trial from './Trial.js';
 
 class Attempt {
@@ -17,12 +13,21 @@ class Attempt {
     );
     this.$carNameInput = $target.querySelector('[data-id=name-input]');
     this.$trialWrapper = $target.querySelector('.trial-count-wrapper');
+    this.$attemptWrapper = $target.querySelector('.attempt-wrapper');
 
     observer.observe(() => {
       this.render();
       this.addEventListener();
     });
   }
+
+  validateCarNames = (carNamesArray) => {
+    if (!carNamesArray || !carNamesArray.length) return false;
+
+    return carNamesArray
+      .filter((name) => Boolean(name) === true)
+      .every((el) => el.length >= 1 && el.length < 6);
+  };
 
   template() {
     return /*html*/ `
@@ -44,20 +49,28 @@ class Attempt {
     `;
   }
 
+  makeDefaultRacingMap = (carNames) =>
+    splitingCarNames(carNames).reduce((map, carName, currIdx) => {
+      const carId = `${carName}-${currIdx}`;
+      map.set(carId, []);
+
+      return map;
+    }, new Map());
+
   onSubmitCarname(event) {
     const { carNames } = store.state;
     const splitedCarNames = splitingCarNames(carNames);
 
     event.preventDefault();
 
-    if (!validateCarNames(splitedCarNames)) {
+    if (!this.validateCarNames(splitedCarNames)) {
       alert(ALERT.INVALID_CARNAME);
       return;
     }
 
     store.setState({
       isVisibleTrial: true,
-      racingMap: makeDefaultRacingMap(carNames),
+      racingMap: this.makeDefaultRacingMap(carNames),
     });
   }
 
@@ -115,8 +128,9 @@ class Attempt {
     this.$carNameInput.addEventListener('keyup', (event) => {
       this.onInputCarNames(event);
     });
-
-    // EVENT_MAP.SUBMIT.set('submit-carname', this.onSubmitCarname.bind(this));
+    this.$attemptWrapper.addEventListener('submit', (event) => {
+      this.onSubmitCarname(event);
+    });
   }
 }
 

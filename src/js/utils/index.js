@@ -6,14 +6,6 @@ export const debounceFrame = (callback) => {
   };
 };
 
-export const validateCarNames = (carNamesArray) => {
-  if (!carNamesArray || !carNamesArray.length) return false;
-
-  return carNamesArray
-    .filter((name) => Boolean(name) === true)
-    .every((el) => el.length >= 1 && el.length < 6);
-};
-
 export const splitingCarNames = (carNames) => {
   const copyName = carNames;
 
@@ -21,59 +13,12 @@ export const splitingCarNames = (carNames) => {
   return copyName.split(',').filter((name) => name.trim());
 };
 
-const makeRandomNumber = (minValue = 0, maxValue = 9) => {
+export const makeRandomNumber = (minValue = 0, maxValue = 9) => {
   return Math.floor(Math.random() * maxValue + minValue);
-};
-
-export const getProgressOrNot = () => {
-  return makeRandomNumber() > 4;
 };
 
 export const waitUntil = (delay) =>
   new Promise((resolve) => setTimeout(resolve, delay));
-
-const getCarNameInCarId = (carId) => {
-  return carId.split('-')[0];
-};
-
-export const getRacingWinner = ({ racingMap, trialNumber }) => {
-  if (!racingMap || !racingMap.size) return false;
-
-  return [...racingMap.keys()]
-    .map((carId) => {
-      const progressArray = racingMap.get(carId);
-      if (
-        progressArray.filter((el) => el === true).length === Number(trialNumber)
-      ) {
-        return getCarNameInCarId(carId);
-      }
-    })
-    .filter((el) => Boolean(el));
-};
-
-export function makeNewRacingMap(prevRacingMap) {
-  if (!prevRacingMap.size) return prevRacingMap;
-
-  return Array.from(prevRacingMap).reduce((map, [key, values]) => {
-    map.set(key, [...values, getProgressOrNot()]);
-    return map;
-  }, new Map());
-}
-
-export const makeDefaultRacingMap = (carNames) =>
-  splitingCarNames(carNames).reduce((map, carName, currIdx) => {
-    const carId = `${carName}-${currIdx}`;
-    map.set(carId, []);
-
-    return map;
-  }, new Map());
-
-export const makeDataAttributeIdForm = (dataIdsObject) => {
-  return Object.entries(dataIdsObject).reduce((acc, [key, value], index) => {
-    acc[key] = `[data-id=${value}]`;
-    return acc;
-  }, {});
-};
 
 export const deepDiffMapper = () => {
   //*Reference: https://stackoverflow.com/questions/8572826/generic-deep-diff-between-two-objects
@@ -162,26 +107,9 @@ export const deepDiffMapper = () => {
   };
 };
 
-export const makeEnrollComponents = (defaultState) => {
-  return Object.keys(defaultState).reduce(
-    (enrollComponentsObject, stateName) => {
-      enrollComponentsObject[stateName] = [];
-      return enrollComponentsObject;
-    },
-    {}
-  );
-};
-
 export default {
-  validateCarNames,
   splitingCarNames,
   makeRandomNumber,
   waitUntil,
-  getRacingWinner,
-  makeNewRacingMap,
-  makeDefaultRacingMap,
-  makeDataAttributeIdForm,
   deepDiffMapper,
-  makeEnrollComponents,
-  getProgressOrNot,
 };
