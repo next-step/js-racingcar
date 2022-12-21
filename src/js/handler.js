@@ -1,3 +1,4 @@
+import { WINNER_MESSAGE } from './constant.js';
 import { Car } from './model/Car.js';
 import Cars from './model/Cars.js';
 import { getWinner, startRace } from './race.js';
@@ -8,7 +9,7 @@ import {
   renderWinner,
   visibleRaceTimes,
 } from './ui/dom.js';
-import { showErrorMessage, validate } from './utils/util.js';
+import { validate } from './utils/validator.js';
 import { nameValidations, trialTimesValidations } from './validations.js';
 
 export const handleFormNameSubmit = (event) => {
@@ -23,7 +24,7 @@ export const handleFormNameSubmit = (event) => {
     visibleRaceTimes();
     disableCarName();
   } catch (error) {
-    showErrorMessage(error);
+    alert(error.message);
   }
 };
 
@@ -40,7 +41,8 @@ export const handleFormTrialTimesForm = async (event) => {
 
     const raceResult = await startRace(Cars.cars, trialTimes);
     renderWinner(getWinner(raceResult));
+    setTimeout(() => alert(WINNER_MESSAGE), 2000);
   } catch (error) {
-    showErrorMessage(error);
+    alert(error.message);
   }
 };

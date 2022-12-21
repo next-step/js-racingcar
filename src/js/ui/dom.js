@@ -1,4 +1,4 @@
-import { SELECTOR } from '../constant.js';
+import { CAR_SPINNER_ID, SELECTOR } from '../constant.js';
 import { $, $$ } from '../utils/selector.js';
 
 export const visibleRaceTimes = () => {
@@ -26,7 +26,7 @@ export const enbleTrialNumber = () => {
 };
 
 export const getCarSpinner = (name) => {
-  return `#car-${name} > ${SELECTOR.SPINNER_WRAPPER}`;
+  return `${CAR_SPINNER_ID(name)} > ${SELECTOR.SPINNER_WRAPPER}`;
 };
 
 export const getTrialTimes = () => {
@@ -60,6 +60,7 @@ export const renderRace = (cars) => {
       </div>
     `
     )}
+    </div>
     </section>
   `;
   $(SELECTOR.RACE_PROCESS_COMPONENT).insertAdjacentHTML('afterbegin', template);

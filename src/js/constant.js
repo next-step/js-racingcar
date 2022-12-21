@@ -18,6 +18,8 @@ export const SELECTOR = {
   SPINNER_WRAPPER: '.spinner-wrapper',
 };
 
+export const CAR_SPINNER_ID = (carName) => `#car-${carName}`;
+
 export const CAR_NAME = {
   MIN: 1,
   MAX: 5,

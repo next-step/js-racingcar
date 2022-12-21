@@ -1,3 +1,5 @@
+import { tab } from './fp.js';
+
 export const isEmpty = (value) => {
   return value === '';
 };
@@ -18,4 +20,8 @@ export const duplicatedName = (name) => {
 
 export const isInvalidMinNumber = (value, min) => {
   return value < min;
+};
+
+export const validate = (value, validations) => {
+  tab(value)(...validations);
 };
