@@ -1,15 +1,18 @@
-import Component from '../core/Component.js';
-import store from '../core/Store.js';
+import observer from '../core/observer.js';
+import { store } from '../store/index.js';
 
-class Player extends Component {
+class Player {
   constructor({ $target, props = {} }) {
-    super({ $target, props });
+    this.$target = $target;
     this.props = props;
+
+    observer.observe(() => {
+      this.render();
+    });
   }
 
   render() {
-    const racingMap = store.getState({ name: 'racingMap', that: this });
-    const isRacingEnd = store.getState({ name: 'isRacingEnd', that: this });
+    const { racingMap, isRacingEnd } = store.state;
     const { carId, carName } = this.props;
 
     this.$target.innerHTML = /*html*/ `

@@ -1,4 +1,3 @@
-//* UNUSED: replace with Store.js
 import { debounceFrame, deepDiffMapper } from '../utils/index.js';
 
 const observer = (() => {

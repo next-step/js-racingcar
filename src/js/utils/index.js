@@ -7,7 +7,7 @@ export const debounceFrame = (callback) => {
 };
 
 export const validateCarNames = (carNamesArray) => {
-  if (!carNamesArray || !carNamesArray.length) return;
+  if (!carNamesArray || !carNamesArray.length) return false;
 
   return carNamesArray
     .filter((name) => Boolean(name) === true)

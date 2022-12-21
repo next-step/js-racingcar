@@ -1,28 +1,40 @@
-import { EVENT_MAP, MAX_TRIAL_NUMBER } from '../constants.js';
-import Component from '../core/Component.js';
-import store from '../core/Store.js';
+import { MAX_TRIAL_NUMBER } from '../constants.js';
+import observer from '../core/observer.js';
+import { store } from '../store/index.js';
 import {
   getRacingWinner,
   makeNewRacingMap,
   waitUntil,
 } from '../utils/index.js';
-class Trial extends Component {
-  constructor({ $target, props = {} }) {
-    super({ $target, props });
+
+class Trial {
+  constructor({ $target }) {
+    this.$target = $target;
+    $target.innerHTML = this.template();
+    this.$moveInput = $target.querySelector('[data-id=move-input]');
+    this.$moveButton = $target.querySelector('[data-id=move-submit]');
+
+    observer.observe(() => {
+      this.render();
+      this.addEventListener();
+    });
+  }
+
+  template() {
+    return /*html*/ `
+      <p class="move-explanation">시도할 횟수를 입력해주세요.</p>
+      <div class="d-flex">
+        <input type="number" class="w-100 mr-2 move-input" placeholder="시도 횟수" data-id="move-input"/>
+        <button type="button" class="btn btn-cyan move-submit-button" data-id="move-submit">확인</button>
+      </div>
+      
+    `;
   }
 
   render() {
-    const $moveInput = this.$target.querySelector('[data-id=move-input]');
-    const $moveButton = this.$target.querySelector('[data-id=move-submit]');
-    const trialNumber = store.getState({ name: 'trialNumber', that: this });
-    const isVisibleProgress = store.getState({
-      name: 'isVisibleProgress',
-      that: this,
-    });
-    const isVisibleResult = store.getState({
-      name: 'isVisibleResult',
-      that: this,
-    });
+    const { $moveInput, $moveButton } = this;
+    const { trialNumber, isVisibleProgress } = store.state;
+
     if (!$moveButton || !$moveButton) return;
 
     const isDisbledButton = isVisibleProgress || !trialNumber;
@@ -40,30 +52,19 @@ class Trial extends Component {
 
   onTypeMovement(event) {
     const { value } = event.target;
-
     const isSubmit = event.key === 'Enter' && value.length;
 
     if (isSubmit) {
       this.onSubmitTrials(event);
       return;
     }
+
     store.setState({ trialNumber: Number(value) });
   }
 
   async componentUpdated() {
-    const racingMap = store.getState({ name: 'racingMap', that: this });
-    const trialNumber = store.getState({
-      name: 'trialNumber',
-      that: this,
-    });
-    const isVisibleProgress = store.getState({
-      name: 'isVisibleProgress',
-      that: this,
-    });
-    const isRacingEnd = store.getState({
-      name: 'isRacingEnd',
-      that: this,
-    });
+    const { racingMap, trialNumber, isVisibleProgress, isRacingEnd } =
+      store.state;
 
     const winner = getRacingWinner({ racingMap, trialNumber });
 
@@ -84,13 +85,9 @@ class Trial extends Component {
     });
   }
 
-  onSubmitTrials(event) {
-    const racingMap = store.getState({ name: 'racingMap', that: this });
+  onSubmitTrials() {
+    const { racingMap, trialNumber } = store.state;
     const newRacingMap = makeNewRacingMap(racingMap);
-    const trialNumber = store.getState({
-      name: 'trialNumber',
-      that: this,
-    });
 
     if (trialNumber > MAX_TRIAL_NUMBER) {
       alert('30회 이하의 시도를 입력해주세요');
@@ -105,20 +102,14 @@ class Trial extends Component {
     });
   }
 
-  template() {
-    return /*html*/ `
-      <p class="move-explanation">시도할 횟수를 입력해주세요.</p>
-      <div class="d-flex">
-        <input type="number" class="w-100 mr-2 move-input" placeholder="시도 횟수" data-id="move-input"/>
-        <button type="button" class="btn btn-cyan move-submit-button" data-id="move-submit">확인</button>
-      </div>
-      
-    `;
-  }
-
   addEventListener() {
-    EVENT_MAP.CLICK.set('move-submit', this.onSubmitTrials.bind(this));
-    EVENT_MAP.KEY_UP.set('move-input', this.onTypeMovement.bind(this));
+    this.$moveButton.addEventListener('click', (event) => {
+      if (event.target.dataset.id === 'move-submit') this.onSubmitTrials(event);
+    });
+
+    this.$moveInput.addEventListener('keyup', (event) => {
+      this.onTypeMovement(event);
+    });
   }
 }
 

@@ -1,6 +1,6 @@
-import { ALERT, EVENT_MAP } from '../constants.js';
-import Component from '../core/Component.js';
-import store from '../core/Store.js';
+import { ALERT } from '../constants.js';
+import observer from '../core/observer.js';
+import { store } from '../store/index.js';
 import {
   makeDefaultRacingMap,
   splitingCarNames,
@@ -8,7 +8,22 @@ import {
 } from '../utils/index.js';
 import Trial from './Trial.js';
 
-class Attempt extends Component {
+class Attempt {
+  constructor({ $target }) {
+    this.$target = $target;
+    $target.innerHTML = this.template();
+    this.$submitCarNameButton = $target.querySelector(
+      '[data-id=submit-carname]'
+    );
+    this.$carNameInput = $target.querySelector('[data-id=name-input]');
+    this.$trialWrapper = $target.querySelector('.trial-count-wrapper');
+
+    observer.observe(() => {
+      this.render();
+      this.addEventListener();
+    });
+  }
+
   template() {
     return /*html*/ `
       <form class="attempt-wrapper">
@@ -30,7 +45,7 @@ class Attempt extends Component {
   }
 
   onSubmitCarname(event) {
-    const carNames = store.getState({ name: 'carNames', that: this });
+    const { carNames } = store.state;
     const splitedCarNames = splitingCarNames(carNames);
 
     event.preventDefault();
@@ -50,68 +65,58 @@ class Attempt extends Component {
     store.setState({ carNames: event.target.value });
   }
 
-  handleButtonAttribute() {
-    const $carSubmitButton = this.$target.querySelector(
-      '[data-id=submit-carname]'
-    );
-    const isVisibleTrial = store.getState({
-      name: 'isVisibleTrial',
-      that: this,
-    });
-    const carNames = store.getState({ name: 'carNames', that: this });
+  renderSubmitButton() {
+    const { carNames, isVisibleTrial } = store.state;
 
     const isDisabledButton = isVisibleTrial || !carNames;
 
-    if (isDisabledButton) $carSubmitButton.setAttribute('disabled', '');
-    if (!isDisabledButton) $carSubmitButton.removeAttribute('disabled');
+    if (isDisabledButton)
+      this.$submitCarNameButton.setAttribute('disabled', '');
+    if (!isDisabledButton)
+      this.$submitCarNameButton.removeAttribute('disabled');
   }
 
-  handleCarNameInput() {
-    const $carNameInput = this.$target.querySelector('[data-id=name-input]');
-    const isVisibleTrial = store.getState({
-      name: 'isVisibleTrial',
-      that: this,
-    });
-    const carNames = store.getState({ name: 'carNames', that: this });
-    const isDisabledInput = isVisibleTrial;
+  renderCarNameInput() {
+    const { isVisibleTrial, carNames } = store.state;
 
-    if (isDisabledInput) $carNameInput.setAttribute('disabled', '');
-    if (!isDisabledInput) $carNameInput.focus();
-    $carNameInput.value = carNames;
+    if (!isVisibleTrial) {
+      this.$carNameInput.focus();
+      return;
+    }
+
+    if (isVisibleTrial) this.$carNameInput.setAttribute('disabled', '');
+
+    this.$carNameInput.value = carNames;
   }
 
   renderTrialComponent() {
-    const $trialWrapper = this.$target.querySelector('.trial-count-wrapper');
-    const isVisibleTrial = store.getState({
-      name: 'isVisibleTrial',
-      that: this,
-    });
+    const { isVisibleTrial } = store.state;
 
     if (isVisibleTrial) {
       new Trial({
-        $target: $trialWrapper,
+        $target: this.$trialWrapper,
       });
     }
   }
 
   render() {
-    const $trialWrapper = this.$target.querySelector('.trial-count-wrapper');
-    const isVisibleTrial = store.getState({
-      name: 'isVisibleTrial',
-      that: this,
-    });
-
-    this.handleButtonAttribute();
-    this.handleCarNameInput();
+    this.renderSubmitButton();
+    this.renderCarNameInput();
     this.renderTrialComponent();
 
-    if (!isVisibleTrial) $trialWrapper.innerHTML = '';
+    if (!store.state.isVisibleTrial) this.$trialWrapper.innerHTML = '';
   }
 
   addEventListener() {
-    EVENT_MAP.CLICK.set('submit-carname', this.onSubmitCarname.bind(this));
-    EVENT_MAP.KEY_UP.set('name-input', this.onInputCarNames.bind(this));
-    EVENT_MAP.SUBMIT.set('submit-carname', this.onSubmitCarname.bind(this));
+    this.$submitCarNameButton.addEventListener('click', (event) => {
+      this.onSubmitCarname(event);
+    });
+
+    this.$carNameInput.addEventListener('keyup', (event) => {
+      this.onInputCarNames(event);
+    });
+
+    // EVENT_MAP.SUBMIT.set('submit-carname', this.onSubmitCarname.bind(this));
   }
 }
 

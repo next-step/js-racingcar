@@ -1,8 +1,25 @@
-import { DEFAULT_STORE_STATE, EVENT_MAP } from '../constants.js';
-import Component from '../core/Component.js';
-import store from '../core/Store.js';
+import { DEFAULT_STORE_STATE } from '../constants.js';
+import observer from '../core/observer.js';
+import { store } from '../store/index.js';
 
-class Result extends Component {
+class Result {
+  constructor({ $target }) {
+    this.$target = $target;
+    $target.innerHTML = this.template();
+    this.$restartButton = $target.querySelector('[data-id=restart-button]');
+
+    observer.observe(() => {
+      this.render();
+      this.addEventListener();
+    });
+  }
+
+  onRestartButton(event) {
+    store.setState({
+      ...DEFAULT_STORE_STATE,
+    });
+  }
+
   template() {
     return /*html*/ `
       <div>
@@ -15,34 +32,23 @@ class Result extends Component {
   }
 
   render() {
-    const isVisibleResult = store.getState({
-      name: 'isVisibleResult',
-      that: this,
-    });
+    const { isVisibleResult, winners } = store.state;
 
-    const winners = store.getState({
-      name: 'winners',
-      that: this,
-    });
+    if (!isVisibleResult) {
+      this.$target.innerHTML = '';
+      return;
+    }
 
-    if (isVisibleResult) {
-      this.$target.innerHTML = this.template();
-      this.$target.querySelector('.winner-name').innerText = `
+    this.$target.innerHTML = this.template();
+    this.$target.querySelector('.winner-name').innerText = `
       🏆 최종 우승자: ${winners} 🏆
       `;
-    } else {
-      this.$target.innerHTML = '';
-    }
-  }
-
-  onRestartButton(event) {
-    store.setState({
-      ...DEFAULT_STORE_STATE,
-    });
   }
 
   addEventListener() {
-    EVENT_MAP.CLICK.set('restart-button', this.onRestartButton.bind(this));
+    this.$restartButton.addEventListener('click', (event) => {
+      this.onRestartButton(event);
+    });
   }
 }
 
