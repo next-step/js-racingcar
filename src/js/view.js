@@ -37,7 +37,7 @@ export const renderForwardIcon = (carWrapper) => {
   forwardIcon.classList = "forward-icon mt-2";
   forwardIcon.textContent = "⬇️️";
 
-  carWrapper.insertAdjacentElement("afterend", forwardIcon);
+  carWrapper.lastChild.insertAdjacentElement("afterend", forwardIcon);
 };
 
 export const renderSpinnerIcon = (carWrapper) => {
@@ -52,7 +52,7 @@ export const renderSpinnerIcon = (carWrapper) => {
   spinnerContainer.appendChild(spinnerIcon);
   spinnerFlexContainer.appendChild(spinnerContainer);
 
-  carWrapper.insertAdjacentElement("afterend", spinnerFlexContainer);
+  carWrapper.lastChild.insertAdjacentElement("afterend", spinnerFlexContainer);
 };
 
 export const removePrevSpinner = (car) => {
@@ -69,7 +69,7 @@ export const removeAllSpinnerIcon = () => {
 
 export const renderAllSpinnerIcon = () => {
   $$(".car").forEach((car) => {
-    renderSpinnerIcon(car.lastChild);
+    renderSpinnerIcon(car);
   });
 };
 

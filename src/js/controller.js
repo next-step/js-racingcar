@@ -85,9 +85,9 @@ export const startRacingCar = (racingCars) => {
 
     if (CAR.GO_OR_STOP_STANDARD < randomNumber) {
       racingCars[idx].forward(1);
-      renderForwardIcon(car.lastChild);
+      renderForwardIcon(car);
     } else {
-      renderSpinnerIcon(car.lastChild);
+      renderSpinnerIcon(car);
     }
   });
 };
