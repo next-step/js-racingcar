@@ -11,6 +11,7 @@ import {
   resetResult,
   resetTrial,
   resetName,
+  renderProcess,
 } from '../view/main.js';
 import cars from '../model/Cars.js';
 
@@ -44,10 +45,13 @@ export const handleSubmitTrialCount = event => {
     cars.setTrialCount(trialCount);
     toggleDisabledTrial();
     cars.generateGame();
+
+    console.log(cars);
     updateResult(cars.result);
     showResult();
-    updateWinner(cars.winners);
-    showWinner();
+    renderProcess(cars.carList, cars.trialCount);
+    // updateWinner(cars.winners);
+    // showWinner();
   } catch (e) {
     alert(e.message);
     focusTrialInput();

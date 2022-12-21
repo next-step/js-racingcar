@@ -24,7 +24,12 @@ export default class RacingGame {
 
   run() {
     this.carList.forEach(car => {
-      new Array(this.trialCount).fill(false).forEach(_ => this.isMove() && car.move());
+      const process = new Array(this.trialCount).fill(false).map(_ => this.isMove());
+
+      process.forEach(el => {
+        if (el === true) car.move();
+        car.setProcess(process);
+      });
     });
   }
 

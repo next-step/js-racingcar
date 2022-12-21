@@ -15,12 +15,19 @@ export class Car {
 
   distance;
 
+  process;
+
   constructor(name) {
     this.name = name;
     this.distance = 0;
+    this.process = [];
   }
 
   move() {
     this.distance += 1;
+  }
+
+  setProcess(newProcess) {
+    this.process = newProcess;
   }
 }
