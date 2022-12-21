@@ -10,7 +10,7 @@ export class Car {
     this.#position = 0;
   }
 
-  get carName() {
+  get name() {
     return this.#name.trim();
   }
 
@@ -24,7 +24,7 @@ export class Car {
 }
 
 export const getCarClassList = (element) =>
-  element.value.split(",").map((carName) => new Car(carName));
+  element.value.split(",").map((name) => new Car(name));
 
 export const extractWinner = (racingCars) => {
   const winnerPosition = racingCars.reduce((max, {position}) => {

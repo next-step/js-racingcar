@@ -21,9 +21,9 @@ export const createRacingCar = (racingCars) => {
     const carWrapper = document.createElement("div");
     const carElement = document.createElement("div");
 
-    carWrapper.className = `mt-4 d-flex flex-col car ${car.carName}`;
+    carWrapper.className = `mt-4 d-flex flex-col car ${car.name}`;
     carElement.className = "car-player";
-    carElement.innerText = car.carName;
+    carElement.innerText = car.name;
 
     carWrapper.appendChild(carElement);
     fragment.appendChild(carWrapper);
@@ -76,7 +76,7 @@ export const renderAllSpinnerIcon = () => {
 export const renderGameResult = (winnerList) => {
   showElement(DOM.RACING_WINNER_RENDER_SECTION);
 
-  const winners = winnerList.map((car) => car.carName).join(",");
+  const winners = winnerList.map((car) => car.name).join(",");
   DOM.RACING_RENDER_RESULT.innerHTML = winners;
 };
 
