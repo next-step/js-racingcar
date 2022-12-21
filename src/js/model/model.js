@@ -19,7 +19,7 @@ export class Car {
   }
 
   forward(number) {
-    return (this.#position += number);
+    this.#position += number;
   }
 }
 
@@ -31,11 +31,7 @@ export const extractWinner = (racingCars) => {
     return position > max ? position : max;
   }, 0);
 
-  const winner = racingCars.filter((car) => {
-    return car.position === winnerPosition;
-  });
-
-  return winner;
+  return racingCars.filter((car) => car.position === winnerPosition);
 };
 
 export const resetRacingCarModel = () => {

@@ -14,7 +14,7 @@ export const disabledElement = (element) => {
   element.disabled = true;
 };
 
-export const ableElement = (element) => {
+export const setElementActive = (element) => {
   element.disabled = false;
 };
 

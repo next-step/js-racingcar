@@ -4,7 +4,7 @@ import {
   $$,
   showElement,
   clearElementInnerHTML,
-  ableElement,
+  setElementActive,
   hideElement,
 } from "./utils/index.js";
 
@@ -89,10 +89,10 @@ export const renderCongratulatoryMessage = () => {
 export const resetRacingCarView = () => {
   clearElementInnerHTML(DOM.RACING_CAR_RENDER_SECTION);
 
-  ableElement(DOM.CAR_NAMES_ID_INPUT);
-  ableElement(DOM.CAR_NAMES_SUBMIT_BTN);
-  ableElement(DOM.NUMBER_OF_ATTEMPTS_INPUT);
-  ableElement(DOM.NUMBER_OF_ATTEMPTS_BTN);
+  setElementActive(DOM.CAR_NAMES_ID_INPUT);
+  setElementActive(DOM.CAR_NAMES_SUBMIT_BTN);
+  setElementActive(DOM.NUMBER_OF_ATTEMPTS_INPUT);
+  setElementActive(DOM.NUMBER_OF_ATTEMPTS_BTN);
 
   hideElement(DOM.NUMBER_OF_ATTEMPTS_FIELDSET);
   hideElement(DOM.RACING_WINNER_RENDER_SECTION);
