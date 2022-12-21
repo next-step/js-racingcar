@@ -18,16 +18,16 @@ export class Component {
     });
   }
 
-  render(hostElement, template = this.template) {
-    document.querySelector(hostElement).innerHTML = template;
+  render(element, template = this.template) {
+    document.querySelector(element).innerHTML = template;
   }
 
-  insertHTML(hostElement, template = this.template, position = 'beforeend') {
-    document.querySelector(hostElement).insertAdjacentHTML(position, template);
+  insertHTML(element, template = this.template, position = 'beforeend') {
+    document.querySelector(element).insertAdjacentHTML(position, template);
   }
 
-  removeHTML(hostElement) {
-    document.querySelector(hostElement).remove();
+  removeHTML(element) {
+    document.querySelector(element).remove();
   }
 
   show(element) {
@@ -36,5 +36,13 @@ export class Component {
 
   hide(element) {
     document.querySelector(element).style.display = 'none';
+  }
+
+  getChildCount(element) {
+    return document.querySelector(element).childElementCount;
+  }
+
+  displayAlert(message) {
+    window.alert(message);
   }
 }
