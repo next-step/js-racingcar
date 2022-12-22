@@ -1,4 +1,5 @@
 import ERROR_MESSAGES from '/src/js/constant/errorMessages.js';
+import { CONGRATS_MESSAGE } from '/src/js/constant/racingcar.js';
 
 describe('레이싱 카 어플리케이션 테스트', () => {
   beforeEach(() => {
@@ -53,7 +54,7 @@ describe('레이싱 카 어플리케이션 테스트', () => {
     });
   });
 
-  describe('주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.', () => {
+  describe('자동차 경주 게임을 시작한다.', () => {
     const cars = 'Benz, k5, Audi, BMW';
 
     beforeEach(() => {
@@ -86,41 +87,26 @@ describe('레이싱 카 어플리케이션 테스트', () => {
         cy.get('.trial-submit-btn').invoke('removeAttr', 'disabled');
       });
     });
-  });
 
-  describe('자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다.', () => {
-    const cars = 'Benz, k5, Audi, BMW';
-
-    beforeEach(() => {
-      cy.setName(cars);
-      cy.setTrialCount(20);
+    it('경기 시작후 얼마나 전진했는지 결과가 보인다.', () => {
+      cy.setTrialCount(4);
+      cy.wait(4 * 1000);
+      cy.get('.game-result').should('be.visible');
     });
 
-    it('시도할 횟수를 입력하면 우승자가 보인다.', () => {
-      cy.get('.winner-section').should('exist');
-      let max = 0;
-      const arr = [];
-
-      cy.get('.result-container').each($el => {
-        const length = $el.find('.forward-icon').length;
-        max = Math.max(max, length);
-      });
-
-      cy.get('.result-container').each($el => {
-        const length = $el.find('.forward-icon').length;
-        if (max === length) {
-          arr.push($el.find('.car-player').text());
-        }
-      });
-
-      cy.get('.winners').invoke('text').should('include', arr);
+    it('경기 종료후 2초뒤에 축하합니다 alert이 뜬다.', () => {
+      cy.setTrialCount(4);
+      cy.wait(4 * 1000);
+      cy.wait(2000);
+      cy.isAlert(CONGRATS_MESSAGE);
     });
   });
 
   describe('자동차 경주 게임을 리셋할 수 있다.', () => {
     beforeEach(() => {
-      cy.setName('BMW');
-      cy.setTrialCount(20);
+      cy.setName('Benz, k5, Audi, BMW');
+      cy.setTrialCount(4);
+      cy.wait(4 * 1000);
     });
 
     it('다시 시작하기 버튼을 누르면 처음 화면으로 되돌아 간다.', () => {
