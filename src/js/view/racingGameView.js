@@ -1,12 +1,17 @@
 import cars from '../model/Cars.js';
 import { $, $$ } from '../utils/selector.js';
 import { updateDistance, updateWinner, focusTrialInput } from './main.js';
+import { CONGRATS_MESSAGE } from '../constant/racingcar.js';
 
- const showDistance = () => {
+const PROCESS_MILLISECOND = 1000;
+const CONGRATS_MILLISECONDS = 2000;
+const DISTANCE_ICON️ = '⬇️';
+
+const showDistance = () => {
   $('.game-result').classList.remove('hide');
 };
 
- const addLoadingHTML = () => {
+const addLoadingHTML = () => {
   const loadingHTML = `
   <div class="d-flex justify-center mt-3 loading">
     <div class="relative spinner-container">
@@ -21,39 +26,39 @@ import { updateDistance, updateWinner, focusTrialInput } from './main.js';
   });
 };
 
- const renderProcess = carList => {
-  const moveHTML = `<div class="forward-icon mt-2">⬇️️</div>`;
+const renderProcess = carList => {
+  const moveHTML = `<div class="forward-icon mt-2">${DISTANCE_ICON️}</div>`;
   const $cars = document.querySelectorAll('.result-container');
 
-  let index = 0;
-  const interval = setInterval(() => {
-    $cars.forEach($el => {
-      const carName = $el.querySelector('.car-player').innerHTML;
-      const html = carList.find(el => el.name === carName).process[index];
+  let carIndex = 0;
+  const moveInterval = setInterval(() => {
+    $cars.forEach($car => {
+      const carName = $car.querySelector('.car-player').innerHTML;
+      const isCorrectName = carList.find(car => car.name === carName).process[carIndex];
 
-      $el
+      $car
         .querySelector('.cars')
-        .insertAdjacentHTML('afterbegin', `${html === true ? moveHTML : ''}`);
+        .insertAdjacentHTML('afterbegin', `${isCorrectName === true ? moveHTML : ''}`);
     });
-    index += 1;
-  }, 1000);
+    carIndex += 1;
+  }, PROCESS_MILLISECOND);
 
-  return interval;
+  return moveInterval;
 };
 
 const alertCongrats = () => {
-  setTimeout(() => alert('축하합니다🎉🎉🎉'), 2000);
+  setTimeout(() => alert(CONGRATS_MESSAGE), CONGRATS_MILLISECONDS);
 };
 
- const removeLoadingHTML = () => {
+const removeLoadingHTML = () => {
   $$('.loading').forEach($loading => $loading.remove());
 };
 
- const showWinner = () => {
+const showWinner = () => {
   $('.winner-section').classList.remove('hide');
 };
 
- const timeoutSetting = (interval, trialCount) => {
+const timeoutSetting = (interval, trialCount) => {
   setTimeout(() => {
     clearInterval(interval);
     alertCongrats();

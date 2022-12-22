@@ -1,5 +1,5 @@
 import cars from '../model/Cars.js';
-import { $, $$ } from '../utils/selector.js';
+import { $ } from '../utils/selector.js';
 import { focusNameInput, toggleDisabledName } from './main.js';
 
 const TRIM_BETWEEN_COMMA = /\s*,\s*/g;

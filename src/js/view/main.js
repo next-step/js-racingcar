@@ -1,4 +1,4 @@
-import { $, $$ } from '../utils/selector.js';
+import { $ } from '../utils/selector.js';
 
 export const hideTrialForm = () => {
   $('.trial-form').classList.add('hide');
