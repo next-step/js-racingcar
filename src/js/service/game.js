@@ -42,15 +42,10 @@ const raceOneTurn = (cars) => {
 };
 
 const getWinners = (cars) => {
-  const distanceByCar = cars.map((car) => car.getDistance());
-  const maxDistance = Math.max(...distanceByCar);
-  const winners = [];
-
-  distanceByCar.forEach((distance, idx) => {
-    if (distance === maxDistance) {
-      winners.push(cars[idx].getName());
-    }
-  });
+  const maxDistance = Math.max(...cars.map((car) => car.getDistance()));
+  const winners = cars
+    .filter((car) => car.getDistance() === maxDistance)
+    .map((car) => car.getName());
 
   return winners;
 };

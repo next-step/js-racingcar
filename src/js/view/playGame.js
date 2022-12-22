@@ -18,7 +18,7 @@ export const showCarNames = (cars) => {
     .map(
       (car) => /* html */ `
       <div class="mr-2 record-${car.getName()}">
-        ${template.carName(car.getName(car.getName()))}
+        ${template.carName(car.getName())}
         ${template.stop}
       </div>`
     )
