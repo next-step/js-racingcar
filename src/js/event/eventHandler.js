@@ -1,61 +1,27 @@
+import cars from '../model/Cars.js';
 import {
-  showTrialForm,
-  focusNameInput,
-  focusTrialInput,
-  updateResult,
-  updateWinner,
-  showWinner,
-  showResult,
-  toggleDisabledName,
-  toggleDisabledTrial,
+  submitNames,
+  processNameList,
+  generateGame,
+  submitTrialCount,
   resetResult,
   resetTrial,
   resetName,
-  renderProcess,
-} from '../view/main.js';
-import cars from '../model/Cars.js';
-
-const TRIM_BETWEEN_COMMA = /\s*,\s*/g;
-const COMMA = ',';
-
-const trimNameList = value => value.replace(TRIM_BETWEEN_COMMA, COMMA).trim();
-const splitNameList = name => name.split(COMMA);
+} from '../view/racingCar.js';
 
 export const handleSubmitName = event => {
   event.preventDefault();
   const { value: carNames } = event.target.elements['car-name'];
-  const trimmedList = trimNameList(carNames);
-  const carNameList = splitNameList(trimmedList);
 
-  try {
-    cars.setCarNames(carNameList);
-    toggleDisabledName();
-    showTrialForm();
-  } catch (e) {
-    alert(e.message);
-    focusNameInput();
-  }
+  submitNames(processNameList(carNames));
 };
 
 export const handleSubmitTrialCount = event => {
   event.preventDefault();
   const trialCount = Number(event.target.elements['trial-count'].value);
 
-  try {
-    cars.setTrialCount(trialCount);
-    toggleDisabledTrial();
-    cars.generateGame();
-
-    console.log(cars);
-    updateResult(cars.result);
-    showResult();
-    renderProcess(cars.carList, cars.trialCount);
-    // updateWinner(cars.winners);
-    // showWinner();
-  } catch (e) {
-    alert(e.message);
-    focusTrialInput();
-  }
+  submitTrialCount(trialCount);
+  generateGame();
 };
 
 export const handleClickReset = () => {
@@ -63,5 +29,4 @@ export const handleClickReset = () => {
   resetName();
   resetTrial();
   resetResult();
-  focusNameInput();
 };
