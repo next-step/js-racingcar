@@ -1,9 +1,9 @@
-import { CAR_NAME, CAR_RACE, ERROR_MESSAGE } from '../constant.js';
+import { CAR_NAME, CAR_RACE, ERROR_MESSAGE } from './constant.js';
 import {
   duplicatedName,
   isInvalidMinNumber,
   isInValidName,
-} from './validator.js';
+} from './utils/validator.js';
 
 export const nameValidations = [
   (value) => {

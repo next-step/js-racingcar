@@ -15,9 +15,7 @@ export class Car {
     return this.#step;
   }
 
-  forwardStep(condition) {
-    if (condition >= CAR_RACE.FORWARD) {
-      this.#step += 1;
-    }
+  forwardStep() {
+    this.#step = this.#step + 1;
   }
 }

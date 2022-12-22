@@ -1,4 +1,5 @@
-import { $, SELECTOR } from '../utils/selector.js';
+import { CAR_SPINNER_ID, SELECTOR } from '../constant.js';
+import { $, $$ } from '../utils/selector.js';
 
 export const visibleRaceTimes = () => {
   $(SELECTOR.RACE_TIMES_SECTION).style.display = 'block';
@@ -24,10 +25,8 @@ export const enbleTrialNumber = () => {
   $(SELECTOR.TRIAL_NUMBER_BUTTON).disabled = false;
 };
 
-export const getCarName = () => {
-  return $(SELECTOR.CAR_NAME_INPUT)
-    .value.split(',')
-    .map((name) => name.trim());
+export const getCarSpinner = (name) => {
+  return `${CAR_SPINNER_ID(name)} > ${SELECTOR.SPINNER_WRAPPER}`;
 };
 
 export const getTrialTimes = () => {
@@ -39,7 +38,7 @@ export const createCarElement = (carName) => {
 };
 
 export const createSpinnerElement = () => {
-  return `<div class="d-flex justify-center mt-3">
+  return `<div class="d-flex justify-center mt-3 spinner-wrapper">
   <div class="relative spinner-container">
     <span class="material spinner"></span>
   </div>
@@ -50,22 +49,25 @@ export const createForwardElement = () => {
   return `<div class="forward-icon mt-2">⬇️️</div>`;
 };
 
-export const renderRace = () => {
+export const renderRace = (cars) => {
   $(SELECTOR.RACE_PROCESS_COMPONENT).replaceChildren();
   const template = `<section class="d-flex justify-center mt-5">
-    <div class="mt-4 d-flex">${getCarName().map(
-      (name) => `
-      <div class="mr-2 ${name}">
-        ${createCarElement(name)}
+    <div class="mt-4 d-flex">${cars.map(
+      (car) => `
+      <div class="mr-2 name-label" id="car-${car.name}">
+        ${createCarElement(car.name)}
+        ${createSpinnerElement()}
       </div>
     `
     )}
+    </div>
     </section>
   `;
   $(SELECTOR.RACE_PROCESS_COMPONENT).insertAdjacentHTML('afterbegin', template);
 };
 
 export const renderWinner = (winner) => {
+  hideSpinner();
   const template = `
   <section class="d-flex justify-center mt-5">
     <div>
@@ -77,4 +79,13 @@ export const renderWinner = (winner) => {
   </section>`;
 
   $(SELECTOR.RACE_RESULT_COMPONENT).insertAdjacentHTML('afterbegin', template);
+};
+
+export const hideSpinner = () => {
+  $$(SELECTOR.SPINNER_WRAPPER).forEach((spinner) => spinner.remove());
+};
+
+export const renderForward = (name) => {
+  const carSpinner = $(getCarSpinner(name));
+  carSpinner.insertAdjacentHTML('beforebegin', createForwardElement());
 };

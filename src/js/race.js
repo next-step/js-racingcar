@@ -1,14 +1,21 @@
 import { CAR_RACE } from './constant.js';
-import { getNumberList, shuffle } from './utils/util.js';
+import { renderForward } from './ui/dom.js';
+import { getRandom } from './utils/random.js';
 
 export const startRace = (cars, times) => {
   return new Promise((resolve) => {
     let count = 0;
+
     const intervalId = setInterval(() => {
       count += 1;
-      cars.map((car) =>
-        car.forwardStep(shuffle(getNumberList(CAR_RACE.MAX), CAR_RACE.COUNT))
-      );
+      cars.map((car) => {
+        const forwardedStep = getRandom(CAR_RACE.MIN, CAR_RACE.MAX);
+        if (forwardedStep >= CAR_RACE.FORWARD) {
+          car.forwardStep();
+          renderForward(car.name);
+        }
+      });
+
       if (count === times) {
         clearInterval(intervalId);
         resolve(cars);
