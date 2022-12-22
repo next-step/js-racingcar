@@ -8,6 +8,10 @@
   margin: 20px 0 0;
 }
 
+#attempt-count-fieldset.active {
+  display: block;
+}
+
 #racing-ground-section {
   display: none;
   justify-content: center;
