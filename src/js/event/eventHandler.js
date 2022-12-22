@@ -1,19 +1,15 @@
 import cars from '../model/Cars.js';
-import {
-  submitNames,
-  processNameList,
-  generateGame,
-  submitTrialCount,
-  resetResult,
-  resetTrial,
-  resetName,
-} from '../view/racingCar.js';
+import { resetResult, resetTrial, resetName } from '../view/main.js';
+import { submitNames, processNameList } from '../view/racingCarNameView.js';
+import { submitTrialCount } from '../view/trialCountView.js';
+import { generateGame } from '../view/racingGameView.js';
 
 export const handleSubmitName = event => {
   event.preventDefault();
   const { value: carNames } = event.target.elements['car-name'];
 
-  submitNames(processNameList(carNames));
+  const carLists = processNameList(carNames);
+  submitNames(carLists);
 };
 
 export const handleSubmitTrialCount = event => {
