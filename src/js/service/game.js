@@ -1,27 +1,12 @@
 import { GAME_CONDITION } from '../constants/condition.js';
-import { SELECTOR } from '../constants/selector.js';
 
 import gameSetting from '../model/GameSetting.js';
 import Car from '../model/Car.js';
 
 import { generateRandomNumber } from '../utils/index.js';
-import { $ } from '../utils/dom.js';
 
-import {
-  hideGamePlay,
-  removeAllSpinners,
-  showCarNames,
-  showGamePlay,
-  showMoving,
-} from '../view/playGame.js';
-import { showWinners, showGameResult, hideGameResult } from '../view/gameResult.js';
-import {
-  enableCarNamesForm,
-  enableTrialCountForm,
-  hideTrialCountForm,
-  resetCarNamesForm,
-  resetTrialCountForm,
-} from '../view/gameSettingForm.js';
+import { removeAllSpinners, showCarNames, showGamePlay, showMoving } from '../view/playGame.js';
+import { showWinners, showGameResult } from '../view/gameResult.js';
 
 const isMovable = () => {
   const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER, MOVABLE_MIN_NUMBER } = GAME_CONDITION;
@@ -56,20 +41,6 @@ const celebrateWinners = (winners) => {
   }, GAME_CONDITION.CELEBRATE_TIME);
 };
 
-const restartGame = () => {
-  clearTimeout(celebrateWinners);
-
-  resetCarNamesForm();
-  enableCarNamesForm();
-
-  resetTrialCountForm();
-  enableTrialCountForm();
-  hideTrialCountForm();
-
-  hideGamePlay();
-  hideGameResult();
-};
-
 export const startGame = () => {
   const carNames = gameSetting.getNames();
   const trialCount = gameSetting.getTrialCount();
@@ -96,8 +67,6 @@ export const startGame = () => {
       showGameResult();
       showWinners(winners);
       celebrateWinners(winners);
-
-      $(SELECTOR.RESTART_GAME_BTN).addEventListener('click', restartGame);
     }
   }, TURN_INTERVAL_TIME);
 };
