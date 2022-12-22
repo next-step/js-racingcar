@@ -2,6 +2,7 @@ import { GAME_CONDITION } from '../constants/condition.js';
 
 import gameSetting from '../model/GameSetting.js';
 import Car from '../model/Car.js';
+import { CelebrateTimer } from '../model/CelebrateTimer.js';
 
 import { generateRandomNumber } from '../utils/index.js';
 
@@ -36,7 +37,7 @@ const getWinners = (cars) => {
 };
 
 const celebrateWinners = (winners) => {
-  setTimeout(() => {
+  CelebrateTimer.timeId = setTimeout(() => {
     alert(`${winners.join(', ')} 축하합니다!`);
   }, GAME_CONDITION.CELEBRATE_TIME);
 };

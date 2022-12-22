@@ -21,6 +21,7 @@ import {
 } from './view/gameSettingForm.js';
 import { hideGamePlay } from './view/playGame.js';
 import { hideGameResult } from './view/gameResult.js';
+import { CelebrateTimer } from './model/CelebrateTimer.js';
 
 export const handleSubmitCarNames = (e) => {
   e.preventDefault();
@@ -65,6 +66,8 @@ export const handleSubmitTrialCount = (e) => {
 };
 
 export const handleRestartGame = () => {
+  clearTimeout(CelebrateTimer.timeId);
+
   resetCarNamesForm();
   enableCarNamesForm();
 
