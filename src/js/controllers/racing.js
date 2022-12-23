@@ -7,10 +7,12 @@ import {
 } from "../utils/utils.js";
 
 class RacingController {
-  #formModel;
   #model;
   constructor(model) {
     this.#model = model;
+    this.submit = Object.freeze({
+      "submit-car-name-button": () => this.handledSubmitCarNames(),
+    });
   }
 
   get model() {
@@ -20,7 +22,6 @@ class RacingController {
     e.preventDefault();
     switch (e.type) {
       case "submit":
-        e.stopPropagation();
         this.submitHandler(e.submitter);
         break;
       default:
@@ -54,11 +55,11 @@ class RacingController {
     }
   }
   submitHandler(submitter) {
-    if (submitter.id === "submit-car-name-button") {
-      this.handledSubmitCarNames();
-    } else {
-      console.log("other", submitter);
+    if (Object.hasOwn(this.submit, submitter.id) === false) {
+      alert("해당 submitter는 등록되지 않았습니다.");
+      return;
     }
+    this.submit[submitter.id]();
   }
 }
 

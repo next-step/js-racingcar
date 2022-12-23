@@ -1,14 +1,17 @@
 #car-racing-setting-section {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-self: center;
+  width: 400px;
 }
 
-#attempt-count-fieldset {
+#car-count-setting-form {
   display: none;
   margin: 20px 0 0;
 }
 
-#attempt-count-fieldset.active {
+#car-count-setting-form.active {
   display: block;
 }
 
