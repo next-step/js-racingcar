@@ -1,6 +1,6 @@
 import Observable from "./observable.js";
 
-class Racing extends Observable {
+class RacingModel extends Observable {
   state;
   constructor() {
     super();
@@ -12,4 +12,4 @@ class Racing extends Observable {
   }
 }
 
-export default Racing;
+export default RacingModel;

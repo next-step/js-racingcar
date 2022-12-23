@@ -1,7 +1,7 @@
 import Observer from "./observer.js";
 import { $ } from "../utils/selector.js";
 
-class Racing extends Observer {
+class RacingView extends Observer {
   #controller;
   constructor(controller) {
     super();
@@ -30,4 +30,4 @@ class Racing extends Observer {
   }
 }
 
-export default Racing;
+export default RacingView;
