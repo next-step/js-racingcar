@@ -7,7 +7,7 @@ export default class CarNameSubmitButton {
     this.props = props;
 
     $target.addEventListener('click', (event) => {
-      this.onSubmitCarname(event);
+      this.props.onSubmitCarname(event);
     });
 
     observer.observe(() => {

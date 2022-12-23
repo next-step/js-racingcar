@@ -11,6 +11,33 @@ class Progress {
     });
   }
 
+  getRacingWinner = ({ racingMap, trialNumber }) => {
+    if (!racingMap || !racingMap.size) return false;
+
+    return [...racingMap.keys()]
+      .map((carId) => {
+        const progressArray = racingMap.get(carId);
+        if (progressArray.filter((el) => el === true).length === Number(trialNumber)) {
+          return this.getCarNameInCarId(carId);
+        }
+      })
+      .filter((el) => Boolean(el));
+  };
+
+  checkFinishRacing() {
+    const winner = this.getRacingWinner({ racingMap, trialNumber });
+
+    if (isRacingEnd || !isVisibleProgress) return;
+
+    if (winner.length) {
+      return store.setState({
+        isRacingEnd: true,
+        winners: winner.join(','),
+        isVisibleResult: true,
+      });
+    }
+  }
+
   render() {
     const { isVisibleProgress, carNames } = store.state;
 

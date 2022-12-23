@@ -1,4 +1,3 @@
-import { MAX_TRIAL_NUMBER } from '../constants/validation.js';
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
 import { makeRandomNumber, waitUntil } from '../utils/index.js';
@@ -12,12 +11,14 @@ class Trial {
 
     this.$moveInput = $target.querySelector('[data-id=move-input]');
     this.$moveButton = $target.querySelector('[data-id=move-submit]');
+    this.$moveWrapper = $target.querySelector('.move-wrapper');
+
+    this.$moveWrapper.addEventListener('submit', (event) => {
+      this.onSubmitTrials(event);
+    });
 
     new MoveInput({
       $target: this.$moveInput,
-      props: {
-        onSubmitTrials: this.onSubmitTrials,
-      },
     });
 
     new MoveSubmitButton({
@@ -63,59 +64,42 @@ class Trial {
       .filter((el) => Boolean(el));
   };
 
-  //*TODO: 렌더 후 업데이트가 아닌 한번에 실행 하고 밀어넣는 방식으로 변경하기
-  async componentUpdated() {
-    const { racingMap, trialNumber, isVisibleProgress, isRacingEnd } = store.state;
-
-    const winner = this.getRacingWinner({ racingMap, trialNumber });
-
-    if (isRacingEnd || !isVisibleProgress) return;
-
-    if (winner.length) {
-      return store.setState({
-        isRacingEnd: true,
-        winners: winner.join(','),
-        isVisibleResult: true,
-      });
-    }
-
-    await waitUntil(700);
-
-    store.setState({
-      racingMap: this.makeNewRacingMap(racingMap),
-    });
-  }
-
-  onSubmitTrials = () => {
-    const { racingMap, trialNumber } = store.state;
-    const newRacingMap = this.makeNewRacingMap(racingMap);
-
-    if (trialNumber > MAX_TRIAL_NUMBER) {
-      alert('30회 이하의 시도를 입력해주세요');
-      return;
-    }
-
-    if (!trialNumber) return;
+  onSubmitTrials = async (event) => {
+    event.preventDefault();
 
     store.setState({
       isVisibleProgress: true,
-      racingMap: newRacingMap,
     });
+
+    while (!store.state.winners.length) {
+      await waitUntil(1000);
+      const racingMap = this.makeNewRacingMap(store.state.racingMap);
+      store.setState({
+        racingMap,
+        winners: this.getRacingWinner({ racingMap, trialNumber: store.state.trialNumber }).join(','),
+      });
+    }
   };
 
   template() {
     return /*html*/ `
       <p class="move-explanation">시도할 횟수를 입력해주세요.</p>
-      <div class="d-flex">
+      <form class="d-flex move-wrapper">
         <input type="number" class="w-100 mr-2 move-input" placeholder="시도 횟수" data-id="move-input"/>
         <button type="button" class="btn btn-cyan move-submit-button" data-id="move-submit">확인</button>
-      </div>
-      
+      </form>
     `;
   }
 
   render() {
-    this.componentUpdated();
+    const { isVisibleTrial } = store.state;
+
+    if (!isVisibleTrial) {
+      this.$target.style.display = 'none';
+      return;
+    }
+
+    this.$target.style.display = 'block';
   }
 }
 

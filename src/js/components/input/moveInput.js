@@ -17,13 +17,6 @@ export default class MoveInput {
 
   onTypeMovement(event) {
     const { value } = event.target;
-    const isSubmit = event.key === 'Enter' && value.length;
-
-    if (isSubmit) {
-      this.props.onSubmitTrials(event);
-      return;
-    }
-
     store.setState({ trialNumber: Number(value) });
   }
 
@@ -37,8 +30,8 @@ export default class MoveInput {
       $target.setAttribute('disabled', '');
       return;
     }
-
-    $target.removeAttribute('disabled');
+    console.log('why no focus');
     $target.focus();
+    $target.removeAttribute('disabled');
   }
 }

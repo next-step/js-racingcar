@@ -36,7 +36,7 @@ class Result {
   render() {
     const { isVisibleResult, winners } = store.state;
 
-    if (!isVisibleResult) {
+    if (!winners.length) {
       this.$restartContainer.style.display = 'none';
       return;
     }

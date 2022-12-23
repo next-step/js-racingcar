@@ -12,7 +12,8 @@ class Player {
   }
 
   render() {
-    const { racingMap, isRacingEnd } = store.state;
+    const { racingMap, winners } = store.state;
+    const isRacingEnd = winners.length > 0;
     const { carId, carName } = this.props;
 
     this.$target.innerHTML = /*html*/ `
