@@ -1,3 +1,5 @@
+import { NotAllowedError } from "../utils/error.js";
+
 class Observable {
   constructor() {
     this.observers = [];
@@ -13,8 +15,11 @@ class Observable {
     );
   }
 
-  notify(data) {
-    this.observers.forEach((observer) => observer.update(data));
+  dispatch(type) {
+    if (this.observers.length === 0) {
+      throw new NotAllowedError("옵저버가 존재하지 않습니다.");
+    }
+    this.observers.forEach((observer) => observer.action(type));
   }
 }
 

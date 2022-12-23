@@ -1,5 +1,5 @@
 class Observer {
-  update() {}
+  action() {}
 }
 
 export default Observer;

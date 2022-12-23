@@ -1,5 +1,6 @@
 import Observer from "./observer.js";
 import { $, $$ } from "../utils/selector.js";
+import { ACTION_TYPE } from "../utils/constants.js";
 
 class RacingView extends Observer {
   #controller;
@@ -14,8 +15,17 @@ class RacingView extends Observer {
     this.$submitAttemptButton = $("#submit-attempt-count-button");
     this.$$forms.forEach((form) =>
       form.addEventListener("submit", this.#controller)
-    ); // 값을 변경하는 controller를 전달, View는 모델에 직접 접근하지 않는다.
+    );
+    this.ACTIONS = Object.freeze({
+      [ACTION_TYPE.CAR_NAME]: () => this.showCountFieldset(),
+      [ACTION_TYPE.ATTEMPT_COUNT]: (model) => this.createCar(model),
+    });
+
     this.#controller.model.subscribe(this);
+  }
+
+  createCar() {
+    console.log("createCar", this.#controller.model.state);
   }
 
   showCountFieldset() {
@@ -28,9 +38,8 @@ class RacingView extends Observer {
     this.$submitCarNameButton.setAttribute("disabled", "true");
   }
 
-  update(model) {
-    this.showCountFieldset();
-    console.log("update", model);
+  action(type) {
+    this.ACTIONS[type]();
   }
 }
 
