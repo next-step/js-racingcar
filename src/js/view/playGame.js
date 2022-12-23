@@ -2,10 +2,10 @@ import { SELECTOR } from '../constants/selector.js';
 
 import { $, $$ } from '../utils/dom.js';
 
-const template = {
-  carName: (carName) => /* html */ `<div class="car-player">${carName}</div>`,
-  move: /* html */ `<div class="forward-icon mt-2">⬇️️</div>`,
-  stop: /* html */ `
+const TEMPLATE = {
+  CAR_NAME: (carName) => /* html */ `<div class="car-player">${carName}</div>`,
+  MOVE: /* html */ `<div class="forward-icon mt-2">⬇️️</div>`,
+  STOP: /* html */ `
     <div class="d-flex justify-center mt-3">
       <div class="relative spinner-container">
         <span class="material spinner"></span>
@@ -18,8 +18,8 @@ export const showCarNames = (cars) => {
     .map(
       (car) => /* html */ `
       <div class="mr-2 record-${car.getName()}">
-        ${template.carName(car.getName())}
-        ${template.stop}
+        ${TEMPLATE.CAR_NAME(car.getName())}
+        ${TEMPLATE.STOP}
       </div>`
     )
     .join('');
@@ -41,8 +41,8 @@ export const showMoving = (car) => {
   const carName = car.getName();
 
   $(`.record-${carName}`).lastElementChild.remove();
-  $(`.record-${carName}`).insertAdjacentHTML('beforeend', template.move);
-  $(`.record-${carName}`).insertAdjacentHTML('beforeend', template.stop);
+  $(`.record-${carName}`).insertAdjacentHTML('beforeend', TEMPLATE.MOVE);
+  $(`.record-${carName}`).insertAdjacentHTML('beforeend', TEMPLATE.STOP);
 };
 
 export const removeAllSpinners = () => {
