@@ -1,4 +1,4 @@
-import { MAX_TRIAL_NUMBER } from '../constants.js';
+import { MAX_TRIAL_NUMBER } from '../constants/validation.js';
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
 import { makeRandomNumber, waitUntil } from '../utils/index.js';

@@ -1,4 +1,4 @@
-import { ALERT } from '../constants.js';
+import { ALERT } from '../constants/alert.js';
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
 import { splitingCarNames } from '../utils/index.js';

@@ -1,4 +1,4 @@
-import { DEFAULT_STORE_STATE } from '../constants.js';
+import { DEFAULT_STORE_STATE } from '../constants/state.js';
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
 
