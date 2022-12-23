@@ -43,9 +43,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.submitCarNames(CAR_NAME.OVER_LENGTH);
 
       cy.on('window:alert', (text) => {
-        expect(text).to.contains(
-          '유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.'
-        );
+        expect(text).to.contains('유효하지 않은 이름 길이입니다. 자동차의 이름은 1자이상, 5자 이하만 가능합니다.');
       });
     });
 
@@ -104,20 +102,14 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
       cy.get($element.carPlayer).each((eachElement, index) => {
-        cy.get(eachElement).should(
-          'have.text',
-          CAR_NAME.DIVERSE_CAR_NAME[index]
-        );
+        cy.get(eachElement).should('have.text', CAR_NAME.DIVERSE_CAR_NAME[index]);
       });
     });
 
     it('이름이 출력된 순간 이름 아래로 Spinner가 떠야한다.', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
-      cy.get($element.spinner).should(
-        'have.length',
-        CAR_NAME.DIVERSE_CAR_NAME.length
-      );
+      cy.get($element.spinner).should('have.length', CAR_NAME.DIVERSE_CAR_NAME.length);
     });
   });
 
@@ -132,10 +124,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
 
       cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
         expect(utils.getProgressOrNot).to.be.called; //Error
-        cy.get($element.forwardIcon).should(
-          'have.length',
-          MOVE_NUMBER * CAR_NAME.DIVERSE_CAR_NAME.length
-        );
+        cy.get($element.forwardIcon).should('have.length', MOVE_NUMBER * CAR_NAME.DIVERSE_CAR_NAME.length);
       });
     });
 
@@ -151,83 +140,72 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       expect(utils.getProgressOrNot).to.be.called; //Error
 
       cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
-        cy.get($element.spinner).should(
-          'have.length',
-          CAR_NAME.DIVERSE_CAR_NAME.length
-        );
+        cy.get($element.spinner).should('have.length', CAR_NAME.DIVERSE_CAR_NAME.length);
       });
     });
   });
 
-  context(
-    '자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.',
-    () => {
-      //Error
-      it('하나의 자동차가 제출한 이동 횟수에 도달하게 되면 최종우승자를 알려줘야한다.', () => {
-        //makeNewRacingMap을 모킹해서 미리 결과를 밀어넣으면 될 것 같은데 stub이 안된다. -- 1
-        cy.stub(utils, 'makeNewRacingMap', () => {
-          const map = new Map();
+  context('자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.', () => {
+    //Error
+    it('하나의 자동차가 제출한 이동 횟수에 도달하게 되면 최종우승자를 알려줘야한다.', () => {
+      //makeNewRacingMap을 모킹해서 미리 결과를 밀어넣으면 될 것 같은데 stub이 안된다. -- 1
+      cy.stub(utils, 'makeNewRacingMap', () => {
+        const map = new Map();
 
-          CAR_NAME.DIVERSE_CAR_NAME.forEach((carName, index) => {
-            map.set(carName, Array(MOVE_NUMBER).fill(index === 0));
-          });
-          return map;
+        CAR_NAME.DIVERSE_CAR_NAME.forEach((carName, index) => {
+          map.set(carName, Array(MOVE_NUMBER).fill(index === 0));
         });
-
-        cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
-        cy.submitTrial(MOVE_NUMBER);
-        cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
-          cy.get($element.winnerName).should(($element) =>
-            expect($element.text().trim()).to.equal(
-              `🏆 최종 우승자: ${CAR_NAME.DIVERSE_CAR_NAME[0]} 🏆`
-            )
-          );
-        });
-      });
-      //Error
-      it('우승자가 여러명일 경우 ,를 이용하여 구분한다.', () => {
-        //makeNewRacingMap을 모킹해서 미리 결과를 밀어넣으면 될 것 같은데 stub이 안된다. -- 2
-        cy.stub(utils, 'makeNewRacingMap', () => {
-          const map = new Map();
-
-          CAR_NAME.DIVERSE_CAR_NAME.forEach((carName, index) => {
-            map.set(
-              carName,
-              Array(MOVE_NUMBER).fill(index === 0 || index === 1)
-            );
-          });
-          return map;
-        });
-
-        cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
-        cy.submitTrial(MOVE_NUMBER);
-        cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
-          cy.get($element.winnerName).should(($element) =>
-            expect($element.text().trim()).to.equal(
-              `🏆 최종 우승자: ${CAR_NAME.DIVERSE_CAR_NAME[0]},${CAR_NAME.DIVERSE_CAR_NAME[1]} 🏆`
-            )
-          );
-        });
+        return map;
       });
 
-      it('최종우승자를 알게되면 다시 시작하기 버튼이 생성되어야 한다.', () => {
-        cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
-        cy.submitTrial(MOVE_NUMBER);
-        cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
-          cy.get($element.restartButton).should('exist');
+      cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
+      cy.submitTrial(MOVE_NUMBER);
+      cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
+        cy.get($element.winnerName).should(($element) =>
+          expect($element.text().trim()).to.equal(`🏆 최종 우승자: ${CAR_NAME.DIVERSE_CAR_NAME[0]} 🏆`)
+        );
+      });
+    });
+    //Error
+    it('우승자가 여러명일 경우 ,를 이용하여 구분한다.', () => {
+      //makeNewRacingMap을 모킹해서 미리 결과를 밀어넣으면 될 것 같은데 stub이 안된다. -- 2
+      cy.stub(utils, 'makeNewRacingMap', () => {
+        const map = new Map();
+
+        CAR_NAME.DIVERSE_CAR_NAME.forEach((carName, index) => {
+          map.set(carName, Array(MOVE_NUMBER).fill(index === 0 || index === 1));
         });
+        return map;
       });
 
-      it('다시 시작하기 버튼 클릭 시 모든 것이 최초의 상태로 돌아간다.', () => {
-        cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
-        cy.submitTrial(MOVE_NUMBER);
-
-        cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
-          cy.get($element.restartButton).should('exist');
-          cy.get($element.restartButton).click();
-          cy.get($element.carNameInput).should('have.value', '');
-        });
+      cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
+      cy.submitTrial(MOVE_NUMBER);
+      cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
+        cy.get($element.winnerName).should(($element) =>
+          expect($element.text().trim()).to.equal(
+            `🏆 최종 우승자: ${CAR_NAME.DIVERSE_CAR_NAME[0]},${CAR_NAME.DIVERSE_CAR_NAME[1]} 🏆`
+          )
+        );
       });
-    }
-  );
+    });
+
+    it('최종우승자를 알게되면 다시 시작하기 버튼이 생성되어야 한다.', () => {
+      cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
+      cy.submitTrial(MOVE_NUMBER);
+      cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
+        cy.get($element.restartButton).should('exist');
+      });
+    });
+
+    it('다시 시작하기 버튼 클릭 시 모든 것이 최초의 상태로 돌아간다.', () => {
+      cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
+      cy.submitTrial(MOVE_NUMBER);
+
+      cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
+        cy.get($element.restartButton).should('exist');
+        cy.get($element.restartButton).click();
+        cy.get($element.carNameInput).should('have.value', '');
+      });
+    });
+  });
 });

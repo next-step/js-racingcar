@@ -56,10 +56,7 @@ class Trial {
     return [...racingMap.keys()]
       .map((carId) => {
         const progressArray = racingMap.get(carId);
-        if (
-          progressArray.filter((el) => el === true).length ===
-          Number(trialNumber)
-        ) {
+        if (progressArray.filter((el) => el === true).length === Number(trialNumber)) {
           return this.getCarNameInCarId(carId);
         }
       })
@@ -68,8 +65,7 @@ class Trial {
 
   //*TODO: 렌더 후 업데이트가 아닌 한번에 실행 하고 밀어넣는 방식으로 변경하기
   async componentUpdated() {
-    const { racingMap, trialNumber, isVisibleProgress, isRacingEnd } =
-      store.state;
+    const { racingMap, trialNumber, isVisibleProgress, isRacingEnd } = store.state;
 
     const winner = this.getRacingWinner({ racingMap, trialNumber });
 

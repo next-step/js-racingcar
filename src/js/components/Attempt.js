@@ -10,9 +10,7 @@ class Attempt {
     this.$target = $target;
     $target.innerHTML = this.template();
 
-    this.$submitCarNameButton = $target.querySelector(
-      '[data-id=submit-carname]'
-    );
+    this.$submitCarNameButton = $target.querySelector('[data-id=submit-carname]');
     this.$carNameInput = $target.querySelector('[data-id=name-input]');
     this.$trialWrapper = $target.querySelector('.trial-count-wrapper');
     this.$attemptWrapper = $target.querySelector('.attempt-wrapper');
@@ -57,9 +55,7 @@ class Attempt {
   validateCarNames = (carNamesArray) => {
     if (!carNamesArray || !carNamesArray.length) return false;
 
-    return carNamesArray
-      .filter((name) => Boolean(name) === true)
-      .every((el) => el.length >= 1 && el.length < 6);
+    return carNamesArray.filter((name) => Boolean(name) === true).every((el) => el.length >= 1 && el.length < 6);
   };
 
   makeDefaultRacingMap = (carNames) =>

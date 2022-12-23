@@ -17,8 +17,7 @@ export const makeRandomNumber = (minValue = 0, maxValue = 9) => {
   return Math.floor(Math.random() * maxValue + minValue);
 };
 
-export const waitUntil = (delay) =>
-  new Promise((resolve) => setTimeout(resolve, delay));
+export const waitUntil = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 export const deepDiffMapper = () => {
   //*Reference: https://stackoverflow.com/questions/8572826/generic-deep-diff-between-two-objects
@@ -70,11 +69,7 @@ export const deepDiffMapper = () => {
       if (value1 === value2) {
         return this.VALUE_UNCHANGED;
       }
-      if (
-        this.isDate(value1) &&
-        this.isDate(value2) &&
-        value1.getTime() === value2.getTime()
-      ) {
+      if (this.isDate(value1) && this.isDate(value2) && value1.getTime() === value2.getTime()) {
         return this.VALUE_UNCHANGED;
       }
       if (value1 === undefined) {

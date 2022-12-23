@@ -20,8 +20,6 @@ export default class MoveSubmitButton {
     const { trialNumber, isVisibleProgress } = store.state;
     const isDisbledButton = isVisibleProgress || !trialNumber;
 
-    isDisbledButton
-      ? $target.setAttribute('disabled', '')
-      : $target.removeAttribute('disabled');
+    isDisbledButton ? $target.setAttribute('disabled', '') : $target.removeAttribute('disabled');
   }
 }

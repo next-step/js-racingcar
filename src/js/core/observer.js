@@ -15,10 +15,7 @@ const observer = (() => {
       get(target, name) {
         if (!observableMap.has(name)) observableMap.set(name, new Set());
         if (currentObserver) {
-          observableMap.set(
-            name || '',
-            new Set([...(observableMap.get(name) || []), currentObserver])
-          );
+          observableMap.set(name || '', new Set([...(observableMap.get(name) || []), currentObserver]));
         }
 
         return target[name];
