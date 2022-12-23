@@ -4,7 +4,7 @@ import { makeRandomNumber, waitUntil } from '../utils/index.js';
 import MoveSubmitButton from './button/moveSubmitButton.js';
 import MoveInput from './input/moveInput.js';
 
-class Trial {
+class TrialNumberRegister {
   constructor({ $target }) {
     this.$target = $target;
     $target.innerHTML = this.template();
@@ -103,4 +103,4 @@ class Trial {
   }
 }
 
-export default Trial;
+export default TrialNumberRegister;

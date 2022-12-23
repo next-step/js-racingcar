@@ -39,6 +39,6 @@ fieldset {
 .attempt-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  width: fit-content;
+  margin: auto;
 }

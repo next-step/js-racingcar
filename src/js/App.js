@@ -1,5 +1,5 @@
-import Attempt from './components/Attempt.js';
-import Progress from './components/Progress.js';
+import CarNameRegister from './components/CarNameRegister.js';
+import RaceProgress from './components/RaceProgress.js';
 import Result from './components/Result.js';
 
 export class App {
@@ -24,11 +24,11 @@ export class App {
   render() {
     const { $target } = this;
 
-    new Attempt({
+    new CarNameRegister({
       $target: $target.querySelector('.attempt-container'),
     });
 
-    new Progress({
+    new RaceProgress({
       $target: $target.querySelector('.progress-container'),
     });
 

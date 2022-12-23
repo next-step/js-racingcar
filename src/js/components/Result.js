@@ -10,15 +10,12 @@ class Result {
     this.$restartButton = $target.querySelector('[data-id=restart-button]');
     this.$winnerName = $target.querySelector('.winner-name');
 
+    this.$restartButton.addEventListener('click', () => {
+      this.onRestartButton();
+    });
+
     observer.observe(() => {
       this.render();
-      this.addEventListener();
-    });
-  }
-
-  onRestartButton() {
-    store.setState({
-      ...DEFAULT_STORE_STATE,
     });
   }
 
@@ -33,8 +30,12 @@ class Result {
   `;
   }
 
+  alertWinner(winners) {
+    window.alert(`우승자는 ${winners} 입니다. 축하합니다!`);
+  }
+
   render() {
-    const { isVisibleResult, winners } = store.state;
+    const { winners } = store.state;
 
     if (!winners.length) {
       this.$restartContainer.style.display = 'none';
@@ -45,11 +46,12 @@ class Result {
     this.$winnerName.innerText = `
       🏆 최종 우승자: ${winners} 🏆
       `;
+    this.alertWinner(winners);
   }
 
-  addEventListener() {
-    this.$restartButton.addEventListener('click', (event) => {
-      this.onRestartButton();
+  onRestartButton() {
+    store.setState({
+      ...DEFAULT_STORE_STATE,
     });
   }
 }

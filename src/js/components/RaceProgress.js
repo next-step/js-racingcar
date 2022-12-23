@@ -1,8 +1,8 @@
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
 import { splitingCarNames } from '../utils/index.js';
-import Player from './Player.js';
-class Progress {
+import CarPlayer from './CarPlayer.js';
+class RaceProgress {
   constructor({ $target }) {
     this.$target = $target;
 
@@ -24,25 +24,26 @@ class Progress {
       .filter((el) => Boolean(el));
   };
 
-  checkFinishRacing() {
-    const winner = this.getRacingWinner({ racingMap, trialNumber });
+  // checkFinishRacing() {
+  //   const winner = this.getRacingWinner({ racingMap, trialNumber });
 
-    if (isRacingEnd || !isVisibleProgress) return;
+  //   if (isRacingEnd || !isVisibleProgress) return;
 
-    if (winner.length) {
-      return store.setState({
-        isRacingEnd: true,
-        winners: winner.join(','),
-        isVisibleResult: true,
-      });
-    }
-  }
+  //   if (winner.length) {
+  //     return store.setState({
+  //       isRacingEnd: true,
+  //       winners: winner.join(','),
+  //       isVisibleResult: true,
+  //     });
+  //   }
+  // }
 
   render() {
     const { isVisibleProgress, carNames } = store.state;
 
     if (!isVisibleProgress) {
-      return (this.$target.innerHTML = '');
+      this.$target.innerHTML = '';
+      return;
     }
 
     splitingCarNames(carNames)
@@ -52,7 +53,7 @@ class Progress {
         $wrapper.setAttribute('class', 'mr-2');
         this.$target.append($wrapper);
 
-        new Player({
+        new CarPlayer({
           $target: $wrapper,
           props: { carName, carId },
         });
@@ -61,4 +62,4 @@ class Progress {
   }
 }
 
-export default Progress;
+export default RaceProgress;

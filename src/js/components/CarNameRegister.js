@@ -1,11 +1,10 @@
 import { ALERT } from '../constants/alert.js';
-import observer from '../core/observer.js';
 import { store } from '../store/index.js';
 import { splitingCarNames } from '../utils/index.js';
 import CarNameSubmitButton from './button/carNameSubmitButton.js';
 import CarNameInput from './input/carNameInput.js';
-import Trial from './Trial.js';
-class Attempt {
+import Trial from './TrialNumberRegister.js';
+class CarNameRegister {
   constructor({ $target }) {
     this.$target = $target;
     $target.innerHTML = this.template();
@@ -16,7 +15,6 @@ class Attempt {
     this.$attemptWrapper = $target.querySelector('.attempt-wrapper');
 
     this.$attemptWrapper.addEventListener('submit', (event) => {
-      console.log('hello submit event');
       this.onSubmitCarname(event);
     });
 
@@ -33,10 +31,6 @@ class Attempt {
 
     new Trial({
       $target: this.$trialWrapper,
-    });
-
-    observer.observe(() => {
-      this.render();
     });
   }
 
@@ -78,8 +72,6 @@ class Attempt {
     const { carNames } = store.state;
     const splitedCarNames = splitingCarNames(carNames);
 
-    event.preventDefault();
-
     if (!this.validateCarNames(splitedCarNames)) {
       alert(ALERT.INVALID_CARNAME);
       return;
@@ -90,21 +82,6 @@ class Attempt {
       racingMap: this.makeDefaultRacingMap(carNames),
     });
   };
-
-  // renderTrialComponent() {
-  //   const { isVisibleTrial } = store.state;
-
-  //   if (isVisibleTrial) {
-  //     new Trial({
-  //       $target: this.$trialWrapper,
-  //     });
-  //   }
-  // }
-
-  render() {
-    // this.renderTrialComponent();
-    // if (!store.state.isVisibleTrial) this.$trialWrapper.innerHTML = '';
-  }
 }
 
-export default Attempt;
+export default CarNameRegister;

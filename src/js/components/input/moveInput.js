@@ -22,7 +22,7 @@ export default class MoveInput {
 
   render() {
     const { $target } = this;
-    const { trialNumber, isVisibleProgress } = store.state;
+    const { trialNumber, isVisibleProgress, isVisibleTrial } = store.state;
 
     $target.value = trialNumber;
 
@@ -30,7 +30,7 @@ export default class MoveInput {
       $target.setAttribute('disabled', '');
       return;
     }
-    console.log('why no focus');
+
     $target.focus();
     $target.removeAttribute('disabled');
   }

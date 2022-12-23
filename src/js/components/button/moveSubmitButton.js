@@ -6,12 +6,12 @@ export default class MoveSubmitButton {
     this.$target = $target;
     this.props = props;
 
-    observer.observe(() => {
-      this.render();
+    $target.addEventListener('click', (event) => {
+      props.onSubmitTrials(event);
     });
 
-    this.$target.addEventListener('click', (event) => {
-      props.onSubmitTrials(event);
+    observer.observe(() => {
+      this.render();
     });
   }
 
