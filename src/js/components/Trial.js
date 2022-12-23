@@ -2,6 +2,8 @@ import { MAX_TRIAL_NUMBER } from '../constants.js';
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
 import { makeRandomNumber, waitUntil } from '../utils/index.js';
+import MoveSubmitButton from './button/moveSubmitButton.js';
+import MoveInput from './input/moveInput.js';
 
 class Trial {
   constructor({ $target }) {
@@ -11,56 +13,38 @@ class Trial {
     this.$moveInput = $target.querySelector('[data-id=move-input]');
     this.$moveButton = $target.querySelector('[data-id=move-submit]');
 
+    new MoveInput({
+      $target: this.$moveInput,
+      props: {
+        onSubmitTrials: this.onSubmitTrials,
+      },
+    });
+
+    new MoveSubmitButton({
+      $target: this.$moveButton,
+      props: {
+        makeNewRacingMap: this.makeNewRacingMap,
+        onSubmitTrials: this.onSubmitTrials,
+      },
+    });
+
     observer.observe(() => {
       this.render();
-      this.addEventListener();
     });
-  }
-
-  renderMoveButton() {
-    const { $moveButton } = this;
-    const { trialNumber, isVisibleProgress } = store.state;
-    const isDisbledButton = isVisibleProgress || !trialNumber;
-
-    isDisbledButton
-      ? $moveButton.setAttribute('disabled', '')
-      : $moveButton.removeAttribute('disabled');
-  }
-
-  renderMoveInput() {
-    const { $moveInput } = this;
-    const { trialNumber, isVisibleProgress } = store.state;
-
-    $moveInput.value = trialNumber;
-    isVisibleProgress
-      ? $moveInput.setAttribute('disabled', '')
-      : $moveInput.focus();
-  }
-
-  onTypeMovement(event) {
-    const { value } = event.target;
-    const isSubmit = event.key === 'Enter' && value.length;
-
-    if (isSubmit) {
-      this.onSubmitTrials(event);
-      return;
-    }
-
-    store.setState({ trialNumber: Number(value) });
   }
 
   getProgressOrNot = () => {
     return makeRandomNumber() > 4;
   };
 
-  makeNewRacingMap(prevRacingMap) {
+  makeNewRacingMap = (prevRacingMap) => {
     if (!prevRacingMap.size) return prevRacingMap;
 
     return Array.from(prevRacingMap).reduce((map, [key, values]) => {
       map.set(key, [...values, this.getProgressOrNot()]);
       return map;
     }, new Map());
-  }
+  };
 
   getCarNameInCarId = (carId) => {
     return carId.split('-')[0];
@@ -106,7 +90,7 @@ class Trial {
     });
   }
 
-  onSubmitTrials() {
+  onSubmitTrials = () => {
     const { racingMap, trialNumber } = store.state;
     const newRacingMap = this.makeNewRacingMap(racingMap);
 
@@ -121,7 +105,7 @@ class Trial {
       isVisibleProgress: true,
       racingMap: newRacingMap,
     });
-  }
+  };
 
   template() {
     return /*html*/ `
@@ -135,19 +119,7 @@ class Trial {
   }
 
   render() {
-    this.renderMoveButton();
-    this.renderMoveInput();
     this.componentUpdated();
-  }
-
-  addEventListener() {
-    this.$moveButton.addEventListener('click', (event) => {
-      if (event.target.dataset.id === 'move-submit') this.onSubmitTrials(event);
-    });
-
-    this.$moveInput.addEventListener('keyup', (event) => {
-      this.onTypeMovement(event);
-    });
   }
 }
 
