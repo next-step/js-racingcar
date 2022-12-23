@@ -8,34 +8,47 @@ class RacingView extends Observer {
     super();
     this.#controller = controller;
     this.$$forms = $$("form");
-    this.$nameform = $("#car-name-setting-form");
     this.$countform = $("#car-count-setting-form");
-    this.$carNameInput = $("#car-name-input");
-    this.$submitCarNameButton = $("#submit-car-name-button");
-    this.$submitAttemptButton = $("#submit-attempt-count-button");
-    this.$$forms.forEach((form) =>
-      form.addEventListener("submit", this.#controller)
-    );
+
+    this.$carNameElements = Object.freeze({
+      $input: $("#car-name-input"),
+      $submitButton: $("#submit-car-name-button"),
+    });
+
+    this.$attemptElements = Object.freeze({
+      $input: $("#attempt-count-input"),
+      $submitButton: $("#submit-attempt-count-button"),
+    });
+
     this.ACTIONS = Object.freeze({
       [ACTION_TYPE.CAR_NAME]: () => this.showCountFieldset(),
       [ACTION_TYPE.ATTEMPT_COUNT]: (model) => this.createCar(model),
     });
+
+    this.$$forms.forEach((form) =>
+      form.addEventListener("submit", this.#controller)
+    );
 
     this.#controller.model.subscribe(this);
   }
 
   createCar() {
     console.log("createCar", this.#controller.model.state);
+
+    this.setDisabledElements(this.$attemptElements);
   }
 
   showCountFieldset() {
     this.$countform.classList.add("active");
-    this.setDisabledCarNameFieldset();
+    this.$attemptElements.$input.focus();
+    this.setDisabledElements(this.$carNameElements);
   }
 
-  setDisabledCarNameFieldset() {
-    this.$carNameInput.setAttribute("disabled", "true");
-    this.$submitCarNameButton.setAttribute("disabled", "true");
+  setDisabledElements($elements) {
+    const $selectors = Object.values($elements);
+    $selectors.forEach(($selector) => {
+      $selector.setAttribute("disabled", "true");
+    });
   }
 
   action(type) {

@@ -2,6 +2,9 @@ import { ERROR_MESSAGES } from "../../src/js/utils/constants";
 
 const $SUBMIT_CAR_NAME_BUTTON_SELECTOR = "#submit-car-name-button";
 const $CAR_NAME_INPUT_SELECTOR = "#car-name-input";
+const $CAR_COUNT_SETTING_FORM_SELECTOR = "#car-count-setting-form";
+const $ATTEMPT_COUNT_INPUT_SELECTOR = "#attempt-count-input";
+const $SUBMIT_ATTEMPT_COUNT_BUTTON_SELECTOR = "#submit-attempt-count-button";
 describe("레이싱 경주 테스트", () => {
   beforeEach(() => {
     cy.visit("/");
@@ -45,6 +48,7 @@ describe("레이싱 경주 테스트", () => {
         });
       });
     });
+
     it("자동차 이름을 올바르게 입력 후 Enter Key 입력 시 자동차 이름 입력 영역의 Input과 Button이 비활성화된다.", () => {
       cy.get($CAR_NAME_INPUT_SELECTOR)
         .type("cars{enter}")
@@ -67,25 +71,59 @@ describe("레이싱 경주 테스트", () => {
   });
 
   describe("사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.", () => {
-    it("이동 횟수를 입력할 수 있는 Input이 존재한다.", () => {});
-    it("Input에는 숫자만 입력이 가능하다.", () => {});
-    it("숫자를 제외한 문자 입력시 Alert가 뜬다.", () => {});
-    it("빈 문자 입력시 Alert가 뜬다", () => {});
-    it("Enter Key로 등록이 가능하다", () => {});
-    it("확인 버튼 클릭시 등록이 가능하다", () => {});
-    it("등록이 완료되면 Input은 수정이 불가능하다.", () => {});
-    it("등록이 완료되면 확인 버튼 클릭이 불가능하다.", () => {});
+    beforeEach(() => {
+      cy.get($CAR_NAME_INPUT_SELECTOR).type("cars{enter}");
+    });
+
+    it("이동 횟수를 입력할 수 있는 영역이 존재한다.", () => {
+      cy.get($CAR_COUNT_SETTING_FORM_SELECTOR).should("have.class", "active");
+    });
+
+    it("Input에는 1이상의 숫자만 입력이 가능하다.", () => {
+      cy.get($CAR_COUNT_SETTING_FORM_SELECTOR).type("0");
+      cy.alert({
+        action: () => cy.get($SUBMIT_ATTEMPT_COUNT_BUTTON_SELECTOR).click(),
+        message: ERROR_MESSAGES.NOT_ALLOW_COUNT,
+      });
+    });
+
+    it("빈 문자 입력시 Alert가 뜬다", () => {
+      cy.get($CAR_COUNT_SETTING_FORM_SELECTOR).type("{enter}");
+      cy.alert({
+        action: () => cy.get($SUBMIT_ATTEMPT_COUNT_BUTTON_SELECTOR).click(),
+        message: ERROR_MESSAGES.NOT_ALLOW_COUNT,
+      });
+    });
+
+    it("자동차 이름을 올바르게 입력 후 Enter Key 입력 시 자동차 이름 입력 영역의 Input과 Button이 비활성화된다.", () => {
+      cy.get($ATTEMPT_COUNT_INPUT_SELECTOR)
+        .type("1{enter}")
+        .then(() => {
+          cy.get($ATTEMPT_COUNT_INPUT_SELECTOR).should("be.disabled");
+          cy.get($SUBMIT_ATTEMPT_COUNT_BUTTON_SELECTOR).should("be.disabled");
+        });
+    });
+
+    it("자동차 이름을 올바르게 입력 후 확인 버튼 클릭 시 자동차 이름 입력 영역의 Input과 Button이 비활성화된다.", () => {
+      cy.get($ATTEMPT_COUNT_INPUT_SELECTOR).type("2");
+
+      cy.get($SUBMIT_ATTEMPT_COUNT_BUTTON_SELECTOR)
+        .click()
+        .then(() => {
+          cy.get($ATTEMPT_COUNT_INPUT_SELECTOR).should("be.disabled");
+          cy.get($SUBMIT_ATTEMPT_COUNT_BUTTON_SELECTOR).should("be.disabled");
+        });
+    });
   });
 
   describe("자동차는 사용자가 입력한 횟수 내로 랜덤하게 이동할 수 있다.", () => {
-    it("자동차가 출력된다.", () => {});
-    it("자동차 이름은 쉼표(,)를 기준으로 구분한다.", () => {});
     it("자동차 이름이 출력된다.", () => {});
+    it("자동차 이름은 쉼표(,)를 기준으로 구분한다.", () => {});
     it("4이상의 값이 입력되면 해당 카운트에 전진한다", () => {});
     it("3이하의 값이 입력되면 해당 카운트에는 정지한다", () => {});
   });
 
-  describe("사용자가 정한 횟수가 지나면 종료된다.", () => {
+  describe("사용자자가 정한 횟수가 지나면 종료된다.", () => {
     it("최종 우승 자동차의 이름이 화면에 노출된다.", () => {});
     it("축하 Alert가 노출된다.", () => {});
   });
