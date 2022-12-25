@@ -47,6 +47,6 @@ export default class InputPlayerComponent extends Component {
     }
 
     this.#playerFormControl.disable(this.$playerField);
-    this.#playerState.player = this.#playerFormControl.getValue();
+    this.#playerState.value = this.#playerFormControl.getValue();
   };
 }

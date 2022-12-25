@@ -55,6 +55,6 @@ export default class InputRoundComponent extends Component {
     }
 
     this.#roundFormControl.disable(this.$roundField);
-    this.#roundState.round = this.#roundFormControl.getValue();
+    this.#roundState.value = this.#roundFormControl.getValue();
   };
 }

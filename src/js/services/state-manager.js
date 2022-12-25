@@ -10,70 +10,28 @@ export class StateManager {
   };
 
   winnerState = {
-    winner: [],
+    value: [],
     observers: [],
   };
 
   resetState = {
-    reset: true,
+    value: true,
     observers: [],
   };
 
   constructor() {
-    this.#setPlayerState();
-    this.#setRoundState();
-    this.#setWinnerState();
-    this.#setResetState();
+    this.playerState = this.#setState(this.playerState);
+    this.roundState = this.#setState(this.roundState);
+    this.winnerState = this.#setState(this.winnerState);
+    this.resetState = this.#setState(this.resetState);
   }
 
-  #setPlayerState() {
-    this.playerState = new Proxy(this.playerState, {
+  #setState(state) {
+    return new Proxy(state, {
       set(target, prop, value) {
         Reflect.set(target, prop, value);
 
-        if ('player' === prop) {
-          target.observers.forEach(fn => fn(value));
-        }
-
-        return true;
-      },
-    });
-  }
-
-  #setRoundState() {
-    this.roundState = new Proxy(this.roundState, {
-      set(target, prop, value) {
-        Reflect.set(target, prop, value);
-
-        if ('round' === prop) {
-          target.observers.forEach(fn => fn(value));
-        }
-
-        return true;
-      },
-    });
-  }
-
-  #setWinnerState() {
-    this.winnerState = new Proxy(this.winnerState, {
-      set(target, prop, value) {
-        Reflect.set(target, prop, value);
-
-        if ('winner' === prop) {
-          target.observers.forEach(fn => fn(value));
-        }
-
-        return true;
-      },
-    });
-  }
-
-  #setResetState() {
-    this.resetState = new Proxy(this.resetState, {
-      set(target, prop, value) {
-        Reflect.set(target, prop, value);
-
-        if ('reset' === prop) {
+        if ('value' === prop) {
           target.observers.forEach(fn => fn(value));
         }
 

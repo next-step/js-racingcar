@@ -41,8 +41,4 @@ export class Component {
   getChildCount(element) {
     return document.querySelector(element).childElementCount;
   }
-
-  displayAlert(message) {
-    window.alert(message);
-  }
 }

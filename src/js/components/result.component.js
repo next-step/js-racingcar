@@ -28,7 +28,7 @@ export default class ResultComponent extends Component {
   };
 
   #setTemplate() {
-    const { winner } = this.#winnerState;
+    const winner = this.#winnerState.value;
 
     if (!winner.length) {
       this.template = '무승부';
@@ -52,12 +52,12 @@ export default class ResultComponent extends Component {
   }
 
   #notifyMessage() {
-    const message = this.#winnerState.winner.length ? '우승을 축하드립니다' : '다음 기회를 노리세요';
+    const message = this.#winnerState.value.length ? '우승을 축하드립니다' : '다음 기회를 노리세요';
 
-    setTimeout(() => this.displayAlert(message), 2000);
+    setTimeout(() => window.alert(message), 2000);
   }
 
   resetGame = () => {
-    this.#resetState.reset = true;
+    this.#resetState.value = true;
   };
 }

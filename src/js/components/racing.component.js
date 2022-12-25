@@ -9,6 +9,7 @@ export default class RacingComponent extends Component {
   #winnerState;
   $racingWrap = '.racing-wrap';
   $carList = '.car-list';
+  $racingList = '.racing-list';
 
   constructor(services) {
     super(services);
@@ -34,15 +35,15 @@ export default class RacingComponent extends Component {
   };
 
   #setTemplate() {
-    this.template = this.#playerState.player.map((player) => (`<div class="mr-2"><div class="car-player">${player}</div></div>`)).join('');
+    this.template = this.#playerState.value.map((player) => (`<div class="mr-2"><div class="car-player">${player}</div><div class="racing-list"></div></div>`)).join('');
   }
 
   #startRace() {
-    const race = setInterval(this.#movePlayer, 1000);
+    const raceIntervalTimer = setInterval(this.#movePlayer, 1000);
 
     this.#startLoading();
 
-    setTimeout(() => this.#finishRace(race), this.#roundState.round * 1000);
+    setTimeout(() => this.#finishRace(raceIntervalTimer), this.#roundState.value * 1000);
   }
 
   #finishRace(race) {
@@ -52,19 +53,19 @@ export default class RacingComponent extends Component {
   }
 
   #startLoading() {
-    this.#playerState.player.forEach((player, i) => {
+    this.#playerState.value.forEach((player, i) => {
       this.#renderSpinner(i);
     });
   }
 
   #finishLoading() {
-    this.#playerState.player.forEach((player, i) => {
+    this.#playerState.value.forEach((player, i) => {
       this.#removeSpinner(i);
     });
   }
 
   #movePlayer = () => {
-    this.#playerState.player.forEach((player, i) => {
+    this.#playerState.value.forEach((player, i) => {
       this.#removeSpinner(i);
 
       if (RacingRule.MOVEMENT_CONDITION <= NumberUtil.randomNumber()) {
@@ -77,28 +78,28 @@ export default class RacingComponent extends Component {
 
   #renderSpinner(i) {
     const template = '<div class="relative spinner-container mt-3"><span class="material spinner"></span></div>';
-    this.insertHTML(`${this.$carList} > div:nth-child(${i + 1})`, template);
+    this.insertHTML(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList}`, template);
   }
 
   #removeSpinner(i) {
-    this.removeHTML(`${this.$carList} > div:nth-child(${i + 1}) .spinner-container`);
+    this.removeHTML(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList} .spinner-container`);
   }
 
   #renderForward(i) {
     const template = '<div class="forward-icon mt-2">⬇️️</div>';
-    this.insertHTML(`${this.$carList} > div:nth-child(${i + 1})`, template);
+    this.insertHTML(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList}`, template);
   }
 
   #checkWinner() {
-    const movementLength = this.#playerState.player.map((player, i) => this.getChildCount(`${this.$carList} > div:nth-child(${i + 1})`));
+    const movementLength = this.#playerState.value.map((player, i) => this.getChildCount(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList}`));
     const maxMovement = Math.max(...movementLength);
 
-    if (1 === maxMovement) {
-      this.#winnerState.winner = [];
+    if (!maxMovement) {
+      this.#winnerState.value = [];
 
       return;
     }
 
-    this.#winnerState.winner = this.#playerState.player.filter((player, i) => maxMovement === this.getChildCount(`${this.$carList} > div:nth-child(${i + 1})`));
+    this.#winnerState.value = this.#playerState.value.filter((player, i) => maxMovement === this.getChildCount(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList}`));
   }
 }
