@@ -1,7 +1,7 @@
 import { Component } from './component.js';
 import { RoundFormControlService } from '../services/round-form-control.service.js';
 import { ErrorMessage } from '../common/enum.js';
-import DomUtil from "../utils/dom.util.js";
+import DomUtil from '../utils/dom.util.js';
 
 export default class InputRoundComponent extends Component {
   #roundFormControl;
