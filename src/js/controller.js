@@ -23,6 +23,7 @@ import {
   removeAllSpinnerIcon,
   renderAllSpinnerIcon,
   resetRacingCarView,
+  renderStopCongratulatoryMessage,
 } from "./view.js";
 
 export const handleSubmitCarNames = (event) => {
@@ -95,4 +96,5 @@ export const startRacingCar = (racingCars) => {
 export const handleSubmitResetBtn = () => {
   resetRacingCarView();
   resetRacingCarModel();
+  renderStopCongratulatoryMessage();
 };

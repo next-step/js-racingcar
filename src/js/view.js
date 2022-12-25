@@ -8,6 +8,8 @@ import {
   hideElement,
 } from "./utils/index.js";
 
+let timerId;
+
 export const renderRacingCar = (racingCar, renderSection) => {
   const createRacingLaneTemplate = createRacingCar(racingCar);
   renderSection.appendChild(createRacingLaneTemplate);
@@ -81,9 +83,13 @@ export const renderGameResult = (winnerList) => {
 };
 
 export const renderCongratulatoryMessage = () => {
-  setTimeout(() => {
+  timerId = setTimeout(() => {
     alert(ALERT_MESSAGE.CONGRATULATORY_MESSAGE);
   }, 2000);
+};
+
+export const renderStopCongratulatoryMessage = () => {
+  if (timerId) clearTimeout(timerId);
 };
 
 export const resetRacingCarView = () => {
