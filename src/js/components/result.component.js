@@ -1,4 +1,5 @@
 import { Component } from './component.js';
+import DomUtil from '../utils/dom.util.js';
 
 export default class ResultComponent extends Component {
   #winnerState;
@@ -17,14 +18,14 @@ export default class ResultComponent extends Component {
   }
 
   init = () => {
-    this.show(this.$resultWrap);
+    DomUtil.show(this.$resultWrap);
     this.#setTemplate();
-    this.render(`${this.$resultWrap} h2`);
+    DomUtil.render(`${this.$resultWrap} h2`, this.template);
     this.#notifyMessage();
   };
 
   reset = () => {
-    this.hide(this.$resultWrap);
+    DomUtil.hide(this.$resultWrap);
   };
 
   #setTemplate() {

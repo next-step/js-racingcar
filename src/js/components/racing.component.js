@@ -1,6 +1,7 @@
 import { Component } from './component.js';
 import { NumberUtil } from '../utils/number.util.js';
 import { RacingRule } from '../common/enum.js';
+import DomUtil from '../utils/dom.util.js';
 
 export default class RacingComponent extends Component {
   #playerState;
@@ -24,14 +25,14 @@ export default class RacingComponent extends Component {
 
   init = () => {
     this.#setTemplate();
-    this.render(this.$carList);
-    this.show(this.$racingWrap);
+    DomUtil.render(this.$carList, this.template);
+    DomUtil.show(this.$racingWrap);
     this.#startRace();
   };
 
   reset = () => {
-    this.hide(this.$racingWrap);
-    this.removeHTML(`${this.$carList} > *`);
+    DomUtil.hide(this.$racingWrap);
+    DomUtil.removeHTML(`${this.$carList} > *`);
   };
 
   #setTemplate() {
@@ -78,20 +79,20 @@ export default class RacingComponent extends Component {
 
   #renderSpinner(i) {
     const template = '<div class="relative spinner-container mt-3"><span class="material spinner"></span></div>';
-    this.insertHTML(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList}`, template);
+    DomUtil.insertHTML(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList}`, template);
   }
 
   #removeSpinner(i) {
-    this.removeHTML(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList} .spinner-container`);
+    DomUtil.removeHTML(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList} .spinner-container`);
   }
 
   #renderForward(i) {
     const template = '<div class="forward-icon mt-2">⬇️️</div>';
-    this.insertHTML(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList}`, template);
+    DomUtil.insertHTML(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList}`, template);
   }
 
   #checkWinner() {
-    const movementLength = this.#playerState.value.map((player, i) => this.getChildCount(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList}`));
+    const movementLength = this.#playerState.value.map((player, i) => DomUtil.getChildCount(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList}`));
     const maxMovement = Math.max(...movementLength);
 
     if (!maxMovement) {
@@ -100,6 +101,6 @@ export default class RacingComponent extends Component {
       return;
     }
 
-    this.#winnerState.value = this.#playerState.value.filter((player, i) => maxMovement === this.getChildCount(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList}`));
+    this.#winnerState.value = this.#playerState.value.filter((player, i) => maxMovement === DomUtil.getChildCount(`${this.$carList} > div:nth-child(${i + 1}) ${this.$racingList}`));
   }
 }

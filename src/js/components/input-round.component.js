@@ -1,6 +1,7 @@
 import { Component } from './component.js';
 import { RoundFormControlService } from '../services/round-form-control.service.js';
 import { ErrorMessage } from '../common/enum.js';
+import DomUtil from "../utils/dom.util.js";
 
 export default class InputRoundComponent extends Component {
   #roundFormControl;
@@ -24,11 +25,11 @@ export default class InputRoundComponent extends Component {
   }
 
   init = () => {
-    this.show(this.$roundForm);
+    DomUtil.show(this.$roundForm);
   };
 
   reset = () => {
-    this.hide(this.$roundForm);
+    DomUtil.hide(this.$roundForm);
     this.#roundFormControl.clearForm(this.$roundForm);
     this.#roundFormControl.enable(this.$roundField);
   };
