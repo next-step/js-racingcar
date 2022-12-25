@@ -10,10 +10,18 @@ import { startGame } from './service/game.js';
 
 import {
   disableCarNamesForm,
-  showTrialCountForm,
-  focusTrialCountInput,
   disableTrialCountForm,
-} from './view/racingCar.js';
+  enableCarNamesForm,
+  enableTrialCountForm,
+  focusTrialCountInput,
+  hideTrialCountForm,
+  resetCarNamesForm,
+  resetTrialCountForm,
+  showTrialCountForm,
+} from './view/gameSettingForm.js';
+import { hideGamePlay } from './view/playGame.js';
+import { hideGameResult } from './view/gameResult.js';
+import { CelebrateTimer } from './model/CelebrateTimer.js';
 
 export const handleSubmitCarNames = (e) => {
   e.preventDefault();
@@ -55,4 +63,18 @@ export const handleSubmitTrialCount = (e) => {
     }
     console.error(err.stack);
   }
+};
+
+export const handleRestartGame = () => {
+  clearTimeout(CelebrateTimer.timeId);
+
+  resetCarNamesForm();
+  enableCarNamesForm();
+
+  resetTrialCountForm();
+  enableTrialCountForm();
+  hideTrialCountForm();
+
+  hideGamePlay();
+  hideGameResult();
 };

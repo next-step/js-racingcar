@@ -11,11 +11,11 @@ export default class Car {
     return this.#name;
   }
 
-  move() {
-    this.#distance += 1;
-  }
-
   getDistance() {
     return this.#distance;
+  }
+
+  move() {
+    this.#distance += 1;
   }
 }
