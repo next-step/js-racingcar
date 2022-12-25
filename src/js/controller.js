@@ -82,10 +82,10 @@ export const startRacingCar = (racingCars) => {
     removePrevSpinner(car);
 
     let randomNumber = getRandomNumber(0, 9);
-
     if (CAR.GO_OR_STOP_STANDARD < randomNumber) {
       racingCars[idx].forward(1);
       renderForwardIcon(car);
+      renderSpinnerIcon(car);
     } else {
       renderSpinnerIcon(car);
     }
