@@ -1,6 +1,6 @@
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
-import { splitingCarNames } from '../utils/index.js';
+import { splitingCarNames } from '../utils/carName.js';
 import CarPlayer from './CarPlayer.js';
 class RaceProgress {
   constructor({ $target }) {
@@ -23,20 +23,6 @@ class RaceProgress {
       })
       .filter((el) => Boolean(el));
   };
-
-  // checkFinishRacing() {
-  //   const winner = this.getRacingWinner({ racingMap, trialNumber });
-
-  //   if (isRacingEnd || !isVisibleProgress) return;
-
-  //   if (winner.length) {
-  //     return store.setState({
-  //       isRacingEnd: true,
-  //       winners: winner.join(','),
-  //       isVisibleResult: true,
-  //     });
-  //   }
-  // }
 
   render() {
     const { isVisibleProgress, carNames } = store.state;

@@ -1,4 +1,5 @@
-import { debounceFrame, deepDiffMapper } from '../utils/index.js';
+import { debounceFrame } from '../utils/asyncHandle.js';
+import { deepDiffMapper } from '../utils/checkDiff.js';
 
 const observer = (() => {
   let currentObserver = null;

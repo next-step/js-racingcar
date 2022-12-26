@@ -1,6 +1,8 @@
+import { WAITING_TIME } from '../constants/validation.js';
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
-import { makeRandomNumber, waitUntil } from '../utils/index.js';
+import { waitUntil } from '../utils/asyncHandle.js';
+import { makeRandomNumber } from '../utils/random.js';
 import MoveSubmitButton from './button/moveSubmitButton.js';
 import MoveInput from './input/moveInput.js';
 
@@ -72,7 +74,7 @@ class TrialNumberRegister {
     });
 
     while (!store.state.winners.length) {
-      await waitUntil(1000);
+      await waitUntil(WAITING_TIME);
       const racingMap = this.makeNewRacingMap(store.state.racingMap);
       store.setState({
         racingMap,

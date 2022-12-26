@@ -1,9 +1,9 @@
 import { ALERT } from '../constants/alert.js';
 import { store } from '../store/index.js';
-import { splitingCarNames } from '../utils/index.js';
+import { splitingCarNames } from '../utils/carName.js';
 import CarNameSubmitButton from './button/carNameSubmitButton.js';
 import CarNameInput from './input/carNameInput.js';
-import Trial from './TrialNumberRegister.js';
+import TrialNumberRegister from './TrialNumberRegister.js';
 class CarNameRegister {
   constructor({ $target }) {
     this.$target = $target;
@@ -29,7 +29,7 @@ class CarNameRegister {
       },
     });
 
-    new Trial({
+    new TrialNumberRegister({
       $target: this.$trialWrapper,
     });
   }

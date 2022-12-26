@@ -1,4 +1,4 @@
-import { deepDiffMapper } from './index.js';
+import { deepDiffMapper } from './checkDiff.js';
 
 describe('유틸 함수를 테스트한다', () => {
   describe('depth가 없는 객체의 경우 값들을 비교한다.', () => {

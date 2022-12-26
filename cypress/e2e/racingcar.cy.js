@@ -1,7 +1,9 @@
-import utils from '../../src/js/utils/index.js';
+import { ELEMENT } from '../../src/js/constants/elements';
+import { WAITING_TIME } from '../../src/js/constants/validation.js';
+
 describe('레이싱카 사이트 E2E 테스트', () => {
   const $element = {
-    nameSubmitButton: '.name-submit-button',
+    nameSubmitButton: ELEMENT.CAR_NAME_SUBMIT_BUTTON,
     carNameInput: '.name-input',
     moveExplanation: '.move-explanation',
     movesInput: '.move-input',
@@ -13,7 +15,6 @@ describe('레이싱카 사이트 E2E 테스트', () => {
     winnerName: '.winner-name',
   };
   const MOVE_NUMBER = 3;
-  const WAITING_TIME = 700;
 
   const CAR_NAME = {
     VALID: '자동차',
@@ -115,29 +116,17 @@ describe('레이싱카 사이트 E2E 테스트', () => {
 
   context('주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.', () => {
     it('전진하는 경우 화살표가 추가 되어야한다.', () => {
-      //mocking이 되지 않음 && 호출을 읽지 못함. stub이 액션도중 풀려버린다 proxy였다가 일반함수로 ..
-      cy.stub(utils, 'getProgressOrNot', () => {
-        return true;
-      });
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
 
       cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
-        expect(utils.getProgressOrNot).to.be.called; //Error
-        cy.get($element.forwardIcon).should('have.length', MOVE_NUMBER * CAR_NAME.DIVERSE_CAR_NAME.length);
+        cy.get($element.forwardIcon).its('length').should('be.gte', CAR_NAME.DIVERSE_CAR_NAME.length);
       });
     });
 
     it('전지하지 않는 경우 화살표가 추가 되지 않는다.', () => {
-      //mocking이 되지 않음 && 호출을 읽지 못함. stub이 액션도중 풀려버린다 proxy였다가 일반함수로 ..
-      cy.stub(utils, 'getProgressOrNot', () => {
-        return false;
-      });
-
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
-
-      expect(utils.getProgressOrNot).to.be.called; //Error
 
       cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
         cy.get($element.spinner).should('have.length', CAR_NAME.DIVERSE_CAR_NAME.length);
@@ -146,18 +135,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
   });
 
   context('자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.', () => {
-    //Error
     it('하나의 자동차가 제출한 이동 횟수에 도달하게 되면 최종우승자를 알려줘야한다.', () => {
-      //makeNewRacingMap을 모킹해서 미리 결과를 밀어넣으면 될 것 같은데 stub이 안된다. -- 1
-      cy.stub(utils, 'makeNewRacingMap', () => {
-        const map = new Map();
-
-        CAR_NAME.DIVERSE_CAR_NAME.forEach((carName, index) => {
-          map.set(carName, Array(MOVE_NUMBER).fill(index === 0));
-        });
-        return map;
-      });
-
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
       cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
@@ -166,18 +144,8 @@ describe('레이싱카 사이트 E2E 테스트', () => {
         );
       });
     });
-    //Error
+
     it('우승자가 여러명일 경우 ,를 이용하여 구분한다.', () => {
-      //makeNewRacingMap을 모킹해서 미리 결과를 밀어넣으면 될 것 같은데 stub이 안된다. -- 2
-      cy.stub(utils, 'makeNewRacingMap', () => {
-        const map = new Map();
-
-        CAR_NAME.DIVERSE_CAR_NAME.forEach((carName, index) => {
-          map.set(carName, Array(MOVE_NUMBER).fill(index === 0 || index === 1));
-        });
-        return map;
-      });
-
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
       cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {

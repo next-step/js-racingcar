@@ -1,24 +1,3 @@
-export const debounceFrame = (callback) => {
-  let currentCallback = -1;
-  return () => {
-    cancelAnimationFrame(currentCallback);
-    currentCallback = requestAnimationFrame(callback);
-  };
-};
-
-export const splitingCarNames = (carNames) => {
-  const copyName = carNames;
-
-  if (!carNames.length) return [];
-  return copyName.split(',').filter((name) => name.trim());
-};
-
-export const makeRandomNumber = (minValue = 0, maxValue = 9) => {
-  return Math.floor(Math.random() * maxValue + minValue);
-};
-
-export const waitUntil = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-
 export const deepDiffMapper = () => {
   //*Reference: https://stackoverflow.com/questions/8572826/generic-deep-diff-between-two-objects
   let UPDATE_COUNT = 0;
@@ -103,8 +82,5 @@ export const deepDiffMapper = () => {
 };
 
 export default {
-  splitingCarNames,
-  makeRandomNumber,
-  waitUntil,
   deepDiffMapper,
 };

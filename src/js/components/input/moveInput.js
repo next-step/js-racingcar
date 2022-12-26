@@ -17,7 +17,8 @@ export default class MoveInput {
 
   onTypeMovement(event) {
     const { value } = event.target;
-    store.setState({ trialNumber: Number(value) });
+
+    store.setState({ trialNumber: value === '' ? null : Number(value) });
   }
 
   render() {
