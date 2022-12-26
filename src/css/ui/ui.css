@@ -1,9 +1,12 @@
+main {
+  width: 400px;
+}
+
 #car-racing-setting-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-self: center;
-  width: 400px;
 }
 
 #car-count-setting-form {
@@ -19,6 +22,10 @@
   display: none;
   justify-content: center;
   margin: 20px 0 0;
+}
+
+#racing-ground-section.active {
+  display: flex;
 }
 
 #result-section {
