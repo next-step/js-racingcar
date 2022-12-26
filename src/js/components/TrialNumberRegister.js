@@ -1,3 +1,4 @@
+import { ELEMENT } from '../constants/elements.js';
 import { WAITING_TIME } from '../constants/validation.js';
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
@@ -11,11 +12,11 @@ class TrialNumberRegister {
     this.$target = $target;
     $target.innerHTML = this.template();
 
-    this.$moveInput = $target.querySelector('[data-id=move-input]');
-    this.$moveButton = $target.querySelector('[data-id=move-submit]');
-    this.$moveWrapper = $target.querySelector('.move-wrapper');
+    this.$moveInput = $target.querySelector(ELEMENT.MOVE_INPUT);
+    this.$moveButton = $target.querySelector(ELEMENT.MOVE_SUBMIT_BUTTON);
+    this.$moveForm = $target.querySelector(ELEMENT.MOVE_FORM);
 
-    this.$moveWrapper.addEventListener('submit', (event) => {
+    this.$moveForm.addEventListener('submit', (event) => {
       this.onSubmitTrials(event);
     });
 
@@ -86,9 +87,9 @@ class TrialNumberRegister {
   template() {
     return /*html*/ `
       <p class="move-explanation">시도할 횟수를 입력해주세요.</p>
-      <form class="d-flex move-wrapper">
-        <input type="number" class="w-100 mr-2 move-input" placeholder="시도 횟수" data-id="move-input"/>
-        <button type="button" class="btn btn-cyan move-submit-button" data-id="move-submit">확인</button>
+      <form class="d-flex move-form">
+        <input type="number" class="w-100 mr-2 move-input" placeholder="시도 횟수" />
+        <button type="button" class="btn btn-cyan move-submit-button">확인</button>
       </form>
     `;
   }

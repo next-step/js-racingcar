@@ -1,18 +1,21 @@
 import { ALERT } from '../constants/alert.js';
+import { ELEMENT } from '../constants/elements.js';
+import { CAR_NAME } from '../constants/validation.js';
 import { store } from '../store/index.js';
 import { splitingCarNames } from '../utils/carName.js';
 import CarNameSubmitButton from './button/carNameSubmitButton.js';
 import CarNameInput from './input/carNameInput.js';
 import TrialNumberRegister from './TrialNumberRegister.js';
+
 class CarNameRegister {
   constructor({ $target }) {
     this.$target = $target;
     $target.innerHTML = this.template();
 
-    this.$submitCarNameButton = $target.querySelector('[data-id=submit-carname]');
-    this.$carNameInput = $target.querySelector('[data-id=name-input]');
-    this.$trialWrapper = $target.querySelector('.trial-count-wrapper');
-    this.$attemptWrapper = $target.querySelector('.attempt-wrapper');
+    this.$submitCarNameButton = $target.querySelector(ELEMENT.CAR_NAME_SUBMIT_BUTTON);
+    this.$carNameInput = $target.querySelector(ELEMENT.CAR_NAME_INPUT);
+    this.$trialWrapper = $target.querySelector(ELEMENT.TRIAL_COUNT_WRAPPER);
+    this.$attemptWrapper = $target.querySelector(ELEMENT.ATTEMPT_WRAPPER);
 
     this.$attemptWrapper.addEventListener('submit', (event) => {
       this.onSubmitCarname(event);
@@ -43,8 +46,8 @@ class CarNameRegister {
             예시) EAST, WEST, SOUTH, NORTH
           </p>
           <form class="d-flex attempt-wrapper">
-            <input type="text" class="w-100 mr-2 name-input" placeholder="자동차 이름" data-id="name-input"/>
-            <button type="button" class="btn btn-cyan name-submit-button" data-id="submit-carname">확인</button>
+            <input type="text" class="w-100 mr-2 name-input" placeholder="자동차 이름" />
+            <button type="button" class="btn btn-cyan name-submit-button">확인</button>
           </form>
         </fieldset>
         <fieldset class="trial-count-wrapper">
@@ -55,7 +58,9 @@ class CarNameRegister {
   validateCarNames = (carNamesArray) => {
     if (!carNamesArray || !carNamesArray.length) return false;
 
-    return carNamesArray.filter((name) => Boolean(name) === true).every((el) => el.length >= 1 && el.length < 6);
+    return carNamesArray
+      .filter((name) => Boolean(name) === true)
+      .every((el) => el.length >= CAR_NAME.MIN_LENGTH && el.length < CAR_NAME.MAX_LENGTH);
   };
 
   makeDefaultRacingMap = (carNames) =>

@@ -1,6 +1,7 @@
 import CarNameRegister from './components/CarNameRegister.js';
 import RaceProgress from './components/RaceProgress.js';
 import Result from './components/Result.js';
+import { ELEMENT } from './constants/elements.js';
 
 export class App {
   constructor({ $target }) {
@@ -25,15 +26,15 @@ export class App {
     const { $target } = this;
 
     new CarNameRegister({
-      $target: $target.querySelector('.attempt-container'),
+      $target: $target.querySelector(ELEMENT.ATTEMPT_CONTAINER),
     });
 
     new RaceProgress({
-      $target: $target.querySelector('.progress-container'),
+      $target: $target.querySelector(ELEMENT.PROGRESS_CONTAINER),
     });
 
     new Result({
-      $target: $target.querySelector('.result-container'),
+      $target: $target.querySelector(ELEMENT.RESULT_CONTAINER),
     });
   }
 }

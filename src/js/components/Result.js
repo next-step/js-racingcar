@@ -1,3 +1,4 @@
+import { ELEMENT } from '../constants/elements.js';
 import { DEFAULT_STORE_STATE } from '../constants/state.js';
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
@@ -6,9 +7,10 @@ class Result {
   constructor({ $target }) {
     this.$target = $target;
     $target.innerHTML = this.template();
-    this.$restartContainer = $target.querySelector('.winner-container');
-    this.$restartButton = $target.querySelector('[data-id=restart-button]');
-    this.$winnerName = $target.querySelector('.winner-name');
+
+    this.$restartContainer = $target.querySelector(ELEMENT.WINNER_CONTAINER);
+    this.$winnerName = $target.querySelector(ELEMENT.WINNER_NAME);
+    this.$restartButton = $target.querySelector(ELEMENT.RESART_BUTTON);
 
     this.$restartButton.addEventListener('click', () => {
       this.onRestartButton();
@@ -24,7 +26,7 @@ class Result {
       <div class="winner-container">
         <h2 class="winner-name"></h2>
         <div class="d-flex justify-center">
-          <button type="button" class="btn btn-cyan restart-button" data-id="restart-button">다시 시작하기</button>
+          <button type="button" class="btn btn-cyan restart-button">다시 시작하기</button>
         </div>
       </div>
   `;

@@ -23,7 +23,7 @@ export default class MoveInput {
 
   render() {
     const { $target } = this;
-    const { trialNumber, isVisibleProgress, isVisibleTrial } = store.state;
+    const { trialNumber, isVisibleProgress } = store.state;
 
     $target.value = trialNumber;
 
