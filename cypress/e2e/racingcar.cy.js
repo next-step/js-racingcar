@@ -2,18 +2,6 @@ import { ELEMENT } from '../../src/js/constants/elements';
 import { WAITING_TIME } from '../../src/js/constants/validation.js';
 
 describe('레이싱카 사이트 E2E 테스트', () => {
-  const $element = {
-    nameSubmitButton: ELEMENT.CAR_NAME_SUBMIT_BUTTON,
-    carNameInput: '.name-input',
-    moveExplanation: '.move-explanation',
-    movesInput: '.move-input',
-    moveSubmitButton: '.move-submit-button',
-    carPlayer: '.car-player',
-    spinner: '.spinner',
-    forwardIcon: '.forward-icon',
-    restartButton: '.restart-button',
-    winnerName: '.winner-name',
-  };
   const MOVE_NUMBER = 3;
 
   const CAR_NAME = {
@@ -28,16 +16,16 @@ describe('레이싱카 사이트 E2E 테스트', () => {
 
   context('자동차에 이름을 부여할 수 있다. ', () => {
     it('자동차에 이름을 부여할 input이 존재한다.', () => {
-      cy.get($element.carNameInput).should('exist');
+      cy.get(ELEMENT.CAR_NAME_INPUT).should('exist');
     });
 
     it('자동차에 부여한 이름을 제출할 버튼이 존재한다.', () => {
-      cy.get($element.nameSubmitButton).should('exist');
+      cy.get(ELEMENT.CAR_NAME_SUBMIT_BUTTON).should('exist');
     });
 
     it('각 자동차이름은 1자 미만으로 입력한 뒤 제출하려하면 버튼이 비활성화 되어있다.', () => {
-      cy.get($element.carNameInput).clear();
-      cy.get($element.nameSubmitButton).should('be.disabled');
+      cy.get(ELEMENT.CAR_NAME_INPUT).clear();
+      cy.get(ELEMENT.CAR_NAME_SUBMIT_BUTTON).should('be.disabled');
     });
 
     it('각 자동차이름은 5자 이상으로 입력한 뒤 제출하면 경고창이 발생한다.', () => {
@@ -50,12 +38,12 @@ describe('레이싱카 사이트 E2E 테스트', () => {
 
     it('이름을 제출 한 뒤 제출버튼이 비 활성화 되어야 한다.', () => {
       cy.submitCarNames(CAR_NAME.VALID);
-      cy.get($element.nameSubmitButton).should('be.disabled');
+      cy.get(ELEMENT.CAR_NAME_SUBMIT_BUTTON).should('be.disabled');
     });
 
     it('이름을 제출할 때 엔터버튼을 통해 제출이 가능해야한다.', () => {
-      cy.get($element.carNameInput).type(CAR_NAME.VALID).type('{enter}');
-      cy.get($element.nameSubmitButton).should('be.disabled');
+      cy.get(ELEMENT.CAR_NAME_INPUT).type(CAR_NAME.VALID).type('{enter}');
+      cy.get(ELEMENT.CAR_NAME_SUBMIT_BUTTON).should('be.disabled');
     });
   });
 
@@ -64,22 +52,22 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.submitCarNames(CAR_NAME.VALID);
     });
     it('이름을 제출 한 뒤 시도할 횟수를 입력할 설명이 떠야 한다.', () => {
-      cy.get($element.moveExplanation).should('exist');
+      cy.get(ELEMENT.MOVE_EXPLANATION).should('exist');
     });
 
     it('이동 횟수를 기재 할 input이 있어야 한다.', () => {
-      cy.get($element.movesInput).should('exist');
+      cy.get(ELEMENT.MOVE_INPUT).should('exist');
     });
 
     it('이동 횟수를 입력한 input은 번호만 입력할 수 있어야 한다.', () => {
       const [CHAR, NUMBER] = ['안녕', '12'];
 
-      cy.get($element.movesInput).type(CHAR + NUMBER);
-      cy.get($element.movesInput).should('have.value', NUMBER);
+      cy.get(ELEMENT.MOVE_INPUT).type(CHAR + NUMBER);
+      cy.get(ELEMENT.MOVE_INPUT).should('have.value', NUMBER);
     });
 
     it('이동 횟수를 제출 할 button이 있어야 한다.', () => {
-      cy.get($element.moveSubmitButton).should('exist');
+      cy.get(ELEMENT.MOVE_SUBMIT_BUTTON).should('exist');
     });
 
     it('이동 횟수를 제출 한 뒤 button이 비활성화 되어야 한다.', () => {
@@ -87,8 +75,8 @@ describe('레이싱카 사이트 E2E 테스트', () => {
     });
 
     it('이동 횟수를 입력하지 않고 제출하면 이벤트가 발생하지 않음.', () => {
-      cy.get($element.movesInput).clear();
-      cy.get($element.moveSubmitButton).should('be.disabled');
+      cy.get(ELEMENT.MOVE_INPUT).clear();
+      cy.get(ELEMENT.MOVE_SUBMIT_BUTTON).should('be.disabled');
     });
   });
 
@@ -96,13 +84,13 @@ describe('레이싱카 사이트 E2E 테스트', () => {
     it('이름과 이동횟수를 제출한 경우 기입한 자동차의 이름이 출력되어야 한다.', () => {
       cy.submitCarNames(CAR_NAME.VALID);
       cy.submitTrial(MOVE_NUMBER);
-      cy.get($element.carPlayer).should('have.text', CAR_NAME.VALID);
+      cy.get(ELEMENT.CAR_PLAYER).should('have.text', CAR_NAME.VALID);
     });
 
     it('하나이상의 자동차 이름은 쉼표(,)를 기준으로 구분되어야 한다.', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
-      cy.get($element.carPlayer).each((eachElement, index) => {
+      cy.get(ELEMENT.CAR_PLAYER).each((eachElement, index) => {
         cy.get(eachElement).should('have.text', CAR_NAME.DIVERSE_CAR_NAME[index]);
       });
     });
@@ -110,7 +98,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
     it('이름이 출력된 순간 이름 아래로 Spinner가 떠야한다.', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
-      cy.get($element.spinner).should('have.length', CAR_NAME.DIVERSE_CAR_NAME.length);
+      cy.get(ELEMENT.SPINNER).should('have.length', CAR_NAME.DIVERSE_CAR_NAME.length);
     });
   });
 
@@ -120,7 +108,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.submitTrial(MOVE_NUMBER);
 
       cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
-        cy.get($element.forwardIcon).its('length').should('be.gte', CAR_NAME.DIVERSE_CAR_NAME.length);
+        cy.get(ELEMENT.FORWARD_ICON).its('length').should('be.gte', CAR_NAME.DIVERSE_CAR_NAME.length);
       });
     });
 
@@ -129,7 +117,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.submitTrial(MOVE_NUMBER);
 
       cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
-        cy.get($element.spinner).should('have.length', CAR_NAME.DIVERSE_CAR_NAME.length);
+        cy.get(ELEMENT.SPINNER).should('have.length', CAR_NAME.DIVERSE_CAR_NAME.length);
       });
     });
   });
@@ -139,8 +127,8 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
       cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
-        cy.get($element.winnerName).should(($element) =>
-          expect($element.text().trim()).to.equal(`🏆 최종 우승자: ${CAR_NAME.DIVERSE_CAR_NAME[0]} 🏆`)
+        cy.get(ELEMENT.WINNER_NAME).should((element) =>
+          expect(element.text().trim()).to.equal(`🏆 최종 우승자: ${CAR_NAME.DIVERSE_CAR_NAME[0]} 🏆`)
         );
       });
     });
@@ -149,8 +137,8 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
       cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
-        cy.get($element.winnerName).should(($element) =>
-          expect($element.text().trim()).to.equal(
+        cy.get(ELEMENT.WINNER_NAME).should((element) =>
+          expect(element.text().trim()).to.equal(
             `🏆 최종 우승자: ${CAR_NAME.DIVERSE_CAR_NAME[0]},${CAR_NAME.DIVERSE_CAR_NAME[1]} 🏆`
           )
         );
@@ -161,7 +149,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
       cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
-        cy.get($element.restartButton).should('exist');
+        cy.get(ELEMENT.RESART_BUTTON).should('exist');
       });
     });
 
@@ -170,9 +158,9 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.submitTrial(MOVE_NUMBER);
 
       cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
-        cy.get($element.restartButton).should('exist');
-        cy.get($element.restartButton).click();
-        cy.get($element.carNameInput).should('have.value', '');
+        cy.get(ELEMENT.RESART_BUTTON).should('exist');
+        cy.get(ELEMENT.RESART_BUTTON).click();
+        cy.get(ELEMENT.CAR_NAME_INPUT).should('have.value', '');
       });
     });
   });
