@@ -1,5 +1,5 @@
 import { ELEMENT } from '../constants/elements.js';
-import { WAITING_TIME } from '../constants/validation.js';
+import { RACE_WAITING_TIME } from '../constants/validation.js';
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
 import { waitUntil } from '../utils/asyncHandle.js';
@@ -8,7 +8,7 @@ import MoveSubmitButton from './button/moveSubmitButton.js';
 import MoveInput from './input/moveInput.js';
 
 class TrialNumberRegister {
-  constructor({ $target }) {
+  constructor({ $target = document }) {
     this.$target = $target;
     $target.innerHTML = this.template();
 
@@ -75,8 +75,9 @@ class TrialNumberRegister {
     });
 
     while (!store.state.winners.length) {
-      await waitUntil(WAITING_TIME);
+      await waitUntil(RACE_WAITING_TIME);
       const racingMap = this.makeNewRacingMap(store.state.racingMap);
+
       store.setState({
         racingMap,
         winners: this.getRacingWinner({ racingMap, trialNumber: store.state.trialNumber }).join(','),
@@ -88,7 +89,7 @@ class TrialNumberRegister {
     return /*html*/ `
       <p class="move-explanation">시도할 횟수를 입력해주세요.</p>
       <form class="d-flex move-form">
-        <input type="number" class="w-100 mr-2 move-input" placeholder="시도 횟수" />
+        <input type="number" class="w-100 mr-2 move-input" placeholder="시도 횟수" min="0"/>
         <button type="button" class="btn btn-cyan move-submit-button">확인</button>
       </form>
     `;

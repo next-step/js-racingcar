@@ -1,5 +1,5 @@
 import { ELEMENT } from '../../src/js/constants/elements';
-import { WAITING_TIME } from '../../src/js/constants/validation.js';
+import { RACE_WAITING_TIME } from '../../src/js/constants/validation.js';
 
 describe('레이싱카 사이트 E2E 테스트', () => {
   const MOVE_NUMBER = 3;
@@ -11,7 +11,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
   };
 
   beforeEach(() => {
-    cy.visit('../../index.html', {});
+    cy.visit('../../index.html');
   });
 
   context('자동차에 이름을 부여할 수 있다. ', () => {
@@ -107,16 +107,16 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
 
-      cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
+      cy.wait(RACE_WAITING_TIME * MOVE_NUMBER).then(() => {
         cy.get(ELEMENT.FORWARD_ICON).its('length').should('be.gte', CAR_NAME.DIVERSE_CAR_NAME.length);
       });
     });
 
-    it('전지하지 않는 경우 화살표가 추가 되지 않는다.', () => {
+    it('전진하지 않는 경우 화살표가 추가 되지 않는다.', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
 
-      cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
+      cy.wait(RACE_WAITING_TIME * MOVE_NUMBER).then(() => {
         cy.get(ELEMENT.SPINNER).should('have.length', CAR_NAME.DIVERSE_CAR_NAME.length);
       });
     });
@@ -126,7 +126,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
     it('하나의 자동차가 제출한 이동 횟수에 도달하게 되면 최종우승자를 알려줘야한다.', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
-      cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
+      cy.wait(RACE_WAITING_TIME * MOVE_NUMBER).then(() => {
         cy.get(ELEMENT.WINNER_NAME).should((element) =>
           expect(element.text().trim()).to.equal(`🏆 최종 우승자: ${CAR_NAME.DIVERSE_CAR_NAME[0]} 🏆`)
         );
@@ -136,7 +136,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
     it('우승자가 여러명일 경우 ,를 이용하여 구분한다.', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
-      cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
+      cy.wait(RACE_WAITING_TIME * MOVE_NUMBER).then(() => {
         cy.get(ELEMENT.WINNER_NAME).should((element) =>
           expect(element.text().trim()).to.equal(
             `🏆 최종 우승자: ${CAR_NAME.DIVERSE_CAR_NAME[0]},${CAR_NAME.DIVERSE_CAR_NAME[1]} 🏆`
@@ -148,7 +148,8 @@ describe('레이싱카 사이트 E2E 테스트', () => {
     it('최종우승자를 알게되면 다시 시작하기 버튼이 생성되어야 한다.', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
-      cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
+
+      cy.wait(RACE_WAITING_TIME * MOVE_NUMBER).then(() => {
         cy.get(ELEMENT.RESART_BUTTON).should('exist');
       });
     });
@@ -157,7 +158,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
 
-      cy.wait(WAITING_TIME * MOVE_NUMBER).then(() => {
+      cy.wait(RACE_WAITING_TIME * MOVE_NUMBER).then(() => {
         cy.get(ELEMENT.RESART_BUTTON).should('exist');
         cy.get(ELEMENT.RESART_BUTTON).click();
         cy.get(ELEMENT.CAR_NAME_INPUT).should('have.value', '');

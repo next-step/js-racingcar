@@ -20,7 +20,6 @@ export default class CarNameSubmitButton {
 
     const isDisabledButton = isVisibleTrial || !carNames;
 
-    if (isDisabledButton) this.$target.setAttribute('disabled', '');
-    if (!isDisabledButton) this.$target.removeAttribute('disabled');
+    isDisabledButton ? this.$target.setAttribute('disabled', '') : this.$target.removeAttribute('disabled');
   }
 }

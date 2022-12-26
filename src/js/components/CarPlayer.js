@@ -19,19 +19,19 @@ class Player {
     this.$target.innerHTML = /*html*/ `
       <div class="mr-2 progress-block-${carId}">
         <div class="car-player">${carName}</div>
-        ${
-          racingMap &&
-          racingMap
-            .get(carId)
-            .map((isProgress) =>
-              isProgress
-                ? `
-            <div class="forward-icon mt-2">⬇️️</div>
-              `
-                : ``
-            )
-            .join('')
-        }
+          ${
+            racingMap &&
+            racingMap
+              .get(carId)
+              .map((isProgress) =>
+                isProgress
+                  ? `
+              <div class="forward-icon mt-2">⬇️️</div>
+                `
+                  : ``
+              )
+              .join('')
+          }
           ${
             isRacingEnd
               ? ''

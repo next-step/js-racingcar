@@ -1,7 +1,9 @@
 import { ELEMENT } from '../constants/elements.js';
 import { DEFAULT_STORE_STATE } from '../constants/state.js';
+import { ALERT_WAITING_TIME } from '../constants/validation.js';
 import observer from '../core/observer.js';
 import { store } from '../store/index.js';
+import { waitUntil } from '../utils/asyncHandle.js';
 
 class Result {
   constructor({ $target }) {
@@ -32,9 +34,10 @@ class Result {
   `;
   }
 
-  alertWinner(winners) {
+  alertWinner = async (winners) => {
+    await waitUntil(ALERT_WAITING_TIME);
     window.alert(`우승자는 ${winners} 입니다. 축하합니다!`);
-  }
+  };
 
   render() {
     const { winners } = store.state;
@@ -48,6 +51,7 @@ class Result {
     this.$winnerName.innerText = `
       🏆 최종 우승자: ${winners} 🏆
       `;
+
     this.alertWinner(winners);
   }
 
