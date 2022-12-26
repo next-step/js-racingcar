@@ -15,6 +15,7 @@ export const ELEMENT = {
   MOVE_SUBMIT_BUTTON: '.move-submit-button',
 
   CAR_PLAYER: '.car-player',
+  PLAYER_WRAPPER: '.player-wrapper',
   SPINNER: '.spinner',
   FORWARD_ICON: '.forward-icon',
 

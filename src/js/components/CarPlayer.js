@@ -17,7 +17,7 @@ class Player {
     const { carId, carName } = this.props;
 
     this.$target.innerHTML = /*html*/ `
-      <div class="mr-2 progress-block-${carId}">
+      <div class="mr-2 player-wrapper progress-block-${carId}">
         <div class="car-player">${carName}</div>
           ${
             racingMap &&

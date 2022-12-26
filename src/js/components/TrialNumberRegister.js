@@ -41,6 +41,10 @@ class TrialNumberRegister {
     return makeRandomNumber() > 4;
   };
 
+  getCarNameInCarId = (carId) => {
+    return carId.split('-')[0];
+  };
+
   makeNewRacingMap = (prevRacingMap) => {
     if (!prevRacingMap.size) return prevRacingMap;
 
@@ -48,10 +52,6 @@ class TrialNumberRegister {
       map.set(key, [...values, this.getProgressOrNot()]);
       return map;
     }, new Map());
-  };
-
-  getCarNameInCarId = (carId) => {
-    return carId.split('-')[0];
   };
 
   getRacingWinner = ({ racingMap, trialNumber }) => {

@@ -28,6 +28,7 @@
  * @params {string[]} carNames
  * @params {number} trailNumber
  */
+import { ELEMENT } from '../../src/js/constants/elements.js';
 
 const $element = {
   nameSubmitButton: '.name-submit-button',
@@ -41,12 +42,12 @@ const $element = {
 };
 
 Cypress.Commands.add('submitCarNames', (carNames) => {
-  cy.get($element.carNameInput).type(carNames);
-  cy.get($element.nameSubmitButton).click();
+  cy.get(ELEMENT.CAR_NAME_INPUT).type(carNames);
+  cy.get(ELEMENT.CAR_NAME_SUBMIT_BUTTON).click();
 });
 
 Cypress.Commands.add('submitTrial', (trialNumber) => {
-  cy.get($element.movesInput).type(trialNumber);
-  cy.get($element.moveSubmitButton).click();
-  cy.get($element.moveSubmitButton).should('be.disabled');
+  cy.get(ELEMENT.MOVE_INPUT).type(trialNumber);
+  cy.get(ELEMENT.MOVE_SUBMIT_BUTTON).click();
+  cy.get(ELEMENT.MOVE_SUBMIT_BUTTON).should('be.disabled');
 });

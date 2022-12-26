@@ -108,7 +108,7 @@ describe('레이싱카 사이트 E2E 테스트', () => {
       cy.submitTrial(MOVE_NUMBER);
 
       cy.wait(RACE_WAITING_TIME * MOVE_NUMBER).then(() => {
-        cy.get(ELEMENT.FORWARD_ICON).its('length').should('be.gte', CAR_NAME.DIVERSE_CAR_NAME.length);
+        cy.get(ELEMENT.FORWARD_ICON).its('length').should('be.gte', MOVE_NUMBER);
       });
     });
 
@@ -123,34 +123,47 @@ describe('레이싱카 사이트 E2E 테스트', () => {
   });
 
   context('자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.', () => {
-    it('하나의 자동차가 제출한 이동 횟수에 도달하게 되면 최종우승자를 알려줘야한다.', () => {
-      cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
-      cy.submitTrial(MOVE_NUMBER);
-      cy.wait(RACE_WAITING_TIME * MOVE_NUMBER).then(() => {
-        cy.get(ELEMENT.WINNER_NAME).should((element) =>
-          expect(element.text().trim()).to.equal(`🏆 최종 우승자: ${CAR_NAME.DIVERSE_CAR_NAME[0]} 🏆`)
-        );
-      });
-    });
-
-    it('우승자가 여러명일 경우 ,를 이용하여 구분한다.', () => {
-      cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
-      cy.submitTrial(MOVE_NUMBER);
-      cy.wait(RACE_WAITING_TIME * MOVE_NUMBER).then(() => {
-        cy.get(ELEMENT.WINNER_NAME).should((element) =>
-          expect(element.text().trim()).to.equal(
-            `🏆 최종 우승자: ${CAR_NAME.DIVERSE_CAR_NAME[0]},${CAR_NAME.DIVERSE_CAR_NAME[1]} 🏆`
-          )
-        );
-      });
-    });
-
     it('최종우승자를 알게되면 다시 시작하기 버튼이 생성되어야 한다.', () => {
       cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
       cy.submitTrial(MOVE_NUMBER);
 
       cy.wait(RACE_WAITING_TIME * MOVE_NUMBER).then(() => {
         cy.get(ELEMENT.RESART_BUTTON).should('exist');
+      });
+    });
+
+    //*TODO : 더 간소화 할 수 있는 방법을 찾아보자
+    it('최종우승자를 알게되면 2초 후 축하메시지 alert와 함께 우승자가 떠야한다.', async () => {
+      let winners = '';
+      cy.submitCarNames(CAR_NAME.DIVERSE_CAR_NAME.join(','));
+      cy.submitTrial(MOVE_NUMBER);
+
+      cy.wait(RACE_WAITING_TIME * MOVE_NUMBER).then(() => {
+        cy.get(ELEMENT.RESART_BUTTON).should('exist');
+      });
+
+      await cy.wait(2000).then(async () => {
+        await cy.get(ELEMENT.PLAYER_WRAPPER).each((eachPlayerWrapper) => {
+          if (cy.get(eachPlayerWrapper).find(ELEMENT.FORWARD_ICON)) {
+            cy.get(eachPlayerWrapper)
+              .find(ELEMENT.FORWARD_ICON)
+              .its('length')
+              .then((eachForwardLength) => {
+                if (eachForwardLength === MOVE_NUMBER) {
+                  cy.get(eachPlayerWrapper)
+                    .find(ELEMENT.CAR_PLAYER)
+                    .invoke('text')
+                    .then((winnerName) => {
+                      winners.length ? (winners += `,${winnerName}`) : (winners += winnerName);
+                    });
+                }
+              });
+          }
+        });
+      });
+
+      cy.on('window:alert', (text) => {
+        expect(text).to.contains(`우승자는 ${winners} 입니다. 축하합니다!`);
       });
     });
 
