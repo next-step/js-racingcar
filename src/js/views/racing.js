@@ -113,7 +113,7 @@ class RacingView extends Observer {
 
     setTimeout(() => {
       alert(CONGRATULATORY_MESSAGE);
-    }, DELAY_MILLISECONDS);
+    }, DELAY_MILLISECONDS * 2);
   }
 
   showSpinner() {

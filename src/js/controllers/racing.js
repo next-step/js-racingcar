@@ -69,7 +69,6 @@ class RacingController {
     }
 
     this.#model.state.attemptCount = count;
-
     this.#model.state.cars = this.getCarsInSetupMotion(count);
     this.#model.state.winner = this.setWinner();
 
@@ -78,9 +77,11 @@ class RacingController {
 
   setWinner() {
     const { cars } = this.#model.state;
+
     const maxDistance = Math.max(
       ...cars.map((car) => car.turnOfMotion.filter(Boolean).length)
     );
+
     const winner = cars
       .filter((car) => {
         const diatance = car.turnOfMotion.filter(Boolean).length;
