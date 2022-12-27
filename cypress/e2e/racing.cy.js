@@ -3,9 +3,10 @@ import {
   $CAR_COUNT_SETTING_FORM_SELECTOR,
   $CAR_NAME_INPUT_SELECTOR,
   $CAR_SELECTOR,
+  $RESTART_BUTTON_SELECTOR,
   $SUBMIT_ATTEMPT_COUNT_BUTTON_SELECTOR,
   $SUBMIT_CAR_NAME_BUTTON_SELECTOR,
-  $WINNER_INFO,
+  $WINNER_INFO_SELECTOR,
   ATTEMPT_COUNT,
   CONGRATULATORY_MESSAGE,
   DELAY_MILLISECONDS,
@@ -171,7 +172,7 @@ describe("레이싱 경주 테스트", () => {
         attemptCount: ATTEMPT_COUNT,
       });
       cy.tick(ATTEMPT_COUNT * DELAY_MILLISECONDS);
-      cy.get($WINNER_INFO).should("be.visible");
+      cy.get($WINNER_INFO_SELECTOR).should("be.visible");
     });
 
     it("축하 Alert가 노출된다.", () => {
@@ -191,8 +192,28 @@ describe("레이싱 경주 테스트", () => {
   });
 
   describe("다시 시작할 수 있다.", () => {
-    it("다시 시작하기 버튼이 존재한다.", () => {});
-    it("입력되있던 자동차 이름 등록 Input의 값이 초기화된다.", () => {});
-    it("시도할 횟수를 입력할 화면이 사라진다.", () => {});
+    beforeEach(() => {
+      cy.clock();
+      cy.enteredRacingOption({
+        carNames: WRITING_CAR_NAMES,
+        attemptCount: ATTEMPT_COUNT,
+      });
+      cy.tick(ATTEMPT_COUNT * DELAY_MILLISECONDS);
+    });
+    it("다시 시작하기 버튼이 존재한다.", () => {
+      cy.get($RESTART_BUTTON_SELECTOR).should("be.visible");
+    });
+    it("입력되있던 자동차 이름 등록 Input의 값이 초기화된다.", () => {
+      cy.get($RESTART_BUTTON_SELECTOR).should("be.visible").click();
+      cy.get($CAR_NAME_INPUT_SELECTOR).should("have.value", "");
+      cy.get($SUBMIT_CAR_NAME_BUTTON_SELECTOR).should(
+        "not.have.attr",
+        "disabled"
+      );
+    });
+    it("시도할 횟수를 입력할 화면이 사라진다.", () => {
+      cy.get($RESTART_BUTTON_SELECTOR).should("be.visible").click();
+      cy.get($CAR_COUNT_SETTING_FORM_SELECTOR).should("not.be.visible");
+    });
   });
 });

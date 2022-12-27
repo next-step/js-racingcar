@@ -10,6 +10,7 @@ export const CONGRATULATORY_MESSAGE = "🎇🎇🎇축하합니다!🎇🎇🎇"
 export const ACTION_TYPE = {
   CAR_NAME: "CAR_NAME",
   ATTEMPT_COUNT: "ATTEMPT_COUNT",
+  RESET: "RESET",
 };
 
 export const MAX_NUMBER = 9;

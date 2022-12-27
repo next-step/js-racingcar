@@ -4,8 +4,9 @@ export const $CAR_COUNT_SETTING_FORM_SELECTOR = "#car-count-setting-form";
 export const $ATTEMPT_COUNT_INPUT_SELECTOR = "#attempt-count-input";
 export const $SUBMIT_ATTEMPT_COUNT_BUTTON_SELECTOR =
   "#submit-attempt-count-button";
-export const $WINNER_INFO = "#winner-info";
+export const $WINNER_INFO_SELECTOR = "#winner-info";
 export const $CAR_SELECTOR = ".car";
+export const $RESTART_BUTTON_SELECTOR = "#restart-button";
 
 export const WRITING_CAR_NAME = "car";
 export const WRITING_CAR_NAMES = "A,B,C";

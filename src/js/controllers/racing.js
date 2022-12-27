@@ -15,6 +15,7 @@ import {
 
 class RacingController {
   #model;
+
   constructor(model) {
     this.#model = model;
     this.SUBMIT = Object.freeze({
@@ -26,11 +27,15 @@ class RacingController {
   get model() {
     return this.#model;
   }
+
   handleEvent(e) {
     e.preventDefault();
     switch (e.type) {
       case "submit":
         this.submitHandler(e.submitter);
+        break;
+      case "click":
+        this.clickHandler(e.target);
         break;
       default:
         console.log(e.target);
@@ -108,12 +113,20 @@ class RacingController {
       return false;
     }
   }
+
   submitHandler(submitter) {
     if (Object.hasOwn(this.SUBMIT, submitter.id) === false) {
       alert("해당 submitter는 등록되지 않았습니다.");
       return;
     }
     this.SUBMIT[submitter.id]();
+  }
+
+  clickHandler(target) {
+    if (target.id !== "restart-button") return;
+
+    this.#model.reset();
+    this.#model.dispatch(ACTION_TYPE.RESET);
   }
 }
 
