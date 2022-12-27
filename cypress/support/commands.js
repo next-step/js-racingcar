@@ -1,25 +1,19 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import {
+  $ATTEMPT_COUNT_INPUT_SELECTOR,
+  $CAR_NAME_INPUT_SELECTOR,
+} from "./constant.js";
+
+Cypress.Commands.add("alert", ({ action, message }) => {
+  const alertStub = cy.stub();
+
+  cy.on("window:alert", alertStub);
+
+  action().then(() => {
+    expect(alertStub.getCall(0)).to.be.calledWith(message);
+  });
+});
+
+Cypress.Commands.add("enteredRacingOption", ({ carNames, attemptCount }) => {
+  cy.get($CAR_NAME_INPUT_SELECTOR).type(`${carNames}{enter}`);
+  cy.get($ATTEMPT_COUNT_INPUT_SELECTOR).type(`${attemptCount}{enter}`);
+});

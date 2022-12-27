@@ -1,13 +1,23 @@
-@import './shared/button.css';
-@import './shared/layout.css';
-@import './shared/sizing.css';
-@import './shared/typhography.css';
-@import './ui/spinner.css';
+@import "./ui/reset.css";
+@import "./shared/button.css";
+@import "./shared/layout.css";
+@import "./shared/sizing.css";
+@import "./shared/typhography.css";
+@import "./ui/spinner.css";
+@import "./ui/ui.css";
 
 html,
 body {
   margin: 0;
   height: 100%;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px 0 0;
+  align-items: center;
 }
 
 .car-player {

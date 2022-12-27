@@ -1,7 +1,6 @@
 {
   "name": "js-racingcar",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "https://github.com/publizm/js-racingcar.git",
   "author": "cheolhwan <publizm@gmail.com>",
   "license": "MIT",
