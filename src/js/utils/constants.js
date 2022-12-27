@@ -9,3 +9,8 @@ export const ACTION_TYPE = {
   CAR_NAME: "CAR_NAME",
   ATTEMPT_COUNT: "ATTEMPT_COUNT",
 };
+
+export const MAX_NUMBER = 9;
+export const MINIMUM_CONDITIONS_FOR_MOVEMENT = 4;
+
+export const DELAY_MILLISECONDS = 1000;

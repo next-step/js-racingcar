@@ -5,8 +5,8 @@ class RacingModel extends Observable {
   constructor() {
     super();
     this.state = {
-      tryCount: 0,
-      carNames: [],
+      cars: [],
+      attemptCount: 0,
       winner: "",
     };
   }

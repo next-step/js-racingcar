@@ -30,3 +30,5 @@ export const checkAllTypeOfStringNode = (arr, type) => {
     }
   }
 };
+
+export const getRandomNumber = (max) => Math.floor(Math.random() * max);

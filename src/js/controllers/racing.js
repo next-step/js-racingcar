@@ -3,9 +3,15 @@ import {
   checkAllMaxLengthOfStringNode,
   checkAllTypeOfStringNode,
   checkEmptyString,
+  getRandomNumber,
   removeWordSpacing,
 } from "../utils/utils.js";
-import { ACTION_TYPE, ERROR_MESSAGES } from "../utils/constants.js";
+import {
+  ACTION_TYPE,
+  ERROR_MESSAGES,
+  MAX_NUMBER,
+  MINIMUM_CONDITIONS_FOR_MOVEMENT,
+} from "../utils/constants.js";
 
 class RacingController {
   #model;
@@ -41,7 +47,10 @@ class RacingController {
     if (this.isValidTobeSubmittedCarNames($nameInput, carNames) === false)
       return;
 
-    this.#model.state.carNames = carNames;
+    this.#model.state.cars = carNames.map((name) => ({
+      name,
+      turnOfMotion: [],
+    }));
     this.#model.dispatch(ACTION_TYPE.CAR_NAME);
   }
 
@@ -54,9 +63,22 @@ class RacingController {
       return;
     }
 
-    this.#model.state.tryCount = count;
-    // if (this.isValidTobeSubmittedCount($countInput, count) === false) return;
+    this.#model.state.attemptCount = count;
+
+    this.#model.state.cars = this.getCarsInSetupMotion(count);
+
     this.#model.dispatch(ACTION_TYPE.ATTEMPT_COUNT);
+  }
+
+  getCarsInSetupMotion(count) {
+    return this.#model.state.cars.map((car) => {
+      const temp = new Array(count).fill(false);
+      const turnOfMotion = temp.map(
+        () => getRandomNumber(MAX_NUMBER) >= MINIMUM_CONDITIONS_FOR_MOVEMENT
+      );
+
+      return Object.freeze({ ...car, turnOfMotion });
+    });
   }
 
   isValidTobeSubmittedCarNames($nameInput, names) {
