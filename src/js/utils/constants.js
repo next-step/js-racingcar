@@ -5,6 +5,8 @@ export const ERROR_MESSAGES = {
   NOT_ALLOW_COUNT: "0보다 큰 수를 입력해주세요.",
 };
 
+export const CONGRATULATORY_MESSAGE = "🎇🎇🎇축하합니다!🎇🎇🎇";
+
 export const ACTION_TYPE = {
   CAR_NAME: "CAR_NAME",
   ATTEMPT_COUNT: "ATTEMPT_COUNT",

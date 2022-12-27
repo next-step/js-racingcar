@@ -6,8 +6,8 @@ class RacingModel extends Observable {
     super();
     this.state = {
       cars: [],
+      winner: [],
       attemptCount: 0,
-      winner: "",
     };
   }
 }

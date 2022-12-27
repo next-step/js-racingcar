@@ -1,18 +1,19 @@
 import {
+  $ATTEMPT_COUNT_INPUT_SELECTOR,
+  $CAR_COUNT_SETTING_FORM_SELECTOR,
+  $CAR_NAME_INPUT_SELECTOR,
+  $CAR_SELECTOR,
+  $SUBMIT_ATTEMPT_COUNT_BUTTON_SELECTOR,
+  $SUBMIT_CAR_NAME_BUTTON_SELECTOR,
+  $WINNER_INFO,
+  ATTEMPT_COUNT,
+  CONGRATULATORY_MESSAGE,
   DELAY_MILLISECONDS,
   ERROR_MESSAGES,
-} from "../../src/js/utils/constants";
+  WRITING_CAR_NAME,
+  WRITING_CAR_NAMES,
+} from "../support/constant.js";
 
-const $SUBMIT_CAR_NAME_BUTTON_SELECTOR = "#submit-car-name-button";
-const $CAR_NAME_INPUT_SELECTOR = "#car-name-input";
-const $CAR_COUNT_SETTING_FORM_SELECTOR = "#car-count-setting-form";
-const $ATTEMPT_COUNT_INPUT_SELECTOR = "#attempt-count-input";
-const $SUBMIT_ATTEMPT_COUNT_BUTTON_SELECTOR = "#submit-attempt-count-button";
-const $CAR_SELECTOR = ".car";
-
-const WRITING_CAR_NAME = "car";
-const WRITING_CAR_NAMES = "A,B,C";
-const ATTEMPT_COUNT = 3;
 describe("레이싱 경주 테스트", () => {
   beforeEach(() => {
     cy.visit("/");
@@ -126,24 +127,32 @@ describe("레이싱 경주 테스트", () => {
 
   describe("자동차는 사용자가 입력한 횟수 내로 랜덤하게 이동할 수 있다.", () => {
     it("자동차가 출력된다.", () => {
-      cy.get($CAR_NAME_INPUT_SELECTOR).type(`${WRITING_CAR_NAME}{enter}`);
-      cy.get($ATTEMPT_COUNT_INPUT_SELECTOR).type("1{enter}");
+      cy.enteredRacingOption({
+        carNames: WRITING_CAR_NAME,
+        attemptCount: ATTEMPT_COUNT,
+      });
+
       cy.contains(WRITING_CAR_NAME).should("have.length", 1);
     });
 
     it("자동차 이름은 쉼표(,)를 기준으로 구분한다.", () => {
       const carsLength = WRITING_CAR_NAMES.split(",").length;
 
-      cy.get($CAR_NAME_INPUT_SELECTOR).type(`${WRITING_CAR_NAMES}{enter}`);
-      cy.get($ATTEMPT_COUNT_INPUT_SELECTOR).type("1{enter}");
+      cy.enteredRacingOption({
+        carNames: WRITING_CAR_NAMES,
+        attemptCount: ATTEMPT_COUNT,
+      });
+
       cy.get($CAR_SELECTOR).should("have.length", carsLength);
     });
 
     it("자동차 이동 횟수는 입력된 시도할 횟수보다 클 수 없다.", () => {
       cy.clock();
 
-      cy.get($CAR_NAME_INPUT_SELECTOR).type(`${WRITING_CAR_NAMES}{enter}`);
-      cy.get($ATTEMPT_COUNT_INPUT_SELECTOR).type(`${ATTEMPT_COUNT}{enter}`);
+      cy.enteredRacingOption({
+        carNames: WRITING_CAR_NAMES,
+        attemptCount: ATTEMPT_COUNT,
+      });
 
       cy.tick(ATTEMPT_COUNT * DELAY_MILLISECONDS);
 
@@ -155,8 +164,30 @@ describe("레이싱 경주 테스트", () => {
   });
 
   describe("사용자자가 정한 횟수가 지나면 종료된다.", () => {
-    it("최종 우승 자동차의 이름이 화면에 노출된다.", () => {});
-    it("축하 Alert가 노출된다.", () => {});
+    it("최종 우승 자동차의 이름이 화면에 노출된다.", () => {
+      cy.clock();
+      cy.enteredRacingOption({
+        carNames: WRITING_CAR_NAMES,
+        attemptCount: ATTEMPT_COUNT,
+      });
+      cy.tick(ATTEMPT_COUNT * DELAY_MILLISECONDS);
+      cy.get($WINNER_INFO).should("be.visible");
+    });
+
+    it("축하 Alert가 노출된다.", () => {
+      cy.alert({
+        action: () => {
+          cy.clock();
+          cy.enteredRacingOption({
+            carNames: WRITING_CAR_NAMES,
+            attemptCount: ATTEMPT_COUNT,
+          });
+          cy.tick(ATTEMPT_COUNT * DELAY_MILLISECONDS + DELAY_MILLISECONDS);
+          return cy.tick(1000);
+        },
+        message: CONGRATULATORY_MESSAGE,
+      });
+    });
   });
 
   describe("다시 시작할 수 있다.", () => {

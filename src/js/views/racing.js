@@ -1,6 +1,10 @@
 import Observer from "./observer.js";
 import { $, $$ } from "../utils/selector.js";
-import { ACTION_TYPE, DELAY_MILLISECONDS } from "../utils/constants.js";
+import {
+  ACTION_TYPE,
+  CONGRATULATORY_MESSAGE,
+  DELAY_MILLISECONDS,
+} from "../utils/constants.js";
 import {
   $FORWARD_ICON_ELEMENT,
   $SPINNER_ELEMENT,
@@ -28,10 +32,15 @@ class RacingView extends Observer {
     });
 
     this.$racingGroundSection = $("#racing-ground-section");
+    this.$resultSection = $("#result-section");
+    this.$winnerInfo = $("#winner-info");
 
     this.ACTIONS = Object.freeze({
       [ACTION_TYPE.CAR_NAME]: () => this.showCountFieldset(),
-      [ACTION_TYPE.ATTEMPT_COUNT]: () => this.renderCars(),
+      [ACTION_TYPE.ATTEMPT_COUNT]: async () => {
+        await this.startRacing();
+        this.showWinner();
+      },
     });
 
     this.$$forms.forEach((form) =>
@@ -67,27 +76,44 @@ class RacingView extends Observer {
     $$spinnerIcons.forEach(($el) => $el.remove());
   }
 
+  showWinner() {
+    const { winner } = this.#controller.model.state;
+
+    this.$resultSection.classList.add("active");
+    this.$winnerInfo.innerText = `🏆 최종 우승자: ${winner.join(", ")} 🏆`;
+
+    setTimeout(() => {
+      alert(CONGRATULATORY_MESSAGE);
+    }, DELAY_MILLISECONDS);
+  }
+
   moveToCarsEveryDelayTime(ms) {
-    let motionCount = 0;
-    const { cars, attemptCount } = this.#controller.model.state;
+    return new Promise((resolve) => {
+      let motionCount = 0;
+      const { cars, attemptCount } = this.#controller.model.state;
 
-    this.showSpinner();
+      this.showSpinner();
 
-    const timer = setInterval(() => {
-      this.$$cars.forEach(($car, carIndex) => {
-        const isForwardCar = cars[carIndex].turnOfMotion[motionCount];
+      const timer = setInterval(() => {
+        this.$$cars.forEach(($car, carIndex) => {
+          const isForwardCar = cars[carIndex].turnOfMotion[motionCount];
 
-        if (isForwardCar === false) return;
+          if (isForwardCar === false) return;
 
-        $car.lastChild.insertAdjacentHTML("beforebegin", $FORWARD_ICON_ELEMENT);
-      });
+          $car.lastChild.insertAdjacentHTML(
+            "beforebegin",
+            $FORWARD_ICON_ELEMENT
+          );
+        });
 
-      motionCount += 1;
-      if (motionCount === attemptCount) {
-        clearInterval(timer);
-        this.hideSpinner();
-      }
-    }, ms);
+        motionCount += 1;
+        if (motionCount === attemptCount) {
+          clearInterval(timer);
+          this.hideSpinner();
+          resolve();
+        }
+      }, ms);
+    });
   }
 
   showCountFieldset() {
@@ -103,9 +129,9 @@ class RacingView extends Observer {
     });
   }
 
-  renderCars() {
+  async startRacing() {
     this.createCars();
-    this.moveToCarsEveryDelayTime(DELAY_MILLISECONDS);
+    await this.moveToCarsEveryDelayTime(DELAY_MILLISECONDS);
   }
 
   action(type) {
