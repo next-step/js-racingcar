@@ -30,4 +30,15 @@ export class Car {
   setProcess(newProcess) {
     this.process = newProcess;
   }
+
+  initProcess(trialCount) {
+    const process = new Array(trialCount).fill(false);
+    this.process = process;
+  }
+
+  run(movingStrategy) {
+    if (!movingStrategy.isMoveable()) return false;
+    this.move();
+    return true;
+  }
 }

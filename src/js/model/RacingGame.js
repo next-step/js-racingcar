@@ -1,7 +1,5 @@
-import { race } from '../gameStrategy.js';
-
-const GENERATION_MIN = 0;
-const GENERATION_MAX = 9;
+/* eslint-disable no-param-reassign */
+import randomCarMoveStrategy from '../RandomCarMoveStrategy.js';
 
 export default class RacingGame {
   carList;
@@ -13,23 +11,15 @@ export default class RacingGame {
     this.trialCount = trialCount;
   }
 
-  isMove() {
-    const randomNumber = race('getRandomNumber', {
-      GENERATION_MIN,
-      GENERATION_MAX,
+  setRunning() {
+    this.carList.forEach($car => {
+      this.runningLap($car);
     });
-
-    return race('isGoOrStop', randomNumber);
   }
 
-  run() {
-    this.carList.forEach(car => {
-      const process = new Array(this.trialCount).fill(false).map(_ => this.isMove());
-
-      process.forEach(el => {
-        if (el === true) car.move();
-        car.setProcess(process);
-      });
+  runningLap(car) {
+    car.process.forEach((_, index) => {
+      car.process[index] = car.run(randomCarMoveStrategy);
     });
   }
 

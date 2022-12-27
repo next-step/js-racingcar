@@ -3,23 +3,18 @@ import { $ } from '../utils/selector.js';
 import { focusNameInput, toggleDisabledName } from './main.js';
 
 const TRIM_BETWEEN_COMMA = /\s*,\s*/g;
-const COMMA = ',';
+const CAR_NAME_SEPARATOR = ',';
 
-const trimNameList = value => value.replace(TRIM_BETWEEN_COMMA, COMMA).trim();
-const splitNameList = name => name.split(COMMA);
-
-export const processNameList = carNames => {
-  const trimmedNames = trimNameList(carNames);
-  return splitNameList(trimmedNames);
-};
+export const processNameList = carNames =>
+  carNames.split(CAR_NAME_SEPARATOR).map(name => name.trim());
 
 export const showTrialForm = () => {
   $('.trial-form').classList.remove('hide');
 };
 
-export const submitNames = carNameList => {
+export const submitNames = carNames => {
   try {
-    cars.setCarNames(carNameList);
+    cars.setCarNames(carNames);
     toggleDisabledName();
     showTrialForm();
   } catch (e) {

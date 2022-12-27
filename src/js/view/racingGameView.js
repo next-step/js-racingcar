@@ -1,9 +1,9 @@
 import cars from '../model/Cars.js';
 import { $, $$ } from '../utils/selector.js';
 import { updateDistance, updateWinner, focusTrialInput } from './main.js';
-import { CONGRATS_MESSAGE } from '../constant/racingcar.js';
+import { CONGRATS_MESSAGE } from '../constant/ui.js';
+import { ONE_MILLISECOND } from '../constant/racingcar.js';
 
-const PROCESS_MILLISECOND = 1000;
 const CONGRATS_MILLISECONDS = 2000;
 const DISTANCE_ICON️ = '⬇️';
 
@@ -41,7 +41,7 @@ const renderProcess = carList => {
         .insertAdjacentHTML('afterbegin', `${isCorrectName === true ? moveHTML : ''}`);
     });
     carIndex += 1;
-  }, PROCESS_MILLISECOND);
+  }, ONE_MILLISECOND);
 
   return moveInterval;
 };
@@ -64,7 +64,7 @@ const timeoutSetting = (interval, trialCount) => {
     alertCongrats();
     removeLoadingHTML();
     showWinner();
-  }, trialCount * 1000);
+  }, trialCount * ONE_MILLISECOND);
 };
 
 export const generateGame = () => {

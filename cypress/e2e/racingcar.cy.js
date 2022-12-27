@@ -1,5 +1,6 @@
 import ERROR_MESSAGES from '/src/js/constant/errorMessages.js';
-import { CONGRATS_MESSAGE } from '/src/js/constant/racingcar.js';
+import { ONE_MILLISECOND } from '/src/js/constant/racingcar.js';
+import { CONGRATS_MESSAGE } from '/src/js/constant/ui.js';
 
 describe('레이싱 카 어플리케이션 테스트', () => {
   beforeEach(() => {
@@ -90,13 +91,13 @@ describe('레이싱 카 어플리케이션 테스트', () => {
 
     it('경기 시작후 얼마나 전진했는지 결과가 보인다.', () => {
       cy.setTrialCount(4);
-      cy.wait(4 * 1000);
+      cy.wait(4 * ONE_MILLISECOND);
       cy.get('.game-result').should('be.visible');
     });
 
     it('경기 종료후 2초뒤에 축하합니다 alert이 뜬다.', () => {
       cy.setTrialCount(4);
-      cy.wait(4 * 1000);
+      cy.wait(4 * ONE_MILLISECOND);
       cy.wait(2000);
       cy.isAlert(CONGRATS_MESSAGE);
     });
@@ -106,7 +107,7 @@ describe('레이싱 카 어플리케이션 테스트', () => {
     beforeEach(() => {
       cy.setName('Benz, k5, Audi, BMW');
       cy.setTrialCount(4);
-      cy.wait(4 * 1000);
+      cy.wait(4 * ONE_MILLISECOND);
     });
 
     it('다시 시작하기 버튼을 누르면 처음 화면으로 되돌아 간다.', () => {

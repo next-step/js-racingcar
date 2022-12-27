@@ -8,8 +8,8 @@ export const handleSubmitName = event => {
   event.preventDefault();
   const { value: carNames } = event.target.elements['car-name'];
 
-  const carLists = processNameList(carNames);
-  submitNames(carLists);
+  // const carLists = processNameList(carNames);
+  submitNames(carNames);
 };
 
 export const handleSubmitTrialCount = event => {
