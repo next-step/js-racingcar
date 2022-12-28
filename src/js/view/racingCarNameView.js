@@ -1,8 +1,9 @@
 import cars from '../model/Cars.js';
 import { $ } from '../utils/selector.js';
 import { focusNameInput, toggleDisabledName } from './main.js';
+import CarName from '../model/CarName.js';
+import Car from '../model/Car.js';
 
-const TRIM_BETWEEN_COMMA = /\s*,\s*/g;
 const CAR_NAME_SEPARATOR = ',';
 
 export const processNameList = carNames =>
@@ -14,11 +15,13 @@ export const showTrialForm = () => {
 
 export const submitNames = carNames => {
   try {
-    cars.setCarNames(carNames);
+    const carNameList = cars.processNameList(carNames);
+    cars.carList = carNameList.map(carName => new Car(new CarName(carName)));
     toggleDisabledName();
     showTrialForm();
   } catch (e) {
     alert(e.message);
+    console.log(e);
     focusNameInput();
   }
 };

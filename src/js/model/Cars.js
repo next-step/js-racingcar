@@ -1,70 +1,58 @@
-import { Car, validateName } from './Car.js';
+/* eslint-disable no-param-reassign */
 import ERROR_MESSAGES from '../constant/errorMessages.js';
-import { TRIAL_COUNT_MIN } from '../constant/racingcar.js';
-import { getDataType } from '../utils/dataType.js';
 import RacingGame from './RacingGame.js';
-// import carName from './CarName.js';
-import CarName from './CarName.js';
+import TrialCount from './TrialCount.js';
 
 const CAR_NAME_SEPARATOR = ',';
-const isUnique = inputNames => inputNames.length === new Set(inputNames).size;
 
 class Cars {
-  carList;
+  #carList;
 
-  trialCount;
-
-  result;
-
-  winners;
+  #trialCount;
 
   constructor() {
-    this.carList = [];
-    this.trialCount = 0;
-    this.result = [];
-    this.winners = [];
+    this.#carList = null;
+    this.#trialCount = null;
   }
 
   processNameList = carNames => carNames.split(CAR_NAME_SEPARATOR).map(name => name.trim());
 
-  setCarNames(carNames) {
-    const carNameList = this.processNameList(carNames);
-    this.validateNames(carNameList);
-    carNameList.forEach(carName => new CarName(carName));
-    this.carList = carNameList.map(carName => new Car(carName));
-  }
-
-  setTrialCount(trialCount) {
-    this.validTrialCount(trialCount);
-    this.trialCount = trialCount;
-    this.carList.forEach(car => car.initProcess(this.trialCount));
-  }
-
-  validateNames = carNameList => {
-    if (!isUnique(carNameList)) throw new Error(ERROR_MESSAGES.DUPLICATED_NAME);
-    return true;
-  };
-
-  validTrialCount = trialCount => {
-    if (trialCount < TRIAL_COUNT_MIN) throw new Error(ERROR_MESSAGES.INVALID_TRIAL_COUNT);
-    if (getDataType(trialCount) !== 'Number') throw new Error(ERROR_MESSAGES.INVALID_TYPE);
-    return true;
-  };
-
   generateGame = () => {
-    const racingGame = new RacingGame(this.carList, this.trialCount);
-    racingGame.setRunning();
-    this.result = racingGame.getResult();
-    this.winners = racingGame.getWinners();
-    console.log(this);
+    const racingGame = new RacingGame(this.#carList, this.#trialCount);
+    racingGame.race();
+
+    return [racingGame.result, racingGame.winners];
   };
 
   resetAll = () => {
-    this.carList = [];
-    this.trialCount = 0;
-    this.result = [];
-    this.winners = [];
+    this.#carList = null;
+    this.#trialCount = null;
   };
+
+  #validateUnique(carList) {
+    if (carList.length === new Set(carList).size) return true;
+    throw new Error(ERROR_MESSAGES.DUPLICATED_NAME);
+  }
+
+  set carList(carList) {
+    if (this.#validateUnique(carList)) this.#carList = carList;
+  }
+
+  get carList() {
+    return this.#carList;
+  }
+
+  set trialCount(trialCount) {
+    if (trialCount instanceof TrialCount) {
+      this.#trialCount = trialCount;
+      return;
+    }
+    throw new Error('Cars의 trialCount은 TrialCount의 인스턴스여야 합니다.');
+  }
+
+  get trialCount() {
+    return this.#trialCount;
+  }
 }
 
 const cars = new Cars();

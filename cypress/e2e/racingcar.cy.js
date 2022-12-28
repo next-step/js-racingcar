@@ -1,6 +1,5 @@
 import ERROR_MESSAGES from '/src/js/constant/errorMessages.js';
-import { ONE_MILLISECOND } from '/src/js/constant/racingcar.js';
-import { CONGRATS_MESSAGE } from '/src/js/constant/ui.js';
+import { CONGRATS_MESSAGE, ONE_MILLISECOND } from '/src/js/constant/ui.js';
 
 describe('레이싱 카 어플리케이션 테스트', () => {
   beforeEach(() => {

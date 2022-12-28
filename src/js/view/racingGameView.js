@@ -1,8 +1,7 @@
 import cars from '../model/Cars.js';
 import { $, $$ } from '../utils/selector.js';
 import { updateDistance, updateWinner, focusTrialInput } from './main.js';
-import { CONGRATS_MESSAGE } from '../constant/ui.js';
-import { ONE_MILLISECOND } from '../constant/racingcar.js';
+import { CONGRATS_MESSAGE, ONE_MILLISECOND } from '../constant/ui.js';
 
 const CONGRATS_MILLISECONDS = 2000;
 const DISTANCE_ICON️ = '⬇️';
@@ -31,15 +30,17 @@ const renderProcess = carList => {
   const $cars = document.querySelectorAll('.result-container');
 
   let carIndex = 0;
+
   const moveInterval = setInterval(() => {
     $cars.forEach($car => {
       const carName = $car.querySelector('.car-player').innerHTML;
-      const isCorrectName = carList.find(car => car.name === carName).process[carIndex];
+      const isCorrectName = carList.find(car => car.name.value === carName).process.value[carIndex];
 
       $car
         .querySelector('.cars')
         .insertAdjacentHTML('afterbegin', `${isCorrectName === true ? moveHTML : ''}`);
     });
+
     carIndex += 1;
   }, ONE_MILLISECOND);
 
@@ -69,15 +70,17 @@ const timeoutSetting = (interval, trialCount) => {
 
 export const generateGame = () => {
   try {
-    cars.generateGame();
-    updateDistance(cars.result);
+    const [result, winners] = cars.generateGame();
+    updateDistance(result);
     showDistance();
     addLoadingHTML();
     const interval = renderProcess(cars.carList);
-    timeoutSetting(interval, cars.trialCount);
-    updateWinner(cars.winners);
+    timeoutSetting(interval, cars.trialCount.value);
+    updateWinner(winners);
   } catch (e) {
     alert(e.message);
+    console.log(e);
+
     focusTrialInput();
   }
 };

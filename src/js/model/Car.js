@@ -1,44 +1,48 @@
-import { NAME_LENGTH_MIN, NAME_LENGTH_MAX } from '../constant/racingcar.js';
-import { getDataType } from '../utils/dataType.js';
-import ERROR_MESSAGES from '../constant/errorMessages.js';
+import CarName from './CarName.js';
+import Process from './Process.js';
 
-const isInRange = name => name.length >= NAME_LENGTH_MIN && name.length <= NAME_LENGTH_MAX;
+class Car {
+  #name;
 
-export const validateName = carName => {
-  if (!isInRange(carName)) throw new Error(ERROR_MESSAGES.NAME_OUT_OF_RANGE);
-  if (getDataType(carName) !== 'String') throw new Error(ERROR_MESSAGES.INVALID_TYPE);
-  return true;
-};
+  #distance = 0;
 
-export class Car {
-  name;
-
-  distance;
-
-  process;
+  #process = [];
 
   constructor(name) {
-    this.name = name;
-    this.distance = 0;
-    this.process = [];
+    this.#name = name;
+    this.#validateName();
   }
 
-  move() {
-    this.distance += 1;
-  }
-
-  setProcess(newProcess) {
-    this.process = newProcess;
-  }
-
-  initProcess(trialCount) {
-    const process = new Array(trialCount).fill(false);
-    this.process = process;
+  #validateName() {
+    if (this.#name instanceof CarName) return;
+    throw new Error('Car의 name은 CarName의 인스턴스여야 합니다.');
   }
 
   run(movingStrategy) {
     if (!movingStrategy.isMoveable()) return false;
-    this.move();
+    this.#distance += 1;
     return true;
   }
+
+  set process(process) {
+    if (process instanceof Process) {
+      this.#process = process;
+      return;
+    }
+    throw new Error('Car의 process는 Process의 인스턴스여야 합니다.');
+  }
+
+  get process() {
+    return this.#process;
+  }
+
+  get name() {
+    return this.#name;
+  }
+
+  get distance() {
+    return this.#distance;
+  }
 }
+
+export default Car;
