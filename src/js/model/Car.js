@@ -1,52 +1,48 @@
+import CarName from './CarName.js';
+import Process from './Process.js';
+
 class Car {
-  #names;
+  #name;
 
-  #trialCount;
+  #distance = 0;
 
-  #gameResult;
+  #process = [];
 
-  #winners;
-
-  constructor() {
-    this.#names = [];
-    this.#trialCount = 0;
-    this.#gameResult = [];
-    this.#winners = [];
+  constructor(name) {
+    this.#name = name;
+    this.#validateName();
   }
 
-  get names() {
-    return this.#names;
+  #validateName() {
+    if (this.#name instanceof CarName) return;
+    throw new Error('Car의 name은 CarName의 인스턴스여야 합니다.');
   }
 
-  set names(name) {
-    this.#names = name;
+  run(movingStrategy) {
+    if (!movingStrategy.isMoveable()) return false;
+    this.#distance += 1;
+    return true;
   }
 
-  get trialCount() {
-    return this.#trialCount;
+  set process(process) {
+    if (process instanceof Process) {
+      this.#process = process;
+      return;
+    }
+    throw new Error('Car의 process는 Process의 인스턴스여야 합니다.');
   }
 
-  set trialCount(name) {
-    this.#trialCount = name;
+  get process() {
+    return this.#process;
   }
 
-  get gameResult() {
-    return this.#gameResult;
+  get name() {
+    return this.#name;
   }
 
-  set gameResult(name) {
-    this.#gameResult = name;
-  }
-
-  get winners() {
-    return this.#winners;
-  }
-
-  set winners(name) {
-    this.#winners = name;
+  get distance() {
+    return this.#distance;
   }
 }
 
-const car = new Car();
-
-export default car;
+export default Car;

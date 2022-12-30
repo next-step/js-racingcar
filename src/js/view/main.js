@@ -1,9 +1,4 @@
-/* eslint-disable arrow-body-style */
 import { $ } from '../utils/selector.js';
-
-export const showTrialForm = () => {
-  $('.trial-form').classList.remove('hide');
-};
 
 export const hideTrialForm = () => {
   $('.trial-form').classList.add('hide');
@@ -35,34 +30,23 @@ export const toggleDisabledTrial = () => {
   $('.trial-input').disabled = !$('.trial-input').disabled;
 };
 
-export const showResult = () => {
-  $('.game-result').classList.remove('hide');
-};
-
-export const hideResult = () => {
+export const hideDistance = () => {
   $('.game-result').classList.add('hide');
 };
 
-export const updateResult = gameResult => {
+export const updateDistance = result => {
   $('.game-result').innerHTML = `
 		<div class="mt-4 d-flex">
-			${Object.entries(gameResult)
-        .map(
-          ([key, value]) => `
-					<div class="mr-2 result-container">
-						<div class="car-player">${key}</div>
-						${value
-              .filter(Boolean)
-              .map(_ => `<div class="forward-icon mt-2">⬇️️</div>`)
-              .join('')}
-						</div>`,
-        )
-        .join('')}
-		</div>`;
-};
-
-export const showWinner = () => {
-  $('.winner-section').classList.remove('hide');
+    ${result
+      .map(
+        ([name, _]) => `
+  				<div class="mr-2 result-container">
+  					<div class="car-player">${name}</div>
+						<div class="cars"></div>
+					</div>`,
+      )
+      .join('')}
+  </div>`;
 };
 
 export const hideWinner = () => {
@@ -72,4 +56,23 @@ export const hideWinner = () => {
 export const updateWinner = winners => {
   $('.winners').innerHTML = `
 	🏆 최종 우승자: ${winners.map(winner => `${winner}`).join(', ')} 🏆</h2>`;
+};
+
+export const resetName = () => {
+  resetNameForm();
+  toggleDisabledName();
+  focusNameInput();
+};
+
+export const resetTrial = () => {
+  resetTrialForm();
+  toggleDisabledTrial();
+  hideTrialForm();
+};
+
+export const resetResult = () => {
+  updateDistance([]);
+  hideDistance();
+  updateWinner([]);
+  hideWinner();
 };
