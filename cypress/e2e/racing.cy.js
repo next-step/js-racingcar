@@ -24,7 +24,7 @@ describe("레이싱 경주 테스트", () => {
     cy.get($CAR_NAME_INPUT_SELECTOR).should("exist");
   });
 
-  describe("자동차 이름을 부여할 수 있다.", () => {
+  context("자동차 이름을 부여할 수 있다.", () => {
     it("빈 문자를 부여하면 Alert가 뜬다", () => {
       cy.get($CAR_NAME_INPUT_SELECTOR).type(" ");
       cy.alert({
@@ -80,7 +80,7 @@ describe("레이싱 경주 테스트", () => {
     });
   });
 
-  describe("사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.", () => {
+  context("사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.", () => {
     beforeEach(() => {
       cy.get($CAR_NAME_INPUT_SELECTOR).type(`${WRITING_CAR_NAME}{enter}`);
     });
@@ -126,7 +126,7 @@ describe("레이싱 경주 테스트", () => {
     });
   });
 
-  describe("자동차는 사용자가 입력한 횟수 내로 랜덤하게 이동할 수 있다.", () => {
+  context("자동차는 사용자가 입력한 횟수 내로 랜덤하게 이동할 수 있다.", () => {
     it("자동차가 출력된다.", () => {
       cy.enteredRacingOption({
         carNames: WRITING_CAR_NAME,
@@ -164,7 +164,7 @@ describe("레이싱 경주 테스트", () => {
     });
   });
 
-  describe("사용자자가 정한 횟수가 지나면 종료된다.", () => {
+  context("사용자자가 정한 횟수가 지나면 종료된다.", () => {
     it("최종 우승 자동차의 이름이 화면에 노출된다.", () => {
       cy.clock();
       cy.enteredRacingOption({
@@ -191,7 +191,7 @@ describe("레이싱 경주 테스트", () => {
     });
   });
 
-  describe("다시 시작할 수 있다.", () => {
+  context("다시 시작할 수 있다.", () => {
     beforeEach(() => {
       cy.clock();
       cy.enteredRacingOption({
