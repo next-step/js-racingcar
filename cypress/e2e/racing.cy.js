@@ -184,7 +184,7 @@ describe("레이싱 경주 테스트", () => {
             attemptCount: ATTEMPT_COUNT,
           });
           cy.tick(ATTEMPT_COUNT * DELAY_MILLISECONDS + DELAY_MILLISECONDS);
-          return cy.tick(1000);
+          return cy.tick(2000);
         },
         message: CONGRATULATORY_MESSAGE,
       });
