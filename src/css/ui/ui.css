@@ -28,6 +28,10 @@ main {
   display: flex;
 }
 
+#car-list {
+  display: flex;
+}
+
 #result-section {
   display: none;
   justify-content: center;

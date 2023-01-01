@@ -13,7 +13,9 @@ import {
 
 class RacingView extends Observer {
   #controller;
+  $carList;
   $$cars;
+
   constructor(controller) {
     super();
     this.#controller = controller;
@@ -51,8 +53,18 @@ class RacingView extends Observer {
     this.#controller.model.subscribe(this);
   }
 
+  renderCarList() {
+    const $carList = document.createElement("ul");
+    $carList.id = "car-list";
+
+    this.$racingGroundSection.appendChild($carList);
+    this.$carList = $("#car-list");
+  }
+
   createCars() {
+    this.renderCarList();
     this.showRacingSection();
+
     const $carElements = this.#controller.model.state.cars.reduce(
       (acc, pre) => {
         acc += createCarElement(pre.name);
@@ -61,7 +73,7 @@ class RacingView extends Observer {
       ""
     );
 
-    this.$racingGroundSection.insertAdjacentHTML("afterbegin", $carElements);
+    this.$carList.insertAdjacentHTML("afterbegin", $carElements);
     this.$$cars = $$(".car");
   }
 
@@ -153,9 +165,7 @@ class RacingView extends Observer {
     this.$racingGroundSection.classList.remove("active");
     this.$resultSection.classList.remove("active");
 
-    this.$$cars.forEach(($car) => {
-      $car.remove();
-    });
+    this.$carList.remove();
 
     this.setDisabledElements(this.$carNameElements, false);
     this.setDisabledElements(this.$attemptElements, false);
