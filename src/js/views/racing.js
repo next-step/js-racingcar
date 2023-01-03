@@ -3,7 +3,8 @@ import { $, $$ } from "../utils/selector.js";
 import {
   ACTION_TYPE,
   CONGRATULATORY_MESSAGE,
-  DELAY_MILLISECONDS,
+  RENDER_CAR_DELAY_MILLISECONDS,
+  SHOW_WINNER_ALERT_DELAY_MILLISECONDS,
 } from "../utils/constants.js";
 import {
   $FORWARD_ICON_ELEMENT,
@@ -116,7 +117,7 @@ class RacingView extends Observer {
 
     setTimeout(() => {
       alert(CONGRATULATORY_MESSAGE);
-    }, DELAY_MILLISECONDS * 2);
+    }, SHOW_WINNER_ALERT_DELAY_MILLISECONDS);
   }
 
   showSpinner() {
@@ -145,7 +146,7 @@ class RacingView extends Observer {
   async startRacing({ cars, attemptCount }) {
     this.createCars(cars);
     await this.moveToCarsEveryDelayTime({
-      ms: DELAY_MILLISECONDS,
+      ms: RENDER_CAR_DELAY_MILLISECONDS,
       cars,
       attemptCount,
     });
