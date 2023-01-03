@@ -20,7 +20,7 @@ class RacingView extends Observer {
     super();
     this.#controller = controller;
 
-    this.$$forms = $$("form");
+    this.$carRacingSettingSection = $("#car-racing-setting-section");
     this.$countform = $("#car-count-setting-form");
     this.$carNameElements = Object.freeze({
       $input: $("#car-name-input"),
@@ -37,17 +37,14 @@ class RacingView extends Observer {
 
     this.ACTIONS = Object.freeze({
       [ACTION_TYPE.CAR_NAME]: () => this.showCountFieldset(),
-      [ACTION_TYPE.ATTEMPT_COUNT]: async () => {
-        await this.startRacing();
-        this.showWinner();
+      [ACTION_TYPE.ATTEMPT_COUNT]: async (state) => {
+        await this.startRacing(state);
+        this.showWinner(state);
       },
       [ACTION_TYPE.RESET]: () => this.reset(),
     });
 
-    this.$$forms.forEach((form) =>
-      form.addEventListener("submit", this.#controller)
-    );
-
+    this.$carRacingSettingSection.addEventListener("submit", this.#controller);
     this.$restartButton.addEventListener("click", this.#controller);
 
     this.#controller.model.subscribe(this);
@@ -61,26 +58,22 @@ class RacingView extends Observer {
     this.$carList = $("#car-list");
   }
 
-  createCars() {
+  createCars(cars) {
     this.renderCarList();
     this.showRacingSection();
 
-    const $carElements = this.#controller.model.state.cars.reduce(
-      (acc, pre) => {
-        acc += createCarElement(pre.name);
-        return acc;
-      },
-      ""
-    );
+    const $carElements = cars.reduce((acc, pre) => {
+      acc += createCarElement(pre.name);
+      return acc;
+    }, "");
 
     this.$carList.insertAdjacentHTML("afterbegin", $carElements);
     this.$$cars = $$(".car");
   }
 
-  moveToCarsEveryDelayTime(ms) {
+  moveToCarsEveryDelayTime({ ms, cars, attemptCount }) {
     return new Promise((resolve) => {
       let motionCount = 0;
-      const { cars, attemptCount } = this.#controller.model.state;
 
       this.showSpinner();
 
@@ -117,9 +110,7 @@ class RacingView extends Observer {
     this.$racingGroundSection.classList.add("active");
   }
 
-  showWinner() {
-    const { winner } = this.#controller.model.state;
-
+  showWinner({ winner }) {
     this.$resultSection.classList.add("active");
     this.$winnerInfo.innerText = `🏆 최종 우승자: ${winner.join(", ")} 🏆`;
 
@@ -151,9 +142,13 @@ class RacingView extends Observer {
     });
   }
 
-  async startRacing() {
-    this.createCars();
-    await this.moveToCarsEveryDelayTime(DELAY_MILLISECONDS);
+  async startRacing({ cars, attemptCount }) {
+    this.createCars(cars);
+    await this.moveToCarsEveryDelayTime({
+      ms: DELAY_MILLISECONDS,
+      cars,
+      attemptCount,
+    });
   }
 
   reset() {
@@ -171,8 +166,8 @@ class RacingView extends Observer {
     this.setDisabledElements(this.$attemptElements, false);
   }
 
-  action(type) {
-    this.ACTIONS[type]();
+  action(type, state) {
+    this.ACTIONS[type](state);
   }
 }
 

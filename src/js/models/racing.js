@@ -1,20 +1,13 @@
 import Observable from "./observable.js";
 
-const INITIAL_STATE = {
-  cars: [],
-  winner: [],
-  attemptCount: 0,
-};
-
 class RacingModel extends Observable {
-  state;
   constructor() {
     super();
-    this.state = INITIAL_STATE;
+    this.state = super.state;
   }
 
   reset() {
-    this.state = JSON.parse(JSON.stringify(INITIAL_STATE));
+    super.reset();
   }
 }
 

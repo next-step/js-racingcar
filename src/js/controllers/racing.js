@@ -1,17 +1,20 @@
 import { $ } from "../utils/selector.js";
 import {
-  checkAllMaxLengthOfStringNode,
   checkAllTypeOfStringNode,
   checkEmptyString,
   getRandomNumber,
+  isArray,
+  isValidAllNodesLength,
   removeWordSpacing,
 } from "../utils/utils.js";
 import {
   ACTION_TYPE,
   ERROR_MESSAGES,
+  MAX_CAR_NAME_LENGTH,
   MAX_NUMBER,
   MINIMUM_CONDITIONS_FOR_MOVEMENT,
 } from "../utils/constants.js";
+import { ValidationError } from "../utils/error.js";
 
 class RacingController {
   #model;
@@ -32,10 +35,10 @@ class RacingController {
     e.preventDefault();
     switch (e.type) {
       case "submit":
-        this.submitHandler(e.submitter);
+        this.submitRacingOptions(e.submitter);
         break;
       case "click":
-        this.clickHandler(e.target);
+        this.reset(e.target);
         break;
       default:
         console.log(e.target);
@@ -106,7 +109,8 @@ class RacingController {
   isValidTobeSubmittedCarNames($nameInput, names) {
     try {
       checkEmptyString($nameInput.value);
-      checkAllMaxLengthOfStringNode(names, 5);
+      isArray(names);
+      isValidAllNodesLength(names, MAX_CAR_NAME_LENGTH);
       checkAllTypeOfStringNode(names, "language");
       return true;
     } catch (err) {
@@ -115,15 +119,19 @@ class RacingController {
     }
   }
 
-  submitHandler(submitter) {
-    if (Object.hasOwn(this.SUBMIT, submitter.id) === false) {
-      alert("해당 submitter는 등록되지 않았습니다.");
-      return;
+  submitRacingOptions(submitter) {
+    try {
+      if (Object.hasOwn(this.SUBMIT, submitter.id) === false) {
+        alert("등록할 수 없습니다.");
+        throw new ValidationError("해당 submitter는 등록되지 않았습니다.");
+      }
+      this.SUBMIT[submitter.id]();
+    } catch (err) {
+      console.error(err);
     }
-    this.SUBMIT[submitter.id]();
   }
 
-  clickHandler(target) {
+  reset(target) {
     if (target.id !== "restart-button") return;
 
     this.#model.reset();
