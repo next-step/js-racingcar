@@ -34,7 +34,7 @@ describe("레이싱 경주 테스트", () => {
     });
 
     it("이름은 5자 이하만 가능하다.", () => {
-      cy.get($CAR_NAME_INPUT_SELECTOR).type("일이삼사오");
+      cy.get($CAR_NAME_INPUT_SELECTOR).type("일이삼사오육");
       cy.alert({
         action: () => cy.get($SUBMIT_CAR_NAME_BUTTON_SELECTOR).click(),
         message: ERROR_MESSAGES.NOT_ALLOW_NAME_LENGTH,
