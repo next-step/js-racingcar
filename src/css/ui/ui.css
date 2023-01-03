@@ -1,0 +1,43 @@
+main {
+  width: 400px;
+}
+
+#car-racing-setting-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+}
+
+#car-count-setting-form {
+  display: none;
+  margin: 20px 0 0;
+}
+
+#car-count-setting-form.active {
+  display: block;
+}
+
+#racing-ground-section {
+  display: none;
+  justify-content: center;
+  margin: 20px 0 0;
+}
+
+#racing-ground-section.active {
+  display: flex;
+}
+
+#car-list {
+  display: flex;
+}
+
+#result-section {
+  display: none;
+  justify-content: center;
+  margin: 20px 0 0;
+}
+
+#result-section.active {
+  display: flex;
+}
