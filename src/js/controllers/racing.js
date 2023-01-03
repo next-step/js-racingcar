@@ -32,10 +32,10 @@ class RacingController {
     e.preventDefault();
     switch (e.type) {
       case "submit":
-        this.submitHandler(e.submitter);
+        this.submitRacingOptions(e.submitter);
         break;
       case "click":
-        this.clickHandler(e.target);
+        this.reset(e.target);
         break;
       default:
         console.log(e.target);
@@ -115,7 +115,7 @@ class RacingController {
     }
   }
 
-  submitHandler(submitter) {
+  submitRacingOptions(submitter) {
     if (Object.hasOwn(this.SUBMIT, submitter.id) === false) {
       alert("해당 submitter는 등록되지 않았습니다.");
       return;
@@ -123,7 +123,7 @@ class RacingController {
     this.SUBMIT[submitter.id]();
   }
 
-  clickHandler(target) {
+  reset(target) {
     if (target.id !== "restart-button") return;
 
     this.#model.reset();
