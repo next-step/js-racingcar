@@ -72,7 +72,7 @@ class RacingView extends Observer {
     this.$$cars = $$(".car");
   }
 
-  moveToCarsEveryDelayTime({ ms, cars, attemptCount }) {
+  moveToCarsEveryDelayTime(cars, attemptCount) {
     return new Promise((resolve) => {
       let motionCount = 0;
 
@@ -96,7 +96,7 @@ class RacingView extends Observer {
           this.hideSpinner();
           resolve();
         }
-      }, ms);
+      }, RENDER_CAR_DELAY_MILLISECONDS);
     });
   }
 
@@ -145,11 +145,7 @@ class RacingView extends Observer {
 
   async startRacing({ cars, attemptCount }) {
     this.createCars(cars);
-    await this.moveToCarsEveryDelayTime({
-      ms: RENDER_CAR_DELAY_MILLISECONDS,
-      cars,
-      attemptCount,
-    });
+    await this.moveToCarsEveryDelayTime(cars, attemptCount);
   }
 
   reset() {
