@@ -12,6 +12,7 @@ import {
   MAX_NUMBER,
   MINIMUM_CONDITIONS_FOR_MOVEMENT,
 } from "../utils/constants.js";
+import { ValidationError } from "../utils/error.js";
 
 class RacingController {
   #model;
@@ -116,11 +117,15 @@ class RacingController {
   }
 
   submitRacingOptions(submitter) {
-    if (Object.hasOwn(this.SUBMIT, submitter.id) === false) {
-      alert("해당 submitter는 등록되지 않았습니다.");
-      return;
+    try {
+      if (Object.hasOwn(this.SUBMIT, submitter.id) === false) {
+        alert("등록할 수 없습니다.");
+        throw new ValidationError("해당 submitter는 등록되지 않았습니다.");
+      }
+      this.SUBMIT[submitter.id]();
+    } catch (err) {
+      console.error(err);
     }
-    this.SUBMIT[submitter.id]();
   }
 
   reset(target) {
