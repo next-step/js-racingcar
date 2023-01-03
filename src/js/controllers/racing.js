@@ -1,14 +1,16 @@
 import { $ } from "../utils/selector.js";
 import {
-  checkAllMaxLengthOfStringNode,
   checkAllTypeOfStringNode,
   checkEmptyString,
   getRandomNumber,
+  isArray,
+  isValidAllNodesLength,
   removeWordSpacing,
 } from "../utils/utils.js";
 import {
   ACTION_TYPE,
   ERROR_MESSAGES,
+  MAX_CAR_NAME_LENGTH,
   MAX_NUMBER,
   MINIMUM_CONDITIONS_FOR_MOVEMENT,
 } from "../utils/constants.js";
@@ -107,7 +109,8 @@ class RacingController {
   isValidTobeSubmittedCarNames($nameInput, names) {
     try {
       checkEmptyString($nameInput.value);
-      checkAllMaxLengthOfStringNode(names, 5);
+      isArray(names);
+      isValidAllNodesLength(names, MAX_CAR_NAME_LENGTH);
       checkAllTypeOfStringNode(names, "language");
       return true;
     } catch (err) {

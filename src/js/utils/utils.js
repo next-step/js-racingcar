@@ -8,12 +8,14 @@ export const checkEmptyString = (string) => {
   }
 };
 
-export const checkAllMaxLengthOfStringNode = (arr, maxLength) => {
+export const isArray = (arr) => {
   if (Array.isArray(arr) === false) {
-    throw new TypeError(`${arr}가 배열이 아닙니다.`);
+    throw new TypeError(`${JSON.stringify(arr)}가(이) 배열이 아닙니다.`);
   }
+};
 
-  const isValid = arr.every((node) => node.length < maxLength);
+export const isValidAllNodesLength = (arr, maxLength) => {
+  const isValid = arr.every((node) => node.length <= maxLength);
   if (isValid === false) {
     throw new ValidationError(ERROR_MESSAGES.NOT_ALLOW_NAME_LENGTH);
   }
