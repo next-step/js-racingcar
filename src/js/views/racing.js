@@ -44,10 +44,7 @@ class RacingView extends Observer {
       [ACTION_TYPE.RESET]: () => this.reset(),
     });
 
-    this.$$forms.forEach((form) =>
-      form.addEventListener("submit", this.#controller)
-    );
-
+    this.$carRacingSettingSection.addEventListener("submit", this.#controller);
     this.$restartButton.addEventListener("click", this.#controller);
 
     this.#controller.model.subscribe(this);
