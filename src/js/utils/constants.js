@@ -14,8 +14,7 @@ export const ACTION_TYPE = {
 };
 
 export const MAX_CAR_NAME_LENGTH = 5;
-
 export const MAX_NUMBER = 9;
 export const MINIMUM_CONDITIONS_FOR_MOVEMENT = 4;
-
-export const DELAY_MILLISECONDS = 1000;
+export const SHOW_WINNER_ALERT_DELAY_MILLISECONDS = 2000;
+export const RENDER_CAR_DELAY_MILLISECONDS = 1000;
