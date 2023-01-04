@@ -35,10 +35,12 @@ export function attachNextRaceState(carStates) {
     const shouldAdvance = checkIsCanBeAdvanced(createRandomNumber(MAX_RANDOM_NUMBER));
     carShouldAdvanceResults.push(shouldAdvance);
 
+    const advanceDistance = getAdvanceDistance(shouldAdvance);
+
     if (shouldAdvance) {
       return {
         ...el,
-        distance: el.distance + 1,
+        distance: el.distance + advanceDistance,
       };
     }
 
@@ -48,8 +50,13 @@ export function attachNextRaceState(carStates) {
   return [carShouldAdvanceResults, newRaceState];
 }
 
-export function checkIsCanBeAdvanced(givenNumber) {
-  return givenNumber >= JUDGEMENT_NUMBER;
+function getAdvanceDistance(shouldAdvance) {
+  if (shouldAdvance) return 1;
+  return 0;
+}
+
+export function checkIsCanBeAdvanced(number) {
+  return number >= JUDGEMENT_NUMBER
 }
 
 subscribe(startRace);
