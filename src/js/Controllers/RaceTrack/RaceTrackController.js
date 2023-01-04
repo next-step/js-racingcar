@@ -22,14 +22,12 @@ const RACE_INTERVAL_TIME = 1000;
 
 function progressRace({ carStates }) {
   setTimeout(() => {
-    const [carShouldAdvanceResults, newRaceState] = attachNextRaceState(carStates);
-
+    const carShouldAdvanceResults = executeNextRace(carStates);
     raceTrackView.continueRace(carShouldAdvanceResults);
-    dispatch(actions.PROGRESS, newRaceState);
   }, RACE_INTERVAL_TIME);
 }
 
-export function attachNextRaceState(carStates) {
+export function executeNextRace(carStates) {
   const carShouldAdvanceResults = [];
   const newRaceState = carStates.map((el) => {
     const shouldAdvance = checkIsCanBeAdvanced(createRandomNumber(MAX_RANDOM_NUMBER));
@@ -47,7 +45,13 @@ export function attachNextRaceState(carStates) {
     return el;
   });
 
-  return [carShouldAdvanceResults, newRaceState];
+  dispatchNextRaceState(newRaceState);
+
+  return carShouldAdvanceResults;
+}
+
+function dispatchNextRaceState(newRaceState) {
+  dispatch(actions.PROGRESS, newRaceState);
 }
 
 function getAdvanceDistance(shouldAdvance) {
