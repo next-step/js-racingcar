@@ -18,10 +18,10 @@ export function validateValueType(val, type, options) {
   if (typeOfValue === type) {
     switch (typeOfValue) {
       case('array'): {
-        res = isArray();
+        res = isArray(val);
       }
       case('null'): {
-        res = isNull();
+        res = isNull(val);
       }
       default: {
         res = true;
