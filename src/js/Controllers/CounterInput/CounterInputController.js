@@ -3,9 +3,8 @@ import { dispatch as dispatchRaceState, actions as raceActions } from '../../Sto
 import { countInputSetView } from '../../Views/CountInputView.js';
 import { raceTrackView } from '../../Views/RaceTrackView/RaceTrackView.js';
 
-const onSubmitListener = (e) => {
-  const targetElement = e.target;
-  const iterationCount = targetElement.value;
+const onSubmitListener = () => {
+  const iterationCount = countInputSetView.getInputValue();
   if (!iterationCount) {
     alert('횟수를 입력해주세요!');
     return;

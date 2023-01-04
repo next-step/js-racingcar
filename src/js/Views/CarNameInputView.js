@@ -16,6 +16,10 @@ class CarNameInputView extends View {
     this.inputElement.value = '';
   };
 
+  getInputValue = () => {
+    return this.inputElement.value;
+  }
+
   disable = () => {
     this.rootElement.setAttribute('disabled', true);
   };
