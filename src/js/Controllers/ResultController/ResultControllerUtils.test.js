@@ -22,6 +22,6 @@ describe('ResultController test', () => {
     ];
 
     const winnerName = getWinnersName(carStates);
-    console.log(winnerName);
+    expect(winnerName).toStrictEqual(['3']);
   });
 });
