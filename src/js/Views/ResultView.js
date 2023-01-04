@@ -11,12 +11,6 @@ class ResultView extends View {
     this.resetButton = rootElement.getElementsByTagName('button')[0];
   }
 
-  addResetButtonClickListener = (onClick) => {
-    this.resetButton.addEventListener('click', (e) => {
-      onClick(e);
-    });
-  }
-
   init = () => {
     this.hide();
     this.raceResultElement.textContent = '';

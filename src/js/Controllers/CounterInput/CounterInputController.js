@@ -3,8 +3,9 @@ import { dispatch as dispatchRaceState, actions as raceActions } from '../../Sto
 import { countInputSetView } from '../../Views/CountInputView.js';
 import { raceTrackView } from '../../Views/RaceTrackView/RaceTrackView.js';
 
-countInputSetView.addButtonClickListener(({ inputElement }) => {
-  const iterationCount = inputElement.value;
+const onSubmitListener = (e) => {
+  const targetElement = e.target;
+  const iterationCount = targetElement.value;
   if (!iterationCount) {
     alert('횟수를 입력해주세요!');
     return;
@@ -17,4 +18,12 @@ countInputSetView.addButtonClickListener(({ inputElement }) => {
   raceTrackView.show();
   raceTrackView.readyRaceTrack(carNames);
   dispatchRaceState(raceActions.READY, carNames);
+}
+
+countInputSetView.addEvent('submitButton', 'click', onSubmitListener);
+countInputSetView.addEvent('rootElement', 'keypress', (e) => {
+  if (e.key === 'Enter') {
+    e.stopPropagation();
+    onSubmitListener(e);
+  }
 });

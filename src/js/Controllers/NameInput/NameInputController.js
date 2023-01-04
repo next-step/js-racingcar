@@ -8,8 +8,9 @@ import { countInputSetView } from '../../Views/CountInputView.js';
 const CAR_NAME_SEPERATE_FACTOR = ',';
 const CAR_NAME_LIMIT_LENGTH = 5;
 
-carNameInputSetView.addButtonClickListener(({ inputElement }) => {
-  const inputValues = inputElement.value?.split(CAR_NAME_SEPERATE_FACTOR);
+const onSubmitListener = (e) => {
+  const targetElement = e.target;
+  const inputValues = targetElement.value?.split(CAR_NAME_SEPERATE_FACTOR);
   const isInputValLengthCorrect = inputValues.some((inputVal) => !!inputVal && inputVal.length <= CAR_NAME_LIMIT_LENGTH);
 
   if (!isInputValLengthCorrect) {
@@ -20,4 +21,12 @@ carNameInputSetView.addButtonClickListener(({ inputElement }) => {
   dispatch('addCarNames', inputValues);
   carNameInputSetView.disable();
   countInputSetView.show();
+}
+
+carNameInputSetView.addEvent('submitButton', 'click', onSubmitListener);
+carNameInputSetView.addEvent('inputElement', 'keypress', (e) => {
+  if (e.key === 'Enter') {
+    e.stopPropagation();
+    onSubmitListener(e);
+  }
 });

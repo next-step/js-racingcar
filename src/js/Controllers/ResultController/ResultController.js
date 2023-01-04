@@ -12,11 +12,11 @@ function setResult(raceState) {
 
   const winners = getWinnersName(raceState.carStates);
   resultView.setResult(winners);
-
-  resultView.addResetButtonClickListener(() => {
-    resetViews();
-    resetModels();
-  });
 }
+
+resultView.addEvent('resetButton', 'click', () => {
+  resetViews();
+  resetModels();
+});
 
 subscribe(setResult);

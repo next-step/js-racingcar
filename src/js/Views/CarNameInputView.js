@@ -11,18 +11,6 @@ class CarNameInputView extends View {
     this.submitButton = rootElement.getElementsByTagName('button')[0];
   }
 
-  addButtonClickListener = (onClick) => {
-    this.submitButton.addEventListener('click', (e) => {
-      onClick({ inputElement: this.inputElement }, e);
-    });
-    this.rootElement.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.stopPropagation();
-        onClick({ inputElement: this.inputElement });
-      }
-    });
-  };
-
   init = () => {
     this.rootElement.removeAttribute('disabled');
     this.inputElement.value = '';
