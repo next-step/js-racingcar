@@ -1,11 +1,3 @@
-import * as actions from './actions.js';
-import { RACE_STATES } from './constants.js';
-import { dispatch, getState, subscribe } from './race.js';
-
-export {
-  actions,
-  dispatch,
-  getState,
-  subscribe,
-  RACE_STATES,
-};
+export * as actions from './actions.js';
+export { RACE_STATES } from './constants.js';
+export { dispatch, getState, subscribe } from './race.js';
