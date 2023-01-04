@@ -16,9 +16,9 @@ function setState(newState) {
 export function dispatch(action, payload) {
   switch(action) {
     case(READY): {
-      const carStates = payload.map((carName) => {
+      const carStates = payload.map((name) => {
         return {
-          name: carName,
+          name,
           distance: 0,
         };
       });
