@@ -1,4 +1,4 @@
-import { ADD_CAR_NAMES, ITERATION_COUNT } from './actions';
+import { ADD_CAR_NAMES, ITERATION_COUNT, RESET } from './actions';
 
 let state = Object.freeze({
   carNames: [],
@@ -25,6 +25,7 @@ export function dispatch(action, payload) {
       });
       break;
     }
+    case(RESET):
     default: {
       setState({
         carNames: [],

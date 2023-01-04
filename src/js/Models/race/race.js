@@ -1,4 +1,4 @@
-import { DONE, PROGRESS, READY } from './actions.js';
+import { DONE, PROGRESS, READY, RESET } from './actions.js';
 import { RACE_STATES } from './constants.js';
 
 let state = Object.freeze({
@@ -51,6 +51,7 @@ export function dispatch(action, payload) {
       });
       break;
     }
+    case(RESET):
     default: {
       setState({
         carStates: [],
