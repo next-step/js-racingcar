@@ -1,4 +1,5 @@
 import { DONE, PROGRESS, READY, RESET } from './actions.js';
+import { RACE_STATES } from './constants.js';
 import { RaceStore } from './models/RaceStore.js';
 
 let state = new RaceStore();

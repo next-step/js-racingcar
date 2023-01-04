@@ -1,12 +1,7 @@
 import { freezeObject, validateValueType } from "../../common.js";
+import { RACE_STATES } from '../constants.js';
 
 export class RaceStore {
-  static RACE_STATES = {
-    WAIT: 'wait',
-    DOING: 'doing',
-    DONE: 'done',
-  };
-
   static validateProps({ carStates, raceState, raceCount }) {
     return (
       validateValueType(carStates, 'array')
@@ -16,7 +11,7 @@ export class RaceStore {
   }
 
   carStates = [];
-  raceState = RaceStore.RACE_STATES.WAIT;
+  raceState = RACE_STATES.WAIT;
   raceCount = 0;
 
   constructor({
