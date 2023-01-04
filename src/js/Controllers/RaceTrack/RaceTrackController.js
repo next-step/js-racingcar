@@ -1,6 +1,7 @@
 import { getState } from "../../Stores/global/global.js";
 import { subscribe, dispatch, actions, RACE_STATES } from "../../Stores/race/index.js";
 import { raceTrackView } from "../../Views/RaceTrackView/RaceTrackView.js";
+import { executeNextRace } from './RaceTrackControllerUtils.js';
 
 function startRace(raceState) {
   if (raceState.raceState !== RACE_STATES.DOING) { return; }
