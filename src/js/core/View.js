@@ -6,11 +6,11 @@ class View {
   }
 
   show() {
-    this.rootElement.classList.remove('hide');
+    this.rootElement.style.visibility = 'visible';
   }
 
   hide() {
-    this.rootElement.classList.add('hide');
+    this.rootElement.style.visibility = 'hidden';
   }
 
   addEvent(element, type, callback) {
