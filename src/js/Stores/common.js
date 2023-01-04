@@ -10,10 +10,11 @@ export function freezeObject(obj) {
   }
 }
 
-export function validateValueType(val, type, { undefinedAble }) {
+export function validateValueType(val, type, options) {
+  const { noUndefined } = options;
+
   let res = false;
   const typeOfValue = typeof val;
-  // 안맞는 경우를 콕 찝어 Error를 발생시킨다.
   if (typeOfValue === type) {
     switch (typeOfValue) {
       case('array'): {
@@ -28,11 +29,11 @@ export function validateValueType(val, type, { undefinedAble }) {
     }
   }
 
-  if (undefinedAble && typeOfValue === 'undefined') res = true;
+  if (!noUndefined && typeOfValue === 'undefined') res = true;
 
   if (!res) throw new Error(`Given value type is not equal to its type, value : ${val}, type should be : ${type}`);
 
-  return val;
+  return res;
 }
 
 function isArray(val) {

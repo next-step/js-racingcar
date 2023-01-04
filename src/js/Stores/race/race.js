@@ -1,11 +1,15 @@
 import { DONE, PROGRESS, READY, RESET } from './actions.js';
-import { RaceStore } from '../../Models/RaceStore.js';
+import { RaceStore } from './models/RaceStore.js';
 
 let state = new RaceStore();
 
 const subscribers = [];
 
-function setState(newState) {
+function setState(newState, action) {
+  if (!RaceStore.validateProps(newState)) {
+    throw new Error(`Error on action of ${action} with new State : ${newState}`);
+  }
+
   state = new RaceStore(newState);
 }
 
@@ -19,7 +23,7 @@ export function dispatch(action, payload) {
         ...state,
         carStates,
         raceState,
-      });
+      }, action);
       break;
     }
     case(PROGRESS): {
@@ -30,7 +34,7 @@ export function dispatch(action, payload) {
         ...state,
         carStates,
         raceCount,
-      });
+      }, action);
       break;
     }
     case(DONE): {
@@ -39,7 +43,7 @@ export function dispatch(action, payload) {
       setState({
         ...state,
         raceState,
-      });
+      }, action);
       break;
     }
     case(RESET):
@@ -48,7 +52,7 @@ export function dispatch(action, payload) {
         carStates: [],
         isRaceDone: false,
         raceCount: 0,
-      });
+      }, action);
     }
   }
 
