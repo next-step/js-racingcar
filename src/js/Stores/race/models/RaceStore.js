@@ -15,9 +15,9 @@ export class RaceStore {
   raceCount = 0;
 
   constructor({
-    carStates,
-    raceState,
-    raceCount,
+    carStates = [],
+    raceState = RACE_STATES.WAIT,
+    raceCount = 0,
   }) {
     this.carStates = carStates;
     this.raceState = raceState;

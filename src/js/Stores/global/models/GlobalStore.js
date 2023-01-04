@@ -12,8 +12,8 @@ export class GlobalStore {
   }
 
   constructor({
-    carNames,
-    iterationCount,
+    carNames = [],
+    iterationCount = 0,
   }) {
     this.carNames = carNames;
     this.iterationCount = iterationCount;

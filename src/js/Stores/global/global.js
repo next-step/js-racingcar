@@ -1,7 +1,7 @@
 import { ADD_CAR_NAMES, ITERATION_COUNT, RESET } from './actions.js';
 import { GlobalStore } from './models/GlobalStore.js';
 
-let state = new GlobalStore();
+let state = new GlobalStore({});
 
 function setState(newState, action) {
   if (!GlobalStore.validateProps(newState)) {
