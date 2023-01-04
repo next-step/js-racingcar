@@ -1,16 +1,12 @@
 import { DONE, PROGRESS, READY, RESET } from './actions.js';
-import { RACE_STATES } from './constants.js';
+import { RaceStore } from '../../Models/RaceStore.js';
 
-let state = Object.freeze({
-  carStates: [],
-  raceState: RACE_STATES.WAIT,
-  raceCount: 0,
-});
+let state = new RaceStore();
 
 const subscribers = [];
 
 function setState(newState) {
-  state = Object.freeze(newState);
+  state = new RaceStore(newState);
 }
 
 export function dispatch(action, payload) {

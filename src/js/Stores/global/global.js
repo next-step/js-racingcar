@@ -1,12 +1,10 @@
-import { ADD_CAR_NAMES, ITERATION_COUNT, RESET } from './actions';
+import { ADD_CAR_NAMES, ITERATION_COUNT, RESET } from './actions.js';
+import { GlobalStore } from '../../Models/GlobalStore.js';
 
-let state = Object.freeze({
-  carNames: [],
-  iterationCount: 0,
-});
+let state = new GlobalStore();
 
 function setState(newState) {
-  state = Object.freeze(newState);
+  state = new GlobalStore(newState);
 }
 
 export function dispatch(action, payload) {
