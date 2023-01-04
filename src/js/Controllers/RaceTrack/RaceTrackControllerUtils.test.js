@@ -1,9 +1,5 @@
-/**
- * @jest-environment jsdom
- */
-const { checkIsCanBeAdvanced, attachNextRaceState } = require('./RaceTrackController.js');
-const { getState, dispatch: dispatchRaceState } = require('../../Stores/race.js');
-const { dispatch } = require('../../Stores/global.js');
+const { checkIsCanBeAdvanced, executeNextRace } = require('./RaceTrackControllerUtils.js');
+const { getState, dispatch } = require('../../Stores/race/index.js');
 
 describe('Race Controller Test', () => {
   describe('랜덤숫자를 뽑고 4이상이면 전진한다.', () => {
@@ -27,6 +23,7 @@ describe('Race Controller Test', () => {
 
   describe('레이스 진행 테스트', () => {
     it('레이스를 진행하면 기존 race State의 distance가 변화되고 변화 내용은 진행판단 boolean과 일치해야한다.', () => {
+      dispatch('reset');
       const mockRaceState = [
         {
           name: 'car1',
@@ -42,8 +39,9 @@ describe('Race Controller Test', () => {
         }
       ];
 
-      const [carShouldAdvanceResults, newRaceState] = attachNextRaceState(mockRaceState);
-      newRaceState.forEach(({ distance }, i) => {
+      const carShouldAdvanceResults = executeNextRace(mockRaceState);
+      const newRaceState = getState();
+      newRaceState.carStates.forEach(({ distance }, i) => {
         expect(!!distance).toBe(carShouldAdvanceResults[i]);
       });
     });
