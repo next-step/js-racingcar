@@ -1,7 +1,7 @@
-import { subscribe, RACE_STATES } from '../../Models/race/index.js';
+import { subscribe, RACE_STATES } from '../../Stores/race/index.js';
 import { resultView } from '../../Views/ResultView.js';
 import { resetViews } from '../../Views/index.js';
-import { resetModels } from '../../Models/index.js';
+import { resetModels } from '../../Stores/index.js';
 
 import { getWinnersName } from './ResultControllerUtils.js';
 

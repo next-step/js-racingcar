@@ -1,6 +1,6 @@
 import { createRandomNumber } from "../../utils/utils.js";
-import { getState } from "../../Models/global/global.js";
-import { subscribe, dispatch, actions, RACE_STATES } from "../../Models/race/index.js";
+import { getState } from "../../Stores/global/global.js";
+import { subscribe, dispatch, actions, RACE_STATES } from "../../Stores/race/index.js";
 import { raceTrackView } from "../../Views/RaceTrackView/RaceTrackView.js";
 
 function startRace(raceState) {
