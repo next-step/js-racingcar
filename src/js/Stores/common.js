@@ -1,9 +1,10 @@
 export function freezeObject(obj) {
   if (typeof obj !== 'object') throw new Error(`function object needs object, input parameter ${obj}`);
 
-  Object.freeze(val);
+  Object.freeze(obj);
 
-  for (const val of obj) {
+  for (const key in obj) {
+    const val = obj[key];
     if (typeof val === 'object') {
       freezeObject(val);
     }
@@ -11,29 +12,29 @@ export function freezeObject(obj) {
 }
 
 export function validateValueType(val, type, options) {
-  const { noUndefined } = options;
-
-  let res = false;
   const typeOfValue = typeof val;
-  if (typeOfValue === type) {
-    switch (typeOfValue) {
+  if (!options?.noUndefined && typeOfValue === 'undefined') return true;
+
+  let result = typeOfValue === type;
+  if (!result) {
+    switch (type) {
       case('array'): {
-        res = isArray(val);
+        result = isArray(val);
+        break;
       }
       case('null'): {
-        res = isNull(val);
+        result = isNull(val);
+        break;
       }
       default: {
-        res = true;
+        result = true;
       }
     }
   }
 
-  if (!noUndefined && typeOfValue === 'undefined') res = true;
+  if (!result) throw new Error(`Given value type is not equal to its type, value : ${val}, type should be : ${type}`);
 
-  if (!res) throw new Error(`Given value type is not equal to its type, value : ${val}, type should be : ${type}`);
-
-  return res;
+  return result;
 }
 
 function isArray(val) {
