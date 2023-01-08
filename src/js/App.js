@@ -1,12 +1,14 @@
-import Attempt from './components/Attempt.js';
-import Progress from './components/Progress.js';
+import CarNameRegister from './components/CarNameRegister.js';
+import RaceProgress from './components/RaceProgress.js';
 import Result from './components/Result.js';
-import { EVENT_MAP } from './constants.js';
-import Component from './core/Component.js';
+import { ELEMENT } from './constants/elements.js';
 
-export class App extends Component {
-  constructor({ $target, props = {} }) {
-    super({ $target, props });
+export class App {
+  constructor({ $target }) {
+    this.$target = $target;
+    $target.innerHTML = this.template();
+
+    this.render();
   }
 
   template() {
@@ -23,38 +25,16 @@ export class App extends Component {
   render() {
     const { $target } = this;
 
-    new Attempt({
-      $target: $target.querySelector('.attempt-container'),
+    new CarNameRegister({
+      $target: $target.querySelector(ELEMENT.ATTEMPT_CONTAINER),
     });
 
-    new Progress({
-      $target: $target.querySelector('.progress-container'),
+    new RaceProgress({
+      $target: $target.querySelector(ELEMENT.PROGRESS_CONTAINER),
     });
 
     new Result({
-      $target: $target.querySelector('.result-container'),
-    });
-  }
-
-  addEventListener() {
-    const { $target } = this;
-
-    $target.addEventListener('click', (event) => {
-      if (EVENT_MAP.CLICK.has(event.target.dataset.id)) {
-        EVENT_MAP.CLICK.get(event.target.dataset.id)(event);
-      }
-    });
-
-    $target.addEventListener('keyup', (event) => {
-      if (EVENT_MAP.KEY_UP.has(event.target.dataset.id)) {
-        EVENT_MAP.KEY_UP.get(event.target.dataset.id)(event);
-      }
-    });
-    //*TODO: document에 submit이벤트를 거는 것 이 맞는지 확인 필요
-    document.addEventListener('submit', (event) => {
-      Array.from(EVENT_MAP.SUBMIT.values()).forEach((el) => {
-        el(event);
-      });
+      $target: $target.querySelector(ELEMENT.RESULT_CONTAINER),
     });
   }
 }

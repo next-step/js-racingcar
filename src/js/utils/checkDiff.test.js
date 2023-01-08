@@ -1,4 +1,4 @@
-import { deepDiffMapper } from './index.js';
+import { deepDiffMapper } from './checkDiff.js';
 
 describe('유틸 함수를 테스트한다', () => {
   describe('depth가 없는 객체의 경우 값들을 비교한다.', () => {
@@ -13,9 +13,7 @@ describe('유틸 함수를 테스트한다', () => {
         b: 2,
         c: 3,
       };
-      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(
-        false
-      );
+      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(false);
     });
 
     it('값이 다른 경우 true반환', () => {
@@ -24,9 +22,7 @@ describe('유틸 함수를 테스트한다', () => {
         b: 2,
         c: 4,
       };
-      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(
-        true
-      );
+      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(true);
     });
   });
 
@@ -53,9 +49,7 @@ describe('유틸 함수를 테스트한다', () => {
         c: 3,
       };
 
-      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(
-        false
-      );
+      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(false);
     });
 
     it('값이 다른 경우 true반환', () => {
@@ -70,9 +64,7 @@ describe('유틸 함수를 테스트한다', () => {
         c: 3,
       };
 
-      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(
-        true
-      );
+      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(true);
     });
   });
 
@@ -125,9 +117,7 @@ describe('유틸 함수를 테스트한다', () => {
         ],
       };
 
-      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(
-        false
-      );
+      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(false);
     });
 
     it('값이 다른 경우 true 반환', () => {
@@ -155,9 +145,7 @@ describe('유틸 함수를 테스트한다', () => {
         ],
       };
 
-      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(
-        true
-      );
+      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(true);
     });
   });
 
@@ -184,9 +172,7 @@ describe('유틸 함수를 테스트한다', () => {
         f: new Date('2017.11.25'),
       };
 
-      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(
-        false
-      );
+      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(false);
     });
 
     it('값이 다른 경우 true 반환', () => {
@@ -201,9 +187,7 @@ describe('유틸 함수를 테스트한다', () => {
         g: new Date('2017.11.26'),
       };
 
-      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(
-        true
-      );
+      expect(deepDiffMapper().check(currentObject, nextObject).isDiff).toBe(true);
     });
   });
 });

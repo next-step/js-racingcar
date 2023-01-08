@@ -1,7 +1,7 @@
-import { debounceFrame, deepDiffMapper } from '../utils/index.js';
+import { debounceFrame } from '../utils/asyncHandle.js';
+import { deepDiffMapper } from '../utils/checkDiff.js';
 
 const observer = (() => {
-  //*Reference: https://junilhwang.github.io/TIL/Javascript/Design/Vanilla-JS-Store/#_2-component%E1%84%85%E1%85%A9-%E1%84%8E%E1%85%AE%E1%84%89%E1%85%A1%E1%86%BC%E1%84%92%E1%85%AA%E1%84%92%E1%85%A1%E1%84%80%E1%85%B5
   let currentObserver = null;
   const observableMap = new Map();
 
@@ -16,10 +16,7 @@ const observer = (() => {
       get(target, name) {
         if (!observableMap.has(name)) observableMap.set(name, new Set());
         if (currentObserver) {
-          observableMap.set(
-            name || '',
-            new Set([...(observableMap.get(name) || []), currentObserver])
-          );
+          observableMap.set(name || '', new Set([...(observableMap.get(name) || []), currentObserver]));
         }
 
         return target[name];

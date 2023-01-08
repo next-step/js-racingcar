@@ -35,3 +35,10 @@ fieldset {
   border: none;
   padding: 0;
 }
+
+.attempt-container {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin: auto;
+}

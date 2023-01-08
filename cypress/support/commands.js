@@ -23,3 +23,31 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+/**
+ * @params {string[]} carNames
+ * @params {number} trailNumber
+ */
+import { ELEMENT } from '../../src/js/constants/elements.js';
+
+const $element = {
+  nameSubmitButton: '.name-submit-button',
+  carNameInput: '.name-input',
+  moveExplanation: '.move-explanation',
+  movesInput: '.move-input',
+  moveSubmitButton: '.move-submit-button',
+  carPlayer: '.car-player',
+  spinner: '.spinner',
+  forwardIcon: '.forward-icon',
+};
+
+Cypress.Commands.add('submitCarNames', (carNames) => {
+  cy.get(ELEMENT.CAR_NAME_INPUT).type(carNames);
+  cy.get(ELEMENT.CAR_NAME_SUBMIT_BUTTON).click();
+});
+
+Cypress.Commands.add('submitTrial', (trialNumber) => {
+  cy.get(ELEMENT.MOVE_INPUT).type(trialNumber);
+  cy.get(ELEMENT.MOVE_SUBMIT_BUTTON).click();
+  cy.get(ELEMENT.MOVE_SUBMIT_BUTTON).should('be.disabled');
+});
