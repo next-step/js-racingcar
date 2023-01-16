@@ -1,33 +1,32 @@
-import { isLessThanNthCharacters } from '../util/isLessThanNthCharacters';
+import { ERROR_MESSAGE } from '../constant/index.js';
+import { isLessThanNthCharacters } from '../util/isLessThanNthCharacters.js';
 
-export class Car {
+export default class Car {
   #name;
   #position = 0;
-  #movementStrategy;
 
-  constructor(name, movementStrategy) {
+  constructor(name) {
     this.#name = name;
-    this.#movementStrategy = movementStrategy;
   }
 
-  move() {
-    if(this.#movementStrategy) {
-      this.#position += 1;
+  move(strategy) {
+    if(!strategy) {
+      this.#position = 0;
+      return;
     }
+    
+    this.#position = 1;
   }
 
   validateCarName() {
-    if (!this.#name || !this.#name.every(isLessThanNthCharacters))
-    throw new Error(errorMessages.INVALID_CAR_NAMES);
-
-    return this.#name;
+    if (!this.#name || !isLessThanNthCharacters(this.#name)) throw new Error(ERROR_MESSAGE.INVALID_CAR_NAMES);
   }
 
-  get carPosition() {
+  get position() {
     return this.#position;
   }
 
-  get carName() {
+  get name() {
     return this.#name;
   }
 }
