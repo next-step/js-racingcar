@@ -1,7 +1,6 @@
-import RacingCar from '../model/RacingCar.js';
-import validateCarName from '../model/validateCarName.js';
 import disableElements from './disableElements.js';
 import showAttemptCountField from './showAttemptCountField.js';
+import Car from '../domain/Car.js';
 
 export default function initializeCarNames(e) {
   e.preventDefault();
@@ -10,8 +9,8 @@ export default function initializeCarNames(e) {
   const carNameButton = document.querySelector('.btn-car-name');
 
   try {
-    const result = validateCarName(carName.value);
-    RacingCar.cars = result;
+    const car = new Car(carName.value);
+    car.validateCarName();
     disableElements(carName, carNameButton);
     showAttemptCountField();
   } catch (error) {

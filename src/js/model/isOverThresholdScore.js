@@ -1,5 +1,8 @@
 import { game } from '../constants.js';
 
-export default function isOverThresholdScore(score) {
-  return score >= game.THRESHOLD_SCORE
-};
+export default function isOverThresholdScore(
+  score,
+  thresholdScore = game.THRESHOLD_SCORE
+) {
+  return score >= thresholdScore;
+}
