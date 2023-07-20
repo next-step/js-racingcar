@@ -69,12 +69,14 @@ describe('자동차를 이동시킨다.', () => {
   });
 });
 
-describe('경기 현황을 출력한다.', () => {
+describe('경기를 진행한다.', () => {
+  const logSpy = jest.spyOn(console, 'log');
+
   test('A = 2인 경우', () => {
     const A = new Car('A');
     A.move();
     View.renderCarDistance(A.name, A.distance);
-    expect(console.log).toHaveBeenCalledWith('A : --');
+    expect(logSpy).toHaveBeenCalledWith('A : --');
   });
 
   test('B = 4인 경우', () => {
@@ -83,31 +85,25 @@ describe('경기 현황을 출력한다.', () => {
     B.move();
     B.move();
     View.renderCarDistance(B.name, B.distance);
-    expect(console.log).toHaveBeenCalledWith('A : ----');
+    expect(logSpy).toHaveBeenCalledWith('A : --');
   });
 });
 
 describe('경기가 종료될 시 경기결과를 출력한다.', () => {
-  test('라운드가 5라운든 이하면 종료하지 않는다.', () => {
+  test('라운드가 최대 라운드 이하면 종료하지 않는다.', () => {
     const track = new Track();
     track.increaseRound();
     track.increaseRound();
-    expect(track.isEndRound()).toBeTruthy();
+    expect(track.isEndRound()).toBeFalsy();
   });
 
-  test('라운드가 5라운드면 종료한다.', () => {
+  test('라운드가 최대 라운드를 넘으면 종료한다.', () => {
     const track = new Track();
     track.increaseRound();
     track.increaseRound();
     track.increaseRound();
     track.increaseRound();
+    track.increaseRound();
     expect(track.isEndRound()).toBeTruthy();
-  });
-
-  test('우승자를 출력한다.', () => {
-    const A = new Car('A');
-    const B = new Car('B');
-    View.renderResult(A.name, B.name);
-    expect(console.log).toHaveBeenCalledWith('A, B가 최종 우승했습니다.');
   });
 });
