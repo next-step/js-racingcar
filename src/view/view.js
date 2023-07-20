@@ -1,7 +1,20 @@
-class View {
-  static getUserInput() {}
+const readline = require('readline');
+const { MESSAGES } = require('../constants.js');
 
-  static renderCurrentRound() {}
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+class View {
+  static getUserInput(callback) {
+    rl.question(MESSAGES.ENTER_THE_CARS, callback);
+  }
+
+  static renderCarDistance(name, distance) {
+    const output = MESSAGES.carsDistance(name, distance);
+    console.log(output);
+  }
 
   static renderResult() {}
 }

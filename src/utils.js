@@ -1,0 +1,3 @@
+const getRandomNumber = () => {};
+
+export { getRandomNumber };

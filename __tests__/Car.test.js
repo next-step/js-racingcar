@@ -1,5 +1,5 @@
 const App = require('../src/App.js');
-const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER } = require('../src/constants.js');
+const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER, MESSAGES } = require('../src/constants.js');
 const Car = require('../src/model/Car.js');
 const Track = require('../src/model/Track.js');
 const { getRandomNumber } = require('../src/utils.js');
@@ -22,14 +22,20 @@ describe('사용자의 입력값을 받는다.', () => {
 
   test('다섯글자 이상인 케이스 "AAAAAA,B,C,D,E"', () => {
     expect(() => {
-      app.isValidatedNames('A, B, C');
-    }).toThrowError();
+      app.isValidatedNames('AAAAAA, B, C');
+    }).toThrowError(MESSAGES.ERROR.OVER_MAX_LENGTH);
   });
 
   test('참가자가 없는 케이스 "   "', () => {
     expect(() => {
       app.isValidatedNames('   ');
-    }).toThrowError();
+    }).toThrowError(MESSAGES.ERROR.INVALID_NAMES);
+  });
+
+  test('참가자가 중복된 케이스 "A,A"', () => {
+    expect(() => {
+      app.isValidatedNames('A,A');
+    }).toThrowError(MESSAGES.ERROR.EXIST_NAME);
   });
 });
 

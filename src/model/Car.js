@@ -8,6 +8,10 @@ class Car {
     this.#distance = 1;
   }
 
+  get distance() {
+    return this.#distance;
+  }
+
   decideMove() {}
 
   move() {}
