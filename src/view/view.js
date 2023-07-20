@@ -24,7 +24,9 @@ class View {
     console.log('\n');
   }
 
-  static renderResult() {}
+  static renderResult(names) {
+    console.log(MESSAGES.winners(names));
+  }
 }
 
 module.exports = View;

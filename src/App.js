@@ -9,6 +9,8 @@ class App {
 
   #cars = [];
 
+  #winners = [];
+
   init() {
     this.#track = new Track();
     this.getCarNames();
@@ -33,6 +35,8 @@ class App {
     while (!this.#track.isEndRound()) {
       this.processRound();
     }
+
+    this.finishRacing();
   }
 
   processRound() {
@@ -47,7 +51,21 @@ class App {
     View.renderLineBreak();
   }
 
-  finishRacing() {}
+  getWinners() {
+    const ranking = this.#cars.slice().sort((a, b) => b.distance - a.distance);
+    const winningDistance = ranking[0].distance;
+    for (let i = 0; i < ranking.length; i += 1) {
+      const isWinner = ranking[i].distance === winningDistance;
+      if (!isWinner) break;
+      this.#winners.push(ranking[i].name);
+    }
+  }
+
+  finishRacing() {
+    this.getWinners();
+    View.renderResult(this.#winners);
+    process.exit();
+  }
 }
 
 module.exports = App;
