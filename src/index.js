@@ -19,8 +19,9 @@ class RacingCar {
         console.log('실행결과');
 
         this.setRacers(names);
+        this.race();
         this.printWinners();
-
+        
         readline.close();
       }
     );
@@ -28,6 +29,21 @@ class RacingCar {
 
   validateInput(names) {
     return names.split(',').every((name) => name.length <= 5);
+  }
+
+  race() {
+    for (let i = 0; i < 5; i += 1) {
+      this.racers.forEach((racer) => {
+        const isGo = this.checkGo();
+        if (isGo) {
+          racer.state += '-';
+        }
+        console.log(`${racer.name} : ${racer.state}`);
+      });
+      console.log('');
+    }
+
+    this.setWinners();
   }
 
   setRacers(names) {
