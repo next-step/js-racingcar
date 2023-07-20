@@ -10,9 +10,18 @@ class Track {
     this.#round = 1;
   }
 
-  increaseRound() {}
+  get round() {
+    return this.#round;
+  }
 
-  isEndRound() {}
+  increaseRound() {
+    this.#round += 1;
+  }
+
+  isEndRound() {
+    if (this.#round === this.#endRound + 1) return true;
+    return false;
+  }
 }
 
 module.exports = Track;

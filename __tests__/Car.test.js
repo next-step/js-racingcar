@@ -1,40 +1,51 @@
-const App = require('../src/App.js');
 const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER, MESSAGES } = require('../src/constants.js');
 const Car = require('../src/model/Car.js');
 const Track = require('../src/model/Track.js');
-const { getRandomNumber } = require('../src/utils.js');
+const { getRandomNumber, getArrayNyInput } = require('../src/utils.js');
+const { checkValidNames } = require('../src/validation.js');
 const View = require('../src/view/view.js');
 
 describe('사용자의 입력값을 받는다.', () => {
-  const app = new App();
-
   test('일반적인 케이스 "A,B,C"', () => {
     expect(() => {
-      app.isValidatedNames('A, B, C');
+      const input = 'A, B, C';
+      const nameList = getArrayNyInput(input);
+      checkValidNames(nameList);
     }).not.toThrowError();
   });
 
   test('일반적인 케이스 "A,B,C,D,E"', () => {
     expect(() => {
-      app.isValidatedNames('A, B, C');
+      const input = 'A,B,C,D,E';
+      const nameList = getArrayNyInput(input);
+      checkValidNames(nameList);
     }).not.toThrowError();
   });
 
   test('다섯글자 이상인 케이스 "AAAAAA,B,C,D,E"', () => {
     expect(() => {
-      app.isValidatedNames('AAAAAA, B, C');
+      const input = 'AAAAAA,B,C,D,E';
+      const nameList = getArrayNyInput(input);
+      checkValidNames(nameList);
+      checkValidNames(input);
     }).toThrowError(MESSAGES.ERROR.OVER_MAX_LENGTH);
   });
 
   test('참가자가 없는 케이스 "   "', () => {
     expect(() => {
-      app.isValidatedNames('   ');
+      const input = '    ';
+      const nameList = getArrayNyInput(input);
+      checkValidNames(nameList);
+      checkValidNames(input);
     }).toThrowError(MESSAGES.ERROR.INVALID_NAMES);
   });
 
   test('참가자가 중복된 케이스 "A,A"', () => {
     expect(() => {
-      app.isValidatedNames('A,A');
+      const input = 'A,A';
+      const nameList = getArrayNyInput(input);
+      checkValidNames(nameList);
+      checkValidNames(input);
     }).toThrowError(MESSAGES.ERROR.EXIST_NAME);
   });
 });
@@ -47,12 +58,6 @@ describe('자동차를 이동시킨다.', () => {
 
     expect(randomNumber).toBeGreaterThanOrEqual(MIN_RANDOM_NUMBER);
     expect(randomNumber).toBeLessThanOrEqual(MAX_RANDOM_NUMBER);
-  });
-
-  test('랜덤한 값이 4 이하라면 false를 반환한다.', () => {
-    const isMoved = car.isMoved(3);
-
-    expect(isMoved).toBeFalsy();
   });
 
   test('차를 이동시키면 distance가 1 증가한다.', () => {

@@ -1,3 +1,6 @@
+const { MOVE_STANDARD } = require('../constants.js');
+const { getRandomNumber } = require('../utils.js');
+
 class Car {
   #name;
 
@@ -8,13 +11,24 @@ class Car {
     this.#distance = 1;
   }
 
+  get name() {
+    return this.#name;
+  }
+
   get distance() {
     return this.#distance;
   }
 
-  decideMove() {}
+  isMoved() {
+    const randomNumber = getRandomNumber();
+    const isMoved = randomNumber > MOVE_STANDARD;
+    if (isMoved) return true;
+    return false;
+  }
 
-  move() {}
+  move() {
+    this.#distance += 1;
+  }
 }
 
 module.exports = Car;
