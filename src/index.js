@@ -16,6 +16,9 @@ class RacingCar {
         }
 
         this.input = names;
+
+        this.winners = names.split(',');
+        this.printWinners();
       }
     );
   }
@@ -27,6 +30,10 @@ class RacingCar {
   exit() {
     console.log('Error: 잘못된 입력 값으로 프로그램을 종료합니다.');
     readline.close();
+  }
+
+  printWinners() {
+    console.log(`${this.winners.join(', ')}가 최종 우승했습니다.`);
   }
 }
 
