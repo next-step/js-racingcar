@@ -3,7 +3,7 @@ const getRandomNumber = () => {
   return result;
 };
 
-const getArrayNyInput = (input) => {
+const getArrayByInput = (input) => {
   const result = input
     .split(',')
     .map((name) => name.trim())
@@ -12,5 +12,5 @@ const getArrayNyInput = (input) => {
   return result;
 };
 
-exports.getArrayNyInput = getArrayNyInput;
+exports.getArrayByInput = getArrayByInput;
 exports.getRandomNumber = getRandomNumber;

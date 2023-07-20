@@ -1,6 +1,7 @@
 const Car = require('./model/Car.js');
 const Track = require('./model/Track.js');
-const { getArrayNyInput } = require('./utils.js');
+const WinnerChecker = require('./model/WinnerChecker.js');
+const { getArrayByInput } = require('./utils.js');
 const { checkValidNames } = require('./validation.js');
 const View = require('./view/view.js');
 
@@ -21,7 +22,7 @@ class App {
   }
 
   isValidatedNames(input) {
-    const nameList = getArrayNyInput(input);
+    const nameList = getArrayByInput(input);
     checkValidNames(nameList);
     nameList.forEach((name) => this.#cars.push(new Car(name)));
 
@@ -52,13 +53,8 @@ class App {
   }
 
   getWinners() {
-    const ranking = this.#cars.slice().sort((a, b) => b.distance - a.distance);
-    const winningDistance = ranking[0].distance;
-    for (let i = 0; i < ranking.length; i += 1) {
-      const isWinner = ranking[i].distance === winningDistance;
-      if (!isWinner) break;
-      this.#winners.push(ranking[i].name);
-    }
+    const winners = WinnerChecker.getWinners(this.#cars);
+    this.#winners = winners;
   }
 
   finishRacing() {
