@@ -1,15 +1,20 @@
 const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER, MESSAGES } = require('../src/constants.js');
 const Car = require('../src/model/Car.js');
 const Track = require('../src/model/Track.js');
-const { getRandomNumber, getArrayNyInput } = require('../src/utils.js');
+const WinnerChecker = require('../src/model/WinnerChecker.js');
+const { getRandomNumber, getArrayByInput } = require('../src/utils.js');
 const { checkValidNames } = require('../src/validation.js');
 const View = require('../src/view/view.js');
+
+// custom matcher
+// eslint-disable-next-line
+const toEqualType = require('../matchers/customMatchers.js');
 
 describe('사용자의 입력값을 받는다.', () => {
   test('일반적인 케이스 "A,B,C"', () => {
     expect(() => {
       const input = 'A, B, C';
-      const nameList = getArrayNyInput(input);
+      const nameList = getArrayByInput(input);
       checkValidNames(nameList);
     }).not.toThrowError();
   });
@@ -17,7 +22,7 @@ describe('사용자의 입력값을 받는다.', () => {
   test('일반적인 케이스 "A,B,C,D,E"', () => {
     expect(() => {
       const input = 'A,B,C,D,E';
-      const nameList = getArrayNyInput(input);
+      const nameList = getArrayByInput(input);
       checkValidNames(nameList);
     }).not.toThrowError();
   });
@@ -25,16 +30,25 @@ describe('사용자의 입력값을 받는다.', () => {
   test('다섯글자 이상인 케이스 "AAAAAA,B,C,D,E"', () => {
     expect(() => {
       const input = 'AAAAAA,B,C,D,E';
-      const nameList = getArrayNyInput(input);
+      const nameList = getArrayByInput(input);
       checkValidNames(nameList);
       checkValidNames(input);
     }).toThrowError(MESSAGES.ERROR.OVER_MAX_LENGTH);
   });
 
+  test('공백이 여러개인 케이스 "   ,    ,    , ,"', () => {
+    expect(() => {
+      const input = '   ,    ,    , ,';
+      const nameList = getArrayByInput(input);
+      checkValidNames(nameList);
+      checkValidNames(input);
+    }).toThrowError(MESSAGES.ERROR.INVALID_NAMES);
+  });
+
   test('참가자가 없는 케이스 "   "', () => {
     expect(() => {
       const input = '    ';
-      const nameList = getArrayNyInput(input);
+      const nameList = getArrayByInput(input);
       checkValidNames(nameList);
       checkValidNames(input);
     }).toThrowError(MESSAGES.ERROR.INVALID_NAMES);
@@ -43,7 +57,7 @@ describe('사용자의 입력값을 받는다.', () => {
   test('참가자가 중복된 케이스 "A,A"', () => {
     expect(() => {
       const input = 'A,A';
-      const nameList = getArrayNyInput(input);
+      const nameList = getArrayByInput(input);
       checkValidNames(nameList);
       checkValidNames(input);
     }).toThrowError(MESSAGES.ERROR.EXIST_NAME);
@@ -58,6 +72,12 @@ describe('자동차를 이동시킨다.', () => {
 
     expect(randomNumber).toBeGreaterThanOrEqual(MIN_RANDOM_NUMBER);
     expect(randomNumber).toBeLessThanOrEqual(MAX_RANDOM_NUMBER);
+  });
+
+  test('car의 isMoved는 boolean을 반환한다.', () => {
+    const isMoved = car.isMoved();
+
+    expect(isMoved).toEqualType('boolean');
   });
 
   test('차를 이동시키면 distance가 1 증가한다.', () => {
@@ -105,5 +125,34 @@ describe('경기가 종료될 시 경기결과를 출력한다.', () => {
     track.increaseRound();
     track.increaseRound();
     expect(track.isEndRound()).toBeTruthy();
+  });
+
+  test('우승자를 계산한다.', () => {
+    const foo = new Car('foo');
+    foo.move();
+    foo.move();
+    const bar = new Car('bar');
+    bar.move();
+    const baz = new Car('baz');
+    baz.move();
+
+    const DUMMY = [foo, bar, baz];
+    expect(WinnerChecker.getWinners(DUMMY)).toEqual(['foo']);
+  });
+
+  test('다수의 우승자가 존재할 수 있다.', () => {
+    const foo = new Car('foo');
+    foo.move();
+    foo.move();
+    foo.move();
+    const bar = new Car('bar');
+    bar.move();
+    bar.move();
+    bar.move();
+    const baz = new Car('baz');
+    baz.move();
+
+    const DUMMY = [foo, bar, baz];
+    expect(WinnerChecker.getWinners(DUMMY)).toEqual(['foo', 'bar']);
   });
 });
