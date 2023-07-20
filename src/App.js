@@ -1,7 +1,19 @@
+const Track = require('./model/Track.js');
+
 class App {
+  #track;
+
+  #cars;
+
   init() {
-    console.log('start');
+    this.#track = new Track();
   }
+
+  getUserInput() {}
+
+  startRacing() {}
+
+  finishRacing() {}
 }
 
 module.exports = App;

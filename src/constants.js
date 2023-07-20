@@ -1,0 +1,3 @@
+const DEFAULT_RACING_ROUND = 5;
+
+export { DEFAULT_RACING_ROUND };
