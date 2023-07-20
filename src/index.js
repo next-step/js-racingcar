@@ -44,6 +44,15 @@ class RacingCar {
     return randomNumber >= 4;
   }
 
+  setWinners() {
+    const maxGos = Math.max(...this.racers.map((racer) => racer.state.length));
+    this.racers.forEach((racer) => {
+      if (racer.state.length === maxGos) {
+        this.winners.push(racer.name);
+      }
+    });
+  }
+
   printWinners() {
     console.log(`${this.winners.join(', ')}가 최종 우승했습니다.`);
   }
