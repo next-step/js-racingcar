@@ -1,4 +1,5 @@
 import { Car } from '../src/Models';
+import { GameController } from '../src/Controllers/GameController';
 // 1단계
 
 /*
@@ -20,5 +21,22 @@ describe('Views', () => {
 
       expect(carName).toBe(inputValue);
     });
+  });
+});
+
+describe('Controller', () => {
+  let playSpy;
+
+  beforeEach(() => {
+    const gameController = new GameController();
+    playSpy = jest.spyOn(gameController, 'play');
+  });
+
+  test('입력받은 수만큼 게임을 실행한다.', () => {
+    const PLAY_ROUND = 5;
+
+    gameController.play(PLAY_ROUND);
+
+    expect(playSpy).toHaveBeenCalledTimes(PLAY_ROUND);
   });
 });
