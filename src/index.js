@@ -4,7 +4,7 @@ const readline = require('readline').createInterface({
 });
 
 class RacingCar {
-  input = '';
+  racers = [];
   winners = [];
 
   init() {
@@ -15,10 +15,13 @@ class RacingCar {
           this.exit();
         }
 
-        this.input = names;
+        console.log('');
+        console.log('실행결과');
 
-        this.winners = names.split(',');
+        this.setRacers(names);
         this.printWinners();
+
+        readline.close();
       }
     );
   }
@@ -27,13 +30,22 @@ class RacingCar {
     return names.split(',').every((name) => name.length <= 5);
   }
 
-  exit() {
-    console.log('Error: 잘못된 입력 값으로 프로그램을 종료합니다.');
-    readline.close();
+  setRacers(names) {
+    names.split(',').forEach((name) => {
+      this.racers.push({
+        name,
+        state: '',
+      });
+    });
   }
 
   printWinners() {
     console.log(`${this.winners.join(', ')}가 최종 우승했습니다.`);
+  }
+
+  exit() {
+    console.log('Error: 잘못된 입력 값으로 프로그램을 종료합니다.');
+    readline.close();
   }
 }
 
