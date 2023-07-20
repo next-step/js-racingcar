@@ -39,6 +39,11 @@ class RacingCar {
     });
   }
 
+  checkGo() {
+    const randomNumber = Math.floor(Math.random() * 10);
+    return randomNumber >= 4;
+  }
+
   printWinners() {
     console.log(`${this.winners.join(', ')}가 최종 우승했습니다.`);
   }
