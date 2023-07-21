@@ -1,9 +1,9 @@
 const Car = require('./model/Car.js');
 const Track = require('./model/Track.js');
 const WinnerChecker = require('./model/WinnerChecker.js');
+const View = require('./view/view.js');
 const { getArrayByInput } = require('./utils.js');
 const { checkValidNames } = require('./validation.js');
-const View = require('./view/view.js');
 
 class App {
   #track;
@@ -13,37 +13,48 @@ class App {
   #winners = [];
 
   init() {
+    this.#reset();
     this.#track = new Track();
-    this.getCarNames();
+    this.#getCarNames();
   }
 
-  getCarNames() {
-    View.getUserInput(this.isValidatedNames.bind(this));
+  #getCarNames() {
+    View.getUserInput(this.#checkValidatedNames.bind(this));
   }
 
-  isValidatedNames(input) {
+  #checkValidatedNames(input) {
     const nameList = getArrayByInput(input);
-    checkValidNames(nameList);
-    nameList.forEach((name) => this.#cars.push(new Car(name)));
 
-    this.startRacing();
+    try {
+      checkValidNames(nameList);
+
+      this.#setCars(nameList);
+      this.#startRacing();
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 
-  startRacing() {
+  #setCars(names) {
+    names.forEach((name) => this.#cars.push(new Car(name)));
+  }
+
+  #startRacing() {
     View.renderLineBreak();
     View.renderStartComment();
 
     while (!this.#track.isEndRound()) {
-      this.processRound();
+      this.#processRound();
     }
 
-    this.finishRacing();
+    this.#finishRacing();
   }
 
-  processRound() {
+  #processRound() {
     this.#cars.forEach((car) => {
       const isMoved = car.isMoved();
       if (isMoved) car.move();
+
       const { name, distance } = car;
       View.renderCarDistance(name, distance);
     });
@@ -52,15 +63,22 @@ class App {
     View.renderLineBreak();
   }
 
-  getWinners() {
+  #getWinners() {
     const winners = WinnerChecker.getWinners(this.#cars);
     this.#winners = winners;
   }
 
-  finishRacing() {
-    this.getWinners();
+  #finishRacing() {
+    this.#getWinners();
     View.renderResult(this.#winners);
+
     process.exit();
+  }
+
+  #reset() {
+    this.#cars = [];
+    this.#winners = [];
+    this.#track = null;
   }
 }
 
