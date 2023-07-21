@@ -3,7 +3,11 @@ import { User } from './User';
 export class Model {
   #user;
 
-  constructor(car) {
-    this.#user = new User();
+  /**
+   *
+   * @param {User} user
+   */
+  constructor(user) {
+    this.#user = user;
   }
 }
