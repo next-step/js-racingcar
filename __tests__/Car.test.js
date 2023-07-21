@@ -22,11 +22,14 @@ describe('자동차 입력 기능 관련 테스트', () => {
 });
 
 describe('자동차 게임 예외 처리 테스트', () => {
-  test('자동차 이름은 1~5자여야 하며 이를 어길 시 프로그램을 종료한다.', () => {
+  test('자동차 이름은 1~5자여야 하며 이를 어길 시 RangeError와 함께 프로그램을 종료되어야 한다.', () => {
     const ERROR_CASES = [['pobi', 'jiny', ''], ['taling, pivot, robot']];
     ERROR_CASES.forEach((invalidCase) => {
       expect(() => CarValidator.validateCarNames(invalidCase)).toThrow(
         ERROR_MESSAGE.MORE_FIVE_CHARACTERS
+      );
+      expect(() => CarValidator.validateCarNames(invalidCase)).toThrow(
+        RangeError
       );
     });
   });
