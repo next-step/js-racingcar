@@ -31,7 +31,7 @@
 
 ### 구조
 
-- [ ] GameController를 추가한다.
+- [x] GameController를 추가한다.
 - [x] Model을 추가한다.
   - [x] Model에 Car Model을 추가한다.
   - [x] Car Model은 User가 가지는 속성이기 때문에 User에게 DI한다.
