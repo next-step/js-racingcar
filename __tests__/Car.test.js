@@ -30,4 +30,18 @@ describe('자동차 게임 예외 처리 테스트', () => {
       );
     });
   });
+  test('중복되는 자동차 이름이 존재한다면 Syntax Error와 함께 프로그램이 종료되어야 한다.', () => {
+    const ERROR_CASES = [
+      ['jiny', 'jiny'],
+      ['pobi', 'pobi'],
+    ];
+    ERROR_CASES.forEach((invalidCase) => {
+      expect(() => CarValidator.validateCarNames(invalidCase)).toThrow(
+        SyntaxError
+      );
+      expect(() => CarValidator.validateCarNames(invalidCase)).toThrow(
+        ERROR_MESSAGE.DUPLICATE_CAR_NAMES
+      );
+    });
+  });
 });
