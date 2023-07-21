@@ -1,19 +1,14 @@
-import { CarValidator } from '../validator/index.js';
+import ErrorHandler from '../handler/ErrorHandler.js';
 
 class RacingTrack {
   #racingCars;
-
   constructor() {
     this.#racingCars = [];
   }
 
   setRacingCars(racingCars) {
-    try {
-      CarValidator.validateCarNames(racingCars);
-      this.#racingCars.push(...racingCars);
-    } catch (error) {
-      throw error;
-    }
+    ErrorHandler.confirmCarNames(racingCars);
+    this.#racingCars.push(...racingCars);
   }
 
   getRacingCars() {
