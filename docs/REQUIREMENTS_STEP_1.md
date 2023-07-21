@@ -32,13 +32,13 @@
 ### 구조
 
 - [ ] GameController를 추가한다.
-- [ ] Model을 추가한다.
-  - [ ] Model에 Car Model을 추가한다.
-  - [ ] Model에 User Model을 추가한다.
-- [ ] View를 추가한다.
-  - [ ] View에 InputView를 추가한다.
-  - [ ] View에 OutPutView를 추가한다.
-- [ ] InputView는 User의 Input에 대한 유효성 검사 책임을 부여할 것이다. Validator를 어떻게 상속 또는 주입 받을 것인데, `Validation의 책임`까지 있는 경우, `객체로 구현`할 것인지, `Class로 구현`할 것인지 고민해보기.
+- [x] Model을 추가한다.
+  - [x] Model에 Car Model을 추가한다.
+  - [x] Car Model은 User가 가지는 속성이기 때문에 User에게 DI한다.
+- [x] View를 추가한다.
+  - [x] View에 InputView를 추가한다.
+  - [x] View에 OutPutView를 추가한다.
+- [x] InputView는 User의 Input에 대한 유효성 검사 책임을 부여할 것이다. Validator를 어떻게 상속 또는 주입 받을 것인데, `Validation의 책임`까지 있는 경우, `객체로 구현`할 것인지, `Class로 구현`할 것인지 고민해보기.
 - [ ] Util 함수들을 작성한다.
 - [ ] Validation 객체를 작성하고, 필요에 따라 내부의 메서드들을 추가한다.
 
