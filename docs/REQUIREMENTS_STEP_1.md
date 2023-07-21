@@ -39,8 +39,8 @@
   - [x] View에 InputView를 추가한다.
   - [x] View에 OutPutView를 추가한다.
 - [x] InputView는 User의 Input에 대한 유효성 검사 책임을 부여할 것이다. Validator를 어떻게 상속 또는 주입 받을 것인데, `Validation의 책임`까지 있는 경우, `객체로 구현`할 것인지, `Class로 구현`할 것인지 고민해보기.
-- [ ] Util 함수들을 작성한다.
-- [ ] Validation 객체를 작성하고, 필요에 따라 내부의 메서드들을 추가한다.
+- [x] Util 함수들을 작성한다.
+- [x] Validation 객체를 작성하고, 필요에 따라 내부의 메서드들을 추가한다.
 
 ### 기능
 
