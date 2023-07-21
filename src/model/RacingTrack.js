@@ -1,6 +1,6 @@
-import { CarValidator } from "../validator/index.js";
+import { CarValidator } from '../validator/index.js';
 
-class RacingCar {
+class RacingTrack {
   #racingCars;
 
   constructor() {
@@ -21,4 +21,4 @@ class RacingCar {
   }
 }
 
-export default RacingCar;
+export default RacingTrack;

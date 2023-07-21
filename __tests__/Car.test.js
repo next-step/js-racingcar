@@ -14,7 +14,7 @@ app.controller.run();
 
 describe('자동차 입력 기능 관련 테스트', () => {
   test('사용자가 입력한 자동차 이름은 쉼표를 기준으로 구분되어 배열 형태로 저장될 수 있어야 한다.', async () => {
-    const carNames = app.controller.racingCar.getRacingCars();
+    const carNames = app.controller.racingTrack.getRacingCars();
     expect(carNames).toStrictEqual(['jiny', 'pobi', 'conan']);
   });
 });

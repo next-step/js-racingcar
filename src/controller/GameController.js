@@ -1,14 +1,14 @@
-import { RacingCar } from "../model/index.js";
-import { InputView } from "../view/index.js";
+import { RacingTrack } from '../model/index.js';
+import { InputView } from '../view/index.js';
 
 class GameController {
   constructor() {
-    this.racingCar = new RacingCar();
+    this.racingTrack = new RacingTrack();
   }
 
   async run() {
     const carNames = await InputView.inputCarNames();
-    this.racingCar.setRacingCars(carNames);
+    this.racingTrack.setRacingCars(carNames);
   }
 }
 
