@@ -36,7 +36,7 @@
 
 ### 게임 시작
 
-- [ ] index 폴더에서 App Class를 구현하고, GameController 내부에 DI되는 값이 유동적으로 변경될 수 있도록 구조를 변경한다.
+- [x] index 폴더에서 App Class를 구현하고, GameController 내부에 DI되는 값이 유동적으로 변경될 수 있도록 구조를 변경한다.
 - [x] Controller에서 게임을 시작한다.
 
 ---
