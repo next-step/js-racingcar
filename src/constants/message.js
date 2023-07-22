@@ -9,4 +9,5 @@ export const ERROR_MESSAGE = {
 
 export const OUTPUT_MESSAGE = Object.freeze({
   RESULT: '\n실행 결과',
+  WINNERS: (winners) => `${winners}가 최종 우승했습니다.`,
 });
