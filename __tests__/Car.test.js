@@ -146,7 +146,7 @@ describe("레이싱 경주 시작 및 자동차 이름 입력", () => {
 
 describe("레이싱 경주 진행", () => {
   test("전진할 경우 distance가 1 증가한다.", () => {
-    const { racingCarGame } = initiallizeTestEnvironment();
+    const { racingCarGame, consoleLogSpy } = initiallizeTestEnvironment();
 
     const checkForAdvanceSpy = jest.spyOn(racingCarGame, "checkForAdvance");
 
@@ -165,10 +165,12 @@ describe("레이싱 경주 진행", () => {
     expectedCars.set("honux", { distance: 1 });
 
     expect(racingCarGame.cars).toEqual(expectedCars);
+
+    consoleLogSpy.mockRestore();
   });
 
   test("전진하지 못하는 경우 distance가 그대로 유지된다.", () => {
-    const { racingCarGame } = initiallizeTestEnvironment();
+    const { racingCarGame, consoleLogSpy } = initiallizeTestEnvironment();
 
     const checkForAdvanceSpy = jest.spyOn(racingCarGame, "checkForAdvance");
 
@@ -187,5 +189,45 @@ describe("레이싱 경주 진행", () => {
     expectedCars.set("honux", { distance: 0 });
 
     expect(racingCarGame.cars).toEqual(expectedCars);
+
+    checkForAdvanceSpy.mockRestore();
+    consoleLogSpy.mockRestore();
+  });
+
+  test("distance의 값에 맞도록 경주 상태가 출력된다", () => {
+    const { racingCarGame, consoleLogSpy } = initiallizeTestEnvironment();
+
+    const checkForAdvanceSpy = jest.spyOn(racingCarGame, "checkForAdvance");
+
+    checkForAdvanceSpy
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(true);
+
+    racingCarGame.settingCars(["pobi", "crong", "honux"]);
+
+    racingCarGame.executeOneRound();
+    racingCarGame.executeOneRound();
+    racingCarGame.executeOneRound();
+
+    expect(consoleLogSpy).toHaveBeenNthCalledWith(1, "pobi : ");
+    expect(consoleLogSpy).toHaveBeenNthCalledWith(2, "crong : ");
+    expect(consoleLogSpy).toHaveBeenNthCalledWith(3, "honux : ");
+
+    expect(consoleLogSpy).toHaveBeenNthCalledWith(5, "pobi : ");
+    expect(consoleLogSpy).toHaveBeenNthCalledWith(6, "crong : ");
+    expect(consoleLogSpy).toHaveBeenNthCalledWith(7, "honux : -");
+
+    expect(consoleLogSpy).toHaveBeenNthCalledWith(9, "pobi : ");
+    expect(consoleLogSpy).toHaveBeenNthCalledWith(10, "crong : -");
+    expect(consoleLogSpy).toHaveBeenNthCalledWith(11, "honux : --");
+
+    consoleLogSpy.mockRestore();
   });
 });

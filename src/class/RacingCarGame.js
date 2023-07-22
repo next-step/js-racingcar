@@ -74,7 +74,7 @@ export default class RacingCarGame {
   }
 
   displayRacingTitle() {
-    console.log();
+    console.log("");
     console.log(CAR_RACE_TITLE);
   }
 
@@ -97,6 +97,6 @@ export default class RacingCarGame {
     this.cars.forEach((carInfo, carName) => {
       console.log(`${carName} : ${RACING_SCORE_CHAR.repeat(carInfo.distance)}`);
     });
-    console.log();
+    console.log("");
   }
 }
