@@ -7,5 +7,13 @@ export class GameController {
     this.#view = view;
   }
 
-  play() {}
+  play() {
+    this.#readCarName();
+  }
+
+  #readCarName() {
+    this.#view.readCarName(this.#next);
+  }
+
+  #next() {}
 }

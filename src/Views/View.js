@@ -1,11 +1,15 @@
 import { InputView, OutputView } from './InputView';
 
 export class View {
-  #input;
-  #output;
+  #inputView;
+  #outputView;
 
   constructor(inputView, outputView) {
-    this.#input = InputView;
-    this.#output = OutputView;
+    this.#inputView = InputView;
+    this.#outputView = OutputView;
+  }
+
+  readCarNames(callback) {
+    this.#inputView.readCarNames(callback);
   }
 }
