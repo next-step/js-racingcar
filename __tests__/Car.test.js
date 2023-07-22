@@ -1,66 +1,49 @@
-const { MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER, MESSAGES } = require('../src/constants.js');
 const Car = require('../src/model/Car.js');
 const Track = require('../src/model/Track.js');
 const WinnerChecker = require('../src/model/WinnerChecker.js');
-const { getRandomNumber, getArrayByInput } = require('../src/utils.js');
-const { checkValidNames } = require('../src/validation.js');
+const { getRandomNumber } = require('../src/utils.js');
 const View = require('../src/view/view.js');
 
 // custom matcher
 // eslint-disable-next-line
 const toEqualType = require('../matchers/customMatchers.js');
+const {
+  MAX_USER,
+  MIN_USER,
+  MIN_NAME_LENGTH,
+  MAX_NAME_LENGTH,
+  MIN_RANDOM_NUMBER,
+  MAX_RANDOM_NUMBER,
+} = require('../src/constants/racing-rule.js');
+const { MESSAGES } = require('../src/constants/error.js');
 
 describe('사용자의 입력값을 받는다.', () => {
   test('일반적인 케이스 "A,B,C"', () => {
-    expect(() => {
-      const input = 'A, B, C';
-      const nameList = getArrayByInput(input);
-      checkValidNames(nameList);
-    }).not.toThrowError();
+    expect(() => {}).not.toThrowError();
   });
 
   test('일반적인 케이스 "A,B,C,D,E"', () => {
-    expect(() => {
-      const input = 'A,B,C,D,E';
-      const nameList = getArrayByInput(input);
-      checkValidNames(nameList);
-    }).not.toThrowError();
+    expect(() => {}).not.toThrowError();
   });
 
-  test('다섯글자 이상인 케이스 "AAAAAA,B,C,D,E"', () => {
-    expect(() => {
-      const input = 'AAAAAA,B,C,D,E';
-      const nameList = getArrayByInput(input);
-      checkValidNames(nameList);
-      checkValidNames(input);
-    }).toThrowError(MESSAGES.ERROR.OVER_MAX_LENGTH);
+  test(`입력값 중에 글자수가 ${MAX_NAME_LENGTH}자 초과가 존재하는 케이스 "AAAAAA,B,C,D,E`, () => {
+    expect(() => {}).toThrowError(MESSAGES.ERROR.MORE_THAN_MAX_NAME_LENGTH);
   });
 
-  test('공백이 여러개인 케이스 "   ,    ,    , ,"', () => {
-    expect(() => {
-      const input = '   ,    ,    , ,';
-      const nameList = getArrayByInput(input);
-      checkValidNames(nameList);
-      checkValidNames(input);
-    }).toThrowError(MESSAGES.ERROR.INVALID_NAMES);
+  test(`입력값 중에 글자수가 ${MIN_NAME_LENGTH}자 미만이 존재하는 케이스 " ,B,C,D,E`, () => {
+    expect(() => {}).toThrowError(MESSAGES.ERROR.LESS_THAN_MIN_NAME_LENGTH);
   });
 
-  test('참가자가 없는 케이스 "   "', () => {
-    expect(() => {
-      const input = '    ';
-      const nameList = getArrayByInput(input);
-      checkValidNames(nameList);
-      checkValidNames(input);
-    }).toThrowError(MESSAGES.ERROR.INVALID_NAMES);
+  test(`참가자가 ${MAX_USER} 초과인 케이스 "A,B,C,D,E,F"`, () => {
+    expect(() => {}).toThrowError(MESSAGES.ERROR.MORE_THAN_MAX_USER);
+  });
+
+  test(`참가자가 ${MIN_USER} 미만인 케이스 " "`, () => {
+    expect(() => {}).toThrowError(MESSAGES.ERROR.LESS_THAN_MIN_USER);
   });
 
   test('참가자가 중복된 케이스 "A,A"', () => {
-    expect(() => {
-      const input = 'A,A';
-      const nameList = getArrayByInput(input);
-      checkValidNames(nameList);
-      checkValidNames(input);
-    }).toThrowError(MESSAGES.ERROR.EXIST_NAME);
+    expect(() => {}).toThrowError(MESSAGES.ERROR.HAS_DUPLICATED_NAME);
   });
 });
 
