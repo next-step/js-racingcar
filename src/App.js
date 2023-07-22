@@ -55,8 +55,7 @@ class App {
     this.#cars.forEach((car) => {
       car.moveByRandomNumber();
 
-      const { name, distance } = car;
-      View.renderCarDistance(name, distance);
+      View.renderCarDistance(car);
     });
 
     this.#track.increaseRound();

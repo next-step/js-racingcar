@@ -3,11 +3,7 @@ const Track = require('../src/model/Track.js');
 const WinnerChecker = require('../src/model/WinnerChecker.js');
 const Validator = require('../src/Validator.js');
 const { getRandomNumber, sliceByStandard } = require('../src/utils.js');
-const View = require('../src/view/view.js');
 
-// custom matcher
-// eslint-disable-next-line
-const toEqualType = require('../matchers/customMatchers.js');
 const {
   MIN_USER,
   MIN_NAME_LENGTH,
@@ -15,6 +11,8 @@ const {
   MIN_RANDOM_NUMBER,
   MAX_RANDOM_NUMBER,
   SLICE_STANDARD,
+  DEFAULT_RACING_ROUND,
+  SKID_MARK,
 } = require('../src/constants/racing-rule.js');
 const { MESSAGES } = require('../src/constants/messages.js');
 
@@ -85,6 +83,8 @@ describe('사용자의 입력값을 받는다.', () => {
   });
 
   /*
+  현재 최대 인원 제한이 없으므로 주석처리
+
   test(`참가자가 ${MAX_USER} 초과인 케이스 "A,B,C,D,E,F"`, () => {
     const input = 'A,B,C,D,E,F';
     const slicedInput = sliceByStandard(input);
@@ -115,82 +115,87 @@ describe('사용자의 입력값을 받는다.', () => {
 
 describe('자동차를 이동시킨다.', () => {
   test('차는 이동 요청시 항상 그대로거나 한칸 앞으로 이동한다.', () => {
-    const car = new Car('test');
+    for (let i = 0; i < 1000; i += 1) {
+      const car = new Car('test');
 
-    const prevDistance = car.distance;
+      const prevDistance = car.distance;
+      car.moveByRandomNumber();
+      const nextDistance = car.distance;
 
-    car.moveByRandomNumber();
-
-    const nextDistance = car.distance;
-
-    expect([prevDistance + 1, prevDistance]).toContain(nextDistance);
+      expect([prevDistance + 1, prevDistance]).toContain(nextDistance);
+    }
   });
 });
 
-// describe('경기를 진행한다.', () => {
-//   const logSpy = jest.spyOn(console, 'log');
+describe('경기를 진행한다.', () => {
+  test('foo의 distance가 2인 경우 "foo : --"를 출력한다"', () => {
+    const distance = 2;
 
-//   test('A = 2인 경우', () => {
-//     const A = new Car('A');
-//     A.move();
-//     View.renderCarDistance(A.name, A.distance);
-//     expect(logSpy).toHaveBeenCalledWith('A : --');
-//   });
+    const DUMMY_CAR = {
+      name: 'foo',
+      distance,
+    };
 
-//   test('B = 4인 경우', () => {
-//     const B = new Car('B');
-//     B.move();
-//     B.move();
-//     B.move();
-//     View.renderCarDistance(B.name, B.distance);
-//     expect(logSpy).toHaveBeenCalledWith('A : --');
-//   });
-// });
+    expect(MESSAGES.GAME.carsDistance(DUMMY_CAR)).toBe(`foo : ${SKID_MARK.repeat(distance)}`);
+  });
+});
 
-// describe('경기가 종료될 시 경기결과를 출력한다.', () => {
-//   test('라운드가 최대 라운드 이하면 종료하지 않는다.', () => {
-//     const track = new Track();
-//     track.increaseRound();
-//     track.increaseRound();
-//     expect(track.isEndRound()).toBeFalsy();
-//   });
+describe('경기가 종료될 시 경기결과를 출력한다.', () => {
+  test('라운드가 최대 라운드 이하면 종료하지 않는다.', () => {
+    const track = new Track();
 
-//   test('라운드가 최대 라운드를 넘으면 종료한다.', () => {
-//     const track = new Track();
-//     track.increaseRound();
-//     track.increaseRound();
-//     track.increaseRound();
-//     track.increaseRound();
-//     track.increaseRound();
-//     expect(track.isEndRound()).toBeTruthy();
-//   });
+    for (let i = 0; i < DEFAULT_RACING_ROUND - 1; i += 1) {
+      track.increaseRound();
+    }
 
-//   test('우승자를 계산한다.', () => {
-//     const foo = new Car('foo');
-//     foo.move();
-//     foo.move();
-//     const bar = new Car('bar');
-//     bar.move();
-//     const baz = new Car('baz');
-//     baz.move();
+    expect(track.isEndRound()).toBeFalsy();
+  });
 
-//     const DUMMY = [foo, bar, baz];
-//     expect(WinnerChecker.getWinners(DUMMY)).toEqual(['foo']);
-//   });
+  test('라운드가 최대 라운드를 넘으면 종료한다.', () => {
+    const track = new Track();
 
-//   test('다수의 우승자가 존재할 수 있다.', () => {
-//     const foo = new Car('foo');
-//     foo.move();
-//     foo.move();
-//     foo.move();
-//     const bar = new Car('bar');
-//     bar.move();
-//     bar.move();
-//     bar.move();
-//     const baz = new Car('baz');
-//     baz.move();
+    for (let i = 0; i < DEFAULT_RACING_ROUND; i += 1) {
+      track.increaseRound();
+    }
 
-//     const DUMMY = [foo, bar, baz];
-//     expect(WinnerChecker.getWinners(DUMMY)).toEqual(['foo', 'bar']);
-//   });
-// });
+    expect(track.isEndRound()).toBeTruthy();
+  });
+
+  test('우승자를 계산한다.', () => {
+    const DUMMY_CAR = [
+      {
+        name: 'foo',
+        distance: 4,
+      },
+      {
+        name: 'bar',
+        distance: 2,
+      },
+      {
+        name: 'baz',
+        distance: 1,
+      },
+    ];
+
+    expect(WinnerChecker.getWinners(DUMMY_CAR)).toEqual(['foo']);
+  });
+
+  test('다수의 우승자가 존재할 수 있다.', () => {
+    const DUMMY_CAR = [
+      {
+        name: 'foo',
+        distance: 4,
+      },
+      {
+        name: 'bar',
+        distance: 2,
+      },
+      {
+        name: 'baz',
+        distance: 4,
+      },
+    ];
+
+    expect(WinnerChecker.getWinners(DUMMY_CAR)).toEqual(['foo', 'baz']);
+  });
+});

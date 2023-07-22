@@ -6,11 +6,11 @@ const MESSAGES = Object.freeze({
   },
 
   GAME: {
-    carsDistance: (name, distance) => `${name} : ${SKID_MARK.repeat(distance)}`,
+    carsDistance: ({ name, distance }) => `${name} : ${SKID_MARK.repeat(distance)}`,
   },
 
   COMMON: {
-    RESULT: '실행 결과',
+    OUTCOME: '실행 결과',
   },
 
   RESULT: {

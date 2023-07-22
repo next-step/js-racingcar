@@ -15,8 +15,8 @@ class View {
     console.log(MESSAGES.COMMON.OUTCOME);
   }
 
-  static renderCarDistance(name, distance) {
-    const output = MESSAGES.GAME.carsDistance(name, distance);
+  static renderCarDistance(car) {
+    const output = MESSAGES.GAME.carsDistance(car);
     console.log(output);
   }
 
