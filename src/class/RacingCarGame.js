@@ -108,4 +108,17 @@ export default class RacingCarGame {
   executeMultipleRounds() {
     Array.from({ length: this.racingRounds }, () => this.executeOneRound());
   }
+
+  getWinners() {
+    const distanceArray = [...this.cars.values()].map((el) => el.distance);
+    const maxDistance = Math.max(...distanceArray);
+
+    if (maxDistance === 0) {
+      return [];
+    }
+
+    return [...this.cars.keys()].filter(
+      (car) => this.cars.get(car).distance === maxDistance
+    );
+  }
 }

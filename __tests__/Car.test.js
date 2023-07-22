@@ -245,3 +245,86 @@ describe("레이싱 경주 진행", () => {
     consoleLogSpy.mockRestore();
   });
 });
+
+describe("우승자 판별 및 우승자 출력", () => {
+  test("distance 값에 맞는 우승자를 반환한다.(우승자 1명)", () => {
+    const { racingCarGame, consoleLogSpy } = initiallizeTestEnvironment();
+
+    const checkForAdvanceSpy = jest.spyOn(racingCarGame, "checkForAdvance");
+
+    checkForAdvanceSpy
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(true);
+
+    racingCarGame.settingCars(["pobi", "crong", "honux"]);
+
+    racingCarGame.racingRounds = 3;
+
+    racingCarGame.executeMultipleRounds();
+
+    expect(racingCarGame.getWinners()).toEqual(["honux"]);
+
+    consoleLogSpy.mockRestore();
+  });
+
+  test("distance 값에 맞는 우승자를 반환한다.(우승자 여러명)", () => {
+    const { racingCarGame, consoleLogSpy } = initiallizeTestEnvironment();
+
+    const checkForAdvanceSpy = jest.spyOn(racingCarGame, "checkForAdvance");
+
+    checkForAdvanceSpy
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(true);
+
+    racingCarGame.settingCars(["pobi", "crong", "honux"]);
+
+    racingCarGame.racingRounds = 3;
+
+    racingCarGame.executeMultipleRounds();
+
+    expect(racingCarGame.getWinners()).toEqual(["crong", "honux"]);
+
+    consoleLogSpy.mockRestore();
+  });
+
+  test("distance가 모두 0인 경우 우승자를 반환하지 않는다", () => {
+    const { racingCarGame, consoleLogSpy } = initiallizeTestEnvironment();
+
+    const checkForAdvanceSpy = jest.spyOn(racingCarGame, "checkForAdvance");
+
+    checkForAdvanceSpy
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false);
+
+    racingCarGame.settingCars(["pobi", "crong", "honux"]);
+
+    racingCarGame.racingRounds = 3;
+
+    racingCarGame.executeMultipleRounds();
+
+    expect(racingCarGame.getWinners()).toEqual([]);
+
+    consoleLogSpy.mockRestore();
+  });
+});
