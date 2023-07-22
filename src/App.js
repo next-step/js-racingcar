@@ -2,19 +2,18 @@ const Validator = require('./Validator.js');
 const Car = require('./model/Car.js');
 const Track = require('./model/Track.js');
 const WinnerChecker = require('./model/WinnerChecker.js');
-const { sliceByStandard } = require('./utils.js');
 const View = require('./view/view.js');
+const { sliceByStandard } = require('./utils.js');
 
 class App {
-  #track;
+  #track = null;
+
+  #winnerChecker = null;
 
   #cars = [];
 
-  #winners = [];
-
   init() {
     this.#reset();
-    this.#track = new Track();
     this.#getCarNames();
   }
 
@@ -54,7 +53,6 @@ class App {
   #processRound() {
     this.#cars.forEach((car) => {
       car.moveByRandomNumber();
-
       View.renderCarDistance(car);
     });
 
@@ -62,22 +60,18 @@ class App {
     View.renderLineBreak();
   }
 
-  #getWinners() {
-    const winners = WinnerChecker.getWinners(this.#cars);
-    this.#winners = winners;
-  }
-
   #finishRacing() {
-    this.#getWinners();
-    View.renderResult(this.#winners);
+    this.#winnerChecker.addResult(this.#cars);
+    const { winners } = this.#winnerChecker;
+    View.renderResult(winners);
 
     process.exit();
   }
 
   #reset() {
     this.#cars = [];
-    this.#winners = [];
-    this.#track = null;
+    this.#track = new Track();
+    this.#winnerChecker = new WinnerChecker()();
   }
 }
 

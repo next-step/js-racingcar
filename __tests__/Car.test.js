@@ -3,7 +3,6 @@ const Track = require('../src/model/Track.js');
 const WinnerChecker = require('../src/model/WinnerChecker.js');
 const Validator = require('../src/Validator.js');
 const { getRandomNumber, sliceByStandard } = require('../src/utils.js');
-
 const {
   MIN_USER,
   MIN_NAME_LENGTH,
@@ -162,6 +161,7 @@ describe('경기가 종료될 시 경기결과를 출력한다.', () => {
   });
 
   test('우승자를 계산한다.', () => {
+    const winnerChecker = new WinnerChecker();
     const DUMMY_CAR = [
       {
         name: 'foo',
@@ -177,10 +177,14 @@ describe('경기가 종료될 시 경기결과를 출력한다.', () => {
       },
     ];
 
-    expect(WinnerChecker.getWinners(DUMMY_CAR)).toEqual(['foo']);
+    winnerChecker.addResult(DUMMY_CAR);
+    const { winners } = winnerChecker;
+
+    expect(winners).toEqual(['foo']);
   });
 
   test('다수의 우승자가 존재할 수 있다.', () => {
+    const winnerChecker = new WinnerChecker();
     const DUMMY_CAR = [
       {
         name: 'foo',
@@ -196,6 +200,9 @@ describe('경기가 종료될 시 경기결과를 출력한다.', () => {
       },
     ];
 
-    expect(WinnerChecker.getWinners(DUMMY_CAR)).toEqual(['foo', 'baz']);
+    winnerChecker.addResult(DUMMY_CAR);
+    const { winners } = winnerChecker;
+
+    expect(winners).toEqual(['foo', 'baz']);
   });
 });
