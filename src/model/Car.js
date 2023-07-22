@@ -19,10 +19,15 @@ class Car {
     return this.#distance;
   }
 
+  #move() {
+    this.#distance += 1;
+  }
+
   moveByRandomNumber() {
     const randomNumber = getRandomNumber();
     const isMoved = randomNumber > MOVE_STANDARD;
-    if (isMoved) this.#distance += 1;
+
+    if (isMoved) this.#move();
   }
 }
 

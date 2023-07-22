@@ -8,24 +8,28 @@ const rl = readline.createInterface({
 
 class View {
   static getUserInput(callback) {
-    rl.question(MESSAGES.ENTER_THE_CARS, callback);
+    rl.question(MESSAGES.REQUEST.ENTER_THE_CARS, callback);
   }
 
   static renderStartComment() {
-    console.log(MESSAGES.START);
+    console.log(MESSAGES.COMMON.OUTCOME);
   }
 
   static renderCarDistance(name, distance) {
-    const output = MESSAGES.carsDistance(name, distance);
+    const output = MESSAGES.GAME.carsDistance(name, distance);
     console.log(output);
   }
 
   static renderLineBreak() {
-    console.log('\n');
+    console.log('');
   }
 
   static renderResult(names) {
-    console.log(MESSAGES.winners(names));
+    console.log(MESSAGES.RESULT.winners(names));
+  }
+
+  static renderError(err) {
+    console.log(err);
   }
 }
 

@@ -31,7 +31,8 @@ class App {
       this.#setCars(nameList);
       this.#startRacing();
     } catch (err) {
-      throw new Error(err);
+      View.renderError(err.message);
+      process.exit();
     }
   }
 
@@ -52,8 +53,7 @@ class App {
 
   #processRound() {
     this.#cars.forEach((car) => {
-      const isMoved = car.isMoved();
-      if (isMoved) car.move();
+      car.moveByRandomNumber();
 
       const { name, distance } = car;
       View.renderCarDistance(name, distance);
