@@ -1,3 +1,5 @@
+import { splitCarNameToArray } from '../utils';
+
 export class GameController {
   #model;
   #view;
@@ -12,8 +14,10 @@ export class GameController {
   }
 
   #readCarName() {
-    this.#view.readCarName(this.#next);
+    this.#view.readCarName(this.#createCar);
   }
 
-  #next() {}
+  #createCar(userInput) {
+    const carNamesArray = splitCarNameToArray(userInput);
+  }
 }
