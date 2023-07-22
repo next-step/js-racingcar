@@ -14,10 +14,10 @@ export class GameController {
   }
 
   #readCarName() {
-    this.#view.readCarName(this.#createCar);
+    this.#view.readCarName(this.#createCarByName);
   }
 
-  #createCar(userInput) {
+  #createCarByName(userInput) {
     const carNamesArray = splitCarNameToArray(userInput);
   }
 }
