@@ -14,8 +14,38 @@ const {
   MAX_NAME_LENGTH,
   MIN_RANDOM_NUMBER,
   MAX_RANDOM_NUMBER,
+  SLICE_STANDARD,
 } = require('../src/constants/racing-rule.js');
 const { MESSAGES } = require('../src/constants/messages.js');
+
+describe('유틸리티 함수 테스트', () => {
+  test(`문자열을 ${SLICE_STANDARD} 기준으로 나누어 배열로 반환한다.`, () => {
+    const input = 'A,b,C,D.D';
+    const result = sliceByStandard(input);
+
+    expect(result).toEqual(['A', 'b', 'C', 'D.D']);
+  });
+
+  test(`문자열을 나눌때 양 끝 공백을 제거한다.`, () => {
+    const input = 'A, b,   C,  D.D   ';
+    const result = sliceByStandard(input);
+
+    expect(result).toEqual(['A', 'b', 'C', 'D.D']);
+  });
+
+  test(`${MIN_RANDOM_NUMBER}부터 ${MAX_RANDOM_NUMBER} 사이의 무작위 값을 받는다.`, () => {
+    const manyCases = Array.from({ length: 1000 }, () => getRandomNumber());
+
+    const hasInvalidNumber = manyCases.some((num) => num > MAX_RANDOM_NUMBER || num < MIN_RANDOM_NUMBER);
+    expect(hasInvalidNumber).toBeFalsy();
+
+    manyCases.push(MAX_RANDOM_NUMBER + 1);
+    manyCases.push(MIN_RANDOM_NUMBER - 1);
+    const invalidCase = manyCases.some((num) => num > MAX_RANDOM_NUMBER || num < MIN_RANDOM_NUMBER);
+
+    expect(invalidCase).toBeTruthy();
+  });
+});
 
 describe('사용자의 입력값을 받는다.', () => {
   test('일반적인 케이스 "JAMES, KANE, MARK"', () => {
