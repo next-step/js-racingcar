@@ -20,6 +20,6 @@ export const RACING_SCORE_CHAR = "-";
 
 export const RACING_ROUNDS = 5;
 
-export const NO_WINNER_MESSAGE = "우승자가 없습니다";
+export const NO_WINNER_MESSAGE = "우승자가 없습니다.";
 
 export const WINNER_ANNOUNCEMENT_MESSAGE = "가 최종 우승했습니다.";

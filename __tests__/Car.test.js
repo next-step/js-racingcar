@@ -1,7 +1,11 @@
 import * as readline from "readline";
 import RacingCarGame from "../src/class/RacingCarGame";
 import { EventEmitter } from "stream";
-import { ERROR_MESSAGES } from "../src/data/constants";
+import {
+  ERROR_MESSAGES,
+  NO_WINNER_MESSAGE,
+  WINNER_ANNOUNCEMENT_MESSAGE,
+} from "../src/data/constants";
 
 jest.mock("readline");
 
@@ -309,13 +313,34 @@ describe("우승자 판별 및 우승자 출력", () => {
     checkForAdvanceSpy
       .mockReturnValueOnce(false)
       .mockReturnValueOnce(false)
-      .mockReturnValueOnce(false)
-      .mockReturnValueOnce(false)
-      .mockReturnValueOnce(false)
-      .mockReturnValueOnce(false)
-      .mockReturnValueOnce(false)
-      .mockReturnValueOnce(false)
       .mockReturnValueOnce(false);
+
+    racingCarGame.settingCars(["pobi", "crong", "honux"]);
+
+    racingCarGame.racingRounds = 1;
+
+    racingCarGame.executeMultipleRounds();
+
+    expect(racingCarGame.getWinners()).toEqual([]);
+
+    consoleLogSpy.mockRestore();
+  });
+
+  test("distance 값에 맞는 우승자가 출력된다.", () => {
+    const { racingCarGame, consoleLogSpy } = initiallizeTestEnvironment();
+
+    const checkForAdvanceSpy = jest.spyOn(racingCarGame, "checkForAdvance");
+
+    checkForAdvanceSpy
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(true);
 
     racingCarGame.settingCars(["pobi", "crong", "honux"]);
 
@@ -323,7 +348,34 @@ describe("우승자 판별 및 우승자 출력", () => {
 
     racingCarGame.executeMultipleRounds();
 
-    expect(racingCarGame.getWinners()).toEqual([]);
+    racingCarGame.displayWinners();
+
+    expect(consoleLogSpy).lastCalledWith(
+      `crong,honux${WINNER_ANNOUNCEMENT_MESSAGE}`
+    );
+
+    consoleLogSpy.mockRestore();
+  });
+
+  test("우승자가 없는 경우 우승자가 없다는 문구가 출력된다.", () => {
+    const { racingCarGame, consoleLogSpy } = initiallizeTestEnvironment();
+
+    const checkForAdvanceSpy = jest.spyOn(racingCarGame, "checkForAdvance");
+
+    checkForAdvanceSpy
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false);
+
+    racingCarGame.settingCars(["pobi", "crong", "honux"]);
+
+    racingCarGame.racingRounds = 1;
+
+    racingCarGame.executeMultipleRounds();
+
+    racingCarGame.displayWinners();
+
+    expect(consoleLogSpy).lastCalledWith(NO_WINNER_MESSAGE);
 
     consoleLogSpy.mockRestore();
   });
