@@ -1,7 +1,7 @@
 import {
   CarRacingManager,
   ERROR_MESSAGES,
-  GAME_MESSAGES,
+  INTEGERS_UNDER_TEN,
 } from "../src/CarRacingManager";
 
 describe("자동자 경주 게임", () => {
@@ -38,9 +38,26 @@ describe("자동자 경주 게임", () => {
   });
 
   describe("경주 진행", () => {
-    test.skip("전진하는 조건은 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다.", () => {});
+    test("전진하는 조건은 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다.", () => {
+      const carRacingManager = new CarRacingManager();
 
-    test.skip("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {});
+      INTEGERS_UNDER_TEN.forEach((v) => {
+        if (v >= 4) {
+          expect(carRacingManager.canMove(v)).toBeTruthy();
+        } else {
+          expect(carRacingManager.canMove(v)).toBeFalsy();
+        }
+      });
+    });
+
+    test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
+      const carRacingManager = new CarRacingManager();
+
+      const spyOn = jest.spyOn(console, "log");
+
+      carRacingManager.printCarAndMove("뽀로로", 3);
+      expect(spyOn).toBeCalledWith('뽀로로: ---')
+    });
 
     test.skip("자동차 경주는 5회로 고정하여 진행한다.", () => {});
   });
