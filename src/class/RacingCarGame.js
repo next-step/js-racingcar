@@ -7,6 +7,8 @@ const CAR_NAME_SEPARATOR = ",";
 
 const CAR_NAME_LENGTH = 5;
 
+const CAR_RACE_TITLE = "실행 결과";
+
 export const ERROR_MESSAGES = {
   INVALID_EMPTY_NAME: "자동차 이름은 빈값일 수 없습니다.",
   INVALID_NAME_LENGTH: "자동차 이름은 5자를 넘길 수 없습니다.",
@@ -39,6 +41,8 @@ export default class RacingCarGame {
         this.validateCarName(splitedAnswer);
 
         this.settingCars(splitedAnswer);
+
+        this.displayRacingTitle();
       } catch (error) {
         if (error instanceof Error && error.name === RACING_CAR_ERROR_NAME) {
           console.log(error.message);
@@ -75,5 +79,22 @@ export default class RacingCarGame {
     names.forEach((name) => {
       this.cars.set(name, { distance: 0 });
     });
+  }
+
+  displayRacingTitle() {
+    console.log(CAR_RACE_TITLE);
+  }
+
+  executeOneRound() {
+    this.cars.forEach((carInfo, carName) => {
+      if (this.checkForAdvance()) {
+        carInfo.distance += 1;
+        this.cars.set(carName, carInfo);
+      }
+    });
+  }
+
+  checkForAdvance() {
+    return Math.random() * 9 >= 4;
   }
 }

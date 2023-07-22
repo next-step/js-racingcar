@@ -130,7 +130,7 @@ describe("레이싱 경주 시작 및 자동차 이름 입력", () => {
   test("정상적인 자동차 이름 입력시 cars에 정보가 저장된다.(settingCars 메소드 테스트)", () => {
     const { racingCarGame } = initiallizeTestEnvironment();
 
-    racingCarGame.settingCars(['pobi','crong','honux'])
+    racingCarGame.settingCars(["pobi", "crong", "honux"]);
 
     const expectedCars = new Map();
 
@@ -140,7 +140,52 @@ describe("레이싱 경주 시작 및 자동차 이름 입력", () => {
 
     expectedCars.set("honux", { distance: 0 });
 
-    expect(racingCarGame.cars).toEqual(expectedCars)
+    expect(racingCarGame.cars).toEqual(expectedCars);
+  });
+});
 
+describe("레이싱 경주 진행", () => {
+  test("전진할 경우 distance가 1 증가한다.", () => {
+    const { racingCarGame } = initiallizeTestEnvironment();
+
+    const checkForAdvanceSpy = jest.spyOn(racingCarGame, "checkForAdvance");
+
+    checkForAdvanceSpy.mockReturnValue(true);
+
+    racingCarGame.settingCars(["pobi", "crong", "honux"]);
+
+    racingCarGame.executeOneRound();
+
+    const expectedCars = new Map();
+
+    expectedCars.set("pobi", { distance: 1 });
+
+    expectedCars.set("crong", { distance: 1 });
+
+    expectedCars.set("honux", { distance: 1 });
+
+    expect(racingCarGame.cars).toEqual(expectedCars);
+  });
+
+  test("전진하지 못하는 경우 distance가 그대로 유지된다.", () => {
+    const { racingCarGame } = initiallizeTestEnvironment();
+
+    const checkForAdvanceSpy = jest.spyOn(racingCarGame, "checkForAdvance");
+
+    checkForAdvanceSpy.mockReturnValue(false);
+
+    racingCarGame.settingCars(["pobi", "crong", "honux"]);
+
+    racingCarGame.executeOneRound();
+
+    const expectedCars = new Map();
+
+    expectedCars.set("pobi", { distance: 0 });
+
+    expectedCars.set("crong", { distance: 0 });
+
+    expectedCars.set("honux", { distance: 0 });
+
+    expect(racingCarGame.cars).toEqual(expectedCars);
   });
 });
