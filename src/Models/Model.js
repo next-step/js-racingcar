@@ -1,9 +1,9 @@
-import { User } from './User';
+import { Car } from './Car';
 
 export class Model {
-  #user;
+  #car;
 
-  constructor(user) {
-    this.#user = user;
+  constructor(car) {
+    this.#car = new Car();
   }
 }

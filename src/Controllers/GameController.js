@@ -1,4 +1,4 @@
-import { Model, User } from '../Models';
+import { Model, Car } from '../Models';
 import { View, InputView, OutputView } from '../Views';
 
 export class GameController {
@@ -6,7 +6,7 @@ export class GameController {
   #view;
 
   constructor() {
-    this.#model = new Model(new User());
+    this.#model = new Model(new Car());
     this.#view = new View(InputView, OutputView);
   }
 
