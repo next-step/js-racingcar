@@ -1,6 +1,7 @@
 import App from '../src';
 import NumberMaker from '../src/NumberMaker';
 import { ERROR_MESSAGE } from '../src/constants';
+import { genRacingWinners } from '../src/utils';
 import { isMove } from '../src/utils/racingTrack';
 import { CarValidator } from '../src/validator/index.js';
 import { InputView, OutputView } from '../src/view';
@@ -11,6 +12,11 @@ jest.mock('node:readline/promises', () => ({
     close: jest.fn(),
   }),
 }));
+
+const containsAll = (str) => {
+  const patterns = ['jiny', 'pobi', 'conan'];
+  return patterns.every((pattern) => new RegExp(pattern).test(str));
+};
 
 describe('자동차 입력 기능 관련 테스트', () => {
   let carNames;
@@ -36,15 +42,13 @@ describe('자동차 경주 기능 관련 테스트', () => {
     printLogSpy.mockRestore();
   });
   test('자동차 경주는 5회로 고정하여 진행한다.', () => {
-    expect(printLogSpy.mock.calls.filter((print) => /(jiny|pobi|conan)/.test(print))).toHaveLength(
-      5
-    );
+    expect(printLogSpy.mock.calls.filter((print) => containsAll(print))).toHaveLength(5);
   });
   test('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
     printLogSpy.mock.calls
-      .filter((print) => /(jiny|pobi|conan)/.test(print))
+      .filter((print) => containsAll(print))
       .forEach((print) => {
-        expect(/(jiny|pobi|conan)/.test(print)).toBeTruthy();
+        expect(containsAll(print)).toBeTruthy();
       });
   });
   test('무작위 값은 0에서 9사이에서 나올 수 있어야 한다.', () => {
@@ -61,6 +65,20 @@ describe('자동차 경주 기능 관련 테스트', () => {
   test('전진하는 조건은 4 이상일 경우다.', () => {
     expect(isMove(4)).toBeTruthy();
     expect(isMove(3)).toBeFalsy();
+  });
+});
+
+describe('자동차 게임 우승자 출력 테스트', () => {
+  afterAll(() => {});
+  test('자동차 게임이 완료되었을 때 우승자는 최소 1명 이상 나올 수 있다.', () => {
+    const winners = genRacingWinners([
+      'jiny : -\nmouse : -',
+      'jiny : -\nmouse : --',
+      'jiny : --\nmouse : ---',
+      'jiny : ---\nmouse : ----',
+      'jiny : -----\nmouse : -----',
+    ]);
+    expect(winners).toStrictEqual(['jiny', 'mouse']);
   });
 });
 
