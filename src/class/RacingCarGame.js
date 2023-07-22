@@ -9,6 +9,8 @@ import {
   RACING_SCORE_CHAR,
   RACING_ROUNDS,
   CAR_NAME_MIN_LENGTH,
+  NO_WINNER_MESSAGE,
+  WINNER_ANNOUNCEMENT_MESSAGE,
 } from "../data/constants";
 
 class RacingCarGameError extends Error {
@@ -40,6 +42,8 @@ export default class RacingCarGame {
         this.displayRacingTitle();
 
         this.executeMultipleRounds();
+
+        this.displayWinners();
       } catch (error) {
         if (error instanceof Error && error.name === RACING_CAR_ERROR_NAME) {
           console.log(error.message);
@@ -120,5 +124,17 @@ export default class RacingCarGame {
     return [...this.cars.keys()].filter(
       (car) => this.cars.get(car).distance === maxDistance
     );
+  }
+
+  displayWinners() {
+    const winners = this.getWinners();
+
+    if (winners.length < 1) {
+      console.log(NO_WINNER_MESSAGE);
+    } else {
+      console.log(
+        `${winners.join(CAR_NAME_SEPARATOR)}${WINNER_ANNOUNCEMENT_MESSAGE}`
+      );
+    }
   }
 }
