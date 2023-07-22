@@ -1,4 +1,4 @@
-const { DEFAULT_RACING_ROUND } = require('../constants.js');
+const { DEFAULT_RACING_ROUND } = require('../constants/racing-rule.js');
 
 class Track {
   #endRound;

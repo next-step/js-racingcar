@@ -1,5 +1,5 @@
 const readline = require('readline');
-const { MESSAGES } = require('../constants.js');
+const { MESSAGES } = require('../constants/messages.js');
 
 const rl = readline.createInterface({
   input: process.stdin,

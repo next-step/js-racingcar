@@ -1,16 +1,17 @@
+const { SLICE_STANDARD } = require('./constants/racing-rule');
+
 const getRandomNumber = () => {
   const result = Math.floor(Math.random() * 10);
   return result;
 };
 
-const getArrayByInput = (input) => {
-  const result = input
-    .split(',')
-    .map((name) => name.trim())
-    .filter((name) => name.length > 0);
+const sliceByStandard = (input) => {
+  const result = input.split(SLICE_STANDARD).map((name) => name.trim());
 
   return result;
 };
 
-exports.getArrayByInput = getArrayByInput;
-exports.getRandomNumber = getRandomNumber;
+module.exports = {
+  sliceByStandard,
+  getRandomNumber,
+};

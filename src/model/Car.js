@@ -1,4 +1,4 @@
-const { MOVE_STANDARD } = require('../constants.js');
+const { MOVE_STANDARD } = require('../constants/racing-rule.js');
 const { getRandomNumber } = require('../utils.js');
 
 class Car {

@@ -1,5 +1,4 @@
-const { MAX_NAME_LENGTH } = require('../constants');
-const { MAX_USER, MIN_USER, SKID_MARK, MIN_NAME_LENGTH } = require('./racing-rule');
+const { MAX_USER, MIN_USER, SKID_MARK, MIN_NAME_LENGTH, MAX_NAME_LENGTH } = require('./racing-rule');
 
 const MESSAGES = Object.freeze({
   REQUEST: {
