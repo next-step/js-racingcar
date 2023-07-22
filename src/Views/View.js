@@ -1,11 +1,11 @@
-import { InputView, outputView } from './InputView';
+import { InputView, OutputView } from './InputView';
 
 export class View {
   #input;
   #output;
 
   constructor(inputView, outputView) {
-    this.#input = inputView;
-    this.#output = outputView;
+    this.#input = InputView;
+    this.#output = OutputView;
   }
 }
