@@ -1,9 +1,9 @@
+const Validator = require('./Validator.js');
 const Car = require('./model/Car.js');
 const Track = require('./model/Track.js');
 const WinnerChecker = require('./model/WinnerChecker.js');
+const { sliceByStandard } = require('./utils.js');
 const View = require('./view/view.js');
-const { getArrayByInput } = require('./utils.js');
-const { checkValidNames } = require('./validation.js');
 
 class App {
   #track;
@@ -23,10 +23,10 @@ class App {
   }
 
   #checkValidatedNames(input) {
-    const nameList = getArrayByInput(input);
+    const nameList = sliceByStandard(input);
 
     try {
-      checkValidNames(nameList);
+      Validator.isValidNames(nameList);
 
       this.#setCars(nameList);
       this.#startRacing();

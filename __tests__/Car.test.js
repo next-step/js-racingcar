@@ -98,7 +98,6 @@ describe('사용자의 입력값을 받는다.', () => {
     expect(() => {
       const input = 'JAMES';
       const slicedInput = sliceByStandard(input);
-      console.log(slicedInput);
 
       Validator.isValidNames(slicedInput);
     }).toThrow(MESSAGES.ERROR.LESS_THAN_MIN_USER);
@@ -114,30 +113,19 @@ describe('사용자의 입력값을 받는다.', () => {
   });
 });
 
-// describe('자동차를 이동시킨다.', () => {
-//   const car = new Car('test');
+describe('자동차를 이동시킨다.', () => {
+  test('차는 이동 요청시 항상 그대로거나 한칸 앞으로 이동한다.', () => {
+    const car = new Car('test');
 
-//   test('0부터 9 사이의 무작위 값을 받는다.', () => {
-//     const randomNumber = getRandomNumber();
+    const prevDistance = car.distance;
 
-//     expect(randomNumber).toBeGreaterThanOrEqual(MIN_RANDOM_NUMBER);
-//     expect(randomNumber).toBeLessThanOrEqual(MAX_RANDOM_NUMBER);
-//   });
+    car.moveByRandomNumber();
 
-//   test('car의 isMoved는 boolean을 반환한다.', () => {
-//     const isMoved = car.isMoved();
+    const nextDistance = car.distance;
 
-//     expect(isMoved).toEqualType('boolean');
-//   });
-
-//   test('차를 이동시키면 distance가 1 증가한다.', () => {
-//     const prevDistance = car.distance;
-//     car.move();
-//     const nextDistance = car.distance;
-
-//     expect(nextDistance).toBe(prevDistance + 1);
-//   });
-// });
+    expect([prevDistance + 1, prevDistance]).toContain(nextDistance);
+  });
+});
 
 // describe('경기를 진행한다.', () => {
 //   const logSpy = jest.spyOn(console, 'log');
