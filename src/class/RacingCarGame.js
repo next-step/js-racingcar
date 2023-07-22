@@ -7,7 +7,7 @@ const CAR_NAME_SEPARATOR = ",";
 
 const CAR_NAME_LENGTH = 5;
 
-const ERROR_MESSAGES = {
+export const ERROR_MESSAGES = {
   INVALID_EMPTY_NAME: "자동차 이름은 빈값일 수 없습니다.",
   INVALID_NAME_LENGTH: "자동차 이름은 5자를 넘길 수 없습니다.",
 };

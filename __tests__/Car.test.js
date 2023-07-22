@@ -1,20 +1,26 @@
 import * as readline from "readline";
 import RacingCarGame from "../src/class/RacingCarGame";
+import { EventEmitter } from "stream";
+import { ERROR_MESSAGES } from "../src/class/RacingCarGame";
 
 jest.mock("readline");
 
 function initiallizeTestEnvironment() {
   const questionSpy = jest.fn();
   const closeSpy = jest.fn();
+  const consoleLogSpy = jest.spyOn(console, "log");
 
   readline.createInterface.mockReturnValue({
     question: questionSpy,
     close: closeSpy,
+    input: new EventEmitter(),
+    output: new EventEmitter(),
+    write: jest.fn(),
   });
 
   const racingCarGame = new RacingCarGame();
 
-  return { questionSpy, racingCarGame, closeSpy };
+  return { questionSpy, racingCarGame, closeSpy, consoleLogSpy };
 }
 
 describe("레이싱 경주 시작 및 자동차 이름 입력", () => {
@@ -37,5 +43,66 @@ describe("레이싱 경주 시작 및 자동차 이름 입력", () => {
     racingCarGame.endGame();
 
     expect(closeSpy).toHaveBeenCalled();
+  });
+
+  test("자동차 이름에 빈값을 입력할 경우 에러 문구와 함께 게임이 종료된다.", () => {
+    const { racingCarGame, closeSpy, consoleLogSpy } =
+      initiallizeTestEnvironment();
+
+    readline
+      .createInterface()
+      .question.mockImplementationOnce((_, callback) => callback(""));
+
+    racingCarGame.startGame();
+
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      ERROR_MESSAGES.INVALID_EMPTY_NAME
+    );
+
+    expect(closeSpy).toHaveBeenCalledTimes(1);
+
+    consoleLogSpy.mockRestore();
+  });
+
+  test("여러 자동차 이름에 빈값이 포함되어 있는 경우 에러 문구와 함께 게임이 종료된다.", () => {
+    const { racingCarGame, closeSpy, consoleLogSpy } =
+      initiallizeTestEnvironment();
+
+    readline
+      .createInterface()
+      .question.mockImplementationOnce((_, callback) =>
+        callback("pobi,  ,conan")
+      );
+
+    racingCarGame.startGame();
+
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      ERROR_MESSAGES.INVALID_EMPTY_NAME
+    );
+
+    expect(closeSpy).toHaveBeenCalledTimes(1);
+
+    consoleLogSpy.mockRestore();
+  });
+
+  test("여러 자동차 이름에 5자가 넘는 자동차 이름이 포함되어 있는 경우 에러 문구와 함께 게임이 종료된다.", () => {
+    const { racingCarGame, closeSpy, consoleLogSpy } =
+      initiallizeTestEnvironment();
+
+    readline
+      .createInterface()
+      .question.mockImplementationOnce((_, callback) =>
+        callback("1234567,pobi,conan")
+      );
+
+    racingCarGame.startGame();
+
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      ERROR_MESSAGES.INVALID_NAME_LENGTH
+    );
+
+    expect(closeSpy).toHaveBeenCalledTimes(1);
+
+    consoleLogSpy.mockRestore();
   });
 });
