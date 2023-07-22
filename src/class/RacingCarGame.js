@@ -7,6 +7,7 @@ import {
   RACING_CAR_ERROR_NAME,
   ERROR_MESSAGES,
   RACING_SCORE_CHAR,
+  RACING_ROUNDS,
 } from "../data/constants";
 
 class RacingCarGameError extends Error {
@@ -23,6 +24,7 @@ export default class RacingCarGame {
       input: process.stdin,
       output: process.stdout,
     });
+    this.racingRounds = RACING_ROUNDS;
   }
 
   startGame() {
@@ -35,6 +37,8 @@ export default class RacingCarGame {
         this.settingCars(splitedAnswer);
 
         this.displayRacingTitle();
+
+        this.executeMultipleRounds();
       } catch (error) {
         if (error instanceof Error && error.name === RACING_CAR_ERROR_NAME) {
           console.log(error.message);
@@ -98,5 +102,9 @@ export default class RacingCarGame {
       console.log(`${carName} : ${RACING_SCORE_CHAR.repeat(carInfo.distance)}`);
     });
     console.log("");
+  }
+
+  executeMultipleRounds() {
+    Array.from({ length: this.racingRounds }, () => this.executeOneRound());
   }
 }

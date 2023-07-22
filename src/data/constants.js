@@ -16,3 +16,5 @@ export const ERROR_MESSAGES = {
 export const RACING_CAR_ERROR_NAME = "RACING_CAR_ERROR";
 
 export const RACING_SCORE_CHAR = "-";
+
+export const RACING_ROUNDS = 5;
