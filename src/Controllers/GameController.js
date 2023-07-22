@@ -1,4 +1,4 @@
-import { splitCarNameToArray } from '../utils';
+import { splitCarNameToArray, Validator } from '../utils';
 
 export class GameController {
   #model;
@@ -14,10 +14,15 @@ export class GameController {
   }
 
   #readCarName() {
-    this.#view.readCarName(this.#createCarByName);
+    this.#view.readCarName(this.#checkCarNameValidation);
   }
 
-  #createCarByName(userInput) {
+  #checkCarNameValidation(userInput) {
     const carNamesArray = splitCarNameToArray(userInput);
+    try {
+      carNamesArray.forEach((carName) =>
+        Validator.isWithInMaxLength(carName, 5)
+      );
+    } catch (error) {}
   }
 }
