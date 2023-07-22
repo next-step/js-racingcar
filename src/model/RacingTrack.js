@@ -1,7 +1,6 @@
-import NumberMaker from '../NumberMaker.js';
 import { CAR_SYMBOLS, INIT_RACING_COUNT } from '../constants/model.js';
 import ErrorHandler from '../handler/ErrorHandler.js';
-import { isExitRace, isMove } from '../utils/racingTrack.js';
+import { isExitRace, moveRacingCar, parseRacingResultStatus } from '../utils/racingTrack.js';
 
 class RacingTrack {
   #racingCars;
@@ -26,19 +25,25 @@ class RacingTrack {
     return this.#racingResult;
   }
 
+  #updateRacingCars(updateRacingCars) {
+    this.#racingCars = updateRacingCars;
+  }
+
+  #updateRacingResult(newRacingCars) {
+    this.#racingResult.push(parseRacingResultStatus(newRacingCars));
+  }
+
+  #minusRacingCount() {
+    this.#racingCount -= 1;
+  }
+
   race() {
     const racingCars = Object.keys(this.#racingCars);
     while (!isExitRace(this.#racingCount)) {
-      const randomNumbers = NumberMaker.genRacingCarNumbers(racingCars);
-      racingCars.forEach(
-        (car, i) => isMove(randomNumbers[i]) && (this.#racingCars[car] += CAR_SYMBOLS.MOVE)
-      );
-      this.#racingResult.push(
-        Object.entries({ ...this.#racingCars })
-          .map((arr) => arr.join(' : '))
-          .join('\n')
-      );
-      this.#racingCount -= 1;
+      const newRacingCars = moveRacingCar(racingCars, this.#racingCars);
+      this.#updateRacingCars(newRacingCars);
+      this.#updateRacingResult(newRacingCars);
+      this.#minusRacingCount();
     }
   }
 }
