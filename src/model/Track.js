@@ -19,7 +19,7 @@ class Track {
   }
 
   isEndRound() {
-    if (this.#round === this.#endRound + 1) return true;
+    if (this.#round > this.#endRound) return true;
     return false;
   }
 }
