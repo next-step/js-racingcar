@@ -105,4 +105,42 @@ describe("레이싱 경주 시작 및 자동차 이름 입력", () => {
 
     consoleLogSpy.mockRestore();
   });
+
+  test("중복된 자동차 이름이 포함되어 있는 경우 에러 문구와 함께 게임이 종료된다.", () => {
+    const { racingCarGame, closeSpy, consoleLogSpy } =
+      initiallizeTestEnvironment();
+
+    readline
+      .createInterface()
+      .question.mockImplementationOnce((_, callback) =>
+        callback("pobi,pobi,conan")
+      );
+
+    racingCarGame.startGame();
+
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      ERROR_MESSAGES.DUPLICATE_CAR_NAME
+    );
+
+    expect(closeSpy).toHaveBeenCalledTimes(1);
+
+    consoleLogSpy.mockRestore();
+  });
+
+  test("정상적인 자동차 이름 입력시 cars에 정보가 저장된다.(settingCars 메소드 테스트)", () => {
+    const { racingCarGame } = initiallizeTestEnvironment();
+
+    racingCarGame.settingCars(['pobi','crong','honux'])
+
+    const expectedCars = new Map();
+
+    expectedCars.set("pobi", { distance: 0 });
+
+    expectedCars.set("crong", { distance: 0 });
+
+    expectedCars.set("honux", { distance: 0 });
+
+    expect(racingCarGame.cars).toEqual(expectedCars)
+
+  });
 });
