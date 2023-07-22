@@ -1,7 +1,7 @@
 import * as readline from "readline";
 import RacingCarGame from "../src/class/RacingCarGame";
 import { EventEmitter } from "stream";
-import { ERROR_MESSAGES } from "../src/class/RacingCarGame";
+import { ERROR_MESSAGES } from "../src/data/constants";
 
 jest.mock("readline");
 

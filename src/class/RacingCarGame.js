@@ -1,21 +1,13 @@
 import * as readline from "readline";
-
-const CAR_NAME_INPUT_GUIDE =
-  "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n";
-
-const CAR_NAME_SEPARATOR = ",";
-
-const CAR_NAME_LENGTH = 5;
-
-const CAR_RACE_TITLE = "실행 결과";
-
-export const ERROR_MESSAGES = {
-  INVALID_EMPTY_NAME: "자동차 이름은 빈값일 수 없습니다.",
-  INVALID_NAME_LENGTH: "자동차 이름은 5자를 넘길 수 없습니다.",
-  DUPLICATE_CAR_NAME: "자동차 이름은 중복될 수 없습니다.",
-};
-
-const RACING_CAR_ERROR_NAME = "RACING_CAR_ERROR";
+import {
+  CAR_NAME_INPUT_GUIDE,
+  CAR_NAME_MAX_LENGTH,
+  CAR_NAME_SEPARATOR,
+  CAR_RACE_TITLE,
+  RACING_CAR_ERROR_NAME,
+  ERROR_MESSAGES,
+  RACING_SCORE_CHAR,
+} from "../data/constants";
 
 class RacingCarGameError extends Error {
   constructor(message) {
@@ -63,7 +55,7 @@ export default class RacingCarGame {
         throw new RacingCarGameError(ERROR_MESSAGES.INVALID_EMPTY_NAME);
       }
 
-      if (name.length > CAR_NAME_LENGTH) {
+      if (name.length > CAR_NAME_MAX_LENGTH) {
         throw new RacingCarGameError(ERROR_MESSAGES.INVALID_NAME_LENGTH);
       }
     }
@@ -82,6 +74,7 @@ export default class RacingCarGame {
   }
 
   displayRacingTitle() {
+    console.log();
     console.log(CAR_RACE_TITLE);
   }
 
@@ -92,9 +85,18 @@ export default class RacingCarGame {
         this.cars.set(carName, carInfo);
       }
     });
+
+    this.displayRacingBoard();
   }
 
   checkForAdvance() {
     return Math.random() * 9 >= 4;
+  }
+
+  displayRacingBoard() {
+    this.cars.forEach((carInfo, carName) => {
+      console.log(`${carName} : ${RACING_SCORE_CHAR.repeat(carInfo.distance)}`);
+    });
+    console.log();
   }
 }
