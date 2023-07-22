@@ -4,6 +4,7 @@ export const CAR_NAME_INPUT_GUIDE =
 export const CAR_NAME_SEPARATOR = ",";
 
 export const CAR_NAME_MAX_LENGTH = 5;
+export const CAR_NAME_MIN_LENGTH = 1;
 
 export const CAR_RACE_TITLE = "실행 결과";
 

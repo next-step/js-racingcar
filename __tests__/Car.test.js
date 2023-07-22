@@ -230,4 +230,18 @@ describe("레이싱 경주 진행", () => {
 
     consoleLogSpy.mockRestore();
   });
+
+  test("executeMutipleRounds 실행시 executeOneRound가 정확한 횟수만큼 실행된다.", () => {
+    const { racingCarGame, consoleLogSpy } = initiallizeTestEnvironment();
+
+    const executeOneRoundSpy = jest.spyOn(racingCarGame, "executeOneRound");
+
+    racingCarGame.executeMultipleRounds();
+
+    expect(executeOneRoundSpy).toHaveBeenCalledTimes(
+      racingCarGame.racingRounds
+    );
+
+    consoleLogSpy.mockRestore();
+  });
 });

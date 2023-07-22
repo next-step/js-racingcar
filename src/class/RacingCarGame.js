@@ -8,6 +8,7 @@ import {
   ERROR_MESSAGES,
   RACING_SCORE_CHAR,
   RACING_ROUNDS,
+  CAR_NAME_MIN_LENGTH,
 } from "../data/constants";
 
 class RacingCarGameError extends Error {
@@ -55,7 +56,7 @@ export default class RacingCarGame {
 
   validateCarName(names) {
     for (const name of names) {
-      if (name.trim().length < 1) {
+      if (name.trim().length < CAR_NAME_MIN_LENGTH) {
         throw new RacingCarGameError(ERROR_MESSAGES.INVALID_EMPTY_NAME);
       }
 
