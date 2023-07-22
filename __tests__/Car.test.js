@@ -53,7 +53,7 @@ describe('자동차 경주 기능 관련 테스트', () => {
   });
   test('무작위 값은 0에서 9사이에서 나올 수 있어야 한다.', () => {
     const randomNumbersArr = Array(100).fill(
-      NumberMaker.genRacingCarNumbers(['jiny', 'pobi', 'conan', 'cofee'])
+      NumberMaker.genRacingCarRandomNumbers(['jiny', 'pobi', 'conan', 'cofee'])
     );
     randomNumbersArr.forEach((randomNumbers) => {
       randomNumbers.forEach((num) => {

@@ -3,34 +3,34 @@ import ErrorHandler from '../handler/ErrorHandler.js';
 import { isExitRace, moveRacingCar, parseRacingResultStatus } from '../utils/racingTrack.js';
 
 class RacingTrack {
-  #racingCars;
+  #racingCarStatus;
   #racingCount;
   #racingResult;
   constructor() {
-    this.#racingCars = {};
+    this.#racingCarStatus = {};
     this.#racingCount = INIT_RACING_COUNT;
     this.#racingResult = [];
   }
 
   setRacingCars(racingCars) {
     ErrorHandler.confirmCarNames(racingCars);
-    racingCars.forEach((carName) => (this.#racingCars[carName] = CAR_SYMBOLS.EMPTY));
+    racingCars.forEach((carName) => (this.#racingCarStatus[carName] = CAR_SYMBOLS.EMPTY));
   }
 
   getRacingCars() {
-    return this.#racingCars;
+    return this.#racingCarStatus;
   }
 
   getRacingResult() {
     return this.#racingResult;
   }
 
-  #updateRacingCars(updateRacingCars) {
-    this.#racingCars = updateRacingCars;
+  #updateRacingCarStatus(newRacingCarStatus) {
+    this.#racingCarStatus = newRacingCarStatus;
   }
 
-  #updateRacingResult(newRacingCars) {
-    this.#racingResult.push(parseRacingResultStatus(newRacingCars));
+  #updateRacingResult(newRacingCarStatus) {
+    this.#racingResult.push(parseRacingResultStatus(newRacingCarStatus));
   }
 
   #minusRacingCount() {
@@ -38,11 +38,11 @@ class RacingTrack {
   }
 
   race() {
-    const racingCars = Object.keys(this.#racingCars);
+    const racingCarRacers = Object.keys(this.#racingCarStatus);
     while (!isExitRace(this.#racingCount)) {
-      const newRacingCars = moveRacingCar(racingCars, this.#racingCars);
-      this.#updateRacingCars(newRacingCars);
-      this.#updateRacingResult(newRacingCars);
+      const newRacingCarStatus = moveRacingCar(racingCarRacers, this.#racingCarStatus);
+      this.#updateRacingCarStatus(newRacingCarStatus);
+      this.#updateRacingResult(newRacingCarStatus);
       this.#minusRacingCount();
     }
   }

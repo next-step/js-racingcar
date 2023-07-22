@@ -3,10 +3,10 @@ import { AVALIABLE_RANDOM_NUMBER, CAR_SYMBOLS, EXIT_COUNT } from '../constants/i
 
 export const isExitRace = (racingCount) => racingCount === EXIT_COUNT;
 export const isMove = (randomNumber) => randomNumber >= AVALIABLE_RANDOM_NUMBER;
-export const moveRacingCar = (racingCarNames, racingCarStatus) => {
+export const moveRacingCar = (racingCarRacers, racingCarStatus) => {
   const copyRacingCarStatus = { ...racingCarStatus };
-  const randomNumbers = NumberMaker.genRacingCarNumbers(racingCarNames);
-  racingCarNames.forEach(
+  const randomNumbers = NumberMaker.genRacingCarRandomNumbers(racingCarRacers);
+  racingCarRacers.forEach(
     (car, i) => isMove(randomNumbers[i]) && (copyRacingCarStatus[car] += CAR_SYMBOLS.MOVE)
   );
   return copyRacingCarStatus;
