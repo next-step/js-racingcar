@@ -1,6 +1,6 @@
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
-import { INPUT_MESSAGE } from '../constants';
+import { INPUT_MESSAGE } from '../constants/index.js';
 import { genRacingCarArray } from '../utils/view.js';
 
 const InputView = {

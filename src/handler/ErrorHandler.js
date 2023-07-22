@@ -1,4 +1,4 @@
-import { CarValidator } from '../validator';
+import { CarValidator } from '../validator/index.js';
 
 class ErrorHandler {
   static confirmCarNames(racingCars) {
