@@ -17,4 +17,8 @@ export default class RacingCarGame {
       console.log(answer);
     });
   }
+
+  endGame() {
+    this.readline.close();
+  }
 }
