@@ -1,3 +1,4 @@
+import { MESSAGE, VALIDATOR } from '../constants';
 import { splitCarNameToArray, Validator } from '../utils';
 
 export class GameController {
@@ -14,15 +15,22 @@ export class GameController {
   }
 
   #readCarName() {
-    this.#view.readCarName(this.#checkCarNameValidation);
+    this.#view.readCarName(this.#validateCarName);
   }
 
-  #checkCarNameValidation(userInput) {
+  #validateCarName(userInput) {
     const carNamesArray = splitCarNameToArray(userInput);
-    try {
-      carNamesArray.forEach((carName) =>
-        Validator.isWithInMaxLength(carName, 5)
+    carNamesArray.forEach((carName) => {
+      const isValid = Validator.isWithInMaxLength(
+        carName,
+        VALIDATOR.MAX_CAR_NAME_LENGTH
       );
-    } catch (error) {}
+
+      if (!isValid) {
+        throw new Error(
+          MESSAGE.ERROR.IS_WITH_IN_MAX_LENGTH(VALIDATOR.MAX_CAR_NAME_LENGTH)
+        );
+      }
+    });
   }
 }

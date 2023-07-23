@@ -1,3 +1,4 @@
-import { CONFIG } from '../constants';
+import { UTIL } from '../constants';
+
 export const splitCarNameToArray = (userInput) =>
-  userInput.split(CONFIG.INPUT.CAR_NAME_DELIMITER);
+  userInput.split(UTIL.CAR_NAME_DELIMITER);

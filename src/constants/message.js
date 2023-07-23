@@ -4,4 +4,9 @@ const READ = Object.freeze({
 
 const CONSOLE = Object({ READ });
 
-export const MESSAGE = Object.freeze({ CONSOLE });
+const ERROR = Object.freeze({
+  IS_WITH_IN_MAX_LENGTH: (maxLength) =>
+    `자동차 이름은 ${maxLength}까지 가능합니다.`,
+});
+
+export const MESSAGE = Object.freeze({ CONSOLE, ERROR });
