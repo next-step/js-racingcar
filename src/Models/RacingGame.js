@@ -14,6 +14,6 @@ export class RacingGame {
   }
 
   #raceWithTotalRounds(totalRounds) {
-    for (let round = 0; i < totalRounds; i++);
+    for (let round = 0; round < totalRounds; round++);
   }
 }
