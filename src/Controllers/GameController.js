@@ -1,3 +1,4 @@
+import { RACING_GAME } from '../constants';
 import { splitCarNameToArray, validateCarName } from '../utils';
 
 export class GameController {
@@ -27,6 +28,6 @@ export class GameController {
   }
 
   #startRacingGame(carNames) {
-    this.#model.startRacingGame(carNames);
+    this.#model.startRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
   }
 }
