@@ -1,42 +1,67 @@
-import { Car } from '../src/Models';
 import { GameController } from '../src/Controllers/GameController';
-// 1단계
+import { Car } from '../src/Models';
+import { MESSAGE, VALIDATOR } from '../src/constants';
+import { splitCarNameToArray } from '../src/utils';
 
-/*
-- [ ] 자동차 이름을 입력받는다.
-- [ ] 입력받은 횟수만큼 경기를 진행한다.
-- [ ] 매 경주마다 모두 1칸씩 전진한다.
-- [ ] 게임의 우승자를 출력한다. 여러명일 경우 쉼표로 구분한다.
-  - [ ] 자동차 경주 게임을 완료한 후, 한 명 이상의 우승자를 출력한다.
-  - [ ] 우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.
- */
+// 테스트는 상위 레이어에서 인터페이스 위주로 진행하기.
 
-describe('Views', () => {
-  describe('InputView', () => {
-    const inputValue = 'Boong Boong Car';
-    const car = new Car(inputValue);
+// 2단계
 
-    test('자동차 이름을 입력받는다.', () => {
-      const carName = car.getName(); // 과연 getter가 바람직한가? 고민해보자.
+const logSpy = jest.spyOn(console, 'log');
 
-      expect(carName).toBe(inputValue);
-    });
+describe('게임 시작', () => {
+  test('GameController가 정상적으로 생성되는지 확인한다.', () => {
+    const model = {};
+    const view = {};
+    const gameController = new GameController(model, view);
+
+    expect(gameController).toBeInstanceOf(GameController);
   });
 });
 
-describe('Controller', () => {
-  let playSpy;
+describe('자동차 이름 입력', () => {
+  test('입력된 자동차 이름이 배열로 변환되는지 확인한다.', () => {
+    const carNames = 'pobi,crong,honux';
+    const result = splitCarNameToArray(carNames);
 
-  beforeEach(() => {
-    const gameController = new GameController();
-    playSpy = jest.spyOn(gameController, 'play');
+    expect(result).toEqual(['pobi', 'crong', 'honux']);
+  });
+});
+
+describe('자동차 이름 유효성 검사', () => {
+  test('Car 객체가 정상적으로 생성되는지 확인한다.', () => {
+    const car = new Car('pobi');
+
+    expect(car).toBeInstanceOf(Car);
   });
 
-  test('입력받은 수만큼 게임을 실행한다.', () => {
-    const PLAY_ROUND = 5;
+  test('자동차 이름 길이가 최대 길이를 초과할 경우 에러가 발생한다.', () => {
+    const INVALID_CAR_NAME = 'pengoose';
 
-    gameController.play(PLAY_ROUND);
+    expect(() => new Car(INVALID_CAR_NAME)).toThrow(
+      MESSAGE.ERROR.IS_WITH_IN_MAX_LENGTH(VALIDATOR.MAX_CAR_NAME_LENGTH)
+    );
+  });
+});
 
-    expect(playSpy).toHaveBeenCalledTimes(PLAY_ROUND);
+describe('자동차 경주 셋팅', () => {
+  test('주어진 횟수에 따라 경주가 진행된다.', () => {});
+});
+
+describe('자동차 경주 시작', () => {
+  test('랜덤 값이 4 이상일 경우 자동차가 전진하는지 확인한다.', () => {
+    const car = new Car('pobi');
+    const RANDOM_INT = 8;
+    if (RANDOM_INT >= 4) car.advance();
+
+    expect(car.position).toBe(1);
+  });
+});
+
+describe('우승자 확인', () => {
+  test('GameController가 우승자를 정상적으로 출력하는지 확인한다.', () => {
+    const winner = 'pobi'; // 구현해야 함.
+
+    expect(winner).toEqual();
   });
 });

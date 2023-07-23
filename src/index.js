@@ -2,7 +2,7 @@ import { GameController } from './Controllers/GameController';
 import { Car, Model } from './Models';
 import { InputView, OutputView, View } from './Views';
 
-class App {
+export class App {
   #gameController;
 
   constructor() {
