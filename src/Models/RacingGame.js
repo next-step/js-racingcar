@@ -10,10 +10,10 @@ export class RacingGame {
 
   #settingRacingGame(carNames, totalRounds) {
     for (let carName of carNames) this.#cars.push(new Car(carName));
-    this.#racing(totalRounds);
+    this.#raceWithTotalRounds(totalRounds);
   }
 
-  #racing(totalRounds) {
+  #raceWithTotalRounds(totalRounds) {
     for (let round = 0; i < totalRounds; i++);
   }
 }
