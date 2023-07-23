@@ -1,4 +1,4 @@
-import { isStringOverLength } from '../utils/number'
+import { isStringOverLength } from '../utils/common'
 
  export const checkOverStringLength = (value, length, message = `${length}자리 이하만 입력 가능합니다`) => {
     if(isStringOverLength(value, length)){
