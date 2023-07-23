@@ -22,4 +22,25 @@ describe('CarRace', () => {
 
     expect(runOneLap).toBeCalledTimes(RACE_LAP_LIMIT);
   });
+
+  describe('우승자', () => {
+    const car1 = new Car('광민');
+    const car2 = new Car('민광');
+    const carRace = new CarRace([car1, car2]);
+
+    it('자동차 경주 전에는 우승자를 알 수 없다.', () => {
+      const winners = carRace.winners;
+      expect(winners).not.toBeDefined();
+    });
+
+    it('자동차 경주 완료 후 우승자를 알 수 있다.', () => {
+      carRace.start();
+
+      const winners = carRace.winners;
+      const winnerNames = winners.map((car) => car.name);
+
+      expect(winners).toBeDefined();
+      expect(winnerNames.include([car1.name, car2.name])).toContain();
+    });
+  });
 });
