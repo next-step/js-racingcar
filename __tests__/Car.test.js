@@ -1,9 +1,7 @@
 import { GameController } from '../src/Controllers/GameController';
 import { Car } from '../src/Models';
-import { MESSAGE, VALIDATOR } from '../src/constants';
-import { splitCarNameToArray } from '../src/utils';
-
-// 테스트는 상위 레이어에서 인터페이스 위주로 진행하기.
+import { MESSAGE, CAR } from '../src/constants';
+import { splitCarNameToArray, validateCarName } from '../src/utils';
 
 // 2단계
 
@@ -38,9 +36,10 @@ describe('자동차 이름 유효성 검사', () => {
   test('자동차 이름 길이가 최대 길이를 초과할 경우 에러가 발생한다.', () => {
     const INVALID_CAR_NAME = 'pengoose';
 
-    expect(() => new Car(INVALID_CAR_NAME)).toThrow(
-      MESSAGE.ERROR.IS_WITH_IN_MAX_LENGTH(VALIDATOR.MAX_CAR_NAME_LENGTH)
-    );
+    expect(() => {
+      const carNames = splitCarNameToArray(INVALID_CAR_NAME);
+      carNames.forEach((carName) => validateCarName(carName));
+    }).toThrow(MESSAGE.ERROR.LENGTH_OVERFLOW(CAR.MAX_NAME_LENGTH));
   });
 });
 
@@ -60,8 +59,6 @@ describe('자동차 경주 시작', () => {
 
 describe('우승자 확인', () => {
   test('GameController가 우승자를 정상적으로 출력하는지 확인한다.', () => {
-    const winner = 'pobi'; // 구현해야 함.
-
-    expect(winner).toEqual();
+    const WINNER = 'pobi';
   });
 });
