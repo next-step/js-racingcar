@@ -1,5 +1,4 @@
-import { MESSAGE, VALIDATOR } from '../constants';
-import { splitCarNameToArray, Validator } from '../utils';
+import { splitCarNameToArray, validateCarName } from '../utils';
 
 export class GameController {
   #model;
@@ -20,18 +19,7 @@ export class GameController {
 
   #validateCarName(userInput) {
     const carNamesArray = splitCarNameToArray(userInput);
-    carNamesArray.forEach((carName) => {
-      const isValid = Validator.isWithInMaxLength(
-        carName,
-        VALIDATOR.MAX_CAR_NAME_LENGTH
-      );
-
-      if (!isValid) {
-        throw new Error(
-          MESSAGE.ERROR.IS_WITH_IN_MAX_LENGTH(VALIDATOR.MAX_CAR_NAME_LENGTH)
-        );
-      }
-    });
+    carNamesArray.forEach((carName) => validateCarName(carName));
 
     this.#createCarByArray(carNamesArray);
   }
