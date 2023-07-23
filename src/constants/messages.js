@@ -16,18 +16,19 @@ const MESSAGES = Object.freeze({
   RESULT: {
     winners: (...names) => `${names.join(', ')}가 최종 우승했습니다.`,
   },
+});
 
-  ERROR: {
-    LESS_THAN_MIN_NAME_LENGTH: `${MIN_NAME_LENGTH}자 미만인 이름이 존재합니다!`,
-    MORE_THAN_MAX_NAME_LENGTH: `${MAX_NAME_LENGTH}자를 초과한 이름이 존재합니다!`,
+const ERROR_MESSAGES = Object.freeze({
+  LESS_THAN_MIN_NAME_LENGTH: `${MIN_NAME_LENGTH}자 미만인 이름이 존재합니다!`,
+  MORE_THAN_MAX_NAME_LENGTH: `${MAX_NAME_LENGTH}자를 초과한 이름이 존재합니다!`,
 
-    LESS_THAN_MIN_USER: `${MIN_USER}명 이상의 이름을 입력해주세요!`,
-    MORE_THAN_MAX_USER: `${MAX_USER}명 이하의 이름을 입력해주세요!`,
+  LESS_THAN_MIN_USER: `${MIN_USER}명 이상의 이름을 입력해주세요!`,
+  MORE_THAN_MAX_USER: `${MAX_USER}명 이하의 이름을 입력해주세요!`,
 
-    HAS_DUPLICATED_NAME: '중복된 이름이 존재합니다!',
-  },
+  HAS_DUPLICATED_NAME: '중복된 이름이 존재합니다!',
 });
 
 module.exports = {
   MESSAGES,
+  ERROR_MESSAGES,
 };

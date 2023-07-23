@@ -1,3 +1,5 @@
+const readline = require('readline');
+const App = require('../src/App.js');
 const Car = require('../src/model/Car.js');
 const Track = require('../src/model/Track.js');
 const WinnerChecker = require('../src/model/WinnerChecker.js');
@@ -13,7 +15,9 @@ const {
   DEFAULT_RACING_ROUND,
   SKID_MARK,
 } = require('../src/constants/racing-rule.js');
-const { MESSAGES } = require('../src/constants/messages.js');
+const { MESSAGES, ERROR_MESSAGES } = require('../src/constants/messages.js');
+
+jest.spyOn(readline, 'createInterface').mockImplementationOnce(() => ['text1', 'text2']);
 
 describe('유틸리티 함수 테스트', () => {
   test(`문자열을 ${SLICE_STANDARD} 기준으로 나누어 배열로 반환한다.`, () => {
@@ -45,6 +49,9 @@ describe('유틸리티 함수 테스트', () => {
 });
 
 describe('사용자의 입력값을 받는다.', () => {
+  const app = new App();
+  app.init();
+
   test('일반적인 케이스 "JAMES, KANE, MARK"', () => {
     expect(() => {
       const input = 'A,B,C';
@@ -69,7 +76,7 @@ describe('사용자의 입력값을 받는다.', () => {
       const slicedInput = sliceByStandard(input);
 
       Validator.isValidNames(slicedInput);
-    }).toThrow(MESSAGES.ERROR.MORE_THAN_MAX_NAME_LENGTH);
+    }).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_NAME_LENGTH);
   });
 
   test(`입력값 중에 글자수가 ${MIN_NAME_LENGTH}자 미만이 존재하는 케이스 ", KANE, MARK, ALEX"`, () => {
@@ -78,7 +85,7 @@ describe('사용자의 입력값을 받는다.', () => {
       const slicedInput = sliceByStandard(input);
 
       Validator.isValidNames(slicedInput);
-    }).toThrow(MESSAGES.ERROR.LESS_THAN_MIN_NAME_LENGTH);
+    }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_NAME_LENGTH);
   });
 
   /*
@@ -89,7 +96,7 @@ describe('사용자의 입력값을 받는다.', () => {
     const slicedInput = sliceByStandard(input);
 
     Validator.isValidNames(slicedInput);
-    expect(() => {}).toThrow(MESSAGES.ERROR.MORE_THAN_MAX_USER);
+    expect(() => {}).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_USER);
   });
   */
 
@@ -99,7 +106,7 @@ describe('사용자의 입력값을 받는다.', () => {
       const slicedInput = sliceByStandard(input);
 
       Validator.isValidNames(slicedInput);
-    }).toThrow(MESSAGES.ERROR.LESS_THAN_MIN_USER);
+    }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_USER);
   });
 
   test('참가자가 중복된 케이스 "A,A,B,C,D,E"', () => {
@@ -108,7 +115,7 @@ describe('사용자의 입력값을 받는다.', () => {
       const slicedInput = sliceByStandard(input);
 
       Validator.isValidNames(slicedInput);
-    }).toThrow(MESSAGES.ERROR.HAS_DUPLICATED_NAME);
+    }).toThrow(ERROR_MESSAGES.HAS_DUPLICATED_NAME);
   });
 });
 
