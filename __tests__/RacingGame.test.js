@@ -42,5 +42,21 @@ describe('RacingGame 테스트', () => {
 
       expect(winningCar).toEqual(lastCar);
     });
+
+    test('가장 멀리간 자동차가 여러대이면 모두다 우승자다.', () => {
+      cars.forEach((car) => {
+        car.moveForward();
+      });
+
+      expect(
+        racingGame
+          .getWinningCars()
+          .every(
+            (winningCar) =>
+              winningCar.getDistanceDriven() ===
+              racingGame.getMaxDistanceDriven()
+          )
+      ).toBe(true);
+    });
   });
 });
