@@ -13,6 +13,10 @@ class Car {
   getDistanceDriven() {
     return this.#distanceDriven;
   }
+
+  moveForward() {
+    this.#distanceDriven = this.#distanceDriven + 1;
+  }
 }
 
 export default Car;
