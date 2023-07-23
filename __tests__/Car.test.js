@@ -3,8 +3,9 @@ import NumberMaker from '../src/NumberMaker';
 import { ERROR_MESSAGE } from '../src/constants';
 import { genRacingWinners } from '../src/utils';
 import { isMove } from '../src/utils/racingTrack';
-import { CarValidator } from '../src/validator/index.js';
+import { CarValidator } from '../src/validator';
 import { InputView, OutputView } from '../src/view';
+import { containsAllRacers, containsAllStatus } from './utils';
 
 jest.mock('node:readline/promises', () => ({
   createInterface: jest.fn().mockReturnValue({
@@ -12,16 +13,6 @@ jest.mock('node:readline/promises', () => ({
     close: jest.fn(),
   }),
 }));
-
-const containsAllRacers = (str) => {
-  const patterns = ['jiny', 'pobi', 'conan'];
-  return patterns.every((pattern) => new RegExp(pattern).test(str));
-};
-
-const containsAllStatus = (str) => {
-  const patterns = ['jiny', 'pobi', 'conan', ':'];
-  return patterns.every((pattern) => new RegExp(pattern).test(str));
-};
 
 describe('자동차 입력 기능 관련 테스트', () => {
   let carNames;
