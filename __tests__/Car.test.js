@@ -53,58 +53,59 @@ describe("자동자 경주 게임", () => {
     });
 
     test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
-      const carRacingManager = new CarRacingManager();
-      const spyOn = jest.spyOn(console, "log");
+      const { carRacingManager, spyOn } = gameSetUp();
 
       carRacingManager.printCarAndMove("뽀로로", 3);
 
-      expect(spyOn).toBeCalledWith("뽀로로: ---");
+      expect(spyOn.log).toBeCalledWith("뽀로로: ---");
     });
 
     test("자동차 경주는 5회로 고정하여 진행한다.", () => {
-      const carRacingManager = new CarRacingManager();
-      const roundStart = jest.spyOn(carRacingManager, "roundStart");
-      const processEnd = () => {};
-      const sleep = () => {};
+      const { gameStart, spyOn } = gameSetUp();
 
-      carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, sleep);
+      gameStart();
 
-      expect(roundStart).toBeCalledTimes(5);
+      expect(spyOn.roundStart).toBeCalledTimes(5);
     });
   });
 
   describe("우승자 출력", () => {
     test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다.", () => {
-      const carRacingManager = new CarRacingManager();
-      const printGameEndMessage = jest.spyOn(
-        carRacingManager,
-        "printGameEndMessage"
-      );
-      const processEnd = () => {};
-      const sleep = () => {};
+      const { carRacingManager, gameStart, spyOn } = gameSetUp();
 
-      carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, sleep);
+      gameStart();
 
-      expect(printGameEndMessage).toBeCalledWith(
+      expect(spyOn.printGameEndMessage).toBeCalledWith(
         `${carRacingManager.winners}가 최종 우승했습니다.`
       );
     });
 
     test("우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.", () => {
-      const carRacingManager = new CarRacingManager();
-      const printGameEndMessage = jest.spyOn(
-        carRacingManager,
-        "printGameEndMessage"
-      );
-      const processEnd = () => {};
-      const sleep = () => {};
+      const { carRacingManager, gameStart, spyOn } = gameSetUp();
       carRacingManager.getMaxIndexes = jest.fn(() => [0, 2]);
 
-      carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, sleep);
+      gameStart();
 
-      expect(printGameEndMessage).toBeCalledWith(
+      expect(spyOn.printGameEndMessage).toBeCalledWith(
         "뽀로로, 루피가 최종 우승했습니다."
       );
     });
   });
 });
+
+function gameSetUp() {
+  const carRacingManager = new CarRacingManager();
+
+  const processEnd = () => {};
+  const sleep = () => {};
+  const gameStart = () =>
+    carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, sleep);
+
+  const spyOn = {
+    printGameEndMessage: jest.spyOn(carRacingManager, "printGameEndMessage"),
+    roundStart: jest.spyOn(carRacingManager, "roundStart"),
+    log: jest.spyOn(console, "log"),
+  };
+
+  return { carRacingManager, gameStart, spyOn };
+}
