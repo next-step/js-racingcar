@@ -1,15 +1,13 @@
-import { Car } from './Car';
+import { RacingGame } from './RacingGame';
 
 export class Model {
-  #cars;
+  #racingGame;
 
   constructor() {
     this.#cars = new Map();
   }
 
-  createCarByArray(namesArray) {
-    for (let name of namesArray) {
-      this.#cars.set(name, new Car(name));
-    }
+  startRacingGame(carNames) {
+    this.#racingGame = new RacingGame(carNames);
   }
 }

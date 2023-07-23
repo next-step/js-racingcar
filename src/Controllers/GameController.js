@@ -18,13 +18,13 @@ export class GameController {
   }
 
   #validateCarName(userInput) {
-    const carNamesArray = splitCarNameToArray(userInput);
-    carNamesArray.forEach((carName) => validateCarName(carName));
+    const carNames = splitCarNameToArray(userInput);
+    carNames.forEach((carName) => validateCarName(carName));
 
-    this.#createCarByArray(carNamesArray);
+    this.#startRacingGame(carNames);
   }
 
-  #createCarByArray(carNamesArray) {
-    this.#model.createCarByArray(carNamesArray);
+  #startRacingGame(carNames) {
+    this.#model.startRacingGame(carNames);
   }
 }
