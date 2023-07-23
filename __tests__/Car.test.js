@@ -13,8 +13,13 @@ jest.mock('node:readline/promises', () => ({
   }),
 }));
 
-const containsAll = (str) => {
+const containsAllRacers = (str) => {
   const patterns = ['jiny', 'pobi', 'conan'];
+  return patterns.every((pattern) => new RegExp(pattern).test(str));
+};
+
+const containsAllStatus = (str) => {
+  const patterns = ['jiny', 'pobi', 'conan', ':'];
   return patterns.every((pattern) => new RegExp(pattern).test(str));
 };
 
@@ -42,13 +47,15 @@ describe('자동차 경주 기능 관련 테스트', () => {
     printLogSpy.mockRestore();
   });
   test('자동차 경주는 5회로 고정하여 진행한다.', () => {
-    expect(printLogSpy.mock.calls.filter((print) => containsAll(print))).toHaveLength(5);
+    expect(printLogSpy.mock.calls.filter((printLog) => containsAllStatus(printLog))).toHaveLength(
+      5
+    );
   });
   test('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
     printLogSpy.mock.calls
-      .filter((print) => containsAll(print))
+      .filter((print) => containsAllRacers(print))
       .forEach((print) => {
-        expect(containsAll(print)).toBeTruthy();
+        expect(containsAllRacers(print)).toBeTruthy();
       });
   });
   test('무작위 값은 0에서 9사이에서 나올 수 있어야 한다.', () => {
