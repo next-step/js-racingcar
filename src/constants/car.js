@@ -1,0 +1,1 @@
+export const NAME_LENGTH_LIMIT = 5
