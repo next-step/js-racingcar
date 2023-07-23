@@ -32,5 +32,11 @@ export class GameController {
         );
       }
     });
+
+    this.#createCarByArray(carNamesArray);
+  }
+
+  #createCarByArray(carNamesArray) {
+    this.#model.createCarByArray(carNamesArray);
   }
 }

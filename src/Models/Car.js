@@ -1,3 +1,7 @@
 export class Car {
-  constructor() {}
+  #name;
+
+  constructor(name) {
+    this.#name = name;
+  }
 }

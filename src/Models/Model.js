@@ -1,9 +1,15 @@
 import { Car } from './Car';
 
 export class Model {
-  #car;
+  #cars;
 
-  constructor(car) {
-    this.#car = new Car();
+  constructor() {
+    this.#cars = new Map();
+  }
+
+  createCarByArray(namesArray) {
+    for (let name of namesArray) {
+      this.#cars.set(name, new Car(name));
+    }
   }
 }
