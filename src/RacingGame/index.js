@@ -10,6 +10,18 @@ class RacingGame {
   getCars() {
     return this.#cars;
   }
+
+  getMaxDistanceDriven() {
+    let maxDistanceDriven = 0;
+
+    this.#cars.forEach((car) => {
+      if (car.getDistanceDriven() > maxDistanceDriven) {
+        maxDistanceDriven = car.getDistanceDriven();
+      }
+    });
+
+    return maxDistanceDriven;
+  }
 }
 
 export default RacingGame;
