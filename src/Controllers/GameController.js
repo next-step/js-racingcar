@@ -18,10 +18,12 @@ export class GameController {
   }
 
   #validateCarName(userInput) {
-    const carNames = splitCarNameToArray(userInput);
-    carNames.forEach((carName) => validateCarName(carName));
+    try {
+      const carNames = splitCarNameToArray(userInput);
+      carNames.forEach((carName) => validateCarName(carName));
 
-    this.#startRacingGame(carNames);
+      this.#startRacingGame(carNames);
+    } catch (error) {}
   }
 
   #startRacingGame(carNames) {
