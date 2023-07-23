@@ -2,15 +2,20 @@ const Validator = require('./Validator.js');
 const Car = require('./model/Car.js');
 const Track = require('./model/Track.js');
 const WinnerChecker = require('./model/WinnerChecker.js');
-const View = require('./view/view.js');
+const View = require('./view/View.js');
 const { sliceByStandard } = require('./utils.js');
 
 class App {
-  #track = null;
+  #track;
 
-  #winnerChecker = null;
+  #winnerChecker;
 
   #cars = [];
+
+  constructor() {
+    this.#track = new Track();
+    this.#winnerChecker = new WinnerChecker();
+  }
 
   init() {
     this.#reset();
@@ -70,8 +75,8 @@ class App {
 
   #reset() {
     this.#cars = [];
-    this.#track = new Track();
-    this.#winnerChecker = new WinnerChecker()();
+    this.#track.reset();
+    this.#winnerChecker.reset();
   }
 }
 

@@ -30,6 +30,11 @@ class WinnerChecker {
       this.#winners.push(ranking[i].name);
     }
   }
+
+  reset() {
+    this.#winners = [];
+    this.#winningDistance = null;
+  }
 }
 
 module.exports = WinnerChecker;

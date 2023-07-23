@@ -22,6 +22,11 @@ class Track {
     if (this.#round > this.#endRound) return true;
     return false;
   }
+
+  reset() {
+    this.#round = 1;
+    this.#endRound = DEFAULT_RACING_ROUND;
+  }
 }
 
 module.exports = Track;
