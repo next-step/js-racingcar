@@ -22,6 +22,12 @@ class RacingGame {
 
     return maxDistanceDriven;
   }
+
+  getWinningCars() {
+    return this.#cars.filter(
+      (car) => car.getDistanceDriven() === this.getMaxDistanceDriven()
+    );
+  }
 }
 
 export default RacingGame;
