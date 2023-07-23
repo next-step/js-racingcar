@@ -8,7 +8,6 @@ describe("자동자 경주 게임", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
-  
   describe("경주 셋팅", () => {
     test("이름은 쉼표(,)를 기준으로 구분하여 받는다.", () => {
       const carRacingManager = new CarRacingManager();
@@ -87,10 +86,25 @@ describe("자동자 경주 게임", () => {
       carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, sleep);
 
       expect(printGameEndMessage).toBeCalledWith(
-        `winner is ${carRacingManager.winner}`
+        `${carRacingManager.winners}가 최종 우승했습니다.`
       );
     });
 
-    test.skip("우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.", () => {});
+    test("우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.", () => {
+      const carRacingManager = new CarRacingManager();
+      const printGameEndMessage = jest.spyOn(
+        carRacingManager,
+        "printGameEndMessage"
+      );
+      const processEnd = () => {};
+      const sleep = () => {};
+      carRacingManager.getMaxIndexes = jest.fn(() => [0, 2]);
+
+      carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, sleep);
+
+      expect(printGameEndMessage).toBeCalledWith(
+        "뽀로로, 루피가 최종 우승했습니다."
+      );
+    });
   });
 });

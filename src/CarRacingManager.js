@@ -14,7 +14,7 @@ export class CarRacingManager {
   gameStart(names, endProcess, wait) {
     try {
       this.#setNamesAndMoves(names);
-      this.#printParticipants(names);
+      console.log("\n실행결과");
       this.roundInterval(endProcess, wait || sleeping);
     } catch (error) {
       this.gameEnd(endProcess, error.message);
@@ -26,25 +26,20 @@ export class CarRacingManager {
     this.#moves = Array(this.names.length).fill(0);
   }
 
-  #printParticipants(names) {
-    console.log(`참가자: ${names}`);
-  }
-
   roundInterval(endProcess, wait) {
     this.#round++;
     if (this.#round > 5) {
-      return this.gameEnd(endProcess, `winner is ${this.winner}`);
+      return this.gameEnd(endProcess, `${this.winners}가 최종 우승했습니다.`);
     }
 
     this.roundStart();
 
     wait(1_000);
+    console.log("");
     this.roundInterval(endProcess, wait);
   }
 
   roundStart() {
-    console.log(`round ${this.#round} start`);
-
     this.#names.forEach((name, i) => {
       if (this.#getRandomIntegerUnderTen()) {
         this.#moves[i]++;
@@ -68,8 +63,24 @@ export class CarRacingManager {
     console.log(GAME_MESSAGES.GAME_OVER);
   }
 
-  get winner() {
-    return "헤헤";
+  get winners() {
+    const maxMoveIndexes = this.getMaxIndexes(this.#moves);
+    return maxMoveIndexes.map((v) => this.names[v]).join(", ");
+  }
+
+  getMaxIndexes(arr) {
+    let maxCount = 0;
+    let maxIndexes = [];
+
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] > maxCount) maxCount = arr[i];
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === maxCount) maxIndexes.push(i);
+    }
+
+    return maxIndexes;
   }
 
   get names() {
@@ -96,6 +107,7 @@ export class CarRacingManager {
 
 export const ERROR_MESSAGES = {
   OVER_MAXIMUM_NAME_LENGTH: "이름은 5자 이하만 가능합니다.",
+  WINNERS_TYPE_IS_NOT_ARRAY: "winners type is not Array",
 };
 
 export const GAME_MESSAGES = {
