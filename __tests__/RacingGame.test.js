@@ -29,5 +29,18 @@ describe('RacingGame 테스트', () => {
 
       expect(racingGame.getMaxDistanceDriven()).toBe(2);
     });
+
+    test('우승한 자동차를 구할 수 있다.', () => {
+      cars.forEach((car, index) => {
+        for (let i = 0; i < index; i++) {
+          car.moveForward();
+        }
+      });
+
+      const [winningCar] = racingGame.getWinningCars();
+      const lastCar = cars.at(-1);
+
+      expect(winningCar).toEqual(lastCar);
+    });
   });
 });
