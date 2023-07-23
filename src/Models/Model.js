@@ -3,9 +3,7 @@ import { RacingGame } from './RacingGame';
 export class Model {
   #racingGame;
 
-  constructor() {
-    this.#cars = new Map();
-  }
+  constructor() {}
 
   startRacingGame(carNames) {
     this.#racingGame = new RacingGame(carNames);
