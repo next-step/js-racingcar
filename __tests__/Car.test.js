@@ -1,8 +1,5 @@
-import {
-  CarRacingManager,
-  ERROR_MESSAGES,
-  INTEGERS_UNDER_TEN,
-} from "../src/CarRacingManager";
+import { CarRacingManager } from "../src/CarRacingManager";
+import { ERROR_MESSAGES, INTEGERS_UNDER_TEN } from "../src/constants";
 
 describe("자동자 경주 게임", () => {
   beforeEach(() => {
