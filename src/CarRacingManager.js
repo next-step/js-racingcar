@@ -1,3 +1,8 @@
+function sleeping(ms) {
+  const wakeUpTime = Date.now() + ms;
+  while (Date.now() < wakeUpTime) {}
+}
+
 export class CarRacingManager {
   #canMoveCondition = 4;
   #names = [];
@@ -6,25 +11,46 @@ export class CarRacingManager {
 
   constructor() {}
 
-  receiveNames(names, endProcess) {
+  gameStart(names, endProcess, wait) {
     try {
-      this.names = names;
-      this.moves = Array(this.names.length).fill(0);
-      console.log(`참가자: ${names}`);
+      this.#setNamesAndMoves(names);
+      this.#printParticipants(names);
+      this.roundInterval(endProcess, wait || sleeping);
     } catch (error) {
       this.gameEnd(endProcess, error.message);
     }
   }
 
-  roundStart(endProcess) {
+  #setNamesAndMoves(names) {
+    this.names = names;
+    this.#moves = Array(this.names.length).fill(0);
+  }
+
+  #printParticipants(names) {
+    console.log(`참가자: ${names}`);
+  }
+
+  roundInterval(endProcess, wait) {
+    this.#round++;
     if (this.#round > 5) {
-      this.gameEnd(endProcess, `우승자는 ${this.winner}`);
+      return this.gameEnd(endProcess, "winner");
     }
+
+    this.roundStart();
+
+    wait(1_000);
+    this.roundInterval(endProcess, wait);
+  }
+
+  roundStart() {
+    console.log(`round ${this.#round} start`);
 
     this.#names.forEach((name, i) => {
       if (this.#getRandomIntegerUnderTen()) {
         this.#moves[i]++;
       }
+
+      this.printCarAndMove(name, this.#moves[i]);
     });
   }
 
@@ -37,6 +63,8 @@ export class CarRacingManager {
     console.log(GAME_MESSAGES.GAME_OVER);
     endProcess();
   }
+
+  // get winner() {}
 
   get names() {
     return this.#names;

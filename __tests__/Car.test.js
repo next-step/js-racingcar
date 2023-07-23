@@ -28,10 +28,9 @@ describe("자동자 경주 게임", () => {
 
     test("사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.", () => {
       const carRacingManager = new CarRacingManager();
-
       const processEnd = jest.fn();
 
-      carRacingManager.receiveNames("뽀로로, 크롱크롱크롱, 루피", processEnd);
+      carRacingManager.gameStart("뽀로로, 크롱크롱크롱, 루피", processEnd);
 
       expect(processEnd).toBeCalled();
     });
@@ -52,14 +51,23 @@ describe("자동자 경주 게임", () => {
 
     test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
       const carRacingManager = new CarRacingManager();
-
       const spyOn = jest.spyOn(console, "log");
 
       carRacingManager.printCarAndMove("뽀로로", 3);
-      expect(spyOn).toBeCalledWith('뽀로로: ---')
+
+      expect(spyOn).toBeCalledWith("뽀로로: ---");
     });
 
-    test.skip("자동차 경주는 5회로 고정하여 진행한다.", () => {});
+    test("자동차 경주는 5회로 고정하여 진행한다.", () => {
+      const carRacingManager = new CarRacingManager();
+      const roundStart = jest.spyOn(carRacingManager, "roundStart");
+      const processEnd = () => {};
+      const sleep = () => {};
+
+      carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, sleep);
+
+      expect(roundStart).toBeCalledTimes(5);
+    });
   });
 
   describe("우승자 출력", () => {
