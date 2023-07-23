@@ -5,6 +5,10 @@ import {
 } from "../src/CarRacingManager";
 
 describe("자동자 경주 게임", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+  
   describe("경주 셋팅", () => {
     test("이름은 쉼표(,)를 기준으로 구분하여 받는다.", () => {
       const carRacingManager = new CarRacingManager();
@@ -71,7 +75,21 @@ describe("자동자 경주 게임", () => {
   });
 
   describe("우승자 출력", () => {
-    test.skip("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.", () => {});
+    test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다.", () => {
+      const carRacingManager = new CarRacingManager();
+      const printGameEndMessage = jest.spyOn(
+        carRacingManager,
+        "printGameEndMessage"
+      );
+      const processEnd = () => {};
+      const sleep = () => {};
+
+      carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, sleep);
+
+      expect(printGameEndMessage).toBeCalledWith(
+        `winner is ${carRacingManager.winner}`
+      );
+    });
 
     test.skip("우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.", () => {});
   });

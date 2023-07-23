@@ -33,7 +33,7 @@ export class CarRacingManager {
   roundInterval(endProcess, wait) {
     this.#round++;
     if (this.#round > 5) {
-      return this.gameEnd(endProcess, "winner");
+      return this.gameEnd(endProcess, `winner is ${this.winner}`);
     }
 
     this.roundStart();
@@ -59,12 +59,18 @@ export class CarRacingManager {
   }
 
   gameEnd(endProcess, message) {
-    if (message) console.log(message);
-    console.log(GAME_MESSAGES.GAME_OVER);
+    this.printGameEndMessage(message);
     endProcess();
   }
 
-  // get winner() {}
+  printGameEndMessage(message) {
+    if (message) console.log(message);
+    console.log(GAME_MESSAGES.GAME_OVER);
+  }
+
+  get winner() {
+    return "헤헤";
+  }
 
   get names() {
     return this.#names;
