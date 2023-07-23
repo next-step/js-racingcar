@@ -8,7 +8,7 @@ describe('Car', () => {
             ['jason', 'jason'],
             ['Moon', 'Moon'],
             ['문 광민', '문 광민']
-        ])('carName(%s, %s)', (carName, expected) => {
+        ])('new Car(%s)', (carName, expected) => {
             const name = new Car(carName).name;
             expect(name).toBe(expected)
         })
@@ -18,7 +18,7 @@ describe('Car', () => {
         test.each([
             ['자바스크립트'],
             ['json Moon'],
-        ])('carName(%s)', (carName) => {
+        ])('new Car(%s)', (carName) => {
             expect(() => new Car(carName)).toThrowError(`자동차 이름은 ${NAME_LENGTH_LIMIT}자리까지 가능합니다.`)
         })
     })
@@ -28,10 +28,39 @@ describe('Car', () => {
             [' '],
             ['   '],
             ['']
-        ])('carName(%s)', (carName) => {
+        ])('new Car(%s)', (carName) => {
             expect(() => new Car(carName)).toThrowError(`최소 한글자 이상의 문자열을 입력해주세요.`)
         })
     })
 
+    describe('무작위 값이 4이상일 경우 전진한다.', () => {
+        test.each([
+            [4],
+            [5],
+            [9]
+        ])('.move(%i)', (randomNumber) => {
+            const car = new Car('문광민')
+            const distanceBeforMove = car.distance;
+            car.move(randomNumber);
+            const distanceAfterMove = car.distance;
+    
+            expect(distanceAfterMove).toBeGreaterThan(distanceBeforMove)
+        })
 
+        test.each([
+            [0],
+            [1],
+            [2],
+            [3]
+        ])('.move(%i)', (randomNumber) => {
+            const car = new Car('문광민')
+            const distanceBeforMove = car.distance;
+            car.move(randomNumber);
+            const distanceAfterMove = car.distance;
+    
+            expect(distanceAfterMove).toBe(distanceBeforMove)
+        })
+    })
+
+    
 })
