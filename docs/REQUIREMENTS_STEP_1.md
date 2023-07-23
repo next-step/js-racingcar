@@ -34,6 +34,14 @@
 
 ## 2단계
 
+- [ ] Controller에서 RacingGame Model 분리하기.
+      Controller의 역할 다시 명확히 생각하기. 얘는 Model과 View등을 이어주고, 코드의 흐름을 제어하는 친구지, 경주 관련 데이터가 비즈니스 로직이 얘한테 있으면 안됨.
+- [ ] 상수 가독성 리팩터링.
+      현재 상수들을 객체단위로 묶는다고 가독성이 낮은데, 파일별로 분리하고 개별 export하는 방식 채택하기.
+- [ ] Validation 가독성 높고 확장성 높게 로직 변경
+- [ ] Error에 대한 처리는 Controller에서 진행하되, 에러를 생성하는 로직은 하위 Model로 위임하기.
+- [ ] Input 파싱하는거, Car 책임 아닌가, 아니면 Racing Model로 위임하기.
+
 ### 게임 시작
 
 - [x] index 폴더에서 App Class를 구현하고, GameController 내부에 DI되는 값이 유동적으로 변경될 수 있도록 구조를 변경한다.
