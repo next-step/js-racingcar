@@ -20,23 +20,19 @@ describe('RacingGame 테스트', () => {
   });
 
   describe('레이싱 게임 우승 테스트', () => {
-    test('가장 멀리 간 거리를 구할 수 있다.', () => {
+    beforeEach(() => {
       cars.forEach((car, index) => {
         for (let i = 0; i < index; i++) {
           car.moveForward();
         }
       });
+    });
 
+    test('가장 멀리 간 거리를 구할 수 있다.', () => {
       expect(racingGame.getMaxDistanceDriven()).toBe(2);
     });
 
     test('우승한 자동차를 구할 수 있다.', () => {
-      cars.forEach((car, index) => {
-        for (let i = 0; i < index; i++) {
-          car.moveForward();
-        }
-      });
-
       const [winningCar] = racingGame.getWinningCars();
       const lastCar = cars.at(-1);
 
@@ -44,10 +40,6 @@ describe('RacingGame 테스트', () => {
     });
 
     test('가장 멀리간 자동차가 여러대이면 모두다 우승자다.', () => {
-      cars.forEach((car) => {
-        car.moveForward();
-      });
-
       expect(
         racingGame
           .getWinningCars()
