@@ -1,5 +1,5 @@
 import { Car } from './';
-import { RACING_GAME } from '../constants';
+import { RACING_GAME, UTIL } from '../constants';
 import { getRandomIntInRange } from '../utils';
 
 export class RacingGame {
