@@ -1,6 +1,6 @@
 import { GameController } from '../src/Controllers/GameController';
 import { Car } from '../src/Models';
-import { MESSAGE, CAR } from '../src/constants';
+import { MESSAGE, CAR, RACING_GAME } from '../src/constants';
 import { splitCarNameToArray, validateCarName } from '../src/utils';
 
 // 2단계
@@ -51,9 +51,17 @@ describe('자동차 경주 시작', () => {
   test('랜덤 값이 4 이상일 경우 자동차가 전진하는지 확인한다.', () => {
     const car = new Car('pobi');
     const RANDOM_INT = 8;
-    if (RANDOM_INT >= 4) car.advance();
+    if (RANDOM_INT >= RACING_GAME.MOVEMENT_THRESHOLD) car.advance();
 
-    expect(car.position).toBe(1);
+    expect(car.getScore()).toBe(1);
+  });
+
+  test('랜덤 값이 4 미만일 경우 자동차가 전진하지 않는지 확인한다.', () => {
+    const car = new Car('pobi');
+    const RANDOM_INT = 2;
+    if (RANDOM_INT >= RACING_GAME.MOVEMENT_THRESHOLD) car.advance();
+
+    expect(car.getScore()).toBe(0);
   });
 });
 
