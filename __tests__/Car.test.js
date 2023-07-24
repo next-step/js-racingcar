@@ -49,13 +49,13 @@ describe('자동차 경주 셋팅', () => {
     const totalRounds = 3;
     model.startRacingGame(carNames, totalRounds);
 
-    const logSpy = jest.spyOn(Console, 'Print');
+    const logSpy = jest.spyOn(Console, 'print');
 
-    for (let console = 1; i <= totalRounds * (carNames.length + 1); console++) {
-      expect(logSpy).toHaveBeenNthCalledWith(i, 'pobi : ');
-      expect(logSpy).toHaveBeenNthCalledWith(i + 1, 'crong : ');
-      expect(logSpy).toHaveBeenNthCalledWith(i + 2, 'honux : ');
-      expect(logSpy).toHaveBeenNthCalledWith(i + 3, '');
+    for (let line = 1; line <= totalRounds * (carNames.length + 1); line++) {
+      expect(logSpy).toHaveBeenNthCalledWith(line, 'pobi : ');
+      expect(logSpy).toHaveBeenNthCalledWith(line + 1, 'crong : ');
+      expect(logSpy).toHaveBeenNthCalledWith(line + 2, 'honux : ');
+      expect(logSpy).toHaveBeenNthCalledWith(line + 3, '');
     }
 
     logSpy.mockRestore();
@@ -88,7 +88,7 @@ describe('우승자 확인', () => {
     const model = new Model();
     model.startRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
 
-    const logSpy = jest.spyOn(Console, 'Print');
+    const logSpy = jest.spyOn(Console, 'print');
     expect(logSpy).toHaveBeenCalledWith('가 최종 우승했습니다.');
 
     logSpy.mockRestore();
