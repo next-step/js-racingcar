@@ -80,14 +80,15 @@ describe('RacingGame 테스트', () => {
       });
     });
 
-    test('round 진행시 각 자동차들은 전진한다.', () => {
-      const initialDistances = cars.map((car) => car.getDistanceDriven());
+    test('round 진행시 각 자동차들은 전진 함수가 실행 된다.', () => {
+      const spyList = cars.map((car) => jest.spyOn(car, 'moveForward'));
 
       racingGame.runRound();
 
-      cars.forEach((car, index) =>
-        expect(car.getDistanceDriven()).toBeGreaterThan(initialDistances[index])
-      );
+      spyList.forEach((spy) => {
+        expect(spy).toBeCalled();
+        spy.mockRestore();
+      });
     });
   });
 });
