@@ -1,5 +1,6 @@
 import { RACE_LAP_LIMIT } from '../constants';
 import { getStringFromArray } from '../utils/common';
+import CarRaceView from '../view';
 
 export default class CarRace {
   #participants;
@@ -35,13 +36,18 @@ export default class CarRace {
   }
 
   get winnerNames() {
-    return this.getCarNames(this.#winners);
+    return this.getCarNames(this.winners);
   }
 
   start() {
+    const carView = new CarRaceView();
+    carView.printMessage('실행결과');
+
     for (let i = 0; i < RACE_LAP_LIMIT; i++) {
       this.#participants.forEach((car) => car.runOneLap());
+      carView.printLapResult(this.#participants);
     }
+
     this.#isRaceStarted = true;
   }
 
