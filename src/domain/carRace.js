@@ -15,9 +15,7 @@ export default class CarRace {
   }
 
   get participantNames() {
-    const names = this.#participants.map((car) => car.name);
-    const result = getStringFromArray(names);
-    return result;
+    return this.getCarNames(this.#participants);
   }
 
   get winners() {
@@ -36,10 +34,23 @@ export default class CarRace {
     return this.#winners;
   }
 
+  get winnerNames() {
+    return this.getCarNames(this.#winners);
+  }
+
   start() {
     for (let i = 0; i < RACE_LAP_LIMIT; i++) {
       this.#participants.forEach((car) => car.runOneLap());
     }
     this.#isRaceStarted = true;
+  }
+
+  getCarNames(cars) {
+    if (!cars || !cars.length) {
+      throw new Error('자동차 이름을 조회할 자동차가 없습니다.');
+    }
+    const names = cars.map((car) => car.name);
+    const result = getStringFromArray(names);
+    return result;
   }
 }
