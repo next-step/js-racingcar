@@ -22,6 +22,8 @@ export class RacingGame {
       this.#cars.forEach((car) => this.#randomCarMovement(car));
       this.#recordGameProgress();
     }
+
+    this.#checkWinner();
   }
 
   #randomCarMovement(car) {
@@ -45,7 +47,23 @@ export class RacingGame {
     this.#gameProgress += MESSAGE.NEW_LINE;
   }
 
-  #printResult() {
-    Console.print(this.#gameProgress);
+  #checkWinner() {
+    let maxScore = 0;
+    let winners = [];
+
+    for (let car of this.#cars) {
+      if (car.getDistance() > maxScore) maxScore = car.getDistance();
+    }
+    for (let car of this.#cars) {
+      if (car.getDistance() === maxScore) winners.push(car.getName());
+    }
+
+    this.#printResult(winners);
+  }
+
+  #printResult(winners) {
+    Console.print(
+      this.#gameProgress + `${winners.join(',')}가 최종 우승했습니다.`
+    );
   }
 }
