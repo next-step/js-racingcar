@@ -32,6 +32,10 @@ class RacingGame {
       (car) => car.getDistanceDriven() === this.getMaxDistanceDriven()
     );
   }
+
+  runRound() {
+    this.#rounds = this.#rounds + 1;
+  }
 }
 
 export default RacingGame;
