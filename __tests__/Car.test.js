@@ -68,10 +68,9 @@ describe('Racing Car Game', () => {
   // 사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.
   it('Wrong Input', () => {
     racingCar.init();
-    try {
-      racingCar.validateInput('pobi,crong,honuasdfx');
-    } catch (error) {
-      expect(error.message).toBe('잘못된 입력 값으로 프로그램을 종료합니다.');
-    }
+
+    expect(() => racingCar.validateInput('pobi,crong,honuasdfx')).toThrow(
+      '잘못된 입력 값으로 프로그램을 종료합니다.'
+    );
   });
 });
