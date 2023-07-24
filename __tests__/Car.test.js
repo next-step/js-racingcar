@@ -33,5 +33,23 @@ describe('자동차 class 속성 테스트', () => {
 
       expect(car.getDistanceDriven()).toBe(prevDistanceDriven + 2);
     });
+
+    describe('자동차 전진 조건 테스트', () => {
+      test('랜덤으로 생성한 숫자가 4이상이면 자동차가 전진할 수 있는 상태이다', () => {
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
+
+        expect(car.canMoveForward()).toBe(true);
+
+        jest.spyOn(global.Math, 'random').mockRestore();
+      });
+
+      test('랜덤으로 생성한 숫자가 4보다 작으면 자동차가 전진할 수 없는 상태이다.', () => {
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.3);
+
+        expect(car.canMoveForward()).toBe(false);
+
+        jest.spyOn(global.Math, 'random').mockRestore();
+      });
+    });
   });
 });
