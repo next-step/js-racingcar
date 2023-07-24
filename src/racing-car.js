@@ -1,4 +1,6 @@
 import * as readline from 'readline';
+import racer from './racer.js';
+import { print } from './utils/common.util.js';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -8,11 +10,8 @@ const rl = readline.createInterface({
 class RacingCar {
   #CAR_NAME_LIMIT = 5;
   #RACE_LOOP_LIMIT = 5;
-  #RANDOM_NUMBER_NOT_EQUAL_MAX_VALUE = 10;
-  #CHECK_RANDOM_NUMBER_MIN_VALUE = 4;
 
   count;
-  racers;
   winners;
 
   constructor() {
@@ -21,7 +20,6 @@ class RacingCar {
 
   init() {
     this.count = 0;
-    this.racers = [];
     this.winners = [];
   }
 
@@ -33,11 +31,12 @@ class RacingCar {
           this.exit();
         }
 
-        this.print('');
-        this.print('실행결과');
+        print('');
+        print('실행결과');
 
-        this.setRacers(names);
-        this.race(this.racers);
+        racer.setRacers(names);
+
+        this.race(racer.racers);
         this.printWinners();
 
         rl.close();
@@ -55,38 +54,15 @@ class RacingCar {
 
   race(racers) {
     for (let i = 0; i < this.#RACE_LOOP_LIMIT; i += 1) {
-      racers.forEach((racer) => {
-        const isGo = this.checkGo(this.getRandomNumber());
-        if (isGo) {
-          racer.state += '-';
-        }
-        this.print(`${racer.name} : ${racer.state}`);
+      racers.forEach((r) => {
+        racer.goForward(r);
+        racer.printRacingState(r.name, r.state);
       });
-      this.print('');
+      print('');
       this.count += 1;
     }
 
     this.setWinners(racers);
-  }
-
-  setRacers(names) {
-    names.split(',').forEach((name) => {
-      this.racers.push({
-        name,
-        state: '',
-      });
-    });
-  }
-
-  getRandomNumber() {
-    const randomNumber = Math.floor(
-      Math.random() * this.#RANDOM_NUMBER_NOT_EQUAL_MAX_VALUE
-    );
-    return randomNumber;
-  }
-
-  checkGo(randomNumber) {
-    return randomNumber >= this.#CHECK_RANDOM_NUMBER_MIN_VALUE;
   }
 
   setWinners(racers) {
@@ -103,15 +79,11 @@ class RacingCar {
   }
 
   printWinners() {
-    this.print(`${this.winners.join(', ')}가 최종 우승했습니다.`);
+    print(`${this.winners.join(', ')}가 최종 우승했습니다.`);
   }
 
   exit() {
     throw new Error('잘못된 입력 값으로 프로그램을 종료합니다.');
-  }
-
-  print(str) {
-    console.log(str);
   }
 }
 
