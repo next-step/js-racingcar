@@ -79,5 +79,15 @@ describe('RacingGame 테스트', () => {
         expect(racingGame.getRounds()).toBe(3);
       });
     });
+
+    test('round 진행시 각 자동차들은 전진한다.', () => {
+      const initialDistances = cars.map((car) => car.getDistanceDriven());
+
+      racingGame.runRound();
+
+      cars.forEach((car, index) =>
+        expect(car.getDistanceDriven()).toBeGreaterThan(initialDistances[index])
+      );
+    });
   });
 });
