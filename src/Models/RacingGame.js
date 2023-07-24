@@ -1,10 +1,17 @@
 import { Car } from './';
 import { MESSAGE, RACING_GAME, UTIL } from '../constants';
-import { getRacingResult, getRandomIntInRange, Console } from '../utils';
+import {
+  getRacingResult,
+  getRandomIntInRange,
+  findMaxDistance,
+  findWinners,
+  parseGameResult,
+} from '../utils';
 
 export class RacingGame {
   #cars;
   #gameProgress;
+  #gameResult;
 
   constructor(carNames, totalRounds) {
     this.#cars = [];
@@ -48,22 +55,17 @@ export class RacingGame {
   }
 
   #checkWinner() {
-    let maxScore = 0;
-    let winners = [];
+    const maxDistance = findMaxDistance(this.#cars);
+    const winners = findWinners(this.#cars, maxDistance);
 
-    for (let car of this.#cars) {
-      if (car.getDistance() > maxScore) maxScore = car.getDistance();
-    }
-    for (let car of this.#cars) {
-      if (car.getDistance() === maxScore) winners.push(car.getName());
-    }
-
-    this.#printResult(winners);
+    this.#setGameResult(winners);
   }
 
-  #printResult(winners) {
-    Console.print(
-      this.#gameProgress + `${winners.join(',')}가 최종 우승했습니다.`
-    );
+  #setGameResult(winners) {
+    this.#gameResult = parseGameResult(this.#gameProgress, winners);
+  }
+
+  getGameResult() {
+    return this.#gameResult;
   }
 }

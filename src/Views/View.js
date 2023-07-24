@@ -15,7 +15,11 @@ export class View {
     });
   }
 
+  printGameResult(gameResult) {
+    this.#outputView.print(gameResult);
+  }
+
   printError(error) {
-    this.#outputView.printError(error);
+    this.#outputView.print(error);
   }
 }

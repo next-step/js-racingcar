@@ -31,6 +31,14 @@ export class GameController {
 
   #startRacingGame(carNames) {
     this.#model.startRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
+
+    this.#printGameResult();
+  }
+
+  #printGameResult() {
+    const gameResult = this.#model.getGameResult();
+
+    this.#view.printGameResult(gameResult);
   }
 
   #printError(error) {

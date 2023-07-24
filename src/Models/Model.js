@@ -8,4 +8,8 @@ export class Model {
   startRacingGame(carNames, totalRounds) {
     this.#racingGame = new RacingGame(carNames, totalRounds);
   }
+
+  getGameResult() {
+    return this.#racingGame.getGameResult();
+  }
 }

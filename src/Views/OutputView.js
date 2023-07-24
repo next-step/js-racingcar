@@ -1,7 +1,7 @@
 import { Console } from '../utils';
 
 export const OutputView = {
-  printError(error) {
-    Console.print(error);
+  print(content) {
+    Console.print(content);
   },
 };
