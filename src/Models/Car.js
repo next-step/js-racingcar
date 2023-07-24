@@ -6,9 +6,14 @@ export class Car {
 
   constructor(name) {
     this.#name = name;
+    this.#score = 0;
   }
 
   advance() {
     this.#score += RACING_GAME.SCORE_UNIT;
+  }
+
+  getScore() {
+    return this.#score;
   }
 }
