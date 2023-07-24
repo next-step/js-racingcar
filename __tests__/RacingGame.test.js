@@ -51,4 +51,10 @@ describe('RacingGame 테스트', () => {
       ).toBe(true);
     });
   });
+
+  describe('경주 라운드 테스트', () => {
+    test('RacingGame에는 rounds 속성의 초기값은 0이다.', () => {
+      expect(racingGame.getRounds()).toBe(0);
+    });
+  });
 });
