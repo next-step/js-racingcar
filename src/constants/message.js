@@ -6,4 +6,7 @@ const ERROR = Object.freeze({
   LENGTH_OVERFLOW: (maxLength) => `자동차 이름은 ${maxLength}까지 가능합니다.`,
 });
 
-export const MESSAGE = Object.freeze({ READ, ERROR });
+const ADD_NEW_LINE = (message) => `${message}\n`;
+const NEW_LINE = '\n';
+
+export const MESSAGE = Object.freeze({ READ, ERROR, ADD_NEW_LINE, NEW_LINE });

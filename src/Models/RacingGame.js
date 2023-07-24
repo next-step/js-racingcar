@@ -1,5 +1,5 @@
 import { Car } from './';
-import { RACING_GAME, UTIL } from '../constants';
+import { MESSAGE, RACING_GAME, UTIL } from '../constants';
 import { getRacingResult, getRandomIntInRange, Console } from '../utils';
 
 export class RacingGame {
@@ -41,10 +41,10 @@ export class RacingGame {
       const carDistance = car.getScore();
       const racingResult = getRacingResult(carName, carDistance);
 
-      this.#gameProgress += RACING_GAME.RESULT(racingResult);
+      this.#gameProgress += MESSAGE.ADD_NEW_LINE(racingResult);
     });
 
-    this.#gameProgress += RACING_GAME.NEW_LINE;
+    this.#gameProgress += MESSAGE.NEW_LINE;
   }
 
   #printResult() {

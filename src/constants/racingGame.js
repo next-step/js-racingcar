@@ -3,6 +3,4 @@ export const RACING_GAME = Object.freeze({
   MOVEMENT_THRESHOLD: 4,
   SCORE_UNIT: 1,
   PROGRESS_TITLE: '\n실행 결과\n',
-  RESULT: (racingResult) => `${racingResult}\n`,
-  NEW_LINE: '\n',
 });
