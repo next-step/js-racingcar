@@ -1,4 +1,4 @@
-import { UTIL } from '../constants';
+import { RACING_GAME, UTIL } from '../constants';
 
 export const splitCarNameToArray = (userInput) =>
   userInput.split(UTIL.CAR_NAME_DELIMITER);
@@ -30,4 +30,4 @@ export const findWinners = (cars, maxDistance) => {
 };
 
 export const parseGameResult = (gameProgress, winners) =>
-  gameProgress + `${winners.join(',')}가 최종 우승했습니다.`;
+  RACING_GAME.GAME_RESULT(gameProgress, winners);
