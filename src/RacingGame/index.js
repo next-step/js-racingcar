@@ -1,12 +1,18 @@
 class RacingGame {
   #cars;
+  #rounds;
 
   constructor(cars) {
     this.#cars = cars;
+    this.#rounds = 0;
   }
 
   getCars() {
     return this.#cars;
+  }
+
+  getRounds() {
+    return this.#rounds;
   }
 
   getMaxDistanceDriven() {
