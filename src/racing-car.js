@@ -29,7 +29,9 @@ class RacingCar {
     rl.question(
       '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n',
       (names) => {
-        this.validateInput(names);
+        if (!this.validateInput(names)) {
+          this.exit();
+        }
 
         this.print('');
         this.print('실행결과');
@@ -47,9 +49,7 @@ class RacingCar {
     const isValidated = names
       .split(',')
       .every((name) => name.length <= this.#CAR_NAME_LIMIT);
-    if (!isValidated) {
-      this.exit();
-    }
+
     return isValidated;
   }
 

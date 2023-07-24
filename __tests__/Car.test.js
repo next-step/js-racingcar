@@ -69,8 +69,12 @@ describe('Racing Car Game', () => {
   it('Wrong Input', () => {
     racingCar.init();
 
-    expect(() => racingCar.validateInput('pobi,crong,honuasdfx')).toThrow(
-      '잘못된 입력 값으로 프로그램을 종료합니다.'
-    );
+    const testInput = () => {
+      if (!racingCar.validateInput('pobi,crong,honuasdfx')) {
+        racingCar.exit();
+      }
+    };
+
+    expect(testInput).toThrow('잘못된 입력 값으로 프로그램을 종료합니다.');
   });
 });
