@@ -3,19 +3,19 @@ function randomNumber() {
 }
 
 function isInvalid(carNames) {
-  const names = carNames.split(',').map(name => name.trim());
-  return names.some(name => name === '' || name.length > 5);
+  const names = carNames.split(',').map((name) => name.trim());
+  return names.some((name) => name === '' || name.length > 5);
 }
 
 function carPositions(cars) {
-  cars.forEach(car => {
+  cars.forEach((car) => {
     console.log(`${car.name}: ${'-'.repeat(car.position)}`);
   });
 }
 
 function getRoundResult(cars) {
   const roundResults = [];
-  cars.forEach(car => {
+  cars.forEach((car) => {
     const randomValue = randomNumber();
     if (randomValue >= 4) {
       car.position++;
@@ -26,8 +26,8 @@ function getRoundResult(cars) {
 }
 
 function getWinners(cars) {
-  const maxPosition = Math.max(...cars.map(car => car.position));
-  return cars.filter(car => car.position === maxPosition).map(car => car.name);
+  const maxPosition = Math.max(...cars.map((car) => car.position));
+  return cars.filter((car) => car.position === maxPosition).map((car) => car.name);
 }
 
 function raceResultTxtSet(winners) {
@@ -37,12 +37,12 @@ function raceResultTxtSet(winners) {
 }
 
 function carRace(names) {
-  const cars = names.split(',').map(name => ({ name: name.trim(), position: 0 }));
+  const cars = names.split(',').map((name) => ({ name: name.trim(), position: 0 }));
   const rounds = 5;
   for (let round = 1; round <= rounds; round++) {
     console.log(`<Round ${round}>`);
     const roundResults = getRoundResult(cars);
-    roundResults.forEach(result => console.log(result));
+    roundResults.forEach((result) => console.log(result));
   }
   carPositions(cars);
   const winners = getWinners(cars);
@@ -57,3 +57,5 @@ function startRace() {
   }
   carRace(carNames);
 }
+
+export { isInvalid };
