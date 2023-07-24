@@ -31,8 +31,8 @@ class RacingCar {
       (names) => {
         this.validateInput(names);
 
-        console.log('');
-        console.log('실행결과');
+        this.print('');
+        this.print('실행결과');
 
         this.setRacers(names);
         this.race(this.racers);
@@ -60,9 +60,9 @@ class RacingCar {
         if (isGo) {
           racer.state += '-';
         }
-        console.log(`${racer.name} : ${racer.state}`);
+        this.print(`${racer.name} : ${racer.state}`);
       });
-      console.log('');
+      this.print('');
       this.count += 1;
     }
 
@@ -103,11 +103,15 @@ class RacingCar {
   }
 
   printWinners() {
-    console.log(`${this.winners.join(', ')}가 최종 우승했습니다.`);
+    this.print(`${this.winners.join(', ')}가 최종 우승했습니다.`);
   }
 
   exit() {
     throw new Error('잘못된 입력 값으로 프로그램을 종료합니다.');
+  }
+
+  print(str) {
+    console.log(str);
   }
 }
 
