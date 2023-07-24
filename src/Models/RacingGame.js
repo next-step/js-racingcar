@@ -22,8 +22,6 @@ export class RacingGame {
       this.#cars.forEach((car) => this.#randomCarMovement(car));
       this.#recordGameProgress();
     }
-
-    this.#printResult();
   }
 
   #randomCarMovement(car) {
@@ -38,7 +36,7 @@ export class RacingGame {
   #recordGameProgress() {
     this.#cars.forEach((car) => {
       const carName = car.getName();
-      const carDistance = car.getScore();
+      const carDistance = car.getDistance();
       const racingResult = getRacingResult(carName, carDistance);
 
       this.#gameProgress += MESSAGE.ADD_NEW_LINE(racingResult);

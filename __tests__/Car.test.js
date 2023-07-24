@@ -68,7 +68,7 @@ describe('자동차 경주 시작', () => {
     const RANDOM_INT = 8;
     if (RANDOM_INT >= RACING_GAME.MOVEMENT_THRESHOLD) car.advance();
 
-    expect(car.getScore()).toBe(1);
+    expect(car.getDistance()).toBe(1);
   });
 
   test('랜덤 값이 4 미만일 경우 자동차가 전진하지 않는지 확인한다.', () => {
@@ -76,7 +76,7 @@ describe('자동차 경주 시작', () => {
     const RANDOM_INT = 2;
     if (RANDOM_INT >= RACING_GAME.MOVEMENT_THRESHOLD) car.advance();
 
-    expect(car.getScore()).toBe(0);
+    expect(car.getDistance()).toBe(0);
   });
 });
 
