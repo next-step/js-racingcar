@@ -3,7 +3,8 @@ const READ = Object.freeze({
 });
 
 const ERROR = Object.freeze({
-  LENGTH_OVERFLOW: (maxLength) => `자동차 이름은 ${maxLength}까지 가능합니다.`,
+  LENGTH_OVERFLOW: (maxLength) =>
+    `자동차 이름은 ${maxLength}자리까지 가능합니다.`,
 });
 
 const ADD_NEW_LINE = (message) => `${message}\n`;
