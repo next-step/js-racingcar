@@ -1,4 +1,6 @@
 import { Car } from './';
+import { RACING_GAME } from '../constants';
+import { getRandomIntInRange } from '../utils';
 
 export class RacingGame {
   #cars;
@@ -15,7 +17,16 @@ export class RacingGame {
 
   #raceWithTotalRounds(totalRounds) {
     for (let round = 0; round < totalRounds; round++) {
-      this.#cars.forEach((car) => car.randomCarMovement());
+      this.#cars.forEach((car) => this.#randomCarMovement(car));
     }
+  }
+
+  #randomCarMovement(car) {
+    const randomInt = getRandomIntInRange(
+      UTIL.RANDOM_INT_MIN,
+      UTIL.RANDOM_INT_MAX
+    );
+
+    if (randomInt >= RACING_GAME.MOVEMENT_THRESHOLD) car.advance();
   }
 }
