@@ -8,7 +8,7 @@ export class RacingGame {
 
   constructor(carNames, totalRounds) {
     this.#cars = [];
-    this.#gameProgress = '\n실행 결과\n';
+    this.#gameProgress = RACING_GAME.PROGRESS_TITLE;
     this.#settingRacingGame(carNames, totalRounds);
   }
 
@@ -23,8 +23,6 @@ export class RacingGame {
       this.#recordGameProgress();
     }
 
-    console.log('1');
-
     this.#printResult();
   }
 
@@ -34,7 +32,7 @@ export class RacingGame {
       UTIL.RANDOM_INT_MAX
     );
 
-    if (randomInt >= RACING_GAME.MOVEMENT_THRESHOLD) car.advance();
+    if (RACING_GAME.MOVEMENT_THRESHOLD <= randomInt) car.advance();
   }
 
   #recordGameProgress() {
@@ -43,10 +41,10 @@ export class RacingGame {
       const carDistance = car.getScore();
       const racingResult = getRacingResult(carName, carDistance);
 
-      this.#gameProgress += `${racingResult}\n`;
+      this.#gameProgress += RACING_GAME.RESULT(racingResult);
     });
 
-    this.#gameProgress += '\n';
+    this.#gameProgress += RACING_GAME.NEW_LINE;
   }
 
   #printResult() {
