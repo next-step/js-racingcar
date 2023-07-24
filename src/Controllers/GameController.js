@@ -15,7 +15,7 @@ export class GameController {
   }
 
   #readCarName() {
-    this.#view.readCarName(this.#validateCarName);
+    this.#view.readCarName((userInput) => this.#validateCarName(userInput));
   }
 
   #validateCarName(userInput) {

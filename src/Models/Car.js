@@ -13,6 +13,10 @@ export class Car {
     this.#score += RACING_GAME.SCORE_UNIT;
   }
 
+  getName() {
+    return this.#name;
+  }
+
   getScore() {
     return this.#score;
   }

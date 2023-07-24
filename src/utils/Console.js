@@ -12,4 +12,7 @@ export const Console = {
       rl.close();
     });
   },
+  print(message) {
+    console.log(message);
+  },
 };
