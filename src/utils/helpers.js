@@ -10,7 +10,7 @@ import {
  */
 export const isValidateInputLength = name => {
   return (
-    name &&
+    name !== undefined &&
     name.length >= MIN_CAR_NAME_LENGTH &&
     name.length <= MAX_CAR_NAME_LENGTH
   );
