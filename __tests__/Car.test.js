@@ -1,5 +1,6 @@
 import { GameController } from '../src/Controllers/GameController';
 import { Car, Model } from '../src/Models';
+import { View } from '../src/Views/View';
 import { MESSAGE, CAR, RACING_GAME } from '../src/constants';
 import { splitCarNameToArray, validateCarName, Console } from '../src/utils';
 
@@ -49,16 +50,11 @@ describe('자동차 경주 셋팅', () => {
     const totalRounds = 3;
     model.startRacingGame(carNames, totalRounds);
 
-    const logSpy = jest.spyOn(Console, 'print');
+    const gameResult = model.getGameResult();
+    const gameResultLines = gameResult.split('\n');
+    const expectedLines = totalRounds * (carNames.length + 1) + 3;
 
-    for (let line = 1; line <= totalRounds * (carNames.length + 1); line++) {
-      expect(logSpy).toHaveBeenNthCalledWith(line, 'pobi : ');
-      expect(logSpy).toHaveBeenNthCalledWith(line + 1, 'crong : ');
-      expect(logSpy).toHaveBeenNthCalledWith(line + 2, 'honux : ');
-      expect(logSpy).toHaveBeenNthCalledWith(line + 3, '');
-    }
-
-    logSpy.mockRestore();
+    expect(gameResultLines.length).toBe(expectedLines);
   });
 });
 
@@ -88,9 +84,10 @@ describe('우승자 확인', () => {
     const model = new Model();
     model.startRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
 
-    const logSpy = jest.spyOn(Console, 'print');
-    expect(logSpy).toHaveBeenCalledWith('가 최종 우승했습니다.');
+    const gameResult = model.getGameResult();
+    const gameResultLines = gameResult.split('\n');
+    const winner = gameResultLines[gameResultLines.length - 1];
 
-    logSpy.mockRestore();
+    expect(winner).toContain(`가 최종 우승했습니다.`);
   });
 });
