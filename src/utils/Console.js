@@ -1,4 +1,5 @@
 import readline from 'readline';
+import { MESSAGE } from '../constants';
 
 export const rl = readline.createInterface({
   input: process.stdin,
@@ -7,12 +8,12 @@ export const rl = readline.createInterface({
 
 export const Console = {
   readLine(question, callback) {
-    rl.question(question, (input) => {
+    rl.question(MESSAGE.ADD_NEW_LINE(question), (input) => {
       callback(input);
       rl.close();
     });
   },
-  print(message) {
-    console.log(message);
+  print(...message) {
+    console.log(...message);
   },
 };
