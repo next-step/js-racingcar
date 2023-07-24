@@ -1,3 +1,5 @@
+import { getRandomNumberFromZeroToNine } from '../utils/getRandomNumber';
+
 class Car {
   #name;
   #distanceDriven = 0;
@@ -12,6 +14,10 @@ class Car {
 
   getDistanceDriven() {
     return this.#distanceDriven;
+  }
+
+  canMoveForward() {
+    return getRandomNumberFromZeroToNine() >= 4;
   }
 
   moveForward() {
