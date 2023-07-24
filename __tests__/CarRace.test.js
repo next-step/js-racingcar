@@ -24,9 +24,9 @@ describe('CarRace', () => {
   });
 
   describe('우승자', () => {
-    const car1 = new Car('광민');
-    const car2 = new Car('민광');
-    const carRace = new CarRace([car1, car2]);
+    const carNames = ['광민', '민광', 'Jason', 'Ponny'];
+    const cars = carNames.map((name) => new Car(name));
+    const carRace = new CarRace(cars);
 
     it('자동차 경주 전에는 우승자를 알 수 없다.', () => {
       const winners = carRace.winners;
@@ -38,9 +38,12 @@ describe('CarRace', () => {
 
       const winners = carRace.winners;
       const winnerNames = winners.map((car) => car.name);
+      const isWinnerInCarNames = winnerNames.some((winnerName) => {
+        return carNames.includes(winnerName);
+      });
 
       expect(winners).toBeDefined();
-      expect(winnerNames.include([car1.name, car2.name])).toContain();
+      expect(isWinnerInCarNames).toBeTruthy();
     });
   });
 });
