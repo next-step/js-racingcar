@@ -45,5 +45,12 @@ describe('CarRace', () => {
       expect(winners).toBeDefined();
       expect(isWinnerInCarNames).toBeTruthy();
     });
+
+    it('우승자가 2명 이상일 경우 우승자 이름 조회 시 콤마로 구분한다.', () => {
+      const winners = [new Car('Jason'), new Car('Ponny')];
+      const winnerName = carRace.getCarNames(winners);
+
+      expect(winnerName).toBe('Jason, Ponny');
+    });
   });
 });
