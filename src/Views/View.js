@@ -14,4 +14,8 @@ export class View {
       callback(userInput);
     });
   }
+
+  printError(error) {
+    this.#outputView.printError(error);
+  }
 }

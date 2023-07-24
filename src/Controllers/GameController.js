@@ -24,10 +24,16 @@ export class GameController {
       carNames.forEach((carName) => validateCarName(carName));
 
       this.#startRacingGame(carNames);
-    } catch (error) {}
+    } catch (error) {
+      this.#printError(error);
+    }
   }
 
   #startRacingGame(carNames) {
     this.#model.startRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
+  }
+
+  #printError(error) {
+    this.#view.printError(error);
   }
 }
