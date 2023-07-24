@@ -1,9 +1,7 @@
-import { RacingCar } from '../src';
+import racingCar from '../src/racing-car';
 
 // 콘솔에서 동작하는 자동차 경주 게임을 구현한다.
 describe('Racing Car Game', () => {
-  const racingCar = new RacingCar();
-
   // 자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5자 이하만 가능하다.
   it('Racer names: pobi,crong,honux -> true', () => {
     expect(racingCar.validateInput('pobi,crong,honux')).toBe(true);
