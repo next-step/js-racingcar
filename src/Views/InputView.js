@@ -1,9 +1,8 @@
 import { Console } from '../utils';
-import { MESSAGE } from '../constants';
 
 export const InputView = {
-  readCarName(callback) {
-    Console.readLine(MESSAGE.CONSOLE.READ.CAR_NAME, (userInput) => {
+  readCarName(message, callback) {
+    Console.readLine(message, (userInput) => {
       callback(userInput);
     });
   },

@@ -1,3 +1,5 @@
+import { MESSAGE } from '../constants';
+
 export class View {
   #inputView;
   #outputView;
@@ -8,6 +10,8 @@ export class View {
   }
 
   readCarName(callback) {
-    this.#inputView.readCarName(callback);
+    this.#inputView.readCarName(MESSAGE.READ.CAR_NAME, (userInput) => {
+      callback(userInput);
+    });
   }
 }
