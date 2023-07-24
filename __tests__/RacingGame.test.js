@@ -56,5 +56,28 @@ describe('RacingGame 테스트', () => {
     test('RacingGame에는 rounds 속성의 초기값은 0이다.', () => {
       expect(racingGame.getRounds()).toBe(0);
     });
+
+    describe('round 진행시 rounds 값이 하나 증가한다. ', () => {
+      test('처음 round 진행시 rounds 값은 1이다.', () => {
+        racingGame.runRound();
+
+        expect(racingGame.getRounds()).toBe(1);
+      });
+
+      test('round 두번 진행시 rounds 값은 2다', () => {
+        racingGame.runRound();
+        racingGame.runRound();
+
+        expect(racingGame.getRounds()).toBe(2);
+      });
+
+      test('round 세번 진행시 rounds 값은 3이다', () => {
+        racingGame.runRound();
+        racingGame.runRound();
+        racingGame.runRound();
+
+        expect(racingGame.getRounds()).toBe(3);
+      });
+    });
   });
 });
