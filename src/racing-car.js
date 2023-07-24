@@ -6,6 +6,11 @@ const rl = readline.createInterface({
 });
 
 class RacingCar {
+  #CAR_NAME_LIMIT = 5;
+  #RACE_LOOP_LIMIT = 5;
+  #RANDOM_NUMBER_NOT_EQUAL_MAX_VALUE = 10;
+  #CHECK_RANDOM_NUMBER_MIN_VALUE = 4;
+
   count;
   racers;
   winners;
@@ -39,7 +44,9 @@ class RacingCar {
   }
 
   validateInput(names) {
-    const isValidated = names.split(',').every((name) => name.length <= 5);
+    const isValidated = names
+      .split(',')
+      .every((name) => name.length <= this.#CAR_NAME_LIMIT);
     if (!isValidated) {
       this.exit();
     }
@@ -47,7 +54,7 @@ class RacingCar {
   }
 
   race(racers) {
-    for (let i = 0; i < 5; i += 1) {
+    for (let i = 0; i < this.#RACE_LOOP_LIMIT; i += 1) {
       racers.forEach((racer) => {
         const isGo = this.checkGo(this.getRandomNumber());
         if (isGo) {
@@ -72,12 +79,14 @@ class RacingCar {
   }
 
   getRandomNumber() {
-    const randomNumber = Math.floor(Math.random() * 10);
+    const randomNumber = Math.floor(
+      Math.random() * this.#RANDOM_NUMBER_NOT_EQUAL_MAX_VALUE
+    );
     return randomNumber;
   }
 
   checkGo(randomNumber) {
-    return randomNumber >= 4;
+    return randomNumber >= this.#CHECK_RANDOM_NUMBER_MIN_VALUE;
   }
 
   setWinners(racers) {
