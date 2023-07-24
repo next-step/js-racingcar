@@ -21,7 +21,9 @@ class Car {
   }
 
   moveForward() {
-    this.#distanceDriven = this.#distanceDriven + 1;
+    if (this.canMoveForward()) {
+      this.#distanceDriven = this.#distanceDriven + 1;
+    }
   }
 }
 
