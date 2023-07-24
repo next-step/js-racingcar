@@ -14,6 +14,8 @@ export class RacingGame {
   }
 
   #raceWithTotalRounds(totalRounds) {
-    for (let round = 0; round < totalRounds; round++);
+    for (let round = 0; round < totalRounds; round++) {
+      this.#cars.forEach((car) => car.randomCarMovement());
+    }
   }
 }

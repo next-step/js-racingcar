@@ -5,7 +5,7 @@ export class Model {
 
   constructor() {}
 
-  startRacingGame(carNames) {
-    this.#racingGame = new RacingGame(carNames);
+  startRacingGame(carNames, totalRounds) {
+    this.#racingGame = new RacingGame(carNames, totalRounds);
   }
 }
