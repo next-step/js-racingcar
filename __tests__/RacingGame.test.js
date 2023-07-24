@@ -21,11 +21,15 @@ describe('RacingGame 테스트', () => {
 
   describe('레이싱 게임 우승 테스트', () => {
     beforeEach(() => {
+      jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
+
       cars.forEach((car, index) => {
         for (let i = 0; i < index; i++) {
           car.moveForward();
         }
       });
+
+      jest.spyOn(global.Math, 'random').mockRestore();
     });
 
     test('가장 멀리 간 거리를 구할 수 있다.', () => {
