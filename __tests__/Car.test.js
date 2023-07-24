@@ -1,12 +1,9 @@
 import { GameController } from '../src/Controllers/GameController';
-import { Car } from '../src/Models';
+import { Car, Model } from '../src/Models';
 import { MESSAGE, CAR, RACING_GAME } from '../src/constants';
-import { splitCarNameToArray, validateCarName } from '../src/utils';
+import { splitCarNameToArray, validateCarName, Console } from '../src/utils';
 
 // 2단계
-
-const logSpy = jest.spyOn(console, 'log');
-
 describe('게임 시작', () => {
   test('GameController가 정상적으로 생성되는지 확인한다.', () => {
     const model = {};
@@ -44,7 +41,25 @@ describe('자동차 이름 유효성 검사', () => {
 });
 
 describe('자동차 경주 셋팅', () => {
-  test('주어진 횟수에 따라 경주가 진행된다.', () => {});
+  test('주어진 횟수에 따라 경주가 진행된다.', () => {
+    const carNames = splitCarNameToArray('pobi,crong,honux');
+    carNames.forEach((carName) => validateCarName(carName));
+
+    const model = new Model();
+    const totalRounds = 3;
+    model.startRacingGame(carNames, totalRounds);
+
+    const logSpy = jest.spyOn(Console, 'Print');
+
+    for (let console = 1; i <= totalRounds * (carNames.length + 1); console++) {
+      expect(logSpy).toHaveBeenNthCalledWith(i, 'pobi : ');
+      expect(logSpy).toHaveBeenNthCalledWith(i + 1, 'crong : ');
+      expect(logSpy).toHaveBeenNthCalledWith(i + 2, 'honux : ');
+      expect(logSpy).toHaveBeenNthCalledWith(i + 3, '');
+    }
+
+    logSpy.mockRestore();
+  });
 });
 
 describe('자동차 경주 시작', () => {
@@ -67,6 +82,15 @@ describe('자동차 경주 시작', () => {
 
 describe('우승자 확인', () => {
   test('GameController가 우승자를 정상적으로 출력하는지 확인한다.', () => {
-    const WINNER = 'pobi';
+    const carNames = splitCarNameToArray('pobi,crong,honux');
+    carNames.forEach((carName) => validateCarName(carName));
+
+    const model = new Model();
+    model.startRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
+
+    const logSpy = jest.spyOn(Console, 'Print');
+    expect(logSpy).toHaveBeenCalledWith('가 최종 우승했습니다.');
+
+    logSpy.mockRestore();
   });
 });
