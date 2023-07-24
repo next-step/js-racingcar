@@ -35,6 +35,8 @@ class RacingGame {
 
   runRound() {
     this.#rounds = this.#rounds + 1;
+
+    this.#cars.forEach((car) => car.moveForward());
   }
 }
 
