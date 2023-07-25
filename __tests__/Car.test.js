@@ -1,6 +1,11 @@
+import Car from "../src/models/Car";
+
 describe("자동차 경주", () => {
   describe("자동차 객체 생성", () => {
-    test("자동차에 이름을 부여할 수 있다.", () => {});
+    test("자동차에 이름을 부여할 수 있다.", () => {
+      const car = new Car("pobi");
+      expect(car.name).toBe("pobi");
+    });
     test("자동차 이름은 5자 이하만 가능하다.", () => {});
   });
 
