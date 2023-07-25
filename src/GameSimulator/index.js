@@ -21,7 +21,7 @@ class GameSimulator {
 
   runRound() {
     this.#racingGame.runRound();
-    this.#racingGame.getCars().forEach((car) => printMessage(car.getName()));
+    this.#racingGame.getCars().forEach((car) => car.printInfo());
   }
 
   startRound() {
