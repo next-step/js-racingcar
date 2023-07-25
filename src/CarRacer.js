@@ -38,6 +38,10 @@ export class CarRacer {
     this.printWinner()
   }
 
+  raceEnd() {
+    process.exit()
+  }
+
   printResult(value, key) {
     const score = this.randomNumber() >= 4 ? 1 : 0
     this.#names.set(key, this.#names.get(key) + score)
@@ -45,8 +49,7 @@ export class CarRacer {
   }
   
   printWinner() {
-    console.log(`${this.getWinner()}${MESSAGES.FINISH}`)
-    process.exit()
+    console.log(`${this.getWinner().join(', ')}${MESSAGES.FINISH}`)
   }
 
   randomNumber() {
@@ -57,6 +60,6 @@ export class CarRacer {
   getWinner() {
     const maxScore = Math.max(...this.#names.values())
     const winner = this.names.filter(name => this.#names.get(name) === maxScore)
-    return winner.join(', ')
+    return winner
   }
 }
