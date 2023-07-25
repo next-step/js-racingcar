@@ -19,7 +19,6 @@ describe('Racing Car Game', () => {
   });
 
   // 자동차 경주는 5회로 고정하여 진행한다.
-  // 자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.
   it('Race Loop times 5 -> true', () => {
     initialize();
 
@@ -30,6 +29,28 @@ describe('Racing Car Game', () => {
     ];
     racingCar.race(racers);
     expect(racingCar.count).toBe(5);
+  });
+
+  // 자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.
+  it('Logging Car name', () => {
+    const spyFn = jest.spyOn(racer, 'printRacingState');
+
+    initialize();
+
+    const racers = [
+      { name: 'pobi', state: '-' },
+      { name: 'crong', state: '-' },
+      { name: 'honux', state: '-' },
+    ];
+
+    racers.forEach(({ name, state }) => {
+      racer.printRacingState(name, state);
+    });
+
+    expect(spyFn).toBeCalledTimes(3);
+    expect(spyFn).toBeCalledWith('pobi', '-');
+    expect(spyFn).toBeCalledWith('crong', '-');
+    expect(spyFn).toBeCalledWith('honux', '-');
   });
 
   // 전진하는 조건은 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다.
