@@ -1,4 +1,6 @@
 import {
+  CAR_MAX_LENGTH,
+  CAR_MIN_LENGTH,
   ERROR_MESSAGE,
   INPUT_MESSAGE,
   SEPERATOR_SYMBOLS,
@@ -13,7 +15,9 @@ const Validator = (function Validator() {
   function validateRacingCars(userInput) {
     const racingCars = convertStringToArray(userInput, SEPERATOR_SYMBOLS.COMMA);
     if (isInvalidLengthRacingCars(racingCars))
-      throw new RangeError(ERROR_MESSAGE.INVALID_LENGTH);
+      throw new RangeError(
+        ERROR_MESSAGE.INVALID_RANGE(CAR_MIN_LENGTH, CAR_MAX_LENGTH),
+      );
     if (isDuplicateRacingCars(racingCars))
       throw new SyntaxError(ERROR_MESSAGE.DUPLICATE_CAR_NAMES);
   }
