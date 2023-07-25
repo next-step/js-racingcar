@@ -5,6 +5,12 @@ import { getUserInputByQuestion } from '../src/utils/getUserInputByQuestion';
 jest.mock('../src/utils/getUserInputByQuestion');
 
 describe('GameSimulator 테스트', () => {
+  let simulator = null;
+
+  beforeEach(() => {
+    simulator = simulator = new GameSimulator();
+  });
+
   describe('입력 테스트', () => {
     const CAR_NAMES = ['자동차1', '자동차2', '자동차3', '자동차4', '자동차5'];
 
@@ -19,8 +25,6 @@ describe('GameSimulator 테스트', () => {
     });
 
     test('게임을 시작하면 경주할 자동차를 입력 받을 수 있다.', () => {
-      const simulator = new GameSimulator();
-
       simulator.startGame();
 
       expect(getUserInputByQuestion).toHaveBeenCalled();
@@ -44,7 +48,6 @@ describe('GameSimulator 테스트', () => {
 
     describe('자동차 주행 테스트', () => {
       test('자동차 입력을 받은 후 startRound 함수가 호출 된다.', async () => {
-        const simulator = new GameSimulator();
         const startRoundSpy = jest.spyOn(simulator, 'startRound');
 
         await simulator.startGame();
@@ -55,7 +58,6 @@ describe('GameSimulator 테스트', () => {
       });
 
       test('round는 5회동안 진행된다.', async () => {
-        const simulator = new GameSimulator();
         const runRoundSpy = jest.spyOn(simulator, 'runRound');
 
         await simulator.startGame();
@@ -74,16 +76,12 @@ describe('GameSimulator 테스트', () => {
           Promise.resolve('자동차1')
         );
 
-        const simulator = new GameSimulator();
-
         await simulator.startGame();
 
         expect(simulator.getWinningCarNames().length).toBe(1);
       });
 
       test('우승자가 여러명일 떄는 배열의 길이가 0보다 크다', async () => {
-        const simulator = new GameSimulator();
-
         await simulator.startGame();
 
         expect(simulator.getWinningCarNames().length > 0).toBe(true);
@@ -99,7 +97,6 @@ describe('GameSimulator 테스트', () => {
         );
 
         const logSpy = jest.spyOn(console, 'log');
-        const simulator = new GameSimulator();
 
         await simulator.startGame();
 
@@ -112,7 +109,6 @@ describe('GameSimulator 테스트', () => {
 
       test('우승자가 여러명일 떄는 ,로 구분해서 출력한다.', async () => {
         const logSpy = jest.spyOn(console, 'log');
-        const simulator = new GameSimulator();
 
         await simulator.startGame();
 
