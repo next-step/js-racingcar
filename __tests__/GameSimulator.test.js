@@ -66,4 +66,32 @@ describe('GameSimulator 테스트', () => {
       });
     });
   });
+
+  describe('우승 테스트', () => {
+    describe('우승한 자동차의 이름을 확인 할 수 있다.', () => {
+      test('우승자가 1명일 때 배열의 길이가 1이다', async () => {
+        getUserInputByQuestion.mockImplementation(() =>
+          Promise.resolve('자동차1')
+        );
+
+        const simulator = new GameSimulator();
+
+        await simulator.startGame();
+
+        console.log(simulator.getWinningCarNames());
+
+        expect(simulator.getWinningCarNames().length).toBe(1);
+      });
+
+      test('우승자가 여러명일 떄는 배열의 길이가 0보다 크다', async () => {
+        const simulator = new GameSimulator();
+
+        await simulator.startGame();
+
+        console.log(simulator.getWinningCarNames());
+
+        expect(simulator.getWinningCarNames().length > 0).toBe(true);
+      });
+    });
+  });
 });
