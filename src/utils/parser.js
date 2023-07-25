@@ -10,21 +10,22 @@ export const getRacingResult = (name, distance) => {
 };
 
 export const findMaxDistance = (cars) => {
-  let maxDistance = 0;
-
-  cars.forEach((car) => {
-    if (car.getDistance() > maxDistance) maxDistance = car.getDistance();
-  });
+  const maxDistance = cars.reduce(
+    (distance, car) => Math.max(distance, car.getDistance()),
+    0
+  );
 
   return maxDistance;
 };
 
 export const findWinners = (cars, maxDistance) => {
-  let winners = [];
+  const winners = cars.reduce((winnersArray, car) => {
+    if (car.getDistance() === maxDistance) {
+      winnersArray.push(car.getName());
+    }
 
-  cars.forEach((car) => {
-    if (car.getDistance() === maxDistance) winners.push(car.getName());
-  });
+    return winnersArray;
+  }, []);
 
   return winners;
 };

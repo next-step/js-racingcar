@@ -174,7 +174,7 @@ this.#cars.forEach(this.#randomCarMovement);
 
 ### src/utils/parser.js
 
-- [ ] forEach가 아닌 reducer 사용할 수 있는 경우 리팩터링 진행하기.
+- [x] forEach가 아닌 reduce 사용할 수 있는 경우 리팩터링 진행하기.
       scope 외부의 값 사용을 최소화하고 sideEffect가 발생 가능성을 낮춘다!
 
 ### src/index.js
