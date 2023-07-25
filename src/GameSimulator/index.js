@@ -30,6 +30,10 @@ class GameSimulator {
     }
   }
 
+  getWinningCarNames() {
+    return this.#racingGame.getWinningCars().map((car) => car.getName());
+  }
+
   async startGame() {
     await this.setRacingGame();
     this.startRound();
