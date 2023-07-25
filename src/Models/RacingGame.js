@@ -16,7 +16,7 @@ export class RacingGame {
   constructor() {}
 
   settingRacingGame(carNames, totalRounds) {
-    for (let carName of carNames) this.#cars.push(new Car(carName));
+    this.#cars = carNames.map((carName) => new Car(carName));
     this.#raceWithTotalRounds(totalRounds);
   }
 
