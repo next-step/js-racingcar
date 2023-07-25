@@ -37,7 +37,7 @@ describe('GameSimulator 테스트', () => {
         const carNames = ['최대다섯글자', '최대다섯글자입니다'];
 
         carNames.forEach((name) =>
-          expect(() => validateCarNames(name)).toThrow()
+          expect(() => validateCarName(name)).toThrow()
         );
       });
     });
