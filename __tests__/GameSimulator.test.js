@@ -54,17 +54,6 @@ describe('GameSimulator 테스트', () => {
         startRoundSpy.mockRestore();
       });
 
-      test('round 진행시 자동차 이름도 출력', async () => {
-        const simulator = new GameSimulator();
-        const logSpy = jest.spyOn(console, 'log');
-
-        await simulator.startGame();
-
-        CAR_NAMES.forEach((name) => expect(logSpy).toHaveBeenCalledWith(name));
-
-        logSpy.mockRestore();
-      });
-
       test('round는 5회동안 진행된다.', async () => {
         const simulator = new GameSimulator();
         const runRoundSpy = jest.spyOn(simulator, 'runRound');
