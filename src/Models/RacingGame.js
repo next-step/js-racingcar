@@ -2,7 +2,7 @@ import { Car } from './';
 import { MESSAGE, RACING_GAME, UTIL } from '../constants';
 import {
   getRacingResult,
-  getRandomIntInRange,
+  getRandomCarMovementInt,
   findMaxDistance,
   findWinners,
   parseGameResult,
@@ -30,10 +30,7 @@ export class RacingGame {
   }
 
   #randomCarMovement(car) {
-    const randomInt = getRandomIntInRange(
-      UTIL.RANDOM_INT_MIN,
-      UTIL.RANDOM_INT_MAX
-    );
+    const randomInt = getRandomCarMovementInt();
 
     if (RACING_GAME.MOVEMENT_THRESHOLD <= randomInt) car.advance();
   }

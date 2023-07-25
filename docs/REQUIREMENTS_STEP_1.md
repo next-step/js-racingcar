@@ -164,7 +164,7 @@ this.#cars.forEach((car) => this.#randomCarMovement(car));
 this.#cars.forEach(this.#randomCarMovement);
 ```
 
-- [ ] getRandomIntInRange를 사용한 getRandomCarMovementInt 만들어서 가독성 개선과 재사용성 두 마리 토끼 다 잡기!
+- [x] getRandomIntInRange를 사용한 getRandomCarMovementInt 만들어서 가독성 개선과 재사용성 두 마리 토끼 다 잡기!
 
 - [ ] advance 분기처리 early return하기
 
