@@ -1,5 +1,6 @@
 import { getRandomNumberFromZeroToNine } from '../utils/getRandomNumber.js';
 import { printMessage } from '../utils/printMessage.js';
+import { MOVE_FORWARD_LIMIT } from './constants.js';
 
 class Car {
   #name;
@@ -18,7 +19,7 @@ class Car {
   }
 
   canMoveForward() {
-    return getRandomNumberFromZeroToNine() >= 4;
+    return getRandomNumberFromZeroToNine() >= MOVE_FORWARD_LIMIT;
   }
 
   moveForward() {
