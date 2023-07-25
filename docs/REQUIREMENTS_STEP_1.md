@@ -166,7 +166,7 @@ this.#cars.forEach(this.#randomCarMovement);
 
 - [x] getRandomIntInRange를 사용한 getRandomCarMovementInt 만들어서 가독성 개선과 재사용성 두 마리 토끼 다 잡기!
 
-- [ ] advance 분기처리 early return하기
+- [x] advance 분기처리 early return하기
 
 ### src/constants/racingGame.js
 

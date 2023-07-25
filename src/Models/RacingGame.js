@@ -32,7 +32,9 @@ export class RacingGame {
   #randomCarMovement(car) {
     const randomInt = getRandomCarMovementInt();
 
-    if (RACING_GAME.MOVEMENT_THRESHOLD <= randomInt) car.advance();
+    if (RACING_GAME.MOVEMENT_THRESHOLD > randomInt) return;
+
+    car.advance();
   }
 
   #recordGameProgress() {
