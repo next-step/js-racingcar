@@ -25,7 +25,9 @@ class GameSimulator {
   }
 
   startRound() {
-    this.runRound();
+    for (let i = 0; i < 5; i++) {
+      this.runRound();
+    }
   }
 
   async startGame() {
