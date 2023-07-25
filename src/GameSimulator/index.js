@@ -34,9 +34,16 @@ class GameSimulator {
     return this.#racingGame.getWinningCars().map((car) => car.getName());
   }
 
+  printWinningCars() {
+    const winningCarNames = this.getWinningCarNames().join(',');
+
+    printMessage(`${winningCarNames}가 최종 우승했습니다.`);
+  }
+
   async startGame() {
     await this.setRacingGame();
     this.startRound();
+    this.printWinningCars();
   }
 }
 
