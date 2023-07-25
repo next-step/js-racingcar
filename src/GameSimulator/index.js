@@ -1,6 +1,7 @@
 import Car from '../Car/index.js';
 import RacingGame from '../RacingGame/index.js';
 import { getUserInputByQuestion } from '../utils/getUserInputByQuestion.js';
+import { printMessage } from '../utils/printMessage.js';
 import { splitStringByComma } from '../utils/splitStringByComma.js';
 import { validateCarName } from './utils.js';
 
@@ -20,6 +21,8 @@ class GameSimulator {
 
   startRound() {
     this.#racingGame.runRound();
+
+    this.#racingGame.getCars().forEach((car) => printMessage(car.getName()));
   }
 
   async startGame() {
