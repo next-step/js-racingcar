@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from "../src/constants";
 import Car from "../src/models/Car";
 
 describe("자동차 경주", () => {
@@ -6,7 +7,11 @@ describe("자동차 경주", () => {
       const car = new Car("pobi");
       expect(car.name).toBe("pobi");
     });
-    test("자동차 이름은 5자 이하만 가능하다.", () => {});
+    test("자동차 이름은 5자 이하만 가능하다.", () => {
+      expect(() => {
+        const car = new Car("pobicronghonux");
+      }).toThrow(ERROR_MESSAGE.EXCEED_MAXIMUM_NAME_LENGTH);
+    });
   });
 
   describe("레이싱 객체 생성", () => {
