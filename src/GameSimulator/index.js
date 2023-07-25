@@ -44,6 +44,13 @@ class GameSimulator {
     printMessage(`${winningCarNames}가 최종 우승했습니다.`);
   }
 
+  forceFinish(message) {
+    printMessage(message);
+    printMessage('프로그램을 종료하겠습니다.');
+
+    process.exit(1);
+  }
+
   async startGame() {
     try {
       await this.setRacingGame();
@@ -51,9 +58,7 @@ class GameSimulator {
       this.startRound();
       this.printWinningCars();
     } catch (error) {
-      printMessage(error.message);
-      printMessage('프로그램을 종료하겠습니다.');
-      process.exit(1);
+      this.forceFinish(error.message);
     }
   }
 }
