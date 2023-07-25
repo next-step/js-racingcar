@@ -1,11 +1,6 @@
-import * as readline from 'readline';
 import racer from './racer.js';
 import { print } from './utils/common.util.js';
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+import { readline } from './utils/readline.util.js';
 
 class RacingCar {
   #CAR_NAME_LIMIT = 5;
@@ -24,7 +19,7 @@ class RacingCar {
   }
 
   start() {
-    rl.question(
+    readline.question(
       '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n',
       (names) => {
         if (!this.validateInput(names)) {
@@ -39,7 +34,7 @@ class RacingCar {
         this.race(racer.racers);
         this.printWinners();
 
-        rl.close();
+        readline.close();
       }
     );
   }
