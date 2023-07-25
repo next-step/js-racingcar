@@ -21,6 +21,18 @@ class RacingCarGameError extends Error {
 }
 
 export default class RacingCarGame {
+  cars;
+  roundNumbers;
+  onGameStart;
+  onMultipleRoundStart;
+  onSingleRoundStart;
+  onSingleRoundEnd;
+  onMultipleRoundEnd;
+  onGameEnd;
+  checkForAdvance;
+  validateCarName;
+  onError;
+
   constructor() {
     this.cars = new Map();
     this.readline = readline.createInterface({
