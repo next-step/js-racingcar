@@ -25,8 +25,11 @@ class GameSimulator {
   }
 
   startRound() {
+    printMessage('\n실행 결과\n');
+
     for (let i = 0; i < 5; i++) {
       this.runRound();
+      printMessage('');
     }
   }
 
