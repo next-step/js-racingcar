@@ -45,6 +45,14 @@ describe('GameSimulator 테스트', () => {
           expect(() => validateCarName(name)).toThrow()
         );
       });
+
+      test('자동차 이름이 빈 글자이면 안된다.', () => {
+        const carNames = ['', ''];
+
+        carNames.forEach((name) =>
+          expect(() => validateCarName(name)).toThrow()
+        );
+      });
     });
 
     describe('자동차 주행 테스트', () => {
