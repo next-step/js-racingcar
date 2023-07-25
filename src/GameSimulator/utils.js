@@ -1,4 +1,4 @@
-import { MAX_CAR_NAME_LENGTH } from './constants';
+import { MAX_CAR_NAME_LENGTH } from './constants.js';
 
 export const validateCarName = (carName) => {
   if (carName.length > MAX_CAR_NAME_LENGTH) {
