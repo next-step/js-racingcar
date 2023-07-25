@@ -7,12 +7,12 @@ class RacingWinners {
     this.#racingWinners = [];
   }
 
-  #searchRacingWinners(racingResult) {
+  static #searchRacingWinners(racingResult) {
     return genRacingWinners(racingResult);
   }
 
   setRacingWinners(racingResult) {
-    const winners = this.#searchRacingWinners(racingResult);
+    const winners = RacingWinners.#searchRacingWinners(racingResult);
     this.#racingWinners.push(...winners);
   }
 

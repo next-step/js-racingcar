@@ -1,11 +1,18 @@
 import { CAR_SYMBOLS, INIT_RACING_COUNT } from '../constants/model.js';
 import ErrorHandler from '../handler/ErrorHandler.js';
-import { isExitRace, moveRacingCar, parseRacingResultStatus } from '../utils/racingTrack.js';
+import {
+  isExitRace,
+  moveRacingCar,
+  parseRacingResultStatus,
+} from '../utils/racingTrack.js';
 
 class RacingTrack {
   #racingCarStatus;
+
   #racingCount;
+
   #racingResult;
+
   constructor() {
     this.#racingCarStatus = {};
     this.#racingCount = INIT_RACING_COUNT;
@@ -14,7 +21,9 @@ class RacingTrack {
 
   setRacingCars(racingCars) {
     ErrorHandler.confirmCarNames(racingCars);
-    racingCars.forEach((carName) => (this.#racingCarStatus[carName] = CAR_SYMBOLS.EMPTY));
+    racingCars.forEach((carName) => {
+      this.#racingCarStatus[carName] = CAR_SYMBOLS.EMPTY;
+    });
   }
 
   getRacingCars() {
@@ -38,9 +47,9 @@ class RacingTrack {
   }
 
   race() {
-    const racingCarRacers = Object.keys(this.#racingCarStatus);
+    const racers = Object.keys(this.#racingCarStatus);
     while (!isExitRace(this.#racingCount)) {
-      const newRacingCarStatus = moveRacingCar(racingCarRacers, this.#racingCarStatus);
+      const newRacingCarStatus = moveRacingCar(racers, this.#racingCarStatus);
       this.#updateRacingCarStatus(newRacingCarStatus);
       this.#updateRacingResult(newRacingCarStatus);
       this.#minusRacingCount();

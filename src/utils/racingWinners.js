@@ -7,13 +7,15 @@ export const genResultArray = (racingResult) =>
       return [racer, distance];
     });
 
+export const genMaxDistance = (result) => {
+  const distanceArr = result.map(([, distance]) => distance);
+  return Math.max(...distanceArr);
+};
+
 export const genRacingWinners = (racingResult) => {
   const result = genResultArray(racingResult);
   const maxDistance = genMaxDistance(result);
-  return result.filter(([_, distance]) => distance === maxDistance).map(([racer, _]) => racer);
-};
-
-export const genMaxDistance = (result) => {
-  const distanceArr = result.map(([_, distance]) => distance);
-  return Math.max(...distanceArr);
+  return result
+    .filter(([, distance]) => distance === maxDistance)
+    .map(([racer]) => racer);
 };

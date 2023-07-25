@@ -11,7 +11,7 @@ class GameController {
   #printRaceResult() {
     const results = this.racingTrack.getRacingResult();
     OutputView.print(OUTPUT_MESSAGE.RESULT);
-    results.forEach((result) => OutputView.print(result + '\n'));
+    results.forEach((result) => OutputView.print(`${result  }\n`));
   }
 
   async #settingRacingCar() {
