@@ -45,9 +45,16 @@ class GameSimulator {
   }
 
   async startGame() {
-    await this.setRacingGame();
-    this.startRound();
-    this.printWinningCars();
+    try {
+      await this.setRacingGame();
+
+      this.startRound();
+      this.printWinningCars();
+    } catch (error) {
+      printMessage(error.message);
+      printMessage('프로그램을 종료하겠습니다.');
+      process.exit(1);
+    }
   }
 }
 
