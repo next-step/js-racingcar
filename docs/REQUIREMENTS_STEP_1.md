@@ -157,7 +157,7 @@ pobi, honux가 최종 우승했습니다.
 
 - [x] default value는 생성자 함수 내부에서 선언하는 것이 아니라 field 선언 당시 바로 할당해주도록 한다.
 - [x] for문도 좋지만 가독성 측면에선 map도 좋다.
-- [ ] 매개변수가 하나면 메서드명만 쓰는 방법으로 적용이 가능하다.
+- [x] 매개변수가 하나면 메서드명만 쓰는 방법으로 적용이 가능하다.
 
 ```js
 this.#cars.forEach((car) => this.#randomCarMovement(car));

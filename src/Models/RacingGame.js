@@ -22,7 +22,7 @@ export class RacingGame {
 
   #raceWithTotalRounds(totalRounds) {
     for (let round = 0; round < totalRounds; round++) {
-      this.#cars.forEach((car) => this.#randomCarMovement(car));
+      this.#cars.forEach(this.#randomCarMovement);
       this.#recordGameProgress();
     }
 
