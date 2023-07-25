@@ -1,1 +1,1 @@
-export const randomNumber = () => Math.floor(Math.random() * 10)
+export const randomNumber = () => Math.floor(Math.random() * 10);
