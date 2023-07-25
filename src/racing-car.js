@@ -5,7 +5,7 @@ import { readline } from './utils/readline.util.js';
 const racer = new Racer();
 
 class RacingCar {
-  #CAR_NAME_LIMIT = 5;
+  #CAR_NAME_LENGTH_LIMIT = 5;
   #RACE_LOOP_LIMIT = 5;
 
   count;
@@ -28,8 +28,7 @@ class RacingCar {
           this.exit();
         }
 
-        print('');
-        print('실행결과');
+        this.printTitle();
 
         racer.setRacers(names);
 
@@ -44,7 +43,7 @@ class RacingCar {
   validateInput(names) {
     const isValidated = names
       .split(',')
-      .every((name) => name.length <= this.#CAR_NAME_LIMIT);
+      .every((name) => name.length <= this.#CAR_NAME_LENGTH_LIMIT);
 
     return isValidated;
   }
@@ -73,6 +72,11 @@ class RacingCar {
 
   getWinners() {
     return this.winners.join(', ');
+  }
+
+  printTitle() {
+    print('');
+    print('실행결과');
   }
 
   printWinners() {
