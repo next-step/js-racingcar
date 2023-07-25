@@ -89,5 +89,39 @@ describe('GameSimulator 테스트', () => {
         expect(simulator.getWinningCarNames().length > 0).toBe(true);
       });
     });
+
+    describe('우승한 자동차의 이름을 출력한다.', () => {
+      test('우승자가 1명일 때', async () => {
+        const winningCarName = '우승';
+
+        getUserInputByQuestion.mockImplementation(() =>
+          Promise.resolve(winningCarName)
+        );
+
+        const logSpy = jest.spyOn(console, 'log');
+        const simulator = new GameSimulator();
+
+        await simulator.startGame();
+
+        expect(logSpy).toHaveBeenCalledWith(
+          `${winningCarName}가 최종 우승했습니다.`
+        );
+
+        logSpy.mockRestore();
+      });
+
+      test('우승자가 여러명일 떄는 ,로 구분해서 출력한다.', async () => {
+        const logSpy = jest.spyOn(console, 'log');
+        const simulator = new GameSimulator();
+
+        await simulator.startGame();
+
+        expect(logSpy).toHaveBeenCalledWith(
+          `${simulator.getWinningCarNames().join(',')}가 최종 우승했습니다.`
+        );
+
+        logSpy.mockRestore();
+      });
+    });
   });
 });
