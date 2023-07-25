@@ -2,7 +2,7 @@ import App from '../src';
 import NumberMaker from '../src/NumberMaker';
 import { ERROR_MESSAGE, INPUT_MESSAGE } from '../src/constants';
 import { genRacingWinners } from '../src/utils';
-import { isMove } from '../src/utils/racingTrack';
+import { isMove } from '../src/utils/racingCars';
 import Validator from '../src/Validator.js';
 import { InputView, OutputView } from '../src/view';
 import { containsAllRacers, containsAllStatus } from './utils';
@@ -67,8 +67,12 @@ describe('자동차 경주 기능 관련 테스트', () => {
   });
 
   test('전진하는 조건은 4 이상일 경우다.', () => {
-    expect(isMove(4)).toBeTruthy();
-    expect(isMove(3)).toBeFalsy();
+    const createRandomNumberMock = jest.fn();
+    NumberMaker.createRandomNumber = createRandomNumberMock;
+    createRandomNumberMock.mockReturnValue(4);
+    expect(isMove('jiny')).toBeTruthy();
+    createRandomNumberMock.mockReturnValue(3);
+    expect(isMove('pobi')).toBeFalsy();
   });
 });
 

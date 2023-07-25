@@ -1,55 +1,55 @@
-import { CAR_STATUS_SYMBOLS, INIT_RACING_COUNT } from '../constants/index.js';
-import {
-  isExitRace,
-  moveRacingCar,
-  parseRacingResultStatus,
-} from '../utils/racingTrack.js';
+import { EXIT_COUNT, INIT_RACING_COUNT } from '../constants/index.js';
+import RacingCars from './RacingCars.js';
 
 class RacingTrack {
-  #racingCarStatus;
-
   #racingCount;
 
   #racingResult;
 
+  #racingCars;
+
   constructor() {
-    this.#racingCarStatus = {};
     this.#racingCount = INIT_RACING_COUNT;
     this.#racingResult = [];
+    this.#racingCars = new RacingCars();
   }
 
   setRacingCars(racingCars) {
-    racingCars.forEach((carName) => {
-      this.#racingCarStatus[carName] = CAR_STATUS_SYMBOLS.EMPTY;
-    });
-  }
-
-  getRacingCars() {
-    return this.#racingCarStatus;
+    this.#racingCars.initMoveStatus(racingCars);
   }
 
   getRacingResult() {
     return this.#racingResult;
   }
 
-  #updateRacingCarStatus(newRacingCarStatus) {
-    this.#racingCarStatus = newRacingCarStatus;
+  #updateMoveStatus(racers) {
+    return this.#racingCars.move(racers);
   }
 
   #updateRacingResult(newRacingCarStatus) {
-    this.#racingResult.push(parseRacingResultStatus(newRacingCarStatus));
+    const newResult = Object.entries({ ...newRacingCarStatus })
+      .map((racerInfo) => racerInfo.join(' : '))
+      .join('\n');
+    this.#racingResult.push(newResult);
   }
 
   #minusRacingCount() {
     this.#racingCount -= 1;
   }
 
+  #requestCarNames() {
+    return this.#racingCars.getCarNames();
+  }
+
+  #isExitRace() {
+    return this.#racingCount === EXIT_COUNT;
+  }
+
   race() {
-    const racers = Object.keys(this.#racingCarStatus);
-    while (!isExitRace(this.#racingCount)) {
-      const newRacingCarStatus = moveRacingCar(racers, this.#racingCarStatus);
-      this.#updateRacingCarStatus(newRacingCarStatus);
-      this.#updateRacingResult(newRacingCarStatus);
+    const carNames = this.#requestCarNames();
+    while (!this.#isExitRace()) {
+      const newMoveStatus = this.#updateMoveStatus(carNames);
+      this.#updateRacingResult(newMoveStatus);
       this.#minusRacingCount();
     }
   }
