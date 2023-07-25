@@ -11,14 +11,18 @@ const InputView = (function InputView() {
     return userInput;
   };
 
+  const processException = ({ message, error, getUserInput }) => {
+    OutputView.print(error.message);
+    return getUserInput(message);
+  };
+
   const getUserInput = async (message) => {
     try {
       const userInput = await createUserInputByQuestion(message);
       Validator.check(userInput, message);
       return userInput;
     } catch (error) {
-      OutputView.print(error.message);
-      return getUserInput(message);
+      return processException({ message, error, getUserInput });
     }
   };
 
