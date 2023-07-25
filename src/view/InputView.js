@@ -1,13 +1,11 @@
-import * as readline from 'node:readline/promises';
-import { stdin as input, stdout as output } from 'node:process';
 import { INPUT_MESSAGE } from '../constants/index.js';
 import Validator from '../Validator.js';
-import { convertStringToArray } from '../utils/commons.js';
+import { convertStringToArray, createReadMachine } from '../utils/index.js';
 import OutputView from './OutputView.js';
 
 const InputView = (function InputView() {
   const createUserInputByQuestion = async (message) => {
-    const readMachine = readline.createInterface({ input, output });
+    const readMachine = createReadMachine();
     const userInput = await readMachine.question(message);
     readMachine.close();
     return userInput;
