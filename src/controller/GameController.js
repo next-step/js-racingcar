@@ -1,4 +1,4 @@
-import { OUTPUT_MESSAGE } from '../constants/message.js';
+import { INPUT_MESSAGE, OUTPUT_MESSAGE } from '../constants/message.js';
 import { RacingTrack, RacingWinners } from '../model/index.js';
 import { InputView, OutputView } from '../view/index.js';
 
@@ -11,12 +11,14 @@ class GameController {
   #printRaceResult() {
     const results = this.racingTrack.getRacingResult();
     OutputView.print(OUTPUT_MESSAGE.RESULT);
-    results.forEach((result) => OutputView.print(`${result  }\n`));
+    results.forEach((result) => {
+      OutputView.print(`${result}\n`);
+    });
   }
 
   async #settingRacingCar() {
-    const carNames = await InputView.inputCarNames();
-    this.racingTrack.setRacingCars(carNames);
+    const racingCars = await InputView.input(INPUT_MESSAGE.RACING_CAR);
+    this.racingTrack.setRacingCars(racingCars);
   }
 
   #requestRaceStart() {
