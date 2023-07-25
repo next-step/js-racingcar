@@ -1,9 +1,9 @@
 import { Console } from '../utils';
 
 export const InputView = {
-  readCarName(message, callback) {
+  readCarName(message, userInputHandler) {
     Console.readLine(message, (userInput) => {
-      callback(userInput);
+      userInputHandler(userInput);
     });
   },
 };
