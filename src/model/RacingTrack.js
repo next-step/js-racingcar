@@ -1,5 +1,4 @@
-import { CAR_SYMBOLS, INIT_RACING_COUNT } from '../constants/model.js';
-import ErrorHandler from '../handler/ErrorHandler.js';
+import { CAR_STATUS_SYMBOLS, INIT_RACING_COUNT } from '../constants/index.js';
 import {
   isExitRace,
   moveRacingCar,
@@ -20,9 +19,8 @@ class RacingTrack {
   }
 
   setRacingCars(racingCars) {
-    ErrorHandler.confirmCarNames(racingCars);
     racingCars.forEach((carName) => {
-      this.#racingCarStatus[carName] = CAR_SYMBOLS.EMPTY;
+      this.#racingCarStatus[carName] = CAR_STATUS_SYMBOLS.EMPTY;
     });
   }
 

@@ -1,7 +1,7 @@
 import NumberMaker from '../NumberMaker.js';
 import {
   AVALIABLE_RANDOM_NUMBER,
-  CAR_SYMBOLS,
+  CAR_STATUS_SYMBOLS,
   EXIT_COUNT,
 } from '../constants/index.js';
 
@@ -13,7 +13,8 @@ export const moveRacingCar = (racingCarRacers, racingCarStatus) => {
   const copyRacingCarStatus = { ...racingCarStatus };
   const randomNumbers = NumberMaker.genRacingCarRandomNumbers(racingCarRacers);
   racingCarRacers.forEach((car, i) => {
-    if (isMove(randomNumbers[i])) copyRacingCarStatus[car] += CAR_SYMBOLS.MOVE;
+    if (isMove(randomNumbers[i]))
+      copyRacingCarStatus[car] += CAR_STATUS_SYMBOLS.MOVE;
   });
   return copyRacingCarStatus;
 };
