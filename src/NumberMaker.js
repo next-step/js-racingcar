@@ -1,12 +1,14 @@
-class NumberMaker {
-  static genRandomNumber(maxValue) {
-    return Math.floor(Math.random() * maxValue);
-  }
+import { MAX_RANDOM_NUMBER_RANGE } from './constants';
 
-  static genRacingCarRandomNumbers(racingCars) {
+const NumberMaker = {
+  genRandomNumber() {
+    return Math.floor(Math.random() * MAX_RANDOM_NUMBER_RANGE);
+  },
+
+  genRacingCarRandomNumbers(racingCars) {
     const racingCarNumbers = [...racingCars];
-    return racingCarNumbers.map(() => this.genRandomNumber(10));
-  }
-}
+    return racingCarNumbers.map(() => this.genRandomNumber());
+  },
+};
 
 export default NumberMaker;
