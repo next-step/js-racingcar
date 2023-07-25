@@ -1,12 +1,12 @@
 import { RACING_GAME } from '../constants';
+import { CAR } from '../constants';
 
 export class Car {
   #name;
-  #distance;
+  #distance = CAR.DEFAULT_DISTANCE;
 
   constructor(name) {
     this.#name = name;
-    this.#distance = 0;
   }
 
   advance() {
