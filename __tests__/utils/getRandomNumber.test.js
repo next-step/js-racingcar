@@ -1,21 +1,21 @@
 import { getRandomNumberFromZeroToNine } from '../../src/utils/getRandomNumber';
 
-describe('getRandomNumberFromZeroToNine 테스트', () => {
-  test('0 ~ 9 사이의 랜덤 숫자를 반환 받는다.', () => {
+describe('0 ~ 9 사이의 랜덤 숫자를 반환 받는 getRandomNumberFromZeroToNine 테스트', () => {
+  test('1을 반환 받을 때', () => {
     const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
 
     expect(getRandomNumberFromZeroToNine()).toBe(1);
 
     randomSpy.mockRestore();
   });
-  test('0 ~ 9 사이의 랜덤 숫자를 반환 받는다.', () => {
+  test('5를 반환 받을 때', () => {
     const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.5);
 
     expect(getRandomNumberFromZeroToNine()).toBe(5);
 
     randomSpy.mockRestore();
   });
-  test('0 ~ 9 사이의 랜덤 숫자를 반환 받는다.', () => {
+  test('9를 반환 받을 때', () => {
     const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.9);
 
     expect(getRandomNumberFromZeroToNine()).toBe(9);
