@@ -4,13 +4,16 @@ import {
   SEPERATOR_SYMBOLS,
 } from './constants/index.js';
 import { convertStringToArray } from './utils/commons.js';
-import { isDuplicateRacingCars, isValidRacingCars } from './utils/validate.js';
+import {
+  isDuplicateRacingCars,
+  isInvalidLengthRacingCars,
+} from './utils/validate.js';
 
 const Validator = (function Validator() {
   function validateRacingCars(userInput) {
     const racingCars = convertStringToArray(userInput, SEPERATOR_SYMBOLS.COMMA);
-    if (!isValidRacingCars(racingCars))
-      throw new RangeError(ERROR_MESSAGE.MORE_FIVE_CHARACTERS);
+    if (isInvalidLengthRacingCars(racingCars))
+      throw new RangeError(ERROR_MESSAGE.INVALID_LENGTH);
     if (isDuplicateRacingCars(racingCars))
       throw new SyntaxError(ERROR_MESSAGE.DUPLICATE_CAR_NAMES);
   }

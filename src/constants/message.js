@@ -4,7 +4,7 @@ export const INPUT_MESSAGE = Object.freeze({
 });
 
 export const ERROR_MESSAGE = {
-  MORE_FIVE_CHARACTERS: '[ERROR] : 자동차를 5자 이하로만 입력해주세요.',
+  INVALID_LENGTH: '[ERROR] : 자동차 이름은 1~5자 사이로 입력해주세요.',
   DUPLICATE_CAR_NAMES: '[ERROR] : 중복된 자동차 이름이 존재합니다.',
   NOT_MESSAGE: '[ERROR] - 입력 받을 메시지가 없습니다.',
 };
