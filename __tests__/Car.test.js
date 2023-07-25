@@ -24,6 +24,15 @@ describe("자동차 경주", () => {
       const race = new Race();
       expect(race.totalMatches).toBe(NUMBER_OF_MATCHES);
     });
+    test("자동차를 등록할 수 있다.", () => {
+      const race = new Race();
+      const names = "pobi,crong,honux";
+
+      race.setCars(...names.split(","));
+      const carNames = race.cars.map((car) => car.name).join(",");
+
+      expect(carNames).toBe(names);
+    });
     test("자동차가 전진하는 조건은 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다.", () => {});
     test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.", () => {});
   });
