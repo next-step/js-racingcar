@@ -3,6 +3,7 @@ import RacingGame from '../RacingGame/index.js';
 import { getUserInputByQuestion } from '../utils/getUserInputByQuestion.js';
 import { printMessage } from '../utils/printMessage.js';
 import { splitStringByComma } from '../utils/splitStringByComma.js';
+import { MAX_ROUNDS } from './constants.js';
 import { validateCarName } from './utils.js';
 
 class GameSimulator {
@@ -27,7 +28,7 @@ class GameSimulator {
   startRound() {
     printMessage('\n실행 결과\n');
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < MAX_ROUNDS; i++) {
       this.runRound();
       printMessage('');
     }
