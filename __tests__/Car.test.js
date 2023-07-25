@@ -1,6 +1,9 @@
-import racingCar from '../src/racing-car.js';
-import racer from '../src/racer.js';
 import { getRaceRandomNumber } from '../src/utils/race.util.js';
+import RacingCar from '../src/racing-car.js';
+import Racer from '../src/racer.js';
+
+const racingCar = new RacingCar();
+const racer = new Racer();
 
 const initialize = () => {
   racingCar.init();

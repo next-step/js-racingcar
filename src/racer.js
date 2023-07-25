@@ -39,6 +39,4 @@ class Racer {
   }
 }
 
-const racer = new Racer();
-
-export default racer;
+export default Racer;

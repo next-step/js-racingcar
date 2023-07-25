@@ -1,6 +1,8 @@
-import racer from './racer.js';
+import Racer from './racer.js';
 import { print } from './utils/common.util.js';
 import { readline } from './utils/readline.util.js';
+
+const racer = new Racer();
 
 class RacingCar {
   #CAR_NAME_LIMIT = 5;
@@ -82,6 +84,4 @@ class RacingCar {
   }
 }
 
-const racingCar = new RacingCar();
-
-export default racingCar;
+export default RacingCar;

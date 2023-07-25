@@ -1,3 +1,5 @@
-import racingCar from './racing-car.js';
+import RacingCar from './racing-car.js';
+
+const racingCar = new RacingCar();
 
 racingCar.start();
