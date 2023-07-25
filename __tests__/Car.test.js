@@ -1,6 +1,7 @@
 import { ERROR_MESSAGE, NUMBER_OF_MATCHES } from "../src/constants";
 import Car from "../src/models/Car";
 import Race from "../src/models/Race";
+import { random } from "../src/utils/random";
 
 describe("자동차 경주", () => {
   describe("자동차 객체 생성", () => {
@@ -37,7 +38,11 @@ describe("자동차 경주", () => {
     test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.", () => {});
   });
 
-  test("랜덤 함수는 지정된 범위 내의 숫자만 반환한다.", () => {});
+  test("랜덤 함수는 지정된 범위 내의 숫자만 반환한다.", () => {
+    const number = random(0, 9);
+    expect(number).toBeGreaterThanOrEqual(0);
+    expect(number).toBeLessThanOrEqual(9);
+  });
 
   test("자동차 이름을 받도록 입력을 구현한다.", () => {});
   test("자동차 이름은 쉼표(,)를 기준으로 구분한다.", () => {});
