@@ -18,7 +18,3 @@ rl.question(`${MESSAGES.START}\n`, (input) => {
         rl.close();
     }
   });
-
-rl.on("close", (message) => {
-      console.log("readline close");
-});
