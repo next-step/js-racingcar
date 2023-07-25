@@ -69,4 +69,17 @@ describe('자동차 class 속성 테스트', () => {
       jest.spyOn(global.Math, 'random').mockRestore();
     });
   });
+
+  describe('자동차 정보 출력 테스트', () => {
+    test('주행거리가 0일 떄는 주행거리 없이 이름만 출력 된다.', () => {
+      jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
+      const logSpy = jest.spyOn(console, 'log');
+
+      car.printInfo();
+
+      expect(logSpy).toHaveBeenCalledWith(`${carName} : `);
+
+      jest.spyOn(global.Math, 'random').mockRestore();
+    });
+  });
 });
