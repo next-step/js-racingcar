@@ -3,3 +3,7 @@ export const ERROR_MESSAGE = {
 };
 
 export const MAXIMUN_NAME_LENGTH = 5;
+
+export const NUMBER_OF_MATCHES = 5;
+
+export const ZERO = 0;
