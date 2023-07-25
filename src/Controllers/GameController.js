@@ -22,12 +22,6 @@ export class GameController {
     this.#startRacingGame(carNames);
   }
 
-  #startRacingGame(carNames) {
-    this.#model.settingRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
-
-    this.#printGameResult();
-  }
-
   #validateCarName(userInput) {
     try {
       const carNames = splitCarNameToArray(userInput);
@@ -37,6 +31,12 @@ export class GameController {
     } catch (error) {
       this.#printError(error);
     }
+  }
+
+  #startRacingGame(carNames) {
+    this.#model.settingRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
+
+    this.#printGameResult();
   }
 
   #printGameResult() {
