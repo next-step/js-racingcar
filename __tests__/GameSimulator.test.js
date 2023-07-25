@@ -78,8 +78,6 @@ describe('GameSimulator 테스트', () => {
 
         await simulator.startGame();
 
-        console.log(simulator.getWinningCarNames());
-
         expect(simulator.getWinningCarNames().length).toBe(1);
       });
 
@@ -87,8 +85,6 @@ describe('GameSimulator 테스트', () => {
         const simulator = new GameSimulator();
 
         await simulator.startGame();
-
-        console.log(simulator.getWinningCarNames());
 
         expect(simulator.getWinningCarNames().length > 0).toBe(true);
       });
