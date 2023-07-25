@@ -170,7 +170,7 @@ this.#cars.forEach(this.#randomCarMovement);
 
 ### src/constants/racingGame.js
 
-- [ ] gameProgress 변수를 리터런 내부에서 출력한다.
+- [x] gameProgress 변수를 리터럴 내부에서 출력한다.
 
 ### src/utils/parser.js
 
