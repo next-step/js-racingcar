@@ -9,6 +9,7 @@ class RacingCar {
   #RACE_LOOP_LIMIT = 5;
 
   count;
+  racers;
   winners;
 
   constructor() {
@@ -17,6 +18,7 @@ class RacingCar {
 
   init() {
     this.count = 0;
+    this.racers = [];
     this.winners = [];
   }
 
@@ -30,9 +32,9 @@ class RacingCar {
 
         this.printTitle();
 
-        racer.setRacers(names);
+        this.setRacers(names);
 
-        this.race(racer.racers);
+        this.race(this.racers);
         this.printWinners();
 
         readline.close();
@@ -59,6 +61,15 @@ class RacingCar {
     }
 
     this.setWinners(racers);
+  }
+
+  setRacers(names) {
+    names.split(',').forEach((name) => {
+      this.racers.push({
+        name,
+        state: '',
+      });
+    });
   }
 
   setWinners(racers) {

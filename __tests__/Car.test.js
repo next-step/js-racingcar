@@ -7,7 +7,6 @@ const racer = new Racer();
 
 const initialize = () => {
   racingCar.init();
-  racer.init();
 };
 
 // 콘솔에서 동작하는 자동차 경주 게임을 구현한다.
