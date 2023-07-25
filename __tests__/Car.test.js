@@ -1,6 +1,5 @@
 import { GameController } from '../src/Controllers/GameController';
-import { Car, Model } from '../src/Models';
-import { View } from '../src/Views/View';
+import { Car, RacingGame } from '../src/Models';
 import { MESSAGE, CAR, RACING_GAME } from '../src/constants';
 import { splitCarNameToArray, validateCarName, Console } from '../src/utils';
 
@@ -46,11 +45,11 @@ describe('자동차 경주 셋팅', () => {
     const carNames = splitCarNameToArray('pobi,crong,honux');
     carNames.forEach((carName) => validateCarName(carName));
 
-    const model = new Model();
+    const racingGame = new RacingGame();
     const totalRounds = 3;
-    model.startRacingGame(carNames, totalRounds);
+    racingGame.settingRacingGame(carNames, totalRounds);
 
-    const gameResult = model.getGameResult();
+    const gameResult = racingGame.getGameResult();
     const gameResultLines = gameResult.split('\n');
     const expectedLines = totalRounds * (carNames.length + 1) + 3;
 
@@ -81,8 +80,8 @@ describe('우승자 확인', () => {
     const carNames = splitCarNameToArray('pobi,crong,honux');
     carNames.forEach((carName) => validateCarName(carName));
 
-    const model = new Model();
-    model.startRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
+    const model = new RacingGame();
+    model.settingRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
 
     const gameResult = model.getGameResult();
     const gameResultLines = gameResult.split('\n');

@@ -9,17 +9,13 @@ import {
 } from '../utils';
 
 export class RacingGame {
-  #cars;
-  #gameProgress;
+  #cars = [];
+  #gameProgress = RACING_GAME.PROGRESS_TITLE;
   #gameResult;
 
-  constructor(carNames, totalRounds) {
-    this.#cars = [];
-    this.#gameProgress = RACING_GAME.PROGRESS_TITLE;
-    this.#settingRacingGame(carNames, totalRounds);
-  }
+  constructor() {}
 
-  #settingRacingGame(carNames, totalRounds) {
+  settingRacingGame(carNames, totalRounds) {
     for (let carName of carNames) this.#cars.push(new Car(carName));
     this.#raceWithTotalRounds(totalRounds);
   }
