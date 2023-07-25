@@ -11,7 +11,7 @@ export const isMove = (randomNumber) => randomNumber >= AVALIABLE_RANDOM_NUMBER;
 
 export const moveRacingCar = (racingCarRacers, racingCarStatus) => {
   const copyRacingCarStatus = { ...racingCarStatus };
-  const randomNumbers = NumberMaker.genRacingCarRandomNumbers(racingCarRacers);
+  const randomNumbers = NumberMaker.getRacingCarRandomNumbers(racingCarRacers);
   racingCarRacers.forEach((car, i) => {
     if (isMove(randomNumbers[i]))
       copyRacingCarStatus[car] += CAR_STATUS_SYMBOLS.MOVE;

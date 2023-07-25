@@ -1,13 +1,13 @@
 import { MAX_RANDOM_NUMBER_RANGE } from './constants';
 
 const NumberMaker = {
-  genRandomNumber() {
+  createRandomNumber() {
     return Math.floor(Math.random() * MAX_RANDOM_NUMBER_RANGE);
   },
 
-  genRacingCarRandomNumbers(racingCars) {
+  getRacingCarRandomNumbers(racingCars) {
     const racingCarNumbers = [...racingCars];
-    return racingCarNumbers.map(() => this.genRandomNumber());
+    return racingCarNumbers.map(() => this.createRandomNumber());
   },
 };
 
