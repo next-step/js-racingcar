@@ -1,13 +1,14 @@
 import { GameController } from '../src/Controllers/GameController';
 import { Car, RacingGame } from '../src/Models';
 import { MESSAGE, CAR, RACING_GAME } from '../src/constants';
-import { splitCarNameToArray, validateCarName, Console } from '../src/utils';
+import { splitCarNameToArray, validateCarName } from '../src/utils';
+import { InputView, OutputView, View } from '../src/Views';
 
 // 2단계
 describe('게임 시작', () => {
   test('GameController가 정상적으로 생성되는지 확인한다.', () => {
-    const model = {};
-    const view = {};
+    const model = new RacingGame();
+    const view = new View(InputView, OutputView);
     const gameController = new GameController(model, view);
 
     expect(gameController).toBeInstanceOf(GameController);
