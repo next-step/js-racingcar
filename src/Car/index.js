@@ -30,7 +30,13 @@ class Car {
   printInfo() {
     if (!this.#distanceDriven) {
       printMessage(`${this.#name} : `);
+
+      return;
     }
+
+    const distanceString = new Array(this.#distanceDriven).fill('-').join('');
+
+    printMessage(`${this.#name} : ${distanceString}`);
   }
 }
 
