@@ -11,11 +11,6 @@ export class App {
 
     this.#gameController = new GameController(model, view);
   }
-
-  playGame() {
-    this.#gameController.play();
-  }
 }
 
-const app = new App();
-app.playGame();
+new App();
