@@ -30,7 +30,6 @@ export class CarRacer {
       print('\n')
     }
 
-    this.view.printWinner(this.getWinner())
     this.raceEnd()
   }
 
@@ -41,7 +40,8 @@ export class CarRacer {
   }
 
   raceEnd() {
-    process.exit()
+     this.view.printWinner(this.getWinner())
+     process.exit(0)
   }
 
 
