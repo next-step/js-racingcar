@@ -147,7 +147,7 @@ pobi, honux가 최종 우승했습니다.
 ### src/Controllers/GameController.js
 
 - [x] readCarName에 전달되는 callback 함수의 네이밍을 개선한다.
-- [ ] vadalidateCar 메서드의 역할을 분리한다.
+- [x] validateCar 메서드의 역할을 분리한다.
 
 ### src/Models/Model.js
 

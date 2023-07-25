@@ -15,15 +15,19 @@ export class GameController {
   }
 
   #readCarName() {
-    this.#view.readCarName((userInput) => this.#validateCarName(userInput));
+    const carNames = this.#view.readCarName((userInput) =>
+      this.#validateCarName(userInput)
+    );
+
+    this.#startRacingGame(carNames);
   }
 
   #validateCarName(userInput) {
     try {
       const carNames = splitCarNameToArray(userInput);
-      carNames.forEach((carName) => validateCarName(carName));
+      carNames.forEach(validateCarName);
 
-      this.#startRacingGame(carNames);
+      return carNames;
     } catch (error) {
       this.#printError(error);
     }
