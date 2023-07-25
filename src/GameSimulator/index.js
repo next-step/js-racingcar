@@ -18,8 +18,13 @@ class GameSimulator {
     this.#racingGame = new RacingGame(carNames.map((name) => new Car(name)));
   }
 
+  startRound() {
+    this.#racingGame.runRound();
+  }
+
   async startGame() {
     await this.setRacingGame();
+    this.startRound();
   }
 }
 
