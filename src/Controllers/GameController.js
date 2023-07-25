@@ -15,11 +15,19 @@ export class GameController {
   }
 
   #readCarName() {
-    const carNames = this.#view.readCarName((userInput) =>
-      this.#validateCarName(userInput)
-    );
+    this.#view.readCarName((userInput) => this.#handleUserInput(userInput));
+  }
+
+  #handleUserInput(userInput) {
+    const carNames = this.#validateCarName(userInput);
 
     this.#startRacingGame(carNames);
+  }
+
+  #startRacingGame(carNames) {
+    this.#model.settingRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
+
+    this.#printGameResult();
   }
 
   #validateCarName(userInput) {
@@ -31,12 +39,6 @@ export class GameController {
     } catch (error) {
       this.#printError(error);
     }
-  }
-
-  #startRacingGame(carNames) {
-    this.#model.settingRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
-
-    this.#printGameResult();
   }
 
   #printGameResult() {

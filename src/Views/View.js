@@ -9,9 +9,9 @@ export class View {
     this.#outputView = outputView;
   }
 
-  readCarName(validate) {
+  readCarName(handleUserInput) {
     this.#inputView.readCarName(MESSAGE.READ.CAR_NAME, (userInput) => {
-      validate(userInput);
+      handleUserInput(userInput);
     });
   }
 
