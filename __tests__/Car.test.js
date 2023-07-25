@@ -81,5 +81,32 @@ describe('자동차 class 속성 테스트', () => {
 
       jest.spyOn(global.Math, 'random').mockRestore();
     });
+
+    describe('주행거리가 0 이상이면 이름과 주행거리를 같이 출력한다.', () => {
+      test('주행거리가 1일 때', () => {
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
+        const logSpy = jest.spyOn(console, 'log');
+
+        car.moveForward();
+        car.printInfo();
+
+        expect(logSpy).toHaveBeenCalledWith(`${carName} : -`);
+
+        jest.spyOn(global.Math, 'random').mockRestore();
+      });
+
+      test('주행거리가 2일 때', () => {
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
+        const logSpy = jest.spyOn(console, 'log');
+
+        car.moveForward();
+        car.moveForward();
+        car.printInfo();
+
+        expect(logSpy).toHaveBeenCalledWith(`${carName} : --`);
+
+        jest.spyOn(global.Math, 'random').mockRestore();
+      });
+    });
   });
 });
