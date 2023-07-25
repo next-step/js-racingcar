@@ -39,16 +39,20 @@ export default class CarRace {
     return this.getCarNames(this.winners);
   }
 
-  start() {
-    const carView = new CarRaceView();
-    carView.printMessage('실행결과');
+  start(view) {
+    if (view) {
+      view.welcome();
+      view.printMessage('실행결과');
+      view.printMessage(this.participantNames);
+    }
 
     for (let i = 0; i < RACE_LAP_LIMIT; i++) {
       this.#participants.forEach((car) => car.runOneLap());
-      carView.printLapResult(this.#participants);
+      view && view.printLapResult(this.#participants);
     }
 
     this.#isRaceStarted = true;
+    view && view.printWinners(this.winnerNames);
   }
 
   getCarNames(cars) {

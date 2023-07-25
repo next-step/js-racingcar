@@ -9,7 +9,4 @@ const carRace = new CarRace([
   new Car('honux'),
 ]);
 
-carRaceView.welcome();
-carRaceView.printMessage(carRace.participantNames);
-carRace.start();
-carRaceView.printWinners(carRace.winnerNames);
+carRace.start(carRaceView);
