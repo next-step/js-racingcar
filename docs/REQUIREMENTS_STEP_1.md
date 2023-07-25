@@ -139,3 +139,44 @@ honux : -----
 
 pobi, honux가 최종 우승했습니다.
 ```
+
+---
+
+## Code Review
+
+### src/Controllers/GameController.js
+
+- [ ] readCarName에 전달되는 callback 함수의 네이밍을 개선한다.
+- [ ] vadalidateCar 메서드의 역할을 분리한다.
+
+### src/Models/Model.js
+
+- [ ] 불필요한 모델 레이어는 제거한다. 필요할 때 확장하도록 한다. 가독성이 낮아지기 때문이다.
+
+### src/Models/RacingGame.js
+
+- [ ] default value는 생성자 함수 내부에서 선언하는 것이 아니라 field 선언 당시 바로 할당해주도록 한다.
+- [ ] for문도 좋지만 가독성 측면에선 map도 좋다.
+- [ ] 매개변수가 하나면 메서드명만 쓰는 방법으로 적용이 가능하다.
+
+```js
+this.#cars.forEach((car) => this.#randomCarMovement(car));
+this.#cars.forEach(this.#randomCarMovement);
+```
+
+- [ ] getRandomIntInRange를 사용한 getRandomCarMovementInt 만들어서 가독성 개선과 재사용성 두 마리 토끼 다 잡기!
+
+- [ ] advance 분기처리 early return하기
+
+### src/constants/racingGame.js
+
+- [ ] gameProgress 변수를 리터런 내부에서 출력한다.
+
+### src/utils/parser.js
+
+- [ ] forEach가 아닌 reducer 사용할 수 있는 경우 리팩터링 진행하기.
+      scope 외부의 값 사용을 최소화하고 sideEffect가 발생 가능성을 낮춘다!
+
+### src/index.js
+
+- [ ] 게임 Play가 확정된 상태에서, 동적으로 메서드 호출을 고려하지 않아도 되는 경우, play 메서드 없이 생성자 함수 내에서 호출하여 불필요한 코드를 줄인다. 가독성 개선에 도움이 되기 때문이다.
