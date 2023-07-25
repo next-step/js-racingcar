@@ -43,11 +43,11 @@ describe('GameSimulator 테스트', () => {
     });
 
     describe('자동차 주행 테스트', () => {
-      test('자동차 입력을 받은 후 startRound 함수가 호출 된다.', () => {
+      test('자동차 입력을 받은 후 startRound 함수가 호출 된다.', async () => {
         const simulator = new GameSimulator();
         const startRoundSpy = jest.spyOn(simulator, 'startRound');
 
-        simulator.startGame();
+        await simulator.startGame();
 
         expect(startRoundSpy).toHaveBeenCalled();
 
