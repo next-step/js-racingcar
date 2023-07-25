@@ -2,9 +2,11 @@ import { ERROR_MESSAGE, MAXIMUN_NAME_LENGTH } from "../constants";
 
 class Car {
   name;
+  position;
   constructor(name) {
     this.validation(name);
     this.name = name;
+    this.position = 0;
   }
 
   validation(name) {

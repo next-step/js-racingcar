@@ -12,6 +12,10 @@ describe("자동차 경주", () => {
         const car = new Car("pobicronghonux");
       }).toThrow(ERROR_MESSAGE.EXCEED_MAXIMUM_NAME_LENGTH);
     });
+    test("자동차의 기본 위치는 0이다.", () => {
+      const car = new Car("pobi");
+      expect(car.position).toBe(0);
+    });
   });
 
   describe("레이싱 객체 생성", () => {
