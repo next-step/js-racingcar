@@ -64,6 +64,17 @@ describe('GameSimulator 테스트', () => {
 
         logSpy.mockRestore();
       });
+
+      test('round는 5회동안 진행된다.', async () => {
+        const simulator = new GameSimulator();
+        const runRoundSpy = jest.spyOn(simulator, 'runRound');
+
+        await simulator.startGame();
+
+        expect(runRoundSpy).toBeCalledTimes(5);
+
+        runRoundSpy.mockRestore();
+      });
     });
   });
 });
