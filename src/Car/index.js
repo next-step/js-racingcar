@@ -1,4 +1,5 @@
-import { getRandomNumberFromZeroToNine } from '../utils/getRandomNumber';
+import { getRandomNumberFromZeroToNine } from '../utils/getRandomNumber.js';
+import { printMessage } from '../utils/printMessage.js';
 
 class Car {
   #name;
@@ -23,6 +24,12 @@ class Car {
   moveForward() {
     if (this.canMoveForward()) {
       this.#distanceDriven = this.#distanceDriven + 1;
+    }
+  }
+
+  printInfo() {
+    if (!this.#distanceDriven) {
+      printMessage(`${this.#name} : `);
     }
   }
 }
