@@ -49,10 +49,36 @@ const handleGameEnd = () => {
   racingCarGameReadline.close();
 };
 
+const validateCarNames = (names) => {
+  for (const name of names) {
+    if (name.trim().length < CAR_NAME_MIN_LENGTH) {
+      throw new RacingCarGameError(ERROR_MESSAGES.INVALID_EMPTY_NAME);
+    }
+
+    if (name.length > CAR_NAME_MAX_LENGTH) {
+      throw new RacingCarGameError(ERROR_MESSAGES.INVALID_NAME_LENGTH);
+    }
+  }
+
+  const uniqueCarNames = new Set(names.map((name) => name.trim()));
+
+  if (names.length !== uniqueCarNames.size) {
+    throw new RacingCarGameError(ERROR_MESSAGES.DUPLICATE_CAR_NAME);
+  }
+};
+
+const handleError = (error) => {
+  if (error instanceof RacingCarGameError) {
+    console.log(error.message);
+  }
+};
+
 const racingCarGame = new RacingCarGame({
   roundNumbers: RACING_ROUNDS,
   onGameStart: handleGameStart,
   onGameEnd: handleGameEnd,
+  validateCarNames,
+  onError: handleError,
 });
 
 racingCarGame.startGame();

@@ -62,24 +62,6 @@ export default class RacingCarGame {
     this.onGameEnd(this.cars);
   }
 
-  // validateCarName(names) {
-  //   for (const name of names) {
-  //     if (name.trim().length < CAR_NAME_MIN_LENGTH) {
-  //       throw new RacingCarGameError(ERROR_MESSAGES.INVALID_EMPTY_NAME);
-  //     }
-
-  //     if (name.length > CAR_NAME_MAX_LENGTH) {
-  //       throw new RacingCarGameError(ERROR_MESSAGES.INVALID_NAME_LENGTH);
-  //     }
-  //   }
-
-  //   const uniqueCarNames = new Set(names.map((name) => name.trim()));
-
-  //   if (names.length !== uniqueCarNames.size) {
-  //     throw new RacingCarGameError(ERROR_MESSAGES.DUPLICATE_CAR_NAME);
-  //   }
-  // }
-
   settingCars(names) {
     names.forEach((name) => {
       this.cars.set(name, { distance: 0 });
@@ -118,7 +100,7 @@ export default class RacingCarGame {
   executeMultipleRounds() {
     this.onMultipleRoundStart(this.cars);
 
-    Array.from({ length: this.racingRounds }, () => {
+    Array.from({ length: this.roundNumbers }, () => {
       this.executeOneRound();
     });
 
