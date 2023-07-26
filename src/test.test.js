@@ -1,4 +1,6 @@
-import { isNameValidation, getRandomNumber, startRacingGame } from ".";
+import { startRacingGame } from ".";
+import { isNameValidation } from "./domain/isNameValidation";
+import { getRandomNumber } from "./utils/getRandomNumber";
 
 describe("자동차 이름 유효성 검사", () => {
   it("자동차 이름 최대 5글자", () => {

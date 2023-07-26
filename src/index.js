@@ -1,12 +1,5 @@
-export const isNameValidation = (name) => {
-  if (name.split(",").every((item) => item.length > 6)) return false;
-  if (name.split(",").length === 1) return false;
-  return true;
-};
-
-export const getRandomNumber = () => {
-  return Math.floor(Math.random() * 10);
-};
+import { isNameValidation } from "./domain/isNameValidation";
+import { getRandomNumber } from "./utils/getRandomNumber";
 
 export const startRacingGame = (name) => {
   if (!isNameValidation(name)) {
@@ -36,5 +29,3 @@ export const startRacingGame = (name) => {
 
   return winners;
 };
-
-startRacingGame("pobi,crong,honux");
