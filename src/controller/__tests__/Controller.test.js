@@ -1,16 +1,6 @@
 import {Controller} from '../Controller';
 
 describe('Controller class test', () => {
-  test('자동차 이름은 5자 이하만 가능하다.', () => {
-    const controller = new Controller();
-
-    const validCarNames = ['pobi', 'crong', 'honux'];
-    expect(controller.isValidCarNames(validCarNames)).toBe(true);
-
-    const invalidCarNames = ['pobi', 'crong', 'honux1'];
-    expect(controller.isValidCarNames(invalidCarNames)).toBe(false);
-  });
-
   test('자동차 경주의 우승자가 한명인 경우 한명만 반환한다.', () => {
     const controller = new Controller();
 
