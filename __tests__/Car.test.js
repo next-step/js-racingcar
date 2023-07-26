@@ -1,4 +1,3 @@
-const readline = require('readline');
 const App = require('../src/App.js');
 const Car = require('../src/model/Car.js');
 const Track = require('../src/model/Track.js');
@@ -16,8 +15,6 @@ const {
   SKID_MARK,
 } = require('../src/constants/racing-rule.js');
 const { MESSAGES, ERROR_MESSAGES } = require('../src/constants/messages.js');
-
-jest.spyOn(readline, 'createInterface').mockImplementationOnce(() => ['text1', 'text2']);
 
 describe('유틸리티 함수 테스트', () => {
   test(`문자열을 ${SLICE_STANDARD} 기준으로 나누어 배열로 반환한다.`, () => {
