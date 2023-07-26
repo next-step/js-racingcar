@@ -30,10 +30,6 @@ export default class RacingModel {
       (car) => car.position === maxPositionValue
     );
 
-    if (maxPositionValue === 0) {
-      return [];
-    }
-
     return [...winners.map((winner) => winner.name)];
   }
 }

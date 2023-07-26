@@ -15,11 +15,6 @@ export default class RacingView {
 
   showRacingGameWinners() {
     const winners = this.racingModel.getWinners();
-
-    if (winners.length === 0) {
-      console.log("우승자는 없습니다.");
-    } else {
-      console.log(`우승자는 ${[...winners]}입니다`);
-    }
+    console.log(`우승자는 ${[...winners]}입니다`);
   }
 }

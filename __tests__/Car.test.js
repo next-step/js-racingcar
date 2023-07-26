@@ -51,7 +51,7 @@ describe("자동차 경주 게임 테스트입니다.", () => {
 
   test("우승자가 여러 명일 때 콤마로 구분해서 출력합니다.", () => {
     const carList = [
-      { name: "car1", position: 3 },
+      { name: "car1", position: 4 },
       { name: "car2", position: 4 },
       { name: "car3", position: 4 },
     ];
@@ -62,25 +62,7 @@ describe("자동차 경주 게임 테스트입니다.", () => {
     racingView.racingModel = racingModel;
     racingView.showRacingGameWinners();
 
-    expect(jestSpyOn).toHaveBeenCalledWith("우승자는 car2,car3입니다");
-
-    jestSpyOn.mockRestore();
-  });
-
-  test("각 차들의 position이 0인 경우 우승자는 없습니다.", () => {
-    const carList = [
-      { name: "car1", position: 0 },
-      { name: "car2", position: 0 },
-      { name: "car3", position: 0 },
-    ];
-
-    const jestSpyOn = jest.spyOn(console, "log");
-
-    racingModel.carList = carList;
-    racingView.racingModel = racingModel;
-    racingView.showRacingGameWinners();
-
-    expect(jestSpyOn).toHaveBeenCalledWith("우승자는 없습니다.");
+    expect(jestSpyOn).toHaveBeenCalledWith("우승자는 car1,car2,car3입니다");
 
     jestSpyOn.mockRestore();
   });
