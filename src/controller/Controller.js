@@ -14,6 +14,15 @@ export class Controller {
     this.#cars = carNames.map(carName => new Car(carName));
   };
 
+  getCarsDistance = () => {
+    return this.#cars.map(car => ({carName: car.carName, distance: car.distance}));
+  };
+
+  getMaximumDistanceCars = cars => {
+    const maximumDistance = Math.max(...cars.map(car => car.distance));
+    return cars.filter(car => car.distance === maximumDistance);
+  };
+
   race = () => {
     this.#currentRaceNumber += 1;
     this.#cars.forEach(car => {

@@ -7,4 +7,7 @@ export function main() {
   while (controller.currentRaceNumber < MAXIMUM_RACING_NUMBER) {
     controller.race();
   }
+
+  const racingResult = controller.getCarsDistance();
+  const winners = controller.getMaximumDistanceCars(racingResult);
 }
