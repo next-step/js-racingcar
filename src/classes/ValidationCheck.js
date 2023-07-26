@@ -1,22 +1,28 @@
+import { MAX_CAR_NAME_LENGTH, MIN_CAR_COUNT } from "../data/constants";
+
 export default class ValidationCheck {
-  // 이름이 비어있는지
   validateEmptyName(carList) {
     carList.forEach((car) => {
       if (car === "") throw new Error("빈 값은 입력할 수 없습니다.");
     });
   }
 
-  // 이름이 중복되었는지
-  validateDuplicateName(carList) {}
+  validateDuplicateName(carList) {
+    const copyCarList = [...new Set([...carList])];
 
-  // 특수 문자가 들어가있는지
-  validateNameRegex(carList) {}
+    if (carList.length !== copyCarList.length) {
+      throw new Error("중복되는 이름은 입력할 수 없습니다.");
+    }
+  }
 
-  // 이름의 길이가 5이상인지
-  validateNameLength(carList) {}
+  validateNameLength(carList) {
+    carList.forEach((car) => {
+      if (car.length > MAX_CAR_NAME_LENGTH) throw new Error("이름의 길이는 5자를 넘길 수 없습니다.");
+    });
+  }
 
-  // 입력한 차의 개수가 1개 이상인지
   validateCarCount(carList) {
-    if (carList.length < 2) throw new Error("2개 이상의 자동차를 입력해주세요.");
+    if (carList.length < MIN_CAR_COUNT) throw new Error("2개 이상의 자동차를 입력해주세요.");
+    return carList;
   }
 }
