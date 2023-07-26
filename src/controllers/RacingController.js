@@ -20,7 +20,6 @@ export default class RacingController {
     });
   }
 
-  // 유효성 검사 통과 후 데이터를 저장
   checkValidationCarNames(carNames) {
     const carList = carNames.split(",").map((carName) => carName.trim());
 

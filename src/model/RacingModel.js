@@ -2,7 +2,7 @@ export default class RacingModel {
   carList;
 
   constructor() {
-    this.carList = []; // 자동차를 담는 변수
+    this.carList = [];
   }
 
   settingCarName(carNames) {
