@@ -1,5 +1,6 @@
 import {splitByComma} from './utils/splitByComma';
-import {isValidCarNames} from './utils/isValidCarNames';
+import {isValidCarNamesLength} from './utils/isValidCarNamesLength';
+import {isExistEmptyNameCars} from './utils/isExistEmptyNameCars';
 import {Controller} from './controller/Controller';
 import {printRacingInfo} from './view/printRacingInfo';
 import {printWinners} from './view/printWinners';
@@ -29,8 +30,13 @@ function main() {
 
   getLineInput(input => {
     const carNames = splitByComma(input);
-    if (!isValidCarNames(carNames)) {
-      console.log('잘못된 입력 값입니다.');
+    if (!isValidCarNamesLength(carNames)) {
+      console.log('자동차 이름은 5자 이하로 입력해주세요.');
+      return;
+    }
+
+    if (isExistEmptyNameCars(carNames)) {
+      console.log('자동차 이름은 공백이 될 수 없습니다.');
       return;
     }
 
