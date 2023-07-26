@@ -8,8 +8,6 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-  ]
+  "extends": ["eslint:recommended", "plugin:prettier/recommended", "airbnb/base"],
+  "ignorePatterns": ["webpack.config.js", "loader.js", "/__tests__"]
 }
