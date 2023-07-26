@@ -1,0 +1,1 @@
+export const RANDOM_NUMBER_NOT_EQUAL_MAX_VALUE = 10;
