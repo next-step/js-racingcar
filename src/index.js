@@ -84,6 +84,23 @@ const handleSingleRoundEnd = (cars) => {
   console.log("");
 };
 
+const handleMultipleRoundsEnd = (cars) => {
+  const distanceArray = [...cars.values()].map((el) => el.distance);
+  const maxDistance = Math.max(...distanceArray);
+
+  const winners = [...cars.keys()].filter(
+    (car) => cars.get(car).distance === maxDistance
+  );
+
+  console.log(
+    `${winners.join(CAR_NAME_SEPARATOR)}${WINNER_ANNOUNCEMENT_MESSAGE}`
+  );
+};
+
+const checkForAdvance = () => {
+  return Math.random() * 9 >= 4;
+};
+
 const racingCarGame = new RacingCarGame({
   roundNumbers: RACING_ROUNDS,
   onGameStart: handleGameStart,
@@ -92,6 +109,8 @@ const racingCarGame = new RacingCarGame({
   onError: handleError,
   onMultipleRoundStart: handleMultipleRoundsStart,
   onSingleRoundEnd: handleSingleRoundEnd,
+  onMultipleRoundEnd: handleMultipleRoundsEnd,
+  checkForAdvance,
 });
 
 racingCarGame.startGame();

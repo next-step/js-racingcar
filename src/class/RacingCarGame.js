@@ -68,11 +68,6 @@ export default class RacingCarGame {
     });
   }
 
-  // displayRacingTitle() {
-  //   console.log("");
-  //   console.log(CAR_RACE_TITLE);
-  // }
-
   executeOneRound() {
     this.onSingleRoundStart(this.cars);
 
@@ -86,17 +81,6 @@ export default class RacingCarGame {
     this.onSingleRoundEnd(this.cars);
   }
 
-  // checkForAdvance() {
-  //   return Math.random() * 9 >= 4;
-  // }
-
-  // displayRacingBoard() {
-  //   this.cars.forEach((carInfo, carName) => {
-  //     console.log(`${carName} : ${RACING_SCORE_CHAR.repeat(carInfo.distance)}`);
-  //   });
-  //   console.log("");
-  // }
-
   executeMultipleRounds() {
     this.onMultipleRoundStart(this.cars);
 
@@ -106,29 +90,4 @@ export default class RacingCarGame {
 
     this.onMultipleRoundEnd(this.cars);
   }
-
-  // getWinners() {
-  //   const distanceArray = [...this.cars.values()].map((el) => el.distance);
-  //   const maxDistance = Math.max(...distanceArray);
-
-  //   if (maxDistance === 0) {
-  //     return [];
-  //   }
-
-  //   return [...this.cars.keys()].filter(
-  //     (car) => this.cars.get(car).distance === maxDistance
-  //   );
-  // }
-
-  // displayWinners() {
-  //   const winners = this.getWinners();
-
-  //   if (winners.length < 1) {
-  //     console.log(NO_WINNER_MESSAGE);
-  //   } else {
-  //     console.log(
-  //       `${winners.join(CAR_NAME_SEPARATOR)}${WINNER_ANNOUNCEMENT_MESSAGE}`
-  //     );
-  //   }
-  // }
 }
