@@ -4,6 +4,11 @@ export class Controller {
   static MAXIMUM_CAR_NAME_LENGTH = 5;
   static FORWARD_THRESHOLD = 4;
   #cars = [];
+  #currentRaceNumber = 0;
+
+  get currentRaceNumber() {
+    return this.#currentRaceNumber;
+  }
 
   createCars = carNames => {
     this.#cars = carNames.map(carName => new Car(carName));
