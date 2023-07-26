@@ -41,4 +41,25 @@ describe("RacingCarGame Class 테스트", () => {
     expect(racingCarGame.checkForAdvance).toBe(checkForAdvanceTester);
     expect(racingCarGame.validateCarNames).toBe(validateCarNamesTester);
   });
+
+  test("validateCarNames에서 발생하는 에러가 onError에 전달되어야 한다.", async () => {
+    const expectedError = new Error("에러 테스트");
+
+    const validateCarNamesTester = () => {
+      throw expectedError;
+    };
+
+    const handleErrorTester = jest.fn();
+
+    const racingCarGame = new RacingCarGame({
+      validateCarNames: validateCarNamesTester,
+      onError: handleErrorTester,
+    });
+
+    await racingCarGame.startGame();
+
+    expect(validateCarNamesTester).toThrow(expectedError);
+
+    expect(racingCarGame.onError).toHaveBeenCalledWith(expectedError);
+  });
 });
