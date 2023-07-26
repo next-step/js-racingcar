@@ -1,34 +1,26 @@
-import { RaceTrack, getRandomNum } from '../src'
-import { getUserInput } from '../src/utils/getUserInput'
+import Car from '../src'
 
-const CAR_NAMES = '산들, 뿌꾸, 천둥'
+const CAR_NAME = '산들'
 
-// 터미널 입력을 위한 readline 모킹
-jest.mock('node:readline/promises', () => ({
-  createInterface: jest.fn().mockReturnValue({
-    question: jest.fn().mockResolvedValue(CAR_NAMES),
-    close: jest.fn(),
-  }),
-}))
+describe('자동차', () => {
+  let car
 
-describe('자동차 이름을 입력받는 기능', () => {
-  let raceTrack = new RaceTrack()
-
-  it('getUserInput() : 입력받은 자동차를 터미널에 출력한다.', async () => {
-    const carNames = await getUserInput()
-    expect(carNames).toEqual(CAR_NAMES)
+  beforeEach(() => {
+    car = new Car(CAR_NAME)
+  })
+  it('자동차는 이름을 가질 수 있다.', () => {
+    expect(car.getName()).toEqual(CAR_NAME)
   })
 
-  it('입력한 자동차가 경주에 참여하는 자동차가 된다.', () => {
-    raceTrack.start()
-    expect(raceTrack.cars).toEqual(CAR_NAMES)
+  it('자동차는 랜덤 숫자가 4 이상이면 앞으로 전진한다.', () => {
+    for (let move = 1; move <= 3; move++) {
+      car.move(4)
+      expect(car.getPosition()).toEqual(move)
+    }
+  })
+
+  it('자동차는 랜덤숫자가 4 미만이면 정지한다.', () => {
+    car.move(3)
+    expect(car.getPosition()).toEqual(0)
   })
 })
-
-describe('자동차 이름의 길이를 검사하는 기능', () => {})
-
-describe('자동차 경주를 진행하는 기능', () => {})
-
-describe('우승 자동차를 판별하는 기능', () => {})
-
-describe('프로그램 종료 기능', () => {})
