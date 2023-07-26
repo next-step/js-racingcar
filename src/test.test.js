@@ -1,22 +1,18 @@
-import { nameValidation } from ".";
+import { isNameValidation, getRandomNumber } from ".";
 
 describe("자동차 이름 유효성 검사", () => {
   it("자동차 이름 최대 5글자", () => {
-    expect(nameValidation("pobi,crong,honux")).toBe(true);
+    expect(isNameValidation("pobi,crong,honux")).toBe(true);
   });
 
   it("자동차 개수 최소 2개", () => {
-    expect(nameValidation("pobi,crong,honux,")).toBe(true);
+    expect(isNameValidation("pobi,crong,honux,")).toBe(true);
   });
 });
 
 describe("0 에서 9 사이의 무작위 값을 구한 후 4이 상일 때 전진한다.", () => {
-  it("무작위 값이 3 이하 일때", () => {
-    expect(0).toBe(1);
-  });
-
-  it("무작위 값이 4 이상 일때", () => {
-    expect(1).toBe(0);
+  it("0~9 숫자만 출력된다.", () => {
+    expect(getRandomNumber()).toBeLessThan(10);
   });
 });
 
