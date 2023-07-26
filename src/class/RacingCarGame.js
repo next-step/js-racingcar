@@ -31,7 +31,7 @@ export default class RacingCarGame {
   onMultipleRoundEnd;
   onGameEnd;
   checkForAdvance;
-  validateCarName;
+  validateCarNames;
   onError;
 
   constructor({
@@ -43,7 +43,7 @@ export default class RacingCarGame {
     onMultipleRoundEnd,
     onGameEnd,
     checkForAdvance,
-    validateCarName,
+    validateCarNames,
     onError,
   }) {
     this.cars = new Map();
@@ -56,10 +56,24 @@ export default class RacingCarGame {
     this.onSingleRoundStart = onSingleRoundStart;
     this.onSingleRoundEnd = onSingleRoundEnd;
     this.checkForAdvance = checkForAdvance;
-    this.validateCarName = validateCarName;
+    this.validateCarNames = validateCarNames;
   }
 
-  startGame() {}
+  startGame() {
+    try {
+      const enteredCarNames = this.onGameStart();
+
+      this.validateCarNames(enteredCarNames);
+
+      this.settingCars(enteredCarNames);
+
+      this.executeMultipleRounds();
+
+      this.endGame();
+    } catch (error) {
+      this.onError(error);
+    }
+  }
 
   endGame() {
     this.onGameEnd(this.cars);
@@ -84,8 +98,8 @@ export default class RacingCarGame {
   // }
 
   settingCars(names) {
-    names.forEach((name) => {
-      this.cars.set(name, { distance: 0 });
+    names.forEach((name, index) => {
+      this.cars.set(`${name}-${index}`, { distance: 0, name });
     });
   }
 
