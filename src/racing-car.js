@@ -27,7 +27,8 @@ class RacingCar {
       '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n',
       (names) => {
         if (!this.validateInput(names)) {
-          this.exit();
+          this.printWrongInput();
+          return this.start();
         }
 
         this.printTitle();
@@ -92,6 +93,12 @@ class RacingCar {
 
   printWinners() {
     print(`${this.winners.join(', ')}가 최종 우승했습니다.`);
+  }
+
+  printWrongInput() {
+    print('');
+    print('잘못된 입력 값입니다. 다시 입력해주세요!');
+    print('');
   }
 
   exit() {
