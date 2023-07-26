@@ -1,22 +1,9 @@
-import { SETTING } from "./constants/setting";
+import { SETTING } from "./constants/setting.js";
 
 class CarRacingGame {
-	constructor() {
+	constructor(cars) {
 		this.gameCount = 0;
-		this.cars = [
-			{
-				name: "pobi",
-				position: 5,
-			},
-			{
-				name: "crong",
-				position: 3,
-			},
-			{
-				name: "honux",
-				position: 1,
-			},
-		];
+		this.cars = cars;
 	}
 
 	increaseGame() {
@@ -40,7 +27,7 @@ class CarRacingGame {
 			return acc;
 		});
 
-		return winner.name;
+		return `${winner.name}가 최종 우승했습니다.`;
 	}
 
 	endGame() {

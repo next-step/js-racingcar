@@ -1,5 +1,5 @@
-import { ERROR_MESSAGE } from "./constants/error";
-import { SETTING } from "./constants/setting";
+import { ERROR_MESSAGE } from "./constants/error.js";
+import { SETTING } from "./constants/setting.js";
 
 class ValidateInput {
 	constructor() {

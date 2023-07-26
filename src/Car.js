@@ -1,4 +1,4 @@
-import { SETTING } from "./constants/setting";
+import { SETTING } from "./constants/setting.js";
 class Car {
 	constructor(name) {
 		this.name = name;
