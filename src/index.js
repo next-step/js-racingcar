@@ -1,5 +1,6 @@
 import {Controller} from './controller/Controller';
 import {printRacingInfo} from './view/printRacingInfo';
+import {printWinners} from './view/printWinners';
 
 export function main() {
   const controller = new Controller();
@@ -14,4 +15,5 @@ export function main() {
 
   const racingResult = controller.getCarsDistance();
   const winners = controller.getMaximumDistanceCars(racingResult);
+  printWinners(winners);
 }
