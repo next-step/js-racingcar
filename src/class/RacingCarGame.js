@@ -2,7 +2,7 @@ export const DEFAULT_RACING_ROUND_NUMBER = 5;
 
 export default class RacingCarGame {
   cars;
-  roundNumbers;
+  roundNumber;
   onGameStart;
   onMultipleRoundStart;
   onSingleRoundStart;
@@ -14,7 +14,7 @@ export default class RacingCarGame {
   onError;
 
   constructor({
-    roundNumbers = DEFAULT_RACING_ROUND_NUMBER,
+    roundNumber = DEFAULT_RACING_ROUND_NUMBER,
     onGameStart = () => {
       return new Promise((resolve) => resolve([]));
     },
@@ -26,11 +26,13 @@ export default class RacingCarGame {
     checkForAdvance = () => {
       return false;
     },
-    validateCarNames = () => {},
+    validateCarNames = () => {
+      return new Promise();
+    },
     onError = () => {},
   }) {
     this.cars = new Map();
-    this.roundNumbers = roundNumbers;
+    this.roundNumber = roundNumber;
     this.onGameStart = onGameStart;
     this.onGameEnd = onGameEnd;
     this.onError = onError;
@@ -46,7 +48,7 @@ export default class RacingCarGame {
     try {
       const enteredCarNames = await this.onGameStart();
 
-      this.validateCarNames(enteredCarNames);
+      await this.validateCarNames(enteredCarNames);
 
       this.settingCars(enteredCarNames);
 
@@ -84,7 +86,7 @@ export default class RacingCarGame {
   executeMultipleRounds() {
     this.onMultipleRoundStart(this.cars);
 
-    Array.from({ length: this.roundNumbers }, () => {
+    Array.from({ length: this.roundNumber }, () => {
       this.executeOneRound();
     });
 
