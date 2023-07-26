@@ -1,5 +1,3 @@
-import { genRacingWinners } from '../utils/index.js';
-
 class RacingWinners {
   #racingWinners;
 
@@ -7,13 +5,38 @@ class RacingWinners {
     this.#racingWinners = [];
   }
 
-  static #searchRacingWinners(racingResult) {
-    return genRacingWinners(racingResult);
+  static createResultArray(racingResult) {
+    return racingResult
+      .at(-1)
+      .split('\n')
+      .map((s) => {
+        const [racer, distance] = [s.split(' : ')[0], s.split(' : ')[1].length];
+        return [racer, distance];
+      });
+  }
+
+  static createDistanceArray = (result) =>
+    result.map(([, distance]) => distance);
+
+  static createMaxDistance(result) {
+    const distanceArr = result.map(([, distance]) => distance);
+    return Math.max(...distanceArr);
+  }
+
+  static #isMaxDistance = (distance, maxDistance) => distance === maxDistance;
+
+  static createRacingWinners(racingResult) {
+    const result = RacingWinners.createResultArray(racingResult);
+    const maxDistance = RacingWinners.createMaxDistance(result);
+    return result
+      .filter(([, distance]) =>
+        RacingWinners.#isMaxDistance(distance, maxDistance),
+      )
+      .map(([racer]) => racer);
   }
 
   setRacingWinners(racingResult) {
-    const winners = RacingWinners.#searchRacingWinners(racingResult);
-    this.#racingWinners.push(...winners);
+    this.#racingWinners = RacingWinners.createRacingWinners(racingResult);
   }
 
   getRacingWinners() {
