@@ -1,11 +1,14 @@
 import App from '../src';
 import NumberMaker from '../src/NumberMaker';
 import { ERROR_MESSAGE, INPUT_MESSAGE } from '../src/constants';
-import { genRacingWinners } from '../src/utils';
-import { isMove } from '../src/utils/racingCars';
+import {
+  createRacingWinners,
+  containsAllRacers,
+  containsAllStatus,
+  isMove,
+} from './utils';
 import Validator from '../src/Validator.js';
 import { InputView, OutputView } from '../src/view';
-import { containsAllRacers, containsAllStatus } from './utils';
 
 jest.mock('node:readline/promises', () => ({
   createInterface: jest.fn().mockReturnValue({
@@ -78,7 +81,7 @@ describe('자동차 경주 기능 관련 테스트', () => {
 
 describe('자동차 게임 우승자 출력 테스트', () => {
   test('자동차 게임이 완료되었을 때 우승자는 최소 1명 이상 나올 수 있다.', () => {
-    const winners = genRacingWinners([
+    const winners = createRacingWinners([
       'jiny : -\nmouse : -',
       'jiny : -\nmouse : --',
       'jiny : --\nmouse : ---',
