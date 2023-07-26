@@ -23,8 +23,16 @@ export default class RacingModel {
   }
 
   getWinners() {
-    const maxPositionValue = Math.max(...this.carList.map((car) => car.position));
-    const winners = this.carList.filter((car) => car.position === maxPositionValue);
+    const maxPositionValue = Math.max(
+      ...this.carList.map((car) => car.position)
+    );
+    const winners = this.carList.filter(
+      (car) => car.position === maxPositionValue
+    );
+
+    if (maxPositionValue === 0) {
+      return [];
+    }
 
     return [...winners.map((winner) => winner.name)];
   }
