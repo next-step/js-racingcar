@@ -36,15 +36,17 @@ export default class RacingCarGame {
 
   constructor({
     roundNumbers = DEFAULT_RACING_ROUND_NUMBER,
-    onGameStart,
-    onMultipleRoundStart,
-    onSingleRoundStart,
-    onSingleRoundEnd,
-    onMultipleRoundEnd,
-    onGameEnd,
-    checkForAdvance,
-    validateCarNames,
-    onError,
+    onGameStart = () => {},
+    onMultipleRoundStart = () => {},
+    onSingleRoundStart = () => {},
+    onSingleRoundEnd = () => {},
+    onMultipleRoundEnd = () => {},
+    onGameEnd = () => {},
+    checkForAdvance = () => {
+      return false;
+    },
+    validateCarNames = () => {},
+    onError = () => {},
   }) {
     this.cars = new Map();
     this.racingRounds = roundNumbers;
@@ -109,6 +111,8 @@ export default class RacingCarGame {
   // }
 
   executeOneRound() {
+    this.onSingleRoundStart(this.cars);
+
     this.cars.forEach((carInfo, carName) => {
       if (this.checkForAdvance()) {
         carInfo.distance += 1;
@@ -116,7 +120,7 @@ export default class RacingCarGame {
       }
     });
 
-    // this.displayRacingBoard();
+    this.onSingleRoundEnd(this.cars);
   }
 
   // checkForAdvance() {
@@ -131,7 +135,13 @@ export default class RacingCarGame {
   // }
 
   executeMultipleRounds() {
-    Array.from({ length: this.racingRounds }, () => this.executeOneRound());
+    this.onMultipleRoundStart(this.cars);
+
+    Array.from({ length: this.racingRounds }, () => {
+      this.executeOneRound();
+    });
+
+    this.onMultipleRoundEnd(this.cars);
   }
 
   // getWinners() {
