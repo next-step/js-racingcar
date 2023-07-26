@@ -9,7 +9,7 @@ const CAR_NAME_SEPARATOR = ",";
 const CAR_NAME_MAX_LENGTH = 5;
 const CAR_NAME_MIN_LENGTH = 1;
 
-const CAR_RACE_TITLE = "실행 결과";
+const CAR_RACE_TITLE = "\n실행 결과";
 
 const ERROR_MESSAGES = {
   INVALID_EMPTY_NAME: "자동차 이름은 빈값일 수 없습니다.",
@@ -73,12 +73,25 @@ const handleError = (error) => {
   }
 };
 
+const handleMultipleRoundsStart = () => {
+  console.log(CAR_RACE_TITLE);
+};
+
+const handleSingleRoundEnd = (cars) => {
+  cars.forEach((carInfo, carName) => {
+    console.log(`${carName} : ${RACING_SCORE_CHAR.repeat(carInfo.distance)}`);
+  });
+  console.log("");
+};
+
 const racingCarGame = new RacingCarGame({
   roundNumbers: RACING_ROUNDS,
   onGameStart: handleGameStart,
   onGameEnd: handleGameEnd,
   validateCarNames,
   onError: handleError,
+  onMultipleRoundStart: handleMultipleRoundsStart,
+  onSingleRoundEnd: handleSingleRoundEnd,
 });
 
 racingCarGame.startGame();

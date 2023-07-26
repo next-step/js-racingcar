@@ -30,7 +30,7 @@ export default class RacingCarGame {
     onError = () => {},
   }) {
     this.cars = new Map();
-    this.racingRounds = roundNumbers;
+    this.roundNumbers = roundNumbers;
     this.onGameStart = onGameStart;
     this.onGameEnd = onGameEnd;
     this.onError = onError;
