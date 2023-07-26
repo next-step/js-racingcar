@@ -19,7 +19,7 @@ export default class RacingModel {
   }
 
   settingCarPosition(carIndex) {
-    this.carList[carIndex].position++;
+    this.carList[carIndex].position += 1;
   }
 
   getWinners() {
