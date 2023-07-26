@@ -1,3 +1,4 @@
+import { SETTING } from "./constants/setting";
 class Car {
 	constructor(name) {
 		this.name = name;
@@ -13,7 +14,7 @@ class Car {
 	}
 
 	move(randomValue) {
-		if (randomValue >= 4) {
+		if (randomValue >= SETTING.CAR_SETTING.CAN_MOVE_NUM) {
 			this.position += 1;
 		}
 	}

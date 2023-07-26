@@ -5,6 +5,12 @@ const INPUT_SETTING = {
 	REGEX: /^[a-zA-Z]*$/,
 };
 
+const CAR_SETTING = {
+	CAR_NAME: "pobi",
+	CAN_MOVE_NUM: 4,
+};
+
 export const SETTING = {
 	INPUT_SETTING,
+	CAR_SETTING,
 };

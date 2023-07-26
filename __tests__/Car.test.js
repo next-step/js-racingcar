@@ -1,13 +1,13 @@
 import Car from "../src/Car";
-
+import { SETTING } from "../src/constants/setting";
 describe("Car action", () => {
 	let car;
 	beforeEach(() => {
-		car = new Car("pobi");
+		car = new Car(SETTING.CAR_SETTING.CAR_NAME);
 	});
 
 	it("자동차가 생성되었을 떄, 자동차의 이름은 입력한 이름과 같아야 합니다.", () => {
-		expect(car.getName).toBe("pobi");
+		expect(car.getName).toBe(SETTING.CAR_SETTING.CAR_NAME);
 	});
 
 	it("자동차가 생성되었을 때, 자동차의 위치는 0이어야 합니다.", () => {
