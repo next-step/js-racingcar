@@ -1,5 +1,31 @@
 export default class RacingModel {
+  carList;
+
   constructor() {
-    this.carList = [];
+    this.carList = []; // 자동차를 담는 변수
+  }
+
+  settingCarName(carNames) {
+    carNames.forEach((carName) => {
+      this.carList.push({
+        name: carName,
+        position: 0,
+      });
+    });
+  }
+
+  getCarInfo() {
+    return this.carList;
+  }
+
+  settingCarPosition(carIndex) {
+    this.carList[carIndex].position++;
+  }
+
+  getWinners() {
+    const maxPositionValue = Math.max(...this.carList.map((car) => car.position));
+    const winners = this.carList.filter((car) => car.position === maxPositionValue);
+
+    return [...winners.map((winner) => winner.name)];
   }
 }

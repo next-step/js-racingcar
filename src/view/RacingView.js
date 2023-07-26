@@ -1,15 +1,20 @@
-const readline = require("readline");
+export default class RacingView {
+  racingModel;
 
-const readlineInterface = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+  constructor(racingModel) {
+    this.racingModel = racingModel;
+  }
 
-export default function inputCarNames() {
-  return new Promise((resolve) => {
-    readlineInterface.question("자동차의 이름을 입력해주세요.(각각의 이름은 콤마로 구분합니다.): ", (carNames) => {
-      readlineInterface.close();
-      resolve(carNames);
+  showRacingGameProgress() {
+    const carList = this.racingModel.getCarInfo();
+
+    carList.forEach((car) => {
+      console.log(`${car.name}: ${"-".repeat(car.position)}\n`);
     });
-  });
+  }
+
+  showRacingGameWinners() {
+    const winners = this.racingModel.getWinners();
+    console.log(`우승자는 ${[...winners]}입니다`);
+  }
 }
