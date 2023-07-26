@@ -1,4 +1,3 @@
-import * as readline from "readline";
 import {
   CAR_NAME_INPUT_GUIDE,
   CAR_NAME_MAX_LENGTH,
@@ -13,12 +12,14 @@ import {
   WINNER_ANNOUNCEMENT_MESSAGE,
 } from "../data/constants";
 
-class RacingCarGameError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = RACING_CAR_ERROR_NAME;
-  }
-}
+// class RacingCarGameError extends Error {
+//   constructor(message) {
+//     super(message);
+//     this.name = RACING_CAR_ERROR_NAME;
+//   }
+// }
+
+export const DEFAULT_RACING_ROUND_NUMBER = 5;
 
 export default class RacingCarGame {
   cars;
@@ -33,60 +34,54 @@ export default class RacingCarGame {
   validateCarName;
   onError;
 
-  constructor() {
+  constructor({
+    roundNumbers = DEFAULT_RACING_ROUND_NUMBER,
+    onGameStart,
+    onMultipleRoundStart,
+    onSingleRoundStart,
+    onSingleRoundEnd,
+    onMultipleRoundEnd,
+    onGameEnd,
+    checkForAdvance,
+    validateCarName,
+    onError,
+  }) {
     this.cars = new Map();
-    this.readline = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-    this.racingRounds = RACING_ROUNDS;
+    this.racingRounds = roundNumbers;
+    this.onGameStart = onGameStart;
+    this.onGameEnd = onGameEnd;
+    this.onError = onError;
+    this.onMultipleRoundEnd = onMultipleRoundEnd;
+    this.onMultipleRoundStart = onMultipleRoundStart;
+    this.onSingleRoundStart = onSingleRoundStart;
+    this.onSingleRoundEnd = onSingleRoundEnd;
+    this.checkForAdvance = checkForAdvance;
+    this.validateCarName = validateCarName;
   }
 
-  startGame() {
-    this.readline.question(CAR_NAME_INPUT_GUIDE, (answer) => {
-      const splitedAnswer = answer.split(CAR_NAME_SEPARATOR);
-
-      try {
-        this.validateCarName(splitedAnswer);
-
-        this.settingCars(splitedAnswer);
-
-        this.displayRacingTitle();
-
-        this.executeMultipleRounds();
-
-        this.displayWinners();
-      } catch (error) {
-        if (error instanceof Error && error.name === RACING_CAR_ERROR_NAME) {
-          console.log(error.message);
-        }
-      } finally {
-        this.endGame();
-      }
-    });
-  }
+  startGame() {}
 
   endGame() {
-    this.readline.close();
+    this.onGameEnd(this.cars);
   }
 
-  validateCarName(names) {
-    for (const name of names) {
-      if (name.trim().length < CAR_NAME_MIN_LENGTH) {
-        throw new RacingCarGameError(ERROR_MESSAGES.INVALID_EMPTY_NAME);
-      }
+  // validateCarName(names) {
+  //   for (const name of names) {
+  //     if (name.trim().length < CAR_NAME_MIN_LENGTH) {
+  //       throw new RacingCarGameError(ERROR_MESSAGES.INVALID_EMPTY_NAME);
+  //     }
 
-      if (name.length > CAR_NAME_MAX_LENGTH) {
-        throw new RacingCarGameError(ERROR_MESSAGES.INVALID_NAME_LENGTH);
-      }
-    }
+  //     if (name.length > CAR_NAME_MAX_LENGTH) {
+  //       throw new RacingCarGameError(ERROR_MESSAGES.INVALID_NAME_LENGTH);
+  //     }
+  //   }
 
-    const uniqueCarNames = new Set(names.map((name) => name.trim()));
+  //   const uniqueCarNames = new Set(names.map((name) => name.trim()));
 
-    if (names.length !== uniqueCarNames.size) {
-      throw new RacingCarGameError(ERROR_MESSAGES.DUPLICATE_CAR_NAME);
-    }
-  }
+  //   if (names.length !== uniqueCarNames.size) {
+  //     throw new RacingCarGameError(ERROR_MESSAGES.DUPLICATE_CAR_NAME);
+  //   }
+  // }
 
   settingCars(names) {
     names.forEach((name) => {
@@ -94,10 +89,10 @@ export default class RacingCarGame {
     });
   }
 
-  displayRacingTitle() {
-    console.log("");
-    console.log(CAR_RACE_TITLE);
-  }
+  // displayRacingTitle() {
+  //   console.log("");
+  //   console.log(CAR_RACE_TITLE);
+  // }
 
   executeOneRound() {
     this.cars.forEach((carInfo, carName) => {
@@ -107,46 +102,46 @@ export default class RacingCarGame {
       }
     });
 
-    this.displayRacingBoard();
+    // this.displayRacingBoard();
   }
 
-  checkForAdvance() {
-    return Math.random() * 9 >= 4;
-  }
+  // checkForAdvance() {
+  //   return Math.random() * 9 >= 4;
+  // }
 
-  displayRacingBoard() {
-    this.cars.forEach((carInfo, carName) => {
-      console.log(`${carName} : ${RACING_SCORE_CHAR.repeat(carInfo.distance)}`);
-    });
-    console.log("");
-  }
+  // displayRacingBoard() {
+  //   this.cars.forEach((carInfo, carName) => {
+  //     console.log(`${carName} : ${RACING_SCORE_CHAR.repeat(carInfo.distance)}`);
+  //   });
+  //   console.log("");
+  // }
 
   executeMultipleRounds() {
     Array.from({ length: this.racingRounds }, () => this.executeOneRound());
   }
 
-  getWinners() {
-    const distanceArray = [...this.cars.values()].map((el) => el.distance);
-    const maxDistance = Math.max(...distanceArray);
+  // getWinners() {
+  //   const distanceArray = [...this.cars.values()].map((el) => el.distance);
+  //   const maxDistance = Math.max(...distanceArray);
 
-    if (maxDistance === 0) {
-      return [];
-    }
+  //   if (maxDistance === 0) {
+  //     return [];
+  //   }
 
-    return [...this.cars.keys()].filter(
-      (car) => this.cars.get(car).distance === maxDistance
-    );
-  }
+  //   return [...this.cars.keys()].filter(
+  //     (car) => this.cars.get(car).distance === maxDistance
+  //   );
+  // }
 
-  displayWinners() {
-    const winners = this.getWinners();
+  // displayWinners() {
+  //   const winners = this.getWinners();
 
-    if (winners.length < 1) {
-      console.log(NO_WINNER_MESSAGE);
-    } else {
-      console.log(
-        `${winners.join(CAR_NAME_SEPARATOR)}${WINNER_ANNOUNCEMENT_MESSAGE}`
-      );
-    }
-  }
+  //   if (winners.length < 1) {
+  //     console.log(NO_WINNER_MESSAGE);
+  //   } else {
+  //     console.log(
+  //       `${winners.join(CAR_NAME_SEPARATOR)}${WINNER_ANNOUNCEMENT_MESSAGE}`
+  //     );
+  //   }
+  // }
 }
