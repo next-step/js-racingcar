@@ -1,24 +1,3 @@
-import {
-  CAR_NAME_INPUT_GUIDE,
-  CAR_NAME_MAX_LENGTH,
-  CAR_NAME_SEPARATOR,
-  CAR_RACE_TITLE,
-  RACING_CAR_ERROR_NAME,
-  ERROR_MESSAGES,
-  RACING_SCORE_CHAR,
-  RACING_ROUNDS,
-  CAR_NAME_MIN_LENGTH,
-  NO_WINNER_MESSAGE,
-  WINNER_ANNOUNCEMENT_MESSAGE,
-} from "../data/constants";
-
-// class RacingCarGameError extends Error {
-//   constructor(message) {
-//     super(message);
-//     this.name = RACING_CAR_ERROR_NAME;
-//   }
-// }
-
 export const DEFAULT_RACING_ROUND_NUMBER = 5;
 
 export default class RacingCarGame {
@@ -36,7 +15,9 @@ export default class RacingCarGame {
 
   constructor({
     roundNumbers = DEFAULT_RACING_ROUND_NUMBER,
-    onGameStart = () => {},
+    onGameStart = () => {
+      return new Promise((resolve) => resolve([]));
+    },
     onMultipleRoundStart = () => {},
     onSingleRoundStart = () => {},
     onSingleRoundEnd = () => {},
@@ -61,19 +42,19 @@ export default class RacingCarGame {
     this.validateCarNames = validateCarNames;
   }
 
-  startGame() {
+  async startGame() {
     try {
-      const enteredCarNames = this.onGameStart();
+      const enteredCarNames = await this.onGameStart();
 
       this.validateCarNames(enteredCarNames);
 
       this.settingCars(enteredCarNames);
 
       this.executeMultipleRounds();
-
-      this.endGame();
     } catch (error) {
       this.onError(error);
+    } finally {
+      this.endGame();
     }
   }
 
@@ -114,7 +95,7 @@ export default class RacingCarGame {
     this.onSingleRoundStart(this.cars);
 
     this.cars.forEach((carInfo, carName) => {
-      if (this.checkForAdvance()) {
+      if (this.checkForAdvance(carName)) {
         carInfo.distance += 1;
         this.cars.set(carName, carInfo);
       }
