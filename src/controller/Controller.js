@@ -1,7 +1,13 @@
+import {Car} from '../model/Car';
+
 export class Controller {
   static MAXIMUM_CAR_NAME_LENGTH = 5;
   static FORWARD_THRESHOLD = 4;
   #cars = [];
+
+  createCars = carNames => {
+    this.#cars = carNames.map(carName => new Car(carName));
+  };
 
   race = () => {
     this.#currentRaceNumber += 1;
