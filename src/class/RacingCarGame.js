@@ -26,9 +26,7 @@ export default class RacingCarGame {
     checkForAdvance = () => {
       return false;
     },
-    validateCarNames = () => {
-      return new Promise();
-    },
+    validateCarNames = () => {},
     onError = () => {},
   }) {
     this.cars = new Map();
