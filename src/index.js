@@ -1,3 +1,4 @@
-import inputCarNames from "./view/RacingView";
+import RacingController from "./controllers/RacingController";
 
-inputCarNames();
+const gameController = new RacingController();
+gameController.initCarNamesBeforeStartRacingGame();
