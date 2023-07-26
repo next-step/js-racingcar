@@ -61,6 +61,6 @@ describe("CarRacingGame", () => {
 		];
 
 		const winner = carRacingGame.getWinner();
-		expect(winner).toBe("pobi");
+		expect(winner).toBe("pobi가 최종 우승했습니다.");
 	});
 });
