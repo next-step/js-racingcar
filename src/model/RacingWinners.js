@@ -1,3 +1,5 @@
+import { SEPERATOR_SYMBOLS } from '../constants';
+
 class RacingWinners {
   #racingWinners;
 
@@ -6,14 +8,14 @@ class RacingWinners {
   }
 
   static #seperateCarNameAndDistance(resultString) {
-    const [racer, distance] = resultString.split(' : ');
+    const [racer, distance] = resultString.split(SEPERATOR_SYMBOLS.COLON);
     return [racer, distance.length];
   }
 
   static #createFinalResultArray(racingResult) {
     return racingResult
       .at(-1)
-      .split('\n')
+      .split(SEPERATOR_SYMBOLS.NEW_LINE)
       .map((s) => RacingWinners.#seperateCarNameAndDistance(s));
   }
 

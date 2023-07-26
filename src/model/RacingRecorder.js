@@ -1,3 +1,4 @@
+import { SEPERATOR_SYMBOLS } from '../constants/commons.js';
 import RacingWinners from './RacingWinners.js';
 
 class RacingRecorder {
@@ -12,8 +13,8 @@ class RacingRecorder {
 
   static #createNewResult(newMoveStatus) {
     return Object.entries({ ...newMoveStatus })
-      .map((racerInfo) => racerInfo.join(' : '))
-      .join('\n');
+      .map((racerInfo) => racerInfo.join(SEPERATOR_SYMBOLS.COLON))
+      .join(SEPERATOR_SYMBOLS.NEW_LINE);
   }
 
   #setRacingResult(newResult) {
