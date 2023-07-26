@@ -98,8 +98,8 @@ export default class RacingCarGame {
   // }
 
   settingCars(names) {
-    names.forEach((name, index) => {
-      this.cars.set(`${name}-${index}`, { distance: 0, name });
+    names.forEach((name) => {
+      this.cars.set(name, { distance: 0 });
     });
   }
 
