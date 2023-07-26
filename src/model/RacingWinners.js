@@ -5,33 +5,31 @@ class RacingWinners {
     this.#racingWinners = [];
   }
 
-  static createResultArray(racingResult) {
+  static #seperateCarNameAndDistance(resultString) {
+    const [racer, distance] = resultString.split(' : ');
+    return [racer, distance.length];
+  }
+
+  static #createFinalResultArray(racingResult) {
     return racingResult
       .at(-1)
       .split('\n')
-      .map((s) => {
-        const [racer, distance] = [s.split(' : ')[0], s.split(' : ')[1].length];
-        return [racer, distance];
-      });
+      .map((s) => RacingWinners.#seperateCarNameAndDistance(s));
   }
 
-  static createDistanceArray = (result) =>
-    result.map(([, distance]) => distance);
-
-  static createMaxDistance(result) {
-    const distanceArr = result.map(([, distance]) => distance);
-    return Math.max(...distanceArr);
+  static #createDistanceArray(result) {
+    return result.map(([, distance]) => distance);
   }
 
-  static #isMaxDistance = (distance, maxDistance) => distance === maxDistance;
+  static #createMaxDistance(result) {
+    return Math.max(...RacingWinners.#createDistanceArray(result));
+  }
 
   static createRacingWinners(racingResult) {
-    const result = RacingWinners.createResultArray(racingResult);
-    const maxDistance = RacingWinners.createMaxDistance(result);
-    return result
-      .filter(([, distance]) =>
-        RacingWinners.#isMaxDistance(distance, maxDistance),
-      )
+    const finalResult = RacingWinners.#createFinalResultArray(racingResult);
+    const maxDistance = RacingWinners.#createMaxDistance(finalResult);
+    return finalResult
+      .filter(([, distance]) => distance === maxDistance)
       .map(([racer]) => racer);
   }
 
