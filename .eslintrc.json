@@ -1,5 +1,7 @@
 {
-  "rules": {},
+  "rules": {
+    "comma-dangle": ["error", "never"]
+  },
   "env": {
     "es6": true,
     "node": true
