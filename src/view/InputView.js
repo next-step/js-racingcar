@@ -1,7 +1,6 @@
 import { INPUT_MESSAGE } from '../constants/index.js';
 import Validator from '../Validator.js';
 import { convertStringToArray, createReadMachine } from '../utils/index.js';
-import OutputView from './OutputView.js';
 
 const InputView = (function InputView() {
   const createUserInputByQuestion = async (message) => {
@@ -11,19 +10,10 @@ const InputView = (function InputView() {
     return userInput;
   };
 
-  const processException = ({ message, error, getUserInput }) => {
-    OutputView.print(error.message);
-    return getUserInput(message);
-  };
-
   const getUserInput = async (message) => {
-    try {
-      const userInput = await createUserInputByQuestion(message);
-      Validator.check(userInput, message);
-      return userInput;
-    } catch (error) {
-      return processException({ message, error, getUserInput });
-    }
+    const userInput = await createUserInputByQuestion(message);
+    Validator.check(userInput, message);
+    return userInput;
   };
 
   const processUserInput = (userInput, message) => {
