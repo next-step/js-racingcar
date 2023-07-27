@@ -21,14 +21,15 @@ const cars = TEMP_INPUT.split(",").map((carName) => new Car(carName));
 const carRacingGame = new CarRacingGame(cars);
 // 3. 게임 진행
 
+console.log("실행 결과");
 while (carRacingGame.gameCount < 5) {
 	carRacingGame.increaseGame();
-	cars.forEach((car) => car.move(carRacingGame.getRandomValue()));
-	console.log(carRacingGame.getCarsStatus());
+	cars.forEach((car) => car.move(carRacingGame.getRandomValue));
+	console.log(carRacingGame.getCarsStatus);
 }
 
 // 4. 우승자 출력
-console.log(carRacingGame.getWinner());
+console.log(carRacingGame.getWinner);
 
 // 5. 게임 종료
 carRacingGame.endGame();

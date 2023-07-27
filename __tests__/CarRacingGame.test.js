@@ -16,7 +16,7 @@ describe("CarRacingGame", () => {
 	});
 
 	it("게임 1회 진행시 랜덤값이 0~9 사이의 값으로 출력되어야 합니다.", () => {
-		const randomValue = carRacingGame.getRandomValue();
+		const randomValue = carRacingGame.getRandomValue;
 		expect(randomValue).toBeGreaterThanOrEqual(
 			SETTING.CAR_RACING_GAME_SETTING.RANDOM_MIN
 		);
@@ -40,7 +40,7 @@ describe("CarRacingGame", () => {
 				position: 1,
 			},
 		];
-		const carStatus = carRacingGame.getCarsStatus();
+		const carStatus = carRacingGame.getCarsStatus;
 		expect(carStatus).toBe("pobi : -----\ncrong : ---\nhonux : -");
 	});
 
@@ -60,7 +60,27 @@ describe("CarRacingGame", () => {
 			},
 		];
 
-		const winner = carRacingGame.getWinner();
+		const winner = carRacingGame.getWinner;
 		expect(winner).toBe("pobi가 최종 우승했습니다.");
+	});
+
+	it("게임이 끝나면 우승자를 알려줘야 합니다.(중복 우승자)", () => {
+		carRacingGame.cars = [
+			{
+				name: "pobi",
+				position: 5,
+			},
+			{
+				name: "crong",
+				position: 5,
+			},
+			{
+				name: "honux",
+				position: 1,
+			},
+		];
+
+		const winner = carRacingGame.getWinner;
+		expect(winner).toBe("pobi, crong가 최종 우승했습니다.");
 	});
 });
