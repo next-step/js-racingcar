@@ -45,7 +45,10 @@
   "jest": {
     "transform": {
       "\\.[jt]sx?$": "babel-jest"
-    }
+    },
+    "testPathIgnorePatterns": [
+      "constants.js"
+    ]
   },
   "babel": {
     "presets": [
