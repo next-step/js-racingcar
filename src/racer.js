@@ -1,11 +1,10 @@
-import { getRaceRandomNumber } from './utils/race.util.js';
-import { print } from './utils/common.util.js';
+import { getRandomNumber, print } from './utils/common.util.js';
 
 class Racer {
   #MOVE_THRESHOLD = 4;
 
   goForward(racer) {
-    const isGo = this.checkGo(getRaceRandomNumber());
+    const isGo = this.checkGo(getRandomNumber(0, 9));
     if (isGo) {
       racer.state += '-';
     }

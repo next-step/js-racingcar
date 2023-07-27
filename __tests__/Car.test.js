@@ -1,6 +1,6 @@
-import { getRaceRandomNumber } from '../src/utils/race.util.js';
 import RacingCar from '../src/racing-car.js';
 import Racer from '../src/racer.js';
+import { getRandomNumber } from '../src/utils/common.util.js';
 
 const racingCar = new RacingCar();
 const racer = new Racer();
@@ -57,7 +57,7 @@ describe('Racing Car Game', () => {
   it('Go and GoCheck', () => {
     initialize();
 
-    const randomNumber = getRaceRandomNumber();
+    const randomNumber = getRandomNumber(0, 9);
     expect(randomNumber).toBeGreaterThanOrEqual(0);
     expect(randomNumber).toBeLessThanOrEqual(9);
 
