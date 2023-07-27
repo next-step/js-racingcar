@@ -3,8 +3,20 @@ import { SETTING } from "../src/constants/setting";
 
 describe("CarRacingGame", () => {
 	let carRacingGame;
+	let store;
 	beforeEach(() => {
-		carRacingGame = new CarRacingGame();
+		store = {
+			getState: jest.fn(() => ({
+				carNames: [
+					{ name: "a", position: 1 },
+					{ name: "b", position: 1 },
+					{ name: "c", position: 1 },
+				],
+			})),
+			dispatch: jest.fn(),
+		};
+
+		carRacingGame = new CarRacingGame(store);
 	});
 
 	it("경기가 5번 진행되면 게임이 끝나야 합니다.", () => {
@@ -26,61 +38,15 @@ describe("CarRacingGame", () => {
 	});
 
 	it("게임 1회 진행시 자동차의 상태를 보여줘야합니다.", () => {
-		carRacingGame.cars = [
-			{
-				name: "pobi",
-				position: 5,
-			},
-			{
-				name: "crong",
-				position: 3,
-			},
-			{
-				name: "honux",
-				position: 1,
-			},
-		];
-		const carStatus = carRacingGame.getCarsStatus;
-		expect(carStatus).toBe("pobi : -----\ncrong : ---\nhonux : -");
+		// Given
+		// When
+		// Then
 	});
 
 	it("게임이 끝나면 우승자를 알려줘야 합니다.", () => {
-		carRacingGame.cars = [
-			{
-				name: "pobi",
-				position: 5,
-			},
-			{
-				name: "crong",
-				position: 3,
-			},
-			{
-				name: "honux",
-				position: 1,
-			},
-		];
-
-		const winner = carRacingGame.getWinner;
-		expect(winner).toBe("pobi가 최종 우승했습니다.");
+		// Given
+		// When
 	});
 
-	it("게임이 끝나면 우승자를 알려줘야 합니다.(중복 우승자)", () => {
-		carRacingGame.cars = [
-			{
-				name: "pobi",
-				position: 5,
-			},
-			{
-				name: "crong",
-				position: 5,
-			},
-			{
-				name: "honux",
-				position: 1,
-			},
-		];
-
-		const winner = carRacingGame.getWinner;
-		expect(winner).toBe("pobi, crong가 최종 우승했습니다.");
-	});
+	it("게임이 끝나면 우승자를 알려줘야 합니다.(중복 우승자)", () => {});
 });

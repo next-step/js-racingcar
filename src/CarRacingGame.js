@@ -1,17 +1,12 @@
 import { SETTING } from "./constants/setting.js";
+import { setRaceResult, setCarNames } from "./actions/carActions.js";
 
 class CarRacingGame {
-	constructor(cars) {
+	constructor(store) {
+		this.store = store;
 		this.gameCount = 0;
-		this.cars = cars;
+		this.cars = store.getState().carNames;
 	}
-
-	get getCarsStatus() {
-		return this.cars
-			.map((car) => `${car.name} : ${"-".repeat(car.position)}`)
-			.join("\n");
-	}
-
 	get getWinner() {
 		const maxPosition = this.cars.reduce(
 			(max, { position }) => (max > position ? max : position),
@@ -20,12 +15,25 @@ class CarRacingGame {
 		const winners = this.cars.filter(
 			({ position }) => position === maxPosition
 		);
-		const winnerNames = winners.map(({ name }) => name).join(", ");
-
-		return `${winnerNames}가 최종 우승했습니다.`;
+		return winners;
 	}
+
 	get getRandomValue() {
 		return Math.floor(Math.random() * 10);
+	}
+
+	progressGame() {
+		while (this.gameCount < SETTING.CAR_RACING_GAME_SETTING.ROUND_END) {
+			const state = this.store.getState();
+			const carNames = state.carNames;
+
+			carNames.forEach((carName) => {
+				carName.move(this.getRandomValue);
+			});
+
+			this.increaseGame();
+			this.store.dispatch(setCarNames(carNames));
+		}
 	}
 
 	increaseGame() {
@@ -34,9 +42,8 @@ class CarRacingGame {
 			this.endGame();
 		}
 	}
-
 	endGame() {
-		console.log("게임 종료");
+		this.store.dispatch(setRaceResult(this.getWinner));
 	}
 }
 

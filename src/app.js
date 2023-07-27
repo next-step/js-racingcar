@@ -4,6 +4,8 @@ import { setCarNames, setRaceResult } from "../src/actions/carActions.js";
 import ValidateInput from "../src/ValidateInput.js";
 import CarRacingGame from "../src/CarRacingGame.js";
 import { SETTING } from "../src/constants/setting.js";
+import Car from "./Car.js";
+import RaceTrack from "./components/RaceTrack.js";
 
 export default function App() {
 	const store = createStore(carReducer, {
@@ -11,24 +13,29 @@ export default function App() {
 		raceResult: [],
 	});
 
-	this.getRandomNumber = () => {
-		return Math.floor(Math.random() * 10);
-	};
+	function startGame() {
+		const carRacingGame = new CarRacingGame(store);
+		carRacingGame.progressGame();
+	}
 
-	this.startGame = () => {
-		for (
-			let round = 0;
-			round < SETTING.CAR_RACING_GAME_SETTING.ROUND_END;
-			round++
-		) {
-			const state = store.getState();
-			const carNames = state.carNames;
+	function registerEvent() {
+		const $carNameInput = document.getElementById("carNames");
+		const $carNameSubmit = document.getElementById("startRace");
 
-			carNames.forEach((carName) => {
-				carName.move(getRandomNumber());
-			});
+		$carNameSubmit.addEventListener("click", (e) => {
+			e.preventDefault();
 
-			store.dispatch(setRaceResult(carNames));
-		}
-	};
+			const carNames = $carNameInput.value.split(",");
+			const cars = carNames.map((carName) => new Car(carName));
+			store.dispatch(setCarNames(cars));
+			startGame();
+		});
+	}
+
+	store.subscribe(() => {
+		const state = store.getState();
+		RaceTrack({ cars: state.carNames });
+	});
+
+	registerEvent();
 }

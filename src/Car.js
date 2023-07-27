@@ -2,7 +2,7 @@ import { SETTING } from "./constants/setting.js";
 class Car {
 	constructor(name) {
 		this.name = name;
-		this.position = 0;
+		this.position = 1;
 	}
 
 	get getName() {

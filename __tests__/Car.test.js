@@ -10,14 +10,16 @@ describe("Car action", () => {
 		expect(car.getName).toBe(SETTING.CAR_SETTING.CAR_NAME);
 	});
 
-	it("자동차가 생성되었을 때, 자동차의 위치는 0이어야 합니다.", () => {
+	it("자동차가 생성되었을 때, 자동차의 위치는 1이어야 합니다.", () => {
 		expect(car.getPosition).toBe(SETTING.CAR_SETTING.DEFAULT_POSITION);
 	});
 
-	it("4이상 값이 나온 경우, 0위치에 있는 자동차는 전진후 1이 되어야합니다..", () => {
+	it("4이상 값이 나온 경우, 1위치에 있는 자동차는 전진후 2이 되어야합니다..", () => {
 		if (car.getPosition === SETTING.CAR_SETTING.DEFAULT_POSITION) {
 			car.move(SETTING.CAR_SETTING.CAN_MOVE_NUM);
-			expect(car.getPosition).toBe(SETTING.CAR_SETTING.CAR_RUN_UNIT);
+			expect(car.getPosition).toBe(
+				SETTING.CAR_SETTING.DEFAULT_POSITION + SETTING.CAR_SETTING.CAR_RUN_UNIT
+			);
 		}
 	});
 
