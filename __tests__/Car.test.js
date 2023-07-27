@@ -1,14 +1,19 @@
 import App from '../src';
 import NumberMaker from '../src/NumberMaker';
-import { ERROR_MESSAGE, INPUT_MESSAGE } from '../src/constants';
+import {
+  AVALIABLE_RANDOM_NUMBER,
+  ERROR_MESSAGE,
+  INPUT_MESSAGE,
+} from '../src/constants';
 import {
   createRacingWinners,
   containsAllRacers,
   containsAllStatus,
-  isMove,
+  MockNumberMaker,
 } from './utils';
 import Validator from '../src/Validator.js';
 import { InputView, OutputView } from '../src/view';
+import { RacingCars } from '../src/model';
 
 jest.mock('node:readline/promises', () => ({
   createInterface: jest.fn().mockReturnValue({
@@ -69,13 +74,25 @@ describe('자동차 경주 기능 관련 테스트', () => {
     });
   });
 
-  test('전진하는 조건은 4 이상일 경우다.', () => {
-    const createRandomNumberMock = jest.fn();
-    NumberMaker.createRandomNumber = createRandomNumberMock;
-    createRandomNumberMock.mockReturnValue(4);
-    expect(isMove('jiny')).toBeTruthy();
-    createRandomNumberMock.mockReturnValue(3);
-    expect(isMove('pobi')).toBeFalsy();
+  test('모든 자동차들은 랜덤 숫자가 4 이상 일 경우에만 이동할 수 있다.', () => {
+    const racingCars = new RacingCars(MockNumberMaker);
+    const carNames = ['jiny', 'pobi', 'conan'];
+    racingCars.initMoveStatus(carNames);
+    const moveResult = racingCars.move(carNames);
+    expect(moveResult).toStrictEqual({
+      jiny: '-',
+      pobi: '-',
+      conan: '-',
+    });
+
+    const createRandomNumberForStop = () => AVALIABLE_RANDOM_NUMBER - 1;
+    MockNumberMaker.createRandomNumber = createRandomNumberForStop;
+    const stopResult = racingCars.move(carNames);
+    expect(stopResult).toStrictEqual({
+      jiny: '-',
+      pobi: '-',
+      conan: '-',
+    });
   });
 });
 

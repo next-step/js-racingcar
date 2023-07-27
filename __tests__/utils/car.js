@@ -1,4 +1,3 @@
-import NumberMaker from '../../src/NumberMaker';
 import { AVALIABLE_RANDOM_NUMBER } from '../../src/constants/index.js';
 
 export const containsAllRacers = (str) => {
@@ -11,9 +10,10 @@ export const containsAllStatus = (str) => {
   return patterns.every((pattern) => new RegExp(pattern).test(str));
 };
 
-export const isMove = (carName) => {
-  const randomNumber = NumberMaker.createRandomNumber(carName);
-  return randomNumber >= AVALIABLE_RANDOM_NUMBER;
+export const MockNumberMaker = {
+  createRandomNumber() {
+    return AVALIABLE_RANDOM_NUMBER;
+  },
 };
 
 export const createResultArray = (racingResult) =>
