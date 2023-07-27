@@ -1,11 +1,12 @@
-const DEFAULT_POSISION = 0
-export default class Car {
+import { DEFAULT_POSITION } from '../constants'
+
+export class Car {
   #name
   #position
 
   constructor(name) {
     this.#name = name
-    this.#position = DEFAULT_POSISION
+    this.#position = DEFAULT_POSITION
   }
 
   move(score) {
