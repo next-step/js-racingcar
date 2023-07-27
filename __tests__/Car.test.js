@@ -1,11 +1,31 @@
 import { CarRacingManager } from "../src/CarRacingManager";
 import { ERROR_MESSAGES, INTEGERS_UNDER_TEN } from "../src/constants";
+import { CarModel } from "../src/model/CarModel";
+
+const DEFAULT_NAME = "크롱";
 
 describe("자동자 경주 게임", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
   describe("경주 셋팅", () => {
+    test("자동차는 이름을 가진다.", () => {
+      const car = new CarModel(DEFAULT_NAME);
+
+      expect(car.name).toBe(DEFAULT_NAME);
+    });
+
+    test("자동차는 이름는 5자 이하만 가능하다.", () => {
+      expect(() => {
+        new CarModel("크롱크롱크롱");
+      }).toThrow(ERROR_MESSAGES.OVER_MAXIMUM_NAME_LENGTH);
+    });
+
+    test("자동차의 이름은 공백을 가질 수 없다.", () => {
+      expect(() => new CarModel("")).toThrow(ERROR_MESSAGES.WHITE_NAME);
+      expect(() => new CarModel("   ")).toThrow(ERROR_MESSAGES.WHITE_NAME);
+    });
+
     test("이름은 쉼표(,)를 기준으로 구분하여 받는다.", () => {
       const carRacingManager = new CarRacingManager();
 
