@@ -5,15 +5,10 @@ import {
   ERROR_MESSAGE,
   INPUT_MESSAGE,
 } from '../src/constants';
-import {
-  createRacingWinners,
-  containsAllRacers,
-  containsAllStatus,
-  MockNumberMaker,
-} from './utils';
+import { containsAllRacers, containsAllStatus, MockNumberMaker } from './utils';
 import Validator from '../src/Validator.js';
 import { InputView, OutputView } from '../src/view';
-import { RacingCars } from '../src/model';
+import { RacingCars, RacingWinners } from '../src/model';
 
 jest.mock('node:readline/promises', () => ({
   createInterface: jest.fn().mockReturnValue({
@@ -98,13 +93,15 @@ describe('자동차 경주 기능 관련 테스트', () => {
 
 describe('자동차 게임 우승자 출력 테스트', () => {
   test('자동차 게임이 완료되었을 때 우승자는 최소 1명 이상 나올 수 있다.', () => {
-    const winners = createRacingWinners([
+    const racingWinners = new RacingWinners();
+    racingWinners.setRacingWinners([
       'jiny : -\nmouse : -',
       'jiny : -\nmouse : --',
       'jiny : --\nmouse : ---',
       'jiny : ---\nmouse : ----',
       'jiny : -----\nmouse : -----',
     ]);
+    const winners = racingWinners.getRacingWinners();
     expect(winners).toStrictEqual(['jiny', 'mouse']);
   });
 });
