@@ -1,22 +1,26 @@
-const store = {
-	state: {},
-	listeners: [],
-	getState() {
-		return this._state;
-	},
+const createStore = (reducer, initialState) => {
+	let state = initialState;
+	const listeners = [];
 
-	setState(newState) {
-		this._state = newState;
-		this.listeners.forEach((listener) => listener());
-	},
+	const getState = () => state;
 
-	subscribe(listener) {
-		this.listeners.push(listener);
-	},
+	const dispatch = (action) => {
+		state = reducer(state, action);
+		listeners.forEach((listener) => listener());
+	};
+
+	const subscribe = (listener) => {
+		listeners.push(listener);
+		return () => {
+			listeners.splice(listeners.indexOf(listener), 1);
+		};
+	};
+
+	return {
+		getState,
+		dispatch,
+		subscribe,
+	};
 };
 
-store.subscribe(() => {
-	console.log("상태가 변경되었습니다 : ", store.getState());
-});
-
-export default store;
+export default createStore;

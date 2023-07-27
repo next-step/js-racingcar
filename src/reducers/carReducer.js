@@ -16,4 +16,4 @@ function carReducer(state = initialState, action) {
 	}
 }
 
-module.exports = carReducer;
+export default carReducer;

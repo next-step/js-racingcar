@@ -1,4 +1,4 @@
-import { ACTION_TYPES } from "../../src/constants/actionTypes";
+import { ACTION_TYPES } from "../../src/constants/actionTypes.js";
 
 const setCarNames = (carNames) => ({
 	type: ACTION_TYPES.SET_CAR_NAMES,
