@@ -1,3 +1,4 @@
+import NumberMaker from '../NumberMaker.js';
 import { EXIT_COUNT, INIT_RACING_COUNT } from '../constants/index.js';
 import { RacingCars, RacingRecorder } from './index.js';
 
@@ -10,7 +11,7 @@ class RacingTrack {
 
   constructor() {
     this.#racingCount = INIT_RACING_COUNT;
-    this.#racingCars = new RacingCars();
+    this.#racingCars = new RacingCars(NumberMaker);
     this.#racingRecorder = new RacingRecorder();
   }
 

@@ -1,4 +1,3 @@
-import NumberMaker from '../NumberMaker.js';
 import {
   AVALIABLE_RANDOM_NUMBER,
   CAR_STATUS_SYMBOLS,
@@ -9,9 +8,9 @@ class RacingCars {
 
   #numberMaker;
 
-  constructor() {
+  constructor(numberMaker) {
     this.#moveStatus = {};
-    this.#numberMaker = NumberMaker;
+    this.#numberMaker = numberMaker;
   }
 
   initMoveStatus(carNames) {
