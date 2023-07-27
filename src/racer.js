@@ -2,7 +2,7 @@ import { getRaceRandomNumber } from './utils/race.util.js';
 import { print } from './utils/common.util.js';
 
 class Racer {
-  #CHECK_RANDOM_NUMBER_MIN_VALUE = 4;
+  #MOVE_THRESHOLD = 4;
 
   goForward(racer) {
     const isGo = this.checkGo(getRaceRandomNumber());
@@ -16,7 +16,7 @@ class Racer {
   }
 
   checkGo(randomNumber) {
-    return randomNumber >= this.#CHECK_RANDOM_NUMBER_MIN_VALUE;
+    return randomNumber >= this.#MOVE_THRESHOLD;
   }
 }
 
