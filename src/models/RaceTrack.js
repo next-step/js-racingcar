@@ -1,5 +1,9 @@
-import { makeRandomNum } from '../utils'
 import { RACE_TURN_LIMIT } from '../constants'
+import {
+  findItemsWithCondition,
+  findMaxValue,
+  makeRandomNum,
+} from '../utils/helperUtils'
 
 export class RaceTrack {
   #raceCars
@@ -12,31 +16,37 @@ export class RaceTrack {
     this.#winners = []
   }
 
+  #findMaxPosition() {
+    return findMaxValue(this.#raceCars, (car) => car.getPosition())
+  }
+
+  #determineWinners(maxPosition) {
+    return findItemsWithCondition(
+      this.#raceCars,
+      (car) => car.getPosition() === maxPosition,
+      (car) => car.getName(),
+    )
+  }
+
+  #moveCars() {
+    this.#raceCars.forEach((car) => {
+      const score = makeRandomNum()
+      car.move(score)
+    })
+  }
+
+  #setWinners() {
+    const maxPosition = this.#findMaxPosition()
+    this.#winners = this.#determineWinners(maxPosition)
+  }
+
   race() {
     for (let turn = 1; turn <= RACE_TURN_LIMIT; turn++) {
       this.#turnCount = turn
-
-      this.#raceCars.forEach((car) => {
-        const score = makeRandomNum()
-        car.move(score)
-      })
+      this.#moveCars()
     }
 
     this.#setWinners()
-  }
-
-  // FIXME: setter 내부 로직 분리하기
-  #setWinners() {
-    let maxPosition = 0
-
-    this.#raceCars.forEach((car) => {
-      const position = car.getPosition()
-      if (position > maxPosition) maxPosition = position
-    })
-
-    this.#winners = this.#raceCars
-      .filter((car) => car.getPosition() === maxPosition)
-      .map((car) => car.getName())
   }
 
   get turnCount() {
