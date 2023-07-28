@@ -1,4 +1,9 @@
 const DIVIDER = "\n";
+const MESSAGES = Object.freeze({
+  INIT: "경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분).",
+  RESULT: "실행 결과",
+  WINNER_POSTFIX: "가 최종 우승했습니다.",
+});
 
 export default class View {
   #display(...rest) {
@@ -10,16 +15,11 @@ export default class View {
   }
 
   displayInitMessage() {
-    const INIT_MESSAGE =
-      "경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분).";
-
-    this.#display(INIT_MESSAGE);
+    this.#display(MESSAGES.INIT);
   }
 
   displayGuideMessage() {
-    const GUIDE_MESSAGE = "실행 결과";
-
-    this.#display(GUIDE_MESSAGE);
+    this.#display(MESSAGES.RESULT);
   }
 
   displayCarStatus(car) {
@@ -42,13 +42,12 @@ export default class View {
 
   displayGameResult(winners) {
     let result = "";
-    const POSTFIX = "가 최종 우승했습니다.";
 
     winners.forEach((winner) => {
       result += winner.name + " ";
     });
 
-    this.#display(result + POSTFIX);
+    this.#display(result + MESSAGES.WINNER_POSTFIX);
     this.displayDivider();
   }
 }
