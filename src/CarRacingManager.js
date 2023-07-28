@@ -3,10 +3,10 @@ import {
   GAME_MESSAGES,
   MOVEMENT_PRINT,
   NAME_SEPARATOR,
-} from "./constants";
-import { CarModel } from "./model/CarModel";
-import { GameModel } from "./model/GameModel";
-import { getRandomIntegerUnderTen, sleeping } from "./utils";
+} from "./constants.js";
+import { CarModel } from "./model/CarModel.js";
+import { GameModel } from "./model/GameModel.js";
+import { getRandomIntegerUnderTen, sleeping } from "./utils.js";
 
 export class CarRacingManager {
   #gameModel = new GameModel();
@@ -71,7 +71,6 @@ export class CarRacingManager {
     const maxMoveIndexes = this.getMaxIndexes(
       this.#gameModel.participants.map((car) => car.movement)
     );
-    console.log({ maxMoveIndexes });
 
     return maxMoveIndexes
       .map((v) => this.getParticipantsName()[v])
