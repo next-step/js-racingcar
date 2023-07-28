@@ -2,16 +2,15 @@ const { ERROR_MESSAGES } = require('./constants/messages.js');
 const { MAX_NAME_LENGTH, MIN_NAME_LENGTH, MAX_USER_COUNT, MIN_USER_COUNT } = require('./constants/racing-rule.js');
 
 class Validator {
-  static isValidNames(names) {
+  static isValidList(names) {
     this.isOverMaxUser(names);
     this.isUnderMaxUser(names);
-
-    names.forEach((name) => {
-      this.isUnderMaxLength(name);
-      this.isOverMaxLength(name);
-    });
-
     this.hasDuplicated(names);
+  }
+
+  static isValidName(name) {
+    this.isUnderMaxLength(name);
+    this.isOverMaxLength(name);
   }
 
   static isOverMaxUser(names) {

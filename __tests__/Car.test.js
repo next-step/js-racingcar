@@ -54,7 +54,7 @@ describe('사용자의 입력값을 받는다.', () => {
       const input = 'A,B,C';
       const slicedInput = splitByStandard(input);
 
-      Validator.isValidNames(slicedInput);
+      Validator.isValidList(slicedInput);
     }).not.toThrow();
   });
 
@@ -63,26 +63,26 @@ describe('사용자의 입력값을 받는다.', () => {
       const input = 'JAMES, KANE, MARK, ALEX, LEE';
       const slicedInput = splitByStandard(input);
 
-      Validator.isValidNames(slicedInput);
+      Validator.isValidList(slicedInput);
     }).not.toThrow();
   });
 
-  test(`입력값 중에 글자수가 ${MAX_NAME_LENGTH}자 초과가 존재하는 케이스 "JAMES, KANE, MARK, ALEXANDER"`, () => {
+  test(`참가자가 ${MIN_USER_COUNT}명 미만인 케이스 "JAMES"`, () => {
     expect(() => {
-      const input = 'JAMES, KANE, MARK, ALEXANDER';
+      const input = 'JAMES';
       const slicedInput = splitByStandard(input);
 
-      Validator.isValidNames(slicedInput);
-    }).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_NAME_LENGTH);
+      Validator.isValidList(slicedInput);
+    }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_USER_COUNT);
   });
 
-  test(`입력값 중에 글자수가 ${MIN_NAME_LENGTH}자 미만이 존재하는 케이스 ", KANE, MARK, ALEX"`, () => {
+  test('참가자가 중복된 케이스 "A,A,B,C,D,E"', () => {
     expect(() => {
-      const input = ', KANE, MARK, ALEX';
+      const input = 'A,A,B,C,D,E';
       const slicedInput = splitByStandard(input);
 
-      Validator.isValidNames(slicedInput);
-    }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_NAME_LENGTH);
+      Validator.isValidList(slicedInput);
+    }).toThrow(ERROR_MESSAGES.HAS_DUPLICATED_NAME);
   });
 
   /*
@@ -96,24 +96,6 @@ describe('사용자의 입력값을 받는다.', () => {
     expect(() => {}).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_USER_COUNT);
   });
   */
-
-  test(`참가자가 ${MIN_USER_COUNT}명 미만인 케이스 "JAMES"`, () => {
-    expect(() => {
-      const input = 'JAMES';
-      const slicedInput = splitByStandard(input);
-
-      Validator.isValidNames(slicedInput);
-    }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_USER_COUNT);
-  });
-
-  test('참가자가 중복된 케이스 "A,A,B,C,D,E"', () => {
-    expect(() => {
-      const input = 'A,A,B,C,D,E';
-      const slicedInput = splitByStandard(input);
-
-      Validator.isValidNames(slicedInput);
-    }).toThrow(ERROR_MESSAGES.HAS_DUPLICATED_NAME);
-  });
 });
 
 describe('자동차를 이동시킨다.', () => {
@@ -127,6 +109,24 @@ describe('자동차를 이동시킨다.', () => {
 
       expect([prevDistance + 1, prevDistance]).toContain(nextDistance);
     }
+  });
+});
+
+describe('자동차를 생성한다.', () => {
+  test(`이름이 ${MAX_NAME_LENGTH}자 초과인 케이스 "Calvin"`, () => {
+    expect(() => {
+      const input = 'Calvin';
+
+      Validator.isValidName(input);
+    }).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_NAME_LENGTH);
+  });
+
+  test(`이름이 ${MIN_NAME_LENGTH}자 미만인 케이스 " "`, () => {
+    expect(() => {
+      const input = '';
+
+      Validator.isValidName(input);
+    }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_NAME_LENGTH);
   });
 });
 

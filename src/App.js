@@ -32,8 +32,7 @@ class App {
     const nameList = splitByStandard(input);
 
     try {
-      Validator.isValidNames(nameList);
-
+      Validator.isValidList(nameList);
       this.#setCars(nameList);
       this.#startRacing();
     } catch (err) {
