@@ -6,7 +6,7 @@ import {
 } from "./constants.js";
 import { CarModel } from "./model/CarModel.js";
 import { GameModel } from "./model/GameModel.js";
-import { getRandomIntegerUnderTen, sleeping } from "./utils.js";
+import { getRandomNumberInRange, sleeping } from "./utils.js";
 
 export class CarRacingManager {
   #gameModel = new GameModel();
@@ -48,7 +48,7 @@ export class CarRacingManager {
 
   roundStart() {
     this.#gameModel.participants.forEach((car) => {
-      car.go(getRandomIntegerUnderTen());
+      car.go(getRandomNumberInRange());
       this.printCarAndMove(car.name, car.movement);
     });
   }

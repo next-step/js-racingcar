@@ -3,6 +3,6 @@ export const sleeping = (ms) => {
   while (Date.now() < wakeUpTime) {}
 };
 
-export const getRandomIntegerUnderTen = () => {
-  return Math.floor(Math.random() * 10);
+export const getRandomNumberInRange = (min = 0, max = 10) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
