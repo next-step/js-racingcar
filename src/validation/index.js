@@ -1,4 +1,5 @@
 import { isStringOverLength } from '../utils/common';
+import { ERROR_MESSAGE } from './errorMessage';
 
 export const checkOverStringLength = ({
   value,
@@ -12,6 +13,6 @@ export const checkOverStringLength = ({
 
 export const checkEmptyString = (value) => {
   if (!value.toString().trim().length) {
-    throw new Error('최소 한글자 이상의 문자열을 입력해주세요.');
+    throw new Error(ERROR_MESSAGE.EMPTY_STRING);
   }
 };

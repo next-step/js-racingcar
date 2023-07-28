@@ -1,5 +1,6 @@
 import { CAR_NAME_LENGTH_LIMIT } from '../src/constants';
 import Car from '../src/domain/car';
+import { ERROR_MESSAGE } from '../src/validation/errorMessage';
 
 describe('Car', () => {
   describe('자동차에 이름을 부여할 수 있다', () => {
@@ -16,17 +17,13 @@ describe('Car', () => {
 
   describe('자동차 이름은 5자리 이하만 가능하다.', () => {
     test.each([['자바스크립트'], ['json Moon']])('new Car(%s)', (carName) => {
-      expect(() => new Car(carName)).toThrowError(
-        `자동차 이름은 ${CAR_NAME_LENGTH_LIMIT}자리까지 가능합니다.`
-      );
+      expect(() => new Car(carName)).toThrowError(ERROR_MESSAGE.CAR_NAME_LIMIT);
     });
   });
 
   describe('공백 또는 빈문자열만 있는 이름은 부여할 수 없습니다.', () => {
     test.each([[' '], ['   '], ['']])('new Car(%s)', (carName) => {
-      expect(() => new Car(carName)).toThrowError(
-        `최소 한글자 이상의 문자열을 입력해주세요.`
-      );
+      expect(() => new Car(carName)).toThrowError(ERROR_MESSAGE.EMPTY_STRING);
     });
   });
 
