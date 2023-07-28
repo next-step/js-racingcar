@@ -16,7 +16,7 @@ describe("Single RacingGame (혼자하는 레이싱 게임)", () => {
   const CAN_GO_ROUNDS = RANDOM_NUMBERS.filter(
     (number) => number >= RUN_THRESHOLD
   ).length;
-  const EXPECT_POSITION = CAN_GO_ROUNDS * RUN_UNIT;
+  const EXPECT_POSITION = START_POSITION + CAN_GO_ROUNDS * RUN_UNIT;
 
   let racingGame = new RacingGame(GAME_SIZE, DEFAULT_CAR_NAME);
 

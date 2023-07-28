@@ -1,4 +1,4 @@
-export const START_POSITION = 0;
+export const START_POSITION = 1;
 export const RUN_THRESHOLD = 4;
 export const RUN_UNIT = 1;
 const MIN_NAME_LENGTH = 1;
@@ -22,6 +22,10 @@ export class Car {
   }
   getPosition() {
     return this.#position;
+  }
+
+  getPositionLog() {
+    return `${this.#name} : ${new Array(this.#position).fill("-")}`;
   }
 
   run(number) {

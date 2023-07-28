@@ -23,4 +23,11 @@ describe("Car", () => {
     car.run(3);
     expect(car.getPosition()).toBe(START_POSITION);
   });
+  it("자동차의 위치를 알 수 있다. (출력 가능한 형태", () => {
+    expect(car.getPositionLog()).toBe(`${DEFAULT_CAR_NAME} : -`);
+    car.run(4);
+    expect(car.getPositionLog()).toBe(
+      `${DEFAULT_CAR_NAME} : ${new Array(START_POSITION + RUN_UNIT).fill("-")}`
+    );
+  });
 });
