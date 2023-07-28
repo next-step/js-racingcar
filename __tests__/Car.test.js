@@ -1,6 +1,7 @@
 import { CarRacingManager } from "../src/CarRacingManager";
-import { ERROR_MESSAGES, INTEGERS_UNDER_TEN } from "../src/constants";
+import { ERROR_MESSAGES } from "../src/constants";
 import { CarModel } from "../src/model/CarModel";
+import { makeConsecutiveRangeArray } from "../src/utils";
 
 const DEFAULT_NAME = "크롱";
 
@@ -15,15 +16,10 @@ describe("자동자 경주 게임", () => {
       expect(car.name).toBe(DEFAULT_NAME);
     });
 
-    test("자동차는 이름는 5자 이하만 가능하다.", () => {
+    test("자동차의 이름은 5자 이하만 가능하다.", () => {
       expect(() => {
         new CarModel("크롱크롱크롱");
       }).toThrow(ERROR_MESSAGES.OVER_MAXIMUM_NAME_LENGTH);
-    });
-
-    test("자동차의 이름은 공백을 가질 수 없다.", () => {
-      expect(() => new CarModel("")).toThrow(ERROR_MESSAGES.WHITE_NAME);
-      expect(() => new CarModel("   ")).toThrow(ERROR_MESSAGES.WHITE_NAME);
     });
 
     test("자동차의 이름은 공백을 가질 수 없다.", () => {
@@ -57,7 +53,7 @@ describe("자동자 경주 게임", () => {
     test("전진하는 조건은 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다.", () => {
       const carRacingManager = new CarRacingManager();
 
-      INTEGERS_UNDER_TEN.forEach((v) => {
+      makeConsecutiveRangeArray(0, 9).forEach((v) => {
         if (v >= 4) {
           expect(carRacingManager.canMove(v)).toBeTruthy();
         } else {

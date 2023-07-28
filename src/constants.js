@@ -18,7 +18,3 @@ export const ERROR_MESSAGES = Object.freeze({
 export const NAME_SEPARATOR = ",";
 
 export const MOVEMENT_PRINT = "-";
-
-export const INTEGERS_UNDER_TEN = Array(10)
-  .fill(0)
-  .map((v, i) => v + i);
