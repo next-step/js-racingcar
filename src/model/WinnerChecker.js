@@ -23,12 +23,8 @@ class WinnerChecker {
   }
 
   #setWinners(ranking) {
-    for (let i = 0; i < ranking.length; i += 1) {
-      const isWinner = ranking[i].distance === this.#winningDistance;
-      if (!isWinner) break;
-
-      this.#winners.push(ranking[i].name);
-    }
+    const winningDistance = this.#winningDistance;
+    this.#winners = ranking.filter((car) => car.distance === winningDistance);
   }
 
   reset() {
