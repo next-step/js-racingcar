@@ -1,8 +1,11 @@
-import { Car, RaceTrack } from '../src/models'
-import { makeRandomNum } from '../src/utils'
+import * as readline from 'node:readline/promises'
+import { Car, RaceTrack } from '../src/model'
+import { GameInterface } from '../src/view/GameInterface'
+import { makeRandomNum } from '../src/utils/helperUtils'
+import { PROMT_CAR_NAME } from '../src/constants/gameInterface'
 
 const CAR_NAME = '산들'
-const CAR_NAME_ARR = ['산들', '뿌꾸']
+const CAR_NAMES = ['산들', '뿌꾸']
 
 describe('자동차', () => {
   let car
@@ -31,8 +34,8 @@ describe('자동차 경주', () => {
   let raceTrack
 
   beforeEach(() => {
-    const car1 = new Car(CAR_NAME_ARR[0])
-    const car2 = new Car(CAR_NAME_ARR[1])
+    const car1 = new Car(CAR_NAMES[0])
+    const car2 = new Car(CAR_NAMES[1])
 
     raceTrack = new RaceTrack([car1, car2])
   })
@@ -52,6 +55,20 @@ describe('자동차 경주', () => {
   it('자동차 경주 게임 후 우승자를 가려낸다. (우승 자동차는 여러대일 수 있다.)', () => {
     raceTrack.race()
     const winners = raceTrack.winners
-    expect(CAR_NAME_ARR).toEqual(expect.arrayContaining(winners))
+    expect(CAR_NAMES).toEqual(expect.arrayContaining(winners))
   })
+})
+
+// 인터페이스가 실제로 상호작용하며 동작하는지 테스트하기가 어렵다.
+describe('게임 인터페이스', () => {
+  let gameInterface
+
+  beforeEach(() => {
+    console.log = jest.fn()
+    gameInterface = new GameInterface()
+  })
+
+  it('유저로부터 자동차 이름을 입력받는다.', () => {})
+
+  it('게임이 끝나면 우승 자동차를 출력한다.', () => {})
 })
