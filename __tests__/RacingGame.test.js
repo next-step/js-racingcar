@@ -17,6 +17,9 @@ describe("Single RacingGame (혼자하는 레이싱 게임)", () => {
     (number) => number >= RUN_THRESHOLD
   ).length;
   const EXPECT_POSITION = START_POSITION + CAN_GO_ROUNDS * RUN_UNIT;
+  const EXPECT_POSITION_LOG = `${DEFAULT_CAR_NAME} : ${new Array(
+    EXPECT_POSITION
+  ).fill("-")}`;
 
   let racingGame = new RacingGame(GAME_SIZE, DEFAULT_CAR_NAME);
 
@@ -30,6 +33,10 @@ describe("Single RacingGame (혼자하는 레이싱 게임)", () => {
       racingGame.playOneRound(racingGame.getPlayer(), RANDOM_NUMBERS[round]);
     }
     expect(racingGame.getPlayer().getPosition()).toBe(EXPECT_POSITION);
+  });
+
+  it(`${GAME_SIZE}회 동안 자동차가 ${CAN_GO_ROUNDS}번 갈 수 있었을 때, 총 움직인 만큼을 출력 가능한 형태로 표시할 수 있다.`, () => {
+    expect(racingGame.getPlayer().getPositionLog()).toBe(EXPECT_POSITION_LOG);
   });
 
   it(`우승자를 알아낼 수 있다.`, () => {
