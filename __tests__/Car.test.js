@@ -1,9 +1,11 @@
 import { CarRacingManager } from "../src/CarRacingManager";
 import { ERROR_MESSAGES } from "../src/constants";
 import { CarModel } from "../src/model/CarModel";
+import { GameModel } from "../src/model/GameModel";
 import { makeConsecutiveRangeArray } from "../src/utils";
 
 const DEFAULT_NAME = "크롱";
+const DEFAULT_NAMES = ["크롱", "뽀로로", "루피", "포비"];
 
 describe("CarModel", () => {
   test("자동차는 이름을 가진다.", () => {
@@ -37,6 +39,43 @@ describe("CarModel", () => {
     [0, 1, 2, 3].forEach(car.go);
 
     expect(car.movement).toBe(0);
+  });
+});
+
+describe("GameModel", () => {
+  test("게임의 참가는 자동차만 가능하다.", () => {
+    const game = new GameModel();
+    const cars = DEFAULT_NAMES.map((v) => new CarModel(v));
+
+    const setParticipants = (cars) => () => (game.participants = cars);
+
+    expect(setParticipants(cars)).not.toThrow();
+    expect(setParticipants(DEFAULT_NAMES)).toThrow();
+    expect(setParticipants("")).toThrow();
+    expect(setParticipants(3)).toThrow();
+  });
+
+  test("게임의 참가는 2대 이상부터 가능하다.", () => {
+    const game = new GameModel();
+    const cars = DEFAULT_NAMES.map((v) => new CarModel(v));
+
+    const setParticipants = (cars) => () => (game.participants = cars);
+
+    expect(setParticipants([])).toThrow();
+    expect(setParticipants(cars.slice(0, 1))).toThrow();
+    expect(setParticipants(cars.slice(0, 2))).not.toThrow();
+    expect(setParticipants(cars)).not.toThrow();
+  });
+
+  test("중복된 이름으로는 게임에 참여가 불가능하다.", () => {
+    const game = new GameModel();
+    const cars_has_duplicated_names = [...DEFAULT_NAMES, ...DEFAULT_NAMES].map(
+      (v) => new CarModel(v)
+    );
+
+    const setParticipants = (cars) => () => (game.participants = cars);
+
+    expect(setParticipants(cars_has_duplicated_names)).toThrow();
   });
 });
 
