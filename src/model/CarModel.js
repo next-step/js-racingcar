@@ -13,12 +13,13 @@ export class CarModel {
   }
 
   set name(aName) {
-    if (aName.length > CONDITIONS.max_name_length) {
-      throw new Error(ERROR_MESSAGES.OVER_MAXIMUM_NAME_LENGTH);
+    if (aName.length > CONDITIONS.max_car_name_length) {
+      throw new Error(ERROR_MESSAGES.OVER_MAXIMUM_CAR_NAME_LENGTH);
     }
-    let name = aName.trim();
+    const name = aName.trim();
+
     if (!name) {
-      throw new Error(ERROR_MESSAGES.WHITE_NAME);
+      throw new Error(ERROR_MESSAGES.WHITE_CAR_NAME);
     }
 
     this.#name = name;

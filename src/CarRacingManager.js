@@ -35,7 +35,7 @@ export class CarRacingManager {
 
   roundInterval(endProcess, wait) {
     this.#gameModel.increaseRound();
-    if (this.#gameModel.round > CONDITIONS.max_round_number) {
+    if (this.#gameModel.round > CONDITIONS.max_game_round_number) {
       return this.gameEnd(endProcess, `${this.winners}가 최종 우승했습니다.`);
     }
 

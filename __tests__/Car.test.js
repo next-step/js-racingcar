@@ -5,28 +5,46 @@ import { makeConsecutiveRangeArray } from "../src/utils";
 
 const DEFAULT_NAME = "크롱";
 
+describe("CarModel", () => {
+  test("자동차는 이름을 가진다.", () => {
+    const car = new CarModel(DEFAULT_NAME);
+
+    expect(car.name).toBe(DEFAULT_NAME);
+  });
+
+  test("자동차의 이름은 5자 이하만 가능하다.", () => {
+    expect(() => {
+      new CarModel("크롱크롱크롱");
+    }).toThrow(ERROR_MESSAGES.OVER_MAXIMUM_CAR_NAME_LENGTH);
+  });
+
+  test("자동차의 이름은 공백을 가질 수 없다.", () => {
+    expect(() => new CarModel("")).toThrow(ERROR_MESSAGES.WHITE_CAR_NAME);
+    expect(() => new CarModel("   ")).toThrow(ERROR_MESSAGES.WHITE_CAR_NAME);
+  });
+
+  test("주어진 숫자가 4 이상일 경우 전진한다.", () => {
+    const car = new CarModel(DEFAULT_NAME);
+
+    car.go(4);
+
+    expect(car.movement).toBe(1);
+  });
+
+  test("주어진 숫자가 4 미만일 경우 전진하지않는다.", () => {
+    const car = new CarModel(DEFAULT_NAME);
+
+    [0, 1, 2, 3].forEach(car.go);
+
+    expect(car.movement).toBe(0);
+  });
+});
+
 describe("자동자 경주 게임", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
   describe("경주 셋팅", () => {
-    test("자동차는 이름을 가진다.", () => {
-      const car = new CarModel(DEFAULT_NAME);
-
-      expect(car.name).toBe(DEFAULT_NAME);
-    });
-
-    test("자동차의 이름은 5자 이하만 가능하다.", () => {
-      expect(() => {
-        new CarModel("크롱크롱크롱");
-      }).toThrow(ERROR_MESSAGES.OVER_MAXIMUM_NAME_LENGTH);
-    });
-
-    test("자동차의 이름은 공백을 가질 수 없다.", () => {
-      expect(() => new CarModel("")).toThrow(ERROR_MESSAGES.WHITE_NAME);
-      expect(() => new CarModel("   ")).toThrow(ERROR_MESSAGES.WHITE_NAME);
-    });
-
     test("이름은 쉼표(,)를 기준으로 구분하여 받는다.", () => {
       const carRacingManager = new CarRacingManager();
 
