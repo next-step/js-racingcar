@@ -1,15 +1,32 @@
+import {
+  CAR_INIT_POSITION,
+  CAR_MOVE_STEP,
+  CAN_MOVE,
+} from "./constants/settings";
 export default class Car {
-  name;
-  position;
+  #name;
+  #position;
 
-  constructor(name, position = 0) {
-    this.name = name;
-    this.position = position;
+  constructor(name, position = CAR_INIT_POSITION) {
+    this.#name = name;
+    this.#position = position;
+  }
+
+  get name() {
+    return this.#name;
+  }
+
+  get position() {
+    return this.#position;
+  }
+
+  #move() {
+    this.#position += CAR_MOVE_STEP;
   }
 
   tryMoveWith(randomNumber) {
-    if (randomNumber >= 4) {
-      this.position += 1;
+    if (CAN_MOVE(randomNumber)) {
+      this.#move();
     }
   }
 }
