@@ -5,7 +5,7 @@ const WinnerChecker = require('../src/model/WinnerChecker.js');
 const Validator = require('../src/Validator.js');
 const { getRandomNumber, splitByStandard } = require('../src/utils.js');
 const {
-  MIN_USER,
+  MIN_USER_COUNT,
   MIN_NAME_LENGTH,
   MAX_NAME_LENGTH,
   MIN_RANDOM_NUMBER,
@@ -88,22 +88,22 @@ describe('사용자의 입력값을 받는다.', () => {
   /*
   현재 최대 인원 제한이 없으므로 주석처리
 
-  test(`참가자가 ${MAX_USER} 초과인 케이스 "A,B,C,D,E,F"`, () => {
+  test(`참가자가 ${MAX_USER_COUNT} 초과인 케이스 "A,B,C,D,E,F"`, () => {
     const input = 'A,B,C,D,E,F';
     const slicedInput = splitByStandard(input);
 
     Validator.isValidNames(slicedInput);
-    expect(() => {}).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_USER);
+    expect(() => {}).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_USER_COUNT);
   });
   */
 
-  test(`참가자가 ${MIN_USER}명 미만인 케이스 "JAMES"`, () => {
+  test(`참가자가 ${MIN_USER_COUNT}명 미만인 케이스 "JAMES"`, () => {
     expect(() => {
       const input = 'JAMES';
       const slicedInput = splitByStandard(input);
 
       Validator.isValidNames(slicedInput);
-    }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_USER);
+    }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_USER_COUNT);
   });
 
   test('참가자가 중복된 케이스 "A,A,B,C,D,E"', () => {

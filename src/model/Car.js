@@ -4,11 +4,10 @@ const { getRandomNumber } = require('../utils.js');
 class Car {
   #name;
 
-  #distance;
+  #distance = 1;
 
   constructor(name) {
     this.#name = name;
-    this.#distance = 1;
   }
 
   get name() {

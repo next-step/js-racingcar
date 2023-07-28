@@ -6,16 +6,11 @@ const View = require('./view/View.js');
 const { splitByStandard } = require('./utils.js');
 
 class App {
-  #track;
+  #track = new Track();
 
-  #winnerChecker;
+  #winnerChecker = new WinnerChecker();
 
   #cars = [];
-
-  constructor() {
-    this.#track = new Track();
-    this.#winnerChecker = new WinnerChecker();
-  }
 
   init() {
     this.#reset();

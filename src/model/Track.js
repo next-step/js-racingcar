@@ -1,14 +1,9 @@
 const { DEFAULT_RACING_ROUND } = require('../constants/racing-rule.js');
 
 class Track {
-  #endRound;
+  #endRound = DEFAULT_RACING_ROUND;
 
-  #round;
-
-  constructor() {
-    this.#endRound = DEFAULT_RACING_ROUND;
-    this.#round = 1;
-  }
+  #round = 1;
 
   get round() {
     return this.#round;
@@ -19,8 +14,7 @@ class Track {
   }
 
   isEndRound() {
-    if (this.#round > this.#endRound) return true;
-    return false;
+    return this.#round > this.#endRound;
   }
 
   reset() {

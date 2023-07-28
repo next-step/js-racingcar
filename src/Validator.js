@@ -1,5 +1,5 @@
 const { ERROR_MESSAGES } = require('./constants/messages.js');
-const { MAX_NAME_LENGTH, MIN_NAME_LENGTH, MAX_USER, MIN_USER } = require('./constants/racing-rule.js');
+const { MAX_NAME_LENGTH, MIN_NAME_LENGTH, MAX_USER_COUNT, MIN_USER_COUNT } = require('./constants/racing-rule.js');
 
 class Validator {
   static isValidNames(names) {
@@ -15,11 +15,11 @@ class Validator {
   }
 
   static isOverMaxUser(names) {
-    if (names.length > MAX_USER) throw new Error(ERROR_MESSAGES.MORE_THAN_MAX_USER);
+    if (names.length > MAX_USER_COUNT) throw new Error(ERROR_MESSAGES.MORE_THAN_MAX_USER_COUNT);
   }
 
   static isUnderMaxUser(names) {
-    if (names.length < MIN_USER) throw new Error(ERROR_MESSAGES.LESS_THAN_MIN_USER);
+    if (names.length < MIN_USER_COUNT) throw new Error(ERROR_MESSAGES.LESS_THAN_MIN_USER_COUNT);
   }
 
   static isOverMaxLength(name) {
