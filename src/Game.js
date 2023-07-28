@@ -1,37 +1,46 @@
 import Car from "./Car";
+import { GAME_INIT_ROUND, TOTAL_GAME_ROUNDS } from "./constants/settings";
 import { getRandomNumber } from "./utils/utils";
 
 export default class Game {
-  cars;
-  curRound;
-  winners;
+  #cars;
+  #currRound;
+  #winners;
 
   constructor(carNames) {
-    this.cars = carNames.map((name) => new Car(name));
-    this.curRound = 1;
+    this.#cars = carNames.map((name) => new Car(name));
+    this.#currRound = GAME_INIT_ROUND;
+  }
+
+  get cars() {
+    return this.#cars;
+  }
+
+  get currRound() {
+    return this.#currRound;
+  }
+
+  get winners() {
+    return this.#winners;
   }
 
   playGame() {
-    while (this.curRound <= 5) {
+    while (this.#currRound <= TOTAL_GAME_ROUNDS) {
       this.playRound();
-      this.curRound += 1;
+      this.#currRound += 1;
     }
   }
 
   playRound() {
-    this.cars.forEach((car) => {
+    this.#cars.forEach((car) => {
       car.tryMoveWith(getRandomNumber());
     });
 
-    this.setWinners();
+    this.#setWinners();
   }
 
-  setWinners() {
-    const maxPosition = Math.max(...this.cars.map((car) => car.position));
-    this.winners = this.cars.filter((car) => car.position === maxPosition);
-  }
-
-  getWinners() {
-    return this.winners;
+  #setWinners() {
+    const maxPosition = Math.max(...this.#cars.map((car) => car.position));
+    this.#winners = this.#cars.filter((car) => car.position === maxPosition);
   }
 }
