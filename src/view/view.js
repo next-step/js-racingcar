@@ -8,7 +8,12 @@ const rl = readline.createInterface({
 
 class View {
   static getUserInput(callback) {
-    rl.question(MESSAGES.REQUEST.ENTER_THE_CARS, callback);
+    let userInput = null;
+    rl.question(MESSAGES.REQUEST.ENTER_THE_CARS, (input) => {
+      callback(input);
+      userInput = input;
+    });
+    return userInput;
   }
 
   static renderStartComment() {

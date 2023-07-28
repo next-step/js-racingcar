@@ -1,13 +1,13 @@
-const { SLICE_STANDARD } = require('./constants/racing-rule');
+const { SPLIT_STANDARD, RANDOM_NUMBER_RANGE } = require('./constants/racing-rule.js');
 
 class RacingUtils {
   static getRandomNumber = () => {
-    const result = Math.floor(Math.random() * 10);
+    const result = Math.floor(Math.random() * RANDOM_NUMBER_RANGE);
     return result;
   };
 
-  static sliceByStandard = (input) => {
-    const result = input.split(SLICE_STANDARD).map((name) => name.trim());
+  static splitByStandard = (input) => {
+    const result = input.split(SPLIT_STANDARD).map((name) => name.trim());
     return result;
   };
 }

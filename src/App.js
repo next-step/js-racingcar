@@ -3,7 +3,7 @@ const Car = require('./model/Car.js');
 const Track = require('./model/Track.js');
 const WinnerChecker = require('./model/WinnerChecker.js');
 const View = require('./view/View.js');
-const { sliceByStandard } = require('./utils.js');
+const { splitByStandard } = require('./utils.js');
 
 class App {
   #track;
@@ -23,11 +23,12 @@ class App {
   }
 
   #getCarNames() {
-    View.getUserInput(this.#checkValidatedNames.bind(this));
+    const input = View.getUserInput(this.#checkValidatedNames);
+    console.log(input);
   }
 
   #checkValidatedNames(input) {
-    const nameList = sliceByStandard(input);
+    const nameList = splitByStandard(input);
 
     try {
       Validator.isValidNames(nameList);
