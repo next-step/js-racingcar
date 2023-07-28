@@ -1,17 +1,21 @@
-import { ERROR_MESSAGES, GAME_MESSAGES } from "./constants";
-import { sleeping } from "./utils";
+import {
+  CONDITIONS,
+  GAME_MESSAGES,
+  MOVEMENT_PRINT,
+  NAME_SEPARATOR,
+} from "./constants";
+import { CarModel } from "./model/CarModel";
+import { GameModel } from "./model/GameModel";
+import { getRandomIntegerUnderTen, sleeping } from "./utils";
 
 export class CarRacingManager {
-  #canMoveCondition = 4;
-  #names = [];
-  #moves = [];
-  #round = 0;
+  #gameModel = new GameModel();
 
   constructor() {}
 
   gameStart(names, endProcess, wait = sleeping) {
     try {
-      this.#setNamesAndMoves(names);
+      this.setParticipants(names);
       console.log("\n실행결과");
       this.roundInterval(endProcess, wait);
     } catch (error) {
@@ -19,14 +23,19 @@ export class CarRacingManager {
     }
   }
 
-  #setNamesAndMoves(names) {
-    this.names = names;
-    this.#moves = Array(this.names.length).fill(0);
+  getParticipantsName() {
+    return this.#gameModel.participants.map((v) => v.name);
+  }
+
+  setParticipants(names) {
+    this.#gameModel.participants = names
+      .split(NAME_SEPARATOR)
+      .map((name) => new CarModel(name.trim()));
   }
 
   roundInterval(endProcess, wait) {
-    this.#round++;
-    if (this.#round > 5) {
+    this.#gameModel.increaseRound();
+    if (this.#gameModel.round > CONDITIONS.max_round_number) {
       return this.gameEnd(endProcess, `${this.winners}가 최종 우승했습니다.`);
     }
 
@@ -38,17 +47,14 @@ export class CarRacingManager {
   }
 
   roundStart() {
-    this.#names.forEach((name, i) => {
-      if (this.#getRandomIntegerUnderTen()) {
-        this.#moves[i]++;
-      }
-
-      this.printCarAndMove(name, this.#moves[i]);
+    this.#gameModel.participants.forEach((car) => {
+      car.go(getRandomIntegerUnderTen());
+      this.printCarAndMove(car.name, car.movement);
     });
   }
 
-  printCarAndMove(name, move) {
-    console.log(`${name}: ${"-".repeat(move)}`);
+  printCarAndMove(name, movement) {
+    console.log(`${name}: ${MOVEMENT_PRINT.repeat(movement)}`);
   }
 
   gameEnd(endProcess, message) {
@@ -62,8 +68,18 @@ export class CarRacingManager {
   }
 
   get winners() {
-    const maxMoveIndexes = this.getMaxIndexes(this.#moves);
-    return maxMoveIndexes.map((v) => this.names[v]).join(", ");
+    const maxMoveIndexes = this.getMaxIndexes(
+      this.#gameModel.participants.map((car) => car.movement)
+    );
+    console.log({ maxMoveIndexes });
+
+    return maxMoveIndexes
+      .map((v) => this.getParticipantsName()[v])
+      .join(NAME_SEPARATOR);
+  }
+
+  canMove(aNumber) {
+    return aNumber >= CONDITIONS.can_move_number;
   }
 
   getMaxIndexes(arr) {
@@ -79,26 +95,5 @@ export class CarRacingManager {
     }
 
     return maxIndexes;
-  }
-
-  get names() {
-    return this.#names;
-  }
-
-  set names(str) {
-    const names = str.split(",").map((v) => v.trim());
-    if (names.some((name) => name.length > 5)) {
-      throw new Error(ERROR_MESSAGES.OVER_MAXIMUM_NAME_LENGTH);
-    }
-
-    this.#names = names;
-  }
-
-  canMove(aNumber) {
-    return aNumber >= this.#canMoveCondition;
-  }
-
-  #getRandomIntegerUnderTen() {
-    return Math.floor(Math.random() * 10);
   }
 }

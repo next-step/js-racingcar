@@ -26,24 +26,21 @@ describe("자동자 경주 게임", () => {
       expect(() => new CarModel("   ")).toThrow(ERROR_MESSAGES.WHITE_NAME);
     });
 
+    test("자동차의 이름은 공백을 가질 수 없다.", () => {
+      expect(() => new CarModel("")).toThrow(ERROR_MESSAGES.WHITE_NAME);
+      expect(() => new CarModel("   ")).toThrow(ERROR_MESSAGES.WHITE_NAME);
+    });
+
     test("이름은 쉼표(,)를 기준으로 구분하여 받는다.", () => {
       const carRacingManager = new CarRacingManager();
 
-      carRacingManager.names = "뽀로로, 크롱, 루피";
+      carRacingManager.setParticipants("뽀로로, 크롱, 루피");
 
-      expect(carRacingManager.names).toEqual(["뽀로로", "크롱", "루피"]);
-    });
-
-    test("한 이름은 5자 이하만 가능하다.", () => {
-      const carRacingManager = new CarRacingManager();
-
-      function setNameOverMaximumLength() {
-        carRacingManager.names = "뽀로로, 크롱크롱크롱, 루피";
-      }
-
-      expect(setNameOverMaximumLength).toThrowError(
-        ERROR_MESSAGES.OVER_MAXIMUM_NAME_LENGTH
-      );
+      expect(carRacingManager.getParticipantsName()).toEqual([
+        "뽀로로",
+        "크롱",
+        "루피",
+      ]);
     });
 
     test("사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.", () => {
@@ -104,7 +101,7 @@ describe("자동자 경주 게임", () => {
       gameStart();
 
       expect(spyOn.printGameEndMessage).toBeCalledWith(
-        "뽀로로, 루피가 최종 우승했습니다."
+        "뽀로로,루피가 최종 우승했습니다."
       );
     });
   });
