@@ -7,12 +7,7 @@ export default class Car {
   #distance = 0;
 
   constructor(name) {
-    checkOverStringLength(
-      name,
-      CAR_NAME_LENGTH_LIMIT,
-      `자동차 이름은 ${CAR_NAME_LENGTH_LIMIT}자리까지 가능합니다.`
-    );
-    checkEmptyString(name);
+    this.#nameValidation(name);
     this.#name = name;
   }
 
@@ -39,5 +34,15 @@ export default class Car {
 
   #addDistance = () => {
     this.#distance += 1;
+  };
+
+  #nameValidation = (name) => {
+    checkOverStringLength({
+      value: name,
+      length: CAR_NAME_LENGTH_LIMIT,
+      message: `자동차 이름은 ${CAR_NAME_LENGTH_LIMIT}자리까지 가능합니다.`,
+    });
+
+    checkEmptyString(name);
   };
 }
