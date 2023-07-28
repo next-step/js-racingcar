@@ -6,6 +6,7 @@ export default class Game {
   #cars;
   #currRound;
   #winners;
+  #playRoundCalls = 0;
 
   constructor(carNames) {
     this.#cars = carNames.map((name) => new Car(name));
@@ -24,18 +25,22 @@ export default class Game {
     return this.#winners;
   }
 
+  get playRoundCalls() {
+    return this.#playRoundCalls;
+  }
+
   playGame() {
     while (this.#currRound <= TOTAL_GAME_ROUNDS) {
-      this.playRound();
+      this.#playRound();
       this.#currRound += 1;
     }
   }
 
-  playRound() {
+  #playRound() {
     this.#cars.forEach((car) => {
       car.tryMoveWith(getRandomNumber());
     });
-
+    this.#playRoundCalls += 1;
     this.#setWinners();
   }
 
