@@ -4,11 +4,17 @@ import GameWinners from "../model/GameWinners";
 import { ERROR_MESSAGE } from "../constants/ErrorMessage";
 import {
   CAR_NAME_INPUT_PROMPT,
+  DEFAULT_SCORE,
+  MAX_RANDOM_NUMBER,
+  MIN_RANDOM_NUMBER,
   NUM_RACING_ROUNDS,
+  RACE_FORWARD_RANDOM_NUMBER_LIMIT,
   WINNER_ANNOUNCEMENT_MESSAGE,
 } from "../constants/rules";
 
 import { updateView } from "../view/PrintView";
+
+import { getRandomNumber } from "../utils/helpers";
 
 export default class RacingCarGameController {
   constructor(readline) {
@@ -16,6 +22,7 @@ export default class RacingCarGameController {
     this.gameCount = 0;
     this.gameTrack = new GameTrack();
     this.gameWinners = new GameWinners();
+    this.forwardScoreIcon;
   }
 
   startGame() {
@@ -29,7 +36,8 @@ export default class RacingCarGameController {
         this.startRace();
 
         this.gameWinners.setGameWinners(this.gameTrack.gameStatus);
-        this.getWinners();
+        const winners = this.getWinners();
+        updateView.printWinners(winners + WINNER_ANNOUNCEMENT_MESSAGE);
 
         this.endGame();
       } catch (error) {
@@ -40,24 +48,43 @@ export default class RacingCarGameController {
   }
 
   startRace() {
+    this.setForwardScoreIcon(DEFAULT_SCORE);
+
     while (this.gameCount < NUM_RACING_ROUNDS) {
-      this.gameTrack.setAdvanceCars();
+      this.setAdvanceCars();
 
       this.gameCount++;
-      this.getGameStatus();
+
+      const gameStatus = this.getGameStatus();
+      updateView.printGameStatus(gameStatus);
+
       updateView.print("\n");
     }
   }
 
-  getGameStatus() {
-    this.gameTrack.gameStatus.forEach(car => {
-      updateView.print(`${car.carName}: ${car.forward}`);
+  setForwardScoreIcon(icon) {
+    this.forwardScoreIcon = icon;
+  }
+
+  setAdvanceCars() {
+    this.gameTrack.gameStatus.forEach(currentStatus => {
+      if (
+        getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER) >=
+        RACE_FORWARD_RANDOM_NUMBER_LIMIT
+      ) {
+        currentStatus.forward += this.forwardScoreIcon;
+      }
     });
   }
 
+  getGameStatus() {
+    return this.gameTrack.gameStatus.map(
+      car => `${car.carName}: ${car.forward}`
+    );
+  }
+
   getWinners() {
-    const winnerList = this.gameWinners.winners.join(",");
-    return updateView.print(winnerList + WINNER_ANNOUNCEMENT_MESSAGE);
+    return this.gameWinners.winners.join(",");
   }
 
   endGame() {
