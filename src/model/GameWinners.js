@@ -4,18 +4,16 @@ export default class GameWinners {
   }
 
   /**
-   * @param {carNameForward[]} gameStatus
+   * interface CarNameForward {
+      carName: string;
+      forward: string;
+     }
+    * @param {CarNameForward[]} - gameStatus
    * @returns {*} string[] - winners
    */
   setGameWinners(gameStatus) {
-    let maxLength = 0;
-
     // max 찾기
-    gameStatus.forEach(car =>
-      car.forward.length >= maxLength
-        ? (maxLength = car.forward.length)
-        : maxLength
-    );
+    const maxLength = Math.max(...gameStatus.map(car => car.forward.length));
 
     // 중복 winners 처리하기
     gameStatus.forEach(car => {
