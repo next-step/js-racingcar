@@ -4,6 +4,7 @@ const Track = require('./model/Track.js');
 const WinnerChecker = require('./model/WinnerChecker.js');
 const View = require('./view/View.js');
 const { splitByStandard } = require('./utils.js');
+const { MESSAGES } = require('./constants/messages.js');
 
 class App {
   #track = new Track();
@@ -14,12 +15,17 @@ class App {
 
   init() {
     this.#reset();
-    this.#getCarNames();
+    this.#startGame();
   }
 
-  #getCarNames() {
-    const input = View.getUserInput(this.#checkValidatedNames);
-    console.log(input);
+  async #startGame() {
+    const userInput = await this.#getCarNames();
+    this.#checkValidatedNames(userInput);
+  }
+
+  async #getCarNames() {
+    const userInput = await View.getUserInput(MESSAGES.REQUEST.ENTER_THE_CARS);
+    return userInput;
   }
 
   #checkValidatedNames(input) {
