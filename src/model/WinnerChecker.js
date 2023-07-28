@@ -24,7 +24,7 @@ class WinnerChecker {
 
   #setWinners(ranking) {
     const winningDistance = this.#winningDistance;
-    this.#winners = ranking.filter((car) => car.distance === winningDistance);
+    this.#winners = ranking.filter((car) => car.distance === winningDistance).map((car) => car.name);
   }
 
   reset() {
