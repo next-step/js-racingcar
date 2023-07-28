@@ -1,4 +1,4 @@
-import validate from './utils/validate';
+import { validateCarName } from './utils/index';
 
 export default class Car {
   #name;
@@ -12,5 +12,5 @@ export default class Car {
     return this.#name;
   }
 
-  #validateCarName = validate;
+  #validateCarName = validateCarName;
 }
