@@ -92,7 +92,7 @@ describe("자동자 경주 게임", () => {
 
     test("우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.", () => {
       const { carRacingManager, gameStart, spyOn } = gameSetUp();
-      carRacingManager.getMaxIndexes = jest.fn(() => [0, 2]);
+      carRacingManager.getIndexesOfMaxValue = jest.fn(() => [0, 2]);
 
       gameStart();
 

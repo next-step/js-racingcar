@@ -68,7 +68,7 @@ export class CarRacingManager {
   }
 
   get winners() {
-    const maxMoveIndexes = this.getMaxIndexes(
+    const maxMoveIndexes = this.getIndexesOfMaxValue(
       this.#gameModel.participants.map((car) => car.movement)
     );
 
@@ -81,18 +81,11 @@ export class CarRacingManager {
     return aNumber >= CONDITIONS.can_move_number;
   }
 
-  getMaxIndexes(arr) {
-    let maxCount = 0;
-    let maxIndexes = [];
+  getIndexesOfMaxValue(arr) {
+    const max = Math.max(...arr);
 
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] > maxCount) maxCount = arr[i];
-    }
-
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === maxCount) maxIndexes.push(i);
-    }
-
-    return maxIndexes;
+    return arr.reduce((acc, cur, index) => {
+      return cur === max ? [...acc, index] : acc;
+    }, []);
   }
 }
