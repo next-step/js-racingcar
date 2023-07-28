@@ -1,4 +1,4 @@
-import { RACE_LAP_LIMIT } from '../constants';
+import { CAR_RACE_LAP_LIMIT } from '../constants';
 import { getStringFromArray } from '../utils/common';
 import CarRaceView from '../view';
 
@@ -46,7 +46,7 @@ export default class CarRace {
       view.printMessage(this.participantNames);
     }
 
-    for (let i = 0; i < RACE_LAP_LIMIT; i++) {
+    for (let i = 0; i < CAR_RACE_LAP_LIMIT; i++) {
       this.#participants.forEach((car) => car.runOneLap());
       view && view.printLapResult(this.#participants);
     }

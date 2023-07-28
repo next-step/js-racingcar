@@ -1,4 +1,4 @@
-import { NAME_LENGTH_LIMIT } from '../src/constants';
+import { CAR_NAME_LENGTH_LIMIT } from '../src/constants';
 import Car from '../src/domain/car';
 
 describe('Car', () => {
@@ -17,7 +17,7 @@ describe('Car', () => {
   describe('자동차 이름은 5자리 이하만 가능하다.', () => {
     test.each([['자바스크립트'], ['json Moon']])('new Car(%s)', (carName) => {
       expect(() => new Car(carName)).toThrowError(
-        `자동차 이름은 ${NAME_LENGTH_LIMIT}자리까지 가능합니다.`
+        `자동차 이름은 ${CAR_NAME_LENGTH_LIMIT}자리까지 가능합니다.`
       );
     });
   });

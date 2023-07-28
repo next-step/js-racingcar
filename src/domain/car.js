@@ -1,4 +1,4 @@
-import { MOVE_POSSIBLE_NUMBER, NAME_LENGTH_LIMIT } from '../constants';
+import { CAR_MOVE_POSSIBLE_NUMBER, CAR_NAME_LENGTH_LIMIT } from '../constants';
 import { getRandomInt, isMoreThanNumber } from '../utils/common';
 import { checkEmptyString, checkOverStringLength } from '../validation';
 
@@ -9,8 +9,8 @@ export default class Car {
   constructor(name) {
     checkOverStringLength(
       name,
-      NAME_LENGTH_LIMIT,
-      `자동차 이름은 ${NAME_LENGTH_LIMIT}자리까지 가능합니다.`
+      CAR_NAME_LENGTH_LIMIT,
+      `자동차 이름은 ${CAR_NAME_LENGTH_LIMIT}자리까지 가능합니다.`
     );
     checkEmptyString(name);
     this.#name = name;
@@ -30,7 +30,7 @@ export default class Car {
   }
 
   move = (number) => {
-    if (!isMoreThanNumber(number, MOVE_POSSIBLE_NUMBER)) {
+    if (!isMoreThanNumber(number, CAR_MOVE_POSSIBLE_NUMBER)) {
       return;
     }
 

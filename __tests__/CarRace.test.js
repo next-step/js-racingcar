@@ -1,4 +1,4 @@
-import { RACE_LAP_LIMIT } from '../src/constants';
+import { CAR_RACE_LAP_LIMIT } from '../src/constants';
 import Car from '../src/domain/car';
 import CarRace from '../src/domain/carRace';
 
@@ -20,7 +20,7 @@ describe('CarRace', () => {
 
     carRace.start();
 
-    expect(runOneLap).toBeCalledTimes(RACE_LAP_LIMIT);
+    expect(runOneLap).toBeCalledTimes(CAR_RACE_LAP_LIMIT);
   });
 
   describe('우승자', () => {
