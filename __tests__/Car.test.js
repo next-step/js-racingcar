@@ -8,6 +8,7 @@ import {
   RANDOM_NUM_UPPER_LIMIT,
 } from "../src/constants/settings.js";
 import { getRandomIntRangeOf } from "../src/utils/utils.js";
+import { playGame, playRound } from "../src/Game.js";
 
 /**
  * 테스트 파일에서 사용하는 공통 상수
