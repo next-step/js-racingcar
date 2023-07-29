@@ -1,14 +1,14 @@
 import {
   RacingGame,
+  GAME_SIZE,
   RANDOM_MAX_NUMBER,
   RANDOM_MIN_NUMBER,
 } from "../src/RacingGame";
 import { Car, RUN_THRESHOLD, RUN_UNIT, START_POSITION } from "../src/Car";
 import { getRandomNumberInRange } from "../src/util/getRandomNumber";
 
-const GAME_SIZE = 5;
 describe("Together RacingGame (여럿이서 하는 레이싱 게임)", () => {
-  const DEFAULT_CAR_NAMES = "pobi,crong,honux";
+  const DEFAULT_CAR_NAMES_INPUT = "pobi,crong,honux";
   const DEFAULT_PLAYERS = [new Car("pobi"), new Car("crong"), new Car("honux")];
 
   const RANDOM_NUMBERS_ALL = Array.from(new Array(DEFAULT_PLAYERS.length), () =>
@@ -42,9 +42,13 @@ describe("Together RacingGame (여럿이서 하는 레이싱 게임)", () => {
 
   const EXPECT_WINNER_LOG = `${EXPECT_WINNERS.join(",")}가 최종 우승했습니다.`;
 
-  let racingGame = new RacingGame(GAME_SIZE, DEFAULT_CAR_NAMES);
+  let racingGame = new RacingGame();
+  racingGame.setRacingGameSize(GAME_SIZE);
 
   it("자동차가 레이싱 게임에 등록했다.", () => {
+    racingGame.setPlayers(
+      racingGame.getPlayerNamesFromInput(DEFAULT_CAR_NAMES_INPUT)
+    );
     // DEFAULT_PLAYERS 랑 racingGame.getPlayers()를 비교하면 계속 테스트 실패함! 이유를 모르겠음. 이렇게 풀어서 하는 방법밖에..?
     const expectedPlayersNames = DEFAULT_PLAYERS.map((player) =>
       player.getName()

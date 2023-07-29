@@ -1,16 +1,33 @@
 import { Car } from "./Car";
 import { getRandomNumberInRange } from "./util/getRandomNumber";
+import { Console } from "./util/Console";
 
 export const RANDOM_MIN_NUMBER = 0;
 export const RANDOM_MAX_NUMBER = 9;
+
+export const GAME_SIZE = 5;
 
 export class RacingGame {
   #racingGameSize;
   #players;
 
-  constructor(racingGameSize, carNameInputs) {
+  constructor() {
+    this.#racingGameSize = 0;
+    this.#players = [];
+  }
+
+  static readCarNamesInput() {
+    return new Promise((resolve, _) => {
+      Console.readLine(
+        "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).",
+        (userInput) => {
+          resolve(userInput);
+        }
+      );
+    });
+  }
+  setRacingGameSize(racingGameSize) {
     this.#racingGameSize = racingGameSize;
-    this.setPlayers(this.getPlayerNamesFromInput(carNameInputs));
   }
 
   getPlayers() {
@@ -39,11 +56,21 @@ export class RacingGame {
       this.playerPlayOneRound(playerIdx, this.getRandomNumberToRun());
     }
   }
-  playGame(racingGameSize) {
-    //getRandomNumberToRun()의 결과값이 난수이기 때문에 테스트 불가..?
-    for (let round = 0; round < racingGameSize; round++) {
+
+  printOneRoundGameResult() {
+    const result = this.#players
+      .map((player) => player.getPositionLog())
+      .join("\n");
+    Console.print(result, "\n");
+  }
+
+  playGame() {
+    Console.print("\n실행 결과");
+    for (let round = 0; round < this.#racingGameSize; round++) {
       this.playOneRound();
+      this.printOneRoundGameResult();
     }
+    Console.print(this.getWinnerLog());
   }
 
   getWinnerPosition() {
