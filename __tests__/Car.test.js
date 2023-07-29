@@ -2,19 +2,19 @@ import { Car } from '../src/car'
 import { ERROR_MESSAGE } from '../src/constants'
 
 describe('자동차 1차 요구사항', () => {
-  const DEFAULT_NAME = 'son'
+  const CAR_NAME = 'son'
 
   test('자동차는 이름을 가질 수 있다.', () => {
     // Given, When
-    const car = new Car(DEFAULT_NAME)
+    const car = new Car(CAR_NAME)
 
     // Then
-    expect(car.getName()).toBe(DEFAULT_NAME)
+    expect(car.getName()).toBe(CAR_NAME)
   })
 
   test('자동차는 랜덤 숫자가 4 이상이면 앞으로 전진한다.', () => {
     // Given
-    const car = new Car(DEFAULT_NAME)
+    const car = new Car(CAR_NAME)
 
     // When
     car.run(4)
@@ -25,7 +25,7 @@ describe('자동차 1차 요구사항', () => {
 
   test('자동차는 랜덤 숫자가 4 미만이면 정지한다.', () => {
     // Given
-    const car = new Car(DEFAULT_NAME)
+    const car = new Car(CAR_NAME)
 
     // When
     car.run(3)
