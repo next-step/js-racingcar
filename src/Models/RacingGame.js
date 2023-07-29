@@ -1,5 +1,5 @@
 import { Car } from './';
-import { MESSAGE, RACING_GAME, UTIL } from '../constants';
+import { MESSAGE, RACING_GAME } from '../constants';
 import {
   getRacingResult,
   getRandomCarMovementInt,
@@ -9,7 +9,7 @@ import {
 } from '../utils';
 
 export class RacingGame {
-  #cars = RACING_GAME.DEFAULT_STATE.CARS;
+  #cars = RACING_GAME.CARS.DEFAULT_STATE;
   #totalRounds;
   #gameProgress = RACING_GAME.PROGRESS_TITLE;
   #gameResult;
@@ -40,7 +40,7 @@ export class RacingGame {
   #randomCarMovement(car) {
     const randomInt = getRandomCarMovementInt();
 
-    if (RACING_GAME.MOVEMENT_THRESHOLD > randomInt) return;
+    if (RACING_GAME.CARS.MOVEMENT_THRESHOLD > randomInt) return;
 
     car.advance();
   }
