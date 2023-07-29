@@ -32,6 +32,11 @@ class RacingCar {
         }
 
         readline.question('시도할 횟수는 몇회인가요?\n', (counts) => {
+          if (!this.validateCountInput(counts)) {
+            this.printWrongInput();
+            return this.start();
+          }
+
           this.printTitle();
 
           this.setRacers(names);
@@ -49,6 +54,12 @@ class RacingCar {
     const isValidated = names
       .split(',')
       .every((name) => name.length <= this.#CAR_NAME_LENGTH_LIMIT);
+
+    return isValidated;
+  }
+
+  validateCountInput(counts) {
+    const isValidated = !Number.isNaN(parseInt(counts));
 
     return isValidated;
   }
