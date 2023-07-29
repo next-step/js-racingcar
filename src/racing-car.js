@@ -26,24 +26,26 @@ class RacingCar {
     readline.question(
       '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n',
       (names) => {
-        if (!this.validateInput(names)) {
+        if (!this.validateCarInput(names)) {
           this.printWrongInput();
           return this.start();
         }
 
-        this.printTitle();
+        readline.question('시도할 횟수는 몇회인가요?\n', (counts) => {
+          this.printTitle();
 
-        this.setRacers(names);
+          this.setRacers(names);
 
-        this.race(this.racers);
-        this.printWinners();
+          this.race(this.racers);
+          this.printWinners();
 
-        readline.close();
+          readline.close();
+        });
       }
     );
   }
 
-  validateInput(names) {
+  validateCarInput(names) {
     const isValidated = names
       .split(',')
       .every((name) => name.length <= this.#CAR_NAME_LENGTH_LIMIT);

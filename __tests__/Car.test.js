@@ -15,7 +15,7 @@ describe('Racing Car Game', () => {
   it('Racer names: pobi,crong,honux -> true', () => {
     initialize();
 
-    expect(racingCar.validateInput('pobi,crong,honux')).toBe(true);
+    expect(racingCar.validateCarInput('pobi,crong,honux')).toBe(true);
   });
 
   // 자동차 경주는 5회로 고정하여 진행한다.
@@ -106,7 +106,7 @@ describe('Racing Car Game', () => {
     initialize();
 
     const testInput = () => {
-      if (!racingCar.validateInput('pobi,crong,honuasdfx')) {
+      if (!racingCar.validateCarInput('pobi,crong,honuasdfx')) {
         racingCar.exit();
       }
     };
