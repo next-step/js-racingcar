@@ -1,13 +1,11 @@
-import { ERROR_MESSAGE } from '../src/constants/index';
-
 export const DUMMY_CORRECT_CARS = [
-  { name: 'mario' },
-  { name: 'yoshi' },
-  { name: 'koopa' },
-  { name: 'peach' }
+  { name: 'mario', movableDistance: 4, notMovableDistance: 0 },
+  { name: 'yoshi', movableDistance: 5, notMovableDistance: 1 },
+  { name: 'koopa', movableDistance: 6, notMovableDistance: 2 },
+  { name: 'peach', movableDistance: 7, notMovableDistance: 3 }
 ];
 
-export const DUMMY_INCORRECT_LENGTH_CARS_NAMES = [
+export const DUMMY_INCORRECT_LENGTH_CARS = [
   { name: '' },
   { name: 'JR.mario' },
   { name: 'donkeykong' },
