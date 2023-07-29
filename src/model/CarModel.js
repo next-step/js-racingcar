@@ -13,15 +13,8 @@ export class CarModel {
   }
 
   set name(aName) {
-    if (aName.length > CONDITIONS.max_car_name_length) {
-      throw new Error(ERROR_MESSAGES.OVER_MAXIMUM_CAR_NAME_LENGTH);
-    }
     const name = aName.trim();
-
-    if (!name) {
-      throw new Error(ERROR_MESSAGES.WHITE_CAR_NAME);
-    }
-
+    this.#validateName(name);
     this.#name = name;
   }
 
@@ -32,6 +25,16 @@ export class CarModel {
   go(number) {
     if (CONDITIONS.can_move_number <= number) {
       this.#movement += 1;
+    }
+  }
+
+  #validateName(name) {
+    if (name.length > CONDITIONS.max_car_name_length) {
+      throw new Error(ERROR_MESSAGES.OVER_MAXIMUM_CAR_NAME_LENGTH);
+    }
+
+    if (!name) {
+      throw new Error(ERROR_MESSAGES.WHITE_CAR_NAME);
     }
   }
 }

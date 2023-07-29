@@ -10,6 +10,20 @@ export class GameModel {
   }
 
   set participants(cars) {
+    this.#validateParticipants(cars);
+
+    this.#participants = cars;
+  }
+
+  get round() {
+    return this.#round;
+  }
+
+  increaseRound() {
+    this.#round++;
+  }
+
+  #validateParticipants(cars) {
     if (!Array.isArray(cars) || !cars.every((car) => car instanceof CarModel)) {
       throw new Error(ERROR_MESSAGES.INVALID_PARTICIPANT_TYPE);
     }
@@ -21,15 +35,5 @@ export class GameModel {
     if (new Set(cars.map((car) => car.name)).size !== cars.length) {
       throw new Error(ERROR_MESSAGES.DUPLICATED_PARTICIPANTS_NAME);
     }
-
-    this.#participants = cars;
-  }
-
-  get round() {
-    return this.#round;
-  }
-
-  increaseRound() {
-    this.#round++;
   }
 }
