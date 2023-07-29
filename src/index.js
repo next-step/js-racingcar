@@ -1,20 +1,11 @@
-// get input from terminal using readlint
-import { CarRacer } from './CarRacer.js';
+import { RacingSystem } from './controller/RacingSystem.js';
 import { MESSAGES } from './constants/index.js';
-import readline from 'readline';
+import { terminal } from './util/getReadLine.js';
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+const racingSystem = new RacingSystem();
 
-const carRacing = new CarRacer();
+function main() {
+  terminal.question(`${MESSAGES.GAME.START_PROMPT}\n`, (answer) => racingSystem.startGame(answer));
+}
 
-rl.question(`${MESSAGES.START}\n`, (input) => {
-  try {
-    carRacing.names = input;
-  } catch (error) {
-    console.log(error.message);
-    rl.close();
-  }
-});
+main();
