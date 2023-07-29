@@ -6,5 +6,11 @@ export const ERROR_MESSAGE = Object.freeze({
 });
 
 export const ALERT_MESSAGE = Object.freeze({
-  INPUT_CAR_MESSAGE: '경주 할 자동차 이름을 입력하세요.(이름은 쉼표(,)를 기준으로 구분)'
+  INPUT_CAR_MESSAGE: '경주 할 자동차 이름을 입력하세요.(이름은 쉼표(,)를 기준으로 구분)',
+  RACE_STATUS_MESSAGE(car, distance, track) {
+    return `${car} : ${track.repeat(distance)}`;
+  },
+  RACE_FINISH_MESSAGE(winners) {
+    return `${winners.join(', ')}가 최종 우승하였습니다.`;
+  }
 });
