@@ -74,9 +74,9 @@ export class GameController {
     this.#view.printError(error);
   }
 
-  #handleError(error, phase) {
+  #handleError(error, phaseToRetry) {
     this.#printError(error.message);
 
-    phase();
+    phaseToRetry();
   }
 }
