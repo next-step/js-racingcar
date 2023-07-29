@@ -25,7 +25,7 @@ export const validateCarName = (name) => {
 };
 
 /**
- * 경주에 참여하는 자동차 리스트를 순회하며
+ * 경주에 참여하는 자동차 리스트를 순회하며 자동차 이름 규칙을 검증한다.
  * @param {string} input: 사용자에게 입력받은 참여 자동차 리스트
  * @param {string} separator: 구분자
  */
