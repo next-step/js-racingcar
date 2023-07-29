@@ -1,8 +1,17 @@
 import { Car } from '../src/car'
 import { ERROR_MESSAGE } from '../src/constants'
 
-describe('자동차 1차 요구사항', () => {
+describe('Car - Feature', () => {
+  let logSpy
   const CAR_NAME = 'son'
+
+  beforeEach(() => {
+    logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    logSpy.mockRestore()
+  })
 
   test('자동차는 이름을 가질 수 있다.', () => {
     // Given, When
@@ -33,19 +42,22 @@ describe('자동차 1차 요구사항', () => {
     // Then
     expect(car.getPosition()).toBe(0)
   })
+
+  test('자동차는 전진할 때, 자동차의 이름을 같이 출력한다.', () => {
+    // Given
+    const CAR_NAME = 'son'
+    const car = new Car(CAR_NAME)
+
+    // When
+    car.run(4)
+
+    // Then
+    expect(car.getPosition()).toBe(1)
+    expect(logSpy.mock.calls[0][0]).toBe(CAR_NAME)
+  })
 })
 
-describe('자동차 2차 요구사항', () => {
-  let logSpy
-
-  beforeEach(() => {
-    logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
-  })
-
-  afterEach(() => {
-    logSpy.mockRestore()
-  })
-
+describe('Car - Validate', () => {
   test('자동차의 이름이 5자 이상의 문자열인 경우, 5자 이내의 문자열만 가능하다는 에러가 발생한다.', () => {
     // Given
     const OVER_CAR_NAME = 'sonny'
@@ -86,21 +98,6 @@ describe('자동차 2차 요구사항', () => {
     }).toThrow(new Error(ERROR_MESSAGE.INVALID_NAME_TYPE))
   })
 
-  test('자동차는 전진할 때, 자동차의 이름을 같이 출력한다.', () => {
-    // Given
-    const CAR_NAME = 'son'
-    const car = new Car(CAR_NAME)
-
-    // When
-    car.run(4)
-
-    // Then
-    expect(car.getPosition()).toBe(1)
-    expect(logSpy.mock.calls[0][0]).toBe(CAR_NAME)
-  })
-})
-
-describe('자동차 3차 요구사항', () => {
   test('자동차의 이름에 직접 접근하는 경우, 이름에 직접 접근할 수 없다는 에러가 발생한다.', () => {
     // Given
     const CAR_NAME = 'son'
