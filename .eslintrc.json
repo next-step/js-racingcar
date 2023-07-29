@@ -1,12 +1,6 @@
 {
   "rules": {
-    "comma-dangle": ["error", "never"],
-    "prettier/prettier": [
-      "error",
-      {
-        "useTabs": false,
-      }
-    ]
+    "comma-dangle": ["error", "never"]
   },
   "env": {
     "es6": true,
@@ -16,10 +10,6 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended",
-    "airbnb/base"
-  ],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended", "airbnb/base", "prettier"],
   "ignorePatterns": ["webpack.config.js", "loader.js", "/__tests__"]
 }
