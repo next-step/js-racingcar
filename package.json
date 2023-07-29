@@ -8,6 +8,7 @@
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
     "test": "jest --watch",
+    "format": "prettier --write \"src/**/*.js\"",
     "fix": "eslint --fix src/**/*.js"
   },
   "repository": {
