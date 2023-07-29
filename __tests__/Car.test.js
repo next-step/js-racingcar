@@ -5,10 +5,11 @@ import {
   DUMMY_INPUT_CAR_NAMES,
   DUMMY_INCORRECT_INPUT_CAR_NAMES
 } from './constants';
-import { NAME_CONFIGURE, ERROR_MESSAGE } from '../src/constants/index';
+import { NAME_CONFIGURE, ERROR_MESSAGE, RACE_CONFIGURE } from '../src/constants/index';
 import { validateCarName } from '../src/utils/index';
 import Car from '../src/Car';
 import CarPrompter from '../src/CarPrompter';
+import CarRace from '../src/CarRace';
 
 describe('자동차 이름 충족 조건 테스트', () => {
   test.each(DUMMY_CORRECT_CARS)('자동차는 이름($name)을 가질 수 있다.', ({ name }) => {
@@ -49,4 +50,15 @@ describe('자동차 경주 테스트', () => {
       }).toThrow(ERROR_MESSAGE.DUPLICATE_CAR);
     }
   );
+
+  it('자동차 경주는 총 5회로 이루어진다.', () => {
+    const { MAX_LAP } = RACE_CONFIGURE;
+    const carRace = new CarRace();
+    for (let lap = 0; lap < MAX_LAP; lap += 1) {
+      expect(carRace.getCurrentLap()).toBe(lap);
+      carRace.nextLap();
+    }
+    carRace.nextLap();
+    expect(carRace.getCurrentLap()).toBe(MAX_LAP);
+  });
 });
