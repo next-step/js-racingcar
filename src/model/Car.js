@@ -13,11 +13,11 @@ export class Car {
     if (score >= 4) this.#position += 1
   }
 
-  getName() {
+  get name() {
     return this.#name
   }
 
-  getPosition() {
+  get position() {
     return this.#position
   }
 }

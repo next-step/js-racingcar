@@ -4,6 +4,7 @@ import {
   findMaxValue,
   makeRandomNum,
 } from '../utils/helperUtils'
+import { Car } from './Car'
 
 export class RaceTrack {
   #raceCars
@@ -11,20 +12,24 @@ export class RaceTrack {
   #winners
 
   constructor(cars) {
-    this.#raceCars = cars
+    this.#raceCars = this.#getRaceCars(cars)
     this.#turnCount = 0
     this.#winners = []
   }
 
+  #getRaceCars(cars) {
+    return cars.map((carName) => new Car(carName))
+  }
+
   #findMaxPosition() {
-    return findMaxValue(this.#raceCars, (car) => car.getPosition())
+    return findMaxValue(this.#raceCars, (car) => car.position)
   }
 
   #determineWinners(maxPosition) {
     return findItemsWithCondition(
       this.#raceCars,
-      (car) => car.getPosition() === maxPosition,
-      (car) => car.getName(),
+      (car) => car.position === maxPosition,
+      (car) => car.name,
     )
   }
 
@@ -47,6 +52,10 @@ export class RaceTrack {
     }
 
     this.#setWinners()
+  }
+
+  get raceCars() {
+    return this.#raceCars
   }
 
   get turnCount() {
