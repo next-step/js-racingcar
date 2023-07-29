@@ -1,7 +1,10 @@
 {
+  "ignorePatterns": ["./__tests__/Car.test.js"],
   "rules": {
-    "indent": ["error", 2],
-    "eqeqeq": 2,
+    "no-implicit-globals": "error",
+    "max-lines-per-function": ["error", 10],
+    "max-depth": ["error", 2],
+    "eqeqeq": ["error", "always"],
     "no-var": "error",
     "no-else-return":"error"
   },
