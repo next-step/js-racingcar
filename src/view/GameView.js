@@ -2,7 +2,7 @@ import * as readline from 'node:readline/promises'
 import { stdin as input, stdout as output } from 'node:process'
 import { PROMT_CAR_NAME } from '../constants/gameInterface.js'
 
-export class GameInterface {
+export class GameView {
   constructor() {
     this.rl = readline.createInterface({
       input,

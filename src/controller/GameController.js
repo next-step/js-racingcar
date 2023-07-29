@@ -1,12 +1,17 @@
 export class GameController {
-  constructor(view, model) {
-    this.view = view
-    this.model = model
+  #gameView
+  #raceTrack
+
+  constructor(gameView) {
+    this.#gameView = gameView
   }
 
   runGame() {
-    const userInput = this.view.getUserInput()
-    const result = this.model.run(userInput)
-    this.view.printResult(result)
+    const userInput = this.#gameView.getUserInput()
+    this.#raceTrack(userInput)
+
+    const result = this.#raceTrack.race()
+
+    this.#gameView.printResult(result)
   }
 }
