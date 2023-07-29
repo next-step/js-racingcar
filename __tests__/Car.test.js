@@ -25,8 +25,8 @@ describe('유효성 검사', () => {
 
     // when
     const racingSystem = new RacingSystem();
-    expect(() => racingSystem.startGame(exceedName)).toThrowError(ERROR.MAX_NAME);
-    expect(() => racingSystem.startGame(shortName)).toThrowError(ERROR.MIN_NAME);
+    expect(() => racingSystem.startGame(exceedName)).toThrowError(ERROR.MAX_NAME_LENGTH);
+    expect(() => racingSystem.startGame(shortName)).toThrowError(ERROR.MIN_NAME_LENGTH);
   });
 })
 
