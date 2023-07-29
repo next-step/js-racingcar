@@ -1,4 +1,3 @@
-import { RACING_GAME } from '../constants';
 import { CAR } from '../constants';
 
 export class Car {
@@ -10,7 +9,7 @@ export class Car {
   }
 
   advance() {
-    this.#distance += RACING_GAME.DISTANCE_UNIT;
+    this.#distance += CAR.DISTANCE_UNIT;
   }
 
   getName() {

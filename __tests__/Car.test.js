@@ -62,7 +62,7 @@ describe('자동차 경주 시작', () => {
   test('랜덤 값이 4 이상일 경우 자동차가 전진하는지 확인한다.', () => {
     const car = new Car('pobi');
     const RANDOM_INT = 8;
-    if (RANDOM_INT >= RACING_GAME.MOVEMENT_THRESHOLD) car.advance();
+    if (RANDOM_INT >= RACING_GAME.CARS.MOVEMENT_THRESHOLD) car.advance();
 
     expect(car.getDistance()).toBe(1);
   });
@@ -70,7 +70,7 @@ describe('자동차 경주 시작', () => {
   test('랜덤 값이 4 미만일 경우 자동차가 전진하지 않는지 확인한다.', () => {
     const car = new Car('pobi');
     const RANDOM_INT = 2;
-    if (RANDOM_INT >= RACING_GAME.MOVEMENT_THRESHOLD) car.advance();
+    if (RANDOM_INT >= RACING_GAME.CARS.MOVEMENT_THRESHOLD) car.advance();
 
     expect(car.getDistance()).toBe(0);
   });
@@ -81,8 +81,9 @@ describe('우승자 확인', () => {
     const carNames = splitCarNameToArray('pobi,crong,honux');
     carNames.forEach((carName) => validateCarName(carName));
 
+    const TOTAL_ROUNDS = 5;
     const model = new RacingGame();
-    model.settingRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
+    model.settingRacingGame(carNames, TOTAL_ROUNDS);
 
     const gameResult = model.getGameResult();
     const gameResultLines = gameResult.split('\n');
