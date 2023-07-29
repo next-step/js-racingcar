@@ -7,7 +7,7 @@ export default class CarPrompter {
   #readline = readline.createInterface({ input, output });
 
   #inputCarRacers(listenerCallback) {
-    this.#readline.question(`${ALERT_MESSAGE.INPUT_CAR_RACERS}\n`, (inputMessage) => {
+    this.#readline.question(`${ALERT_MESSAGE.INPUT_CAR_MESSAGE}\n`, (inputMessage) => {
       CarPrompter.validate(inputMessage);
       if (listenerCallback) {
         listenerCallback(inputMessage.split(NAME_CONFIGURE.SEPARATOR));
