@@ -1,7 +1,7 @@
 import { validateCarName } from './utils/index';
 
 export default class Car {
-  #name;
+  #name = null;
 
   #movedTrack = 0;
 
@@ -14,7 +14,7 @@ export default class Car {
     return this.#name;
   }
 
-  get distance() {
+  get movedTrack() {
     return this.#movedTrack;
   }
 
