@@ -5,8 +5,9 @@ export const NAME_CONFIGURE = Object.freeze({
 });
 
 export const RACE_CONFIGURE = Object.freeze({
-  MAX_SPEED: 10,
+  MAX_SPEED: 9,
   MIN_SPEED: 0,
-  MOVE_UNIT: 4,
-  MAX_LAP: 5
+  MOVE_CONDITION: 4,
+  MAX_LAP: 5,
+  TRACK: '-'
 });
