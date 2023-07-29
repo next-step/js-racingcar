@@ -1,8 +1,12 @@
 import { RACE_CONFIGURE } from './constants/index';
-import { generateRandomNumber } from './utils/index';
+import { generateRandomNumber, printRace, printResult } from './utils/index';
 
 export default class CarRace {
-  #cars;
+  #cars = [];
+
+  #rank = [];
+
+  #winners = [];
 
   #maxLap = RACE_CONFIGURE.MAX_LAP;
 
@@ -12,10 +16,13 @@ export default class CarRace {
 
   #moveCondition = RACE_CONFIGURE.MOVE_CONDITION;
 
+  #track = RACE_CONFIGURE.TRACK;
+
   #lap = 0;
 
   constructor(cars) {
     this.#cars = cars;
+    this.#rank = cars;
   }
 
   #isRaceNotDone() {
@@ -26,8 +33,22 @@ export default class CarRace {
     return generateRandomNumber(this.#minSpeed, this.#maxSpeed);
   }
 
-  #isMovable() {
-    return this.#getDistance() > this.#moveCondition;
+  #isMovable(distance) {
+    return distance >= this.#moveCondition;
+  }
+
+  #setRank() {
+    this.#rank = this.#cars
+      .sort((a, b) => b.movedTrack - a.movedTrack)
+      .map((car) => ({ name: car.name, moved: car.movedTrack }));
+  }
+
+  #setWinners() {
+    const maxMove = this.#rank.reduce(
+      (max, car) => (car.moved > max.moved ? car : max),
+      this.#rank[0]
+    ).moved;
+    this.#winners = this.#rank.filter((car) => car.moved === maxMove).map((car) => car.name);
   }
 
   nextLap() {
@@ -38,8 +59,21 @@ export default class CarRace {
 
   race() {
     this.#cars.forEach((car) => {
-      car.move(this.#isMovable());
+      const distance = this.#getDistance();
+      car.move(this.#isMovable(distance));
     });
+    this.#setRank();
+  }
+
+  print() {
+    this.#cars.forEach((car) => {
+      printRace(car.name, car.movedTrack, this.#track);
+    });
+  }
+
+  result() {
+    this.#setWinners();
+    printResult(this.#winners);
   }
 
   checkRaceStatus() {
