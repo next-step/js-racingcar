@@ -24,7 +24,7 @@ export class Car {
   }
 
   getPositionLog() {
-    return `${this.#name} : ${new Array(this.#position).fill("-")}`;
+    return `${this.#name} : ${new Array(this.#position).fill("-").join("")}`;
   }
 
   run(number) {

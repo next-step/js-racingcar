@@ -27,7 +27,9 @@ describe("Car", () => {
     expect(car.getPositionLog()).toBe(`${DEFAULT_CAR_NAME} : -`);
     car.run(4);
     expect(car.getPositionLog()).toBe(
-      `${DEFAULT_CAR_NAME} : ${new Array(START_POSITION + RUN_UNIT).fill("-")}`
+      `${DEFAULT_CAR_NAME} : ${new Array(START_POSITION + RUN_UNIT)
+        .fill("-")
+        .join("")}`
     );
   });
 });
