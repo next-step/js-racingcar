@@ -32,3 +32,17 @@ export const DUMMY_INCORRECT_INPUT_CAR_NAMES = [
   { input: 'car,car' },
   { input: 'car4,car3,car2,car2' }
 ];
+
+export const DUMMY_RACE_SET = [
+  { name: 'mario', movedTrack: 1, move: () => {} },
+  { name: 'yoshi', movedTrack: 2, move: () => {} },
+  { name: 'koopa', movedTrack: 3, move: () => {} },
+  { name: 'peach', movedTrack: 4, move: () => {} }
+];
+
+export const DUMMY_DUPLICATE_RACE_SET = [
+  { name: 'mario', movedTrack: 1 },
+  { name: 'yoshi', movedTrack: 2 },
+  { name: 'koopa', movedTrack: 3 },
+  { name: 'peach', movedTrack: 3 }
+];

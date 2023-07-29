@@ -3,15 +3,21 @@ import {
   DUMMY_INCORRECT_LENGTH_CARS,
   DUMMY_NOT_STRING_CAR_NAMES,
   DUMMY_INPUT_CAR_NAMES,
-  DUMMY_INCORRECT_INPUT_CAR_NAMES
+  DUMMY_INCORRECT_INPUT_CAR_NAMES,
+  DUMMY_RACE_SET
 } from './constants';
-import { NAME_CONFIGURE, ERROR_MESSAGE, RACE_CONFIGURE } from '../src/constants/index';
+import {
+  NAME_CONFIGURE,
+  ERROR_MESSAGE,
+  RACE_CONFIGURE,
+  ALERT_MESSAGE
+} from '../src/constants/index';
 import { validateCarName } from '../src/utils/index';
 import Car from '../src/Car';
 import CarPrompter from '../src/CarPrompter';
 import CarRace from '../src/CarRace';
 
-const { MIN_SPEED, MAX_SPEED, MOVE_CONDITION, MAX_LAP } = RACE_CONFIGURE;
+const { TRACK, MOVE_CONDITION, MAX_LAP } = RACE_CONFIGURE;
 describe('자동차 이름 충족 조건 테스트', () => {
   test.each(DUMMY_CORRECT_CARS)('자동차는 이름($name)을 가질 수 있다.', ({ name }) => {
     const car = new Car(name);
@@ -79,4 +85,12 @@ describe('자동차 경주 테스트', () => {
       expect(car.movedTrack).toBe(0);
     }
   );
+
+  it('자동차 주행 횟수 마다 경주 상태를 출력한다.', () => {
+    const logSpy = jest.spyOn(global.console, 'log');
+    const carRace = new CarRace(DUMMY_RACE_SET);
+    carRace.race();
+    carRace.print();
+    expect(logSpy).toHaveBeenCalledTimes(DUMMY_RACE_SET.length);
+  });
 });
