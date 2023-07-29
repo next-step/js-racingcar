@@ -1,6 +1,5 @@
 const DEFAULT_STATE = Object.freeze({
   CARS: [],
-  TOTAL_ROUNDS: 5,
 });
 
 export const RACING_GAME = Object.freeze({
