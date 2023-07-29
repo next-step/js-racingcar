@@ -17,12 +17,9 @@ export class RacingSystem {
 
   startGame(names) {
     const carNames = this.#validateName(names);
-
     this.cars = carNames.map((name) => new CarModel(name));
-
     this.view.printResultHeader();
     this.#runRaceLoop();
-
     this.#endGame();
   }
 
@@ -43,7 +40,6 @@ export class RacingSystem {
       this.cars.forEach((car) => this.view.printCarPosition(car.getName(), car.getPosition()));
       this.view.printBreakLine();
     }
-    // this.view.printCarPosition
   }
 
   #roundProcess() {
