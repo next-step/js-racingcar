@@ -1,4 +1,4 @@
-import { CONDITIONS, ERROR_MESSAGES } from "../constants.js";
+import { CONDITIONS, ERROR_MESSAGES } from "../constants/constants.js";
 import { CarModel } from "./CarModel.js";
 
 export class GameModel {

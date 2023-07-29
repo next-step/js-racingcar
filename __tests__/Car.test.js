@@ -1,8 +1,8 @@
-import { CarRacingManager } from "../src/CarRacingManager";
-import { ERROR_MESSAGES } from "../src/constants";
+import { CarRacingManager } from "../src/controller/CarRacingManager";
+import { ERROR_MESSAGES } from "../src/constants/constants";
 import { CarModel } from "../src/model/CarModel";
 import { GameModel } from "../src/model/GameModel";
-import { makeConsecutiveRangeArray } from "../src/utils";
+import { makeConsecutiveRangeArray } from "../src/utils/utils";
 
 const DEFAULT_NAME = "크롱";
 const DEFAULT_NAMES = ["크롱", "뽀로로", "루피", "포비"];

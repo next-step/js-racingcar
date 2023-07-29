@@ -3,10 +3,10 @@ import {
   GAME_MESSAGES,
   MOVEMENT_PRINT,
   NAME_SEPARATOR,
-} from "./constants.js";
-import { CarModel } from "./model/CarModel.js";
-import { GameModel } from "./model/GameModel.js";
-import { getRandomNumberInRange, sleeping } from "./utils.js";
+} from "../constants/constants.js";
+import { CarModel } from "../model/CarModel.js";
+import { GameModel } from "../model/GameModel.js";
+import { getRandomNumberInRange, sleeping } from "../utils/utils.js";
 
 export class CarRacingManager {
   #gameModel = new GameModel();
