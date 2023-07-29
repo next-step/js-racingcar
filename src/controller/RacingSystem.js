@@ -6,10 +6,12 @@ import { getRandomNumber, validateName, terminal } from '../util/index.js';
 export class RacingSystem {
   cars = [];
   round = 5;
+  separator = ',';
   view;
 
-  constructor() {
-    this.round = SETTINGS.ROUND;
+  constructor(round, separator) {
+    this.round = round;
+    this.separator = separator;
     this.view = new CarView();
   }
 
@@ -31,7 +33,7 @@ export class RacingSystem {
   }
 
   #validateName(input) {
-    const carNames = input.split(SETTINGS.SEPERATOR).map((name) => validateName(name.trim()));
+    const carNames = input.split(this.separator).map((name) => validateName(name.trim()));
     return carNames;
   }
 

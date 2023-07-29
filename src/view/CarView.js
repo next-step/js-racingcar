@@ -1,4 +1,4 @@
-import { MESSAGES } from 'constants/index.js';
+import { MESSAGES } from '../constants/index.js';
 
 class CarView {
   printResultHeader() {
