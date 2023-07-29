@@ -1,5 +1,5 @@
-import { MESSAGES } from "./constants/index.js";
-import { print } from "./util/print.js";
+import { MESSAGES } from './constants/index.js';
+import { print } from './util/print.js';
 
 export class CarView {
   printStart() {
@@ -7,10 +7,10 @@ export class CarView {
   }
 
   printScore(key, value) {
-    print(`${key} : ${"-".repeat(value)}`);
+    print(`${key} : ${'-'.repeat(value)}`);
   }
 
   printWinner(winner) {
-    print(`${winner.join(", ")}${MESSAGES.FINISH}`);
+    print(`${winner.join(', ')}${MESSAGES.FINISH}`);
   }
 }

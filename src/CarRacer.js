@@ -1,8 +1,8 @@
-import { CarView } from "./View.js";
-import { SETTING } from "./constants/index.js";
-import { print } from "./util/print.js";
-import { randomNumber } from "./util/randomNumber.js";
-import { validation } from "./util/validation.js";
+import { CarView } from './View.js';
+import { SETTING } from './constants/index.js';
+import { print } from './util/print.js';
+import { randomNumber } from './util/randomNumber.js';
+import { validation } from './util/validation.js';
 export class CarRacer {
   #names = new Map();
   #round = SETTING.ROUND;
@@ -13,7 +13,7 @@ export class CarRacer {
   }
 
   set names(input) {
-    const names = input.split(",");
+    const names = input.split(',');
     names.forEach((name) => this.#names.set(validation(name.trim()), 0));
     this.raceStart();
   }
@@ -27,7 +27,7 @@ export class CarRacer {
 
     for (let i = 0; i < this.#round; i++) {
       this.#names.forEach((value, key) => this.moveOrNot(value, key));
-      print("\n");
+      print('\n');
     }
 
     this.raceEnd();
@@ -46,9 +46,7 @@ export class CarRacer {
 
   getWinner() {
     const maxScore = Math.max(...this.#names.values());
-    const winner = this.names.filter(
-      (name) => this.#names.get(name) === maxScore,
-    );
+    const winner = this.names.filter((name) => this.#names.get(name) === maxScore);
     return winner;
   }
 }
