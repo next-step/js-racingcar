@@ -26,7 +26,7 @@ export class GameController {
 
       this.#handleCarNameInput(carNames);
     } catch (error) {
-      this.#printError(error);
+      this.#handleError(error, this.#readCarName.bind(this));
     }
   }
 
@@ -48,7 +48,7 @@ export class GameController {
 
       this.#handleTotalRoundInput(userInput);
     } catch (error) {
-      this.#printError(error);
+      this.#handleError(error, this.#readTotalRound.bind(this));
     }
   }
 
@@ -72,5 +72,11 @@ export class GameController {
 
   #printError(error) {
     this.#view.printError(error);
+  }
+
+  #handleError(error, phase) {
+    this.#printError(error.message);
+
+    phase();
   }
 }
