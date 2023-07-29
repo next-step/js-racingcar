@@ -99,3 +99,47 @@ describe('자동차 2차 요구사항', () => {
     expect(logSpy.mock.calls[0][0]).toBe(CAR_NAME)
   })
 })
+
+describe('자동차 3차 요구사항', () => {
+  test('자동차의 이름에 직접 접근하는 경우, 이름에 직접 접근할 수 없다는 에러가 발생한다.', () => {
+    // Given
+    const CAR_NAME = 'son'
+
+    // When, Then
+    expect(() => {
+      new Car(CAR_NAME).name
+    }).toThrow(new Error(ERROR_MESSAGE.NOT_ACCESS_NAME))
+  })
+
+  test('자동차의 이름을 직접 할당하는 경우, 이름을 직접 할당할 수 없다는 에러가 발생한다.', () => {
+    // Given
+    const CAR_NAME = 'son'
+    const NEW_CAR_NAME = 'son2'
+
+    // When, Then
+    expect(() => {
+      new Car(CAR_NAME).name = NEW_CAR_NAME
+    }).toThrow(new Error(ERROR_MESSAGE.NOT_ASSIGN_NAME))
+  })
+
+  test('자동차의 포지션에 직접 접근하는 경우, 포지션에 직접 접근할 수 없다는 에러가 발생한다.', () => {
+    // Given
+    const CAR_NAME = 'son'
+
+    // When, Then
+    expect(() => {
+      new Car(CAR_NAME).position
+    }).toThrow(new Error(ERROR_MESSAGE.NOT_ACCESS_POSITION))
+  })
+
+  test('자동차의 포지션을 직접 할당하는 경우, 포지션을 직접 할당할 수 없다는 에러가 발생한다.', () => {
+    // Given
+    const CAR_NAME = 'son'
+    const NEW_CAR_POSITION = 2
+
+    // When, Then
+    expect(() => {
+      new Car(CAR_NAME).position = NEW_CAR_POSITION
+    }).toThrow(new Error(ERROR_MESSAGE.NOT_ASSIGN_POSITION))
+  })
+})

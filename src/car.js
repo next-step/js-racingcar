@@ -33,14 +33,14 @@ export class Car {
   }
 
   get name() {
-    return this.#_name
+    throw new Error(ERROR_MESSAGE.NOT_ACCESS_NAME)
   }
   set name(newName) {
     throw new Error(ERROR_MESSAGE.NOT_ASSIGN_NAME)
   }
 
   get position() {
-    return this.#_position
+    throw new Error(ERROR_MESSAGE.NOT_ACCESS_POSITION)
   }
   set position(newPosition) {
     throw new Error(ERROR_MESSAGE.NOT_ASSIGN_POSITION)
@@ -48,13 +48,13 @@ export class Car {
 
   run(step) {
     if (step >= RUN_THRESHOLDS) {
-      this.setPosition(this.position + DEFAULT_STEP_SIZE)
+      this.setPosition(this.getPosition() + DEFAULT_STEP_SIZE)
       this.printCarName()
     }
   }
 
   getName() {
-    return this.name
+    return this.#_name
   }
 
   printCarName() {
@@ -62,7 +62,7 @@ export class Car {
   }
 
   getPosition() {
-    return this.position
+    return this.#_position
   }
 
   setPosition(newPosition) {
