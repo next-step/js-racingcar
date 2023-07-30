@@ -31,6 +31,32 @@ export class Car {
     }
   }
 
+  run() {
+    this.setPosition(this.getPosition() + DEFAULT_STEP_SIZE)
+    this.printCarName()
+  }
+
+  printCarName() {
+    const position = Array.from({ length: this.getPosition() }).reduce(
+      prev => prev + '-',
+      ''
+    )
+
+    console.log(`${this.getName()}: ${position}`)
+  }
+
+  setPosition(newPosition) {
+    this.#_position = newPosition
+  }
+
+  getName() {
+    return this.#_name
+  }
+
+  getPosition() {
+    return this.#_position
+  }
+
   get name() {
     throw new Error(CAR_ERROR_MESSAGE.NOT_ACCESS_NAME)
   }
@@ -43,31 +69,5 @@ export class Car {
   }
   set position(_) {
     throw new Error(CAR_ERROR_MESSAGE.NOT_ASSIGN_POSITION)
-  }
-
-  run() {
-    this.setPosition(this.getPosition() + DEFAULT_STEP_SIZE)
-    this.printCarName()
-  }
-
-  getName() {
-    return this.#_name
-  }
-
-  printCarName() {
-    const position = Array.from({ length: this.getPosition() }).reduce(
-      prev => prev + '-',
-      ''
-    )
-
-    console.log(`${this.getName()}: ${position}`)
-  }
-
-  getPosition() {
-    return this.#_position
-  }
-
-  setPosition(newPosition) {
-    this.#_position = newPosition
   }
 }

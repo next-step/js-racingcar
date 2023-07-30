@@ -60,6 +60,14 @@ export class RacingCarGame {
     this.#_race.reset()
   }
 
+  setParticipants(names) {
+    this.init(names)
+  }
+
+  generateCarByNames(names) {
+    return names.split(',').map(name => new Car(name.trim()))
+  }
+
   getWinners() {
     return this.#_race.getWinners()
   }
@@ -70,12 +78,5 @@ export class RacingCarGame {
 
   getParticipants() {
     return this.#_race.getParticipants()
-  }
-  setParticipants(names) {
-    this.init(names)
-  }
-
-  generateCarByNames(names) {
-    return names.split(',').map(name => new Car(name.trim()))
   }
 }

@@ -21,11 +21,26 @@ export class Race {
     this.init(participants, maxMatchLength, runCondition)
   }
 
-  get participants() {
-    throw new Error(RACE_ERROR_MESSAGE.NOT_ACCESS_PARTICIPANTS)
-  }
-  set participants(_) {
-    throw new Error(RACE_ERROR_MESSAGE.NOT_ASSIGN_PARTICIPANTS)
+  validate(participants, maxMatchLength) {
+    const isIncludeMethods = participants
+      .map(this.isIncludeMethods)
+      .every(hasMethod => hasMethod === true)
+
+    const isEnoughParticipants = participants.length >= 2
+
+    const isValidMatchLength = isNumber(maxMatchLength)
+
+    if (!isIncludeMethods) {
+      throw new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD)
+    }
+
+    if (!isEnoughParticipants) {
+      throw new Error(RACE_ERROR_MESSAGE.LACK_PARTICIPANTS)
+    }
+
+    if (!isValidMatchLength) {
+      throw new Error(RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH)
+    }
   }
 
   init(participants, maxMatchLength, runCondition) {
@@ -63,6 +78,12 @@ export class Race {
       .forEach(participant => participant.run())
   }
 
+  isIncludeMethods(participant) {
+    return REQUIRE_METHODS_KEY.every(
+      method => method in participant && isFunction(participant[method])
+    )
+  }
+
   getMaxMatchLength() {
     return this.#_maxMatchLength
   }
@@ -82,31 +103,10 @@ export class Race {
     return highestPosition === 0 ? [] : winners.map(winner => winner.getName())
   }
 
-  validate(participants, maxMatchLength) {
-    const isIncludeMethods = participants
-      .map(this.isIncludeMethods)
-      .every(hasMethod => hasMethod === true)
-
-    const isEnoughParticipants = participants.length >= 2
-
-    const isValidMatchLength = isNumber(maxMatchLength)
-
-    if (!isIncludeMethods) {
-      throw new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD)
-    }
-
-    if (!isEnoughParticipants) {
-      throw new Error(RACE_ERROR_MESSAGE.LACK_PARTICIPANTS)
-    }
-
-    if (!isValidMatchLength) {
-      throw new Error(RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH)
-    }
+  get participants() {
+    throw new Error(RACE_ERROR_MESSAGE.NOT_ACCESS_PARTICIPANTS)
   }
-
-  isIncludeMethods(participant) {
-    return REQUIRE_METHODS_KEY.every(
-      method => method in participant && isFunction(participant[method])
-    )
+  set participants(_) {
+    throw new Error(RACE_ERROR_MESSAGE.NOT_ASSIGN_PARTICIPANTS)
   }
 }
