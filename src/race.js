@@ -54,6 +54,10 @@ export class Race {
   }
 
   runParticipants() {
+    if (this.getParticipants().length === 0) {
+      throw new Error(RACE_ERROR_MESSAGE.LACK_PARTICIPANTS)
+    }
+
     this.getParticipants()
       .filter(this.#_runCondition)
       .forEach(participant => participant.run())
