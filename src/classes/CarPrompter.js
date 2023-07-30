@@ -1,7 +1,7 @@
 import { stdin as input, stdout as output } from 'process';
 import * as readline from 'readline';
-import { ALERT_MESSAGE, NAME_CONFIGURE } from './constants/index';
-import { validateInputToCarRacers } from './utils/index';
+import { ALERT_MESSAGE, NAME_CONFIGURE } from '../constants/index';
+import { validateInputToCarRacers } from '../utils/index';
 
 export default class CarPrompter {
   #readline = readline.createInterface({ input, output });

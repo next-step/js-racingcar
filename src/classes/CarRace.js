@@ -1,5 +1,5 @@
-import { RACE_CONFIGURE } from './constants/index';
-import { generateRandomNumber, printRace, printResult } from './utils/index';
+import { RACE_CONFIGURE } from '../constants/index';
+import { generateRandomNumber, printRace, printResult } from '../utils/index';
 
 export default class CarRace {
   #cars = [];

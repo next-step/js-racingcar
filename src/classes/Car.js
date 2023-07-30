@@ -1,4 +1,4 @@
-import { validateCarName } from './utils/index';
+import { validateCarName } from '../utils/index';
 
 export default class Car {
   #name = null;

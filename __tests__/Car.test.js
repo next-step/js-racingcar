@@ -14,9 +14,7 @@ import {
   ALERT_MESSAGE
 } from '../src/constants/index';
 import { validateCarName } from '../src/utils/index';
-import Car from '../src/Car';
-import CarPrompter from '../src/CarPrompter';
-import CarRace from '../src/CarRace';
+import { Car, CarPrompter, CarRace } from '../src/classes/index';
 
 const { TRACK, MOVE_CONDITION, MAX_LAP } = RACE_CONFIGURE;
 describe('자동차 이름 충족 조건 테스트', () => {
