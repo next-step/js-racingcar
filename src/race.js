@@ -7,37 +7,55 @@ import { isFunction, isNumber } from './utils'
 
 export class Race {
   #_participants
+  #_match
   #_maxMatchLength
+  #_runCondition
 
-  constructor({ participants, maxMatchLength = DEFAULT_MAX_MATCH_LENGTH }) {
+  constructor({
+    participants,
+    maxMatchLength = DEFAULT_MAX_MATCH_LENGTH,
+    runCondition = () => true
+  }) {
     this.validate(participants, maxMatchLength)
-
-    this.#_participants = participants
-    this.#_maxMatchLength = maxMatchLength
-    this.init()
+    this.init(participants, maxMatchLength, runCondition)
   }
 
   get participants() {
     throw new Error(ERROR_MESSAGE.NOT_ACCESS_PARTICIPANTS)
   }
-  set participants(newParticipants) {
+  set participants(_) {
     throw new Error(ERROR_MESSAGE.NOT_ASSIGN_PARTICIPANTS)
   }
 
-  init() {
+  init(participants, maxMatchLength, runCondition) {
+    this.#_match = 0
+    this.#_participants = participants
+    this.#_maxMatchLength = maxMatchLength
+    this.#_runCondition = runCondition
+
     this.getParticipants().forEach(participant => {
       participant.setPosition(0)
     })
   }
 
-  start() {
-    this.getParticipants().forEach(participant =>
-      this.runParticipant(participant, this.#_maxMatchLength)
-    )
+  reset() {
+    this.init(this.getParticipants(), this.getMaxMatchLength())
   }
 
-  end() {
-    this.init()
+  startRound() {
+    const isOverMaxMatch = this.#_match + 1 > this.#_maxMatchLength
+    if (isOverMaxMatch) {
+      throw new Error(ERROR_MESSAGE.OVER_MATCH_MAX_LENGTH)
+    }
+
+    this.#_match++
+    this.runParticipants()
+  }
+
+  runParticipants() {
+    this.getParticipants()
+      .filter(this.#_runCondition)
+      .forEach(participant => participant.run(5))
   }
 
   getMaxMatchLength() {
@@ -49,10 +67,9 @@ export class Race {
   }
 
   getWinners() {
-    const participantsPosition = this.getParticipants().map(participant =>
-      participant.getPosition()
+    const maxPosition = Math.max(
+      ...this.getParticipants().map(participant => participant.getPosition())
     )
-    const maxPosition = Math.max(...participantsPosition)
     const winners = this.getParticipants().filter(
       participant => participant.getPosition() === maxPosition
     )
@@ -60,27 +77,18 @@ export class Race {
     return winners.map(winner => winner.getName())
   }
 
-  runParticipant(participant, maxMatchLength) {
-    let match = 0
-
-    while (match < maxMatchLength) {
-      participant.run(5)
-      match++
-    }
-  }
-
   validate(participants, maxMatchLength) {
     const isIncludeMethods = participants
       .map(this.isIncludeMethods)
       .every(hasMethod => hasMethod === true)
 
-    const isValidMathLength = isNumber(maxMatchLength)
+    const isValidMatchLength = isNumber(maxMatchLength)
 
     if (!isIncludeMethods) {
       throw new Error(ERROR_MESSAGE.NOT_INCLUDE_METHOD)
     }
 
-    if (!isValidMathLength) {
+    if (!isValidMatchLength) {
       throw new Error(ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH)
     }
   }
