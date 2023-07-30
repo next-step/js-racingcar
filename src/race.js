@@ -50,9 +50,7 @@ export class Race {
     this.#maxMatchLength = maxMatchLength
     this.#runCondition = runCondition
 
-    this.getParticipants().forEach(participant => {
-      participant.setPosition(0)
-    })
+    this.resetParticipantsPosition()
   }
 
   reset() {
@@ -77,6 +75,16 @@ export class Race {
     this.getParticipants()
       .filter(this.#runCondition)
       .forEach(participant => participant.run())
+  }
+
+  resetParticipantsPosition() {
+    if (this.getParticipants().length === 0) {
+      throw new Error(RACE_ERROR_MESSAGE.LACK_PARTICIPANTS)
+    }
+
+    this.getParticipants().forEach(participant => {
+      participant.setPosition(0)
+    })
   }
 
   isIncludeMethods(participant) {
