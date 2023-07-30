@@ -1,7 +1,6 @@
 import {
   ERROR_MESSAGE,
   DEFAULT_STEP_SIZE,
-  RUN_THRESHOLDS,
   MAX_NAME_LENGTH,
   MIN_NAME_LENGTH
 } from './constants'
@@ -46,11 +45,9 @@ export class Car {
     throw new Error(ERROR_MESSAGE.NOT_ASSIGN_POSITION)
   }
 
-  run(step) {
-    if (step >= RUN_THRESHOLDS) {
-      this.setPosition(this.getPosition() + DEFAULT_STEP_SIZE)
-      this.printCarName()
-    }
+  run() {
+    this.setPosition(this.getPosition() + DEFAULT_STEP_SIZE)
+    this.printCarName()
   }
 
   getName() {
@@ -58,7 +55,12 @@ export class Car {
   }
 
   printCarName() {
-    console.log(this.getName())
+    const position = Array.from({ length: this.getPosition() }).reduce(
+      prev => prev + '-',
+      ''
+    )
+
+    console.log(`${this.getName()}: ${position}`)
   }
 
   getPosition() {

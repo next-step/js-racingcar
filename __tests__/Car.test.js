@@ -21,39 +21,28 @@ describe('Car - Feature', () => {
     expect(car.getName()).toBe(CAR_NAME)
   })
 
-  test('자동차는 랜덤 숫자가 4 이상이면 앞으로 전진한다.', () => {
+  test('자동차는 앞으로 전진한다.', () => {
     // Given
     const car = new Car(CAR_NAME)
 
     // When
-    car.run(4)
+    car.run()
 
     // Then
     expect(car.getPosition()).toBe(1)
   })
 
-  test('자동차는 랜덤 숫자가 4 미만이면 정지한다.', () => {
-    // Given
-    const car = new Car(CAR_NAME)
-
-    // When
-    car.run(3)
-
-    // Then
-    expect(car.getPosition()).toBe(0)
-  })
-
-  test('자동차는 전진할 때, 자동차의 이름을 같이 출력한다.', () => {
+  test('자동차는 전진할 때, 자동차의 이름과 포지션을 같이 출력한다.', () => {
     // Given
     const CAR_NAME = 'son'
     const car = new Car(CAR_NAME)
 
     // When
-    car.run(4)
+    car.run()
 
     // Then
     expect(car.getPosition()).toBe(1)
-    expect(logSpy.mock.calls[0][0]).toBe(CAR_NAME)
+    expect(logSpy.mock.calls[0][0]).toBe(`${CAR_NAME}: -`)
   })
 })
 

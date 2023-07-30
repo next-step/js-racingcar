@@ -55,7 +55,7 @@ export class Race {
   runParticipants() {
     this.getParticipants()
       .filter(this.#_runCondition)
-      .forEach(participant => participant.run(5))
+      .forEach(participant => participant.run())
   }
 
   getMaxMatchLength() {
