@@ -138,4 +138,17 @@ describe('Racing Car Game', () => {
   });
 
   // 주어진 횟수 동안 n 대의 자동차는 전진 또는 멈출 수 있다.
+  it('Car race within user input count', () => {
+    initialize();
+
+    const racers = [
+      { name: 'pobi', state: '-' },
+      { name: 'crong', state: '-' },
+      { name: 'honux', state: '-' },
+    ];
+    racingCar.setCount(5);
+    racingCar.race(racers);
+
+    expect(racingCar.count).toBe(5);
+  });
 });
