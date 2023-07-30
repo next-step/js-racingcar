@@ -16,7 +16,7 @@ export class CarRacingManager {
   gameStart(names, endProcess, wait = sleeping) {
     try {
       this.setParticipants(names);
-      console.log("\n실행결과");
+      console.log(GAME_MESSAGES.GAME_START);
       this.roundInterval(endProcess, wait);
     } catch (error) {
       this.gameEnd(endProcess, error.message);
@@ -75,10 +75,6 @@ export class CarRacingManager {
     return maxMoveIndexes
       .map((v) => this.getParticipantsName()[v])
       .join(NAME_SEPARATOR);
-  }
-
-  canMove(aNumber) {
-    return aNumber >= CONDITIONS.can_move_number;
   }
 
   getIndexesOfMaxValue(arr) {

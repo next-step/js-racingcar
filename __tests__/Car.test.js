@@ -2,7 +2,6 @@ import { CarRacingManager } from "../src/controller/CarRacingManager";
 import { ERROR_MESSAGES } from "../src/constants/constants";
 import { CarModel } from "../src/model/CarModel";
 import { GameModel } from "../src/model/GameModel";
-import { makeConsecutiveRangeArray } from "../src/utils/utils";
 
 const DEFAULT_NAME = "크롱";
 const DEFAULT_NAMES = ["크롱", "뽀로로", "루피", "포비"];
@@ -107,18 +106,6 @@ describe("자동자 경주 게임", () => {
   });
 
   describe("경주 진행", () => {
-    test("전진하는 조건은 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다.", () => {
-      const carRacingManager = new CarRacingManager();
-
-      makeConsecutiveRangeArray(0, 9).forEach((v) => {
-        if (v >= 4) {
-          expect(carRacingManager.canMove(v)).toBeTruthy();
-        } else {
-          expect(carRacingManager.canMove(v)).toBeFalsy();
-        }
-      });
-    });
-
     test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
       const { carRacingManager, spyOn } = gameSetUp();
 
