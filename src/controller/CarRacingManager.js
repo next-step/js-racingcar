@@ -23,16 +23,6 @@ export class CarRacingManager {
     }
   }
 
-  getParticipantsName() {
-    return this.#gameModel.participants.map((v) => v.name);
-  }
-
-  setParticipants(names) {
-    this.#gameModel.participants = names
-      .split(NAME_SEPARATOR)
-      .map((name) => new CarModel(name.trim()));
-  }
-
   roundInterval(endProcess, wait) {
     this.#gameModel.increaseRound();
     if (this.#gameModel.round > CONDITIONS.max_game_round_number) {
@@ -53,18 +43,19 @@ export class CarRacingManager {
     });
   }
 
-  printCarAndMove(name, movement) {
-    console.log(`${name}: ${MOVEMENT_PRINT.repeat(movement)}`);
-  }
-
   gameEnd(endProcess, message) {
     this.printGameEndMessage(message);
     endProcess();
   }
 
-  printGameEndMessage(message) {
-    if (message) console.log(message);
-    console.log(GAME_MESSAGES.GAME_OVER);
+  getParticipantsName() {
+    return this.#gameModel.participants.map((v) => v.name);
+  }
+
+  setParticipants(names) {
+    this.#gameModel.participants = names
+      .split(NAME_SEPARATOR)
+      .map((name) => new CarModel(name.trim()));
   }
 
   get winners() {
@@ -75,6 +66,15 @@ export class CarRacingManager {
     return maxMoveIndexes
       .map((v) => this.getParticipantsName()[v])
       .join(NAME_SEPARATOR);
+  }
+
+  printCarAndMove(name, movement) {
+    console.log(`${name}: ${MOVEMENT_PRINT.repeat(movement)}`);
+  }
+
+  printGameEndMessage(message) {
+    if (message) console.log(message);
+    console.log(GAME_MESSAGES.GAME_OVER);
   }
 
   getIndexesOfMaxValue(arr) {
