@@ -27,6 +27,7 @@ describe('Racing Car Game', () => {
       { name: 'crong', state: '-' },
       { name: 'honux', state: '-' },
     ];
+    racingCar.setCount(5);
     racingCar.race(racers);
     expect(racingCar.count).toBe(5);
   });

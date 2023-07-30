@@ -6,7 +6,6 @@ const racer = new Racer();
 
 class RacingCar {
   #CAR_NAME_LENGTH_LIMIT = 5;
-  #RACE_LOOP_LIMIT = 5;
 
   count;
   racers;
@@ -31,11 +30,13 @@ class RacingCar {
           return this.start();
         }
 
-        readline.question('시도할 횟수는 몇회인가요?\n', (counts) => {
-          if (!this.validateCountInput(counts)) {
+        readline.question('시도할 횟수는 몇회인가요?\n', (count) => {
+          if (!this.validateCountInput(count)) {
             this.printWrongInput();
             return this.start();
           }
+
+          this.setCount(count);
 
           this.printTitle();
 
@@ -58,23 +59,26 @@ class RacingCar {
     return isValidated;
   }
 
-  validateCountInput(counts) {
-    const isValidated = !Number.isNaN(parseInt(counts));
+  validateCountInput(count) {
+    const isValidated = !Number.isNaN(parseInt(count));
 
     return isValidated;
   }
 
   race(racers) {
-    for (let i = 0; i < this.#RACE_LOOP_LIMIT; i += 1) {
+    for (let i = 0; i < this.count; i += 1) {
       racers.forEach((r) => {
         racer.goForward(r);
         racer.printRacingState(r.name, r.state);
       });
       print('');
-      this.count += 1;
     }
 
     this.setWinners(racers);
+  }
+
+  setCount(count) {
+    this.count = count;
   }
 
   setRacers(names) {
