@@ -1,3 +1,4 @@
+import { CarModel } from "../model/CarModel";
 import { CarRacingManager } from "./CarRacingManager";
 
 describe("자동자 경주 게임", () => {
@@ -52,19 +53,18 @@ describe("자동자 경주 게임", () => {
       gameStart();
 
       expect(spyOn.printGameEndMessage).toBeCalledWith(
-        `${carRacingManager.winners}가 최종 우승했습니다.`
+        `${carRacingManager.getWinnersName()}가 최종 우승했습니다.`
       );
     });
 
     test("우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.", () => {
-      const { carRacingManager, gameStart, spyOn } = gameSetUp();
-      carRacingManager.getIndexesOfMaxValue = jest.fn(() => [0, 2]);
+      const carRacingManager = new CarRacingManager();
 
-      gameStart();
+      const winner = [new CarModel("뽀로로")];
+      const winners = [new CarModel("뽀로로"), new CarModel("루피")];
 
-      expect(spyOn.printGameEndMessage).toBeCalledWith(
-        "뽀로로,루피가 최종 우승했습니다."
-      );
+      expect(carRacingManager.getWinnersName(winner)).toBe("뽀로로");
+      expect(carRacingManager.getWinnersName(winners)).toBe("뽀로로,루피");
     });
   });
 });
