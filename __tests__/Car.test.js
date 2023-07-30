@@ -4,7 +4,8 @@ import {
   DUMMY_NOT_STRING_CAR_NAMES,
   DUMMY_INPUT_CAR_NAMES,
   DUMMY_INCORRECT_INPUT_CAR_NAMES,
-  DUMMY_RACE_SET
+  DUMMY_RACE_SET,
+  DUMMY_DUPLICATE_RACE_SET
 } from './constants';
 import {
   NAME_CONFIGURE,
@@ -40,6 +41,14 @@ describe('자동차 이름 충족 조건 테스트', () => {
 });
 
 describe('자동차 경주 테스트', () => {
+  beforeEach(() => {
+    logSpy = jest.spyOn(global.console, 'log');
+  });
+
+  afterEach(() => {
+    logSpy.mockClear();
+  });
+
   test.each(DUMMY_INPUT_CAR_NAMES)(
     '자동차 경주에 참여하는 자동차 이름은 쉼표(,)로 구분하여 입력한다.($input)',
     ({ input }) => {
@@ -73,7 +82,7 @@ describe('자동차 경주 테스트', () => {
     ({ name, movableDistance }) => {
       const car = new Car(name);
       car.move(movableDistance >= MOVE_CONDITION);
-      expect(car.movedTrack).toBe(1);
+      expect(car.moved).toBe(1);
     }
   );
 
@@ -82,15 +91,30 @@ describe('자동차 경주 테스트', () => {
     ({ name, notMovableDistance }) => {
       const car = new Car(name);
       car.move(notMovableDistance >= MOVE_CONDITION);
-      expect(car.movedTrack).toBe(0);
+      expect(car.moved).toBe(0);
     }
   );
 
   it('자동차 주행 횟수 마다 경주 상태를 출력한다.', () => {
-    const logSpy = jest.spyOn(global.console, 'log');
     const carRace = new CarRace(DUMMY_RACE_SET);
     carRace.race();
     carRace.print();
     expect(logSpy).toHaveBeenCalledTimes(DUMMY_RACE_SET.length);
+  });
+
+  it('자동차 경주 종료 후, 우승자를 출력한다.', () => {
+    const carRace = new CarRace(DUMMY_RACE_SET);
+    carRace.result();
+    const winners = carRace.getWinners();
+    expect(logSpy).toHaveBeenCalled();
+    expect(logSpy.mock.calls[0][0]).toBe(ALERT_MESSAGE.RACE_FINISH_MESSAGE(winners));
+  });
+
+  it('우승자는 여러 명일 수 있다. ', () => {
+    const carRace = new CarRace(DUMMY_DUPLICATE_RACE_SET);
+    carRace.result();
+    const winners = carRace.getWinners();
+    expect(logSpy).toHaveBeenCalled();
+    expect(logSpy.mock.calls[0][0]).toBe(ALERT_MESSAGE.RACE_FINISH_MESSAGE(winners));
   });
 });
