@@ -1,5 +1,5 @@
 import {
-  ERROR_MESSAGE,
+  RACE_ERROR_MESSAGE,
   REQUIRE_METHODS_KEY,
   DEFAULT_MAX_MATCH_LENGTH
 } from './constants'
@@ -21,10 +21,10 @@ export class Race {
   }
 
   get participants() {
-    throw new Error(ERROR_MESSAGE.NOT_ACCESS_PARTICIPANTS)
+    throw new Error(RACE_ERROR_MESSAGE.NOT_ACCESS_PARTICIPANTS)
   }
   set participants(_) {
-    throw new Error(ERROR_MESSAGE.NOT_ASSIGN_PARTICIPANTS)
+    throw new Error(RACE_ERROR_MESSAGE.NOT_ASSIGN_PARTICIPANTS)
   }
 
   init(participants, maxMatchLength, runCondition) {
@@ -45,7 +45,7 @@ export class Race {
   startRound() {
     const isOverMaxMatch = this.#_match + 1 > this.#_maxMatchLength
     if (isOverMaxMatch) {
-      throw new Error(ERROR_MESSAGE.OVER_MATCH_MAX_LENGTH)
+      throw new Error(RACE_ERROR_MESSAGE.OVER_MATCH_MAX_LENGTH)
     }
 
     this.#_match++
@@ -87,15 +87,15 @@ export class Race {
     const isValidMatchLength = isNumber(maxMatchLength)
 
     if (!isIncludeMethods) {
-      throw new Error(ERROR_MESSAGE.NOT_INCLUDE_METHOD)
+      throw new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD)
     }
 
     if (!isEnoughParticipants) {
-      throw new Error(ERROR_MESSAGE.LACK_PARTICIPANTS)
+      throw new Error(RACE_ERROR_MESSAGE.LACK_PARTICIPANTS)
     }
 
     if (!isValidMatchLength) {
-      throw new Error(ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH)
+      throw new Error(RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH)
     }
   }
 

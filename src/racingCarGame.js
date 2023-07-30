@@ -1,7 +1,7 @@
 import { Car } from './car'
 import {
   DEFAULT_MAX_MATCH_LENGTH,
-  ERROR_MESSAGE,
+  GAME_ERROR_MESSAGE,
   RUN_THRESHOLDS
 } from './constants'
 import { Race } from './race'
@@ -21,7 +21,7 @@ export class RacingCarGame {
         runCondition: () => getRandomNumber() > RUN_THRESHOLDS
       })
     } catch (e) {
-      console.log(ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR)
+      console.log(GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR)
     }
   }
 

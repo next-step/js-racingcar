@@ -1,5 +1,5 @@
 import { Car } from '../src/car'
-import { ERROR_MESSAGE } from '../src/constants'
+import { GAME_ERROR_MESSAGE } from '../src/constants'
 import { RacingCarGame } from '../src/racingCarGame'
 import * as number from '../src/utils/number'
 
@@ -89,7 +89,7 @@ describe('RacingCarGame - Error', () => {
 
     //Then
     expect(logSpy.mock.calls.at(-1)[0]).toEqual(
-      ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR
+      GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR
     )
   })
 
@@ -102,7 +102,7 @@ describe('RacingCarGame - Error', () => {
 
     //Then
     expect(logSpy.mock.calls.at(-1)[0]).toEqual(
-      ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR
+      GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR
     )
   })
 })

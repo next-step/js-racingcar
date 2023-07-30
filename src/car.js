@@ -1,5 +1,5 @@
 import {
-  ERROR_MESSAGE,
+  CAR_ERROR_MESSAGE,
   DEFAULT_STEP_SIZE,
   MAX_NAME_LENGTH,
   MIN_NAME_LENGTH
@@ -19,30 +19,30 @@ export class Car {
 
   validate(name) {
     if (!isString(name)) {
-      throw new Error(ERROR_MESSAGE.INVALID_NAME_TYPE)
+      throw new Error(CAR_ERROR_MESSAGE.INVALID_NAME_TYPE)
     }
 
     if (name.length < MIN_NAME_LENGTH) {
-      throw new Error(ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH)
+      throw new Error(CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH)
     }
 
     if (name.length > MAX_NAME_LENGTH) {
-      throw new Error(ERROR_MESSAGE.OVER_NAME_MAX_LENGTH)
+      throw new Error(CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH)
     }
   }
 
   get name() {
-    throw new Error(ERROR_MESSAGE.NOT_ACCESS_NAME)
+    throw new Error(CAR_ERROR_MESSAGE.NOT_ACCESS_NAME)
   }
   set name(newName) {
-    throw new Error(ERROR_MESSAGE.NOT_ASSIGN_NAME)
+    throw new Error(CAR_ERROR_MESSAGE.NOT_ASSIGN_NAME)
   }
 
   get position() {
-    throw new Error(ERROR_MESSAGE.NOT_ACCESS_POSITION)
+    throw new Error(CAR_ERROR_MESSAGE.NOT_ACCESS_POSITION)
   }
   set position(newPosition) {
-    throw new Error(ERROR_MESSAGE.NOT_ASSIGN_POSITION)
+    throw new Error(CAR_ERROR_MESSAGE.NOT_ASSIGN_POSITION)
   }
 
   run() {

@@ -1,6 +1,6 @@
 import { Car } from '../src/car'
 import { Race } from '../src/race'
-import { ERROR_MESSAGE, DEFAULT_MAX_MATCH_LENGTH } from '../src/constants'
+import { RACE_ERROR_MESSAGE, DEFAULT_MAX_MATCH_LENGTH } from '../src/constants'
 
 describe('Race - Feature', () => {
   let car1
@@ -126,7 +126,7 @@ describe('Race - Validate', () => {
     // When, Then
     expect(() => {
       race.participants
-    }).toThrow(new Error(ERROR_MESSAGE.NOT_ACCESS_PARTICIPANTS))
+    }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_ACCESS_PARTICIPANTS))
   })
 
   test('경주에 참여한 객체들의 목록을 직접 변경할 수 없다.', () => {
@@ -137,7 +137,7 @@ describe('Race - Validate', () => {
     // When, Then
     expect(() => {
       race.participants = []
-    }).toThrow(new Error(ERROR_MESSAGE.NOT_ASSIGN_PARTICIPANTS))
+    }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_ASSIGN_PARTICIPANTS))
   })
 
   test('경주의 최대 경기 횟수가 숫자가 아닌 경우, 에러를 발생시킨다.', () => {
@@ -150,7 +150,7 @@ describe('Race - Validate', () => {
         participants,
         maxMatchLength: null
       })
-    }).toThrow(new Error(ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH))
+    }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH))
   })
 
   test('경주의 최대 경기 횟수 이상으로 라운드를 진행시키는 경우, 에러를 발생시킨다.', () => {
@@ -167,7 +167,7 @@ describe('Race - Validate', () => {
       race.startRound()
       race.startRound()
       race.startRound()
-    }).toThrow(new Error(ERROR_MESSAGE.OVER_MATCH_MAX_LENGTH))
+    }).toThrow(new Error(RACE_ERROR_MESSAGE.OVER_MATCH_MAX_LENGTH))
   })
 
   test('경주에 참여한 객체에 getName 메서드가 포함되어 있지 않은 경우, 해당 메서드가 없다는 에러가 발생한다.', () => {
@@ -182,7 +182,7 @@ describe('Race - Validate', () => {
     // When, Then
     expect(() => {
       new Race({ participants })
-    }).toThrow(new Error(ERROR_MESSAGE.NOT_INCLUDE_METHOD))
+    }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD))
   })
 
   test('경주에 참여한 객체에 getPosition 메서드가 포함되어 있지 않은 경우, 해당 메서드가 없다는 에러가 발생한다.', () => {
@@ -197,7 +197,7 @@ describe('Race - Validate', () => {
     // When, Then
     expect(() => {
       new Race({ participants })
-    }).toThrow(new Error(ERROR_MESSAGE.NOT_INCLUDE_METHOD))
+    }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD))
   })
 
   test('경주에 참여한 객체에 setPosition 메서드가 포함되어 있지 않은 경우, 해당 메서드가 없다는 에러가 발생한다.', () => {
@@ -212,7 +212,7 @@ describe('Race - Validate', () => {
     // When, Then
     expect(() => {
       new Race({ participants })
-    }).toThrow(new Error(ERROR_MESSAGE.NOT_INCLUDE_METHOD))
+    }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD))
   })
 
   test('경주에 참여한 객체에 run 메서드가 포함되어 있지 않은 경우, 해당 메서드가 없다는 에러가 발생한다.', () => {
@@ -227,7 +227,7 @@ describe('Race - Validate', () => {
     // When, Then
     expect(() => {
       new Race({ participants })
-    }).toThrow(new Error(ERROR_MESSAGE.NOT_INCLUDE_METHOD))
+    }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD))
   })
 
   test('경주에 참여한 객체가 한 개인 경우, 에러를 발생시킨다.', () => {
@@ -239,6 +239,6 @@ describe('Race - Validate', () => {
       new Race({
         participants
       })
-    }).toThrow(new Error(ERROR_MESSAGE.LACK_PARTICIPANTS))
+    }).toThrow(new Error(RACE_ERROR_MESSAGE.LACK_PARTICIPANTS))
   })
 })
