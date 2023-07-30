@@ -82,10 +82,16 @@ export class Race {
       .map(this.isIncludeMethods)
       .every(hasMethod => hasMethod === true)
 
+    const isEnoughParticipants = participants.length >= 2
+
     const isValidMatchLength = isNumber(maxMatchLength)
 
     if (!isIncludeMethods) {
       throw new Error(ERROR_MESSAGE.NOT_INCLUDE_METHOD)
+    }
+
+    if (!isEnoughParticipants) {
+      throw new Error(ERROR_MESSAGE.LACK_PARTICIPANTS)
     }
 
     if (!isValidMatchLength) {

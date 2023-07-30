@@ -92,4 +92,17 @@ describe('RacingCarGame - Error', () => {
       ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR
     )
   })
+
+  test('사용자가 자동차 이름을 1개만 입력했을 경우, "오류로 인해 게임이 종료되었습니다!"라는 에러 메시지 출력과 함께 프로그램을 종료한다.', () => {
+    // Given
+    const inValidCarNames = 'sonny'
+
+    // When
+    new RacingCarGame(inValidCarNames)
+
+    //Then
+    expect(logSpy.mock.calls.at(-1)[0]).toEqual(
+      ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR
+    )
+  })
 })

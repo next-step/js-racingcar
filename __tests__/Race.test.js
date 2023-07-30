@@ -229,4 +229,16 @@ describe('Race - Validate', () => {
       new Race({ participants })
     }).toThrow(new Error(ERROR_MESSAGE.NOT_INCLUDE_METHOD))
   })
+
+  test('경주에 참여한 객체가 한 개인 경우, 에러를 발생시킨다.', () => {
+    // Given
+    const participants = [car1]
+
+    // When, Then
+    expect(() => {
+      new Race({
+        participants
+      })
+    }).toThrow(new Error(ERROR_MESSAGE.LACK_PARTICIPANTS))
+  })
 })
