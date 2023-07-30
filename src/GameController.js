@@ -22,6 +22,10 @@ export default class GameController {
     return this.#cars;
   }
 
+  get view() {
+    return this.#view;
+  }
+
   get currRound() {
     return this.#currRound;
   }
