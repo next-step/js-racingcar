@@ -23,15 +23,15 @@ export class Race {
   }
 
   validate(participants, maxMatchLength) {
-    const isIncludeMethods = participants
-      .map(this.isIncludeMethods)
+    const isIncludeRequiredMethods = participants
+      .map(this.isIncludeRequiredMethods)
       .every(hasMethod => hasMethod === true)
 
     const isEnoughParticipants = participants.length >= MIN_PARTICIPANTS_LENGTH
 
     const isValidMatchLength = isNumber(maxMatchLength)
 
-    if (!isIncludeMethods) {
+    if (!isIncludeRequiredMethods) {
       throw new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD)
     }
 
@@ -87,7 +87,7 @@ export class Race {
     })
   }
 
-  isIncludeMethods(participant) {
+  isIncludeRequiredMethods(participant) {
     return REQUIRE_METHODS_KEY.every(
       method => method in participant && isFunction(participant[method])
     )
