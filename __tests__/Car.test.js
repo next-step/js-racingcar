@@ -129,6 +129,13 @@ describe('Racing Car Game', () => {
   });
 
   // 사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.
+  it('User input count', () => {
+    initialize();
+
+    racingCar.setCount(3);
+
+    expect(racingCar.count).toBe(3);
+  });
 
   // 주어진 횟수 동안 n 대의 자동차는 전진 또는 멈출 수 있다.
 });
