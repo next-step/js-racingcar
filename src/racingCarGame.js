@@ -12,6 +12,25 @@ export class RacingCarGame {
   #_race
 
   constructor(names) {
+    const origin = this
+    this.init(names)
+
+    return new Proxy(this, {
+      get(target, key) {
+        const method = Reflect.get(target, key)
+
+        return (...args) => {
+          try {
+            return method.apply(origin, args)
+          } catch (e) {
+            console.log(GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR)
+          }
+        }
+      }
+    })
+  }
+
+  init(names) {
     try {
       const cars = this.generateCarByNames(names)
 
@@ -36,12 +55,24 @@ export class RacingCarGame {
     console.log(`우승자: ${this.#_race.getWinners().join(', ')}`)
   }
 
-  getParticipants() {
-    return this.#_race.getParticipants()
+  reset() {
+    this.#_cars = []
+    this.#_race.reset()
+  }
+
+  getWinners() {
+    return this.#_race.getWinners()
   }
 
   getPositionOf(name) {
     return this.#_cars.find(car => car.getName() === name).getPosition()
+  }
+
+  getParticipants() {
+    return this.#_race.getParticipants()
+  }
+  setParticipants(names) {
+    this.init(names)
   }
 
   generateCarByNames(names) {

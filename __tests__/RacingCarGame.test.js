@@ -67,6 +67,33 @@ describe('RacingCarGame - Feature', () => {
     // Then
     expect(logSpy.mock.calls.at(-1)[0]).toEqual('우승자: sonny')
   })
+
+  test('게임을 초기화할 수 있다.', () => {
+    // Given
+    const racingCarGame = new RacingCarGame(carNames)
+
+    // When
+    racingCarGame.start()
+    racingCarGame.reset()
+
+    // Then
+    expect(racingCarGame.getParticipants()).toEqual([])
+    expect(racingCarGame.getWinners()).toEqual([])
+  })
+
+  test('게임에 참여한 자동차 목록을 수정할 수 있다.', () => {
+    // Given
+    const newCarNames = 'son3, son4, son5'
+    const racingCarGame = new RacingCarGame(carNames)
+
+    // When
+    racingCarGame.reset()
+    racingCarGame.setParticipants(newCarNames)
+
+    // Then
+    const newCars = ['son3', 'son4', 'son5'].map(name => new Car(name))
+    expect(racingCarGame.getParticipants()).toEqual(newCars)
+  })
 })
 
 describe('RacingCarGame - Error', () => {
@@ -99,6 +126,20 @@ describe('RacingCarGame - Error', () => {
 
     // When
     new RacingCarGame(inValidCarNames)
+
+    //Then
+    expect(logSpy.mock.calls.at(-1)[0]).toEqual(
+      GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR
+    )
+  })
+
+  test('초기화 이후, 게임을 시작하는 경우, 에러 메시지 출력과 함께 프로그램을 종료한다.', () => {
+    // Given
+    const racingCarGame = new RacingCarGame('sonny, son, son2')
+
+    // When
+    racingCarGame.reset()
+    racingCarGame.start()
 
     //Then
     expect(logSpy.mock.calls.at(-1)[0]).toEqual(

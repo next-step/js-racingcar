@@ -39,7 +39,7 @@ export class Race {
   }
 
   reset() {
-    this.init(this.getParticipants(), this.getMaxMatchLength())
+    this.init([], DEFAULT_MAX_MATCH_LENGTH)
   }
 
   startRound() {
@@ -74,7 +74,7 @@ export class Race {
       participant => participant.getPosition() === highestPosition
     )
 
-    return winners.map(winner => winner.getName())
+    return highestPosition === 0 ? [] : winners.map(winner => winner.getName())
   }
 
   validate(participants, maxMatchLength) {
