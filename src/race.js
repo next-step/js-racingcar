@@ -1,7 +1,8 @@
 import {
   RACE_ERROR_MESSAGE,
   REQUIRE_METHODS_KEY,
-  DEFAULT_MAX_MATCH_LENGTH
+  DEFAULT_MAX_MATCH_LENGTH,
+  DEFAULT_RUN_CONDITION
 } from './constants'
 import { isFunction, isNumber } from './utils'
 
@@ -14,7 +15,7 @@ export class Race {
   constructor({
     participants,
     maxMatchLength = DEFAULT_MAX_MATCH_LENGTH,
-    runCondition = () => true
+    runCondition = DEFAULT_RUN_CONDITION
   }) {
     this.validate(participants, maxMatchLength)
     this.init(participants, maxMatchLength, runCondition)
@@ -39,7 +40,7 @@ export class Race {
   }
 
   reset() {
-    this.init([], DEFAULT_MAX_MATCH_LENGTH)
+    this.init([], DEFAULT_MAX_MATCH_LENGTH, DEFAULT_RUN_CONDITION)
   }
 
   startRound() {

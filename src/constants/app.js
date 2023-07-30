@@ -10,3 +10,4 @@ export const REQUIRE_METHODS_KEY = [
   'run'
 ]
 export const DEFAULT_MAX_MATCH_LENGTH = 5
+export const DEFAULT_RUN_CONDITION = () => true
