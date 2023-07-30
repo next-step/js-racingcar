@@ -16,9 +16,9 @@ describe('Race - Feature', () => {
   test('경주에 참여한 여러 개의 객체들을 출발선에 놓는다.', () => {
     // Given
     const participants = [car1, car2, car3]
-    car1.run(4)
-    car2.run(4)
-    car3.run(4)
+    car1.run()
+    car2.run()
+    car3.run()
 
     // When
     new Race({ participants })
