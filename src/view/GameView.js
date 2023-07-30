@@ -12,13 +12,16 @@ export class GameView {
 
   async getUserInput() {
     const userInput = await this.rl.question(PROMT_CAR_NAME)
+    console.log(userInput + `\n`)
+
+    const userInputArray = userInput.split(',')
     this.rl.close()
 
-    return userInput
+    return userInputArray
   }
 
-  printResult(positions, winners) {
-    console.log(positions)
+  printResult(records, winners) {
+    console.log(records)
     console.log(winners)
   }
 }

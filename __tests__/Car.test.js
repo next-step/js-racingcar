@@ -1,5 +1,5 @@
-import * as readline from 'node:readline/promises'
-import { Car, RaceTrack } from '../src/model'
+import { Car } from '../src/model/Car'
+import { RaceTrack } from '../src/model/RaceTrack'
 import { makeRandomNum } from '../src/utils/helperUtils'
 
 const CAR_NAME = '산들'
@@ -47,27 +47,32 @@ describe('자동차 경주', () => {
       expect(score >= 0 && score <= 9).toBe(true)
     }
   })
-  it('자동차 경주 게임 후 우승자를 가려낸다. (우승 자동차는 여러대일 수 있다.)', () => {
-    raceTrack.race()
-    const winners = raceTrack.winners
-    expect(CAR_NAMES).toEqual(expect.arrayContaining(winners))
-  })
 })
 
 describe('게임 진행', () => {
-  let gameController
-  let gameView
   let raceTrack
 
   beforeEach(() => {
     raceTrack = new RaceTrack(CAR_NAMES)
+    raceTrack.race()
   })
 
   it('유저로 부터 입력받은 자동차 이름으로, 경주에 참여할 자동차를 만든다.', () => {
-    raceTrack.race()
     const raceCars = raceTrack.raceCars
 
     const carNamesFromRaceTrack = raceCars.map((car) => car.name)
     expect(carNamesFromRaceTrack).toEqual(CAR_NAMES)
+  })
+
+  it('게임 진행 과정을 매 라운드 출력한다.', () => {
+    const records = raceTrack.records
+
+    expect(records).toContain('실행 결과')
+  })
+
+  it('자동차 경주 게임 후 우승자를 가려낸다. ', () => {
+    const winners = raceTrack.winners
+
+    expect(winners).toContain('최종 우승했습니다.')
   })
 })

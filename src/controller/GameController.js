@@ -1,3 +1,4 @@
+import { RaceTrack } from '../model/RaceTrack.js'
 export class GameController {
   #gameView
   #raceTrack
@@ -6,12 +7,15 @@ export class GameController {
     this.#gameView = gameView
   }
 
-  runGame() {
-    const userInput = this.#gameView.getUserInput()
-    this.#raceTrack(userInput)
+  async runGame() {
+    const userInput = await this.#gameView.getUserInput()
+    this.#raceTrack = new RaceTrack(userInput)
 
-    const result = this.#raceTrack.race()
+    this.#raceTrack.race()
 
-    this.#gameView.printResult(result)
+    const records = this.#raceTrack.records
+    const winners = this.#raceTrack.winners
+
+    this.#gameView.printResult(records, winners)
   }
 }

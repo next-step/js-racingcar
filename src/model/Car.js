@@ -1,4 +1,4 @@
-import { DEFAULT_POSITION } from '../constants'
+import { DEFAULT_POSITION } from '../constants/car.js'
 
 export class Car {
   #name
