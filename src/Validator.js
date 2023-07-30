@@ -12,7 +12,7 @@ import {
 } from './utils/validate.js';
 
 const Validator = (function Validator() {
-  const validateRacingCars = (userInput) => {
+  const validateCarNames = (userInput) => {
     const racingCars = convertStringToArray(userInput, SEPERATOR_SYMBOLS.COMMA);
     if (isInvalidLengthRacingCars(racingCars))
       throw new RangeError(
@@ -22,15 +22,14 @@ const Validator = (function Validator() {
       throw new SyntaxError(ERROR_MESSAGE.DUPLICATE_CAR_NAMES);
   };
 
+  const validators = {
+    [INPUT_MESSAGE.RACING_CAR]: validateCarNames,
+  };
+
   return {
-    check(userInput, message) {
-      switch (message) {
-        case INPUT_MESSAGE.RACING_CAR:
-          validateRacingCars(userInput);
-          break;
-        default:
-          throw new Error(ERROR_MESSAGE.NOT_MESSAGE);
-      }
+    checkView(userInput, message) {
+      const validator = validators[message];
+      validator(userInput);
     },
   };
 })();
