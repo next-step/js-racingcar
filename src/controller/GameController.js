@@ -32,10 +32,10 @@ class GameController {
   }
 
   #updateRacingCars(racingCarNames) {
-    this.racingTrack.updateMoveStatus(racingCarNames);
+    this.racingTrack.requestInitMoveStatus(racingCarNames);
   }
 
-  #raceStart(carNames) {
+  #startRace(carNames) {
     this.racingTrack.race(carNames);
   }
 
@@ -47,7 +47,7 @@ class GameController {
   async run() {
     const racingCarNames = await GameController.#getRacingCarNames();
     this.#updateRacingCars(racingCarNames);
-    this.#raceStart(racingCarNames);
+    this.#startRace(racingCarNames);
     const result = this.#getRacingResult();
     const racingWinners = this.#getRacingWinners();
     GameController.#printGameResult(result, racingWinners);

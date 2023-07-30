@@ -15,18 +15,6 @@ class RacingTrack {
     this.#racingRecorder = new RacingRecorder();
   }
 
-  getRacingResult() {
-    return this.#racingRecorder.getRacingResult();
-  }
-
-  getRacingWinners() {
-    return this.#racingRecorder.getRacingWinners();
-  }
-
-  updateMoveStatus(racingCars) {
-    this.#racingCars.initMoveStatus(racingCars);
-  }
-
   #updateMoveStatus(carNames) {
     return this.#racingCars.move(carNames);
   }
@@ -45,6 +33,18 @@ class RacingTrack {
 
   #isExitRace() {
     return this.#racingCount === EXIT_COUNT;
+  }
+
+  getRacingResult() {
+    return this.#racingRecorder.getRacingResult();
+  }
+
+  getRacingWinners() {
+    return this.#racingRecorder.getRacingWinners();
+  }
+
+  requestInitMoveStatus(racingCars) {
+    this.#racingCars.initMoveStatus(racingCars);
   }
 
   race(carNames) {
