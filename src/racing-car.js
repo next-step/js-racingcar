@@ -6,6 +6,8 @@ const racer = new Racer();
 
 class RacingCar {
   #CAR_NAME_LENGTH_LIMIT = 5;
+  ERROR_EXIT_MESSAGE = '잘못된 입력 값으로 프로그램을 종료합니다.';
+  ERROR_WRONG_INPUT_MESSAGE = '잘못된 입력 값입니다. 다시 입력해주세요!';
 
   count;
   racers;
@@ -114,12 +116,12 @@ class RacingCar {
 
   printWrongInput() {
     print('');
-    print('잘못된 입력 값입니다. 다시 입력해주세요!');
+    print(this.ERROR_WRONG_INPUT_MESSAGE);
     print('');
   }
 
   exit() {
-    throw new Error('잘못된 입력 값으로 프로그램을 종료합니다.');
+    throw new Error(this.ERROR_EXIT_MESSAGE);
   }
 }
 
