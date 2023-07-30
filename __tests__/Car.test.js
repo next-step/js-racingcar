@@ -6,7 +6,7 @@ describe('Car - Feature', () => {
   const CAR_NAME = 'son'
 
   beforeEach(() => {
-    logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
+    logSpy = jest.spyOn(console, 'log')
   })
 
   afterEach(() => {
