@@ -7,10 +7,10 @@ import {
 import { isFunction, isNumber } from './utils'
 
 export class Race {
-  #_participants
-  #_match
-  #_maxMatchLength
-  #_runCondition
+  #participants
+  #match
+  #maxMatchLength
+  #runCondition
 
   constructor({
     participants,
@@ -44,10 +44,10 @@ export class Race {
   }
 
   init(participants, maxMatchLength, runCondition) {
-    this.#_match = 0
-    this.#_participants = participants
-    this.#_maxMatchLength = maxMatchLength
-    this.#_runCondition = runCondition
+    this.#match = 0
+    this.#participants = participants
+    this.#maxMatchLength = maxMatchLength
+    this.#runCondition = runCondition
 
     this.getParticipants().forEach(participant => {
       participant.setPosition(0)
@@ -59,12 +59,12 @@ export class Race {
   }
 
   startRound() {
-    const isOverMaxMatch = this.#_match + 1 > this.#_maxMatchLength
+    const isOverMaxMatch = this.#match + 1 > this.#maxMatchLength
     if (isOverMaxMatch) {
       throw new Error(RACE_ERROR_MESSAGE.OVER_MATCH_MAX_LENGTH)
     }
 
-    this.#_match++
+    this.#match++
     this.runParticipants()
   }
 
@@ -74,7 +74,7 @@ export class Race {
     }
 
     this.getParticipants()
-      .filter(this.#_runCondition)
+      .filter(this.#runCondition)
       .forEach(participant => participant.run())
   }
 
@@ -85,11 +85,11 @@ export class Race {
   }
 
   getMaxMatchLength() {
-    return this.#_maxMatchLength
+    return this.#maxMatchLength
   }
 
   getParticipants() {
-    return this.#_participants
+    return this.#participants
   }
 
   getWinners() {
@@ -101,12 +101,5 @@ export class Race {
     )
 
     return highestPosition === 0 ? [] : winners.map(winner => winner.getName())
-  }
-
-  get participants() {
-    throw new Error(RACE_ERROR_MESSAGE.NOT_ACCESS_PARTICIPANTS)
-  }
-  set participants(_) {
-    throw new Error(RACE_ERROR_MESSAGE.NOT_ASSIGN_PARTICIPANTS)
   }
 }

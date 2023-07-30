@@ -7,14 +7,14 @@ import {
 import { isString } from './utils'
 
 export class Car {
-  #_name
-  #_position
+  #name
+  #position
 
   constructor(name) {
     this.validate(name)
 
-    this.#_name = name
-    this.#_position = 0
+    this.#name = name
+    this.#position = 0
   }
 
   validate(name) {
@@ -46,28 +46,14 @@ export class Car {
   }
 
   setPosition(newPosition) {
-    this.#_position = newPosition
+    this.#position = newPosition
   }
 
   getName() {
-    return this.#_name
+    return this.#name
   }
 
   getPosition() {
-    return this.#_position
-  }
-
-  get name() {
-    throw new Error(CAR_ERROR_MESSAGE.NOT_ACCESS_NAME)
-  }
-  set name(_) {
-    throw new Error(CAR_ERROR_MESSAGE.NOT_ASSIGN_NAME)
-  }
-
-  get position() {
-    throw new Error(CAR_ERROR_MESSAGE.NOT_ACCESS_POSITION)
-  }
-  set position(_) {
-    throw new Error(CAR_ERROR_MESSAGE.NOT_ASSIGN_POSITION)
+    return this.#position
   }
 }

@@ -8,8 +8,8 @@ import { Race } from './race'
 import { getRandomNumber } from './utils'
 
 export class RacingCarGame {
-  #_cars
-  #_race
+  #cars
+  #race
 
   constructor(names) {
     const origin = this
@@ -34,8 +34,8 @@ export class RacingCarGame {
     try {
       const cars = this.generateCarByNames(names)
 
-      this.#_cars = cars
-      this.#_race = new Race({
+      this.#cars = cars
+      this.#race = new Race({
         participants: cars,
         runCondition: () => getRandomNumber() > RUN_THRESHOLDS
       })
@@ -49,15 +49,15 @@ export class RacingCarGame {
 
     while (match < DEFAULT_MAX_MATCH_LENGTH) {
       match++
-      this.#_race.startRound()
+      this.#race.startRound()
     }
 
-    console.log(`우승자: ${this.#_race.getWinners().join(', ')}`)
+    console.log(`우승자: ${this.#race.getWinners().join(', ')}`)
   }
 
   reset() {
-    this.#_cars = []
-    this.#_race.reset()
+    this.#cars = []
+    this.#race.reset()
   }
 
   setParticipants(names) {
@@ -69,14 +69,14 @@ export class RacingCarGame {
   }
 
   getWinners() {
-    return this.#_race.getWinners()
+    return this.#race.getWinners()
   }
 
   getPositionOf(name) {
-    return this.#_cars.find(car => car.getName() === name).getPosition()
+    return this.#cars.find(car => car.getName() === name).getPosition()
   }
 
   getParticipants() {
-    return this.#_race.getParticipants()
+    return this.#race.getParticipants()
   }
 }
