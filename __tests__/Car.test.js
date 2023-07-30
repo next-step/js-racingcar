@@ -1,4 +1,6 @@
 import { Car } from '../src/model/Car'
+import { CarMover } from '../src/model/CarMover'
+import { RaceRecord } from '../src/model/RaceRecord'
 import { RaceTrack } from '../src/model/RaceTrack'
 import { makeRandomNum } from '../src/utils/helperUtils'
 
@@ -58,19 +60,23 @@ describe('게임 진행', () => {
   })
 
   it('유저로 부터 입력받은 자동차 이름으로, 경주에 참여할 자동차를 만든다.', () => {
-    const raceCars = raceTrack.raceCars
+    const raceCars = new CarMover(CAR_NAMES).raceCars
 
     const carNamesFromRaceTrack = raceCars.map((car) => car.name)
     expect(carNamesFromRaceTrack).toEqual(CAR_NAMES)
   })
 
-  it('게임 진행 과정을 매 라운드 출력한다.', () => {
-    const records = raceTrack.records
+  it('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
+    const raceRecord = new RaceRecord()
 
-    expect(records).toContain('실행 결과')
+    raceRecord.setRecords([{ car: '산들', position: 3 }])
+    const result = raceRecord.records
+
+    expect(result).toEqual(`실행 결과\n산들 : ---\n\n`)
   })
 
-  it('자동차 경주 게임 후 우승자를 가려낸다. ', () => {
+  // FIXME: 이 테스트코드의 위치를 변경하자.
+  it('자동차 경주 게임 후 우승자를 출력한다.', () => {
     const winners = raceTrack.winners
 
     expect(winners).toContain('최종 우승했습니다.')
