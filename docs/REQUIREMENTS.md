@@ -98,4 +98,18 @@
 💡 되도록이면 `도메인 로직` 관련 기능을 우선 구현하고, 이후 `UI 로직` 연관 기능을 구현한다.
 [feature2] -> [feature3] -> [feature4] -> [feature5] -> [feature1]
 
+## 🔧 리팩토링
+
+1. 유지보수 편의성을 고려하여 MVC 패턴으로 코드 리팩토링
+
+- Model : Car
+- Controller: GameController
+- View: View
+- MVC 리팩토링 체크 사항
+  [X] Model은 Controller와 View에 의존하지 않음
+  [X] View는 Model에만 의존하고, Controller에 의존해서는 안됨.
+  [X] View가 Model로부터 데이터를 받을 때는, 사용자마다 다르게 보여줘야하는 데이터에 한함.
+  [X] View가 Model로부터 데이터를 받을 때는 항상 Controller를 거쳐야 함.
+  [X] Controller는 Model과 View에 의존해도 됨.
+
 # 2️⃣ [Phase2] 🚗🚗🚗 확장 기능

@@ -1,53 +1,42 @@
-const DIVIDER = "\n";
 const MESSAGES = Object.freeze({
-  INIT: "경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분).",
-  RESULT: "실행 결과",
+  INIT_GUIDE: "경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분).",
+  RESULT_GUIDE: "실행 결과",
   WINNER_POSTFIX: "가 최종 우승했습니다.",
 });
 
 export default class View {
-  #display(...rest) {
+  #log(...rest) {
     return console.log(...rest);
   }
 
-  displayDivider() {
-    this.#display(DIVIDER);
+  #logDivider() {
+    const DIVIDER_SYM = "";
+    this.#log(DIVIDER_SYM);
   }
 
-  displayInitMessage() {
-    this.#display(MESSAGES.INIT);
-  }
-
-  displayGuideMessage() {
-    this.#display(MESSAGES.RESULT);
-  }
-
-  displayCarStatus(car) {
+  #logCarStatus(car) {
     const DISTANCE_SYM = "-";
     const SPLIT_SYM = " : ";
 
-    return `${car.name}${SPLIT_SYM}${DISTANCE_SYM.repeat(car.position)}`;
+    this.#log(`${car.name}${SPLIT_SYM}${DISTANCE_SYM.repeat(car.position)}`);
   }
 
-  displayGameStatus(game) {
-    let status = "";
+  logResultGuideMessage() {
+    this.#log(MESSAGES.RESULT_GUIDE);
+  }
 
+  logRoundStatus(game) {
     game.cars.forEach((car) => {
-      status += this.displayCarStatus(car) + "\n";
+      this.#logCarStatus(car);
     });
 
-    this.#display(status);
-    this.displayDivider();
+    this.#logDivider();
   }
 
-  displayGameResult(winners) {
-    let result = "";
+  logWinners(winners) {
+    const SEPARATOR_SYM = ", ";
+    const WINNER_NAMES = winners.map((winner) => winner.name);
 
-    winners.forEach((winner) => {
-      result += winner.name + " ";
-    });
-
-    this.#display(result + MESSAGES.WINNER_POSTFIX);
-    this.displayDivider();
+    this.#log(WINNER_NAMES.join(SEPARATOR_SYM) + MESSAGES.WINNER_POSTFIX);
   }
 }
