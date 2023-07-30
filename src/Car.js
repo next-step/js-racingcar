@@ -3,7 +3,7 @@ import { validateCarName } from './utils/index';
 export default class Car {
   #name = null;
 
-  #movedTrack = 0;
+  #moved = 0;
 
   constructor(name) {
     this.#validateCarName(name);
@@ -14,16 +14,16 @@ export default class Car {
     return this.#name;
   }
 
-  get movedTrack() {
-    return this.#movedTrack;
+  get moved() {
+    return this.#moved;
   }
 
   #moveForward() {
-    this.#movedTrack += 1;
+    this.#moved += 1;
   }
 
   #moveStop() {
-    this.#movedTrack += 0;
+    this.#moved += 0;
   }
 
   move(movable) {
