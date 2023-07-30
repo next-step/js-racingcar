@@ -58,8 +58,8 @@ describe('자동차 경주 기능 관련 테스트', () => {
   });
 
   test('무작위 값은 0에서 9사이에서 나올 수 있어야 한다.', () => {
-    const randomNumbersArr = Array(100).fill(
-      NumberMaker.getRacingCarRandomNumbers(['jiny', 'pobi', 'conan', 'cofee']),
+    const randomNumbersArr = Array(100).map(() =>
+      NumberMaker.createRandomNumber(),
     );
     randomNumbersArr.forEach((randomNumbers) => {
       randomNumbers.forEach((num) => {
@@ -111,10 +111,10 @@ describe('자동차 게임 예외 처리 테스트', () => {
     const ERROR_CASES = ['pobi,jiny,', 'taling,pivot,robot'];
     ERROR_CASES.forEach((invalidCase) => {
       expect(() =>
-        Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR),
+        Validator.checkView(invalidCase, INPUT_MESSAGE.RACING_CAR),
       ).toThrow(ERROR_MESSAGE.MORE_FIVE_CHARACTERS);
       expect(() =>
-        Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR),
+        Validator.checkView(invalidCase, INPUT_MESSAGE.RACING_CAR),
       ).toThrow(RangeError);
     });
   });
@@ -123,10 +123,10 @@ describe('자동차 게임 예외 처리 테스트', () => {
     const ERROR_CASES = ['jiny,jiny', 'pobi,pobi'];
     ERROR_CASES.forEach((invalidCase) => {
       expect(() =>
-        Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR),
+        Validator.checkView(invalidCase, INPUT_MESSAGE.RACING_CAR),
       ).toThrow(SyntaxError);
       expect(() =>
-        Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR),
+        Validator.checkView(invalidCase, INPUT_MESSAGE.RACING_CAR),
       ).toThrow(ERROR_MESSAGE.DUPLICATE_CAR_NAMES);
     });
   });
