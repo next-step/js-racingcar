@@ -3,6 +3,7 @@ import { CarMover } from '../src/model/CarMover'
 import { RaceRecord } from '../src/model/RaceRecord'
 import { RaceTrack } from '../src/model/RaceTrack'
 import { makeRandomNum } from '../src/utils/helperUtils'
+import { validateDuplicates, validateName } from '../src/utils/validate'
 
 const CAR_NAME = '산들'
 const CAR_NAMES = ['산들', '뿌꾸']
@@ -49,6 +50,13 @@ describe('자동차 경주', () => {
       expect(score >= 0 && score <= 9).toBe(true)
     }
   })
+
+  it('자동차 경주 게임 후 우승자를 출력한다.', () => {
+    raceTrack.race()
+    const winners = raceTrack.winners
+
+    expect(winners).toContain('최종 우승했습니다.')
+  })
 })
 
 describe('게임 진행', () => {
@@ -74,11 +82,28 @@ describe('게임 진행', () => {
 
     expect(result).toEqual(`실행 결과\n산들 : ---\n\n`)
   })
+})
 
-  // FIXME: 이 테스트코드의 위치를 변경하자.
-  it('자동차 경주 게임 후 우승자를 출력한다.', () => {
-    const winners = raceTrack.winners
+describe('유효성 검사', () => {
+  describe('- 자동차 이름은 1자 이상, 5자 이하만 가능하다.', () => {
+    test.each(['', '산들천둥뿌꾸포에버'])('에러O : %s', (name) => {
+      expect(() => validateName(name)).toThrow()
+    })
 
-    expect(winners).toContain('최종 우승했습니다.')
+    test.each(['산들', '뿌꾸뿌꾸'])('에러X : %s', (name) => {
+      expect(() => validateName(name)).not.toThrow()
+    })
+  })
+
+  describe('- 자동차 이름은 한글, 영문만 가능하다.', () => {
+    test.each(['^%$#', 123])('%s', (name) => {
+      expect(() => validateName(name)).toThrow()
+    })
+  })
+
+  it('중복된 자동차 이름은 입력할 수 없다.', () => {
+    expect(() => {
+      validateDuplicates(['산들', '산들'])
+    }).toThrow()
   })
 })

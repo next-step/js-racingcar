@@ -1,4 +1,5 @@
 import { RaceTrack } from '../model/RaceTrack.js'
+import { validateDuplicates } from '../utils/validate.js'
 export class GameController {
   #gameView
   #raceTrack

@@ -1,6 +1,7 @@
 import * as readline from 'node:readline/promises'
 import { stdin as input, stdout as output } from 'node:process'
 import { PROMT_CAR_NAME } from '../constants/gameInterface.js'
+import { validateDuplicates } from '../utils/validate.js'
 
 export class GameView {
   constructor() {
@@ -16,6 +17,8 @@ export class GameView {
 
     const userInputArray = userInput.split(',')
     this.rl.close()
+
+    validateDuplicates(userInputArray)
 
     return userInputArray
   }

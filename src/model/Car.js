@@ -1,10 +1,12 @@
 import { DEFAULT_POSITION } from '../constants/car.js'
+import { validateName } from '../utils/validate.js'
 
 export class Car {
   #name
   #position
 
   constructor(name) {
+    validateName(name)
     this.#name = name
     this.#position = DEFAULT_POSITION
   }
