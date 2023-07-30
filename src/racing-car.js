@@ -54,11 +54,41 @@ class RacingCar {
   }
 
   validateCarInput(names) {
-    const isValidated = names
-      .split(',')
-      .every((name) => name.length <= this.#CAR_NAME_LENGTH_LIMIT);
+    const isCarNameMinLengthValidated = names.length > 0;
 
-    return isValidated;
+    if (!isCarNameMinLengthValidated) {
+      return false;
+    }
+
+    const isCarNameMaxLengthValidated = names
+      .split(',')
+      .every(
+        (name) => name.length > 0 && name.length <= this.#CAR_NAME_LENGTH_LIMIT
+      );
+
+    if (!isCarNameMaxLengthValidated) {
+      return false;
+    }
+
+    const isCarNameNotDuplicatedValidated =
+      new Set(names.split(',')).size === names.split(',').length;
+
+    if (!isCarNameNotDuplicatedValidated) {
+      return false;
+    }
+
+    const isCarNameNotIncludePunctualCharactersValidated = names
+      .split(',')
+      .every(
+        (name) =>
+          !name.match(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g)
+      );
+
+    if (!isCarNameNotIncludePunctualCharactersValidated) {
+      return false;
+    }
+
+    return true;
   }
 
   validateCountInput(count) {
