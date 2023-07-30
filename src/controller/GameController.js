@@ -39,14 +39,18 @@ class GameController {
     this.racingTrack.race(carNames);
   }
 
+  static #printGameResult(result, racingWinners) {
+    GameController.#printRaceResult(result);
+    GameController.#printRacingWinners(racingWinners);
+  }
+
   async run() {
     const racingCarNames = await GameController.#getRacingCarNames();
     this.#updateRacingCars(racingCarNames);
     this.#raceStart(racingCarNames);
     const result = this.#getRacingResult();
     const racingWinners = this.#getRacingWinners();
-    GameController.#printRaceResult(result);
-    GameController.#printRacingWinners(racingWinners);
+    GameController.#printGameResult(result, racingWinners);
   }
 }
 
