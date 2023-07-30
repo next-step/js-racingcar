@@ -67,11 +67,11 @@ export class Race {
   }
 
   getWinners() {
-    const maxPosition = Math.max(
+    const highestPosition = Math.max(
       ...this.getParticipants().map(participant => participant.getPosition())
     )
     const winners = this.getParticipants().filter(
-      participant => participant.getPosition() === maxPosition
+      participant => participant.getPosition() === highestPosition
     )
 
     return winners.map(winner => winner.getName())

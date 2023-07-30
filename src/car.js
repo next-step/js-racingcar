@@ -34,14 +34,14 @@ export class Car {
   get name() {
     throw new Error(CAR_ERROR_MESSAGE.NOT_ACCESS_NAME)
   }
-  set name(newName) {
+  set name(_) {
     throw new Error(CAR_ERROR_MESSAGE.NOT_ASSIGN_NAME)
   }
 
   get position() {
     throw new Error(CAR_ERROR_MESSAGE.NOT_ACCESS_POSITION)
   }
-  set position(newPosition) {
+  set position(_) {
     throw new Error(CAR_ERROR_MESSAGE.NOT_ASSIGN_POSITION)
   }
 
