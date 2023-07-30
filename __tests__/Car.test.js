@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import RacingCar from '../src/racing-car.js';
 import Racer from '../src/racer.js';
 import { getRandomNumber } from '../src/utils/common.util.js';
+=======
+import { getRaceRandomNumber } from '../src/utils/race.util.js';
+import RacingCar from '../src/racing-car.js';
+import Racer from '../src/racer.js';
+>>>>>>> upstream/ding-co
 
 const racingCar = new RacingCar();
 const racer = new Racer();
@@ -15,7 +21,11 @@ describe('Racing Car Game', () => {
   it('Racer names: pobi,crong,honux -> true', () => {
     initialize();
 
+<<<<<<< HEAD
     expect(racingCar.validateCarInput('pobi,crong,honux')).toBe(true);
+=======
+    expect(racingCar.validateInput('pobi,crong,honux')).toBe(true);
+>>>>>>> upstream/ding-co
   });
 
   // 자동차 경주는 5회로 고정하여 진행한다.
@@ -58,7 +68,11 @@ describe('Racing Car Game', () => {
   it('Go and GoCheck', () => {
     initialize();
 
+<<<<<<< HEAD
     const randomNumber = getRandomNumber(0, 9);
+=======
+    const randomNumber = getRaceRandomNumber();
+>>>>>>> upstream/ding-co
     expect(randomNumber).toBeGreaterThanOrEqual(0);
     expect(randomNumber).toBeLessThanOrEqual(9);
 
@@ -107,11 +121,16 @@ describe('Racing Car Game', () => {
     initialize();
 
     const testInput = () => {
+<<<<<<< HEAD
       if (!racingCar.validateCarInput('pobi,crong,honuasdfx')) {
+=======
+      if (!racingCar.validateInput('pobi,crong,honuasdfx')) {
+>>>>>>> upstream/ding-co
         racingCar.exit();
       }
     };
 
+<<<<<<< HEAD
     expect(testInput).toThrow(racingCar.ERROR_EXIT_MESSAGE);
   });
 
@@ -150,5 +169,8 @@ describe('Racing Car Game', () => {
     racingCar.race(racers);
 
     expect(racingCar.count).toBe(5);
+=======
+    expect(testInput).toThrow('잘못된 입력 값으로 프로그램을 종료합니다.');
+>>>>>>> upstream/ding-co
   });
 });
