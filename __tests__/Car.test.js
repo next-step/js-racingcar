@@ -58,9 +58,9 @@ describe('Car - Feature', () => {
 })
 
 describe('Car - Validate', () => {
-  test('자동차의 이름이 5자 이상의 문자열인 경우, 5자 이내의 문자열만 가능하다는 에러가 발생한다.', () => {
+  test('자동차의 이름이 6자 이상의 문자열인 경우, 5자 이하의 문자열만 가능하다는 에러가 발생한다.', () => {
     // Given
-    const OVER_CAR_NAME = 'sonny'
+    const OVER_CAR_NAME = 'sonny2'
 
     // When, Then
     expect(() => {

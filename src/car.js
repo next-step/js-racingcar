@@ -27,7 +27,7 @@ export class Car {
       throw new Error(ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH)
     }
 
-    if (name.length >= MAX_NAME_LENGTH) {
+    if (name.length > MAX_NAME_LENGTH) {
       throw new Error(ERROR_MESSAGE.OVER_NAME_MAX_LENGTH)
     }
   }
