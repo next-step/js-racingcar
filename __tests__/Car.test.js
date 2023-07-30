@@ -1,4 +1,3 @@
-const App = require('../src/App.js');
 const Car = require('../src/model/Car.js');
 const Track = require('../src/model/Track.js');
 const WinnerChecker = require('../src/model/WinnerChecker.js');
@@ -11,8 +10,9 @@ const {
   MIN_RANDOM_NUMBER,
   MAX_RANDOM_NUMBER,
   SPLIT_STANDARD,
-  DEFAULT_RACING_ROUND,
   SKID_MARK,
+  MIN_ROUND_COUNT,
+  MAX_ROUND_COUNT,
 } = require('../src/constants/racing-rule.js');
 const { MESSAGES, ERROR_MESSAGES } = require('../src/constants/messages.js');
 
@@ -45,10 +45,7 @@ describe('유틸리티 함수 테스트', () => {
   });
 });
 
-describe('사용자의 입력값을 받는다.', () => {
-  const app = new App();
-  app.init();
-
+describe('자동차의 이름 목록을 입력 받는다.', () => {
   test('일반적인 케이스 "JAMES, KANE, MARK"', () => {
     expect(() => {
       const input = 'A,B,C';
@@ -67,6 +64,18 @@ describe('사용자의 입력값을 받는다.', () => {
     }).not.toThrow();
   });
 
+  /*
+  현재 최대 인원 제한이 없으므로 주석처리
+
+  test(`참가자가 ${MAX_USER_COUNT} 초과인 케이스 "A,B,C,D,E,F"`, () => {
+    const input = 'A,B,C,D,E,F';
+    const slicedInput = splitByStandard(input);
+
+    Validator.isValidNames(slicedInput);
+    expect(() => {}).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_USER_COUNT);
+  });
+  */
+
   test(`참가자가 ${MIN_USER_COUNT}명 미만인 케이스 "JAMES"`, () => {
     expect(() => {
       const input = 'JAMES';
@@ -83,32 +92,6 @@ describe('사용자의 입력값을 받는다.', () => {
 
       Validator.isValidList(slicedInput);
     }).toThrow(ERROR_MESSAGES.HAS_DUPLICATED_NAME);
-  });
-
-  /*
-  현재 최대 인원 제한이 없으므로 주석처리
-
-  test(`참가자가 ${MAX_USER_COUNT} 초과인 케이스 "A,B,C,D,E,F"`, () => {
-    const input = 'A,B,C,D,E,F';
-    const slicedInput = splitByStandard(input);
-
-    Validator.isValidNames(slicedInput);
-    expect(() => {}).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_USER_COUNT);
-  });
-  */
-});
-
-describe('자동차를 이동시킨다.', () => {
-  test('차는 이동 요청시 항상 그대로거나 한칸 앞으로 이동한다.', () => {
-    for (let i = 0; i < 1000; i += 1) {
-      const car = new Car('test');
-
-      const prevDistance = car.distance;
-      car.moveByRandomNumber();
-      const nextDistance = car.distance;
-
-      expect([prevDistance + 1, prevDistance]).toContain(nextDistance);
-    }
   });
 });
 
@@ -130,6 +113,46 @@ describe('자동차를 생성한다.', () => {
   });
 });
 
+describe('진행할 라운드를 입력 받는다.', () => {
+  test('일반적인 케이스 "3"', () => {
+    expect(() => {
+      const input = '3';
+
+      Validator.isValidRound(input);
+    }).not.toThrow();
+  });
+
+  test(`입력한 라운드가 ${MIN_ROUND_COUNT}회 미만인 케이스 `, () => {
+    expect(() => {
+      const input = '0';
+
+      Validator.isValidRound(input);
+    }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_ROUND_COUNT);
+  });
+
+  test(`입력한 라운드가 ${MAX_ROUND_COUNT}회 초과인 케이스 `, () => {
+    expect(() => {
+      const input = '6';
+
+      Validator.isValidRound(input);
+    }).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
+  });
+});
+
+describe('자동차를 이동시킨다.', () => {
+  test('차는 이동 요청시 항상 그대로거나 한칸 앞으로 이동한다.', () => {
+    for (let i = 0; i < 1000; i += 1) {
+      const car = new Car('test');
+
+      const prevDistance = car.distance;
+      car.moveByRandomNumber();
+      const nextDistance = car.distance;
+
+      expect([prevDistance + 1, prevDistance]).toContain(nextDistance);
+    }
+  });
+});
+
 describe('경기를 진행한다.', () => {
   test('foo의 distance가 2인 경우 "foo : --"를 출력한다"', () => {
     const distance = 2;
@@ -145,9 +168,9 @@ describe('경기를 진행한다.', () => {
 
 describe('경기가 종료될 시 경기결과를 출력한다.', () => {
   test('라운드가 최대 라운드 이하면 종료하지 않는다.', () => {
-    const track = new Track();
+    const track = new Track(4);
 
-    for (let i = 0; i < DEFAULT_RACING_ROUND - 1; i += 1) {
+    for (let i = 0; i < track.endRound - 1; i += 1) {
       track.increaseRound();
     }
 
@@ -155,9 +178,9 @@ describe('경기가 종료될 시 경기결과를 출력한다.', () => {
   });
 
   test('라운드가 최대 라운드를 넘으면 종료한다.', () => {
-    const track = new Track();
+    const track = new Track('3');
 
-    for (let i = 0; i < DEFAULT_RACING_ROUND; i += 1) {
+    for (let i = 0; i < track.endRound; i += 1) {
       track.increaseRound();
     }
 
