@@ -1,8 +1,8 @@
-import { isNameValidation } from "./domain/isNameValidation";
+import { isValidationName } from "./domain/isValidationName";
 import { getRandomNumber } from "./utils/getRandomNumber";
 
 export const startRacingGame = (name) => {
-  if (!isNameValidation(name)) {
+  if (!isValidationName(name)) {
     console.log("잘못된 정보를 입력하여 게임을 종료합니다.");
   }
   const carList = name.split(",");

@@ -1,14 +1,14 @@
 import { startRacingGame } from ".";
-import { isNameValidation } from "./domain/isNameValidation";
+import { isValidationName } from "./domain/isValidationName";
 import { getRandomNumber } from "./utils/getRandomNumber";
 
 describe("자동차 이름 유효성 검사", () => {
   it("자동차 이름 최대 5글자", () => {
-    expect(isNameValidation("pobi,crong,honux")).toBe(true);
+    expect(isValidationName("pobi,crong,honux")).toBeTruthy();
   });
 
   it("자동차 개수 최소 2개", () => {
-    expect(isNameValidation("pobi,crong")).toBe(true);
+    expect(isValidationName("pobi,crong")).toBeTruthy();
   });
 });
 
@@ -23,6 +23,6 @@ describe("자동차 경주", () => {
     const cars = ["pobi", "crong", "honux"];
     expect(
       startRacingGame("pobi,crong,honux").some((car) => cars.includes(car))
-    ).toBe(true);
+    ).toBeTruthy();
   });
 });
