@@ -39,8 +39,8 @@ export default class CarRace {
 
   #setRank() {
     this.#rank = this.#cars
-      .sort((a, b) => b.movedTrack - a.movedTrack)
-      .map((car) => ({ name: car.name, moved: car.movedTrack }));
+      .sort((a, b) => b.moved - a.moved)
+      .map((car) => ({ name: car.name, moved: car.moved }));
   }
 
   #setWinners() {
@@ -49,6 +49,10 @@ export default class CarRace {
       this.#rank[0]
     ).moved;
     this.#winners = this.#rank.filter((car) => car.moved === maxMove).map((car) => car.name);
+  }
+
+  getWinners() {
+    return this.#winners;
   }
 
   nextLap() {
@@ -67,7 +71,7 @@ export default class CarRace {
 
   print() {
     this.#cars.forEach((car) => {
-      printRace(car.name, car.movedTrack, this.#track);
+      printRace(car.name, car.moved, this.#track);
     });
   }
 
