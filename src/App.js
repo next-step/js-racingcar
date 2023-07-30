@@ -18,23 +18,24 @@ class App {
     this.#startGame();
   }
 
-  async #startGame() {
-    const userInput = await this.#getCarNames();
-    this.#checkValidatedNames(userInput);
-  }
-
-  async #getCarNames() {
-    const userInput = await View.getUserInput(MESSAGES.REQUEST.ENTER_THE_CARS);
+  async #getUserInput(message) {
+    const userInput = await View.getUserInput(message);
     return userInput;
   }
 
-  #checkValidatedNames(input) {
-    const nameList = splitByStandard(input);
+  async #startGame() {
+    const names = await this.#getUserInput(MESSAGES.REQUEST.ENTER_THE_CARS);
+    const nameList = splitByStandard(names);
 
+    this.#checkValidation(nameList, Validator.isValidList);
+    this.#setCars(nameList);
+
+    this.#startRacing();
+  }
+
+  #checkValidation(target, validator) {
     try {
-      Validator.isValidList(nameList);
-      this.#setCars(nameList);
-      this.#startRacing();
+      validator(target);
     } catch (err) {
       View.renderError(err.message);
       process.exit();
