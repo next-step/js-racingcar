@@ -1,6 +1,10 @@
 import Car from "./Car";
 import View from "./View";
-import { GAME_INIT_ROUND, TOTAL_GAME_ROUNDS } from "./constants/settings";
+import {
+  ERROR_MESSAGE,
+  GAME_INIT_ROUND,
+  TOTAL_GAME_ROUNDS,
+} from "./constants/settings";
 import { getRandomNumber } from "./utils/utils";
 
 export default class GameController {
@@ -10,12 +14,21 @@ export default class GameController {
   #winners;
   #playRoundCalls;
 
-  constructor(carNames) {
+  constructor(input) {
+    this.validateUserInput(input);
+
+    const carNames = String(input).split(",");
     this.#cars = carNames.map((name) => new Car(name));
     this.#view = new View();
     this.#currRound = GAME_INIT_ROUND;
     this.#winners = [];
     this.#playRoundCalls = 0;
+  }
+
+  validateUserInput(input) {
+    if (!input) throw new Error(ERROR_MESSAGE.EMPTY_INPUT);
+
+    return;
   }
 
   get cars() {
