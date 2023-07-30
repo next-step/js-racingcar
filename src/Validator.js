@@ -27,7 +27,7 @@ const Validator = (function Validator() {
   };
 
   return {
-    checkView(userInput, message) {
+    check(userInput, message) {
       const validator = validators[message];
       validator(userInput);
     },
