@@ -1,4 +1,4 @@
-import { SEPERATOR_SYMBOLS } from '../constants';
+import { SEPERATOR_SYMBOLS } from '../constants/index.js';
 
 class RacingWinners {
   #racingWinners;
@@ -16,7 +16,7 @@ class RacingWinners {
     return racingResult
       .at(-1)
       .split(SEPERATOR_SYMBOLS.NEW_LINE)
-      .map((s) => RacingWinners.#seperateCarNameAndDistance(s));
+      .map((result) => RacingWinners.#seperateCarNameAndDistance(result));
   }
 
   static #createDistanceArray(result) {
@@ -27,7 +27,7 @@ class RacingWinners {
     return Math.max(...RacingWinners.#createDistanceArray(result));
   }
 
-  static createRacingWinners(racingResult) {
+  static #createRacingWinners(racingResult) {
     const finalResult = RacingWinners.#createFinalResultArray(racingResult);
     const maxDistance = RacingWinners.#createMaxDistance(finalResult);
     return finalResult
@@ -36,7 +36,7 @@ class RacingWinners {
   }
 
   setRacingWinners(racingResult) {
-    this.#racingWinners = RacingWinners.createRacingWinners(racingResult);
+    this.#racingWinners = RacingWinners.#createRacingWinners(racingResult);
   }
 
   getRacingWinners() {
