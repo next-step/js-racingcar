@@ -6,7 +6,7 @@ describe('Car - Feature', () => {
   const carName = 'son'
 
   beforeEach(() => {
-    logSpy = jest.spyOn(console, 'log')
+    logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
   })
 
   afterEach(() => {
@@ -21,7 +21,7 @@ describe('Car - Feature', () => {
     expect(car.getName()).toBe(carName)
   })
 
-  test('자동차는 앞으로 전진한다.', () => {
+  test('자동차는 앞으로 전진할 수 있다.', () => {
     // Given
     const car = new Car(carName)
 

@@ -100,6 +100,8 @@ export class Race {
       participant => participant.getPosition() === highestPosition
     )
 
-    return highestPosition === 0 ? [] : winners.map(winner => winner.getName())
+    return this.#match !== this.#maxMatchLength
+      ? []
+      : winners.map(winner => winner.getName())
   }
 }

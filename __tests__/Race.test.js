@@ -97,7 +97,7 @@ describe('Race - Feature', () => {
   test('경주가 끝난 뒤, 경주의 우승자를 출력할 수 있다.', () => {
     // Given
     const participants = [car1, car2, car3]
-    const race = new Race({ participants })
+    const race = new Race({ participants, maxMatchLength: 2 })
 
     // When
     race.startRound()
@@ -118,7 +118,7 @@ describe('Race - Validate', () => {
     car2 = new Car('car2')
     car3 = new Car('car3')
   })
-  test('경주의 최대 경기 횟수가 숫자가 아닌 경우, 에러를 발생시킨다.', () => {
+  test('경주의 최대 경기 횟수가 숫자가 아닌 경우, 에러가 발생한다.', () => {
     // Given
     const participants = [car1, car2, car3]
 
@@ -131,7 +131,7 @@ describe('Race - Validate', () => {
     }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH))
   })
 
-  test('경주의 최대 경기 횟수 이상으로 라운드를 진행시키는 경우, 에러를 발생시킨다.', () => {
+  test('경주의 최대 경기 횟수 이상으로 라운드를 진행시키는 경우, 에러가 발생한다.', () => {
     // Given
     const participants = [car1, car2, car3]
     const race = new Race({
@@ -208,7 +208,7 @@ describe('Race - Validate', () => {
     }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD))
   })
 
-  test('경주에 참여한 객체가 한 개인 경우, 에러를 발생시킨다.', () => {
+  test('경주에 참여한 객체가 한 개인 경우, 에러가 발생한다.', () => {
     // Given
     const participants = [car1]
 

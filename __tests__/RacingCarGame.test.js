@@ -3,7 +3,7 @@ import { GAME_ERROR_MESSAGE } from '../src/constants'
 import { RacingCarGame } from '../src/racingCarGame'
 import * as number from '../src/utils/number'
 
-const mockRunFirstCar = () => {
+const mockRunOnlyFirstCar = () => {
   let runCount = 0
 
   jest
@@ -16,7 +16,7 @@ describe('RacingCarGame - Feature', () => {
   const carNames = 'sonny, son, son2'
 
   beforeEach(() => {
-    logSpy = jest.spyOn(console, 'log')
+    logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
   })
 
   afterEach(() => {
@@ -58,7 +58,7 @@ describe('RacingCarGame - Feature', () => {
 
   test('게임에서 sonny가 가장 많이 앞서나갔을 경우, 게임이 완료되었을 때 sonny가 우승했는지 알려준다.', () => {
     // Given
-    mockRunFirstCar()
+    mockRunOnlyFirstCar()
     const racingCarGame = new RacingCarGame(carNames)
 
     // When
@@ -100,7 +100,7 @@ describe('RacingCarGame - Error', () => {
   let logSpy
 
   beforeEach(() => {
-    logSpy = jest.spyOn(console, 'log')
+    logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
   })
 
   afterEach(() => {
