@@ -43,9 +43,9 @@ export class RacingSystem {
   }
 
   #roundProcess() {
-    const { MAX, MIN, MOVEMENT_CONDITION } = SETTINGS;
+    const { RANDOM_NUMBER, MOVEMENT_CONDITION } = SETTINGS;
     for (let i = 0; i < this.cars.length; i++) {
-      if (getRandomNumber(MIN.RANDOM_NUMBER, MAX.RANDOM_NUMBER) >= MOVEMENT_CONDITION) {
+      if (getRandomNumber(RANDOM_NUMBER.MIN, RANDOM_NUMBER.MAX) >= MOVEMENT_CONDITION) {
         this.cars[i].move();
       }
     }

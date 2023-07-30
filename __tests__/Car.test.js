@@ -17,11 +17,11 @@ describe('게임 테스트', () => {
 
 describe('유효성 검사', () => {
   test('이름 길이 검사', () => {
-    const { MAX, MIN } = SETTINGS;
+    const { NAME } = SETTINGS;
     const { ERROR } = MESSAGES
     // given
-    const exceedName = 'a'.repeat(MAX.NAME_LENGTH + 1);
-    const shortName = 'b'.repeat(MIN.NAME_LENGTH - 1);
+    const exceedName = 'a'.repeat(NAME.MAX_LENGTH + 1);
+    const shortName = 'b'.repeat(NAME.MIN_LENGTH - 1);
 
     // when
     const racingSystem = new RacingSystem();
@@ -35,7 +35,7 @@ describe('확장성 테스트', () => {
     const input = 'evan';
     const ROUND = 10;
   
-    const racingSystem = new RacingSystem(ROUND, ',');
+    const racingSystem = new RacingSystem(ROUND, SETTINGS.SEPERATOR);
     const logSpy = jest.spyOn(racingSystem.view, 'printCarPosition');
     racingSystem.startGame(input);
     const count = logSpy.mock.calls.filter((v) => v.includes('evan')).length;

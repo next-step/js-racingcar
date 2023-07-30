@@ -1,12 +1,12 @@
 export const SETTINGS = Object.freeze({
   ROUND: 5,
-  MAX: {
-    NAME_LENGTH: 5,
-    RANDOM_NUMBER: 9,
+  NAME: {
+    MAX_LENGTH: 5,
+    MIN_LENGTH: 1,
   },
-  MIN: {
-    NAME_LENGTH: 1,
-    RANDOM_NUMBER: 0,
+  RANDOM_NUMBER: {
+    MAX: 9,
+    MIN: 0,
   },
   MOVEMENT: 1,
   SEPERATOR: ',',
