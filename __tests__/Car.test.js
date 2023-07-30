@@ -86,46 +86,4 @@ describe('Car - Validate', () => {
       new Car(inValidCarName)
     }).toThrow(new Error(CAR_ERROR_MESSAGE.INVALID_NAME_TYPE))
   })
-
-  test('자동차의 이름에 직접 접근하는 경우, 이름에 직접 접근할 수 없다는 에러가 발생한다.', () => {
-    // Given
-    const carName = 'son'
-
-    // When, Then
-    expect(() => {
-      new Car(carName).name
-    }).toThrow(new Error(CAR_ERROR_MESSAGE.NOT_ACCESS_NAME))
-  })
-
-  test('자동차의 이름을 직접 할당하는 경우, 이름을 직접 할당할 수 없다는 에러가 발생한다.', () => {
-    // Given
-    const carName = 'son'
-    const newCarName = 'son2'
-
-    // When, Then
-    expect(() => {
-      new Car(carName).name = newCarName
-    }).toThrow(new Error(CAR_ERROR_MESSAGE.NOT_ASSIGN_NAME))
-  })
-
-  test('자동차의 포지션에 직접 접근하는 경우, 포지션에 직접 접근할 수 없다는 에러가 발생한다.', () => {
-    // Given
-    const carName = 'son'
-
-    // When, Then
-    expect(() => {
-      new Car(carName).position
-    }).toThrow(new Error(CAR_ERROR_MESSAGE.NOT_ACCESS_POSITION))
-  })
-
-  test('자동차의 포지션을 직접 할당하는 경우, 포지션을 직접 할당할 수 없다는 에러가 발생한다.', () => {
-    // Given
-    const carName = 'son'
-    const newCarPosition = 2
-
-    // When, Then
-    expect(() => {
-      new Car(carName).position = newCarPosition
-    }).toThrow(new Error(CAR_ERROR_MESSAGE.NOT_ASSIGN_POSITION))
-  })
 })

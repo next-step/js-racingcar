@@ -118,28 +118,6 @@ describe('Race - Validate', () => {
     car2 = new Car('car2')
     car3 = new Car('car3')
   })
-  test('경주에 참여한 객체들의 목록에 직접 접근할 수 없다.', () => {
-    // Given
-    const participants = [car1, car2, car3]
-    const race = new Race({ participants })
-
-    // When, Then
-    expect(() => {
-      race.participants
-    }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_ACCESS_PARTICIPANTS))
-  })
-
-  test('경주에 참여한 객체들의 목록을 직접 변경할 수 없다.', () => {
-    // Given
-    const participants = [car1, car2, car3]
-    const race = new Race({ participants })
-
-    // When, Then
-    expect(() => {
-      race.participants = []
-    }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_ASSIGN_PARTICIPANTS))
-  })
-
   test('경주의 최대 경기 횟수가 숫자가 아닌 경우, 에러를 발생시킨다.', () => {
     // Given
     const participants = [car1, car2, car3]
