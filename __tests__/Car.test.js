@@ -1,5 +1,5 @@
 // Phase 1
-import Car from "../src/Car.js";
+import Car from "../src/Models/Car.js";
 import {
   CAR_MOVE_CRITERIA,
   CAR_MOVE_STEP,

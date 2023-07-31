@@ -4,8 +4,8 @@ import {
   INPUT_ERROR_MESSAGE,
   TOTAL_GAME_ROUNDS,
   INPUT_SPLIT_SYM,
-} from "./constants/game";
-import { getRandomNumber } from "./utils/utils";
+} from "../constants/game";
+import { getRandomNumber } from "../utils/utils";
 
 export default class Game {
   #cars;

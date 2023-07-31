@@ -1,5 +1,5 @@
-import Game from "./Game";
-import View from "./View";
+import Game from "../Models/Game";
+import View from "../View/View";
 
 export default class GameController {
   #view;

@@ -1,3 +1,3 @@
-import GameController from "./GameController";
+import GameController from "./Controller/GameController";
 
 new GameController();
