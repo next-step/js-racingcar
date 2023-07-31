@@ -47,34 +47,25 @@ export class RacingGame {
     return getRandomNumberInRange(RANDOM_MIN_NUMBER, RANDOM_MAX_NUMBER);
   }
 
-  playOneRound() {
+  #playOneRound() {
     for (let playerIdx = 0; playerIdx < this.#players.length; playerIdx++) {
       this.playerPlayOneRound(playerIdx, this.getRandomNumberToRun());
     }
   }
 
-  printOneRoundGameResult() {
+  #printOneRoundGameResult() {
     const result = this.#players
       .map((player) => player.getPositionLog())
       .join("\n");
     Console.print(result, "\n");
   }
 
-  playGame() {
-    Console.print("\n실행 결과");
-    for (let round = 0; round < this.#racingGameSize; round++) {
-      this.playOneRound();
-      this.printOneRoundGameResult();
-    }
-    Console.print(this.getWinnerLog());
-  }
-
-  getWinnerPosition() {
+  #getWinnerPosition() {
     return Math.max(...this.#players.map((player) => player.getPosition()));
   }
 
   getWinners() {
-    const winnerPosition = this.getWinnerPosition();
+    const winnerPosition = this.#getWinnerPosition();
     return this.#players.filter(
       (player) => player.getPosition() === winnerPosition
     );
@@ -87,5 +78,14 @@ export class RacingGame {
 
   getWinnerLog() {
     return `${this.getWinnersNames().join(",")}가 최종 우승했습니다.`;
+  }
+
+  playGame() {
+    Console.print("\n실행 결과");
+    for (let round = 0; round < this.#racingGameSize; round++) {
+      this.#playOneRound();
+      this.#printOneRoundGameResult();
+    }
+    Console.print(this.getWinnerLog());
   }
 }

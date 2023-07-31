@@ -10,11 +10,11 @@ export class Car {
   #position;
 
   constructor(name, position = START_POSITION) {
-    this.validateCarName(name);
+    this.#validateCarName(name);
     this.#name = name;
     this.#position = position;
   }
-  validateCarName = (name) => {
+  #validateCarName = (name) => {
     if (name.trim().length < MIN_NAME_LENGTH)
       throw new Error("이름은 공백을 제외한 한글자 이상이어야한다.");
   };
