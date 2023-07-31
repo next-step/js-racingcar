@@ -50,7 +50,8 @@ export default class RacingController {
 
     for (let i = 0; i < MAX_RACING_ROUNDS; i++) {
       carList.forEach((_, carIndex) => {
-        this.playSingleRound(carIndex);
+        const randomValue = createRandomValue();
+        this.playSingleRound(carIndex, randomValue);
       });
 
       if (i === MOVE_CAR_THRESHOLD) {
@@ -60,9 +61,7 @@ export default class RacingController {
     }
   }
 
-  playSingleRound(carIndex) {
-    const randomValue = createRandomValue();
-
+  playSingleRound(carIndex, randomValue) {
     if (randomValue >= MOVE_CAR_THRESHOLD) this.moveCar(carIndex);
 
     this.racingView.showRacingGameProgress();
