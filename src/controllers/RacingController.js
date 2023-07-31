@@ -1,6 +1,4 @@
 import ValidationCheck from "../classes/ValidationCheck";
-import RacingModel from "../model/RacingModel";
-import RacingView from "../view/RacingView";
 
 import { createRandomValue, readlineInterface } from "../utils/util";
 import { MAX_RACING_ROUNDS, MOVE_CAR_THRESHOLD } from "../data/constants";
@@ -52,18 +50,22 @@ export default class RacingController {
 
     for (let i = 0; i < MAX_RACING_ROUNDS; i++) {
       carList.forEach((_, carIndex) => {
-        const randomValue = createRandomValue();
-
-        if (randomValue >= MOVE_CAR_THRESHOLD) this.moveCar(carIndex);
+        this.playSingleRound(carIndex);
       });
-
-      this.racingView.showRacingGameProgress();
 
       if (i === MOVE_CAR_THRESHOLD) {
         this.racingView.showRacingGameWinners();
         readlineInterface.close();
       }
     }
+  }
+
+  playSingleRound(carIndex) {
+    const randomValue = createRandomValue();
+
+    if (randomValue >= MOVE_CAR_THRESHOLD) this.moveCar(carIndex);
+
+    this.racingView.showRacingGameProgress();
   }
 
   moveCar(carIndex) {
