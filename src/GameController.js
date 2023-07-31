@@ -1,10 +1,10 @@
 import Car from "./Car";
 import View from "./View";
 import {
-  ERROR_MESSAGE,
+  INPUT_ERROR_MESSAGE,
   GAME_INIT_ROUND,
   TOTAL_GAME_ROUNDS,
-} from "./constants/settings";
+} from "./constants/gameController";
 import { getRandomNumber } from "./utils/utils";
 
 export default class GameController {
@@ -26,7 +26,7 @@ export default class GameController {
   }
 
   validateUserInput(input) {
-    if (!input) throw new Error(ERROR_MESSAGE.EMPTY_INPUT);
+    if (!input) throw new Error(INPUT_ERROR_MESSAGE.EMPTY_INPUT);
 
     return;
   }

@@ -1,9 +1,9 @@
 import GameController from "../src/GameController";
 import {
-  ERROR_MESSAGE,
+  INPUT_ERROR_MESSAGE,
   GAME_INIT_ROUND,
   TOTAL_GAME_ROUNDS,
-} from "../src/constants/settings";
+} from "../src/constants/gameController";
 
 // [Phase 1]
 
@@ -16,7 +16,7 @@ describe("[feature1] 사용자가 입력한 값의 유효성을 확인한다.", 
   it("사용자가 빈 값을 입력한 경우, 오류를 발생시키며, 프로그램을 종료한다.", () => {
     const INVALID_EMPTY_INPUT = "";
     expect(() => new GameController(INVALID_EMPTY_INPUT)).toThrow(
-      ERROR_MESSAGE.EMPTY_INPUT
+      INPUT_ERROR_MESSAGE.EMPTY_INPUT
     );
   });
 

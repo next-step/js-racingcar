@@ -1,7 +1,7 @@
 import {
   RANDOM_NUM_LOWER_LIMIT,
   RANDOM_NUM_UPPER_LIMIT,
-} from "../constants/settings";
+} from "../constants/gameController";
 
 /**
  * getRandomIntRangeOf - Returns a random integer between min (inclusive) and max (inclusive).
