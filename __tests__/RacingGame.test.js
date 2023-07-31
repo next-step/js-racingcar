@@ -50,7 +50,7 @@ describe("Together RacingGame (여럿이서 하는 레이싱 게임)", () => {
   let racingGame = new RacingGame();
   racingGame.setRacingGameSize(GAME_SIZE);
 
-  it("자동차가 레이싱 게임에 등록했다.", () => {
+  it(`"${DEFAULT_CAR_NAMES_INPUT}"가 레이싱 게임에 등록했을 때, 등록된 자동차는 총 ${DEFAULT_PLAYERS.length}대 이다.`, () => {
     racingGame.setPlayers(
       racingGame.getPlayerNamesFromInput(DEFAULT_CAR_NAMES_INPUT)
     );
@@ -87,7 +87,7 @@ describe("Together RacingGame (여럿이서 하는 레이싱 게임)", () => {
       });
     });
 
-    it(`우승자를 알아낼 수 있다.`, () => {
+    it(`자동차 게임의 우승자는 ${EXPECT_WINNERS.join(",")}이다.`, () => {
       expect(racingGame.getWinnersNames()).toStrictEqual(EXPECT_WINNERS);
     });
 
