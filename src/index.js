@@ -7,14 +7,13 @@ import {printWinners} from './view/printWinners';
 import {getLineInput} from './view/getLineInput';
 import {trimTexts} from './utils/trimTexts';
 
-const MAXIMUM_RACING_NUMBER = 5;
 const MAXIMUM_CAR_NAME_LENGTH = 5;
 
-const startGame = carNames => {
+const startGame = (carNames, racingNumber) => {
   const controller = new Controller();
   controller.createCars(carNames);
 
-  while (controller.currentRaceNumber < MAXIMUM_RACING_NUMBER) {
+  while (controller.currentRaceNumber < racingNumber) {
     controller.race();
     const currentRacingInfo = controller.getCarsDistance();
     printRacingInfo(currentRacingInfo);
