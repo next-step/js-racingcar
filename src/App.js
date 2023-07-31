@@ -99,9 +99,9 @@ class App {
     process.exit();
   }
 
-  #showError(err, trigger, ...args) {
+  #showError(err, trigger) {
     View.renderError(err.message);
-    trigger.call(this, ...args);
+    trigger.call(this);
   }
 
   #reset() {
