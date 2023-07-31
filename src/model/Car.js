@@ -26,7 +26,7 @@ class Car {
 
   moveByRandomNumber() {
     const randomNumber = getRandomNumber();
-    const isMoved = randomNumber > MOVE_STANDARD;
+    const isMoved = randomNumber >= MOVE_STANDARD;
 
     if (isMoved) this.#move();
   }
