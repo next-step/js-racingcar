@@ -93,7 +93,6 @@ class App {
   #finishRacing() {
     this.#winnerChecker.addResult(this.#cars);
     const { winners } = this.#winnerChecker;
-
     View.renderResult(winners);
 
     process.exit();

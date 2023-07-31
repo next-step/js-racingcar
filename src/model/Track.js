@@ -29,6 +29,3 @@ class Track {
   reset() {
     this.#round = 1;
   }
-}
-
-module.exports = Track;
