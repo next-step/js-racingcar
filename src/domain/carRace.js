@@ -24,7 +24,7 @@ export default class CarRace {
       return;
     }
 
-    const sortedParticipants = [...this.#participants].sort(
+    const sortedParticipants = this.#participants.toSorted(
       (car1, car2) => car2.distance - car1.distance
     );
 
