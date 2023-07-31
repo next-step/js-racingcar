@@ -1,45 +1,24 @@
-import CarView from '../src/view/CarView.js';
-import { MESSAGES, SETTINGS } from '../src/constants/index.js';
-import { RacingSystem } from '../src/controller/RacingSystem.js';
+import { WinnerModel } from '../src/model/WinnerModel.js';
+import CarModel from '../src/model/CarModel.js';
 
-describe('게임 테스트', () => {
-  test('게임 시작', () => {
-    const logSpy = jest.spyOn(console, 'log');
+describe('Car Instance Test', () => {
+  test('given car names are should be same in car Instance', () => {
     // given
-    const input = `pobi${SETTINGS.SEPERATOR}crong${SETTINGS.SEPERATOR}honux`;
-    const racingSystem = new RacingSystem(SETTINGS.ROUND, SETTINGS.SEPERATOR);
+    const names = ['a', 'b', 'c'];
+    const cars = names.map((name) => new CarModel(name));
 
-    racingSystem.startGame(input);
-
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(MESSAGES.GAME.WINNER_ANNOUNCEMENT));
+    // then
+    expect(cars.map((c) => c.getName())).toEqual(names);
   });
-});
 
-describe('유효성 검사', () => {
-  test('이름 길이 검사', () => {
-    const { NAME } = SETTINGS;
-    const { ERROR } = MESSAGES
-    // given
-    const exceedName = 'a'.repeat(NAME.MAX_LENGTH + 1);
-    const shortName = 'b'.repeat(NAME.MIN_LENGTH - 1);
+  test('should be able to move', () => {
+    const names = ['a', 'b', 'c'];
+    const cars = names.map((name) => new CarModel(name));
 
     // when
-    const racingSystem = new RacingSystem();
-    expect(() => racingSystem.startGame(exceedName)).toThrowError(ERROR.MAX_NAME_LENGTH);
-    expect(() => racingSystem.startGame(shortName)).toThrowError(ERROR.MIN_NAME_LENGTH);
-  });
-})
+    cars.forEach((car) => car.move());
 
-describe('확장성 테스트', () => {
-  test('라운드 설정', () => {
-    const input = 'evan';
-    const ROUND = 10;
-  
-    const racingSystem = new RacingSystem(ROUND, SETTINGS.SEPERATOR);
-    const logSpy = jest.spyOn(racingSystem.view, 'printCarPosition');
-    racingSystem.startGame(input);
-    const count = logSpy.mock.calls.filter((v) => v.includes('evan')).length;
-
-    expect(count).toBe(ROUND);
+    // then
+    expect(cars.map((c) => c.getPosition())).toEqual([1, 1, 1]);
   });
-})
+});
