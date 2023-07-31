@@ -16,7 +16,7 @@ export class Car {
   }
   validateCarName = (name) => {
     if (name.trim().length < MIN_NAME_LENGTH)
-      throw new Error("이름은 공백을 제외한 한글자 이상이어야합니다.");
+      throw new Error("이름은 공백을 제외한 한글자 이상이어야한다.");
   };
   getName() {
     return this.#name;

@@ -8,33 +8,44 @@ import {
 describe("Car", () => {
   const DEFAULT_CAR_NAME = "sonata";
   let car;
+
   beforeEach(() => {
     car = new Car(DEFAULT_CAR_NAME);
   });
-  it("자동차의 이름이 한글자 미만일 경우 에러를 발생시킨다.", () => {
-    const name = "";
-    expect(() => {
-      new Car(name);
-    }).toThrow("이름은 공백을 제외한 한글자 이상이어야합니다.");
+
+  describe("constructor", () => {
+    it("자동차의 이름이 한글자 미만일 경우 에러를 발생한다.", () => {
+      const name = "";
+      expect(() => {
+        new Car(name);
+      }).toThrow("이름은 공백을 제외한 한글자 이상이어야한다.");
+    });
+
+    it(`입력으로 "${DEFAULT_CAR_NAME}"을 입력 받았을 때, 생성된 자동차의 이름은 "${DEFAULT_CAR_NAME}"이다.`, () => {
+      expect(car.getName()).toBe(DEFAULT_CAR_NAME);
+    });
   });
-  it("자동차의 이름을 알 수 있다.", () => {
-    expect(car.getName()).toBe(DEFAULT_CAR_NAME);
+
+  describe("run", () => {
+    it(`자동차는 ${RUN_THRESHOLD} 이상의 입력값을 받으면 전진할 수 있다.`, () => {
+      car.run(4);
+      expect(car.getPosition()).toBe(START_POSITION + RUN_UNIT);
+    });
+    it(`자동차는 ${RUN_THRESHOLD} 미만의 입력값을 받으면 전진할 수 없다.`, () => {
+      car.run(3);
+      expect(car.getPosition()).toBe(START_POSITION);
+    });
   });
-  it(`자동차는 ${RUN_THRESHOLD} 이상의 입력값을 받으면 전진할 수 있다.`, () => {
-    car.run(4);
-    expect(car.getPosition()).toBe(START_POSITION + RUN_UNIT);
-  });
-  it(`자동차는 ${RUN_THRESHOLD} 미만의 입력값을 받으면 전진할 수 없다.`, () => {
-    car.run(3);
-    expect(car.getPosition()).toBe(START_POSITION);
-  });
-  it("자동차의 위치를 알 수 있다. (출력 가능한 형태", () => {
-    expect(car.getPositionLog()).toBe(`${DEFAULT_CAR_NAME} : -`);
-    car.run(4);
-    expect(car.getPositionLog()).toBe(
-      `${DEFAULT_CAR_NAME} : ${new Array(START_POSITION + RUN_UNIT)
-        .fill("-")
-        .join("")}`
-    );
+
+  describe("getPositionLog", () => {
+    it(`자동차가 앞으로 간 이후에, 자동차의 위치를 출력하면 "-"가 ${RUN_UNIT}만큼 더 생긴다.`, () => {
+      expect(car.getPositionLog()).toBe(
+        `${DEFAULT_CAR_NAME} : ${"-".repeat(START_POSITION)}`
+      );
+      car.run(4);
+      expect(car.getPositionLog()).toBe(
+        `${DEFAULT_CAR_NAME} : ${"-".repeat(START_POSITION + RUN_UNIT)}`
+      );
+    });
   });
 });
