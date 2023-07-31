@@ -9,9 +9,9 @@ export default class RacingController {
   racingModel;
   racingView;
 
-  constructor() {
-    this.racingModel = new RacingModel();
-    this.racingView = new RacingView(this.racingModel);
+  constructor(model, view) {
+    this.racingModel = model;
+    this.racingView = view;
   }
 
   initCarNamesBeforeStartRacingGame() {
@@ -26,13 +26,11 @@ export default class RacingController {
   checkValidationCarNames(carNames) {
     const carList = carNames.split(",").map((carName) => carName.trim());
 
-    const validation = new ValidationCheck();
-
     try {
-      validation.validateCarCount(carList);
-      validation.validateEmptyName(carList);
-      validation.validateDuplicateName(carList);
-      validation.validateNameLength(carList);
+      ValidationCheck.validateCarCount(carList);
+      ValidationCheck.validateEmptyName(carList);
+      ValidationCheck.validateDuplicateName(carList);
+      ValidationCheck.validateNameLength(carList);
 
       this.racingModel.settingCarName(carList);
       this.startRacingGame();
