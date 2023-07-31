@@ -10,15 +10,13 @@ export class Car {
   #position;
 
   constructor(name, position = START_POSITION) {
-    if (!this.validateCarName(name)) return;
+    this.validateCarName(name);
     this.#name = name;
     this.#position = position;
   }
-
   validateCarName = (name) => {
     if (name.trim().length < MIN_NAME_LENGTH)
       throw new Error("이름은 공백을 제외한 한글자 이상이어야합니다.");
-    return true;
   };
   getName() {
     return this.#name;
@@ -28,7 +26,7 @@ export class Car {
   }
 
   getPositionLog() {
-    return `${this.#name} : ${new Array(this.#position).fill("-").join("")}`;
+    return `${this.#name} : ${"-".repeat(this.#position)}`;
   }
 
   run(number) {
