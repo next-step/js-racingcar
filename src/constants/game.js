@@ -1,4 +1,4 @@
-// GameController 관련 setting 상수
+// Game 관련 setting 상수
 export const GAME_INIT_ROUND = 1;
 export const TOTAL_GAME_ROUNDS = 5;
 export const CAR_MOVE_STEP = 1;
@@ -12,7 +12,7 @@ export const INPUT_ERROR_MESSAGE = {
 };
 
 /**
- * GameController 내 Car 전진 조건 관련 상수
+ * Game 내 Car 전진 조건 관련 상수
  */
 
 export const RANDOM_NUM_LOWER_LIMIT = 0;

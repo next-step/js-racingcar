@@ -1,10 +1,9 @@
+import { CAR_MOVE_STEP, CAN_MOVE } from "./constants/game";
 import {
   CAR_INIT_POSITION,
   CAR_ERROR_MESSAGE,
-  CAR_MOVE_STEP,
-  CAN_MOVE,
   CAR_NAME_MAX_LENGTH,
-} from "./constants/gameController";
+} from "./constants/car.js";
 export default class Car {
   #name;
   #position;

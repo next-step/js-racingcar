@@ -5,7 +5,7 @@ import {
   CAR_MOVE_STEP,
   RANDOM_NUM_LOWER_LIMIT,
   RANDOM_NUM_UPPER_LIMIT,
-} from "../src/constants/gameController.js";
+} from "../src/constants/game.js";
 import {
   CAR_ERROR_MESSAGE,
   CAR_INIT_POSITION,

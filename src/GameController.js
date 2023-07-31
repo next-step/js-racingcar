@@ -1,80 +1,57 @@
-import Car from "./Car";
+import Game from "./Game";
 import View from "./View";
-import {
-  INPUT_ERROR_MESSAGE,
-  GAME_INIT_ROUND,
-  TOTAL_GAME_ROUNDS,
-} from "./constants/gameController";
-import { getRandomNumber } from "./utils/utils";
 
 export default class GameController {
-  #cars;
   #view;
-  #currRound;
-  #winners;
-  #playRoundCalls;
+  #game;
 
-  constructor(input) {
-    this.validateUserInput(input);
-
-    const carNames = String(input).split(",");
-    this.#cars = carNames.map((name) => new Car(name));
+  constructor() {
     this.#view = new View();
-    this.#currRound = GAME_INIT_ROUND;
-    this.#winners = [];
-    this.#playRoundCalls = 0;
-  }
-
-  validateUserInput(input) {
-    if (!input) throw new Error(INPUT_ERROR_MESSAGE.EMPTY_INPUT);
-
-    return;
-  }
-
-  get cars() {
-    return this.#cars;
+    this.addEventHandlerToView();
   }
 
   get view() {
     return this.#view;
   }
 
-  get currRound() {
-    return this.#currRound;
+  get game() {
+    return this.#game;
   }
 
-  get winners() {
-    return this.#winners;
+  addEventHandlerToView() {
+    this.#view.handleInputWith((userInput) => this.#playGameWith(userInput));
   }
 
-  get playRoundCalls() {
-    return this.#playRoundCalls;
+  #playGameWith(userInput) {
+    try {
+      this.#setGame(userInput);
+      this.#startGame();
+      this.#printGameResult();
+    } catch (error) {
+      // 에러 발생 시 에러 메시지 보여주고 프로그램 종료
+      this.#printError(error);
+    }
   }
 
-  #playRound() {
-    this.#cars.forEach((car) => {
-      car.tryMoveWith(getRandomNumber());
-    });
-
-    this.#playRoundCalls += 1;
-
-    this.#view.logRoundStatus(this);
+  #setGame(userInput) {
+    this.#game = new Game(userInput);
   }
 
-  #setWinners() {
-    const maxPosition = Math.max(...this.#cars.map((car) => car.position));
-    this.#winners = this.#cars.filter((car) => car.position === maxPosition);
+  #startGame() {
+    this.#game.play();
   }
 
-  play() {
+  #printGameResult() {
     this.#view.logResultGuideMessage();
 
-    while (this.#currRound <= TOTAL_GAME_ROUNDS) {
-      this.#playRound();
-      this.#currRound += 1;
-    }
+    this.#game.roundHistory.forEach((roundCarsInfo) => {
+      this.#view.logRoundStatus(roundCarsInfo);
+    });
 
-    this.#setWinners();
-    this.#view.logWinners(this.#winners);
+    this.#view.logWinners(this.#game.winners);
+  }
+
+  #printError(error) {
+    this.#view.logErrorMessage(error.message);
   }
 }
