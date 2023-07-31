@@ -7,8 +7,8 @@ const rl = readline.createInterface({
 
 export default class UserInterface {
   readLineWith(guideMsg, cbFunc) {
-    rl.question(guideMsg, (carNames) => {
-      cbFunc(carNames);
+    rl.question(guideMsg, (input) => {
+      cbFunc(input);
       rl.close();
     });
   }
