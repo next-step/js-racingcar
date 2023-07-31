@@ -1,4 +1,5 @@
 import { CONDITIONS, ERROR_MESSAGES } from "../constants/constants.js";
+import { getIndexesOfMaxValue } from "../utils/utils.js";
 import { CarModel } from "./CarModel.js";
 
 export class GameModel {
@@ -35,5 +36,13 @@ export class GameModel {
     if (new Set(cars.map((car) => car.name)).size !== cars.length) {
       throw new Error(ERROR_MESSAGES.DUPLICATED_PARTICIPANTS_NAME);
     }
+  }
+
+  get winners() {
+    const maxMoveIndexes = getIndexesOfMaxValue(
+      this.participants.map((car) => car.movement)
+    );
+
+    return maxMoveIndexes.map((v) => this.participants[v]);
   }
 }

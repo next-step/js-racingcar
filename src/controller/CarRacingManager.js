@@ -1,16 +1,13 @@
 import {
   CONDITIONS,
   GAME_MESSAGES,
+  INTERVAL_ROUND_TIME,
   MOVEMENT_PRINT,
   NAME_SEPARATOR,
 } from "../constants/constants.js";
 import { CarModel } from "../model/CarModel.js";
 import { GameModel } from "../model/GameModel.js";
-import {
-  getIndexesOfMaxValue,
-  getRandomNumberInRange,
-  sleeping,
-} from "../utils/utils.js";
+import { getRandomNumberInRange, sleeping } from "../utils/utils.js";
 
 export class CarRacingManager {
   #gameModel = new GameModel();
@@ -30,15 +27,13 @@ export class CarRacingManager {
   roundInterval(endProcess, wait) {
     this.#gameModel.increaseRound();
     if (this.#gameModel.round > CONDITIONS.max_game_round_number) {
-      return this.gameEnd(
-        endProcess,
-        `${this.getWinnersName()}가 최종 우승했습니다.`
-      );
+      const winnerMessage = `${this.getWinnersName()}가 최종 우승했습니다.`;
+      return this.gameEnd(endProcess, winnerMessage);
     }
 
     this.roundStart();
 
-    wait(1_000);
+    wait(INTERVAL_ROUND_TIME);
     console.log("");
     this.roundInterval(endProcess, wait);
   }
@@ -59,7 +54,7 @@ export class CarRacingManager {
     return this.#gameModel.participants.map((v) => v.name);
   }
 
-  getWinnersName(winners = this.winners) {
+  getWinnersName(winners = this.#gameModel.winners) {
     return winners.map((winner) => winner.name).join(NAME_SEPARATOR);
   }
 
@@ -67,14 +62,6 @@ export class CarRacingManager {
     this.#gameModel.participants = names
       .split(NAME_SEPARATOR)
       .map((name) => new CarModel(name.trim()));
-  }
-
-  get winners() {
-    const maxMoveIndexes = getIndexesOfMaxValue(
-      this.#gameModel.participants.map((car) => car.movement)
-    );
-
-    return maxMoveIndexes.map((v) => this.#gameModel.participants[v]);
   }
 
   printCarAndMove(name, movement) {

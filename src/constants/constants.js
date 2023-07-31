@@ -9,6 +9,8 @@ export const NAME_SEPARATOR = ",";
 
 export const MOVEMENT_PRINT = "-";
 
+export const INTERVAL_ROUND_TIME = 1_000;
+
 export const GAME_MESSAGES = {
   QUESTION:
     "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n",
