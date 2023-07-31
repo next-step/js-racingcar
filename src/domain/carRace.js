@@ -60,7 +60,6 @@ export default class CarRace {
       throw new Error('자동차 이름을 조회할 자동차가 없습니다.');
     }
     const names = cars.map((car) => car.name);
-    const result = getStringFromArray(names);
-    return result;
+    return getStringFromArray(names);
   }
 }

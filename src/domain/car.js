@@ -1,6 +1,6 @@
 import { CAR_MOVE_POSSIBLE_NUMBER, CAR_NAME_LENGTH_LIMIT } from '../constants';
 import { getRandomInt, isMoreThanNumber } from '../utils/common';
-import { checkEmptyString, checkOverStringLength } from '../validation';
+import { validateEmptyString, validateOverStringLength } from '../validation';
 import { ERROR_MESSAGE } from '../validation/errorMessage';
 
 export default class Car {
@@ -38,12 +38,12 @@ export default class Car {
   };
 
   #nameValidation = (name) => {
-    checkOverStringLength({
+    validateOverStringLength({
       value: name,
       length: CAR_NAME_LENGTH_LIMIT,
       message: ERROR_MESSAGE.CAR_NAME_LIMIT,
     });
 
-    checkEmptyString(name);
+    validateEmptyString(name);
   };
 }
