@@ -43,6 +43,7 @@ export default class View {
 
   logResultGuideMessage() {
     this.#logDivider();
+
     this.#log(MESSAGES.RESULT_GUIDE);
   }
 
