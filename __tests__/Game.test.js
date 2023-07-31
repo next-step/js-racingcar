@@ -13,15 +13,21 @@ import {
 const VALID_INPUT = "erica";
 
 describe("[feature1] 사용자가 입력한 값의 유효성을 확인한다.", () => {
-  it("사용자가 빈 값을 입력한 경우, 오류를 발생시키며, 프로그램을 종료한다.", () => {
-    const INVALID_EMPTY_INPUT = "";
-    expect(() => new Game(INVALID_EMPTY_INPUT)).toThrow(
-      INPUT_ERROR_MESSAGE.EMPTY_INPUT
-    );
-  });
+  it.each([
+    { name: "빈 값", input: "", expected: INPUT_ERROR_MESSAGE.EMPTY_INPUT },
+    {
+      name: "중복된 자동차 이름이 있는 값",
+      input: "a,b,c,a",
+      expected: INPUT_ERROR_MESSAGE.DUPLICATE_CAR_NAME,
+    },
+  ])(
+    `사용자 입력이 $name인 경우, 에러를 발생시킨다.`,
+    ({ input, expected }) => {
+      expect(() => new Game(input)).toThrow(expected);
+    }
+  );
 
   it("유효한 입력값이라면 정상 동작한다.", () => {
-    const VALID_INPUT = "erica";
     expect(() => new Game(VALID_INPUT)).not.toThrow();
   });
 });
@@ -29,7 +35,6 @@ describe("[feature1] 사용자가 입력한 값의 유효성을 확인한다.", 
 describe("[feature4] 총 5라운드를 반복하고, 우승 자동차 정보를 반환한다.", () => {
   const game = new Game(VALID_INPUT);
 
-  // TODO 테스트코드 체크. 배열 구성 내용까지?
   it("게임 컨트롤러는 Car 객체를 갖는 배열, View 객체, 현재 라운드, 우승자 배열을 상태값으로 갖는다.", () => {
     expect(game.cars).toBeInstanceOf(Array);
     expect(game.currRound).toBeDefined();

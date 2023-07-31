@@ -3,6 +3,7 @@ import {
   GAME_INIT_ROUND,
   INPUT_ERROR_MESSAGE,
   TOTAL_GAME_ROUNDS,
+  SPLIT_INPUT_SYM,
 } from "./constants/game";
 import { getRandomNumber } from "./utils/utils";
 
@@ -13,50 +14,95 @@ export default class Game {
   #roundHistory;
   #winners;
 
-  // setGame
+  /** readline 모듈로부터 userInput을 받아, Game setting을 수행한다.
+   * @param {string} userInput
+   */
   constructor(userInput) {
     this.#validateUserInput(userInput);
 
     const carNames = this.#parseCarNames(userInput);
 
+    this.#validateDuplicateCarNames(carNames);
+
     this.#cars = carNames.map((carName) => new Car(carName));
+
     this.#currRound = GAME_INIT_ROUND;
     this.#playRoundCalls = 0;
     this.#roundHistory = [];
     this.#winners = [];
   }
 
+  /**
+   * @returns {Car[]}
+   */
+  get cars() {
+    return this.#cars;
+  }
+
+  /**
+   * @returns {number}
+   */
+  get currRound() {
+    return this.#currRound;
+  }
+
+  /**
+   * @returns {number}
+   */
+  get playRoundCalls() {
+    return this.#playRoundCalls;
+  }
+
+  /**
+   * @returns {Car[][]}
+   */
+  get roundHistory() {
+    return this.#roundHistory;
+  }
+
+  /**
+   * @returns {Car[]}
+   */
+  get winners() {
+    return this.#winners;
+  }
+
+  /**
+   * userInput의 유효성을 검사하여, 빈 값이면 에러를 발생시킨다.
+   * @param {string} userInput
+   * @returns {undefined}
+   */
   #validateUserInput(userInput) {
     if (!userInput) throw new Error(INPUT_ERROR_MESSAGE.EMPTY_INPUT);
 
     return;
   }
 
+  /**
+   * 1. userInput을 SPLIT_INPUT_SYM으로 구분하여 자동차 이름 배열을 반환한다.
+   * 2. 이 때, 자동차 이름의 앞뒤 공백은 제거한다.
+   * @param {string} userInput
+   * @returns {string[]}
+   */
   #parseCarNames(userInput) {
-    const SPLIT_SYM = ", ";
-    return userInput.split(SPLIT_SYM).map((carName) => carName.trim());
+    return userInput.split(SPLIT_INPUT_SYM).map((carName) => carName.trim());
   }
 
-  get cars() {
-    return this.#cars;
+  /**
+   * 자동차 이름의 중복 여부를 확인하고, 중복 발생 시 에러를 발생시킨다.
+   * @param {string[]} carNames
+   * @returns {undefined}
+   */
+  #validateDuplicateCarNames(carNames) {
+    if (new Set(carNames).size !== carNames.length)
+      throw new Error(INPUT_ERROR_MESSAGE.DUPLICATE_CAR_NAME_INPUT);
+
+    return;
   }
 
-  get currRound() {
-    return this.#currRound;
-  }
-
-  get playRoundCalls() {
-    return this.#playRoundCalls;
-  }
-
-  get roundHistory() {
-    return this.#roundHistory;
-  }
-
-  get winners() {
-    return this.#winners;
-  }
-
+  /**
+   * 현재 라운드 자동차들의 상태를 깊은 복사하여 저장한다.
+   */
   #saveRoundHistory() {
     const roundCarsHistory = this.#cars.map(
       (car) => new Car(car.name, car.position)
@@ -65,6 +111,11 @@ export default class Game {
     this.#roundHistory.push(roundCarsHistory);
   }
 
+  /**
+   * 1. 현재 라운드를 진행한다.
+   * 2. 게임 내 모든 자동차에 대해 임의의 숫자를 기반으로 전진 여부를 결정한다.
+   * 3. 라운드 카운트를 1 늘리고, 현재 라운드 진행 결과를 저장한다.
+   */
   #playRound() {
     this.#cars.forEach((car) => {
       car.tryMoveWith(getRandomNumber());
@@ -75,11 +126,19 @@ export default class Game {
     this.#saveRoundHistory();
   }
 
+  /**
+   * 현재 라운드에서 우승한 자동차들을 저장한다.
+   */
   #setWinners() {
     const maxPosition = Math.max(...this.#cars.map((car) => car.position));
+
     this.#winners = this.#cars.filter((car) => car.position === maxPosition);
   }
 
+  /**
+   * 1. TOTAL_GAME_ROUNDS만큼 게임을 진행한다.
+   * 2. 모든 게임 진행 후, 우승자를 선정한다.
+   */
   play() {
     while (this.#currRound <= TOTAL_GAME_ROUNDS) {
       this.#playRound();
