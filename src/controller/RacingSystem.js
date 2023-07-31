@@ -1,63 +1,57 @@
-import CarView from '../view/CarView.js';
 import CarModel from '../model/CarModel.js';
-import { SETTINGS } from '../constants/index.js';
-import { getRandomNumber, validateName, terminal } from '../util/index.js';
+import { WinnerModel } from '../model/WinnerModel.js';
+import { getRandomNumber } from '../util/index.js';
+import CarView from '../view/CarView.js';
+import { Validator } from './Validator.js';
 
 export class RacingSystem {
-  cars = [];
-  round = 5;
-  separator = ',';
-  view;
+  cars;
+  winners;
+  #settings;
+  #view;
+  #validator;
 
-  constructor(round, separator) {
-    this.round = round;
-    this.separator = separator;
+  constructor(GameSettings) {
+    this.#settings = GameSettings;
     this.view = new CarView();
+    this.#validator = new Validator();
+  }
+
+  #initializeGame(names) {
+    this.cars = names.split(this.#settings.seperator).map((name) => {
+      this.#validator.validateConditions(name.trim());
+      return new CarModel(name.trim());
+    });
   }
 
   startGame(names) {
-    const carNames = this.#validateName(names);
-    this.cars = carNames.map((name) => new CarModel(name));
-    this.view.printResultHeader();
-    this.#runRaceLoop();
+    this.#initializeGame(names.trim());
+
+    this.#runGame();
+
     this.#endGame();
   }
 
-  #endGame() {
-    const winners = this.#getWinners();
-    this.view.printWinners(winners);
-    terminal.close();
-  }
-
-  #validateName(input) {
-    const carNames = input.split(this.separator).map((name) => validateName(name.trim()));
-    return carNames;
-  }
-
-  #runRaceLoop() {
-    for (let i = 0; i < this.round; i++) {
-      this.#roundProcess();
-      this.cars.forEach((car) => this.view.printCarPosition(car.getName(), car.getPosition()));
+  #runGame() {
+    this.view.printResultHeader();
+    for (let i = 0; i < this.#settings.round; i++) {
+      this.#runRoundProcess();
       this.view.printBreakLine();
     }
   }
 
-  #roundProcess() {
-    const { RANDOM_NUMBER, MOVEMENT_CONDITION } = SETTINGS;
-    for (let i = 0; i < this.cars.length; i++) {
-      if (getRandomNumber(RANDOM_NUMBER.MIN, RANDOM_NUMBER.MAX) >= MOVEMENT_CONDITION) {
-        this.cars[i].move();
+  #runRoundProcess() {
+    const { randomNumberMax, randomNumberMin, movementCondition } = this.#settings.getSettings();
+    this.cars.forEach((car) => {
+      if (getRandomNumber(randomNumberMax, randomNumberMin) >= movementCondition) {
+        car.move();
       }
-    }
+      this.view.printCarPosition(car.getName(), car.getPosition());
+    });
   }
 
-  #getWinners() {
-    const maxPosition = this.#getMaxPosition();
-    const winners = this.cars.filter((car) => car.getPosition() === maxPosition);
-    return winners.map((car) => car.getName());
-  }
-
-  #getMaxPosition() {
-    return Math.max(...this.cars.map((car) => car.getPosition()));
+  #endGame() {
+    this.winners = new WinnerModel(this.cars).winners;
+    this.view.printWinners(this.winners);
   }
 }
