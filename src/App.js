@@ -2,7 +2,7 @@ const Validator = require('./Validator.js');
 const Car = require('./model/Car.js');
 const Track = require('./model/Track.js');
 const WinnerChecker = require('./model/WinnerChecker.js');
-const View = require('./view/View.js');
+const View = require('./view/view.js');
 const { splitByStandard } = require('./utils.js');
 const { MESSAGES } = require('./constants/messages.js');
 
