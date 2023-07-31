@@ -10,9 +10,8 @@ export const CAR_MOVE_CRITERIA = 4;
  * 사용자가 유효하지 않은 입력을 제공한 경우, 사용하는 에러 메시지
  */
 export const INPUT_ERROR_MESSAGE = Object.freeze({
-  EMPTY_INPUT: "빈 값으로는 프로그램이 동작할 수 없습니다.",
-  INVALID_INPUT: `자동차 이름을 ${INPUT_SPLIT_SYM_NAME}(${INPUT_SPLIT_SYM})로 구분할 수 있는 올바른 형태로 입력해주세요.`,
-  DUPLICATE_CAR_NAME_INPUT: "중복된 자동차 이름을 입력할 수 없습니다.",
+  EMPTY: "빈 값으로는 프로그램이 동작할 수 없습니다.",
+  DUPLICATE_CAR_NAME: "중복된 자동차 이름으로는 프로그램이 동작할 수 없습니다.",
 });
 
 /**

@@ -3,7 +3,7 @@ import {
   GAME_INIT_ROUND,
   INPUT_ERROR_MESSAGE,
   TOTAL_GAME_ROUNDS,
-  SPLIT_INPUT_SYM,
+  INPUT_SPLIT_SYM,
 } from "./constants/game";
 import { getRandomNumber } from "./utils/utils";
 
@@ -73,7 +73,7 @@ export default class Game {
    * @returns {undefined}
    */
   #validateUserInput(userInput) {
-    if (!userInput) throw new Error(INPUT_ERROR_MESSAGE.EMPTY_INPUT);
+    if (!userInput) throw new Error(INPUT_ERROR_MESSAGE.EMPTY);
 
     return;
   }
@@ -85,7 +85,7 @@ export default class Game {
    * @returns {string[]}
    */
   #parseCarNames(userInput) {
-    return userInput.split(SPLIT_INPUT_SYM).map((carName) => carName.trim());
+    return userInput.split(INPUT_SPLIT_SYM).map((carName) => carName.trim());
   }
 
   /**
@@ -95,7 +95,7 @@ export default class Game {
    */
   #validateDuplicateCarNames(carNames) {
     if (new Set(carNames).size !== carNames.length)
-      throw new Error(INPUT_ERROR_MESSAGE.DUPLICATE_CAR_NAME_INPUT);
+      throw new Error(INPUT_ERROR_MESSAGE.DUPLICATE_CAR_NAME);
 
     return;
   }
