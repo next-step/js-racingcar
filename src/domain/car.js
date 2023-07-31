@@ -25,16 +25,16 @@ export default class Car {
     this.move(randomInt);
   }
 
-  move = (number) => {
+  move = (number, distance = 1) => {
     if (!isMoreThanNumber(number, CAR_MOVE_POSSIBLE_NUMBER)) {
       return;
     }
 
-    this.#addDistance();
+    this.#addDistance(distance);
   };
 
-  #addDistance = () => {
-    this.#distance += 1;
+  #addDistance = (distance) => {
+    this.#distance += distance;
   };
 
   #nameValidation = (name) => {
