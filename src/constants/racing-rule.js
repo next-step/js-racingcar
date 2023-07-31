@@ -12,6 +12,7 @@ const MIN_ROUND_COUNT = 1;
 const MAX_ROUND_COUNT = 5;
 
 const SPLIT_STANDARD = ',';
+const SPLIT_STANDARD_KOR = '쉼표';
 
 const MOVE_STANDARD = 4;
 
@@ -31,6 +32,7 @@ module.exports = {
   MAX_ROUND_COUNT,
   MOVE_STANDARD,
   SPLIT_STANDARD,
+  SPLIT_STANDARD_KOR,
   SKID_MARK,
   DEFAULT_RACING_ROUND,
 };

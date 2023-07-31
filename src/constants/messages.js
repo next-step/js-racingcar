@@ -6,11 +6,13 @@ const {
   MAX_NAME_LENGTH,
   MIN_ROUND_COUNT,
   MAX_ROUND_COUNT,
+  SPLIT_STANDARD,
+  SPLIT_STANDARD_KOR,
 } = require('./racing-rule');
 
 const MESSAGES = Object.freeze({
   REQUEST: {
-    ENTER_THE_CARS: '경주할 자동차 이름을 입력하세요 (이름은 쉼표(,)를 기준으로 구분).',
+    ENTER_THE_CARS: `경주할 자동차 이름을 입력하세요 (이름은 ${SPLIT_STANDARD_KOR}(${SPLIT_STANDARD})를 기준으로 구분).`,
     ENTER_THE_ROUND: '시도할 회수는 몇회인가요?',
   },
 
