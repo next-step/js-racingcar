@@ -1,4 +1,5 @@
-import { GAME_SIZE, RacingGame } from "./RacingGame";
+import { RacingGame } from "./domain/RacingGame/RacingGame";
+import { GAME_SIZE } from "./domain/RacingGame/_consts";
 
 export class App {
   #racingGame;

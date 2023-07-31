@@ -3,7 +3,7 @@ import {
   RUN_THRESHOLD,
   RUN_UNIT,
   START_POSITION,
-} from "./domain/Car/consts";
+} from "./_consts";
 
 export class Car {
   #name;

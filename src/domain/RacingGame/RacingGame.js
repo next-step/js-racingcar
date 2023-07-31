@@ -1,10 +1,7 @@
-import { Car } from "./Car";
-import { getRandomNumberInRange } from "./util/getRandomNumber";
-import { Console } from "./util/Console";
-import {
-  RANDOM_MAX_NUMBER,
-  RANDOM_MIN_NUMBER,
-} from "./domain/RacingGame/consts";
+import { Car } from "../Car/Car";
+import { getRandomNumberInRange } from "../../util/getRandomNumber";
+import { Console } from "../../util/Console";
+import { RANDOM_MAX_NUMBER, RANDOM_MIN_NUMBER } from "./_consts";
 
 export class RacingGame {
   #racingGameSize;

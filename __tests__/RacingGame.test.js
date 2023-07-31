@@ -1,16 +1,16 @@
-import { RacingGame } from "../src/RacingGame";
-import { Car } from "../src/Car";
+import { RacingGame } from "../src/domain/RacingGame/RacingGame";
+import { Car } from "../src/domain/Car/Car";
 import { getRandomNumberInRange } from "../src/util/getRandomNumber";
 import {
   GAME_SIZE,
   RANDOM_MAX_NUMBER,
   RANDOM_MIN_NUMBER,
-} from "../src/domain/RacingGame/consts";
+} from "../src/domain/RacingGame/_consts";
 import {
   RUN_THRESHOLD,
   RUN_UNIT,
   START_POSITION,
-} from "../src/domain/Car/consts";
+} from "../src/domain/Car/_consts";
 
 describe("Together RacingGame (여럿이서 하는 레이싱 게임)", () => {
   const DEFAULT_CAR_NAMES_INPUT = "pobi,crong,honux";
@@ -66,7 +66,7 @@ describe("Together RacingGame (여럿이서 하는 레이싱 게임)", () => {
 
   describe("자동차 경주 진행 중", () => {
     DEFAULT_PLAYERS.forEach((_, playerIdx) => {
-      it(`${GAME_SIZE}회 동안 자동차가 ${CAN_GO_ROUNDS[playerIdx]}번 갈 수 있었을 때, 총 움직인 거리는 ${EXPECT_POSITIONS[playerIdx]}이다.`, () => {
+      it(`${START_POSITION}에서 시작해서 ${GAME_SIZE}회 동안 자동차가 ${CAN_GO_ROUNDS[playerIdx]}번 갈 수 있었을 때, 최종적으로 도착한 위치는 ${EXPECT_POSITIONS[playerIdx]}이다.`, () => {
         for (let round = 0; round < GAME_SIZE; round++) {
           racingGame.playerPlayOneRound(
             playerIdx,
