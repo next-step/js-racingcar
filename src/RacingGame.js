@@ -1,11 +1,10 @@
 import { Car } from "./Car";
 import { getRandomNumberInRange } from "./util/getRandomNumber";
 import { Console } from "./util/Console";
-
-export const RANDOM_MIN_NUMBER = 0;
-export const RANDOM_MAX_NUMBER = 9;
-
-export const GAME_SIZE = 5;
+import {
+  RANDOM_MAX_NUMBER,
+  RANDOM_MIN_NUMBER,
+} from "./domain/RacingGame/consts";
 
 export class RacingGame {
   #racingGameSize;

@@ -1,4 +1,9 @@
-import { Car, RUN_THRESHOLD, RUN_UNIT, START_POSITION } from "../src/Car";
+import { Car } from "../src/Car";
+import {
+  RUN_THRESHOLD,
+  RUN_UNIT,
+  START_POSITION,
+} from "../src/domain/Car/consts";
 
 describe("Car", () => {
   const DEFAULT_CAR_NAME = "sonata";

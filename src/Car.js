@@ -1,7 +1,10 @@
-export const START_POSITION = 1;
-export const RUN_THRESHOLD = 4;
-export const RUN_UNIT = 1;
-const MIN_NAME_LENGTH = 1;
+import {
+  MIN_NAME_LENGTH,
+  RUN_THRESHOLD,
+  RUN_UNIT,
+  START_POSITION,
+} from "./domain/Car/consts";
+
 export class Car {
   #name;
   #position;
@@ -11,6 +14,7 @@ export class Car {
     this.#name = name;
     this.#position = position;
   }
+
   validateCarName = (name) => {
     if (name.trim().length < MIN_NAME_LENGTH)
       throw new Error("이름은 공백을 제외한 한글자 이상이어야합니다.");

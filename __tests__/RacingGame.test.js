@@ -1,11 +1,16 @@
+import { RacingGame } from "../src/RacingGame";
+import { Car } from "../src/Car";
+import { getRandomNumberInRange } from "../src/util/getRandomNumber";
 import {
-  RacingGame,
   GAME_SIZE,
   RANDOM_MAX_NUMBER,
   RANDOM_MIN_NUMBER,
-} from "../src/RacingGame";
-import { Car, RUN_THRESHOLD, RUN_UNIT, START_POSITION } from "../src/Car";
-import { getRandomNumberInRange } from "../src/util/getRandomNumber";
+} from "../src/domain/RacingGame/consts";
+import {
+  RUN_THRESHOLD,
+  RUN_UNIT,
+  START_POSITION,
+} from "../src/domain/Car/consts";
 
 describe("Together RacingGame (여럿이서 하는 레이싱 게임)", () => {
   const DEFAULT_CAR_NAMES_INPUT = "pobi,crong,honux";
