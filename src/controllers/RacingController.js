@@ -12,31 +12,39 @@ export default class RacingController {
   constructor(model, view) {
     this.racingModel = model;
     this.racingView = view;
+    this.isGameErrorOccurred = false;
   }
 
   initCarNamesBeforeStartRacingGame() {
     readlineInterface.question(
       "자동차의 이름을 입력하세요. (각각의 이름은 콤마로 구분합니다.): ",
       (carNames) => {
-        this.checkValidationCarNames(carNames);
+        this.settingCarNames(carNames);
+
+        if (!this.isGameErrorOccurred) {
+          this.startRacingGame();
+        }
       }
     );
   }
 
-  checkValidationCarNames(carNames) {
+  settingCarNames(carNames) {
     const carList = carNames.split(",").map((carName) => carName.trim());
 
     try {
-      ValidationCheck.validateCarCount(carList);
-      ValidationCheck.validateEmptyName(carList);
-      ValidationCheck.validateDuplicateName(carList);
-      ValidationCheck.validateNameLength(carList);
-
+      this.checkValidationCarNames(carList);
       this.racingModel.settingCarName(carList);
-      this.startRacingGame();
     } catch (error) {
-      readlineInterface.close();
+      this.isGameErrorOccurred = true;
+      this.racingView.showRacingGameError();
     }
+  }
+
+  checkValidationCarNames(carList) {
+    ValidationCheck.validateCarCount(carList);
+    ValidationCheck.validateEmptyName(carList);
+    ValidationCheck.validateDuplicateName(carList);
+    ValidationCheck.validateNameLength(carList);
   }
 
   startRacingGame() {
@@ -53,7 +61,7 @@ export default class RacingController {
 
       if (i === MOVE_CAR_THRESHOLD) {
         this.racingView.showRacingGameWinners();
-        this.readlineInterface.close();
+        readlineInterface.close();
       }
     }
   }
