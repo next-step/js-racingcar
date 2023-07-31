@@ -6,6 +6,7 @@ import {printRacingInfo} from './view/printRacingInfo';
 import {printWinners} from './view/printWinners';
 import {getLineInput} from './view/getLineInput';
 import {trimTexts} from './utils/trimTexts';
+import {isPositiveInteger} from './utils/isPositiveInteger';
 
 const MAXIMUM_CAR_NAME_LENGTH = 5;
 
@@ -24,6 +25,20 @@ const startGame = (carNames, racingNumber) => {
   printWinners(winners.map(winner => winner.carName));
 };
 
+const getRacingNumber = carNames => {
+  console.log('시도할 회수는 몇회인가요?');
+
+  getLineInput(input => {
+    const racingNumber = Number(input);
+    if (!isPositiveInteger(racingNumber)) {
+      console.log('양의 정수를 입력해주세요.');
+      return;
+    }
+
+    startGame(carNames, racingNumber);
+  });
+};
+
 function main() {
   console.log('경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).');
 
@@ -39,7 +54,7 @@ function main() {
       return;
     }
 
-    startGame(carNames);
+    getRacingNumber(carNames);
   });
 }
 
