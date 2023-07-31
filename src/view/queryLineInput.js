@@ -1,13 +1,13 @@
 import readline from 'readline';
 
-export const getLineInput = callbackUserInput => {
+export const queryLineInput = ({queryText, onLineInput}) => {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
   });
 
-  rl.on('line', line => {
+  rl.question(queryText, line => {
     rl.close();
-    callbackUserInput(line);
+    onLineInput(line);
   });
 };
