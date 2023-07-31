@@ -1,3 +1,4 @@
+import { CONDITIONS, INTERVAL_ROUND_TIME } from "../constants/constants";
 import { CarModel } from "../model/CarModel";
 import { CarRacingManager } from "./CarRacingManager";
 
@@ -5,6 +6,7 @@ describe("자동자 경주 게임", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
+
   describe("경주 셋팅", () => {
     test("이름은 쉼표(,)를 기준으로 구분하여 받는다.", () => {
       const carRacingManager = new CarRacingManager();
@@ -70,12 +72,17 @@ describe("자동자 경주 게임", () => {
 });
 
 function gameSetUp() {
+  jest.useFakeTimers();
   const carRacingManager = new CarRacingManager();
 
   const processEnd = () => {};
   const sleep = () => {};
-  const gameStart = () =>
+  const gameStart = () => {
     carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, sleep);
+    jest.advanceTimersByTime(
+      INTERVAL_ROUND_TIME * (CONDITIONS.max_game_round_number + 1)
+    );
+  };
 
   const spyOn = {
     printGameEndMessage: jest.spyOn(carRacingManager, "printGameEndMessage"),

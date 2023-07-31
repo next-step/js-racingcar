@@ -7,35 +7,36 @@ import {
 } from "../constants/constants.js";
 import { CarModel } from "../model/CarModel.js";
 import { GameModel } from "../model/GameModel.js";
-import { getRandomNumberInRange, sleeping } from "../utils/utils.js";
+import { getRandomNumberInRange } from "../utils/utils.js";
 
 export class CarRacingManager {
   #gameModel = new GameModel();
 
   constructor() {}
 
-  gameStart(names, endProcess, wait = sleeping) {
+  gameStart(names, endProcess) {
     try {
       this.setParticipants(names);
       console.log(GAME_MESSAGES.GAME_START);
-      this.roundInterval(endProcess, wait);
+      this.roundInterval(endProcess);
     } catch (error) {
       this.gameEnd(endProcess, error.message);
     }
   }
 
-  roundInterval(endProcess, wait) {
-    this.#gameModel.increaseRound();
-    if (this.#gameModel.round > CONDITIONS.max_game_round_number) {
-      const winnerMessage = `${this.getWinnersName()}가 최종 우승했습니다.`;
-      return this.gameEnd(endProcess, winnerMessage);
-    }
+  roundInterval(endProcess) {
+    const interval = setInterval(() => {
+      this.#gameModel.increaseRound();
+      if (this.#gameModel.round > CONDITIONS.max_game_round_number) {
+        clearInterval(interval);
+        const winnerMessage = `${this.getWinnersName()}가 최종 우승했습니다.`;
+        return this.gameEnd(endProcess, winnerMessage);
+      }
 
-    this.roundStart();
+      this.roundStart();
 
-    wait(INTERVAL_ROUND_TIME);
-    console.log("");
-    this.roundInterval(endProcess, wait);
+      console.log("");
+    }, INTERVAL_ROUND_TIME);
   }
 
   roundStart() {
