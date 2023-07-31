@@ -25,7 +25,7 @@ export default function App() {
 		$carNameSubmit.addEventListener("click", (e) => {
 			e.preventDefault();
 
-			const carNames = $carNameInput.value.split(",");
+			const carNames = $carNameInput.value.split(SETTING.INPUT_SETTING.SPLITER);
 			const cars = carNames.map((carName) => new Car(carName));
 			store.dispatch(setCarNames(cars));
 			startGame();

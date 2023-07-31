@@ -1,5 +1,6 @@
 import { SETTING } from "./constants/setting.js";
 import { setRaceResult, setCarNames } from "./actions/carActions.js";
+import { getRandomValue } from "./utils/getRandomValue.js";
 
 class CarRacingGame {
 	constructor(store) {
@@ -18,25 +19,21 @@ class CarRacingGame {
 		return winners;
 	}
 
-	get getRandomValue() {
-		return Math.floor(Math.random() * 10);
-	}
-
 	progressGame() {
 		while (this.gameCount < SETTING.CAR_RACING_GAME_SETTING.ROUND_END) {
 			const state = this.store.getState();
 			const carNames = state.carNames;
 
 			carNames.forEach((carName) => {
-				carName.move(this.getRandomValue);
+				carName.move(getRandomValue(0, 9));
 			});
 
-			this.increaseGame();
+			this.increaseRound();
 			this.store.dispatch(setCarNames(carNames));
 		}
 	}
 
-	increaseGame() {
+	increaseRound() {
 		this.gameCount++;
 		if (this.gameCount === SETTING.CAR_RACING_GAME_SETTING.ROUND_END) {
 			this.endGame();

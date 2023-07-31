@@ -22,11 +22,11 @@ class ValidateInput {
 
 	isWithinLength(input) {
 		const names = input.split(SETTING.INPUT_SETTING.SPLITER);
-		for (let i = 0; i < names.length; i++) {
-			if (names[i].length > SETTING.INPUT_SETTING.MAX_LENGTH) {
+		names.forEach((name) => {
+			if (name.length > SETTING.INPUT_SETTING.MAX_LENGTH) {
 				throw new Error(ERROR_MESSAGE.INPUT_ERROR.LENGTH_EXCEED);
 			}
-		}
+		});
 	}
 
 	isUniqueNames(input) {
@@ -40,20 +40,20 @@ class ValidateInput {
 	isAlphabetic(input) {
 		const names = input.split(SETTING.INPUT_SETTING.SPLITER);
 		const regex = SETTING.INPUT_SETTING.REGEX;
-		for (let i = 0; i < names.length; i++) {
-			if (!regex.test(names[i])) {
+		names.forEach((name) => {
+			if (!regex.test(name)) {
 				throw new Error(ERROR_MESSAGE.INPUT_ERROR.SPECIAL_CHARACTER);
 			}
-		}
+		});
 	}
 
 	isWhitespaceFree(input) {
 		const names = input.split(SETTING.INPUT_SETTING.SPLITER);
-		for (let i = 0; i < names.length; i++) {
-			if (names[i].trim() === "") {
+		names.forEach((name) => {
+			if (name.trim() === "") {
 				throw new Error(ERROR_MESSAGE.INPUT_ERROR.WHITESPACE);
 			}
-		}
+		});
 	}
 
 	hasMinCars(input) {
