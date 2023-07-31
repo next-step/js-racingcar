@@ -7,7 +7,7 @@ const { splitByStandard } = require('./utils.js');
 const { MESSAGES } = require('./constants/messages.js');
 
 class App {
-  #track = new Track();
+  #track;
 
   #winnerChecker = new WinnerChecker();
 
@@ -18,32 +18,55 @@ class App {
     this.#startGame();
   }
 
+  #startGame() {
+    this.#getCarNames();
+  }
+
   async #getUserInput(message) {
     const userInput = await View.getUserInput(message);
     return userInput;
   }
 
-  async #startGame() {
-    const names = await this.#getUserInput(MESSAGES.REQUEST.ENTER_THE_CARS);
-    const nameList = splitByStandard(names);
-
-    this.#checkValidation(nameList, Validator.isValidList);
-    this.#setCars(nameList);
-
-    this.#startRacing();
-  }
-
-  #checkValidation(target, validator) {
+  #checkValidation(target, validator, trigger) {
     try {
       validator(target);
     } catch (err) {
-      View.renderError(err.message);
-      process.exit();
+      this.#showError(err, trigger);
     }
   }
 
+  #getModel(trigger, Model, ...args) {
+    try {
+      return new Model(...args);
+    } catch (err) {
+      return this.#showError(err, trigger);
+    }
+  }
+
+  async #getCarNames() {
+    const names = await this.#getUserInput(MESSAGES.REQUEST.ENTER_THE_CARS);
+    const nameList = splitByStandard(names);
+
+    this.#checkValidation(nameList, Validator.isValidList, this.#getCarNames);
+    this.#setCars(nameList);
+  }
+
   #setCars(names) {
-    this.#cars = names.map((name) => new Car(name));
+    this.#cars = names.map((name) => this.#getModel(this.#getCarNames, Car, name));
+    const completed = this.#cars.every((car) => car);
+
+    if (completed) this.#getRound();
+  }
+
+  async #getRound() {
+    const round = await this.#getUserInput(MESSAGES.REQUEST.ENTER_THE_ROUND);
+
+    this.#setTrack(round);
+  }
+
+  #setTrack(round) {
+    this.#track = this.#getModel(this.#getRound, Track, round);
+    if (this.#track) this.#startRacing();
   }
 
   #startRacing() {
@@ -70,14 +93,19 @@ class App {
   #finishRacing() {
     this.#winnerChecker.addResult(this.#cars);
     const { winners } = this.#winnerChecker;
+
     View.renderResult(winners);
 
     process.exit();
   }
 
+  #showError(err, trigger, ...args) {
+    View.renderError(err.message);
+    trigger.call(this, ...args);
+  }
+
   #reset() {
     this.#cars = [];
-    this.#track.reset();
     this.#winnerChecker.reset();
   }
 }

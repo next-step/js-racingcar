@@ -34,8 +34,8 @@ const ERROR_MESSAGES = Object.freeze({
   LESS_THAN_MIN_USER_COUNT: `${MIN_USER_COUNT}명 이상의 이름을 입력해주세요!`,
   MORE_THAN_MAX_USER_COUNT: `${MAX_USER_COUNT}명 이하의 이름을 입력해주세요!`,
 
-  LESS_THAN_MIN_ROUND_COUNT: `${MIN_ROUND_COUNT}를 넘는 라운드 수를 입력해주세요!`,
-  MORE_THAN_MAX_ROUND_COUNT: `${MAX_ROUND_COUNT} 미만의 라운드 수를 입력해주세요!`,
+  LESS_THAN_MIN_ROUND_COUNT: `${MIN_ROUND_COUNT}회를 넘는 라운드 수를 입력해주세요!`,
+  MORE_THAN_MAX_ROUND_COUNT: `${MAX_ROUND_COUNT}회 미만 라운드 수를 입력해주세요!`,
 
   HAS_DUPLICATED_NAME: '중복된 이름이 존재합니다!',
 });

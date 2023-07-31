@@ -1,12 +1,19 @@
 const { ERROR_MESSAGES } = require('./constants/messages.js');
-const { MAX_NAME_LENGTH, MIN_NAME_LENGTH, MAX_USER_COUNT, MIN_USER_COUNT } = require('./constants/racing-rule.js');
+const {
+  MAX_NAME_LENGTH,
+  MIN_NAME_LENGTH,
+  MAX_USER_COUNT,
+  MIN_USER_COUNT,
+  MAX_ROUND_COUNT,
+  MIN_ROUND_COUNT,
+} = require('./constants/racing-rule.js');
 
 const isOverMaxValue = (value, maxCount, message) => {
-  if (value > maxCount) throw new Error(message);
+  if (Number(value) > maxCount) throw new Error(message);
 };
 
 const isUnderMinValue = (value, minCount, message) => {
-  if (value < minCount) throw new Error(message);
+  if (Number(value) < minCount) throw new Error(message);
 };
 
 const hasDuplicated = (names) => {
@@ -24,6 +31,11 @@ class Validator {
   static isValidName(name) {
     isOverMaxValue(name.length, MAX_NAME_LENGTH, ERROR_MESSAGES.MORE_THAN_MAX_NAME_LENGTH);
     isUnderMinValue(name.length, MIN_NAME_LENGTH, ERROR_MESSAGES.LESS_THAN_MIN_NAME_LENGTH);
+  }
+
+  static isValidRound(round) {
+    isOverMaxValue(round, MAX_ROUND_COUNT, ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
+    isUnderMinValue(round, MIN_ROUND_COUNT, ERROR_MESSAGES.LESS_THAN_MIN_ROUND_COUNT);
   }
 }
 

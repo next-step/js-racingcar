@@ -33,7 +33,7 @@ class View {
   }
 
   static renderError(err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
