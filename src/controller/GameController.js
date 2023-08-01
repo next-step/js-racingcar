@@ -1,10 +1,10 @@
 import { INPUT_MESSAGE, OUTPUT_MESSAGE } from '../constants/message.js';
-import { RacingTrack } from '../model/index.js';
+import { RacingGame } from '../model/index.js';
 import { InputView, OutputView } from '../view/index.js';
 
 class GameController {
   constructor() {
-    this.racingTrack = new RacingTrack();
+    this.racingGame = new RacingGame();
   }
 
   static async #getRacingCarNames() {
@@ -24,19 +24,19 @@ class GameController {
   }
 
   #getRacingResult() {
-    return this.racingTrack.getRacingResult();
+    return this.racingGame.getRacingResult();
   }
 
   #getRacingWinners() {
-    return this.racingTrack.getRacingWinners();
+    return this.racingGame.getRacingWinners();
   }
 
   #updateRacingCars(racingCarNames) {
-    this.racingTrack.requestInitMoveStatus(racingCarNames);
+    this.racingGame.requestInitMoveStatus(racingCarNames);
   }
 
   #startRace(carNames) {
-    this.racingTrack.race(carNames);
+    this.racingGame.race(carNames);
   }
 
   static #printGameResult(result, racingWinners) {

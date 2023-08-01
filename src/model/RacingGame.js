@@ -2,7 +2,7 @@ import NumberMaker from '../NumberMaker.js';
 import { EXIT_COUNT, INIT_RACING_COUNT } from '../constants/index.js';
 import { RacingCars, RacingRecorder } from './index.js';
 
-class RacingTrack {
+class RacingGame {
   #racingCount;
 
   #racingCars;
@@ -57,4 +57,4 @@ class RacingTrack {
   }
 }
 
-export default RacingTrack;
+export default RacingGame;
