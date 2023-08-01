@@ -19,4 +19,8 @@ export default class RacingGameViewer {
   printContent(content) {
     console.log(content);
   }
+
+  closeViewer() {
+    this.readline.close();
+  }
 }

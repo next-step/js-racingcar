@@ -4,11 +4,11 @@ export default class Car {
     this.cars = new Map();
   }
 
-  getCarInfo() {
+  getCarStatus() {
     return new Map(this.cars);
   }
 
-  setCarInfo(cars) {
+  setCarStatus(cars) {
     this.cars = new Map(cars);
   }
 }

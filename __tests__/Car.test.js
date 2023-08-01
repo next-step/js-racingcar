@@ -1,4 +1,4 @@
-import RacingCarGame from "../src/class/RacingCarGame";
+import RacingGameController from "../src/class/RacingGameController";
 
 describe("RacingCarGame Class 테스트", () => {
   test("validateCarNames에서 에러가 발생하면 에러가 onError에 전달되어야 하며 게임이 종료된다.", async () => {
@@ -10,7 +10,7 @@ describe("RacingCarGame Class 테스트", () => {
 
     const handleErrorTester = jest.fn();
 
-    const racingCarGame = new RacingCarGame({
+    const racingCarGame = new RacingGameController({
       validateCarNames: validateCarNamesTester,
       onError: handleErrorTester,
     });
@@ -31,11 +31,13 @@ describe("RacingCarGame Class 테스트", () => {
   test("executeOneRound가 지정한 횟수만큼 호출된다.", async () => {
     const testRoundNumber = 3;
 
-    const racingCarGame = new RacingCarGame({ roundNumber: testRoundNumber });
+    const racingCarGame = new RacingGameController({
+      roundNumber: testRoundNumber,
+    });
 
     const executeMultipleRoundsSpy = jest.spyOn(
       racingCarGame,
-      "executeMultipleRounds"
+      "executeMultipleRounds",
     );
 
     const executeOneRoundSpy = jest.spyOn(racingCarGame, "executeOneRound");
