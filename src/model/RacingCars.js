@@ -1,22 +1,20 @@
-import {
-  AVALIABLE_RANDOM_NUMBER,
-  CAR_STATUS_SYMBOLS,
-} from '../constants/index.js';
+import { AVALIABLE_RANDOM_NUMBER, CAR_STATUS_SYMBOLS } from '../constants/index.js';
 
 class RacingCars {
   #moveStatus;
 
   #numberMaker;
 
-  constructor(numberMaker) {
-    this.#moveStatus = {};
+  constructor(carNames, numberMaker) {
+    this.#moveStatus = RacingCars.#initMoveStatus(carNames);
     this.#numberMaker = numberMaker;
   }
 
-  initMoveStatus(carNames) {
-    carNames.forEach((carName) => {
-      this.#moveStatus[carName] = CAR_STATUS_SYMBOLS.EMPTY;
-    });
+  static #initMoveStatus(carNames = []) {
+    return carNames.reduce((acc, cur) => {
+      acc[cur] = CAR_STATUS_SYMBOLS.EMPTY;
+      return acc;
+    }, {});
   }
 
   #isMove(carName) {
@@ -26,8 +24,7 @@ class RacingCars {
 
   move(carNames) {
     carNames.forEach((carName) => {
-      if (this.#isMove(carName))
-        this.#moveStatus[carName] += CAR_STATUS_SYMBOLS.MOVE;
+      if (this.#isMove(carName)) this.#moveStatus[carName] += CAR_STATUS_SYMBOLS.MOVE;
     });
     return this.#moveStatus;
   }

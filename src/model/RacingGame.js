@@ -11,9 +11,9 @@ class RacingGame {
 
   #racingWinners;
 
-  constructor(inputCount) {
+  constructor(carNames, inputCount) {
     this.#racingCount = inputCount || INIT_RACING_COUNT;
-    this.#racingCars = new RacingCars(NumberMaker);
+    this.#racingCars = new RacingCars(carNames, NumberMaker);
     this.#racingWinners = new RacingWinners();
     this.#racingResult = [];
   }
@@ -55,10 +55,6 @@ class RacingGame {
 
   getRacingWinners() {
     return this.#racingWinners.getRacingWinners();
-  }
-
-  requestInitMoveStatus(racingCars) {
-    this.#racingCars.initMoveStatus(racingCars);
   }
 
   race(carNames) {

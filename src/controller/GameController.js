@@ -36,10 +36,6 @@ class GameController {
     return this.racingGame.getRacingWinners();
   }
 
-  #updateRacingCars(racingCarNames) {
-    this.racingGame.requestInitMoveStatus(racingCarNames);
-  }
-
   #startRace(carNames) {
     this.racingGame.race(carNames);
   }
@@ -52,8 +48,7 @@ class GameController {
   async run() {
     const racingCarNames = await GameController.#getRacingCarNames();
     const racingCount = await GameController.#getRacingCount();
-    this.racingGame = new RacingGame(racingCount);
-    this.#updateRacingCars(racingCarNames);
+    this.racingGame = new RacingGame(racingCarNames, racingCount);
     this.#startRace(racingCarNames);
     const result = this.#getRacingResult();
     const racingWinners = this.#getRacingWinners();
