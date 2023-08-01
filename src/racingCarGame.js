@@ -11,7 +11,7 @@ export class RacingCarGame {
 
   constructor(names) {
     const origin = this
-    this.init(names)
+    this.#init(names)
 
     return new Proxy(this, {
       get(target, key) {
@@ -28,7 +28,7 @@ export class RacingCarGame {
     })
   }
 
-  init(names) {
+  #init(names) {
     try {
       const cars = this.generateCarByNames(names)
 
@@ -59,7 +59,7 @@ export class RacingCarGame {
   }
 
   setParticipants(names) {
-    this.init(names)
+    this.#init(names)
   }
 
   generateCarByNames(names) {

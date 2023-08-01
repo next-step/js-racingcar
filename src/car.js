@@ -11,13 +11,13 @@ export class Car {
   #position
 
   constructor(name) {
-    this.validate(name)
+    this.#validate(name)
 
     this.#name = name
     this.#position = 0
   }
 
-  validate(name) {
+  #validate(name) {
     if (!isString(name)) {
       throw new Error(CAR_ERROR_MESSAGE.INVALID_NAME_TYPE)
     }

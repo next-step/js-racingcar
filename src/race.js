@@ -18,13 +18,13 @@ export class Race {
     maxMatchLength = DEFAULT_MAX_MATCH_LENGTH,
     runCondition = DEFAULT_RUN_CONDITION
   }) {
-    this.validate(participants, maxMatchLength)
-    this.init(participants, maxMatchLength, runCondition)
+    this.#validate(participants, maxMatchLength)
+    this.#init(participants, maxMatchLength, runCondition)
   }
 
-  validate(participants, maxMatchLength) {
+  #validate(participants, maxMatchLength) {
     const isIncludeRequiredMethods = participants
-      .map(this.isIncludeRequiredMethods)
+      .map(this.#isIncludeRequiredMethods)
       .every(hasMethod => hasMethod === true)
 
     const isEnoughParticipants = participants.length >= MIN_PARTICIPANTS_LENGTH
@@ -46,17 +46,17 @@ export class Race {
     }
   }
 
-  init(participants, maxMatchLength, runCondition) {
+  #init(participants, maxMatchLength, runCondition) {
     this.#match = 0
     this.#participants = participants
     this.#maxMatchLength = maxMatchLength
     this.#runCondition = runCondition
 
-    this.resetParticipantsPosition()
+    this.#resetParticipantsPosition()
   }
 
   reset() {
-    this.init([], DEFAULT_MAX_MATCH_LENGTH, DEFAULT_RUN_CONDITION)
+    this.#init([], DEFAULT_MAX_MATCH_LENGTH, DEFAULT_RUN_CONDITION)
   }
 
   startRound() {
@@ -81,7 +81,7 @@ export class Race {
       .forEach(participant => participant.run())
   }
 
-  resetParticipantsPosition() {
+  #resetParticipantsPosition() {
     if (this.getParticipants().length === 0) {
       throw new Error(
         RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
@@ -93,7 +93,7 @@ export class Race {
     })
   }
 
-  isIncludeRequiredMethods(participant) {
+  #isIncludeRequiredMethods(participant) {
     return REQUIRE_METHODS_KEY.every(
       method => method in participant && isFunction(participant[method])
     )
