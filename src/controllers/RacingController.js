@@ -17,13 +17,17 @@ export default class RacingController {
     readlineInterface.question(
       "자동차의 이름을 입력하세요. (각각의 이름은 콤마로 구분합니다.): ",
       (carNames) => {
-        this.settingCarNames(carNames);
-
-        if (!this.isGameErrorOccurred) {
-          this.startRacingGame();
-        }
+        this.startRacingGame(carNames);
       }
     );
+  }
+
+  startRacingGame(carNames) {
+    const carList = this.settingCarNames(carNames);
+
+    if (!this.isGameErrorOccurred) {
+      this.runRacingGame(carList);
+    }
   }
 
   settingCarNames(carNames) {
@@ -36,6 +40,8 @@ export default class RacingController {
       this.isGameErrorOccurred = true;
       this.racingView.showRacingGameError();
     }
+
+    return carList;
   }
 
   checkValidationCarNames(carList) {
@@ -45,9 +51,7 @@ export default class RacingController {
     ValidationCheck.validateNameLength(carList);
   }
 
-  startRacingGame() {
-    const carList = this.racingModel.getCarInfo();
-
+  runRacingGame(carList) {
     for (let i = 0; i < MAX_RACING_ROUNDS; i++) {
       carList.forEach((_, carIndex) => {
         const randomValue = createRandomValue();
