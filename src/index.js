@@ -7,5 +7,10 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 const carGame = new Car(rl);
+const r2 = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-carGame.startRace();
+Car.carCount(r2);
+carGame.getName();

@@ -1,7 +1,7 @@
 import Car from "../src/domain/car.js";
 
 const DEFAULT_NAME = "jun";
-
+const MOCK_RACE_COUNT = 2;
 describe("자동차 이름 테스트", () => {
   test("자동차는 이름을 가질 수 있다", () => {
     const car = new Car(DEFAULT_NAME);
@@ -39,6 +39,12 @@ describe("자동차 출발 테스트", () => {
     car.run(3);
     expect(car.getPosition()).toBe(0);
   });
+  // test("자동차는 count.", () => {
+  //   expect(() => {
+  //     const car = new Car(DEFAULT_NAME);
+  //     car.carCount(3)
+  //   }).toThrow("3");
+  // });
 })
 describe("자동차 우승자 테스트", () => {
   test("가장 많이 전진한 자동차를 우승자로 선정한다.", () => {
@@ -68,6 +74,20 @@ describe("자동차 우승자 테스트", () => {
     const cars = [car1, car2, car3];
     const winners = cars[0].getWinners(cars);
 
-    expect(winners).toEqual(['one','two']);
+    expect(winners).toEqual(['one', 'two']);
+  });
+
+  test("startRace 메서드 테스트", () => {
+    const carInstance = new Car('kim');
+    carInstance.getCarName()
+    carInstance.carCount(MOCK_RACE_COUNT);
+
+    const consoleLog = jest.spyOn(console, 'log');
+
+    carInstance.startRace();
+
+    expect(consoleLog).toHaveBeenCalledWith(expect.stringContaining("최종 우승했습니다."));
+
+    consoleLog.mockRestore();
   });
 })

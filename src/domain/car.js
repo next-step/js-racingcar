@@ -1,40 +1,33 @@
 
-import { Message, Qusetion } from '../constants/message.js'
+import { Message, Qusetion, ErrorMessage } from '../constants/message.js'
+import { isAlphabet } from '../utils/utils.js'
 
-const ERROR = Object.freeze({
-    CAR_MAX_LENGTH: (MAX_LENGTH) =>
-        `자동차 이름은 ${MAX_LENGTH}글자 이하만 가능하다.`,
-    CAR_MIN_LENGTH: (MIN_LENGTH) => `
-  자동차 이름을 ${MIN_LENGTH}글자 이상만 가능하다.
-  `,
-    CAR_NAME_ALPHABET: "자동차 이름은 영어 문자열만 가능하다.",
-});
 
-const isAlphabet = (str) => {
-    const regex = /^[a-zA-Z]*$/;
-    return regex.test(str);
-};
 
 export default class Car {
     #name;
     #position = Message.DEFAULT_POSITION;
-
+    #count
     constructor(name) {
         this.validateName(name);
         this.#name = name;
     }
 
+    carCount(count){
+        return this.#count = count;
+    }
+
     validateName(name) {
         if (name.length > Message.CAR_NAME_MAX_LENGTH) {
-            throw new Error(ERROR.CAR_MAX_LENGTH(Message.CAR_NAME_MAX_LENGTH));
+            throw new Error(ErrorMessage.CAR_MAX_LENGTH);
         }
 
         if (name.length < Message.CAR_NAME_MIN_LENGTH) {
-            throw new Error(ERROR.CAR_MIN_LENGTH(Message.CAR_NAME_MIN_LENGTH));
+            throw new Error(ErrorMessage.CAR_MIN_LENGTH);
         }
 
         if (!isAlphabet(name)) {
-            throw new Error(ERROR.CAR_NAME_ALPHABET);
+            throw new Error(ErrorMessage.CAR_NAME_ALPHABET);
         }
     }
 
@@ -66,19 +59,23 @@ export default class Car {
         });
     }
 
-    startRace() {
-        const carNamesInput = prompt(Message.Qusetion);
+    getCarName(){
+        const carNamesInput = this.#name;
         const carNames = carNamesInput.split(',').map((name) => name.trim());
+        return carNames
+    }
 
+    startRace() {
+        const carNames = this.getCarName();
         const cars = carNames.map((name) => new Car(name));
-        const rounds = Message.RACE_COUNT;
+        const rounds = this.#count || Message.RACE_COUNT;
 
         for (let round = 1; round <= rounds; round++) {
             cars.forEach((car) => {
                 const randomValue = car.randomNumber();
                 car.run(randomValue);
             });
-            carPositions(cars);
+            this.carPositions(cars);
         }
 
         const winners = this.getWinners(cars);
