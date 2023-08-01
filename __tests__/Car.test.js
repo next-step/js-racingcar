@@ -1,10 +1,6 @@
 import App from '../src';
 import NumberMaker from '../src/NumberMaker';
-import {
-  AVALIABLE_RANDOM_NUMBER,
-  ERROR_MESSAGE,
-  INPUT_MESSAGE,
-} from '../src/constants';
+import { AVALIABLE_RANDOM_NUMBER, ERROR_MESSAGE, INPUT_MESSAGE } from '../src/constants';
 import { containsAllRacers, containsAllStatus, MockNumberMaker } from './utils';
 import Validator from '../src/Validator.js';
 import { InputView, OutputView } from '../src/view';
@@ -44,9 +40,9 @@ describe('자동차 경주 기능 관련 테스트', () => {
   });
 
   test('자동차 경주는 5회로 고정하여 진행한다.', () => {
-    expect(
-      printLogSpy.mock.calls.filter((printLog) => containsAllStatus(printLog)),
-    ).toHaveLength(5);
+    expect(printLogSpy.mock.calls.filter((printLog) => containsAllStatus(printLog))).toHaveLength(
+      5,
+    );
   });
 
   test('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
@@ -58,9 +54,7 @@ describe('자동차 경주 기능 관련 테스트', () => {
   });
 
   test('무작위 값은 0에서 9사이에서 나올 수 있어야 한다.', () => {
-    const randomNumbersArr = Array(100).map(() =>
-      NumberMaker.createRandomNumber(),
-    );
+    const randomNumbersArr = Array(100).map(() => NumberMaker.createRandomNumber());
     randomNumbersArr.forEach((randomNumbers) => {
       randomNumbers.forEach((num) => {
         expect(num).not.toBeLessThan(0);
@@ -107,27 +101,43 @@ describe('자동차 게임 우승자 출력 테스트', () => {
 });
 
 describe('자동차 게임 예외 처리 테스트', () => {
+  test.each([['jiny,re,ac, t'], [' '], ['re, a,ct'], [' v,u,e'], ['1, 2, 3']])(
+    '%s중 공백이 있는 자동차 이름이 존재하여 Syntax Error 및 에러 메시지가 발생한다.',
+    (invalidCase) => {
+      expect(() => Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR)).toThrow(
+        ERROR_MESSAGE.INCLUDE_EMPTY_WORDS,
+      );
+      expect(() => Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR)).toThrow(SyntaxError);
+    },
+  );
+
+  test.each([['conf,react,ji1n'], ['jiny,[a~@'], ['jinyy,^%$'], ['car,jiny🚑'], ['jine,go➔']])(
+    '%s 중 한/영문자에 해당되는 문자가 아닌 자동차 이름이 존재하여 TypeError 및 및 에러 메시지가 발생한다.',
+    (invalidCase) => {
+      expect(() => Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR)).toThrow(
+        ERROR_MESSAGE.AVALIABLE_CHARACTER,
+      );
+      expect(() => Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR)).toThrow(TypeError);
+    },
+  );
+
   test('자동차 이름은 1~5자여야 하며 이를 어길 시 RangeError와 함께 프로그램을 종료되어야 한다.', () => {
     const ERROR_CASES = ['pobi,jiny,', 'taling,pivot,robot'];
     ERROR_CASES.forEach((invalidCase) => {
-      expect(() =>
-        Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR),
-      ).toThrow(ERROR_MESSAGE.MORE_FIVE_CHARACTERS);
-      expect(() =>
-        Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR),
-      ).toThrow(RangeError);
+      expect(() => Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR)).toThrow(
+        ERROR_MESSAGE.MORE_FIVE_CHARACTERS,
+      );
+      expect(() => Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR)).toThrow(RangeError);
     });
   });
 
   test('중복되는 자동차 이름이 존재한다면 Syntax Error와 함께 프로그램이 종료되어야 한다.', () => {
     const ERROR_CASES = ['jiny,jiny', 'pobi,pobi'];
     ERROR_CASES.forEach((invalidCase) => {
-      expect(() =>
-        Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR),
-      ).toThrow(SyntaxError);
-      expect(() =>
-        Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR),
-      ).toThrow(ERROR_MESSAGE.DUPLICATE_CAR_NAMES);
+      expect(() => Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR)).toThrow(SyntaxError);
+      expect(() => Validator.check(invalidCase, INPUT_MESSAGE.RACING_CAR)).toThrow(
+        ERROR_MESSAGE.DUPLICATE_CAR_NAMES,
+      );
     });
   });
 });
