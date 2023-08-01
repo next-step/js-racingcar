@@ -37,10 +37,7 @@ export class Car {
   }
 
   printCarName() {
-    const position = Array.from({ length: this.getPosition() }).reduce(
-      prev => prev + '-',
-      ''
-    )
+    const position = '-'.repeat(this.getPosition())
 
     console.log(`${this.getName()}: ${position}`)
   }
