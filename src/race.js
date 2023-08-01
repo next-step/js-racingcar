@@ -3,7 +3,7 @@ import {
   DEFAULT_MAX_MATCH_LENGTH,
   DEFAULT_RUN_CONDITION,
   MIN_PARTICIPANTS_LENGTH
-} from './constants/app'
+} from './constants/race'
 import { RACE_ERROR_MESSAGE } from './constants/error'
 import { isFunction, isNumber } from './utils/validator'
 

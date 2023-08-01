@@ -3,7 +3,7 @@ import { Race } from '../src/race'
 import {
   DEFAULT_MAX_MATCH_LENGTH,
   MIN_PARTICIPANTS_LENGTH
-} from '../src/constants/app'
+} from '../src/constants/race'
 import { RACE_ERROR_MESSAGE } from '../src/constants/error'
 
 describe('Race - Feature', () => {

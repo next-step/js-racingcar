@@ -1,5 +1,6 @@
 import { Car } from './car'
-import { DEFAULT_MAX_MATCH_LENGTH, RUN_THRESHOLDS } from './constants/app'
+import { DEFAULT_MAX_MATCH_LENGTH } from './constants/race'
+import { RUN_THRESHOLDS } from './constants/car'
 import { GAME_ERROR_MESSAGE } from './constants/error'
 import { Race } from './race'
 import { getRandomNumber } from './utils/number'

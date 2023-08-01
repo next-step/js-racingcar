@@ -1,6 +1,6 @@
 import { Car } from '../src/car'
 import { CAR_ERROR_MESSAGE } from '../src/constants/error'
-import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from '../src/constants/app'
+import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from '../src/constants/car'
 
 describe('Car - Feature', () => {
   let logSpy
