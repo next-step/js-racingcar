@@ -54,6 +54,8 @@ export default class RacingController {
         this.playSingleRound(carIndex, randomValue);
       });
 
+      this.racingView.showRacingGameProgress();
+
       if (i === MOVE_CAR_THRESHOLD) {
         this.racingView.showRacingGameWinners();
         readlineInterface.close();
@@ -63,8 +65,6 @@ export default class RacingController {
 
   playSingleRound(carIndex, randomValue) {
     if (randomValue >= MOVE_CAR_THRESHOLD) this.moveCar(carIndex);
-
-    this.racingView.showRacingGameProgress();
   }
 
   moveCar(carIndex) {
