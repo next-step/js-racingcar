@@ -1,4 +1,8 @@
-import { AVALIABLE_RANDOM_NUMBER, CAR_STATUS_SYMBOLS } from '../constants/index.js';
+import {
+  AVALIABLE_RANDOM_NUMBER,
+  CAR_STATUS_SYMBOLS,
+  SEPERATOR_SYMBOLS,
+} from '../constants/index.js';
 
 class RacingCars {
   #moveStatus;
@@ -11,7 +15,7 @@ class RacingCars {
   }
 
   static #initMoveStatus(carNames = []) {
-    return carNames.reduce((acc, cur) => {
+    return carNames.split(SEPERATOR_SYMBOLS.COMMA).reduce((acc, cur) => {
       acc[cur] = CAR_STATUS_SYMBOLS.EMPTY;
       return acc;
     }, {});

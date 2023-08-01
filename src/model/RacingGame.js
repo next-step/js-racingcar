@@ -1,5 +1,11 @@
 import NumberMaker from '../NumberMaker.js';
-import { EXIT_COUNT, INIT_RACING_COUNT, SEPERATOR_SYMBOLS } from '../constants/index.js';
+import Validator from '../Validator.js';
+import {
+  EXIT_COUNT,
+  INIT_RACING_COUNT,
+  INPUT_MESSAGE,
+  SEPERATOR_SYMBOLS,
+} from '../constants/index.js';
 import { RacingCars, RacingWinners } from './index.js';
 
 class RacingGame {
@@ -12,10 +18,16 @@ class RacingGame {
   #racingWinners;
 
   constructor(carNames, inputCount) {
-    this.#racingCount = inputCount || INIT_RACING_COUNT;
+    RacingGame.#validateArgs(carNames, inputCount);
+    this.#racingCount = Number(inputCount) || INIT_RACING_COUNT;
     this.#racingCars = new RacingCars(carNames, NumberMaker);
     this.#racingWinners = new RacingWinners();
     this.#racingResult = [];
+  }
+
+  static #validateArgs(carNames, count) {
+    Validator.check(carNames, INPUT_MESSAGE.RACING_CAR);
+    Validator.check(count, INPUT_MESSAGE.COUNT);
   }
 
   static #createNewResult(newMoveStatus) {

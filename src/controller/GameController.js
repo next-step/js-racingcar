@@ -1,20 +1,31 @@
+import Validator from '../Validator.js';
 import { INPUT_MESSAGE, OUTPUT_MESSAGE } from '../constants/message.js';
 import { RacingGame } from '../model/index.js';
 import { InputView, OutputView } from '../view/index.js';
 
 class GameController {
-  constructor() {
-    this.racingGame = new RacingGame();
-  }
+  racingGame;
 
   static async #getRacingCarNames() {
-    const racingCarNames = await InputView.input(INPUT_MESSAGE.RACING_CAR);
-    return racingCarNames;
+    try {
+      const racingCarNames = await InputView.input(INPUT_MESSAGE.RACING_CAR);
+      Validator.check(racingCarNames, INPUT_MESSAGE.RACING_CAR);
+      return racingCarNames;
+    } catch (error) {
+      OutputView.print(error.message);
+      return GameController.#getRacingCarNames();
+    }
   }
 
   static async #getRacingCount() {
-    const racingCount = await InputView.input(INPUT_MESSAGE.COUNT);
-    return Number(racingCount);
+    try {
+      const racingCount = await InputView.input(INPUT_MESSAGE.COUNT);
+      Validator.check(racingCount, INPUT_MESSAGE.COUNT);
+      return racingCount;
+    } catch (error) {
+      OutputView.print(error.message);
+      return GameController.#getRacingCount();
+    }
   }
 
   static #printRaceResult(results) {
@@ -38,9 +49,14 @@ class GameController {
   }
 
   async #settingRacingGame() {
-    const racingCarNames = await GameController.#getRacingCarNames();
-    const racingCount = await GameController.#getRacingCount();
-    this.racingGame = new RacingGame(racingCarNames, racingCount);
+    try {
+      const racingCarNames = await GameController.#getRacingCarNames();
+      const racingCount = await GameController.#getRacingCount();
+      this.racingGame = new RacingGame(racingCarNames, racingCount);
+    } catch (error) {
+      OutputView.print(error);
+      await this.#settingRacingGame();
+    }
   }
 
   #confirmResult() {
