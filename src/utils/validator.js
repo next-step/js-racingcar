@@ -1,8 +1,6 @@
-export const isString = str =>
-  Object.prototype.toString.call(str) === '[object String]'
+export const isString = str => typeof str === 'string'
 
-export const isFunction = fn =>
-  Object.prototype.toString.call(fn) === '[object Function]'
+export const isFunction = fn => typeof fn === 'function'
 
 export const isNumber = num =>
-  Object.prototype.toString.call(num) === '[object Number]'
+  !isNaN(num) && isFinite(num) && typeof num === 'number'
