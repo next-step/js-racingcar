@@ -1,6 +1,7 @@
 import { INPUT_MESSAGE } from '../constants/index.js';
 import Validator from '../Validator.js';
 import { convertStringToArray, createReadMachine } from '../utils/index.js';
+import { OutputView } from './index.js';
 
 const InputView = (function InputView() {
   const createUserInputByQuestion = async (message) => {
@@ -27,8 +28,13 @@ const InputView = (function InputView() {
 
   return {
     async input(message) {
-      const userInput = await getUserInput(message);
-      return processUserInput(userInput, message);
+      try {
+        const userInput = await getUserInput(message);
+        return processUserInput(userInput, message);
+      } catch (error) {
+        OutputView.print(error.message);
+        return this.input(message);
+      }
     },
   };
 })();
