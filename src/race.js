@@ -1,11 +1,11 @@
 import {
-  RACE_ERROR_MESSAGE,
   REQUIRE_METHODS_KEY,
   DEFAULT_MAX_MATCH_LENGTH,
   DEFAULT_RUN_CONDITION,
   MIN_PARTICIPANTS_LENGTH
-} from './constants'
-import { isFunction, isNumber } from './utils'
+} from './constants/app'
+import { RACE_ERROR_MESSAGE } from './constants/error'
+import { isFunction, isNumber } from './utils/validator'
 
 export class Race {
   #participants

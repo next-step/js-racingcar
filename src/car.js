@@ -1,10 +1,10 @@
 import {
-  CAR_ERROR_MESSAGE,
   DEFAULT_STEP_SIZE,
   MAX_NAME_LENGTH,
   MIN_NAME_LENGTH
-} from './constants'
-import { isString } from './utils'
+} from './constants/app'
+import { CAR_ERROR_MESSAGE } from './constants/error'
+import { isString } from './utils/validator'
 
 export class Car {
   #name

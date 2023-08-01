@@ -1,6 +1,7 @@
 import { Car } from '../src/car'
 import { Race } from '../src/race'
-import { RACE_ERROR_MESSAGE, DEFAULT_MAX_MATCH_LENGTH } from '../src/constants'
+import { DEFAULT_MAX_MATCH_LENGTH } from '../src/constants/app'
+import { RACE_ERROR_MESSAGE } from '../src/constants/error'
 
 describe('Race - Feature', () => {
   let car1

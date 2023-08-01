@@ -1,5 +1,5 @@
 import { Car } from '../src/car'
-import { CAR_ERROR_MESSAGE } from '../src/constants'
+import { CAR_ERROR_MESSAGE } from '../src/constants/error'
 
 describe('Car - Feature', () => {
   let logSpy

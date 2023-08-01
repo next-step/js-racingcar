@@ -1,5 +1,5 @@
 import { Car } from '../src/car'
-import { GAME_ERROR_MESSAGE } from '../src/constants'
+import { GAME_ERROR_MESSAGE } from '../src/constants/error'
 import { RacingCarGame } from '../src/racingCarGame'
 import * as number from '../src/utils/number'
 
