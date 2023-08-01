@@ -1,30 +1,44 @@
 import NumberMaker from '../NumberMaker.js';
-import { EXIT_COUNT, INIT_RACING_COUNT } from '../constants/index.js';
-import { RacingCars, RacingRecorder } from './index.js';
+import { EXIT_COUNT, INIT_RACING_COUNT, SEPERATOR_SYMBOLS } from '../constants/index.js';
+import { RacingCars, RacingWinners } from './index.js';
 
 class RacingGame {
   #racingCount;
 
   #racingCars;
 
-  #racingRecorder;
+  #racingResult;
+
+  #racingWinners;
 
   constructor(inputCount) {
     this.#racingCount = inputCount || INIT_RACING_COUNT;
     this.#racingCars = new RacingCars(NumberMaker);
-    this.#racingRecorder = new RacingRecorder();
+    this.#racingWinners = new RacingWinners();
+    this.#racingResult = [];
+  }
+
+  static #createNewResult(newMoveStatus) {
+    return Object.entries({ ...newMoveStatus })
+      .map((racerInfo) => racerInfo.join(SEPERATOR_SYMBOLS.COLON))
+      .join(SEPERATOR_SYMBOLS.NEW_LINE);
   }
 
   #updateMoveStatus(carNames) {
     return this.#racingCars.move(carNames);
   }
 
+  #setRacingResult(newResult) {
+    this.#racingResult.push(newResult);
+  }
+
   #updateRacingResults(newMoveStatus) {
-    this.#racingRecorder.updateResults(newMoveStatus);
+    const newResult = RacingGame.#createNewResult(newMoveStatus);
+    this.#setRacingResult(newResult);
   }
 
   #updateRacingWinners() {
-    this.#racingRecorder.updateWinners();
+    this.#racingWinners.setRacingWinners(this.#racingResult);
   }
 
   #minusRacingCount() {
@@ -36,11 +50,11 @@ class RacingGame {
   }
 
   getRacingResult() {
-    return this.#racingRecorder.getRacingResult();
+    return this.#racingResult;
   }
 
   getRacingWinners() {
-    return this.#racingRecorder.getRacingWinners();
+    return this.#racingWinners.getRacingWinners();
   }
 
   requestInitMoveStatus(racingCars) {
