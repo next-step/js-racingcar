@@ -21,6 +21,8 @@ const InputView = (function InputView() {
     switch (message) {
       case INPUT_MESSAGE.RACING_CAR:
         return convertStringToArray(userInput, ',');
+      case INPUT_MESSAGE.COUNT:
+        return Number(userInput);
       default:
         return userInput;
     }

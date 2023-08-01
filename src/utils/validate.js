@@ -14,3 +14,5 @@ export const isIncludeSpaces = (racingCars) =>
 
 export const isCharacter = (racingCars) =>
   racingCars.every((carName) => CHARACTER_REGEX.test(carName));
+
+export const isNumber = (count) => !Number.isNaN(count) && count > 0;

@@ -9,8 +9,8 @@ class RacingGame {
 
   #racingRecorder;
 
-  constructor() {
-    this.#racingCount = INIT_RACING_COUNT;
+  constructor(inputCount) {
+    this.#racingCount = inputCount || INIT_RACING_COUNT;
     this.#racingCars = new RacingCars(NumberMaker);
     this.#racingRecorder = new RacingRecorder();
   }

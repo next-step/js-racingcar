@@ -11,6 +11,7 @@ import {
   isDuplicateRacingCars,
   isIncludeSpaces,
   isInvalidLengthRacingCars,
+  isNumber,
 } from './utils/validate.js';
 
 const Validator = (function Validator() {
@@ -23,8 +24,14 @@ const Validator = (function Validator() {
     if (isDuplicateRacingCars(racingCars)) throw new SyntaxError(ERROR_MESSAGE.DUPLICATE_CAR_NAMES);
   };
 
+  const validateCount = (userInput) => {
+    const count = Number(userInput);
+    if (!isNumber(count)) throw new TypeError(ERROR_MESSAGE.AVALIABLE_NUMBER);
+  };
+
   const validators = {
     [INPUT_MESSAGE.RACING_CAR]: validateCarNames,
+    [INPUT_MESSAGE.COUNT]: validateCount,
   };
 
   return {

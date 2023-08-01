@@ -12,6 +12,11 @@ class GameController {
     return racingCarNames;
   }
 
+  static async #getRacingCount() {
+    const racingCount = await InputView.input(INPUT_MESSAGE.COUNT);
+    return Number(racingCount);
+  }
+
   static #printRaceResult(results) {
     OutputView.print(OUTPUT_MESSAGE.RESULT);
     results.forEach((result) => {
@@ -46,6 +51,8 @@ class GameController {
 
   async run() {
     const racingCarNames = await GameController.#getRacingCarNames();
+    const racingCount = await GameController.#getRacingCount();
+    this.racingGame = new RacingGame(racingCount);
     this.#updateRacingCars(racingCarNames);
     this.#startRace(racingCarNames);
     const result = this.#getRacingResult();
