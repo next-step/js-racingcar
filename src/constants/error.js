@@ -6,6 +6,8 @@ const INPUT_ERROR = {
 	SPECIAL_CHARACTERS: "특수문자는 이름으로 사용할 수 없습니다.",
 	BLANK_NAME: "공백은 이름으로 사용할 수 없습니다.",
 	SINGLE_CAR: "자동차는 최소 2대 이상이어야 합니다.",
+	NUMERIC: "입력값이 숫자여야 한다",
+	POSITIVE: "입력값이 양수여야 한다",
 };
 
 export const ERROR_MESSAGE = {

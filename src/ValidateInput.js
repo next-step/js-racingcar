@@ -63,7 +63,19 @@ class ValidateInput {
 		}
 	}
 
-	isValidInput(input) {
+	isNumeric(input) {
+		if (isNaN(input)) {
+			throw new Error(ERROR_MESSAGE.INPUT_ERROR.NUMERIC);
+		}
+	}
+
+	isPositive(input) {
+		if (input <= 0) {
+			throw new Error(ERROR_MESSAGE.INPUT_ERROR.POSITIVE);
+		}
+	}
+
+	isValidCarInput(input) {
 		try {
 			this.isEmpty(input);
 			this.isCommaSeparated(input);
@@ -72,6 +84,18 @@ class ValidateInput {
 			this.isAlphabetic(input);
 			this.isWhitespaceFree(input);
 			this.hasMinCars(input);
+		} catch (error) {
+			throw error;
+		}
+
+		return true;
+	}
+
+	isValidRoundInput(input) {
+		try {
+			this.isEmpty(input);
+			this.isNumeric(input);
+			this.isPositive(input);
 		} catch (error) {
 			throw error;
 		}

@@ -26,17 +26,4 @@ describe("CarRacingGame", () => {
 		}
 		expect(carRacingGame.endGame).toBeCalled();
 	});
-
-	it("게임 1회 진행시 자동차의 상태를 보여줘야합니다.", () => {
-		// Given
-		// When
-		// Then
-	});
-
-	it("게임이 끝나면 우승자를 알려줘야 합니다.", () => {
-		// Given
-		// When
-	});
-
-	it("게임이 끝나면 우승자를 알려줘야 합니다.(중복 우승자)", () => {});
 });
