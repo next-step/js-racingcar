@@ -21,9 +21,13 @@ describe("자동차 경주 게임 테스트입니다.", () => {
       }
     );
 
-    test("자동차 이름은 5자 이하로 작성해야 합니다.", () => {
-      expect(() => ValidationCheck.validateNameLength(["carcars"])).toThrow(
-        "이름의 길이는 5자를 넘길 수 없습니다."
+    test.each([
+      [["carcars"], "이름의 길이는 5자를 넘길 수 없습니다."],
+      [["car ca"], "이름의 길이는 5자를 넘길 수 없습니다."],
+      [["   csa"], "이름의 길이는 5자를 넘길 수 없습니다."],
+    ])("자동차 이름은 5자 이하로 작성해야 합니다.", (carName, expected) => {
+      expect(() => ValidationCheck.validateNameLength(carName)).toThrow(
+        expected
       );
     });
 
