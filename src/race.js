@@ -23,27 +23,9 @@ export class Race {
   }
 
   #validate(participants, maxMatchLength) {
-    const isIncludeRequiredMethods = participants
-      .map(this.#isIncludeRequiredMethods)
-      .every(hasMethod => hasMethod === true)
-
-    const isEnoughParticipants = participants.length >= MIN_PARTICIPANTS_LENGTH
-
-    const isValidMatchLength = isNumber(maxMatchLength)
-
-    if (!isIncludeRequiredMethods) {
-      throw new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD)
-    }
-
-    if (!isEnoughParticipants) {
-      throw new Error(
-        RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
-      )
-    }
-
-    if (!isValidMatchLength) {
-      throw new Error(RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH)
-    }
+    this.#validateRequiredMethods(participants)
+    this.#validateEnoughParticipants(participants)
+    this.#validateMatchLength(maxMatchLength)
   }
 
   #init(participants, maxMatchLength, runCondition) {
@@ -118,5 +100,33 @@ export class Race {
     return this.#match !== this.#maxMatchLength
       ? []
       : winners.map(winner => winner.getName())
+  }
+
+  #validateRequiredMethods(participants) {
+    const isIncludeRequiredMethods = participants
+      .map(this.#isIncludeRequiredMethods)
+      .every(hasMethod => hasMethod === true)
+
+    if (!isIncludeRequiredMethods) {
+      throw new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD)
+    }
+  }
+
+  #validateEnoughParticipants(participants) {
+    const isEnoughParticipants = participants.length >= MIN_PARTICIPANTS_LENGTH
+
+    if (!isEnoughParticipants) {
+      throw new Error(
+        RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
+      )
+    }
+  }
+
+  #validateMatchLength(maxMatchLength) {
+    const isValidMatchLength = isNumber(maxMatchLength)
+
+    if (!isValidMatchLength) {
+      throw new Error(RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH)
+    }
   }
 }
