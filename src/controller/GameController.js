@@ -59,14 +59,14 @@ class GameController {
     }
   }
 
-  #confirmResult() {
+  #confirmAfterRacing() {
     return [this.racingGame.getRacingResult(), this.racingGame.getRacingWinners()];
   }
 
   async run() {
     await this.#settingRacingGame();
     this.#startRace();
-    const [result, racingWinners] = this.#confirmResult();
+    const [result, racingWinners] = this.#confirmAfterRacing();
     GameController.#printGameResult(result, racingWinners);
   }
 }
