@@ -1,6 +1,9 @@
 import { Car } from '../src/car'
 import { Race } from '../src/race'
-import { DEFAULT_MAX_MATCH_LENGTH } from '../src/constants/app'
+import {
+  DEFAULT_MAX_MATCH_LENGTH,
+  MIN_PARTICIPANTS_LENGTH
+} from '../src/constants/app'
 import { RACE_ERROR_MESSAGE } from '../src/constants/error'
 
 describe('Race - Feature', () => {
@@ -218,6 +221,8 @@ describe('Race - Validate', () => {
       new Race({
         participants
       })
-    }).toThrow(new Error(RACE_ERROR_MESSAGE.LACK_PARTICIPANTS))
+    }).toThrow(
+      new Error(RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH))
+    )
   })
 })

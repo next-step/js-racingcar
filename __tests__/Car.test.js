@@ -1,5 +1,6 @@
 import { Car } from '../src/car'
 import { CAR_ERROR_MESSAGE } from '../src/constants/error'
+import { MAX_NAME_LENGTH, MIN_NAME_LENGTH } from '../src/constants/app'
 
 describe('Car - Feature', () => {
   let logSpy
@@ -54,7 +55,9 @@ describe('Car - Validate', () => {
     // When, Then
     expect(() => {
       new Car(overCarName)
-    }).toThrow(new Error(CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH))
+    }).toThrow(
+      new Error(CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(MAX_NAME_LENGTH))
+    )
   })
 
   test('자동차의 이름이 빈 문자열인 경우, 최소 1자 이상의 문자열만 가능하다는 에러가 발생한다.', () => {
@@ -64,7 +67,9 @@ describe('Car - Validate', () => {
     // When, Then
     expect(() => {
       new Car(emptyCarName)
-    }).toThrow(new Error(CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH))
+    }).toThrow(
+      new Error(CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH(MIN_NAME_LENGTH))
+    )
   })
 
   test('자동차의 이름이 숫자인 경우, 문자열만 가능하다는 에러가 발생한다.', () => {

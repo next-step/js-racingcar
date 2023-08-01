@@ -36,7 +36,9 @@ export class Race {
     }
 
     if (!isEnoughParticipants) {
-      throw new Error(RACE_ERROR_MESSAGE.LACK_PARTICIPANTS)
+      throw new Error(
+        RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
+      )
     }
 
     if (!isValidMatchLength) {
@@ -69,7 +71,9 @@ export class Race {
 
   runParticipants() {
     if (this.getParticipants().length === 0) {
-      throw new Error(RACE_ERROR_MESSAGE.LACK_PARTICIPANTS)
+      throw new Error(
+        RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
+      )
     }
 
     this.getParticipants()
@@ -79,7 +83,9 @@ export class Race {
 
   resetParticipantsPosition() {
     if (this.getParticipants().length === 0) {
-      throw new Error(RACE_ERROR_MESSAGE.LACK_PARTICIPANTS)
+      throw new Error(
+        RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
+      )
     }
 
     this.getParticipants().forEach(participant => {

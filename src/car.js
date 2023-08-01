@@ -23,11 +23,11 @@ export class Car {
     }
 
     if (name.length < MIN_NAME_LENGTH) {
-      throw new Error(CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH)
+      throw new Error(CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH(MIN_NAME_LENGTH))
     }
 
     if (name.length > MAX_NAME_LENGTH) {
-      throw new Error(CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH)
+      throw new Error(CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(MAX_NAME_LENGTH))
     }
   }
 
