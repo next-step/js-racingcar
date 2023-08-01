@@ -22,15 +22,11 @@ class RacingCars {
     return randomNumber >= AVALIABLE_RANDOM_NUMBER;
   }
 
-  move(carNames) {
-    carNames.forEach((carName) => {
+  move() {
+    Object.keys(this.#moveStatus).forEach((carName) => {
       if (this.#isMove(carName)) this.#moveStatus[carName] += CAR_STATUS_SYMBOLS.MOVE;
     });
     return this.#moveStatus;
-  }
-
-  getCarNames() {
-    return Object.keys(this.#moveStatus);
   }
 }
 

@@ -24,8 +24,8 @@ class RacingGame {
       .join(SEPERATOR_SYMBOLS.NEW_LINE);
   }
 
-  #updateMoveStatus(carNames) {
-    return this.#racingCars.move(carNames);
+  #updateMoveStatus() {
+    return this.#racingCars.move();
   }
 
   #setRacingResult(newResult) {
@@ -57,9 +57,9 @@ class RacingGame {
     return this.#racingWinners.getRacingWinners();
   }
 
-  race(carNames) {
+  race() {
     while (!this.#isExitRace()) {
-      const newMoveStatus = this.#updateMoveStatus(carNames);
+      const newMoveStatus = this.#updateMoveStatus();
       this.#updateRacingResults(newMoveStatus);
       this.#updateRacingWinners();
       this.#minusRacingCount();

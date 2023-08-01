@@ -36,8 +36,8 @@ class GameController {
     return this.racingGame.getRacingWinners();
   }
 
-  #startRace(carNames) {
-    this.racingGame.race(carNames);
+  #startRace() {
+    this.racingGame.race();
   }
 
   static #printGameResult(result, racingWinners) {
@@ -49,7 +49,7 @@ class GameController {
     const racingCarNames = await GameController.#getRacingCarNames();
     const racingCount = await GameController.#getRacingCount();
     this.racingGame = new RacingGame(racingCarNames, racingCount);
-    this.#startRace(racingCarNames);
+    this.#startRace();
     const result = this.#getRacingResult();
     const racingWinners = this.#getRacingWinners();
     GameController.#printGameResult(result, racingWinners);
