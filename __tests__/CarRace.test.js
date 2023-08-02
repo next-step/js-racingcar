@@ -70,7 +70,7 @@ describe('자동차 경주 테스트', () => {
     `자동차 경주에서 거리 값이 ${MOVE_CONDITION} 이상일 때 전진한다. (자동차: $name, 거리:$movableDistance)`,
     ({ name, movableDistance }) => {
       const car = new Car(name);
-      car.move(movableDistance >= MOVE_CONDITION);
+      car.move(movableDistance);
       expect(car.getMoved()).toBe(1);
     }
   );
@@ -79,7 +79,7 @@ describe('자동차 경주 테스트', () => {
     `자동차 경주에서 거리 값이 ${MOVE_CONDITION} 미만이면 멈춘다. (자동차: $name, 거리:$movableDistance)`,
     ({ name, notMovableDistance }) => {
       const car = new Car(name);
-      car.move(notMovableDistance >= MOVE_CONDITION);
+      car.move(notMovableDistance);
       expect(car.getMoved()).toBe(0);
     }
   );

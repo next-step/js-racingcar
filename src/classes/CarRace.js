@@ -10,7 +10,6 @@ export default class CarRace {
   #maxLap = RACE_CONFIGURE.MAX_LAP;
   #minSpeed = RACE_CONFIGURE.MIN_SPEED;
   #maxSpeed = RACE_CONFIGURE.MAX_SPEED;
-  #moveCondition = RACE_CONFIGURE.MOVE_CONDITION;
   #track = RACE_CONFIGURE.TRACK;
 
   constructor(cars) {
@@ -25,10 +24,6 @@ export default class CarRace {
     return generateRandomNumber(this.#minSpeed, this.#maxSpeed);
   }
 
-  #isMovable(distance) {
-    return distance >= this.#moveCondition;
-  }
-
   #setWinners() {
     const maxMove = this.#cars.reduce((max, car) => (car.moved > max.moved ? car : max), this.#cars[0]).moved;
     this.#winners = this.#cars.filter((car) => car.moved === maxMove).map((car) => car.name);
@@ -41,7 +36,7 @@ export default class CarRace {
   race() {
     this.#cars.forEach((car) => {
       const distance = this.#getDistance();
-      car.move(this.#isMovable(distance));
+      car.move(distance);
     });
   }
 

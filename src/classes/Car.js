@@ -1,9 +1,10 @@
-import { NAME_CONFIGURE } from '../constants/index';
+import { NAME_CONFIGURE, CAR_CONFIGURE } from '../constants/index';
 import { validateCarName, validateCarNameType } from '../race/index';
 
 export default class Car {
   #name = null;
   #moved = 0;
+  #moveCondition = CAR_CONFIGURE.MOVE_CONDITION;
 
   constructor(name) {
     this.#validateCarName(name);
@@ -24,6 +25,10 @@ export default class Car {
     this.#moved += 0;
   }
 
+  #isMovable(distance) {
+    return distance >= this.#moveCondition;
+  }
+
   getName() {
     return this.#name;
   }
@@ -32,7 +37,7 @@ export default class Car {
     return this.#moved;
   }
 
-  move(movable) {
-    return movable ? this.#moveForward() : this.#moveStop();
+  move(distance) {
+    return this.#isMovable(distance) ? this.#moveForward() : this.#moveStop();
   }
 }
