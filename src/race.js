@@ -38,10 +38,6 @@ export class Race {
     this.#resetParticipantsPosition()
   }
 
-  reset() {
-    this.#init([], DEFAULT_MAX_MATCH_LENGTH, DEFAULT_RUN_CONDITION)
-  }
-
   startRound() {
     const isOverMaxMatch = this.#match + 1 > this.#maxMatchLength
     if (isOverMaxMatch) {

@@ -9,6 +9,7 @@ import { CustomError } from './utils/customError'
 export class RacingCarGame {
   #cars
   #race
+  #names
 
   constructor(names) {
     const origin = this
@@ -39,6 +40,7 @@ export class RacingCarGame {
       this.#validate(names)
       const cars = this.generateCarByNames(names)
 
+      this.#names = names
       this.#cars = cars
       this.#race = new Race({
         participants: cars,
@@ -55,6 +57,7 @@ export class RacingCarGame {
   }
 
   start() {
+    this.#init(this.#names)
     let match = 0
 
     while (match < DEFAULT_MAX_MATCH_LENGTH) {
@@ -63,11 +66,6 @@ export class RacingCarGame {
     }
 
     console.log(`우승자: ${this.#race.getWinners().join(', ')}`)
-  }
-
-  reset() {
-    this.#cars = []
-    this.#race.reset()
   }
 
   setParticipants(names) {
