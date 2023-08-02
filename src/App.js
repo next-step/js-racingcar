@@ -2,46 +2,71 @@ const Validator = require('./Validator.js');
 const Car = require('./model/Car.js');
 const Track = require('./model/Track.js');
 const WinnerChecker = require('./model/WinnerChecker.js');
-const View = require('./view/View.js');
-const { sliceByStandard } = require('./utils.js');
+const View = require('./view/view.js');
+const { splitByStandard } = require('./utils.js');
+const { MESSAGES } = require('./constants/messages.js');
 
 class App {
   #track;
 
-  #winnerChecker;
+  #winnerChecker = new WinnerChecker();
 
   #cars = [];
 
-  constructor() {
-    this.#track = new Track();
-    this.#winnerChecker = new WinnerChecker();
-  }
-
   init() {
     this.#reset();
+    this.#startGame();
+  }
+
+  #startGame() {
     this.#getCarNames();
   }
 
-  #getCarNames() {
-    View.getUserInput(this.#checkValidatedNames.bind(this));
+  async #getUserInput(message) {
+    const userInput = await View.getUserInput(message);
+    return userInput;
   }
 
-  #checkValidatedNames(input) {
-    const nameList = sliceByStandard(input);
-
+  #checkValidation(target, validator, trigger) {
     try {
-      Validator.isValidNames(nameList);
-
-      this.#setCars(nameList);
-      this.#startRacing();
+      validator(target);
     } catch (err) {
-      View.renderError(err.message);
-      process.exit();
+      this.#showError(err, trigger);
     }
   }
 
+  #getModel(trigger, Model, ...args) {
+    try {
+      return new Model(...args);
+    } catch (err) {
+      return this.#showError(err, trigger);
+    }
+  }
+
+  async #getCarNames() {
+    const names = await this.#getUserInput(MESSAGES.REQUEST.ENTER_THE_CARS);
+    const nameList = splitByStandard(names);
+
+    this.#checkValidation(nameList, Validator.isValidList, this.#getCarNames);
+    this.#setCars(nameList);
+  }
+
   #setCars(names) {
-    names.forEach((name) => this.#cars.push(new Car(name)));
+    this.#cars = names.map((name) => this.#getModel(this.#getCarNames, Car, name));
+    const completed = this.#cars.every((car) => car);
+
+    if (completed) this.#getRound();
+  }
+
+  async #getRound() {
+    const round = await this.#getUserInput(MESSAGES.REQUEST.ENTER_THE_ROUND);
+
+    this.#setTrack(round);
+  }
+
+  #setTrack(round) {
+    this.#track = this.#getModel(this.#getRound, Track, round);
+    if (this.#track) this.#startRacing();
   }
 
   #startRacing() {
@@ -73,9 +98,13 @@ class App {
     process.exit();
   }
 
+  #showError(err, trigger) {
+    View.renderError(err.message);
+    trigger.call(this);
+  }
+
   #reset() {
     this.#cars = [];
-    this.#track.reset();
     this.#winnerChecker.reset();
   }
 }
