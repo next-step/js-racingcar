@@ -1,4 +1,4 @@
-import NumberMaker from '../src/NumberMaker';
+import { NumberMaker } from '../src/NumberMaker';
 import {
   AVALIABLE_RANDOM_NUMBER,
   CAR_MAX_LENGTH,
@@ -8,7 +8,7 @@ import {
   SEPERATOR_SYMBOLS,
 } from '../src/constants';
 import { MockNumberMaker } from './utils';
-import Validator from '../src/Validator.js';
+import { Validator } from '../src/Validator.js';
 import { RacingCars, RacingGame } from '../src/model';
 
 describe.each([

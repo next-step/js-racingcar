@@ -1,1 +1,1 @@
-export { default as GameController } from "./GameController.js";
+export * from './GameController.js';

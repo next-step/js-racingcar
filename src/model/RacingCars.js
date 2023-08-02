@@ -4,7 +4,7 @@ import {
   SEPERATOR_SYMBOLS,
 } from '../constants/index.js';
 
-class RacingCars {
+export class RacingCars {
   #moveStatus;
 
   #numberMaker;
@@ -33,5 +33,3 @@ class RacingCars {
     return this.#moveStatus;
   }
 }
-
-export default RacingCars;

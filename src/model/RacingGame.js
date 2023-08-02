@@ -1,5 +1,5 @@
-import NumberMaker from '../NumberMaker.js';
-import Validator from '../Validator.js';
+import { NumberMaker } from '../NumberMaker.js';
+import { Validator } from '../Validator.js';
 import {
   EXIT_COUNT,
   INIT_RACING_COUNT,
@@ -8,7 +8,7 @@ import {
 } from '../constants/index.js';
 import { RacingCars, RacingWinners } from './index.js';
 
-class RacingGame {
+export class RacingGame {
   #racingCount;
 
   #racingCars;
@@ -78,5 +78,3 @@ class RacingGame {
     }
   }
 }
-
-export default RacingGame;
