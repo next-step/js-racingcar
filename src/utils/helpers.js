@@ -1,16 +1,4 @@
-import { MAX_CAR_NAME_LENGTH, MIN_CAR_NAME_LENGTH } from "../constants/rules";
-
-/**
- * 이름은 1~5자만 가능하다.
- * @param {string} name
- */
-export const isValidInputLength = name => {
-  return (
-    name &&
-    name.length >= MIN_CAR_NAME_LENGTH &&
-    name.length <= MAX_CAR_NAME_LENGTH
-  );
-};
+import { ERROR_MESSAGE } from "../constants/ErrorMessage";
 
 /**
  * @param {number} min - minimum number
@@ -19,4 +7,22 @@ export const isValidInputLength = name => {
  */
 export const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export const validateDuplicationItemList = list => {
+  const arr = [];
+
+  list.forEach(item => {
+    if (arr.includes(item)) {
+      throw Error(ERROR_MESSAGE.duplicateCarName);
+    } else {
+      arr.push(item);
+    }
+  });
+};
+
+export const validateEmptyString = name => {
+  if (!name) {
+    throw Error(ERROR_MESSAGE.noEmptyName);
+  }
 };
