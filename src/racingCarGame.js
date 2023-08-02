@@ -4,6 +4,7 @@ import { GAME_ERROR_MESSAGE } from './constants/racingCarGame'
 import { getRandomNumber } from './utils/number'
 import { Car } from './car'
 import { Race } from './race'
+import { CustomError } from './utils/customError'
 
 export class RacingCarGame {
   #cars
@@ -20,8 +21,13 @@ export class RacingCarGame {
         return (...args) => {
           try {
             return method.apply(origin, args)
-          } catch (e) {
-            console.log(GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR)
+          } catch (error) {
+            if (error.cause === undefined) {
+              console.log(GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR)
+              return
+            }
+
+            console.log(error.message)
           }
         }
       }
@@ -30,6 +36,7 @@ export class RacingCarGame {
 
   #init(names) {
     try {
+      this.#validate(names)
       const cars = this.generateCarByNames(names)
 
       this.#cars = cars
@@ -37,8 +44,13 @@ export class RacingCarGame {
         participants: cars,
         runCondition: () => getRandomNumber() > RUN_THRESHOLDS
       })
-    } catch (e) {
-      console.log(GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR)
+    } catch (error) {
+      if (error.cause === undefined) {
+        console.log(GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR)
+        return
+      }
+
+      console.log(error.message)
     }
   }
 
@@ -76,5 +88,18 @@ export class RacingCarGame {
 
   getParticipants() {
     return this.#race.getParticipants()
+  }
+
+  #validate(names) {
+    const parts = names.split(',').map(name => name.trim())
+    const uniqueParts = new Set(parts)
+    const isDuplicated = parts.length !== uniqueParts.size
+
+    if (isDuplicated) {
+      throw new CustomError({
+        cause: this,
+        message: GAME_ERROR_MESSAGE.DUPLICATED_NAMES
+      })
+    }
   }
 }
