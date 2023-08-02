@@ -9,5 +9,6 @@ export const RACE_CONFIGURE = Object.freeze({
   MIN_SPEED: 0,
   MOVE_CONDITION: 4,
   MAX_LAP: 5,
-  TRACK: '-'
+  TRACK: '-',
+  DISPLAY_SEPARATOR: ','
 });
