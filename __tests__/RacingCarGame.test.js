@@ -72,19 +72,6 @@ describe('RacingCarGame - Feature', () => {
     expect(logSpy.mock.calls.at(-1)[0]).toEqual('우승자: sonny')
   })
 
-  test('게임을 초기화할 수 있다.', () => {
-    // Given
-    const racingCarGame = new RacingCarGame(carNames)
-
-    // When
-    racingCarGame.start()
-    racingCarGame.reset()
-
-    // Then
-    expect(racingCarGame.getParticipants()).toEqual([])
-    expect(racingCarGame.getWinners()).toEqual([])
-  })
-
   test('게임에 참여한 자동차 목록을 수정할 수 있다.', () => {
     // Given
     const newCarNames = 'son3, son4, son5'
@@ -97,6 +84,21 @@ describe('RacingCarGame - Feature', () => {
     // Then
     const newCars = ['son3', 'son4', 'son5'].map(name => new Car(name))
     expect(racingCarGame.getParticipants()).toEqual(newCars)
+  })
+
+  test('게임을 다시 시작하는 경우, 기존의 자동차들로 게임을 진행한다.', () => {
+    // Given
+    const racingCarGame = new RacingCarGame(carNames)
+    racingCarGame.start()
+
+    // When
+    mockRunOnlyFirstCar()
+    racingCarGame.start()
+
+    // Then
+    const newCars = ['sonny', 'son', 'son2'].map(name => new Car(name))
+    expect(racingCarGame.getParticipants()).toEqual(newCars)
+    expect(logSpy.mock.calls.at(-1)[0]).toEqual('우승자: sonny')
   })
 })
 
