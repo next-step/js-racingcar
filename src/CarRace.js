@@ -1,4 +1,5 @@
 import { Car } from "./Car";
+import { getRandomIntInclusive } from "./utils";
 
 export const DEFAULT_CONFIG = {
   MAX_NUM_OF_CARS: 5,
@@ -6,12 +7,6 @@ export const DEFAULT_CONFIG = {
   MIN_RANDOM_NUMBER: 0,
   MAX_RANDOM_NUMBER: 9,
   RACE_LAPS: 5,
-};
-
-const getRandomIntInclusive = (min, max) => {
-  const minInt = Math.ceil(min);
-  const maxInt = Math.floor(max);
-  return Math.floor(Math.random() * (maxInt - minInt + 1) + minInt);
 };
 
 export class CarRace {
