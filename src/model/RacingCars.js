@@ -1,8 +1,6 @@
-import {
-  AVALIABLE_RANDOM_NUMBER,
-  CAR_STATUS_SYMBOLS,
-  SEPERATOR_SYMBOLS,
-} from '../constants/index.js';
+import { AVALIABLE_RANDOM_NUMBER } from '../constants/randomNumber.js';
+import { CAR_STATUS_SYMBOLS } from '../constants/view.js';
+import { SEPERATOR_SYMBOLS } from '../constants/commons.js';
 
 export class RacingCars {
   #moveStatus;

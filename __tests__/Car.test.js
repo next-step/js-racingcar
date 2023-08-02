@@ -1,15 +1,11 @@
-import { NumberMaker } from '../src/NumberMaker';
-import {
-  AVALIABLE_RANDOM_NUMBER,
-  CAR_MAX_LENGTH,
-  CAR_MIN_LENGTH,
-  ERROR_MESSAGE,
-  INPUT_MESSAGE,
-  SEPERATOR_SYMBOLS,
-} from '../src/constants';
-import { MockNumberMaker } from './utils';
+import { ERROR_MESSAGE, INPUT_MESSAGE } from '../src/constants/message.js';
+import { AVALIABLE_RANDOM_NUMBER } from '../src/constants/randomNumber.js';
+import { SEPERATOR_SYMBOLS } from '../src/constants/commons.js';
+import { CAR_MAX_LENGTH, CAR_MIN_LENGTH } from '../src/constants/validate.js';
+import { RacingCars, RacingGame } from '../src/model/index.js';
 import { Validator } from '../src/Validator.js';
-import { RacingCars, RacingGame } from '../src/model';
+import { NumberMaker } from '../src/NumberMaker.js';
+import { MockNumberMaker } from './utils/index.js';
 
 describe.each([
   [4, 'jiny,react,vue'],

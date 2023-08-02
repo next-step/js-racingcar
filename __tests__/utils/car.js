@@ -1,4 +1,4 @@
-import { AVALIABLE_RANDOM_NUMBER } from '../../src/constants/index.js';
+import { AVALIABLE_RANDOM_NUMBER } from '../../src/constants/randomNumber.js';
 
 export const containsAllRacers = (str) => {
   const patterns = ['jiny', 'pobi', 'conan'];

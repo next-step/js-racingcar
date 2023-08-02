@@ -1,7 +1,7 @@
-import { Validator } from '../Validator.js';
 import { INPUT_MESSAGE, OUTPUT_MESSAGE } from '../constants/message.js';
 import { RacingGame } from '../model/index.js';
 import { InputView, OutputView } from '../view/index.js';
+import { Validator } from '../Validator.js';
 
 export class GameController {
   racingGame;

@@ -1,4 +1,4 @@
-import { MAX_RANDOM_NUMBER_RANGE } from './constants/index.js';
+import { MAX_RANDOM_NUMBER_RANGE } from './constants/randomNumber.js';
 
 export const NumberMaker = {
   createRandomNumber() {

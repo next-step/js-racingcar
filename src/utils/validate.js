@@ -2,7 +2,7 @@ import {
   CAR_LENGTH_RANGE_REGEX,
   CHARACTER_REGEX,
   INCLUDE_EMPTY_REGEX,
-} from '../constants/index.js';
+} from '../constants/validate.js';
 
 export const isInvalidLengthRacingCars = (racingCars) =>
   racingCars.some((carName) => !CAR_LENGTH_RANGE_REGEX.test(carName));

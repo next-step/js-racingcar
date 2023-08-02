@@ -1,11 +1,8 @@
+import { EXIT_COUNT, INIT_RACING_COUNT } from '../constants/model.js';
+import { INPUT_MESSAGE } from '../constants/message.js';
+import { SEPERATOR_SYMBOLS } from '../constants/commons.js';
 import { NumberMaker } from '../NumberMaker.js';
 import { Validator } from '../Validator.js';
-import {
-  EXIT_COUNT,
-  INIT_RACING_COUNT,
-  INPUT_MESSAGE,
-  SEPERATOR_SYMBOLS,
-} from '../constants/index.js';
 import { RacingCars, RacingWinners } from './index.js';
 
 export class RacingGame {

@@ -1,4 +1,4 @@
-import { SEPERATOR_SYMBOLS } from '../constants/index.js';
+import { SEPERATOR_SYMBOLS } from '../constants/commons.js';
 
 export class RacingWinners {
   #racingWinners;

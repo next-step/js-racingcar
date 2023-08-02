@@ -1,10 +1,6 @@
-import {
-  CAR_MAX_LENGTH,
-  CAR_MIN_LENGTH,
-  ERROR_MESSAGE,
-  INPUT_MESSAGE,
-  SEPERATOR_SYMBOLS,
-} from './constants/index.js';
+import { CAR_MAX_LENGTH, CAR_MIN_LENGTH } from './constants/validate.js';
+import { ERROR_MESSAGE, INPUT_MESSAGE } from './constants/message.js';
+import { SEPERATOR_SYMBOLS } from './constants/commons.js';
 import {
   isCharacter,
   isDuplicateRacingCars,
