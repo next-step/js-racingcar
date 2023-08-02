@@ -1,4 +1,4 @@
-import { NAME_CONFIGURE } from './configure';
+import { CAR_CONFIGURE } from './configure';
 
 export const ERROR_MESSAGE = Object.freeze({
   CAR_NAME_INCORRECT_LENGTH: '자동차 이름은 최대 5글자 까지 입력하실 수 있습니다.',
@@ -11,5 +11,5 @@ export const ERROR_MESSAGE = Object.freeze({
 });
 
 export const ALERT_MESSAGE = Object.freeze({
-  INPUT_CAR_MESSAGE: `경주 할 자동차 이름을 입력하세요.(이름은 (${NAME_CONFIGURE.SEPARATOR})를 기준으로 구분)`
+  INPUT_CAR_MESSAGE: `경주 할 자동차 이름을 입력하세요.(이름은 (${CAR_CONFIGURE.SEPARATOR})를 기준으로 구분)`
 });

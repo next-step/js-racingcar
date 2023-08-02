@@ -1,13 +1,8 @@
-export const NAME_CONFIGURE = Object.freeze({
-  MIN_LENGTH: 1,
-  MAX_LENGTH: 5,
-  SEPARATOR: ','
-});
-
 export const CAR_CONFIGURE = Object.freeze({
   MOVE_CONDITION: 4,
   NAME_MIN_LENGTH: 1,
-  NAME_MAX_LENGTH: 5
+  NAME_MAX_LENGTH: 5,
+  NAME_SEPARATOR: ','
 });
 
 export const RACE_CONFIGURE = Object.freeze({

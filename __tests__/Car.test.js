@@ -1,5 +1,5 @@
 import { DUMMY_CORRECT_CARS, DUMMY_EXCEEDED_CAR_NAME, DUMMY_NOT_STRING_CAR_NAMES } from './constants';
-import { NAME_CONFIGURE, ERROR_MESSAGE } from '../src/constants/index';
+import { CAR_CONFIGURE, ERROR_MESSAGE } from '../src/constants/index';
 import { Car } from '../src/classes/index';
 import { validateCarName, validateCarNameType } from '../src/race/index';
 
@@ -10,15 +10,15 @@ describe('자동차 이름 충족 조건 테스트', () => {
   });
 
   it('자동차 이름은 공백일 수 없다.', () => {
-    const { MIN_LENGTH: min, MAX_LENGTH: max } = NAME_CONFIGURE;
+    const { NAME_MIN_LENGTH: min, NAME_MAX_LENGTH: max } = CAR_CONFIGURE;
     expect(() => validateCarName('', { min, max })).toThrow(ERROR_MESSAGE.NOT_RECEIVED_CAR_NAME);
     expect(() => validateCarName(' ', { min, max })).toThrow(ERROR_MESSAGE.NOT_RECEIVED_CAR_NAME);
   });
 
   test.each(DUMMY_EXCEEDED_CAR_NAME)(
-    `자동차 이름($name)은 최대${NAME_CONFIGURE.MAX_LENGTH} 글자 까지 허용한다.`,
+    `자동차 이름($name)은 최대${CAR_CONFIGURE.NAME_MAX_LENGTH} 글자 까지 허용한다.`,
     ({ name }) => {
-      const { MIN_LENGTH: min, MAX_LENGTH: max } = NAME_CONFIGURE;
+      const { NAME_MIN_LENGTH: min, NAME_MAX_LENGTH: max } = CAR_CONFIGURE;
       expect(() => validateCarName(name, { min, max })).toThrow(ERROR_MESSAGE.CAR_NAME_INCORRECT_LENGTH);
     }
   );
