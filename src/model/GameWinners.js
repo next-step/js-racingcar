@@ -12,7 +12,6 @@ export default class GameWinners {
    * @returns {*} string[] - winners
    */
   setGameWinners(gameStatus) {
-    // max 찾기
     const maxLength = Math.max(...gameStatus.map(car => car.forward.length));
 
     // 중복 winners 처리하기
