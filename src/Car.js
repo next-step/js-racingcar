@@ -1,3 +1,5 @@
+import { isString } from "./utils";
+
 export const CAR_NAME_MAX_LENGTH = 5;
 export const CAR_NAME_MIN_LENGTH = 1;
 
@@ -24,7 +26,7 @@ export class Car {
   }
 
   validateName(name) {
-    if (!(typeof name === "string" || name instanceof String)) {
+    if (!isString(name)) {
       throw new InvalidNameError("The name is not a string");
     }
 
