@@ -24,11 +24,11 @@ export default class Car {
     this.#moved += 0;
   }
 
-  get name() {
+  getName() {
     return this.#name;
   }
 
-  get moved() {
+  getMoved() {
     return this.#moved;
   }
 

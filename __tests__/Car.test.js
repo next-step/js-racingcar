@@ -6,7 +6,7 @@ import { validateCarName, validateCarNameType } from '../src/race/index';
 describe('자동차 이름 충족 조건 테스트', () => {
   test.each(DUMMY_CORRECT_CARS)('자동차는 이름($name)을 가져야 한다.', ({ name }) => {
     const car = new Car(name);
-    expect(car.name).toBe(name);
+    expect(car.getName()).toBe(name);
   });
 
   it('자동차 이름은 공백일 수 없다.', () => {

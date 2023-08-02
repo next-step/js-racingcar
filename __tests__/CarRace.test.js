@@ -71,7 +71,7 @@ describe('자동차 경주 테스트', () => {
     ({ name, movableDistance }) => {
       const car = new Car(name);
       car.move(movableDistance >= MOVE_CONDITION);
-      expect(car.moved).toBe(1);
+      expect(car.getMoved()).toBe(1);
     }
   );
 
@@ -80,7 +80,7 @@ describe('자동차 경주 테스트', () => {
     ({ name, notMovableDistance }) => {
       const car = new Car(name);
       car.move(notMovableDistance >= MOVE_CONDITION);
-      expect(car.moved).toBe(0);
+      expect(car.getMoved()).toBe(0);
     }
   );
 
