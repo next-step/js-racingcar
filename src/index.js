@@ -6,7 +6,7 @@ export const startRacingGame = (name, count) => {
     "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분)."
   );
   if (!isValidationName(name)) {
-    console.error("잘못된 정보를 입력하여 게임을 종료합니다.");
+    throw new Error("잘못된 정보를 입력하여 게임을 종료합니다.");
   }
   const carList = name.split(",");
 
@@ -26,5 +26,3 @@ export const startRacingGame = (name, count) => {
 
   return winners;
 };
-
-startRacingGame("suin,sefes,asef", 10);
