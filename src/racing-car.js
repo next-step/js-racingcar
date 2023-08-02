@@ -59,34 +59,34 @@ class RacingCar {
   }
 
   validateCarNamesInput(names) {
-    const isCarNameMinLengthValidated = names.length > 0;
+    const isNotBlank = names.length > 0;
 
-    if (!isCarNameMinLengthValidated) {
+    if (!isNotBlank) {
       return false;
     }
 
-    const isCarNameMaxLengthValidated = names
+    const isNotOverMaxLength = names
       .split(',')
       .every(
         (name) => name.length > 0 && name.length <= this.#CAR_NAME_LENGTH_LIMIT
       );
 
-    if (!isCarNameMaxLengthValidated) {
+    if (!isNotOverMaxLength) {
       return false;
     }
 
-    const isCarNameNotDuplicatedValidated =
+    const isNotDuplicated =
       new Set(names.split(',')).size === names.split(',').length;
 
-    if (!isCarNameNotDuplicatedValidated) {
+    if (!isNotDuplicated) {
       return false;
     }
 
-    const isCarNameNotIncludePunctualCharactersValidated = names
+    const isNotIncludedPunctualCharacters = names
       .split(',')
       .every((name) => !name.match(REGEX_PUNCTUAL_CHARACTERS));
 
-    if (!isCarNameNotIncludePunctualCharactersValidated) {
+    if (!isNotIncludedPunctualCharacters) {
       return false;
     }
 
