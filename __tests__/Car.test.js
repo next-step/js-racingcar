@@ -1,7 +1,11 @@
 import { GameController } from '../src/Controllers/GameController';
 import { Car, RacingGame } from '../src/Models';
 import { MESSAGE, CAR, RACING_GAME } from '../src/constants';
-import { splitCarNameToArray, validateCarName } from '../src/utils';
+import {
+  getRandomIntInRange,
+  splitCarNameToArray,
+  validateCarName,
+} from '../src/utils';
 import { InputView, OutputView, View } from '../src/Views';
 
 // 2단계
@@ -46,13 +50,16 @@ describe('자동차 경주 셋팅', () => {
     const carNames = splitCarNameToArray('pobi,crong,honux');
     carNames.forEach((carName) => validateCarName(carName));
 
-    const racingGame = new RacingGame();
-    const totalRounds = 3;
-    racingGame.settingRacingGame(carNames, totalRounds);
+    const randomRound = getRandomIntInRange(1, 9);
 
-    const gameResult = racingGame.getGameResult();
+    const model = new RacingGame();
+    model.setCars(carNames);
+    model.setTotalRounds(randomRound);
+    model.startRace();
+
+    const gameResult = model.getGameResult();
     const gameResultLines = gameResult.split('\n');
-    const expectedLines = totalRounds * (carNames.length + 1) + 3;
+    const expectedLines = randomRound * (carNames.length + 1) + 3;
 
     expect(gameResultLines.length).toBe(expectedLines);
   });
@@ -62,7 +69,7 @@ describe('자동차 경주 시작', () => {
   test('랜덤 값이 4 이상일 경우 자동차가 전진하는지 확인한다.', () => {
     const car = new Car('pobi');
     const RANDOM_INT = 8;
-    if (RANDOM_INT >= RACING_GAME.MOVEMENT_THRESHOLD) car.advance();
+    if (RANDOM_INT >= RACING_GAME.CARS.MOVEMENT_THRESHOLD) car.advance();
 
     expect(car.getDistance()).toBe(1);
   });
@@ -70,7 +77,7 @@ describe('자동차 경주 시작', () => {
   test('랜덤 값이 4 미만일 경우 자동차가 전진하지 않는지 확인한다.', () => {
     const car = new Car('pobi');
     const RANDOM_INT = 2;
-    if (RANDOM_INT >= RACING_GAME.MOVEMENT_THRESHOLD) car.advance();
+    if (RANDOM_INT >= RACING_GAME.CARS.MOVEMENT_THRESHOLD) car.advance();
 
     expect(car.getDistance()).toBe(0);
   });
@@ -81,8 +88,11 @@ describe('우승자 확인', () => {
     const carNames = splitCarNameToArray('pobi,crong,honux');
     carNames.forEach((carName) => validateCarName(carName));
 
+    const TOTAL_ROUNDS = 5;
     const model = new RacingGame();
-    model.settingRacingGame(carNames, RACING_GAME.TOTAL_ROUNDS);
+    model.setCars(carNames);
+    model.setTotalRounds(TOTAL_ROUNDS);
+    model.startRace();
 
     const gameResult = model.getGameResult();
     const gameResultLines = gameResult.split('\n');
