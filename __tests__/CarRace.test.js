@@ -3,12 +3,19 @@ import {
   DUMMY_INPUT_CAR_NAMES,
   DUMMY_INCORRECT_INPUT_CAR_NAMES,
   DUMMY_RACE_SET,
-  DUMMY_DUPLICATE_RACE_SET
+  DUMMY_DUPLICATE_WINNER_RACE_SET
 } from './constants';
+import { createRaceStatusMessage } from '../src/raceViewer';
 import { ERROR_MESSAGE, RACE_CONFIGURE, ALERT_MESSAGE } from '../src/constants/index';
 import { Car, CarPrompter, CarRace } from '../src/classes/index';
 
 const { MOVE_CONDITION, MAX_LAP } = RACE_CONFIGURE;
+
+const getRaceWinners = (raceModel) => {
+  const carRace = new CarRace(raceModel);
+  carRace.printWinners();
+  return carRace.getWinners();
+};
 
 describe('자동차 경주 테스트', () => {
   beforeEach(() => {
@@ -32,6 +39,21 @@ describe('자동차 경주 테스트', () => {
     expect(() => {
       CarPrompter.validate(input);
     }).toThrow(ERROR_MESSAGE.DUPLICATE_CAR);
+  });
+
+  it('자동차 주행 횟수마다 lap이 변경된다.', () => {
+    const carRace = new CarRace(DUMMY_RACE_SET);
+    expect(carRace.getLap()).toBe(0);
+    carRace.race();
+    carRace.nextLap();
+    expect(carRace.getLap()).toBe(1);
+  });
+
+  it('자동차 주행 횟수 마다 경주 상태를 출력한다.', () => {
+    const carRace = new CarRace(DUMMY_RACE_SET);
+    carRace.race();
+    carRace.printRace();
+    expect(logSpy).toHaveBeenCalledTimes(DUMMY_RACE_SET.length);
   });
 
   it(`자동차 경주는 총 ${MAX_LAP}회로 이루어진다.`, () => {
@@ -62,26 +84,14 @@ describe('자동차 경주 테스트', () => {
     }
   );
 
-  it('자동차 주행 횟수 마다 경주 상태를 출력한다.', () => {
-    const carRace = new CarRace(DUMMY_RACE_SET);
-    carRace.race();
-    carRace.print();
-    expect(logSpy).toHaveBeenCalledTimes(DUMMY_RACE_SET.length);
-  });
-
-  it('자동차 경주 종료 후, 우승자를 출력한다.', () => {
-    const carRace = new CarRace(DUMMY_RACE_SET);
-    carRace.result();
-    const winners = carRace.getWinners();
-    expect(logSpy).toHaveBeenCalled();
-    expect(logSpy.mock.calls[0][0]).toBe(ALERT_MESSAGE.RACE_FINISH_MESSAGE(winners));
+  it('자동차 경주 종료 후, 많은 거리를 이동한 자동차가 우승한다.', () => {
+    const winners = getRaceWinners(DUMMY_RACE_SET);
+    expect(winners).toHaveLength(1);
+    expect(winners.pop()).toBe('peach');
   });
 
   it('우승자는 여러 명일 수 있다. ', () => {
-    const carRace = new CarRace(DUMMY_DUPLICATE_RACE_SET);
-    carRace.result();
-    const winners = carRace.getWinners();
-    expect(logSpy).toHaveBeenCalled();
-    expect(logSpy.mock.calls[0][0]).toBe(ALERT_MESSAGE.RACE_FINISH_MESSAGE(winners));
+    const winners = getRaceWinners(DUMMY_DUPLICATE_WINNER_RACE_SET);
+    expect(winners).toHaveLength(2);
   });
 });
