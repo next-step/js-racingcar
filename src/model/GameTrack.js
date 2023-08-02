@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from "../constants/ErrorMessage";
-import { isValidInputLength } from "../utils/helpers";
+import { isValidInputLength } from "./validator";
 
 export default class GameTrack {
   constructor() {
