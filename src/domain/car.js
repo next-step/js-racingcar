@@ -2,16 +2,16 @@
 import { Message, Qusetion, ErrorMessage } from '../constants/message.js'
 import { isAlphabet } from '../utils/utils.js'
 
-
-
 export default class Car {
     #name;
     #position = Message.DEFAULT_POSITION;
     #count
+
     constructor(name) {
         this.validateName(name);
         this.#name = name;
     }
+
 
     carCount(count){
         return this.#count = count;
@@ -28,7 +28,6 @@ export default class Car {
 
         if (!isAlphabet(name)) {
             throw new Error(ErrorMessage.CAR_NAME_ALPHABET);
-        }
     }
 
     getName() {
@@ -69,7 +68,6 @@ export default class Car {
         const carNames = this.getCarName();
         const cars = carNames.map((name) => new Car(name));
         const rounds = this.#count || Message.RACE_COUNT;
-
         for (let round = 1; round <= rounds; round++) {
             cars.forEach((car) => {
                 const randomValue = car.randomNumber();
