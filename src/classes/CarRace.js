@@ -1,5 +1,6 @@
 import { RACE_CONFIGURE } from '../constants/index';
-import { generateRandomNumber, printRace, printResult, printCustomMessage } from '../utils/index';
+import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../raceViewer';
+import { generateRandomNumber } from '../utils/index';
 
 export default class CarRace {
   #cars = [];
@@ -33,15 +34,8 @@ export default class CarRace {
     this.#winners = this.#cars.filter((car) => car.moved === maxMove).map((car) => car.name);
   }
 
-  getWinners() {
-    return this.#winners;
-  }
-
-  nextLap() {
-    if (!this.#isRaceDone()) {
-      printCustomMessage();
-      this.#lap += 1;
-    }
+  isRaceDone() {
+    return this.#isRaceDone();
   }
 
   race() {
@@ -51,22 +45,29 @@ export default class CarRace {
     });
   }
 
-  print() {
-    this.#cars.forEach((car) => {
-      printRace(car.name, car.moved, this.#track);
-    });
-  }
-
-  result() {
-    this.#setWinners();
-    printResult(this.#winners);
-  }
-
-  isRaceDone() {
-    return this.#isRaceDone();
+  nextLap() {
+    if (!this.#isRaceDone()) {
+      printMessage();
+      this.#lap += 1;
+    }
   }
 
   getLap() {
     return this.#lap;
+  }
+
+  getWinners() {
+    return this.#winners;
+  }
+
+  printRace() {
+    this.#cars.forEach((car) => {
+      printMessage(createRaceStatusMessage(car.name, car.moved, this.#track));
+    });
+  }
+
+  printWinners() {
+    this.#setWinners();
+    printMessage(createRaceWinnerMessage(this.#winners));
   }
 }

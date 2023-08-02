@@ -2,14 +2,14 @@ import { Car, CarRace } from './classes/index';
 
 const startGame = (inputCars) => {
   const cars = inputCars.map((car) => new Car(car));
-  const race = new CarRace(cars);
+  const carRace = new CarRace(cars);
 
-  while (!race.isRaceDone()) {
-    race.race();
-    race.print();
-    race.nextLap();
+  while (!carRace.isRaceDone()) {
+    carRace.race();
+    carRace.printRace();
+    carRace.nextLap();
   }
-  race.result();
+  carRace.printWinners();
 };
 
 export default startGame;
