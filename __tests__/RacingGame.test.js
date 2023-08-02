@@ -2,7 +2,7 @@ import { RacingGame } from "../src/domain/RacingGame/RacingGame";
 import { Car } from "../src/domain/Car/Car";
 import { getRandomNumberInRange } from "../src/util/getRandomNumber";
 import {
-  GAME_SIZE,
+  MIN_GAME_SIZE,
   RANDOM_MAX_NUMBER,
   RANDOM_MIN_NUMBER,
 } from "../src/domain/RacingGame/_consts";
@@ -13,6 +13,7 @@ import {
 } from "../src/domain/Car/_consts";
 
 describe("Together RacingGame (여럿이서 하는 레이싱 게임)", () => {
+  const GAME_SIZE = 5;
   const DEFAULT_CAR_NAMES_INPUT = "pobi,crong,honux";
   const DEFAULT_PLAYERS = [new Car("pobi"), new Car("crong"), new Car("honux")];
 
@@ -50,11 +51,18 @@ describe("Together RacingGame (여럿이서 하는 레이싱 게임)", () => {
   let racingGame = new RacingGame();
   racingGame.setRacingGameSize(GAME_SIZE);
 
+  it(`자동차 게임 시도 횟수를 입력받아서 자동차 게임을 셋팅할 때, 이상한 값을 입력했을 경우 에러를 출력하고 게임을 종료한다.`, () => {
+    expect(() => racingGame.setRacingGameSize('abc')).toThrow(`레이싱 게임 시도 회수를 숫자로 제대로 입력해야합니다.`);
+  })
+
+  it(`자동차 게임 시도 횟수를 입력받아서 자동차 게임을 셋팅할 때, 입력한 시도 횟수가 0 미만이면 에러를 출력하고 게임을 종료한다.`, () => {
+    expect(() => racingGame.setRacingGameSize(-1)).toThrow(`레이싱 게임 시도 회수는 ${MIN_GAME_SIZE} 이상이어야 합니다.`);
+  })
+
   it(`"${DEFAULT_CAR_NAMES_INPUT}"가 레이싱 게임에 등록했을 때, 등록된 자동차는 총 ${DEFAULT_PLAYERS.length}대 이다.`, () => {
     racingGame.setPlayers(
       racingGame.getPlayerNamesFromInput(DEFAULT_CAR_NAMES_INPUT)
     );
-    // DEFAULT_PLAYERS 랑 racingGame.getPlayers()를 비교하면 계속 테스트 실패함! 이유를 모르겠음. 이렇게 풀어서 하는 방법밖에..?
     const expectedPlayersNames = DEFAULT_PLAYERS.map((player) =>
       player.getName()
     );

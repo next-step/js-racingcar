@@ -1,5 +1,4 @@
 import { RacingGame } from "./domain/RacingGame/RacingGame";
-import { GAME_SIZE } from "./domain/RacingGame/_consts";
 
 export class App {
   #racingGame;
@@ -10,16 +9,18 @@ export class App {
   }
 
   async settingRacingGame() {
-    const inputValue = await RacingGame.readCarNamesInput();
+    const carNamesInputValue = await RacingGame.readCarNamesInput();
+    const racingGameSizeInputValue = await RacingGame.readRacingGameSizeInput()
     this.#racingGame.setPlayers(
-      this.#racingGame.getPlayerNamesFromInput(inputValue)
+      this.#racingGame.getPlayerNamesFromInput(carNamesInputValue)
     );
-    this.#racingGame.setRacingGameSize(GAME_SIZE);
+    this.#racingGame.setRacingGameSize(racingGameSizeInputValue);
   }
 
   async start() {
     await this.settingRacingGame();
-    this.#racingGame.playGame();
+    this.#racingGame.playGame()
+    process.exit()
   }
 }
 
