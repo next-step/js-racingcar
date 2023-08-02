@@ -1,4 +1,5 @@
 import {
+  MAX_NAME_LENGTH,
   MIN_NAME_LENGTH,
   RUN_THRESHOLD,
   RUN_UNIT,
@@ -17,6 +18,8 @@ export class Car {
   #validateCarName = (name) => {
     if (name.trim().length < MIN_NAME_LENGTH)
       throw new Error("이름은 공백을 제외한 한글자 이상이어야한다.");
+    if (name.length > MAX_NAME_LENGTH)
+      throw new Error(`이름은 ${MAX_NAME_LENGTH}글자 이하이어야한다.`)
   };
   getName() {
     return this.#name;
