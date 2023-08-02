@@ -1,12 +1,14 @@
-import { Car } from "../src/domain/Car/Car";
+import { Car } from "../../../src/domain/Car/Car";
 import {
   RUN_THRESHOLD,
   RUN_UNIT,
   START_POSITION,
-} from "../src/domain/Car/_consts";
+} from "../../../src/domain/Car/Car.const";
+import {
+  DEFAULT_CAR_NAME
+} from "./Car.test.const"
 
 describe("Car", () => {
-  const DEFAULT_CAR_NAME = "sonata";
   let car;
 
   beforeEach(() => {

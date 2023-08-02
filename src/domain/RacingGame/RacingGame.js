@@ -1,7 +1,7 @@
 import { Car } from "../Car/Car";
 import { getRandomNumberInRange } from "../../util/getRandomNumber";
 import { Console } from "../../util/Console";
-import {MIN_GAME_SIZE, RANDOM_MAX_NUMBER, RANDOM_MIN_NUMBER} from "./_consts";
+import {MIN_GAME_SIZE, RANDOM_MAX_NUMBER, RANDOM_MIN_NUMBER} from "./RacingGame.const";
 import {containsOnlyNumbers} from "../../util/containsOnlyNumbers";
 
 export class RacingGame {

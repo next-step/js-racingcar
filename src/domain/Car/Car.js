@@ -3,7 +3,7 @@ import {
   RUN_THRESHOLD,
   RUN_UNIT,
   START_POSITION,
-} from "./_consts";
+} from "./Car.const";
 
 export class Car {
   #name;
