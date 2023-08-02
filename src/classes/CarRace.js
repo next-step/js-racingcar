@@ -1,5 +1,5 @@
 import { RACE_CONFIGURE } from '../constants/index';
-import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../raceViewer';
+import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../race/index';
 import { generateRandomNumber } from '../utils/index';
 
 export default class CarRace {

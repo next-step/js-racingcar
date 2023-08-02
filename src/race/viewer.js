@@ -1,4 +1,4 @@
-import { RACE_CONFIGURE } from './constants/index';
+import { RACE_CONFIGURE } from '../constants/index';
 
 /**
  * 자동차 경주 내용을 사용자에게 반환한다.
