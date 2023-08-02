@@ -6,6 +6,7 @@ import {
   RACE_ERROR_MESSAGE
 } from './constants/race'
 import { isFunction, isNumber } from './utils/validator'
+import { CustomError } from './utils/customError'
 
 export class Race {
   #participants
@@ -44,7 +45,10 @@ export class Race {
   startRound() {
     const isOverMaxMatch = this.#match + 1 > this.#maxMatchLength
     if (isOverMaxMatch) {
-      throw new Error(RACE_ERROR_MESSAGE.OVER_MATCH_MAX_LENGTH)
+      throw new CustomError({
+        cause: this,
+        message: RACE_ERROR_MESSAGE.OVER_MATCH_MAX_LENGTH
+      })
     }
 
     this.#match++
@@ -53,9 +57,10 @@ export class Race {
 
   runParticipants() {
     if (this.getParticipants().length === 0) {
-      throw new Error(
-        RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
-      )
+      throw new CustomError({
+        cause: this,
+        message: RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
+      })
     }
 
     this.getParticipants()
@@ -65,9 +70,10 @@ export class Race {
 
   #resetParticipantsPosition() {
     if (this.getParticipants().length === 0) {
-      throw new Error(
-        RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
-      )
+      throw new CustomError({
+        cause: this,
+        message: RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
+      })
     }
 
     this.getParticipants().forEach(participant => {
@@ -108,7 +114,10 @@ export class Race {
       .every(hasMethod => hasMethod === true)
 
     if (!isIncludeRequiredMethods) {
-      throw new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD)
+      throw new CustomError({
+        cause: this,
+        message: RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD
+      })
     }
   }
 
@@ -116,9 +125,10 @@ export class Race {
     const isEnoughParticipants = participants.length >= MIN_PARTICIPANTS_LENGTH
 
     if (!isEnoughParticipants) {
-      throw new Error(
-        RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
-      )
+      throw new CustomError({
+        cause: this,
+        message: RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
+      })
     }
   }
 
@@ -126,7 +136,10 @@ export class Race {
     const isValidMatchLength = isNumber(maxMatchLength)
 
     if (!isValidMatchLength) {
-      throw new Error(RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH)
+      throw new CustomError({
+        cause: this,
+        message: RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH
+      })
     }
   }
 }
