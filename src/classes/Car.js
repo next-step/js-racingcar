@@ -11,6 +11,14 @@ export default class Car {
     this.#name = name;
   }
 
+  get name() {
+    return this.#name;
+  }
+
+  get moved() {
+    return this.#moved;
+  }
+
   #validateCarName(carName) {
     const { NAME_MIN_LENGTH: min, NAME_MAX_LENGTH: max } = CAR_CONFIGURE;
     validateCarName(carName, { min, max });
@@ -27,14 +35,6 @@ export default class Car {
 
   #isMovable(distance) {
     return distance >= this.#moveCondition;
-  }
-
-  get name() {
-    return this.#name;
-  }
-
-  get moved() {
-    return this.#moved;
   }
 
   move(distance) {
