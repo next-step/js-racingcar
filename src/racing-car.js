@@ -83,10 +83,7 @@ class RacingCar {
 
     const isCarNameNotIncludePunctualCharactersValidated = names
       .split(',')
-      .every(
-        (name) =>
-          !name.match(/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g)
-      );
+      .every((name) => !name.match(/[{}[]\/?.,;:|)*~`!^-_+<>@#$%&\\=\('"]/));
 
     if (!isCarNameNotIncludePunctualCharactersValidated) {
       return false;
