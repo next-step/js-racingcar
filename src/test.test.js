@@ -5,7 +5,7 @@ import { attemptCount } from "./domain/attemptCount";
 
 describe("자동차 이름 유효성 검사", () => {
   it("아무것도 등록하지 않았을 때", () => {
-    expect(isValidationName("")).toBeTruthy();
+    expect(isValidationName()).toBeFalsy();
   });
 
   it("자동차 이름 최대 5글자", () => {
