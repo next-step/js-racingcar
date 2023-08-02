@@ -5,8 +5,7 @@ import {
   DUMMY_RACE_SET,
   DUMMY_DUPLICATE_WINNER_RACE_SET
 } from './constants';
-import { createRaceStatusMessage } from '../src/raceViewer';
-import { ERROR_MESSAGE, RACE_CONFIGURE, ALERT_MESSAGE } from '../src/constants/index';
+import { ERROR_MESSAGE, RACE_CONFIGURE } from '../src/constants/index';
 import { Car, CarPrompter, CarRace } from '../src/classes/index';
 
 const { MOVE_CONDITION, MAX_LAP } = RACE_CONFIGURE;
