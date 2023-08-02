@@ -2,6 +2,10 @@ import { GAME_ERROR_MESSAGE } from '../src/constants/racingCarGame'
 import * as number from '../src/utils/number'
 import { Car } from '../src/car'
 import { RacingCarGame } from '../src/racingCarGame'
+import {
+  MIN_PARTICIPANTS_LENGTH,
+  RACE_ERROR_MESSAGE
+} from '../src/constants/race'
 
 const mockRunOnlyFirstCar = () => {
   let runCount = 0
@@ -129,21 +133,20 @@ describe('RacingCarGame - Error', () => {
 
     //Then
     expect(logSpy.mock.calls.at(-1)[0]).toEqual(
-      GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR
+      RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
     )
   })
 
-  test('초기화 이후, 게임을 시작하는 경우, 에러 메시지 출력과 함께 프로그램을 종료한다.', () => {
+  test('게임에 참여한 자동차 중에 중복된 이름이 있는 경우, 에러가 발생한다.', () => {
     // Given
-    const racingCarGame = new RacingCarGame('sonny, son, son2')
+    const duplicatedCarNames = 'sonny, sonny'
 
     // When
-    racingCarGame.reset()
-    racingCarGame.start()
+    new RacingCarGame(duplicatedCarNames)
 
     //Then
-    expect(logSpy.mock.calls.at(-1)[0]).toEqual(
-      GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR
+    expect(logSpy.mock.calls.at(-1)?.[0]).toEqual(
+      GAME_ERROR_MESSAGE.DUPLICATED_NAMES
     )
   })
 })
