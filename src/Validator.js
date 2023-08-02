@@ -5,7 +5,6 @@ import {
   INPUT_MESSAGE,
   SEPERATOR_SYMBOLS,
 } from './constants/index.js';
-import { convertStringToArray } from './utils/commons.js';
 import {
   isCharacter,
   isDuplicateRacingCars,
@@ -15,7 +14,7 @@ import {
 } from './utils/validate.js';
 
 const validateCarNames = (userInput) => {
-  const racingCars = convertStringToArray(userInput, SEPERATOR_SYMBOLS.COMMA);
+  const racingCars = userInput.split(SEPERATOR_SYMBOLS.COMMA);
   if (isIncludeSpaces(racingCars)) throw new SyntaxError(ERROR_MESSAGE.INCLUDE_EMPTY_WORDS);
   if (!isCharacter(racingCars)) throw new TypeError(ERROR_MESSAGE.AVALIABLE_CHARACTER);
   if (isInvalidLengthRacingCars(racingCars))
