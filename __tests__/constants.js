@@ -21,11 +21,7 @@ export const DUMMY_NOT_STRING_CAR_NAMES = [
   { name: true }
 ];
 
-export const DUMMY_INPUT_CAR_NAMES = [
-  { input: 'car1,car2,car3,car4' },
-  { input: 'luigi,yoshi' },
-  { input: 'mario' }
-];
+export const DUMMY_INPUT_CAR_NAMES = [{ input: 'car1,car2,car3,car4' }, { input: 'luigi,yoshi' }, { input: 'mario' }];
 
 export const DUMMY_INCORRECT_INPUT_CAR_NAMES = [
   { input: 'racer,car,racer' },
@@ -40,7 +36,7 @@ export const DUMMY_RACE_SET = [
   { name: 'peach', moved: 4, move: () => {} }
 ];
 
-export const DUMMY_DUPLICATE_RACE_SET = [
+export const DUMMY_DUPLICATE_WINNER_RACE_SET = [
   { name: 'mario', moved: 1 },
   { name: 'yoshi', moved: 2 },
   { name: 'koopa', moved: 3 },
