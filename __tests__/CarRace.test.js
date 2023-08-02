@@ -1,11 +1,11 @@
-class CarRace {}
+import { CarRace } from "../src/CarRace";
 
 const TEST_CAR_NAMES = ["car1", "car2", "car3"];
 
 describe("Test class CarRace", () => {
   const race = new CarRace();
 
-  race.init(TEST_CAR_NAMES);
+  race.init(TEST_CAR_NAMES.join(","));
 
   it("should have car names", () => {
     expect(race.getCarNames().sort()).toEqual(TEST_CAR_NAMES.sort());
