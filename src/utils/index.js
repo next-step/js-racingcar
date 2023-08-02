@@ -1,5 +1,4 @@
-export { default as isDuplicateArray } from './array';
+export * from './string';
+export * from './array';
+export * from './validateType';
 export { default as generateRandomNumber } from './number';
-export { default as isFunction } from './validateType';
-export * from '../raceViewer';
-export * from './validate';
