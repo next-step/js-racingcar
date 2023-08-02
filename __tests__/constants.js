@@ -5,8 +5,8 @@ export const DUMMY_CORRECT_CARS = [
   { name: 'peach', movableDistance: 7, notMovableDistance: 3 }
 ];
 
-export const DUMMY_INCORRECT_LENGTH_CARS = [
-  { name: '' },
+export const DUMMY_EXCEEDED_CAR_NAME = [
+  { name: 'yondo123' },
   { name: 'JR.mario' },
   { name: 'donkeykong' },
   { name: 'JR.Koopa' },
