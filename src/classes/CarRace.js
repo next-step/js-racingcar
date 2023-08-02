@@ -1,32 +1,23 @@
 import { RACE_CONFIGURE } from '../constants/index';
-import { generateRandomNumber, printRace, printResult } from '../utils/index';
+import { generateRandomNumber, printRace, printResult, printCustomMessage } from '../utils/index';
 
 export default class CarRace {
   #cars = [];
-
-  #rank = [];
-
   #winners = [];
+  #lap = 0;
 
   #maxLap = RACE_CONFIGURE.MAX_LAP;
-
   #minSpeed = RACE_CONFIGURE.MIN_SPEED;
-
   #maxSpeed = RACE_CONFIGURE.MAX_SPEED;
-
   #moveCondition = RACE_CONFIGURE.MOVE_CONDITION;
-
   #track = RACE_CONFIGURE.TRACK;
-
-  #lap = 0;
 
   constructor(cars) {
     this.#cars = cars;
-    this.#rank = cars;
   }
 
-  #isRaceNotDone() {
-    return this.#lap < this.#maxLap;
+  #isRaceDone() {
+    return this.#lap >= this.#maxLap;
   }
 
   #getDistance() {
@@ -37,18 +28,9 @@ export default class CarRace {
     return distance >= this.#moveCondition;
   }
 
-  #setRank() {
-    this.#rank = this.#cars
-      .sort((a, b) => b.moved - a.moved)
-      .map((car) => ({ name: car.name, moved: car.moved }));
-  }
-
   #setWinners() {
-    const maxMove = this.#rank.reduce(
-      (max, car) => (car.moved > max.moved ? car : max),
-      this.#rank[0]
-    ).moved;
-    this.#winners = this.#rank.filter((car) => car.moved === maxMove).map((car) => car.name);
+    const maxMove = this.#cars.reduce((max, car) => (car.moved > max.moved ? car : max), this.#cars[0]).moved;
+    this.#winners = this.#cars.filter((car) => car.moved === maxMove).map((car) => car.name);
   }
 
   getWinners() {
@@ -56,7 +38,8 @@ export default class CarRace {
   }
 
   nextLap() {
-    if (this.#isRaceNotDone()) {
+    if (!this.#isRaceDone()) {
+      printCustomMessage();
       this.#lap += 1;
     }
   }
@@ -66,7 +49,6 @@ export default class CarRace {
       const distance = this.#getDistance();
       car.move(this.#isMovable(distance));
     });
-    this.#setRank();
   }
 
   print() {
@@ -80,11 +62,11 @@ export default class CarRace {
     printResult(this.#winners);
   }
 
-  checkRaceStatus() {
-    return this.#isRaceNotDone();
+  isRaceDone() {
+    return this.#isRaceDone();
   }
 
-  getCurrentLap() {
+  getLap() {
     return this.#lap;
   }
 }
