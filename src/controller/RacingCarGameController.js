@@ -1,20 +1,20 @@
 import GameTrack from "../model/GameTrack";
 import GameWinners from "../model/GameWinners";
 
-import { ERROR_MESSAGE } from "../constants/ErrorMessage";
 import {
   CAR_NAME_INPUT_PROMPT,
   DEFAULT_SCORE,
   MAX_RANDOM_NUMBER,
   MIN_RANDOM_NUMBER,
-  NUM_RACING_ROUNDS,
   RACE_FORWARD_RANDOM_NUMBER_LIMIT,
+  HOW_MANY_TRIES_PROMPT,
   WINNER_ANNOUNCEMENT_MESSAGE,
 } from "../constants/rules";
 
 import { updateView } from "../view/PrintView";
 
-import { getRandomNumber } from "../utils/helpers";
+import { getRandomNumber, validateDuplicationItemList } from "../utils/helpers";
+import { validateNameList } from "./validator.js";
 
 export default class RacingCarGameController {
   constructor(readline) {
@@ -23,34 +23,40 @@ export default class RacingCarGameController {
     this.gameTrack = new GameTrack();
     this.gameWinners = new GameWinners();
     this.forwardScoreIcon;
+    this.numberRacingRounds;
   }
 
   startGame() {
     this.readline.question(CAR_NAME_INPUT_PROMPT, carName => {
       try {
-        if (!carName) throw Error(ERROR_MESSAGE.noEmptyName);
+        const carNameList = carName.split(",").map(item => item.trim());
+        validateDuplicationItemList(carNameList);
+        validateNameList(carNameList);
 
-        updateView.print(`\n 실행결과 \n`);
+        this.readline.question(HOW_MANY_TRIES_PROMPT, tryChance => {
+          this.numberRacingRounds = tryChance;
 
-        this.gameTrack.setGameStatus(carName);
-        this.startRace();
+          updateView.print(`\n 실행결과 \n`);
 
-        this.gameWinners.setGameWinners(this.gameTrack.gameStatus);
-        const winners = this.getWinners();
-        updateView.printWinners(winners + WINNER_ANNOUNCEMENT_MESSAGE);
+          this.gameTrack.setGameStatus(carName);
+          this.startRace(this.numberRacingRounds);
 
-        this.endGame();
+          this.gameWinners.setGameWinners(this.gameTrack.gameStatus);
+          const winners = this.getWinners();
+          updateView.printWinners(winners + WINNER_ANNOUNCEMENT_MESSAGE);
+
+          this.endGame();
+        });
       } catch (error) {
-        updateView.print(error.message);
-        this.exit();
+        this.exit(error);
       }
     });
   }
 
-  startRace() {
+  startRace(racingRounds) {
     this.setForwardScoreIcon(DEFAULT_SCORE);
 
-    while (this.gameCount < NUM_RACING_ROUNDS) {
+    while (this.gameCount < racingRounds) {
       this.setAdvanceCars();
 
       this.gameCount++;
@@ -91,7 +97,12 @@ export default class RacingCarGameController {
     this.readline.close();
   }
 
-  exit() {
-    throw Error(ERROR_MESSAGE["invalidInput"]);
+  replayGame() {
+    this.startGame();
+  }
+
+  exit(error) {
+    updateView.print(error.message);
+    return this.replayGame();
   }
 }
