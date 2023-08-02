@@ -24,7 +24,7 @@ export class Car {
   }
 
   validateName(name) {
-    if (typeof name !== "string" || name instanceof String) {
+    if (!(typeof name === "string" || name instanceof String)) {
       throw new InvalidNameError("The name is not a string");
     }
 
