@@ -19,7 +19,7 @@ describe('Racing Car Game', () => {
   it('Racer names: pobi,crong,honux -> true', () => {
     initialize();
 
-    expect(racingCar.validateCarInput('pobi,crong,honux')).toBe(true);
+    expect(racingCar.validateCarNamesInput('pobi,crong,honux')).toBe(true);
   });
 
   // 자동차 경주는 5회로 고정하여 진행한다.
@@ -111,7 +111,7 @@ describe('Racing Car Game', () => {
     initialize();
 
     const testInput = () => {
-      if (!racingCar.validateCarInput('pobi,crong,honuasdfx')) {
+      if (!racingCar.validateCarNamesInput('pobi,crong,honuasdfx')) {
         racingCar.exit();
       }
     };
@@ -124,7 +124,7 @@ describe('Racing Car Game', () => {
     initialize();
 
     const testInput = () => {
-      if (!racingCar.validateCarInput('pobi,crong,honuasdfx')) {
+      if (!racingCar.validateCarNamesInput('pobi,crong,honuasdfx')) {
         return ERROR_WRONG_INPUT_MESSAGE;
       }
     };
