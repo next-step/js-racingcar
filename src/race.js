@@ -2,9 +2,9 @@ import {
   REQUIRE_METHODS_KEY,
   DEFAULT_MAX_MATCH_LENGTH,
   DEFAULT_RUN_CONDITION,
-  MIN_PARTICIPANTS_LENGTH
+  MIN_PARTICIPANTS_LENGTH,
+  RACE_ERROR_MESSAGE
 } from './constants/race'
-import { RACE_ERROR_MESSAGE } from './constants/error'
 import { isFunction, isNumber } from './utils/validator'
 
 export class Race {

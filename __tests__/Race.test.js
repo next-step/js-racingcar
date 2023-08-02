@@ -1,10 +1,10 @@
-import { Car } from '../src/car'
-import { Race } from '../src/race'
 import {
   DEFAULT_MAX_MATCH_LENGTH,
-  MIN_PARTICIPANTS_LENGTH
+  MIN_PARTICIPANTS_LENGTH,
+  RACE_ERROR_MESSAGE
 } from '../src/constants/race'
-import { RACE_ERROR_MESSAGE } from '../src/constants/error'
+import { Car } from '../src/car'
+import { Race } from '../src/race'
 
 describe('Race - Feature', () => {
   let car1
