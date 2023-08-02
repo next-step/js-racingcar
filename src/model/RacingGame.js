@@ -1,9 +1,9 @@
 import { EXIT_COUNT, INIT_RACING_COUNT } from '../constants/model.js';
-import { INPUT_MESSAGE } from '../constants/message.js';
+import { ERROR_MESSAGE } from '../constants/message.js';
 import { SEPERATOR_SYMBOLS } from '../constants/commons.js';
 import { NumberMaker } from '../NumberMaker.js';
-import { Validator } from '../Validator.js';
 import { RacingCars, RacingWinners } from './index.js';
+import { isNumber } from '../utils/validate.js';
 
 export class RacingGame {
   #racingCount;
@@ -15,16 +15,16 @@ export class RacingGame {
   #racingWinners;
 
   constructor(carNames, inputCount) {
-    RacingGame.#validateArgs(carNames, inputCount);
+    RacingGame.#validateCount(inputCount);
     this.#racingCount = Number(inputCount) || INIT_RACING_COUNT;
     this.#racingCars = new RacingCars(carNames, NumberMaker);
     this.#racingWinners = new RacingWinners();
     this.#racingResult = [];
   }
 
-  static #validateArgs(carNames, count) {
-    Validator.check(carNames, INPUT_MESSAGE.RACING_CAR);
-    Validator.check(count, INPUT_MESSAGE.COUNT);
+  static #validateCount(count) {
+    const racingCount = Number(count);
+    if (!isNumber(racingCount)) throw new TypeError(ERROR_MESSAGE.AVALIABLE_NUMBER);
   }
 
   static #createNewResult(newMoveStatus) {
