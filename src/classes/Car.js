@@ -29,11 +29,11 @@ export default class Car {
     return distance >= this.#moveCondition;
   }
 
-  getName() {
+  get name() {
     return this.#name;
   }
 
-  getMoved() {
+  get moved() {
     return this.#moved;
   }
 

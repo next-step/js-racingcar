@@ -14,7 +14,7 @@ const { MOVE_CONDITION, MAX_LAP } = RACE_CONFIGURE;
 const getRaceWinners = (raceModel) => {
   const carRace = new CarRace(raceModel);
   carRace.printWinners();
-  return carRace.getWinners();
+  return carRace.winners;
 };
 
 describe('자동차 경주 테스트', () => {
@@ -43,10 +43,10 @@ describe('자동차 경주 테스트', () => {
 
   it('자동차 주행 횟수마다 lap이 변경된다.', () => {
     const carRace = new CarRace(DUMMY_RACE_SET);
-    expect(carRace.getLap()).toBe(0);
+    expect(carRace.lap).toBe(0);
     carRace.race();
     carRace.nextLap();
-    expect(carRace.getLap()).toBe(1);
+    expect(carRace.lap).toBe(1);
   });
 
   it('자동차 주행 횟수 마다 경주 상태를 출력한다.', () => {
@@ -59,11 +59,11 @@ describe('자동차 경주 테스트', () => {
   it(`자동차 경주는 총 ${MAX_LAP}회로 이루어진다.`, () => {
     const carRace = new CarRace();
     for (let lap = 0; lap < MAX_LAP; lap += 1) {
-      expect(carRace.getLap()).toBe(lap);
+      expect(carRace.lap).toBe(lap);
       carRace.nextLap();
     }
     carRace.nextLap();
-    expect(carRace.getLap()).toBe(MAX_LAP);
+    expect(carRace.lap).toBe(MAX_LAP);
   });
 
   test.each(DUMMY_CORRECT_CARS)(
@@ -71,7 +71,7 @@ describe('자동차 경주 테스트', () => {
     ({ name, movableDistance }) => {
       const car = new Car(name);
       car.move(movableDistance);
-      expect(car.getMoved()).toBe(1);
+      expect(car.moved).toBe(1);
     }
   );
 
@@ -80,7 +80,7 @@ describe('자동차 경주 테스트', () => {
     ({ name, notMovableDistance }) => {
       const car = new Car(name);
       car.move(notMovableDistance);
-      expect(car.getMoved()).toBe(0);
+      expect(car.moved).toBe(0);
     }
   );
 

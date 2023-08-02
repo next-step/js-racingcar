@@ -16,6 +16,14 @@ export default class CarRace {
     this.#cars = cars;
   }
 
+  get lap() {
+    return this.#lap;
+  }
+
+  get winners() {
+    return this.#winners;
+  }
+
   #isRaceDone() {
     return this.#lap >= this.#maxLap;
   }
@@ -45,14 +53,6 @@ export default class CarRace {
       printMessage();
       this.#lap += 1;
     }
-  }
-
-  getLap() {
-    return this.#lap;
-  }
-
-  getWinners() {
-    return this.#winners;
   }
 
   printRace() {
