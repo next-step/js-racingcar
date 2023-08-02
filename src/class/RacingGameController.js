@@ -117,7 +117,7 @@ export default class RacingGameController {
 
       const carNames = enteredUserInput.split(CAR_NAME_SEPARATOR);
 
-      await this.validateCarNames(carNames);
+      this.validateCarNames(carNames);
 
       this.model.setCarStatus(
         new Map(carNames.map((car) => [car, { distance: 0 }])),

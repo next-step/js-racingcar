@@ -1,31 +1,39 @@
 import RacingGameController from "../src/class/RacingGameController";
+import RacingGameViewer from "../src/class/RacingGameViewer";
+import Car from "../src/class/Car";
 
-describe("RacingCarGame Class 테스트", () => {
-  test("validateCarNames에서 에러가 발생하면 에러가 onError에 전달되어야 하며 게임이 종료된다.", async () => {
-    const expectedError = new Error("에러 테스트");
-
-    const validateCarNamesTester = () => {
-      throw expectedError;
-    };
-
-    const handleErrorTester = jest.fn();
-
+describe("RacingCarGameController Class 테스트", () => {
+  test("자동차 이름 중 빈값인 자동차가 포함되면 에러가 발생한다.", () => {
     const racingCarGame = new RacingGameController({
-      validateCarNames: validateCarNamesTester,
-      onError: handleErrorTester,
+      view: new RacingGameViewer(),
+      model: new Car(),
     });
 
-    const endGameSpy = jest.spyOn(racingCarGame, "endGame");
+    expect(() => racingCarGame.validateCarNames(["", "테스트"])).toThrowError(
+      "자동차 이름은 빈값일 수 없습니다.",
+    );
+  });
 
-    const onErrorSpy = jest.spyOn(racingCarGame, "onError");
+  test("자동차 이름 중 6자 이상인 자동차가 있으면 에러가 발생한다.", async () => {
+    const racingCarGame = new RacingGameController({
+      view: new RacingGameViewer(),
+      model: new Car(),
+    });
 
-    await racingCarGame.startGame();
+    expect(() =>
+      racingCarGame.validateCarNames(["테스트", "123456"]),
+    ).toThrowError("자동차 이름은 5자를 넘길 수 없습니다.");
+  });
 
-    expect(validateCarNamesTester).toThrow(expectedError);
+  test("자동차 이름 중 같은 이름의 자동차가 있으면 에러가 발생한다.", async () => {
+    const racingCarGame = new RacingGameController({
+      view: new RacingGameViewer(),
+      model: new Car(),
+    });
 
-    expect(onErrorSpy).toHaveBeenCalledWith(expectedError);
-
-    expect(endGameSpy).toHaveBeenCalled();
+    expect(() =>
+      racingCarGame.validateCarNames(["테스트", "테스트"]),
+    ).toThrowError("자동차 이름은 중복될 수 없습니다.");
   });
 
   test("executeOneRound가 지정한 횟수만큼 호출된다.", async () => {
@@ -33,6 +41,8 @@ describe("RacingCarGame Class 테스트", () => {
 
     const racingCarGame = new RacingGameController({
       roundNumber: testRoundNumber,
+      view: new RacingGameViewer(),
+      model: new Car(),
     });
 
     const executeMultipleRoundsSpy = jest.spyOn(
@@ -42,7 +52,7 @@ describe("RacingCarGame Class 테스트", () => {
 
     const executeOneRoundSpy = jest.spyOn(racingCarGame, "executeOneRound");
 
-    await racingCarGame.startGame();
+    racingCarGame.executeMultipleRounds();
 
     expect(executeMultipleRoundsSpy).toHaveBeenCalledTimes(1);
 
