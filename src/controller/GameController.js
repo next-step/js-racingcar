@@ -34,26 +34,37 @@ export class GameController {
     if (!isNumber(racingCount)) throw new TypeError(ERROR_MESSAGE.AVALIABLE_NUMBER);
   }
 
-  async #getRacingCarNames() {
+  async #retryOnErrors(retryableAction) {
     try {
-      const racingCarNames = await this.#view.inputByUser(INPUT_MESSAGE.RACING_CAR);
-      GameController.#validateCarNames(racingCarNames);
-      return racingCarNames;
+      return await retryableAction();
     } catch (error) {
       this.#view.print(error.message);
-      return this.#getRacingCarNames();
+      return this.#retryOnErrors(retryableAction);
     }
   }
 
+  async #getRacingCarNames() {
+    return this.#retryOnErrors(async () => {
+      const racingCarNames = await this.#view.inputByUser(INPUT_MESSAGE.RACING_CAR);
+      GameController.#validateCarNames(racingCarNames);
+      return racingCarNames;
+    });
+  }
+
   async #getRacingCount() {
-    try {
+    return this.#retryOnErrors(async () => {
       const racingCount = await this.#view.inputByUser(INPUT_MESSAGE.COUNT);
       GameController.#validateCount(racingCount);
       return racingCount;
-    } catch (error) {
-      this.#view.print(error.message);
-      return this.#getRacingCount();
-    }
+    });
+  }
+
+  async #settingRacingGame() {
+    return this.#retryOnErrors(async () => {
+      const racingCarNames = await this.#getRacingCarNames();
+      const racingCount = await this.#getRacingCount();
+      this.#racingGame = new RacingGame(racingCarNames, racingCount);
+    });
   }
 
   #printRaceResult(results) {
@@ -74,17 +85,6 @@ export class GameController {
   #printGameResult(result, racingWinners) {
     this.#printRaceResult(result);
     this.#printRacingWinners(racingWinners);
-  }
-
-  async #settingRacingGame() {
-    try {
-      const racingCarNames = await this.#getRacingCarNames();
-      const racingCount = await this.#getRacingCount();
-      this.#racingGame = new RacingGame(racingCarNames, racingCount);
-    } catch (error) {
-      this.#view.print(error);
-      await this.#settingRacingGame();
-    }
   }
 
   #confirmAfterRacing() {
