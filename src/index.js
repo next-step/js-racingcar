@@ -1,12 +1,14 @@
 import { isValidationName } from "./domain/isValidationName";
 import { attemptCount } from "./domain/attemptCount";
+import {
+  RACING_EXPLANATION_MESSAGE,
+  WRONG_INFO_INPUT_GAME_END_MESSAGE,
+} from "./constants/racingGame";
 
 export const startRacingGame = (name, count) => {
-  console.log(
-    "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분)."
-  );
+  console.log(RACING_EXPLANATION_MESSAGE);
   if (!isValidationName(name)) {
-    throw new Error("잘못된 정보를 입력하여 게임을 종료합니다.");
+    throw new Error(WRONG_INFO_INPUT_GAME_END_MESSAGE);
   }
   const carList = name.split(",");
 

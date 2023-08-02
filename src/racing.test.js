@@ -3,6 +3,11 @@ import { isValidationName } from "./domain/isValidationName";
 import { getRandomNumber } from "./utils/getRandomNumber";
 import { attemptCount } from "./domain/attemptCount";
 
+import {
+  ZERO_UP_INPUT_MESSAGE,
+  WRONG_INFO_INPUT_GAME_END_MESSAGE,
+} from "./constants/racingGame";
+
 describe("자동차 이름 유효성 검사", () => {
   it("아무것도 등록하지 않았을 때", () => {
     expect(isValidationName()).toBeFalsy();
@@ -26,7 +31,7 @@ describe("0 에서 9 사이의 무작위 값을 구한 후 4이 상일 때 전�
 describe("자동차 경주 시도할 횟수", () => {
   it("0 이하의 숫자를 입력 했을떄 에러메세지", () => {
     expect(() => attemptCount(["ss", "33", "r4"], -1)).toThrowError(
-      "0 이상의 숫자를 입력해주세요!"
+      ZERO_UP_INPUT_MESSAGE
     );
   });
 });
@@ -34,7 +39,7 @@ describe("자동차 경주 시도할 횟수", () => {
 describe("자동차 경주", () => {
   it("자동차 등록을 잘못할 경우 에러메세지", () => {
     expect(() => startRacingGame("", 7)).toThrowError(
-      "잘못된 정보를 입력하여 게임을 종료합니다."
+      WRONG_INFO_INPUT_GAME_END_MESSAGE
     );
   });
 });

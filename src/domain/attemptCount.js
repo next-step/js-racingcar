@@ -1,10 +1,14 @@
 import { getRandomNumber } from "../utils/getRandomNumber";
+import {
+  TRY_COUNT_MESSAGE,
+  ZERO_UP_INPUT_MESSAGE,
+} from "../constants/racingGame";
 
 export const attemptCount = (cars, count) => {
-  console.log("시도할 회수는 몇회인가요?");
+  console.log(TRY_COUNT_MESSAGE);
 
   if (count < 0) {
-    throw new Error("0 이상의 숫자를 입력해주세요!");
+    throw new Error(ZERO_UP_INPUT_MESSAGE);
   }
 
   console.log(`${count}`);
