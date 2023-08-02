@@ -1,6 +1,10 @@
 import RacingCar from '../src/racing-car.js';
 import Racer from '../src/racer.js';
 import { getRandomNumber } from '../src/utils/common.util.js';
+import {
+  ERROR_EXIT_MESSAGE,
+  ERROR_WRONG_INPUT_MESSAGE,
+} from '../src/constants/error.const.js';
 
 const racingCar = new RacingCar();
 const racer = new Racer();
@@ -112,7 +116,7 @@ describe('Racing Car Game', () => {
       }
     };
 
-    expect(testInput).toThrow(racingCar.ERROR_EXIT_MESSAGE);
+    expect(testInput).toThrow(ERROR_EXIT_MESSAGE);
   });
 
   // 사용자가 잘못된 입력 값을 작성한 경우 에러 메시지를 보여주고, 다시 입력할 수 있게 한다.
@@ -121,11 +125,11 @@ describe('Racing Car Game', () => {
 
     const testInput = () => {
       if (!racingCar.validateCarInput('pobi,crong,honuasdfx')) {
-        return racingCar.ERROR_WRONG_INPUT_MESSAGE;
+        return ERROR_WRONG_INPUT_MESSAGE;
       }
     };
 
-    expect(testInput()).toBe(racingCar.ERROR_WRONG_INPUT_MESSAGE);
+    expect(testInput()).toBe(ERROR_WRONG_INPUT_MESSAGE);
   });
 
   // 사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.

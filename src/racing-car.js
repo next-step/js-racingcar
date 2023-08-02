@@ -1,3 +1,7 @@
+import {
+  ERROR_EXIT_MESSAGE,
+  ERROR_WRONG_INPUT_MESSAGE,
+} from './constants/error.const.js';
 import Racer from './racer.js';
 import { print } from './utils/common.util.js';
 import { readline } from './utils/readline.util.js';
@@ -6,8 +10,6 @@ const racer = new Racer();
 
 class RacingCar {
   #CAR_NAME_LENGTH_LIMIT = 5;
-  ERROR_EXIT_MESSAGE = '잘못된 입력 값으로 프로그램을 종료합니다.';
-  ERROR_WRONG_INPUT_MESSAGE = '잘못된 입력 값입니다. 다시 입력해주세요!';
 
   count;
   racers;
@@ -146,12 +148,12 @@ class RacingCar {
 
   printWrongInput() {
     print('');
-    print(this.ERROR_WRONG_INPUT_MESSAGE);
+    print(ERROR_WRONG_INPUT_MESSAGE);
     print('');
   }
 
   exit() {
-    throw new Error(this.ERROR_EXIT_MESSAGE);
+    throw new Error(ERROR_EXIT_MESSAGE);
   }
 }
 
