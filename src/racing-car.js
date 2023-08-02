@@ -2,6 +2,11 @@ import {
   ERROR_EXIT_MESSAGE,
   ERROR_WRONG_INPUT_MESSAGE,
 } from './constants/error.const.js';
+import {
+  PRINT_RESULT,
+  QUESTION_CAR_NAMES,
+  QUESTION_COUNT,
+} from './constants/race.const.js';
 import Racer from './racer.js';
 import { print } from './utils/common.util.js';
 import { readline } from './utils/readline.util.js';
@@ -26,33 +31,30 @@ class RacingCar {
   }
 
   start() {
-    readline.question(
-      '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n',
-      (names) => {
-        if (!this.validateCarNamesInput(names)) {
+    readline.question(QUESTION_CAR_NAMES, (names) => {
+      if (!this.validateCarNamesInput(names)) {
+        this.printWrongInput();
+        return this.start();
+      }
+
+      readline.question(QUESTION_COUNT, (count) => {
+        if (!this.validateCountInput(count)) {
           this.printWrongInput();
           return this.start();
         }
 
-        readline.question('시도할 횟수는 몇회인가요?\n', (count) => {
-          if (!this.validateCountInput(count)) {
-            this.printWrongInput();
-            return this.start();
-          }
+        this.setCount(count);
 
-          this.setCount(count);
+        this.printTitle();
 
-          this.printTitle();
+        this.setRacers(names);
 
-          this.setRacers(names);
+        this.race(this.racers);
+        this.printWinners();
 
-          this.race(this.racers);
-          this.printWinners();
-
-          readline.close();
-        });
-      }
-    );
+        readline.close();
+      });
+    });
   }
 
   validateCarNamesInput(names) {
@@ -139,7 +141,7 @@ class RacingCar {
 
   printTitle() {
     print('');
-    print('실행결과');
+    print(PRINT_RESULT);
   }
 
   printWinners() {
