@@ -1,9 +1,15 @@
-import { CarRace } from "../src/CarRace";
+import { DEFAULT_CONFIG, CarRace, InvalidCarNamesError } from "../src/CarRace";
 
 const TEST_CAR_NAMES = ["car1", "car2", "car3"];
+const MIN_NUM_OF_WINNERS = 1;
 
 describe("Test class CarRace", () => {
   const race = new CarRace();
+
+  it("should initiated with valid car names", () => {
+    expect(() => race.init()).toThrow(InvalidCarNamesError);
+    expect(() => race.init("")).toThrow(InvalidCarNamesError);
+  });
 
   race.init(TEST_CAR_NAMES.join(","));
 
@@ -15,6 +21,6 @@ describe("Test class CarRace", () => {
 
   const winners = race.getWinners();
   it("should have one or more winners", () => {
-    expect(winners?.length).toBeGreaterThanOrEqual(1);
+    expect(winners?.length).toBeGreaterThanOrEqual(MIN_NUM_OF_WINNERS);
   });
 });
