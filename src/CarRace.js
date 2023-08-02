@@ -1,5 +1,5 @@
 import { Car } from "./Car";
-import { getRandomIntInclusive } from "./utils";
+import { getRandomIntInclusive, isString } from "./utils";
 
 export const DEFAULT_CONFIG = {
   MAX_NUM_OF_CARS: 5,
@@ -9,14 +9,26 @@ export const DEFAULT_CONFIG = {
   RACE_LAPS: 5,
 };
 
+export class InvalidCarNamesError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "InvalidCarNamesError";
+  }
+}
+
 export class CarRace {
   #cars = [];
   #laps = DEFAULT_CONFIG.RACE_LAPS;
   #currentLap = 0;
   init(rawCarNames) {
+    if (!isString(rawCarNames)) {
+      throw new InvalidCarNamesError(
+        "The given car names value is not a string"
+      );
+    }
     const carNames = this.parseCarNames(rawCarNames);
     if (carNames.length < DEFAULT_CONFIG.MIN_NUM_OF_CARS) {
-      throw new Error(
+      throw new InvalidCarNamesError(
         "A number of cars were given that are too small to race."
       );
     }
