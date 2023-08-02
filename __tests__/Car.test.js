@@ -1,6 +1,10 @@
-import { getRaceRandomNumber } from '../src/utils/race.util.js';
 import RacingCar from '../src/racing-car.js';
 import Racer from '../src/racer.js';
+import { getRandomNumber } from '../src/utils/common.util.js';
+import {
+  ERROR_EXIT_MESSAGE,
+  ERROR_WRONG_INPUT_MESSAGE,
+} from '../src/constants/error.const.js';
 
 const racingCar = new RacingCar();
 const racer = new Racer();
@@ -15,7 +19,7 @@ describe('Racing Car Game', () => {
   it('Racer names: pobi,crong,honux -> true', () => {
     initialize();
 
-    expect(racingCar.validateInput('pobi,crong,honux')).toBe(true);
+    expect(racingCar.validateCarNamesInput('pobi,crong,honux')).toBe(true);
   });
 
   // 자동차 경주는 5회로 고정하여 진행한다.
@@ -27,6 +31,7 @@ describe('Racing Car Game', () => {
       { name: 'crong', state: '-' },
       { name: 'honux', state: '-' },
     ];
+    racingCar.setCount(5);
     racingCar.race(racers);
     expect(racingCar.count).toBe(5);
   });
@@ -57,7 +62,7 @@ describe('Racing Car Game', () => {
   it('Go and GoCheck', () => {
     initialize();
 
-    const randomNumber = getRaceRandomNumber();
+    const randomNumber = getRandomNumber(0, 9);
     expect(randomNumber).toBeGreaterThanOrEqual(0);
     expect(randomNumber).toBeLessThanOrEqual(9);
 
@@ -106,11 +111,48 @@ describe('Racing Car Game', () => {
     initialize();
 
     const testInput = () => {
-      if (!racingCar.validateInput('pobi,crong,honuasdfx')) {
+      if (!racingCar.validateCarNamesInput('pobi,crong,honuasdfx')) {
         racingCar.exit();
       }
     };
 
-    expect(testInput).toThrow('잘못된 입력 값으로 프로그램을 종료합니다.');
+    expect(testInput).toThrow(ERROR_EXIT_MESSAGE);
+  });
+
+  // 사용자가 잘못된 입력 값을 작성한 경우 에러 메시지를 보여주고, 다시 입력할 수 있게 한다.
+  it('Wrong Input -> Show Error message, and then restart', () => {
+    initialize();
+
+    const testInput = () => {
+      if (!racingCar.validateCarNamesInput('pobi,crong,honuasdfx')) {
+        return ERROR_WRONG_INPUT_MESSAGE;
+      }
+    };
+
+    expect(testInput()).toBe(ERROR_WRONG_INPUT_MESSAGE);
+  });
+
+  // 사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.
+  it('User input count', () => {
+    initialize();
+
+    racingCar.setCount(3);
+
+    expect(racingCar.count).toBe(3);
+  });
+
+  // 주어진 횟수 동안 n 대의 자동차는 전진 또는 멈출 수 있다.
+  it('Car race within user input count', () => {
+    initialize();
+
+    const racers = [
+      { name: 'pobi', state: '-' },
+      { name: 'crong', state: '-' },
+      { name: 'honux', state: '-' },
+    ];
+    racingCar.setCount(5);
+    racingCar.race(racers);
+
+    expect(racingCar.count).toBe(5);
   });
 });

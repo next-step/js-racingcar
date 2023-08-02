@@ -1,3 +1,13 @@
+import {
+  ERROR_EXIT_MESSAGE,
+  ERROR_WRONG_INPUT_MESSAGE,
+} from './constants/error.const.js';
+import {
+  PRINT_RESULT,
+  QUESTION_CAR_NAMES,
+  QUESTION_COUNT,
+} from './constants/race.const.js';
+import { REGEX_PUNCTUAL_CHARACTERS } from './constants/regex.const.js';
 import Racer from './racer.js';
 import { print } from './utils/common.util.js';
 import { readline } from './utils/readline.util.js';
@@ -6,7 +16,6 @@ const racer = new Racer();
 
 class RacingCar {
   #CAR_NAME_LENGTH_LIMIT = 5;
-  #RACE_LOOP_LIMIT = 5;
 
   count;
   racers;
@@ -23,12 +32,19 @@ class RacingCar {
   }
 
   start() {
-    readline.question(
-      '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n',
-      (names) => {
-        if (!this.validateInput(names)) {
-          this.exit();
+    readline.question(QUESTION_CAR_NAMES, (names) => {
+      if (!this.validateCarNamesInput(names)) {
+        this.printWrongInput();
+        return this.start();
+      }
+
+      readline.question(QUESTION_COUNT, (count) => {
+        if (!this.validateCountInput(count)) {
+          this.printWrongInput();
+          return this.start();
         }
+
+        this.setCount(count);
 
         this.printTitle();
 
@@ -38,29 +54,65 @@ class RacingCar {
         this.printWinners();
 
         readline.close();
-      }
-    );
+      });
+    });
   }
 
-  validateInput(names) {
-    const isValidated = names
+  validateCarNamesInput(names) {
+    const isNotBlank = names.length > 0;
+
+    if (!isNotBlank) {
+      return false;
+    }
+
+    const isNotOverMaxLength = names
       .split(',')
-      .every((name) => name.length <= this.#CAR_NAME_LENGTH_LIMIT);
+      .every(
+        (name) => name.length > 0 && name.length <= this.#CAR_NAME_LENGTH_LIMIT
+      );
+
+    if (!isNotOverMaxLength) {
+      return false;
+    }
+
+    const isNotDuplicated =
+      new Set(names.split(',')).size === names.split(',').length;
+
+    if (!isNotDuplicated) {
+      return false;
+    }
+
+    const isNotIncludedPunctualCharacters = names
+      .split(',')
+      .every((name) => !name.match(REGEX_PUNCTUAL_CHARACTERS));
+
+    if (!isNotIncludedPunctualCharacters) {
+      return false;
+    }
+
+    return true;
+  }
+
+  validateCountInput(count) {
+    const isValidated = !Number.isNaN(parseInt(count));
 
     return isValidated;
   }
 
   race(racers) {
-    for (let i = 0; i < this.#RACE_LOOP_LIMIT; i += 1) {
+    for (let i = 0; i < this.count; i += 1) {
       racers.forEach((r) => {
         racer.goForward(r);
         racer.printRacingState(r.name, r.state);
       });
       print('');
-      this.count += 1;
     }
 
     this.setWinners(racers);
+  }
+
+  setCount(count) {
+    this.count = count;
   }
 
   setRacers(names) {
@@ -87,15 +139,21 @@ class RacingCar {
 
   printTitle() {
     print('');
-    print('실행결과');
+    print(PRINT_RESULT);
   }
 
   printWinners() {
     print(`${this.winners.join(', ')}가 최종 우승했습니다.`);
   }
 
+  printWrongInput() {
+    print('');
+    print(ERROR_WRONG_INPUT_MESSAGE);
+    print('');
+  }
+
   exit() {
-    throw new Error('잘못된 입력 값으로 프로그램을 종료합니다.');
+    throw new Error(ERROR_EXIT_MESSAGE);
   }
 }
 
