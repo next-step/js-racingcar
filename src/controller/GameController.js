@@ -9,18 +9,15 @@ import {
   isInvalidLengthRacingCars,
   isNumber,
 } from '../utils/validate.js';
-import { InputView, OutputView } from '../view/index.js';
+import { View } from '../view/View.js';
 
 export class GameController {
   #racingGame;
 
-  #inputView;
-
-  #outputView;
+  #view;
 
   constructor() {
-    this.#inputView = InputView;
-    this.#outputView = OutputView;
+    this.#view = new View();
   }
 
   static #validateCarNames(carNames) {
@@ -39,35 +36,35 @@ export class GameController {
 
   async #getRacingCarNames() {
     try {
-      const racingCarNames = await this.#inputView.input(INPUT_MESSAGE.RACING_CAR);
+      const racingCarNames = await this.#view.inputByUser(INPUT_MESSAGE.RACING_CAR);
       GameController.#validateCarNames(racingCarNames);
       return racingCarNames;
     } catch (error) {
-      this.#outputView.print(error.message);
+      this.#view.print(error.message);
       return this.#getRacingCarNames();
     }
   }
 
   async #getRacingCount() {
     try {
-      const racingCount = await this.#inputView.input(INPUT_MESSAGE.COUNT);
+      const racingCount = await this.#view.inputByUser(INPUT_MESSAGE.COUNT);
       GameController.#validateCount(racingCount);
       return racingCount;
     } catch (error) {
-      this.#outputView.print(error.message);
+      this.#view.print(error.message);
       return this.#getRacingCount();
     }
   }
 
   #printRaceResult(results) {
-    this.#outputView.print(OUTPUT_MESSAGE.RESULT);
+    this.#view.print(OUTPUT_MESSAGE.RESULT);
     results.forEach((result) => {
-      this.#outputView.print(`${result}\n`);
+      this.#view.print(`${result}\n`);
     });
   }
 
   #printRacingWinners(winners) {
-    this.#outputView.print(OUTPUT_MESSAGE.WINNERS(winners));
+    this.#view.print(OUTPUT_MESSAGE.WINNERS(winners));
   }
 
   #startRace() {
@@ -85,7 +82,7 @@ export class GameController {
       const racingCount = await this.#getRacingCount();
       this.#racingGame = new RacingGame(racingCarNames, racingCount);
     } catch (error) {
-      this.#outputView.print(error);
+      this.#view.print(error);
       await this.#settingRacingGame();
     }
   }
