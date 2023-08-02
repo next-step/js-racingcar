@@ -1,15 +1,8 @@
 import { MESSAGE, CAR, RACING_GAME } from '../constants';
 
 /* Common Validate Functions */
-const isValidLength = (value, maxLength) => {
-  if (value.length <= maxLength) return true;
-
-  return false;
-};
-
-const isValidPattern = (value, regexPattern) => {
-  return regexPattern.test(value);
-};
+const isValidLength = (value, maxLength) => value.length <= maxLength;
+const isValidPattern = (value, regexPattern) => regexPattern.test(value);
 
 /* Car Names */
 export const validateCarName = (name) => {
