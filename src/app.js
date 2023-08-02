@@ -1,41 +1,78 @@
 import createStore from "../src/store/store.js";
 import carReducer from "../src/reducers/carReducer.js";
-import { setCarNames, setRaceResult } from "../src/actions/carActions.js";
-import ValidateInput from "../src/ValidateInput.js";
-import CarRacingGame from "../src/CarRacingGame.js";
-import { SETTING } from "../src/constants/setting.js";
-import Car from "./Car.js";
-import RaceTrack from "./components/RaceTrack.js";
+import { setCarNames, setRound } from "../src/actions/carActions.js";
+import ValidateInput from "./domain/ValidateInput.js";
+import CarRacingGame from "./domain/CarRacingGame.js";
+import { createEl } from "./utils/createEl.js";
+import Car from "./domain/Car.js";
+import RaceTrack from "./view/RaceTrack.js";
+import InputContainer from "./view/InputContainer.js";
+import WinnerAnnouncement from "./view/WinnerAnnouncement.js";
+import { SETTING } from "./constants/setting.js";
 
-export default function App() {
-	const store = createStore(carReducer, {
-		carNames: [],
-		raceResult: [],
-	});
+class App {
+	constructor($target) {
+		this.$app = createEl("div", "app");
+		$target.appendChild(this.$app);
 
-	function startGame() {
-		const carRacingGame = new CarRacingGame(store);
-		carRacingGame.progressGame();
-	}
+		this.store = createStore(carReducer, {
+			carNames: [],
+			round: 0,
+			raceResult: [],
+		});
 
-	function registerEvent() {
-		const $carNameInput = document.getElementById("carNames");
-		const $carNameSubmit = document.getElementById("startRace");
+		this.validateInput = new ValidateInput();
 
-		$carNameSubmit.addEventListener("click", (e) => {
-			e.preventDefault();
+		this.render();
 
-			const carNames = $carNameInput.value.split(SETTING.INPUT_SETTING.SPLITER);
-			const cars = carNames.map((carName) => new Car(carName));
-			store.dispatch(setCarNames(cars));
-			startGame();
+		this.inputContainer = new InputContainer({
+			$target: this.$app,
+			$onSubmit: (carNames, rounds) => {
+				this.validateInput.isValidCarInput(carNames);
+				this.validateInput.isValidRoundInput(rounds);
+
+				const cars = carNames
+					.split(SETTING.INPUT_SETTING.SPLITER)
+					.map((carName) => new Car(carName));
+
+				this.store.dispatch(setCarNames(cars));
+				this.store.dispatch(setRound(rounds));
+				this.startGame();
+			},
+		});
+
+		this.raceTrack = new RaceTrack({
+			$target: this.$app,
+			$initialState: this.store.getState().carNames,
+		});
+
+		this.winnerAnnouncement = new WinnerAnnouncement({
+			$target: this.$app,
+			winners: [],
+		});
+
+		this.store.subscribe(() => {
+			const state = this.store.getState();
+			this.raceTrack.setState({ nextState: state.carNames });
+			this.winnerAnnouncement.setState({ nextState: state.raceResult });
 		});
 	}
 
-	store.subscribe(() => {
-		const state = store.getState();
-		RaceTrack({ cars: state.carNames });
-	});
+	startGame() {
+		this.raceTrack.reset();
+		const carRacingGame = new CarRacingGame(this.store);
+		carRacingGame.progressGame();
+	}
 
-	registerEvent();
+	generateHTML() {
+		return `
+			<h1>🏎️ 자동차 경주 게임 🏎️</h1>
+		`;
+	}
+
+	render() {
+		this.$app.insertAdjacentHTML("beforeend", this.generateHTML());
+	}
 }
+
+export default App;

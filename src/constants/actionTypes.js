@@ -1,6 +1,7 @@
 // actionTypes.js
 const ACTION_TYPES = {
 	SET_CAR_NAMES: "SET_CAR_NAMES",
+	SET_ROUND: "SET_ROUND",
 	SET_RACE_RESULT: "SET_RACE_RESULT",
 };
 

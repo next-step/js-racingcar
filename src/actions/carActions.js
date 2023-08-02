@@ -5,9 +5,14 @@ const setCarNames = (carNames) => ({
 	payload: carNames,
 });
 
+const setRound = (round) => ({
+	type: ACTION_TYPES.SET_ROUND,
+	payload: round,
+});
+
 const setRaceResult = (result) => ({
 	type: ACTION_TYPES.SET_RACE_RESULT,
 	payload: result,
 });
 
-export { setCarNames, setRaceResult };
+export { setCarNames, setRound, setRaceResult };

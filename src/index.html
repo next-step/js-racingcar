@@ -1,5 +1,5 @@
 <!-- index.html -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 	<head>
 		<meta charset="UTF-8" />
@@ -7,16 +7,77 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1.0" />
 		<title>🚀 자동차 경주 미션 1단계 - 콘솔 기반 핵심 기능 구현</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				background-color: #f7f7f7;
+			}
+
+			.app {
+				border: 1px solid #ccc;
+				padding: 20px;
+				background-color: #fff;
+				border-radius: 5px;
+				box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+			}
+
+			h1 {
+				margin-bottom: 20px;
+				text-align: center;
+			}
+
+			form {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			label {
+				margin-bottom: 10px;
+				font-weight: bold;
+			}
+
+			input {
+				padding: 8px;
+				margin-bottom: 10px;
+				border: 1px solid #ccc;
+				border-radius: 3px;
+			}
+
+			button {
+				padding: 8px 16px;
+				background-color: #007bff;
+				color: #fff;
+				border: none;
+				border-radius: 3px;
+				cursor: pointer;
+			}
+
+			.race-track {
+				margin-top: 20px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.car-player {
+				display: flex;
+				align-items: center;
+				margin-bottom: 10px;
+			}
+
+			.car-player__name {
+				font-size: 16px;
+				font-weight: bold;
+			}
+		</style>
 	</head>
 	<body>
-		<h1>자동차 경주 게임</h1>
-		<input
-			type="text"
-			id="carNames"
-			placeholder="자동차 이름을 입력하세요 (쉼표로 구분)" />
-		<button id="startRace">경주 시작</button>
-		<div id="raceTrack"></div>
-
+		<div id="root"></div>
 		<script
 			type="module"
 			src="index.js"></script>

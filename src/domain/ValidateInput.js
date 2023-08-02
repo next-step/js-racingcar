@@ -1,5 +1,5 @@
-import { ERROR_MESSAGE } from "./constants/error.js";
-import { SETTING } from "./constants/setting.js";
+import { ERROR_MESSAGE } from "../constants/error.js";
+import { SETTING } from "../constants/setting.js";
 
 class ValidateInput {
 	constructor() {
@@ -9,7 +9,7 @@ class ValidateInput {
 	}
 
 	isEmpty(input) {
-		if (input.trim() === "") {
+		if (String(input).trim() === "") {
 			throw new Error(ERROR_MESSAGE.INPUT_ERROR.EMPTY);
 		}
 	}
@@ -85,7 +85,7 @@ class ValidateInput {
 			this.isWhitespaceFree(input);
 			this.hasMinCars(input);
 		} catch (error) {
-			throw error;
+			console.log(error);
 		}
 
 		return true;
@@ -97,7 +97,7 @@ class ValidateInput {
 			this.isNumeric(input);
 			this.isPositive(input);
 		} catch (error) {
-			throw error;
+			console.log(error);
 		}
 
 		return true;

@@ -1,4 +1,4 @@
-import ValidateInput from "../src/ValidateInput";
+import ValidateInput from "../src/domain/ValidateInput";
 import { ERROR_MESSAGE } from "../src/constants/error";
 
 describe("Car name input validation", () => {
