@@ -7,6 +7,7 @@ import {
   QUESTION_CAR_NAMES,
   QUESTION_COUNT,
 } from './constants/race.const.js';
+import { REGEX_PUNCTUAL_CHARACTERS } from './constants/regex.const.js';
 import Racer from './racer.js';
 import { print } from './utils/common.util.js';
 import { readline } from './utils/readline.util.js';
@@ -83,7 +84,7 @@ class RacingCar {
 
     const isCarNameNotIncludePunctualCharactersValidated = names
       .split(',')
-      .every((name) => !name.match(/[{}[]\/?.,;:|)*~`!^-_+<>@#$%&\\=\('"]/));
+      .every((name) => !name.match(REGEX_PUNCTUAL_CHARACTERS));
 
     if (!isCarNameNotIncludePunctualCharactersValidated) {
       return false;
