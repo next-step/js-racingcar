@@ -1,7 +1,7 @@
 import GameTrack from "../src/model/GameTrack";
-import { isValidInputLength } from "../src/utils/helpers";
 import RacingCarGameController from "../src/controller/RacingCarGameController";
 import GameWinners from "../src/model/GameWinners";
+import { isValidInputLength } from "../src/model/validator";
 
 const newGame = new RacingCarGameController();
 const gameTrack = new GameTrack();
