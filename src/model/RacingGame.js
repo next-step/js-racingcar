@@ -14,12 +14,9 @@ export class RacingGame {
 
   #racingWinners;
 
-  constructor(carNames, inputCount) {
-    RacingGame.#validateCount(inputCount);
-    this.#racingCount = Number(inputCount) || INIT_RACING_COUNT;
-    this.#racingCars = new RacingCars(carNames, NumberMaker);
-    this.#racingWinners = new RacingWinners();
-    this.#racingResult = [];
+  constructor(carNames, count) {
+    RacingGame.#validateCount(count);
+    this.#init(carNames, count);
   }
 
   static #validateCount(count) {
@@ -31,6 +28,13 @@ export class RacingGame {
     return Object.entries({ ...newMoveStatus })
       .map((racerInfo) => racerInfo.join(SEPERATOR_SYMBOLS.COLON))
       .join(SEPERATOR_SYMBOLS.NEW_LINE);
+  }
+
+  #init(carNames, count) {
+    this.#racingCount = Number(count) || INIT_RACING_COUNT;
+    this.#racingCars = new RacingCars(carNames, NumberMaker);
+    this.#racingWinners = new RacingWinners();
+    this.#racingResult = [];
   }
 
   #updateMoveStatus() {
