@@ -6,20 +6,11 @@ import {
 import { Car } from '../src/car'
 
 describe('Car - Feature', () => {
-  let logSpy
   const carName = 'son'
-
-  beforeEach(() => {
-    logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
-  })
-
-  afterEach(() => {
-    logSpy.mockRestore()
-  })
 
   test('자동차는 이름을 가질 수 있다.', () => {
     // Given, When
-    const car = new Car(carName)
+    const car = new Car({ name: carName })
 
     // Then
     expect(car.getName()).toBe(carName)
@@ -27,7 +18,7 @@ describe('Car - Feature', () => {
 
   test('자동차는 앞으로 전진할 수 있다.', () => {
     // Given
-    const car = new Car(carName)
+    const car = new Car({ name: carName })
 
     // When
     car.run()
@@ -36,17 +27,18 @@ describe('Car - Feature', () => {
     expect(car.getPosition()).toBe(1)
   })
 
-  test('자동차는 전진할 때, 자동차의 이름과 포지션을 같이 출력한다.', () => {
+  test('자동차는 전진할 때, 전달받은 onRun 함수를 호출한다.', () => {
     // Given
     const carName = 'son'
-    const car = new Car(carName)
+    const handleRun = jest.fn()
+    const car = new Car({ name: carName, onRun: handleRun })
 
     // When
     car.run()
 
     // Then
     expect(car.getPosition()).toBe(1)
-    expect(logSpy.mock.calls[0][0]).toBe(`${carName}: -`)
+    expect(handleRun).toBeCalled()
   })
 })
 
@@ -57,7 +49,7 @@ describe('Car - Validate', () => {
 
     // When, Then
     expect(() => {
-      new Car(overCarName)
+      new Car({ name: overCarName })
     }).toThrow(
       new Error(CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(MAX_NAME_LENGTH))
     )
@@ -69,7 +61,7 @@ describe('Car - Validate', () => {
 
     // When, Then
     expect(() => {
-      new Car(emptyCarName)
+      new Car({ name: emptyCarName })
     }).toThrow(
       new Error(CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH(MIN_NAME_LENGTH))
     )
@@ -81,7 +73,7 @@ describe('Car - Validate', () => {
 
     // When, Then
     expect(() => {
-      new Car(inValidCarName)
+      new Car({ name: inValidCarName })
     }).toThrow(new Error(CAR_ERROR_MESSAGE.INVALID_NAME_TYPE))
   })
 
@@ -91,7 +83,7 @@ describe('Car - Validate', () => {
 
     // When, Then
     expect(() => {
-      new Car(inValidCarName)
+      new Car({ name: inValidCarName })
     }).toThrow(new Error(CAR_ERROR_MESSAGE.INVALID_NAME_TYPE))
   })
 })

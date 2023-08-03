@@ -4,35 +4,32 @@ import {
   MIN_NAME_LENGTH,
   CAR_ERROR_MESSAGE
 } from './constants/car'
-import { isString } from './utils/validator'
+import { isString, isFunction } from './utils/validator'
 import { CustomError } from './utils/customError'
 
 export class Car {
   #name
   #position
+  #onRun
 
-  constructor(name) {
-    this.#validate(name)
+  constructor({ name, onRun }) {
+    this.#validate(name, onRun)
 
     this.#name = name
     this.#position = 0
+    this.#onRun = onRun
   }
 
-  #validate(name) {
+  #validate(name, onRun) {
     this.#validateIsString(name)
     this.#validateMinLength(name)
     this.#validateMaxLength(name)
+    this.#validateOnRun(onRun)
   }
 
   run() {
     this.setPosition(this.getPosition() + DEFAULT_STEP_SIZE)
-    this.printCarName()
-  }
-
-  printCarName() {
-    const position = '-'.repeat(this.getPosition())
-
-    console.log(`${this.getName()}: ${position}`)
+    this.#onRun?.(this)
   }
 
   setPosition(newPosition) {
@@ -70,6 +67,15 @@ export class Car {
       throw new CustomError({
         cause: this,
         message: CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(MAX_NAME_LENGTH)
+      })
+    }
+  }
+
+  #validateOnRun(onRun) {
+    if (onRun && !isFunction(onRun)) {
+      throw new CustomError({
+        cause: this,
+        message: CAR_ERROR_MESSAGE.INVALID_ON_RUN_TYPE
       })
     }
   }
