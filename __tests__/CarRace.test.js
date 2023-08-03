@@ -6,7 +6,7 @@ import {
   DUMMY_DUPLICATE_WINNER_RACE_SET
 } from './constants';
 import { ERROR_MESSAGE, RACE_CONFIGURE } from '../src/constants/index';
-import { Car, CarRace } from '../src/classes/index';
+import { CarRace } from '../src/classes/index';
 import { validateDuplicateCars, validateInputMessage } from '../src/race/index';
 
 const { MAX_LAP } = RACE_CONFIGURE;
@@ -26,6 +26,10 @@ describe('자동차 경주 테스트', () => {
     logSpy.mockClear();
   });
 
+  it('경주를 시작하기 위해 반드시 참여하는 자동차 이름을 입력받아야한다.', () => {
+    expect(() => validateInputMessage()).toThrow(ERROR_MESSAGE.NOT_RECEIVED_INPUT);
+  });
+
   test.each(DUMMY_INPUT_CAR_NAMES)(
     '자동차 경주에 참여하는 자동차 이름은 쉼표(,)로 구분하여 입력한다.($input)',
     ({ input }) => {
@@ -35,7 +39,7 @@ describe('자동차 경주 테스트', () => {
     }
   );
 
-  test.each(DUMMY_INCORRECT_INPUT_CAR_NAMES)('경주에 참여하는 자동차는 중복이될 수 없다.', ({ input }) => {
+  test.each(DUMMY_INCORRECT_INPUT_CAR_NAMES)('경주에 참여하는 자동차 이름은 중복이될 수 없다.', ({ input }) => {
     expect(() => {
       validateDuplicateCars(input);
     }).toThrow(ERROR_MESSAGE.DUPLICATE_CAR);

@@ -41,7 +41,7 @@ export const validatePromptListenerType = (listener) => {
 };
 
 export const validateInputMessage = (input) => {
-  if (!input.trim()) {
+  if (!input || !input.trim()) {
     throw new Error(NOT_RECEIVED_INPUT);
   }
 };
