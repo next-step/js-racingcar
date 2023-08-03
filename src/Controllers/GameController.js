@@ -15,6 +15,7 @@ export class GameController {
     this.#readCarName();
   }
 
+  /* validation 코드는 Car Domain으로 넘기고, 에러 처리 로직만 남기기 */
   #readCarName() {
     this.#view.readCarName((userInput) => this.#validateCarName(userInput));
   }
@@ -26,7 +27,9 @@ export class GameController {
 
       this.#handleCarNameInput(carNames);
     } catch (error) {
-      this.#handleError(error, this.#readCarName.bind(this));
+      this.#handleError(error, () => {
+        this.#readCarName();
+      });
     }
   }
 
