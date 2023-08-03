@@ -1,15 +1,7 @@
-import { SEPERATOR_SYMBOLS } from '../constants/commons.js';
-import { ERROR_MESSAGE, INPUT_MESSAGE, OUTPUT_MESSAGE } from '../constants/message.js';
-import { CAR_MAX_LENGTH, CAR_MIN_LENGTH } from '../constants/validate.js';
+import { INPUT_MESSAGE, OUTPUT_MESSAGE } from '../constants/message.js';
 import { RacingGame } from '../model/index.js';
-import {
-  isCharacter,
-  isDuplicateRacingCars,
-  isIncludeSpaces,
-  isInvalidLengthRacingCars,
-  isNumber,
-} from '../utils/validate.js';
 import { View } from '../view/View.js';
+import { Validator } from '../Validator.js';
 
 export class GameController {
   #racingGame;
@@ -18,20 +10,6 @@ export class GameController {
 
   constructor() {
     this.#view = new View();
-  }
-
-  static #validateCarNames(carNames) {
-    const racingCars = carNames.split(SEPERATOR_SYMBOLS.COMMA);
-    if (isIncludeSpaces(racingCars)) throw new SyntaxError(ERROR_MESSAGE.INCLUDE_EMPTY_WORDS);
-    if (!isCharacter(racingCars)) throw new TypeError(ERROR_MESSAGE.AVALIABLE_CHARACTER);
-    if (isInvalidLengthRacingCars(racingCars))
-      throw new RangeError(ERROR_MESSAGE.INVALID_RANGE(CAR_MIN_LENGTH, CAR_MAX_LENGTH));
-    if (isDuplicateRacingCars(racingCars)) throw new SyntaxError(ERROR_MESSAGE.DUPLICATE_CAR_NAMES);
-  }
-
-  static #validateCount(count) {
-    const racingCount = Number(count);
-    if (!isNumber(racingCount)) throw new TypeError(ERROR_MESSAGE.AVALIABLE_NUMBER);
   }
 
   async #retryOnErrors(retryableAction) {
@@ -46,7 +24,7 @@ export class GameController {
   async #getRacingCarNames() {
     return this.#retryOnErrors(async () => {
       const racingCarNames = await this.#view.inputByUser(INPUT_MESSAGE.RACING_CAR);
-      GameController.#validateCarNames(racingCarNames);
+      Validator.check(racingCarNames, INPUT_MESSAGE.RACING_CAR);
       return racingCarNames;
     });
   }
@@ -54,7 +32,7 @@ export class GameController {
   async #getRacingCount() {
     return this.#retryOnErrors(async () => {
       const racingCount = await this.#view.inputByUser(INPUT_MESSAGE.COUNT);
-      GameController.#validateCount(racingCount);
+      Validator.check(racingCount, INPUT_MESSAGE.COUNT);
       return racingCount;
     });
   }
@@ -66,9 +44,7 @@ export class GameController {
   }
 
   #settingRacingGame(carNames, count) {
-    return this.#retryOnErrors(() => {
-      this.#racingGame = new RacingGame(carNames, count);
-    });
+    this.#racingGame = new RacingGame(carNames, count);
   }
 
   #printRaceResult(results) {
