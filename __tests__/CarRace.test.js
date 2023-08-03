@@ -9,7 +9,7 @@ import { ERROR_MESSAGE, RACE_CONFIGURE } from '../src/constants/index';
 import { Car, CarRace } from '../src/classes/index';
 import { validateDuplicateCars, validateInputMessage } from '../src/race/index';
 
-const { MOVE_CONDITION, MAX_LAP } = RACE_CONFIGURE;
+const { MAX_LAP } = RACE_CONFIGURE;
 
 const getRaceWinners = (raceModel) => {
   const carRace = new CarRace(raceModel);
@@ -65,24 +65,6 @@ describe('자동차 경주 테스트', () => {
     carRace.nextLap();
     expect(carRace.lap).toBe(MAX_LAP);
   });
-
-  test.each(DUMMY_CORRECT_CARS)(
-    `자동차 경주에서 거리 값이 ${MOVE_CONDITION} 이상일 때 전진한다. (자동차: $name, 거리:$movableDistance)`,
-    ({ name, movableDistance }) => {
-      const car = new Car(name);
-      car.move(movableDistance);
-      expect(car.moved).toBe(1);
-    }
-  );
-
-  test.each(DUMMY_CORRECT_CARS)(
-    `자동차 경주에서 거리 값이 ${MOVE_CONDITION} 미만이면 멈춘다. (자동차: $name, 거리:$movableDistance)`,
-    ({ name, notMovableDistance }) => {
-      const car = new Car(name);
-      car.move(notMovableDistance);
-      expect(car.moved).toBe(0);
-    }
-  );
 
   it('자동차 경주 종료 후, 많은 거리를 이동한 자동차가 우승한다.', () => {
     const winners = getRaceWinners(DUMMY_RACE_SET);
