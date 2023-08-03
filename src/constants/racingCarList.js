@@ -3,7 +3,7 @@ export const RACING_CAR_LIST = {
   DEFAULT_MAX_MATCH_LENGTH: 5,
   MIN_PARTICIPANTS_LENGTH: 2,
   DEFAULT_RUN_CONDITION: () => true,
-  DEFAULT_END_ON_ROUND: () => {}
+  DEFAULT_ON_END_ROUND: () => {}
 }
 
 export const RACE_ERROR_MESSAGE = {

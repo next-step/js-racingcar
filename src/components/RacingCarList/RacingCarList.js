@@ -20,8 +20,8 @@ export class RacingCarList extends RacingCarListValidator {
     const {
       carNames,
       maxMatchLength = RACING_CAR_LIST.DEFAULT_MAX_MATCH_LENGTH,
-      runCondition = () => true,
-      onEndRound = () => {}
+      runCondition = RACING_CAR_LIST.DEFAULT_RUN_CONDITION,
+      onEndRound = RACING_CAR_LIST.DEFAULT_ON_END_ROUND
     } = state
     this.validate({ carNames, maxMatchLength, onEndRound })
 
