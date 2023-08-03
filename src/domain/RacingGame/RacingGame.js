@@ -1,7 +1,8 @@
 import { Car } from "../Car/Car";
 import { getRandomNumberInRange } from "../../util/getRandomNumber";
 import { Console } from "../../util/Console";
-import { RANDOM_MAX_NUMBER, RANDOM_MIN_NUMBER } from "./_consts";
+import {MIN_GAME_SIZE, RANDOM_MAX_NUMBER, RANDOM_MIN_NUMBER} from "./RacingGame.const";
+import {containsOnlyNumbers} from "../../util/containsOnlyNumbers";
 
 export class RacingGame {
   #racingGameSize;
@@ -22,7 +23,27 @@ export class RacingGame {
       );
     });
   }
+
+  static readRacingGameSizeInput() {
+    return new Promise((resolve, _) => {
+      Console.readLine(
+          "시도할 회수는 몇회인가요?",
+          (userInput) => {
+            resolve(userInput);
+          }
+      );
+    });
+  }
+
+  #validateRacingGameSize = (size) => {
+    if (!containsOnlyNumbers(size))
+      throw new Error(`레이싱 게임 시도 회수를 숫자로 제대로 입력해야합니다.`);
+    if (size < MIN_GAME_SIZE)
+      throw new Error(`레이싱 게임 시도 회수는 ${MIN_GAME_SIZE} 이상이어야 합니다.`);
+  };
+
   setRacingGameSize(racingGameSize) {
+    this.#validateRacingGameSize(racingGameSize)
     this.#racingGameSize = racingGameSize;
   }
 

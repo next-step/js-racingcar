@@ -12,7 +12,6 @@ export const Console = {
   readLine(question, callback) {
     rl.question(addNewLine(question), (input) => {
       callback(input);
-      rl.close();
     });
   },
   /** 출력하기*/
