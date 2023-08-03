@@ -58,7 +58,8 @@ export class RacingGame {
     return this.#racingResult;
   }
 
-  getRacingWinners() {
+  confirmRacingWinners() {
+    this.#racingWinners.setRacingWinners(this.#racingResult);
     return this.#racingWinners.getRacingWinners();
   }
 

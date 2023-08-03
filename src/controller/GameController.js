@@ -68,7 +68,7 @@ export class GameController {
   }
 
   #confirmAfterRacing() {
-    return [this.#racingGame.getRacingResult(), this.#racingGame.getRacingWinners()];
+    return [this.#racingGame.getRacingResult(), this.#racingGame.confirmRacingWinners()];
   }
 
   async run() {

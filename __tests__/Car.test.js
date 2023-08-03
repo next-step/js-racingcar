@@ -64,7 +64,7 @@ describe.each([
   test('자동차 게임이 완료되었을 때 우승자는 최소 1명 이상 나올 수 있다.', () => {
     const racingGame = new RacingGame(carNames, count);
     racingGame.race();
-    const winners = racingGame.getRacingWinners();
+    const winners = racingGame.confirmRacingWinners();
     expect(winners.length >= 1).toBeTruthy();
   });
 });
