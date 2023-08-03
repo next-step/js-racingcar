@@ -1,3 +1,4 @@
+export const CAR_CONSTRUCTOR_NAME = 'Car'
 export const DEFAULT_STEP_SIZE = 1
 export const RUN_THRESHOLDS = 4
 export const MAX_NAME_LENGTH = 5

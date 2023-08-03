@@ -2,7 +2,8 @@ import {
   DEFAULT_STEP_SIZE,
   MAX_NAME_LENGTH,
   MIN_NAME_LENGTH,
-  CAR_ERROR_MESSAGE
+  CAR_ERROR_MESSAGE,
+  CAR_CONSTRUCTOR_NAME
 } from './constants/car'
 import { isString, isFunction } from './utils/validator'
 import { CustomError } from './utils/customError'
@@ -47,7 +48,7 @@ export class Car {
   #validateIsString(name) {
     if (!isString(name)) {
       throw new CustomError({
-        cause: this,
+        cause: CAR_CONSTRUCTOR_NAME,
         message: CAR_ERROR_MESSAGE.INVALID_NAME_TYPE
       })
     }
@@ -56,7 +57,7 @@ export class Car {
   #validateMinLength(name) {
     if (name.length < MIN_NAME_LENGTH) {
       throw new CustomError({
-        cause: this,
+        cause: CAR_CONSTRUCTOR_NAME,
         message: CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH(MIN_NAME_LENGTH)
       })
     }
@@ -65,7 +66,7 @@ export class Car {
   #validateMaxLength(name) {
     if (name.length > MAX_NAME_LENGTH) {
       throw new CustomError({
-        cause: this,
+        cause: CAR_CONSTRUCTOR_NAME,
         message: CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(MAX_NAME_LENGTH)
       })
     }
@@ -74,7 +75,7 @@ export class Car {
   #validateOnRun(onRun) {
     if (onRun && !isFunction(onRun)) {
       throw new CustomError({
-        cause: this,
+        cause: CAR_CONSTRUCTOR_NAME,
         message: CAR_ERROR_MESSAGE.INVALID_ON_RUN_TYPE
       })
     }

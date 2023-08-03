@@ -2,7 +2,8 @@ import {
   DEFAULT_MAX_MATCH_LENGTH,
   DEFAULT_RUN_CONDITION,
   MIN_PARTICIPANTS_LENGTH,
-  RACE_ERROR_MESSAGE
+  RACE_ERROR_MESSAGE,
+  CAR_RACE_CONSTRUCTOR_NAME
 } from './constants/carRace'
 import { isString, isNumber, isFunction } from './utils/validator'
 import { CustomError } from './utils/customError'
@@ -48,7 +49,7 @@ export class CarRace {
     const isOverMaxMatch = this.#match + 1 > this.#maxMatchLength
     if (isOverMaxMatch) {
       throw new CustomError({
-        cause: this,
+        cause: CAR_RACE_CONSTRUCTOR_NAME,
         message: RACE_ERROR_MESSAGE.OVER_MATCH_MAX_LENGTH
       })
     }
@@ -98,7 +99,7 @@ export class CarRace {
   #validateIsString(carNames) {
     if (!isString(carNames)) {
       throw new CustomError({
-        cause: this,
+        cause: CAR_RACE_CONSTRUCTOR_NAME,
         message: CAR_ERROR_MESSAGE.INVALID_NAME_TYPE
       })
     }
@@ -111,7 +112,7 @@ export class CarRace {
 
     if (isDuplicated) {
       throw new CustomError({
-        cause: this,
+        cause: CAR_RACE_CONSTRUCTOR_NAME,
         message: RACE_ERROR_MESSAGE.DUPLICATED_NAMES
       })
     }
@@ -122,7 +123,7 @@ export class CarRace {
 
     if (!car) {
       throw new CustomError({
-        cause: this,
+        cause: CAR_RACE_CONSTRUCTOR_NAME,
         message: RACE_ERROR_MESSAGE.NOT_INCLUDE_CAR
       })
     }
@@ -131,7 +132,7 @@ export class CarRace {
   #validateIsFunction(onEndRound) {
     if (!isFunction(onEndRound)) {
       throw new CustomError({
-        cause: this,
+        cause: CAR_RACE_CONSTRUCTOR_NAME,
         message: RACE_ERROR_MESSAGE.NOT_VALID_ON_END_ROUND
       })
     }
@@ -143,7 +144,7 @@ export class CarRace {
 
     if (!isEnoughParticipants) {
       throw new CustomError({
-        cause: this,
+        cause: CAR_RACE_CONSTRUCTOR_NAME,
         message: RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
       })
     }
@@ -154,7 +155,7 @@ export class CarRace {
 
     if (!isValidMatchLength) {
       throw new CustomError({
-        cause: this,
+        cause: CAR_RACE_CONSTRUCTOR_NAME,
         message: RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH
       })
     }
