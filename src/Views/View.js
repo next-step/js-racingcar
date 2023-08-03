@@ -1,12 +1,13 @@
 import { MESSAGE } from '../constants';
+import { InputView, OutputView, View } from './Views';
 
 export class View {
   #inputView;
   #outputView;
 
-  constructor(inputView, outputView) {
-    this.#inputView = inputView;
-    this.#outputView = outputView;
+  constructor() {
+    this.#inputView = InputView;
+    this.#outputView = OutputView;
   }
 
   readCarName(inputHandler) {
