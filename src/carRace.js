@@ -1,41 +1,47 @@
 import {
-  REQUIRE_METHODS_KEY,
   DEFAULT_MAX_MATCH_LENGTH,
   DEFAULT_RUN_CONDITION,
   MIN_PARTICIPANTS_LENGTH,
   RACE_ERROR_MESSAGE
 } from './constants/carRace'
-import { isFunction, isNumber } from './utils/validator'
+import { isString, isNumber, isFunction } from './utils/validator'
 import { CustomError } from './utils/customError'
+import { Car } from './car'
+import { CAR_ERROR_MESSAGE } from './constants/car'
 
 export class CarRace {
-  #participants
+  #cars
   #match
   #maxMatchLength
   #runCondition
+  #onEndRound
 
   constructor({
-    participants,
+    carNames,
     maxMatchLength = DEFAULT_MAX_MATCH_LENGTH,
-    runCondition = DEFAULT_RUN_CONDITION
+    runCondition = DEFAULT_RUN_CONDITION,
+    onEndRound = () => {}
   }) {
-    this.#validate(participants, maxMatchLength)
-    this.#init(participants, maxMatchLength, runCondition)
+    this.#validate(carNames, maxMatchLength, onEndRound)
+    this.#init(carNames, maxMatchLength, runCondition, onEndRound)
   }
 
-  #validate(participants, maxMatchLength) {
-    this.#validateRequiredMethods(participants)
-    this.#validateEnoughParticipants(participants)
+  #validate(carNames, maxMatchLength, onEndRound) {
+    this.#validateIsString(carNames)
+    this.#validateIsUnique(carNames)
+    this.#validateCarLength(carNames)
+    this.#validateIsFunction(onEndRound)
     this.#validateMatchLength(maxMatchLength)
   }
 
-  #init(participants, maxMatchLength, runCondition) {
+  #init(carNames, maxMatchLength, runCondition, onEndRound) {
     this.#match = 0
-    this.#participants = participants
+    this.#cars = this.#generateCarByNames(carNames)
     this.#maxMatchLength = maxMatchLength
     this.#runCondition = runCondition
+    this.#onEndRound = onEndRound
 
-    this.#resetParticipantsPosition()
+    this.#cars.forEach(car => car.setPosition(0))
   }
 
   startRound() {
@@ -48,55 +54,32 @@ export class CarRace {
     }
 
     this.#match++
-    this.runParticipants()
-  }
-
-  runParticipants() {
-    if (this.getParticipants().length === 0) {
-      throw new CustomError({
-        cause: this,
-        message: RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
-      })
-    }
-
-    this.getParticipants()
-      .filter(this.#runCondition)
-      .forEach(participant => participant.run())
-  }
-
-  #resetParticipantsPosition() {
-    if (this.getParticipants().length === 0) {
-      throw new CustomError({
-        cause: this,
-        message: RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
-      })
-    }
-
-    this.getParticipants().forEach(participant => {
-      participant.setPosition(0)
-    })
-  }
-
-  #isIncludeRequiredMethods(participant) {
-    return REQUIRE_METHODS_KEY.every(
-      method => method in participant && isFunction(participant[method])
-    )
+    this.#runCars()
+    this.#onEndRound(this.#cars)
   }
 
   getMaxMatchLength() {
     return this.#maxMatchLength
   }
 
-  getParticipants() {
-    return this.#participants
+  getCars() {
+    return this.#cars
+  }
+
+  getPositionOf(name) {
+    this.#validateIsString(name)
+    this.#validateIsInclude(name)
+
+    const car = this.#cars.find(car => car.getName() === name)
+    return car.getPosition()
   }
 
   getWinners() {
     const highestPosition = Math.max(
-      ...this.getParticipants().map(participant => participant.getPosition())
+      ...this.#cars.map(car => car.getPosition())
     )
-    const winners = this.getParticipants().filter(
-      participant => participant.getPosition() === highestPosition
+    const winners = this.#cars.filter(
+      car => car.getPosition() === highestPosition
     )
 
     return this.#match !== this.#maxMatchLength
@@ -104,21 +87,59 @@ export class CarRace {
       : winners.map(winner => winner.getName())
   }
 
-  #validateRequiredMethods(participants) {
-    const isIncludeRequiredMethods = participants
-      .map(this.#isIncludeRequiredMethods)
-      .every(hasMethod => hasMethod === true)
+  #runCars() {
+    this.#cars.filter(this.#runCondition).forEach(car => car.run())
+  }
 
-    if (!isIncludeRequiredMethods) {
+  #generateCarByNames(names) {
+    return names.split(',').map(name => new Car({ name: name.trim() }))
+  }
+
+  #validateIsString(carNames) {
+    if (!isString(carNames)) {
       throw new CustomError({
         cause: this,
-        message: RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD
+        message: CAR_ERROR_MESSAGE.INVALID_NAME_TYPE
       })
     }
   }
 
-  #validateEnoughParticipants(participants) {
-    const isEnoughParticipants = participants.length >= MIN_PARTICIPANTS_LENGTH
+  #validateIsUnique(carNames) {
+    const parts = carNames.split(',').map(name => name.trim())
+    const uniqueParts = new Set(parts)
+    const isDuplicated = parts.length !== uniqueParts.size
+
+    if (isDuplicated) {
+      throw new CustomError({
+        cause: this,
+        message: RACE_ERROR_MESSAGE.DUPLICATED_NAMES
+      })
+    }
+  }
+
+  #validateIsInclude(name) {
+    const car = this.#cars.find(car => car.getName() === name)
+
+    if (!car) {
+      throw new CustomError({
+        cause: this,
+        message: RACE_ERROR_MESSAGE.NOT_INCLUDE_CAR
+      })
+    }
+  }
+
+  #validateIsFunction(onEndRound) {
+    if (!isFunction(onEndRound)) {
+      throw new CustomError({
+        cause: this,
+        message: RACE_ERROR_MESSAGE.NOT_VALID_ON_END_ROUND
+      })
+    }
+  }
+
+  #validateCarLength(carNames) {
+    const cars = this.#generateCarByNames(carNames)
+    const isEnoughParticipants = cars.length >= MIN_PARTICIPANTS_LENGTH
 
     if (!isEnoughParticipants) {
       throw new CustomError({
