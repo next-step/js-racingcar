@@ -71,4 +71,17 @@ describe("RacingCarGameController Class 테스트", () => {
 
     expect(racingCarGame.getRoundNumber()).toEqual(testRoundNumber);
   });
+
+  test("0~9 이외의 문자가 포함된 이동횟수 입력시 에러가 발생한다.", () => {
+    const testRoundNumber = "12ㄹ";
+
+    const racingCarGame = new RacingGameController({
+      view: new RacingGameViewer(),
+      model: new Car(),
+    });
+
+    expect(() =>
+      racingCarGame.validateRacingRound(testRoundNumber),
+    ).toThrowError("숫자 형식의 값을 입력해 주세요.");
+  });
 });
