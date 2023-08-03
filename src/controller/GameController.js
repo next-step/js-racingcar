@@ -21,7 +21,7 @@ export class GameController {
     }
   }
 
-  async #getRacingCarNames() {
+  async #inputCarNames() {
     return this.#retryOnErrors(async () => {
       const racingCarNames = await this.#view.inputByUser(INPUT_MESSAGE.RACING_CAR);
       Validator.check(racingCarNames, INPUT_MESSAGE.RACING_CAR);
@@ -29,7 +29,7 @@ export class GameController {
     });
   }
 
-  async #getRacingCount() {
+  async #inputRacingCount() {
     return this.#retryOnErrors(async () => {
       const racingCount = await this.#view.inputByUser(INPUT_MESSAGE.COUNT);
       Validator.check(racingCount, INPUT_MESSAGE.COUNT);
@@ -38,8 +38,8 @@ export class GameController {
   }
 
   async #getUserInput() {
-    const carNames = await this.#getRacingCarNames();
-    const count = await this.#getRacingCount();
+    const carNames = await this.#inputCarNames();
+    const count = await this.#inputRacingCount();
     return [carNames, count];
   }
 
