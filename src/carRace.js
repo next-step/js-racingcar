@@ -4,11 +4,11 @@ import {
   DEFAULT_RUN_CONDITION,
   MIN_PARTICIPANTS_LENGTH,
   RACE_ERROR_MESSAGE
-} from './constants/race'
+} from './constants/carRace'
 import { isFunction, isNumber } from './utils/validator'
 import { CustomError } from './utils/customError'
 
-export class Race {
+export class CarRace {
   #participants
   #match
   #maxMatchLength

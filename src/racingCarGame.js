@@ -1,14 +1,14 @@
-import { DEFAULT_MAX_MATCH_LENGTH } from './constants/race'
+import { DEFAULT_MAX_MATCH_LENGTH } from './constants/carRace'
 import { RUN_THRESHOLDS } from './constants/car'
 import { GAME_ERROR_MESSAGE } from './constants/racingCarGame'
 import { getRandomNumber } from './utils/number'
 import { Car } from './car'
-import { Race } from './race'
+import { CarRace } from './carRace'
 import { CustomError } from './utils/customError'
 
 export class RacingCarGame {
   #cars
-  #race
+  #carRace
   #names
 
   constructor(names) {
@@ -42,7 +42,7 @@ export class RacingCarGame {
 
       this.#names = names
       this.#cars = cars
-      this.#race = new Race({
+      this.#carRace = new CarRace({
         participants: cars,
         runCondition: () => getRandomNumber() > RUN_THRESHOLDS
       })
@@ -62,10 +62,10 @@ export class RacingCarGame {
 
     while (match < DEFAULT_MAX_MATCH_LENGTH) {
       match++
-      this.#race.startRound()
+      this.#carRace.startRound()
     }
 
-    console.log(`우승자: ${this.#race.getWinners().join(', ')}`)
+    console.log(`우승자: ${this.#carRace.getWinners().join(', ')}`)
   }
 
   setParticipants(names) {
@@ -77,7 +77,7 @@ export class RacingCarGame {
   }
 
   getWinners() {
-    return this.#race.getWinners()
+    return this.#carRace.getWinners()
   }
 
   getPositionOf(name) {
@@ -85,7 +85,7 @@ export class RacingCarGame {
   }
 
   getParticipants() {
-    return this.#race.getParticipants()
+    return this.#carRace.getParticipants()
   }
 
   #validate(names) {

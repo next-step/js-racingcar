@@ -2,19 +2,19 @@ import {
   DEFAULT_MAX_MATCH_LENGTH,
   MIN_PARTICIPANTS_LENGTH,
   RACE_ERROR_MESSAGE
-} from '../src/constants/race'
+} from '../src/constants/carRace'
 import { Car } from '../src/car'
-import { Race } from '../src/race'
+import { CarRace } from '../src/carRace'
 
-describe('Race - Feature', () => {
+describe('CarRace - Feature', () => {
   let car1
   let car2
   let car3
 
   beforeEach(() => {
-    car1 = new Car('car1')
-    car2 = new Car('car2')
-    car3 = new Car('car3')
+    car1 = new Car({ name: 'car1' })
+    car2 = new Car({ name: 'car2' })
+    car3 = new Car({ name: 'car3' })
   })
 
   test('경주에 참여한 여러 개의 객체들을 출발선에 놓는다.', () => {
@@ -25,7 +25,7 @@ describe('Race - Feature', () => {
     car3.run()
 
     // When
-    new Race({ participants })
+    new CarRace({ participants })
 
     expect(car1.getPosition()).toBe(0)
     expect(car2.getPosition()).toBe(0)
@@ -37,13 +37,13 @@ describe('Race - Feature', () => {
     const participants = [car1, car2, car3]
 
     // When
-    const race = new Race({
+    const carRace = new CarRace({
       participants,
       maxMatchLength: DEFAULT_MAX_MATCH_LENGTH
     })
 
     // Then
-    expect(race.getMaxMatchLength()).toBe(DEFAULT_MAX_MATCH_LENGTH)
+    expect(carRace.getMaxMatchLength()).toBe(DEFAULT_MAX_MATCH_LENGTH)
   })
 
   test('경주의 최대 경기 횟수가 정의되지 않은 경우, 5회로 지정한다.', () => {
@@ -51,19 +51,19 @@ describe('Race - Feature', () => {
     const participants = [car1, car2, car3]
 
     // When
-    const race = new Race({ participants })
+    const carRace = new CarRace({ participants })
 
     // Then
-    expect(race.getMaxMatchLength()).toBe(DEFAULT_MAX_MATCH_LENGTH)
+    expect(carRace.getMaxMatchLength()).toBe(DEFAULT_MAX_MATCH_LENGTH)
   })
 
   test('경주가 시작될 때, 경주에 참여한 객체들을 최대 경기 횟수 동안 앞으로 전진시킨다.', () => {
     // Given
     const participants = [car1, car2, car3]
-    const race = new Race({ participants })
+    const carRace = new CarRace({ participants })
 
     // When
-    race.startRound()
+    carRace.startRound()
 
     // Then
     expect(car1.getPosition()).toBe(1)
@@ -75,13 +75,13 @@ describe('Race - Feature', () => {
     // Given
     const participants = [car1, car2, car3]
     const runCondition = participant => participant.getName() === 'car1'
-    const race = new Race({
+    const carRace = new CarRace({
       participants,
       runCondition
     })
 
     // When
-    race.startRound()
+    carRace.startRound()
 
     // Then
     expect(car1.getPosition()).toBe(1)
@@ -92,27 +92,27 @@ describe('Race - Feature', () => {
   test('경주에 참여한 객체들의 목록을 출력할 수 있다.', () => {
     // Given
     const participants = [car1, car2, car3]
-    const race = new Race({ participants })
+    const carRace = new CarRace({ participants })
 
     // When, Then
-    expect(race.getParticipants()).toBe(participants)
+    expect(carRace.getParticipants()).toBe(participants)
   })
 
   test('경주가 끝난 뒤, 경주의 우승자를 출력할 수 있다.', () => {
     // Given
     const participants = [car1, car2, car3]
-    const race = new Race({ participants, maxMatchLength: 2 })
+    const carRace = new CarRace({ participants, maxMatchLength: 2 })
 
     // When
-    race.startRound()
-    race.startRound()
+    carRace.startRound()
+    carRace.startRound()
 
     // Then
-    expect(race.getWinners()).toEqual(['car1', 'car2', 'car3'])
+    expect(carRace.getWinners()).toEqual(['car1', 'car2', 'car3'])
   })
 })
 
-describe('Race - Validate', () => {
+describe('CarRace - Validate', () => {
   let car1
   let car2
   let car3
@@ -128,7 +128,7 @@ describe('Race - Validate', () => {
 
     // When, Then
     expect(() => {
-      new Race({
+      new CarRace({
         participants,
         maxMatchLength: null
       })
@@ -138,17 +138,17 @@ describe('Race - Validate', () => {
   test('경주의 최대 경기 횟수 이상으로 라운드를 진행시키는 경우, 에러가 발생한다.', () => {
     // Given
     const participants = [car1, car2, car3]
-    const race = new Race({
+    const carRace = new CarRace({
       participants,
       maxMatchLength: 3
     })
 
     // When, Then
     expect(() => {
-      race.startRound()
-      race.startRound()
-      race.startRound()
-      race.startRound()
+      carRace.startRound()
+      carRace.startRound()
+      carRace.startRound()
+      carRace.startRound()
     }).toThrow(new Error(RACE_ERROR_MESSAGE.OVER_MATCH_MAX_LENGTH))
   })
 
@@ -163,7 +163,7 @@ describe('Race - Validate', () => {
 
     // When, Then
     expect(() => {
-      new Race({ participants })
+      new CarRace({ participants })
     }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD))
   })
 
@@ -178,7 +178,7 @@ describe('Race - Validate', () => {
 
     // When, Then
     expect(() => {
-      new Race({ participants })
+      new CarRace({ participants })
     }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD))
   })
 
@@ -193,7 +193,7 @@ describe('Race - Validate', () => {
 
     // When, Then
     expect(() => {
-      new Race({ participants })
+      new CarRace({ participants })
     }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD))
   })
 
@@ -208,7 +208,7 @@ describe('Race - Validate', () => {
 
     // When, Then
     expect(() => {
-      new Race({ participants })
+      new CarRace({ participants })
     }).toThrow(new Error(RACE_ERROR_MESSAGE.NOT_INCLUDE_METHOD))
   })
 
@@ -218,7 +218,7 @@ describe('Race - Validate', () => {
 
     // When, Then
     expect(() => {
-      new Race({
+      new CarRace({
         participants
       })
     }).toThrow(

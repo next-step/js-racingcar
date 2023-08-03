@@ -5,7 +5,7 @@ import { RacingCarGame } from '../src/racingCarGame'
 import {
   MIN_PARTICIPANTS_LENGTH,
   RACE_ERROR_MESSAGE
-} from '../src/constants/race'
+} from '../src/constants/carRace'
 
 const mockRunOnlyFirstCar = () => {
   let runCount = 0
