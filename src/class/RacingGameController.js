@@ -32,9 +32,10 @@ class RacingCarGameError extends Error {
 export default class RacingGameController {
   model;
   view;
+  #roundNumber;
 
   constructor({ roundNumber = DEFAULT_RACING_ROUND_NUMBER, view, model }) {
-    this.roundNumber = roundNumber;
+    this.#roundNumber = roundNumber;
     this.view = view;
     this.model = model;
   }
@@ -63,7 +64,7 @@ export default class RacingGameController {
   executeMultipleRounds() {
     this.view.printContent("\n실행결과");
 
-    Array.from({ length: this.roundNumber }, () => {
+    Array.from({ length: this.#roundNumber }, () => {
       this.executeOneRound();
       this.view.printContent("");
     });
@@ -107,6 +108,14 @@ export default class RacingGameController {
     return [...carStatus.keys()].filter(
       (car) => carStatus.get(car).distance === maxDistance,
     );
+  }
+
+  getRoundNumber() {
+    return this.#roundNumber;
+  }
+
+  setRoundNumber(number) {
+    this.#roundNumber = number;
   }
 
   async startGame() {
