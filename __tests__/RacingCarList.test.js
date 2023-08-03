@@ -192,7 +192,7 @@ describe('RacingCarList - Validate', () => {
     })
   })
 
-  test.only('경주에 참여한 자동차의 이름이 5자 이상이며 에러를 구독하고 있는 경우, 구독된 함수에 에러 정보를 담아 호출한다.', () => {
+  test('경주에 참여한 자동차의 이름이 5자 이상이며 에러를 구독하고 있는 경우, 구독된 함수에 에러 정보를 담아 호출한다.', () => {
     // Given
     const errorTracker = jest.fn()
     const racingCarList = new RacingCarList()

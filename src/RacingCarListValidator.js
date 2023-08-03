@@ -53,7 +53,7 @@ export class RacingCarListValidator extends Observable {
 
   #validateMaxLength(carNames) {
     const names = carNames.split(',').map(name => name.trim())
-    const isValidName = names.every(name => name.length < MAX_NAME_LENGTH)
+    const isValidName = names.every(name => name.length <= MAX_NAME_LENGTH)
 
     if (isValidName) {
       return

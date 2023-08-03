@@ -14,14 +14,6 @@ const mockRunOnlyFirstCar = () => {
     .mockImplementation(() => (runCount++ % 3 === 0 ? 5 : 0))
 }
 
-const mockCarNames = carNames => {
-  jest
-    .spyOn(gamePrompt, 'gameStart')
-    .mockImplementation(jest.fn(() => Promise.resolve(carNames)))
-
-  jest.spyOn(gamePrompt, 'gameEnd').mockImplementation(() => {})
-}
-
 describe('RacingCarGame - Feature', () => {
   let logSpy
   const carNames = 'sonny, son, son2'
@@ -72,7 +64,7 @@ describe('RacingCarGame - Error', () => {
     jest.clearAllMocks()
   })
 
-  test.only('사용자가 잘못된 입력 값을 작성한 경우, "오류로 인해 게임이 종료되었습니다!"라는 에러 메시지 출력과 함께 프로그램을 종료한다.', async () => {
+  test('사용자가 잘못된 입력 값을 작성한 경우, "오류로 인해 게임이 종료되었습니다!"라는 에러 메시지 출력과 함께 프로그램을 종료한다.', async () => {
     // Given
     const racingCarGame = new RacingCarGame()
 
