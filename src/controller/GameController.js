@@ -59,11 +59,15 @@ export class GameController {
     });
   }
 
-  async #settingRacingGame() {
-    return this.#retryOnErrors(async () => {
-      const racingCarNames = await this.#getRacingCarNames();
-      const racingCount = await this.#getRacingCount();
-      this.#racingGame = new RacingGame(racingCarNames, racingCount);
+  async #getUserInput() {
+    const carNames = await this.#getRacingCarNames();
+    const count = await this.#getRacingCount();
+    return [carNames, count];
+  }
+
+  #settingRacingGame(carNames, count) {
+    return this.#retryOnErrors(() => {
+      this.#racingGame = new RacingGame(carNames, count);
     });
   }
 
@@ -92,7 +96,8 @@ export class GameController {
   }
 
   async run() {
-    await this.#settingRacingGame();
+    const [carNames, count] = await this.#getUserInput();
+    this.#settingRacingGame(carNames, count);
     this.#startRace();
     const [result, racingWinners] = this.#confirmAfterRacing();
     this.#printGameResult(result, racingWinners);
