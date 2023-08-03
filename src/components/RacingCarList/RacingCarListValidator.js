@@ -1,14 +1,9 @@
 import { Observable } from '../../utils/Observable'
 import { isString, isFunction, isNumber } from '../../utils/validator'
+import { CAR, CAR_ERROR_MESSAGE } from '../../constants/car'
 import {
-  CAR_ERROR_MESSAGE,
-  MAX_NAME_LENGTH,
-  MIN_NAME_LENGTH
-} from '../../constants/car'
-import {
-  CAR_RACE_CONSTRUCTOR_NAME,
-  RACE_ERROR_MESSAGE,
-  MIN_PARTICIPANTS_LENGTH
+  RACING_CAR_LIST,
+  RACE_ERROR_MESSAGE
 } from '../../constants/racingCarList'
 
 export class RacingCarListValidator extends Observable {
@@ -20,7 +15,7 @@ export class RacingCarListValidator extends Observable {
     if (!isString(carNames)) {
       this.notify({
         error: {
-          cause: CAR_RACE_CONSTRUCTOR_NAME,
+          cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
           message: CAR_ERROR_MESSAGE.INVALID_NAME_TYPE
         }
       })
@@ -37,7 +32,7 @@ export class RacingCarListValidator extends Observable {
 
   #validateMinLength(carNames) {
     const names = carNames.split(',').map(name => name.trim())
-    const isValidName = names.every(name => name.length >= MIN_NAME_LENGTH)
+    const isValidName = names.every(name => name.length >= CAR.MIN_NAME_LENGTH)
 
     if (isValidName) {
       return
@@ -45,15 +40,15 @@ export class RacingCarListValidator extends Observable {
 
     this.notify({
       error: {
-        cause: CAR_RACE_CONSTRUCTOR_NAME,
-        message: CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH(MIN_NAME_LENGTH)
+        cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
+        message: CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH(CAR.MIN_NAME_LENGTH)
       }
     })
   }
 
   #validateMaxLength(carNames) {
     const names = carNames.split(',').map(name => name.trim())
-    const isValidName = names.every(name => name.length <= MAX_NAME_LENGTH)
+    const isValidName = names.every(name => name.length <= CAR.MAX_NAME_LENGTH)
 
     if (isValidName) {
       return
@@ -61,8 +56,8 @@ export class RacingCarListValidator extends Observable {
 
     this.notify({
       error: {
-        cause: CAR_RACE_CONSTRUCTOR_NAME,
-        message: CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(MAX_NAME_LENGTH)
+        cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
+        message: CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(CAR.MAX_NAME_LENGTH)
       }
     })
   }
@@ -78,7 +73,7 @@ export class RacingCarListValidator extends Observable {
 
     this.notify({
       error: {
-        cause: CAR_RACE_CONSTRUCTOR_NAME,
+        cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
         message: RACE_ERROR_MESSAGE.DUPLICATED_NAMES
       }
     })
@@ -93,7 +88,7 @@ export class RacingCarListValidator extends Observable {
 
     this.notify({
       error: {
-        cause: CAR_RACE_CONSTRUCTOR_NAME,
+        cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
         message: RACE_ERROR_MESSAGE.NOT_VALID_ON_END_ROUND
       }
     })
@@ -101,7 +96,7 @@ export class RacingCarListValidator extends Observable {
 
   #validateCarLength(carNames) {
     const isEnoughParticipants =
-      carNames.split(',').length >= MIN_PARTICIPANTS_LENGTH
+      carNames.split(',').length >= RACING_CAR_LIST.MIN_PARTICIPANTS_LENGTH
 
     if (isEnoughParticipants) {
       return
@@ -109,8 +104,10 @@ export class RacingCarListValidator extends Observable {
 
     this.notify({
       error: {
-        cause: CAR_RACE_CONSTRUCTOR_NAME,
-        message: RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
+        cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
+        message: RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(
+          RACING_CAR_LIST.MIN_PARTICIPANTS_LENGTH
+        )
       }
     })
   }
@@ -124,7 +121,7 @@ export class RacingCarListValidator extends Observable {
 
     this.notify({
       error: {
-        cause: CAR_RACE_CONSTRUCTOR_NAME,
+        cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
         message: RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH
       }
     })

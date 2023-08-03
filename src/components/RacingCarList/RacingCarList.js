@@ -1,7 +1,6 @@
 import {
-  DEFAULT_MAX_MATCH_LENGTH,
-  RACE_ERROR_MESSAGE,
-  CAR_RACE_CONSTRUCTOR_NAME
+  RACING_CAR_LIST,
+  RACE_ERROR_MESSAGE
 } from '../../constants/racingCarList'
 import { Car } from '../Car/Car'
 import { RacingCarListValidator } from './RacingCarListValidator'
@@ -20,7 +19,7 @@ export class RacingCarList extends RacingCarListValidator {
   init(state) {
     const {
       carNames,
-      maxMatchLength = DEFAULT_MAX_MATCH_LENGTH,
+      maxMatchLength = RACING_CAR_LIST.DEFAULT_MAX_MATCH_LENGTH,
       runCondition = () => true,
       onEndRound = () => {}
     } = state
@@ -42,7 +41,7 @@ export class RacingCarList extends RacingCarListValidator {
     if (isOverMaxMatch) {
       this.notify({
         error: {
-          cause: CAR_RACE_CONSTRUCTOR_NAME,
+          cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
           message: RACE_ERROR_MESSAGE.OVER_MATCH_MAX_LENGTH
         }
       })

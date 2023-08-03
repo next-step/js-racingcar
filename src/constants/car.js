@@ -1,8 +1,10 @@
-export const CAR_CONSTRUCTOR_NAME = 'Car'
-export const DEFAULT_STEP_SIZE = 1
-export const RUN_THRESHOLDS = 4
-export const MAX_NAME_LENGTH = 5
-export const MIN_NAME_LENGTH = 1
+export const CAR = {
+  CONSTRUCTOR_NAME: 'Car',
+  DEFAULT_STEP_SIZE: 1,
+  RUN_THRESHOLDS: 4,
+  MAX_NAME_LENGTH: 5,
+  MIN_NAME_LENGTH: 1
+}
 
 export const CAR_ERROR_MESSAGE = {
   OVER_NAME_MAX_LENGTH: maxNum =>

@@ -1,7 +1,10 @@
-export const CAR_RACE_CONSTRUCTOR_NAME = 'CarRace'
-export const DEFAULT_MAX_MATCH_LENGTH = 5
-export const DEFAULT_RUN_CONDITION = () => true
-export const MIN_PARTICIPANTS_LENGTH = 2
+export const RACING_CAR_LIST = {
+  CONSTRUCTOR_NAME: 'RacingCarList',
+  DEFAULT_MAX_MATCH_LENGTH: 5,
+  MIN_PARTICIPANTS_LENGTH: 2,
+  DEFAULT_RUN_CONDITION: () => true,
+  DEFAULT_END_ON_ROUND: () => {}
+}
 
 export const RACE_ERROR_MESSAGE = {
   DUPLICATED_NAMES: '경주에 참여한 자동차의 이름에 중복이 있으면 안됩니다!',

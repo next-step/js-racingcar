@@ -1,9 +1,4 @@
-import {
-  CAR_CONSTRUCTOR_NAME,
-  CAR_ERROR_MESSAGE,
-  MAX_NAME_LENGTH,
-  MIN_NAME_LENGTH
-} from '../../src/constants/car'
+import { CAR, CAR_ERROR_MESSAGE } from '../../src/constants/car'
 import { CarValidator } from '../../src/components/Car/CarValidator'
 
 describe('CarValidator', () => {
@@ -20,8 +15,8 @@ describe('CarValidator', () => {
       // Then
       expect(errorTracker).toBeCalledWith({
         error: {
-          cause: CAR_CONSTRUCTOR_NAME,
-          message: CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(MAX_NAME_LENGTH)
+          cause: CAR.CONSTRUCTOR_NAME,
+          message: CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(CAR.MAX_NAME_LENGTH)
         }
       })
     }
@@ -39,8 +34,8 @@ describe('CarValidator', () => {
     // Then
     expect(errorTracker).toBeCalledWith({
       error: {
-        cause: CAR_CONSTRUCTOR_NAME,
-        message: CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH(MIN_NAME_LENGTH)
+        cause: CAR.CONSTRUCTOR_NAME,
+        message: CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH(CAR.MIN_NAME_LENGTH)
       }
     })
   })
@@ -58,7 +53,7 @@ describe('CarValidator', () => {
       // Then
       expect(errorTracker).toBeCalledWith({
         error: {
-          cause: CAR_CONSTRUCTOR_NAME,
+          cause: CAR.CONSTRUCTOR_NAME,
           message: CAR_ERROR_MESSAGE.INVALID_NAME_TYPE
         }
       })

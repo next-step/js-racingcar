@@ -1,5 +1,5 @@
 import {
-  MIN_PARTICIPANTS_LENGTH,
+  RACING_CAR_LIST,
   RACE_ERROR_MESSAGE
 } from '../src/constants/racingCarList'
 import { GAME_ERROR_MESSAGE } from '../src/constants/racingCarGame'
@@ -87,7 +87,9 @@ describe('RacingCarGame - Error', () => {
 
     //Then
     expect(logSpy.mock.calls.at(0)[0]).toBe(
-      RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
+      RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(
+        RACING_CAR_LIST.MIN_PARTICIPANTS_LENGTH
+      )
     )
     expect(logSpy.mock.calls.at(-1)[0]).toBe(
       GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR

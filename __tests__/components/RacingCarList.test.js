@@ -1,10 +1,8 @@
 import {
-  CAR_RACE_CONSTRUCTOR_NAME,
-  DEFAULT_MAX_MATCH_LENGTH,
-  MIN_PARTICIPANTS_LENGTH,
+  RACING_CAR_LIST,
   RACE_ERROR_MESSAGE
 } from '../../src/constants/racingCarList'
-import { CAR_ERROR_MESSAGE, MAX_NAME_LENGTH } from '../../src/constants/car'
+import { CAR_ERROR_MESSAGE, CAR } from '../../src/constants/car'
 import { RacingCarList } from '../../src/components/RacingCarList/RacingCarList'
 
 describe('RacingCarList - Feature', () => {
@@ -15,7 +13,7 @@ describe('RacingCarList - Feature', () => {
     // When
     racingCarList.init({
       carNames: 'sonny, son1, son2',
-      maxMatchLength: DEFAULT_MAX_MATCH_LENGTH
+      maxMatchLength: RACING_CAR_LIST.DEFAULT_MAX_MATCH_LENGTH
     })
 
     // Then
@@ -78,11 +76,13 @@ describe('RacingCarList - Feature', () => {
     // When
     racingCarList.init({
       carNames: 'sonny, son1, son2',
-      maxMatchLength: DEFAULT_MAX_MATCH_LENGTH
+      maxMatchLength: RACING_CAR_LIST.DEFAULT_MAX_MATCH_LENGTH
     })
 
     // Then
-    expect(racingCarList.getMaxMatchLength()).toBe(DEFAULT_MAX_MATCH_LENGTH)
+    expect(racingCarList.getMaxMatchLength()).toBe(
+      RACING_CAR_LIST.DEFAULT_MAX_MATCH_LENGTH
+    )
   })
 
   test('경주의 최대 경기 횟수가 정의되지 않은 경우, 5회로 지정한다.', () => {
@@ -93,7 +93,9 @@ describe('RacingCarList - Feature', () => {
     racingCarList.init({ carNames: 'sonny, son1, son2' })
 
     // Then
-    expect(racingCarList.getMaxMatchLength()).toBe(DEFAULT_MAX_MATCH_LENGTH)
+    expect(racingCarList.getMaxMatchLength()).toBe(
+      RACING_CAR_LIST.DEFAULT_MAX_MATCH_LENGTH
+    )
   })
 
   test('경주에 참여한 자동차들의 목록을 출력할 수 있다.', () => {
@@ -139,7 +141,7 @@ describe('RacingCarList - Validate', () => {
     // Then
     expect(errorTracker).toBeCalledWith({
       error: {
-        cause: CAR_RACE_CONSTRUCTOR_NAME,
+        cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
         message: RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH
       }
     })
@@ -165,7 +167,7 @@ describe('RacingCarList - Validate', () => {
     // Then
     expect(errorTracker).toBeCalledWith({
       error: {
-        cause: CAR_RACE_CONSTRUCTOR_NAME,
+        cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
         message: RACE_ERROR_MESSAGE.OVER_MATCH_MAX_LENGTH
       }
     })
@@ -186,8 +188,10 @@ describe('RacingCarList - Validate', () => {
     // Then
     expect(errorTracker).toBeCalledWith({
       error: {
-        cause: CAR_RACE_CONSTRUCTOR_NAME,
-        message: RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
+        cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
+        message: RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(
+          RACING_CAR_LIST.MIN_PARTICIPANTS_LENGTH
+        )
       }
     })
   })
@@ -207,8 +211,8 @@ describe('RacingCarList - Validate', () => {
     // Then
     expect(errorTracker).toBeCalledWith({
       error: {
-        cause: CAR_RACE_CONSTRUCTOR_NAME,
-        message: CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(MAX_NAME_LENGTH)
+        cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
+        message: CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(CAR.MAX_NAME_LENGTH)
       }
     })
   })

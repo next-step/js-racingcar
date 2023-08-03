@@ -1,7 +1,6 @@
 import {
-  RACE_ERROR_MESSAGE,
-  CAR_RACE_CONSTRUCTOR_NAME,
-  MIN_PARTICIPANTS_LENGTH
+  RACING_CAR_LIST,
+  RACE_ERROR_MESSAGE
 } from '../../src/constants/racingCarList'
 import { CAR_ERROR_MESSAGE } from '../../src/constants/car'
 import { RacingCarListValidator } from '../../src/components/RacingCarList/RacingCarListValidator'
@@ -20,7 +19,7 @@ describe('RacingCarListValidator', () => {
       // Then
       expect(errorTracker).toBeCalledWith({
         error: {
-          cause: CAR_RACE_CONSTRUCTOR_NAME,
+          cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
           message: RACE_ERROR_MESSAGE.NOT_VALID_MATCH_LENGTH
         }
       })
@@ -39,8 +38,10 @@ describe('RacingCarListValidator', () => {
     // Then
     expect(errorTracker).toBeCalledWith({
       error: {
-        cause: CAR_RACE_CONSTRUCTOR_NAME,
-        message: RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(MIN_PARTICIPANTS_LENGTH)
+        cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
+        message: RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(
+          RACING_CAR_LIST.MIN_PARTICIPANTS_LENGTH
+        )
       }
     })
   })
@@ -58,7 +59,7 @@ describe('RacingCarListValidator', () => {
       // Then
       expect(errorTracker).toBeCalledWith({
         error: {
-          cause: CAR_RACE_CONSTRUCTOR_NAME,
+          cause: RACING_CAR_LIST.CONSTRUCTOR_NAME,
           message: CAR_ERROR_MESSAGE.INVALID_NAME_TYPE
         }
       })

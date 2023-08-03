@@ -1,4 +1,4 @@
-import { DEFAULT_STEP_SIZE } from '../../constants/car'
+import { CAR } from '../../constants/car'
 import { CarValidator } from './CarValidator'
 
 export class Car extends CarValidator {
@@ -23,7 +23,7 @@ export class Car extends CarValidator {
   }
 
   run() {
-    this.setPosition(this.getPosition() + DEFAULT_STEP_SIZE)
+    this.setPosition(this.getPosition() + CAR.DEFAULT_STEP_SIZE)
     this.#onRun?.(this)
   }
 

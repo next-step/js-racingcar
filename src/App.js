@@ -1,5 +1,5 @@
-import { DEFAULT_MAX_MATCH_LENGTH } from './constants/racingCarList'
-import { RUN_THRESHOLDS } from './constants/car'
+import { RACING_CAR_LIST } from './constants/racingCarList'
+import { CAR } from './constants/car'
 import { GAME_ERROR_MESSAGE } from './constants/racingCarGame'
 import { getRandomNumber } from './utils/number'
 import { RacingCarList } from './components/RacingCarList/RacingCarList'
@@ -18,7 +18,7 @@ export class RacingCarGame {
 
     let match = 0
 
-    while (match < DEFAULT_MAX_MATCH_LENGTH) {
+    while (match < RACING_CAR_LIST.DEFAULT_MAX_MATCH_LENGTH) {
       match++
       this.#racingCarList.startRound()
     }
@@ -35,7 +35,7 @@ export class RacingCarGame {
 
       racingCarList.init({
         carNames,
-        runCondition: () => getRandomNumber() > RUN_THRESHOLDS,
+        runCondition: () => getRandomNumber() > CAR.RUN_THRESHOLDS,
         onEndRound: this.#printEndRound
       })
 
