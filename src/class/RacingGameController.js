@@ -33,6 +33,7 @@ export default class RacingGameController {
   model;
   view;
 
+
   constructor({ roundNumber = DEFAULT_RACING_ROUND_NUMBER, view, model }) {
     this.roundNumber = roundNumber;
     this.view = view;

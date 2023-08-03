@@ -58,4 +58,17 @@ describe("RacingCarGameController Class 테스트", () => {
 
     expect(executeOneRoundSpy).toHaveBeenCalledTimes(testRoundNumber);
   });
+
+  test("사용자가 입력한 이동횟수(유효한 경우)로 roundNumber가 갱신된다.", () => {
+    const testRoundNumber = 3;
+
+    const racingCarGame = new RacingGameController({
+      view: new RacingGameViewer(),
+      model: new Car(),
+    });
+
+    racingCarGame.setRoundNumber(testRoundNumber);
+
+    expect(racingCarGame.getRoundNumber).toEqual(testRoundNumber);
+  });
 });
