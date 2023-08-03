@@ -1,4 +1,5 @@
 import {
+  CAR_CONSTRUCTOR_NAME,
   CAR_ERROR_MESSAGE,
   MAX_NAME_LENGTH,
   MIN_NAME_LENGTH
@@ -9,8 +10,11 @@ describe('Car - Feature', () => {
   const carName = 'son'
 
   test('자동차는 이름을 가질 수 있다.', () => {
-    // Given, When
-    const car = new Car({ name: carName })
+    // Given
+    const car = new Car()
+
+    // When
+    car.init({ name: carName })
 
     // Then
     expect(car.getName()).toBe(carName)
@@ -18,7 +22,8 @@ describe('Car - Feature', () => {
 
   test('자동차는 앞으로 전진할 수 있다.', () => {
     // Given
-    const car = new Car({ name: carName })
+    const car = new Car()
+    car.init({ name: carName })
 
     // When
     car.run()
@@ -31,7 +36,8 @@ describe('Car - Feature', () => {
     // Given
     const carName = 'son'
     const handleRun = jest.fn()
-    const car = new Car({ name: carName, onRun: handleRun })
+    const car = new Car()
+    car.init({ name: carName, onRun: handleRun })
 
     // When
     car.run()
@@ -43,47 +49,75 @@ describe('Car - Feature', () => {
 })
 
 describe('Car - Validate', () => {
-  test('자동차의 이름이 6자 이상의 문자열인 경우, 5자 이하의 문자열만 가능하다는 에러가 발생한다.', () => {
+  test('자동차의 이름이 6자 이상의 문자열이며 에러를 구독하고 있는 경우, 구독된 함수에 에러 정보를 담아 호출한다.', () => {
     // Given
-    const overCarName = 'sonny2'
+    const errorTracker = jest.fn()
+    const car = new Car()
+    car.subscribeError(errorTracker)
 
-    // When, Then
-    expect(() => {
-      new Car({ name: overCarName })
-    }).toThrow(
-      new Error(CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(MAX_NAME_LENGTH))
-    )
+    // When
+    car.init({ name: 'sonny2' })
+
+    // Then
+    expect(errorTracker).toBeCalledWith({
+      error: {
+        cause: CAR_CONSTRUCTOR_NAME,
+        message: CAR_ERROR_MESSAGE.OVER_NAME_MAX_LENGTH(MAX_NAME_LENGTH)
+      }
+    })
   })
 
-  test('자동차의 이름이 빈 문자열인 경우, 최소 1자 이상의 문자열만 가능하다는 에러가 발생한다.', () => {
+  test('자동차의 이름이 빈 문자열이며 에러를 구독하고 있는 경우, 구독된 함수에 에러 정보를 담아 호출한다.', () => {
     // Given
-    const emptyCarName = ''
+    const errorTracker = jest.fn()
+    const car = new Car()
+    car.subscribeError(errorTracker)
 
-    // When, Then
-    expect(() => {
-      new Car({ name: emptyCarName })
-    }).toThrow(
-      new Error(CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH(MIN_NAME_LENGTH))
-    )
+    // When
+    car.init({ name: '' })
+
+    // Then
+    expect(errorTracker).toBeCalledWith({
+      error: {
+        cause: CAR_CONSTRUCTOR_NAME,
+        message: CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH(MIN_NAME_LENGTH)
+      }
+    })
   })
 
-  test('자동차의 이름이 숫자인 경우, 문자열만 가능하다는 에러가 발생한다.', () => {
+  test('자동차의 이름이 숫자이며 에러를 구독하고 있는 경우, 구독된 함수에 에러 정보를 담아 호출한다.', () => {
     // Given
-    const inValidCarName = 123
+    const errorTracker = jest.fn()
+    const car = new Car()
+    car.subscribeError(errorTracker)
 
-    // When, Then
-    expect(() => {
-      new Car({ name: inValidCarName })
-    }).toThrow(new Error(CAR_ERROR_MESSAGE.INVALID_NAME_TYPE))
+    // When
+    car.init({ name: 123 })
+
+    // Then
+    expect(errorTracker).toBeCalledWith({
+      error: {
+        cause: CAR_CONSTRUCTOR_NAME,
+        message: CAR_ERROR_MESSAGE.INVALID_NAME_TYPE
+      }
+    })
   })
 
-  test('자동차의 이름이 정의되지 않은 경우, 문자열만 가능하다는 에러가 발생한다.', () => {
+  test('자동차의 이름이 정의되지 않았으며 에러를 구독하고 있는 경우, 구독된 함수에 에러 정보를 담아 호출한다.', () => {
     // Given
-    const inValidCarName = undefined
+    const errorTracker = jest.fn()
+    const car = new Car()
+    car.subscribeError(errorTracker)
 
-    // When, Then
-    expect(() => {
-      new Car({ name: inValidCarName })
-    }).toThrow(new Error(CAR_ERROR_MESSAGE.INVALID_NAME_TYPE))
+    // When
+    car.init({ name: undefined })
+
+    // Then
+    expect(errorTracker).toBeCalledWith({
+      error: {
+        cause: CAR_CONSTRUCTOR_NAME,
+        message: CAR_ERROR_MESSAGE.INVALID_NAME_TYPE
+      }
+    })
   })
 })
