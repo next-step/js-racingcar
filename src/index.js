@@ -1,5 +1,9 @@
 import { RacingCarGame } from './racingCarGame'
+import { gamePrompt } from './gamePrompt'
 
-const racingGame = new RacingCarGame()
+const racingCarGameApp = new RacingCarGame()
 
-racingGame.start()
+gamePrompt.question(`경주할 자동차 이름을 입력하세요. \n`, carNames => {
+  racingCarGameApp.start(carNames)
+  gamePrompt.close()
+})
