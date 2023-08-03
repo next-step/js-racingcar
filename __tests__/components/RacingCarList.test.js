@@ -1,11 +1,11 @@
-import { CAR_ERROR_MESSAGE, MAX_NAME_LENGTH } from '../src/constants/car'
 import {
   CAR_RACE_CONSTRUCTOR_NAME,
   DEFAULT_MAX_MATCH_LENGTH,
   MIN_PARTICIPANTS_LENGTH,
   RACE_ERROR_MESSAGE
-} from '../src/constants/RacingCarList'
-import { RacingCarList } from '../src/RacingCarList'
+} from '../../src/constants/racingCarList'
+import { CAR_ERROR_MESSAGE, MAX_NAME_LENGTH } from '../../src/constants/car'
+import { RacingCarList } from '../../src/components/RacingCarList/RacingCarList'
 
 describe('RacingCarList - Feature', () => {
   test('자동차 이름을 쉼표로 구분할 수 있다.', () => {

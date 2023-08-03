@@ -3,8 +3,8 @@ import {
   CAR_ERROR_MESSAGE,
   MAX_NAME_LENGTH,
   MIN_NAME_LENGTH
-} from '../src/constants/car'
-import { Car } from '../src/car'
+} from '../../src/constants/car'
+import { Car } from '../../src/components/Car/Car'
 
 describe('Car - Feature', () => {
   const carName = 'son'

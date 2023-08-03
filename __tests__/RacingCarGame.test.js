@@ -1,10 +1,10 @@
-import { GAME_ERROR_MESSAGE } from '../src/constants/racingCarGame'
-import * as number from '../src/utils/number'
-import { RacingCarGame } from '../src/racingCarGame'
 import {
   MIN_PARTICIPANTS_LENGTH,
   RACE_ERROR_MESSAGE
-} from '../src/constants/RacingCarList'
+} from '../src/constants/racingCarList'
+import { GAME_ERROR_MESSAGE } from '../src/constants/racingCarGame'
+import { RacingCarGame } from '../src/App'
+import * as number from '../src/utils/number'
 
 const mockRunOnlyFirstCar = () => {
   let runCount = 0

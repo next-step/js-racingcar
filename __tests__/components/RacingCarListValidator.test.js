@@ -1,10 +1,10 @@
-import { RacingCarListValidator } from '../src/RacingCarListValidator'
 import {
   RACE_ERROR_MESSAGE,
   CAR_RACE_CONSTRUCTOR_NAME,
   MIN_PARTICIPANTS_LENGTH
-} from '../src/constants/RacingCarList'
-import { CAR_ERROR_MESSAGE } from '../src/constants/car'
+} from '../../src/constants/racingCarList'
+import { CAR_ERROR_MESSAGE } from '../../src/constants/car'
+import { RacingCarListValidator } from '../../src/components/RacingCarList/RacingCarListValidator'
 
 describe('RacingCarListValidator', () => {
   test.each([['aaaaaa'], ['bbbbbb'], ['ccccccc'], ['dddddd']])(

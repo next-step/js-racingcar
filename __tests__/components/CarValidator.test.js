@@ -1,10 +1,10 @@
-import { CarValidator } from '../src/carValidator'
 import {
   CAR_CONSTRUCTOR_NAME,
   CAR_ERROR_MESSAGE,
   MAX_NAME_LENGTH,
   MIN_NAME_LENGTH
-} from '../src/constants/car'
+} from '../../src/constants/car'
+import { CarValidator } from '../../src/components/Car/CarValidator'
 
 describe('CarValidator', () => {
   test.each([['aaaaaa'], ['bbbbbb'], ['ccccccc'], ['dddddd']])(
