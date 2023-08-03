@@ -69,6 +69,6 @@ describe("RacingCarGameController Class 테스트", () => {
 
     racingCarGame.setRoundNumber(testRoundNumber);
 
-    expect(racingCarGame.getRoundNumber).toEqual(testRoundNumber);
+    expect(racingCarGame.getRoundNumber()).toEqual(testRoundNumber);
   });
 });
