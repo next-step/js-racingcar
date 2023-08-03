@@ -7,9 +7,11 @@ export const Console = {
     output: process.stdout,
   }),
 
-  readLine(question, callback) {
-    this.rl.question(MESSAGE.ADD_NEW_LINE(question), (input) => {
-      callback(input);
+  readLine(question) {
+    return new Promise((resolve) => {
+      this.rl.question(MESSAGE.ADD_NEW_LINE(question), (input) => {
+        resolve(input);
+      });
     });
   },
 

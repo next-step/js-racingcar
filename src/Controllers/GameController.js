@@ -11,12 +11,9 @@ export class GameController {
     this.#readCarName();
   }
 
-  #readCarName() {
-    this.#view.readCarName((userInput) => this.#validateCarName(userInput));
-  }
-
-  #validateCarName(userInput) {
+  async #readCarName() {
     try {
+      const userInput = await this.#view.readCarName();
       const carNames = splitCarNameToArray(userInput);
       carNames.forEach(Validation.validateCarName);
 
@@ -34,19 +31,16 @@ export class GameController {
     this.#readTotalRound();
   }
 
-  #readTotalRound() {
-    this.#view.readTotalRound((userInput) =>
-      this.#validateTotalRound(userInput)
-    );
-  }
-
-  #validateTotalRound(userInput) {
+  async #readTotalRound() {
     try {
+      const userInput = await this.#view.readTotalRound();
       Validation.validateTotalRounds(userInput);
 
       this.#handleTotalRoundInput(userInput);
     } catch (error) {
-      this.#handleError(error, this.#readTotalRound.bind(this));
+      this.#handleError(error, () => {
+        this.#readTotalRound();
+      });
     }
   }
 

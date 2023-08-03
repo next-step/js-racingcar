@@ -9,20 +9,19 @@ export class View {
 
   constructor() {}
 
-  #readInput(message, inputHandler) {
-    this.#inputView.readUserInput(message, (userInput) => {
-      this.#validator(userInput);
+  async #readInput(message) {
+    const userInput = await this.#inputView.readUserInput(message);
+    this.#validator(userInput);
 
-      inputHandler(userInput);
-    });
+    return userInput;
   }
 
-  readCarName(inputHandler) {
-    this.#readInput(MESSAGE.READ.CAR_NAME, inputHandler);
+  async readCarName(inputHandler) {
+    return await this.#readInput(MESSAGE.READ.CAR_NAME);
   }
 
-  readTotalRound(inputHandler) {
-    this.#inputView.readUserInput(MESSAGE.READ.TOTAL_ROUND, inputHandler);
+  async readTotalRound(inputHandler) {
+    return await this.#inputView.readUserInput(MESSAGE.READ.TOTAL_ROUND);
   }
 
   printGameResult(gameResult) {
