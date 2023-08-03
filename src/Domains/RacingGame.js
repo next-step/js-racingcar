@@ -1,4 +1,4 @@
-import { Car } from './';
+import { Car } from './Car';
 import { MESSAGE, RACING_GAME } from '../constants';
 import {
   getRacingResult,

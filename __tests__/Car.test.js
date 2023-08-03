@@ -1,5 +1,5 @@
 import { GameController } from '../src/Controllers/GameController';
-import { Car, RacingGame } from '../src/Models';
+import { Car, RacingGame } from '../src/Domains';
 import { MESSAGE, CAR, RACING_GAME } from '../src/constants';
 import {
   getRandomIntInRange,

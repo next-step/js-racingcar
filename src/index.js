@@ -1,5 +1,5 @@
 import { GameController } from './Controllers/GameController';
-import { RacingGame } from './Models';
+import { RacingGame } from './Domains';
 import { InputView, OutputView, View } from './Views';
 
 export class App {
