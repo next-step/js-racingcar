@@ -1,8 +1,4 @@
-import {
-  splitCarNameToArray,
-  validateCarName,
-  validateTotalRounds,
-} from '../utils';
+import { splitCarNameToArray, Validation } from '../utils';
 
 export class GameController {
   #model;
@@ -23,7 +19,7 @@ export class GameController {
   #validateCarName(userInput) {
     try {
       const carNames = splitCarNameToArray(userInput);
-      carNames.forEach(validateCarName);
+      carNames.forEach(Validation.validateCarName);
 
       this.#handleCarNameInput(carNames);
     } catch (error) {
@@ -47,7 +43,7 @@ export class GameController {
 
   #validateTotalRound(userInput) {
     try {
-      validateTotalRounds(userInput);
+      Validation.validateTotalRounds(userInput);
 
       this.#handleTotalRoundInput(userInput);
     } catch (error) {

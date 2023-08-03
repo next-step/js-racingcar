@@ -1,25 +1,28 @@
 import { MESSAGE } from '../constants';
-import { InputView, OutputView, View } from './Views';
+import { Validation } from '../utils';
+import { InputView, OutputView } from './';
 
 export class View {
-  #inputView;
-  #outputView;
+  #inputView = InputView;
+  #outputView = OutputView;
+  #validator = Validation.validateInput;
 
-  constructor() {
-    this.#inputView = InputView;
-    this.#outputView = OutputView;
+  constructor() {}
+
+  #readInput(message, inputHandler) {
+    this.#inputView.readUserInput(message, (userInput) => {
+      this.#validator(userInput);
+
+      inputHandler(userInput);
+    });
   }
 
   readCarName(inputHandler) {
-    this.#inputView.readUserInput(MESSAGE.READ.CAR_NAME, (userInput) => {
-      inputHandler(userInput);
-    });
+    this.#readInput(MESSAGE.READ.CAR_NAME, inputHandler);
   }
 
   readTotalRound(inputHandler) {
-    this.#inputView.readUserInput(MESSAGE.READ.TOTAL_ROUND, (userInput) => {
-      inputHandler(userInput);
-    });
+    this.#inputView.readUserInput(MESSAGE.READ.TOTAL_ROUND, inputHandler);
   }
 
   printGameResult(gameResult) {
