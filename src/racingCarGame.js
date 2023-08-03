@@ -1,62 +1,49 @@
-import { DEFAULT_MAX_MATCH_LENGTH } from './constants/carRace'
+import { DEFAULT_MAX_MATCH_LENGTH } from './constants/RacingCarList'
 import { RUN_THRESHOLDS } from './constants/car'
 import { GAME_ERROR_MESSAGE } from './constants/racingCarGame'
 import { getRandomNumber } from './utils/number'
-import { CarRace } from './carRace'
-import { gameEnd, gameStart } from './gamePrompt'
+import { RacingCarList } from './RacingCarList'
+import { gamePrompt } from './gamePrompt'
 
 export class RacingCarGame {
-  #carRace
+  #capturedError
+  #racingCarList
 
-  constructor() {
-    const origin = this
+  start(carNames) {
+    this.#initializeRacingCarList(carNames)
 
-    return new Proxy(this, {
-      get(target, key) {
-        const method = Reflect.get(target, key)
+    if (this.#capturedError) {
+      return
+    }
 
-        return (...args) => {
-          try {
-            return method.apply(origin, args)
-          } catch (error) {
-            console.log('catch error!!!!!!')
-
-            if (error.cause === undefined) {
-              console.log(GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR)
-            } else {
-              console.log(`${error.cause}에서 발생한 에러 : ${error.message}`)
-            }
-
-            gameEnd()
-          }
-        }
-      }
-    })
-  }
-
-  async start() {
-    const carNames = await gameStart()
-
-    this.#init(carNames)
     let match = 0
 
     while (match < DEFAULT_MAX_MATCH_LENGTH) {
       match++
-      this.#carRace.startRound()
+      this.#racingCarList.startRound()
     }
 
     console.log(
-      `\n${this.#carRace.getWinners().join(', ')}가 최종 우승했습니다.`
+      `\n${this.#racingCarList.getWinners().join(', ')}가 최종 우승했습니다.`
     )
-    gameEnd()
   }
 
-  #init(carNames) {
-    this.#carRace = new CarRace({
-      carNames,
-      runCondition: () => getRandomNumber() > RUN_THRESHOLDS,
-      onEndRound: this.#printEndRound
-    })
+  #initializeRacingCarList(carNames) {
+    try {
+      const racingCarList = new RacingCarList()
+      racingCarList.subscribeError(this.#errorTracker.bind(this))
+
+      racingCarList.init({
+        carNames,
+        runCondition: () => getRandomNumber() > RUN_THRESHOLDS,
+        onEndRound: this.#printEndRound
+      })
+
+      this.#racingCarList = racingCarList
+    } catch (e) {
+      console.error(GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR)
+      gamePrompt.close()
+    }
   }
 
   #printEndRound(cars) {
@@ -65,5 +52,14 @@ export class RacingCarGame {
 
     const result = cars.map(currentTrack).join('\n')
     console.log(`\n${result}`)
+  }
+
+  #errorTracker({ error }) {
+    console.error(error.message)
+    console.error(GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR)
+    gamePrompt.close()
+
+    this.#capturedError = error
+    this.#racingCarList = null
   }
 }
