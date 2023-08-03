@@ -2,18 +2,14 @@ import { DEFAULT_MAX_MATCH_LENGTH } from './constants/carRace'
 import { RUN_THRESHOLDS } from './constants/car'
 import { GAME_ERROR_MESSAGE } from './constants/racingCarGame'
 import { getRandomNumber } from './utils/number'
-import { Car } from './car'
 import { CarRace } from './carRace'
-import { CustomError } from './utils/customError'
+import { gameEnd, gameStart } from './gamePrompt'
 
 export class RacingCarGame {
-  #cars
   #carRace
-  #names
 
-  constructor(names) {
+  constructor() {
     const origin = this
-    this.#init(names)
 
     return new Proxy(this, {
       get(target, key) {
@@ -23,41 +19,25 @@ export class RacingCarGame {
           try {
             return method.apply(origin, args)
           } catch (error) {
+            console.log('catch error!!!!!!')
+
             if (error.cause === undefined) {
               console.log(GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR)
-              return
+            } else {
+              console.log(`${error.cause}에서 발생한 에러 : ${error.message}`)
             }
 
-            console.log(error.message)
+            gameEnd()
           }
         }
       }
     })
   }
 
-  #init(names) {
-    try {
-      this.#validate(names)
-      const cars = this.generateCarByNames(names)
+  async start() {
+    const carNames = await gameStart()
 
-      this.#names = names
-      this.#cars = cars
-      this.#carRace = new CarRace({
-        participants: cars,
-        runCondition: () => getRandomNumber() > RUN_THRESHOLDS
-      })
-    } catch (error) {
-      if (error.cause === undefined) {
-        console.log(GAME_ERROR_MESSAGE.GAME_TERMINATE_OF_ERROR)
-        return
-      }
-
-      console.log(error.message)
-    }
-  }
-
-  start() {
-    this.#init(this.#names)
+    this.#init(carNames)
     let match = 0
 
     while (match < DEFAULT_MAX_MATCH_LENGTH) {
@@ -65,39 +45,25 @@ export class RacingCarGame {
       this.#carRace.startRound()
     }
 
-    console.log(`우승자: ${this.#carRace.getWinners().join(', ')}`)
+    console.log(
+      `\n${this.#carRace.getWinners().join(', ')}가 최종 우승했습니다.`
+    )
+    gameEnd()
   }
 
-  setParticipants(names) {
-    this.#init(names)
+  #init(carNames) {
+    this.#carRace = new CarRace({
+      carNames,
+      runCondition: () => getRandomNumber() > RUN_THRESHOLDS,
+      onEndRound: this.#printEndRound
+    })
   }
 
-  generateCarByNames(names) {
-    return names.split(',').map(name => new Car(name.trim()))
-  }
+  #printEndRound(cars) {
+    const currentTrack = car =>
+      `${car.getName()} : ${'-'.repeat(car.getPosition())}`
 
-  getWinners() {
-    return this.#carRace.getWinners()
-  }
-
-  getPositionOf(name) {
-    return this.#cars.find(car => car.getName() === name).getPosition()
-  }
-
-  getParticipants() {
-    return this.#carRace.getParticipants()
-  }
-
-  #validate(names) {
-    const parts = names.split(',').map(name => name.trim())
-    const uniqueParts = new Set(parts)
-    const isDuplicated = parts.length !== uniqueParts.size
-
-    if (isDuplicated) {
-      throw new CustomError({
-        cause: this,
-        message: GAME_ERROR_MESSAGE.DUPLICATED_NAMES
-      })
-    }
+    const result = cars.map(currentTrack).join('\n')
+    console.log(`\n${result}`)
   }
 }
