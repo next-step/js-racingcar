@@ -1,5 +1,5 @@
 import Car from '../src/Car';
-import { CAR_NAME_ERROR_MESSAGE } from '../src/Car/constants';
+import { NAME_ERROR_MESSAGE, NAME_LENGTH } from '../src/Car/constants';
 import * as getRandomInRangeModule from '../src/utils/getRandomInRange';
 
 describe('Car Class', () => {
@@ -21,25 +21,25 @@ describe('Car Class', () => {
   });
 
   describe('자동차 이름 검증 테스트', () => {
-    test('자동차 이름 길이가 5보다 작으면 에러가 발생하지 않는다.', () => {
+    test(`자동차 이름 길이가 ${NAME_LENGTH.MIN}에서 ${NAME_LENGTH.MAX} 사이면 에러가 발생하지 않는다.`, () => {
       const names = ['자동차1', '자동차2', '자동차3', '자동차4', '자동차5'];
 
       names.forEach((name) => expect(() => Car.of(name)).not.toThrow());
     });
 
-    test('자동차 이름 길이는 최대 5글자다.', () => {
+    test(`자동차 이름 길이는 최대 ${NAME_LENGTH.MAX}글자다.`, () => {
       const name = '최대다섯글자';
 
       expect(() => Car.of(name)).toThrow(
-        new Error(CAR_NAME_ERROR_MESSAGE.OVER_THAN_MAX)
+        new Error(NAME_ERROR_MESSAGE.OVER_THAN_MAX)
       );
     });
 
-    test('자동차 이름의 길이는 최소 1글자 이상이다.', () => {
+    test(`자동차 이름의 길이는 최소 ${NAME_LENGTH.MIN}글자 이상이다.`, () => {
       const name = '';
 
       expect(() => Car.of(name)).toThrow(
-        new Error(CAR_NAME_ERROR_MESSAGE.LESS_THAN_MIN)
+        new Error(NAME_ERROR_MESSAGE.LESS_THAN_MIN)
       );
     });
   });

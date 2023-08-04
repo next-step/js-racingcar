@@ -1,7 +1,7 @@
 import { getRandomInRange } from '../utils/getRandomInRange.js';
 import {
-  CAR_NAME_ERROR_MESSAGE,
-  CAR_NAME_LENGTH,
+  NAME_LENGTH,
+  NAME_ERROR_MESSAGE,
   MOVE_FORWARD_THRESHOLD,
 } from './constants.js';
 
@@ -20,12 +20,12 @@ class Car {
   }
 
   validateName(name) {
-    if (name.length <= CAR_NAME_LENGTH.MIN) {
-      throw new Error(CAR_NAME_ERROR_MESSAGE.LESS_THAN_MIN);
+    if (name.length <= NAME_LENGTH.MIN) {
+      throw new Error(NAME_ERROR_MESSAGE.LESS_THAN_MIN);
     }
 
-    if (name.length > CAR_NAME_LENGTH.MAX) {
-      throw new Error(CAR_NAME_ERROR_MESSAGE.OVER_THAN_MAX);
+    if (name.length > NAME_LENGTH.MAX) {
+      throw new Error(NAME_ERROR_MESSAGE.OVER_THAN_MAX);
     }
   }
 
