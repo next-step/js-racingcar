@@ -8,34 +8,62 @@ const {
   MIN_ROUND_COUNT,
 } = require('./constants/racing-rule.js');
 
-const checkOverMaxValue = (value, maxCount, message) => {
-  if (Number(value) > maxCount) throw new Error(message);
+const checkOverMaxCarName = (name) => {
+  if (Number(name) > MAX_NAME_LENGTH) {
+    throw new Error(ERROR_MESSAGES.MORE_THAN_MAX_NAME_LENGTH);
+  }
 };
 
-const checkUnderMinValue = (value, minCount, message) => {
-  if (Number(value) < minCount) throw new Error(message);
+const checkUnderMinCarName = (name) => {
+  if (Number(name) < MIN_NAME_LENGTH) {
+    throw new Error(ERROR_MESSAGES.LESS_THAN_MIN_NAME_LENGTH);
+  }
+};
+
+const checkOverMaxUserCount = (count) => {
+  if (Number(count) > MAX_USER_COUNT) {
+    throw new Error(ERROR_MESSAGES.MORE_THAN_MAX_USER_COUNT);
+  }
+};
+const checkUnderMinUserCount = (count) => {
+  if (Number(count) < MIN_USER_COUNT) {
+    throw new Error(ERROR_MESSAGES.LESS_THAN_MIN_USER_COUNT);
+  }
+};
+
+const checkOverMaxRound = (count) => {
+  if (Number(count) > MAX_ROUND_COUNT) {
+    throw new Error(ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
+  }
+};
+const checkUnderMinRound = (count) => {
+  if (Number(count) < MIN_ROUND_COUNT) {
+    throw new Error(ERROR_MESSAGES.LESS_THAN_MIN_ROUND_COUNT);
+  }
 };
 
 const checkDuplication = (names) => {
   const checkDuplicationNames = new Set(names).size !== names.length;
-  if (checkDuplicationNames) throw new Error(ERROR_MESSAGES.HAS_DUPLICATED_NAME);
+  if (checkDuplicationNames) {
+    throw new Error(ERROR_MESSAGES.HAS_DUPLICATED_NAME);
+  }
 };
 
 class Validator {
   static checkValidCarList(names) {
-    checkOverMaxValue(names.length, MAX_USER_COUNT, ERROR_MESSAGES.MORE_THAN_MAX_USER_COUNT);
-    checkUnderMinValue(names.length, MIN_USER_COUNT, ERROR_MESSAGES.LESS_THAN_MIN_USER_COUNT);
+    checkOverMaxUserCount(names.length);
+    checkUnderMinUserCount(names.length);
     checkDuplication(names);
   }
 
   static checkValidCarName(name) {
-    checkOverMaxValue(name.length, MAX_NAME_LENGTH, ERROR_MESSAGES.MORE_THAN_MAX_NAME_LENGTH);
-    checkUnderMinValue(name.length, MIN_NAME_LENGTH, ERROR_MESSAGES.LESS_THAN_MIN_NAME_LENGTH);
+    checkOverMaxCarName(name.length);
+    checkUnderMinCarName(name.length);
   }
 
   static checkValidRound(round) {
-    checkOverMaxValue(round, MAX_ROUND_COUNT, ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
-    checkUnderMinValue(round, MIN_ROUND_COUNT, ERROR_MESSAGES.LESS_THAN_MIN_ROUND_COUNT);
+    checkOverMaxRound(round);
+    checkUnderMinRound(round);
   }
 }
 
