@@ -1,5 +1,8 @@
 import GameSimulator from '../src/GameSimulator';
-import { MAX_ROUNDS } from '../src/GameSimulator/constants';
+import {
+  CAR_NAME_ERROR_MESSAGE,
+  MAX_ROUNDS,
+} from '../src/GameSimulator/constants';
 import { validateCarName } from '../src/GameSimulator/utils';
 import { createMessageViewer } from '../src/utils/createMessageViewer';
 import { getUserInputByQuestion } from '../src/utils/getUserInputByQuestion';
@@ -41,7 +44,9 @@ describe('GameSimulator 테스트', () => {
         const carNames = ['최대다섯글자', '최대다섯글자입니다'];
 
         carNames.forEach((name) =>
-          expect(() => validateCarName(name)).toThrow()
+          expect(() => validateCarName(name)).toThrow(
+            new Error(CAR_NAME_ERROR_MESSAGE.OVER_THAN_MAX)
+          )
         );
       });
 
@@ -49,7 +54,9 @@ describe('GameSimulator 테스트', () => {
         const carNames = ['', ''];
 
         carNames.forEach((name) =>
-          expect(() => validateCarName(name)).toThrow()
+          expect(() => validateCarName(name)).toThrow(
+            new Error(CAR_NAME_ERROR_MESSAGE.LESS_THAN_MIN)
+          )
         );
       });
     });
