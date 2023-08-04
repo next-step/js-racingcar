@@ -1,5 +1,9 @@
 import { getRandomInRange } from '../utils/getRandomInRange.js';
-import { MOVE_FORWARD_THRESHOLD } from './constants.js';
+import {
+  CAR_NAME_ERROR_MESSAGE,
+  CAR_NAME_LENGTH,
+  MOVE_FORWARD_THRESHOLD,
+} from './constants.js';
 
 class Car {
   #name;
@@ -10,7 +14,19 @@ class Car {
   }
 
   constructor(name) {
+    this.validateName(name);
+
     this.#name = name;
+  }
+
+  validateName(name) {
+    if (name.length <= CAR_NAME_LENGTH.MIN) {
+      throw new Error(CAR_NAME_ERROR_MESSAGE.LESS_THAN_MIN);
+    }
+
+    if (name.length > CAR_NAME_LENGTH.MAX) {
+      throw new Error(CAR_NAME_ERROR_MESSAGE.OVER_THAN_MAX);
+    }
   }
 
   getName() {

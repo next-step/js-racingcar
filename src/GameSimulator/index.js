@@ -1,11 +1,7 @@
 import Car from '../Car/index.js';
 import RacingGame from '../RacingGame/index.js';
 import { getUserInputByQuestion } from '../utils/getUserInputByQuestion.js';
-import {
-  CAR_NAME_ERROR_MESSAGE,
-  CAR_NAME_LENGTH,
-  MAX_ROUNDS,
-} from './constants.js';
+import { MAX_ROUNDS } from './constants.js';
 
 class GameSimulator {
   #racingGame;
@@ -21,19 +17,7 @@ class GameSimulator {
     );
     const carNames = inputString.split(',');
 
-    carNames.forEach((name) => this.validateCarName(name));
-
     this.#racingGame = new RacingGame(carNames.map(Car.of));
-  }
-
-  validateCarName(carName) {
-    if (carName.length <= CAR_NAME_LENGTH.MIN) {
-      throw new Error(CAR_NAME_ERROR_MESSAGE.LESS_THAN_MIN);
-    }
-
-    if (carName.length > CAR_NAME_LENGTH.MAX) {
-      throw new Error(CAR_NAME_ERROR_MESSAGE.OVER_THAN_MAX);
-    }
   }
 
   runRound() {

@@ -1,8 +1,5 @@
 import GameSimulator from '../src/GameSimulator';
-import {
-  CAR_NAME_ERROR_MESSAGE,
-  MAX_ROUNDS,
-} from '../src/GameSimulator/constants';
+import { MAX_ROUNDS } from '../src/GameSimulator/constants';
 import { createMessageViewer } from '../src/utils/createMessageViewer';
 import { getUserInputByQuestion } from '../src/utils/getUserInputByQuestion';
 
@@ -30,34 +27,6 @@ describe('GameSimulator 테스트', () => {
       simulator.startGame();
 
       expect(getUserInputByQuestion).toHaveBeenCalled();
-    });
-
-    describe('자동차 이름 검증 테스트', () => {
-      test('자동차 이름 길이가 5보다 작으면 에러가 발생하지 않는다.', () => {
-        CAR_NAMES.forEach((name) =>
-          expect(() => simulator.validateCarName(name)).not.toThrow()
-        );
-      });
-
-      test('자동차 이름 길이는 최대 5글자다.', () => {
-        const carNames = ['최대다섯글자', '최대다섯글자입니다'];
-
-        carNames.forEach((name) =>
-          expect(() => simulator.validateCarName(name)).toThrow(
-            new Error(CAR_NAME_ERROR_MESSAGE.OVER_THAN_MAX)
-          )
-        );
-      });
-
-      test('자동차 이름의 길이는 최소 1글자 이상이다.', () => {
-        const carNames = ['', ''];
-
-        carNames.forEach((name) =>
-          expect(() => simulator.validateCarName(name)).toThrow(
-            new Error(CAR_NAME_ERROR_MESSAGE.LESS_THAN_MIN)
-          )
-        );
-      });
     });
 
     describe('자동차 주행 테스트', () => {
