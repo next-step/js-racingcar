@@ -59,7 +59,7 @@ export class CarRace {
   }
 
   getCarNames() {
-    return this.#cars.map((car) => car.name);
+    return this.#cars.map(({ name }) => name);
   }
 
   run(options = { verbose: true }) {
@@ -75,9 +75,11 @@ export class CarRace {
   }
 
   getWinners() {
-    const maxPosition = Math.max(...this.#cars.map((car) => car.position));
-    const winners = this.#cars.filter((car) => car.position === maxPosition);
-    return winners.map((car) => car.name);
+    const maxPosition = Math.max(...this.#cars.map(({ position }) => position));
+    const winners = this.#cars.filter(
+      ({ position }) => position === maxPosition
+    );
+    return winners.map(({ name }) => name);
   }
 
   printStatus() {
@@ -89,11 +91,12 @@ export class CarRace {
   }
 
   printWinners() {
-    if (this.#currentLap === this.#laps) {
-      const winners = this.getWinners();
-      console.log(`${winners.join(", ")}가 최종 우승하였습니다.`);
-    } else {
+    if (this.#currentLap !== this.#laps) {
       console.log("아직 경기가 끝나지 않았습니다.");
+      return;
     }
+
+    const winners = this.getWinners();
+    console.log(`${winners.join(", ")}가 최종 우승하였습니다.`);
   }
 }
