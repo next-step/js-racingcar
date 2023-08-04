@@ -3,12 +3,14 @@ import { stdin as input, stdout as output } from "node:process";
 
 import { CarRace } from "./CarRace";
 
-const rl = readline.createInterface({ input, output });
-const rawCarNames = await rl.question(
-  "Type in anything and press the enter.\n"
-);
-rl.close();
+const play = (userInput) => {
+  const race = new CarRace(userInput);
+  race.run();
+};
 
-const race = new CarRace();
-race.init(rawCarNames);
-race.run();
+const rl = readline.createInterface({ input, output });
+
+rl.question("Type in anything and press the enter.\n").then((userInput) => {
+  rl.close();
+  play(userInput);
+});
