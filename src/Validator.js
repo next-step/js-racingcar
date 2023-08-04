@@ -49,6 +49,18 @@ const checkDuplication = (names) => {
   }
 };
 
+const checkEmpty = (value) => {
+  if (value.length === 0) {
+    throw new Error(ERROR_MESSAGES.IS_EMPTY);
+  }
+};
+
+const checkIsNumber = (value) => {
+  if (isNaN(+value)) {
+    throw new Error(ERROR_MESSAGES.IS_NOT_NUMBER);
+  }
+};
+
 class Validator {
   static checkValidCarList(names) {
     checkOverMaxUserCount(names.length);
@@ -62,6 +74,8 @@ class Validator {
   }
 
   static checkValidRound(round) {
+    checkEmpty(round);
+    checkIsNumber(round);
     checkOverMaxRound(round);
     checkUnderMinRound(round);
   }

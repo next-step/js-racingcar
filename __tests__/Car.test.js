@@ -143,7 +143,7 @@ describe('진행할 라운드를 입력 받는다.', () => {
       const input = '안녕';
 
       Validator.checkValidRound(input);
-    }).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
+    }).toThrow(ERROR_MESSAGES.IS_NOT_NUMBER);
   });
 
   test(`입력한 라운드가 공백인 경우`, () => {
@@ -151,7 +151,7 @@ describe('진행할 라운드를 입력 받는다.', () => {
       const input = '';
 
       Validator.checkValidRound(input);
-    }).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
+    }).toThrow(ERROR_MESSAGES.IS_EMPTY);
   });
 });
 
