@@ -20,13 +20,9 @@ export class CarRace {
   #cars = [];
   #laps = DEFAULT_CONFIG.RACE_LAPS;
   #currentLap = 0;
-  init(rawCarNames) {
-    if (!isString(rawCarNames)) {
-      throw new InvalidCarNamesError(
-        "The given car names value is not a string"
-      );
-    }
-    const carNames = this.parseCarNames(rawCarNames);
+
+  constructor(rawCarNames) {
+    const carNames = this.#parseCarNames(rawCarNames);
     if (carNames.length < DEFAULT_CONFIG.MIN_NUM_OF_CARS) {
       throw new InvalidCarNamesError(
         "A number of cars were given that are too small to race."
@@ -37,16 +33,17 @@ export class CarRace {
       .map((carName) => new Car(carName));
   }
 
-  parseCarNames(rawCarNames) {
+  #parseCarNames(rawCarNames) {
+    if (!isString(rawCarNames)) {
+      throw new InvalidCarNamesError(
+        "The given car names value is not a string"
+      );
+    }
     const carNames = rawCarNames
       .split(",")
       .map((carName) => carName.trim())
       .filter((carName) => carName);
     return [...new Set(carNames)];
-  }
-
-  getCarNames() {
-    return this.#cars.map((car) => car.name);
   }
 
   #race() {
@@ -59,6 +56,10 @@ export class CarRace {
       )
     );
     this.#currentLap += 1;
+  }
+
+  getCarNames() {
+    return this.#cars.map((car) => car.name);
   }
 
   run(options = { verbose: true }) {

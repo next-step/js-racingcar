@@ -4,14 +4,12 @@ const TEST_CAR_NAMES = ["car1", "car2", "car3"];
 const MIN_NUM_OF_WINNERS = 1;
 
 describe("Test class CarRace", () => {
-  const race = new CarRace();
-
   it("should initiated with valid car names", () => {
-    expect(() => race.init()).toThrow(InvalidCarNamesError);
-    expect(() => race.init("")).toThrow(InvalidCarNamesError);
+    expect(() => new CarRace()).toThrow(InvalidCarNamesError);
+    expect(() => new CarRace("")).toThrow(InvalidCarNamesError);
   });
 
-  race.init(TEST_CAR_NAMES.join(","));
+  const race = new CarRace(TEST_CAR_NAMES.join(","));
 
   it("should have car names", () => {
     expect(race.getCarNames().sort()).toEqual(TEST_CAR_NAMES.sort());
