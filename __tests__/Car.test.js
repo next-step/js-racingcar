@@ -58,7 +58,7 @@ describe('Car Class', () => {
       canMoveForwardSpy.mockRestore();
     });
 
-    test('조건을 만작하고 자동차가 전진시 주행거리의 값이 1 늘어난다.', () => {
+    test('조건을 만족하고 자동차가 전진시 주행거리의 값이 1 늘어난다.', () => {
       const prevDistanceDriven = car.getDistanceDriven();
 
       canMoveForwardSpy.mockReturnValue(true);
