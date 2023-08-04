@@ -39,7 +39,7 @@ class App {
     const names = await this.#getUserInput(MESSAGES.REQUEST.ENTER_THE_CARS);
     const nameList = splitByStandard(names);
 
-    this.#checkValidation(nameList, Validator.isValidList, this.#getCarNames);
+    this.#checkValidation(nameList, Validator.isValidList, () => this.#getCarNames());
     this.#setCars(nameList);
   }
 
@@ -48,7 +48,7 @@ class App {
       this.#cars = names.map((name) => new Car(name));
       this.#getRound();
     } catch (err) {
-      this.#showError(err, this.#getCarNames);
+      this.#showError(err, () => this.#getCarNames());
     }
   }
 
@@ -63,7 +63,7 @@ class App {
       this.#track = new Track(round);
       this.#startRacing();
     } catch (err) {
-      this.#showError(err, this.#getRound);
+      this.#showError(err, () => this.#getRound());
     }
   }
 
@@ -97,10 +97,10 @@ class App {
     process.exit();
   }
 
-  #showError(err, trigger) {
+  #showError = (err, trigger) => {
     View.renderError(err.message);
-    trigger.call(this);
-  }
+    trigger();
+  };
 
   #reset() {
     this.#cars = [];
