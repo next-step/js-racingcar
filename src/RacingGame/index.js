@@ -23,9 +23,9 @@ class RacingGame {
   }
 
   getWinningCars() {
-    return this.#cars.filter(
-      (car) => car.getDistanceDriven() === this.getMaxDistanceDriven()
-    );
+    const maxDistance = this.getMaxDistanceDriven();
+
+    return this.#cars.filter((car) => car.getDistanceDriven() === maxDistance);
   }
 
   runRound() {
