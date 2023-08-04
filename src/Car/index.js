@@ -5,6 +5,10 @@ class Car {
   #name;
   #distanceDriven = 0;
 
+  static of(name) {
+    return new Car(name);
+  }
+
   constructor(name) {
     this.#name = name;
   }

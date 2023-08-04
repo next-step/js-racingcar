@@ -20,7 +20,7 @@ class GameSimulator {
 
     carNames.forEach((name) => validateCarName(name));
 
-    this.#racingGame = new RacingGame(carNames.map((name) => new Car(name)));
+    this.#racingGame = new RacingGame(carNames.map(Car.of));
   }
 
   runRound() {
