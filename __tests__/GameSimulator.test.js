@@ -1,15 +1,18 @@
 import GameSimulator from '../src/GameSimulator';
 import { MAX_ROUNDS } from '../src/GameSimulator/constants';
 import { validateCarName } from '../src/GameSimulator/utils';
+import { createMessageViewer } from '../src/utils/createMessageViewer';
 import { getUserInputByQuestion } from '../src/utils/getUserInputByQuestion';
 
 jest.mock('../src/utils/getUserInputByQuestion');
 
 describe('GameSimulator 테스트', () => {
+  const mockViewer = jest.fn();
+  const messageViewer = createMessageViewer(mockViewer);
   let simulator = null;
 
   beforeEach(() => {
-    simulator = simulator = new GameSimulator();
+    simulator = simulator = new GameSimulator(messageViewer);
   });
 
   describe('입력 테스트', () => {
@@ -105,27 +108,19 @@ describe('GameSimulator 테스트', () => {
           Promise.resolve(winningCarName)
         );
 
-        const logSpy = jest.spyOn(console, 'log');
-
         await simulator.startGame();
 
-        expect(logSpy).toHaveBeenCalledWith(
+        expect(mockViewer).toHaveBeenCalledWith(
           `${winningCarName}가 최종 우승했습니다.`
         );
-
-        logSpy.mockRestore();
       });
 
       test('우승자가 여러명일 떄는 ,로 구분해서 출력한다.', async () => {
-        const logSpy = jest.spyOn(console, 'log');
-
         await simulator.startGame();
 
-        expect(logSpy).toHaveBeenCalledWith(
+        expect(mockViewer).toHaveBeenCalledWith(
           `${simulator.getWinningCarNames().join(',')}가 최종 우승했습니다.`
         );
-
-        logSpy.mockRestore();
       });
     });
   });

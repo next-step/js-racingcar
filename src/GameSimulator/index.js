@@ -1,13 +1,17 @@
 import Car from '../Car/index.js';
 import RacingGame from '../RacingGame/index.js';
 import { getUserInputByQuestion } from '../utils/getUserInputByQuestion.js';
-import { printMessage } from '../utils/printMessage.js';
 import { splitStringByComma } from '../utils/splitStringByComma.js';
 import { MAX_ROUNDS } from './constants.js';
 import { validateCarName } from './utils.js';
 
 class GameSimulator {
   #racingGame;
+  #messageViewer;
+
+  constructor(messageViewer) {
+    this.#messageViewer = messageViewer;
+  }
 
   async setRacingGame() {
     const inputString = await getUserInputByQuestion(
@@ -26,11 +30,11 @@ class GameSimulator {
   }
 
   startRound() {
-    printMessage('\n실행 결과\n');
+    this.#messageViewer('\n실행 결과\n');
 
     for (let i = 0; i < MAX_ROUNDS; i++) {
       this.runRound();
-      printMessage('');
+      this.#messageViewer('');
     }
   }
 
@@ -41,12 +45,12 @@ class GameSimulator {
   printWinningCars() {
     const winningCarNames = this.getWinningCarNames().join(',');
 
-    printMessage(`${winningCarNames}가 최종 우승했습니다.`);
+    this.#messageViewer(`${winningCarNames}가 최종 우승했습니다.`);
   }
 
   forceFinish(message) {
-    printMessage(message);
-    printMessage('프로그램을 종료하겠습니다.');
+    this.#messageViewer(message);
+    this.#messageViewer('프로그램을 종료하겠습니다.');
 
     process.exit(1);
   }
