@@ -20,7 +20,7 @@ class Car {
   }
 
   validateName(name) {
-    if (name.length <= NAME_LENGTH.MIN) {
+    if (name.length < NAME_LENGTH.MIN) {
       throw new Error(NAME_ERROR_MESSAGE.LESS_THAN_MIN);
     }
 
