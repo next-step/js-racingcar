@@ -20,16 +20,22 @@ describe('RacingGame 테스트', () => {
   });
 
   describe('레이싱 게임 우승 테스트', () => {
+    let canMoveForwardSpies;
+
     beforeEach(() => {
-      jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
+      canMoveForwardSpies = cars.map((car) =>
+        jest.spyOn(car, 'canMoveForward').mockReturnValue(true)
+      );
 
       cars.forEach((car, index) => {
         for (let i = 0; i < index; i++) {
           car.moveForward();
         }
       });
+    });
 
-      jest.spyOn(global.Math, 'random').mockRestore();
+    afterEach(() => {
+      canMoveForwardSpies.forEach((spy) => spy.mockRestore());
     });
 
     test('가장 멀리 간 거리를 구할 수 있다.', () => {

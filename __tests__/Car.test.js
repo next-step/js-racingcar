@@ -35,38 +35,42 @@ describe('자동차 class 속성 테스트', () => {
   });
 
   describe('자동차 전진 테스트', () => {
+    let canMoveForwardSpy;
+
+    beforeEach(() => {
+      canMoveForwardSpy = jest.spyOn(car, 'canMoveForward');
+    });
+
+    afterEach(() => {
+      canMoveForwardSpy.mockRestore();
+    });
+
     test('조건을 만작하고 자동차가 전진시 주행거리의 값이 1 늘어난다.', () => {
       const prevDistanceDriven = car.getDistanceDriven();
-      jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
 
+      canMoveForwardSpy.mockReturnValue(true);
       car.moveForward();
 
       expect(car.getDistanceDriven()).toBe(prevDistanceDriven + 1);
-
-      jest.spyOn(global.Math, 'random').mockRestore();
     });
 
     test('조건을 만족하고 자동차가 두번 전진시 주행거리의 값이 2 늘어난다.', () => {
       const prevDistanceDriven = car.getDistanceDriven();
-      jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
 
+      canMoveForwardSpy.mockReturnValue(true);
       car.moveForward();
       car.moveForward();
 
       expect(car.getDistanceDriven()).toBe(prevDistanceDriven + 2);
-
-      jest.spyOn(global.Math, 'random').mockRestore();
     });
 
     test('조건을 만족하지 않으면 자동차는 전진하지 않는다.', () => {
       const prevDistanceDriven = car.getDistanceDriven();
-      jest.spyOn(global.Math, 'random').mockReturnValue(0.3);
 
+      canMoveForwardSpy.mockReturnValue(false);
       car.moveForward();
 
       expect(car.getDistanceDriven()).toBe(prevDistanceDriven);
-
-      jest.spyOn(global.Math, 'random').mockRestore();
     });
   });
 
