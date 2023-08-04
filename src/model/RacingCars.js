@@ -1,22 +1,23 @@
-import {
-  AVALIABLE_RANDOM_NUMBER,
-  CAR_STATUS_SYMBOLS,
-} from '../constants/index.js';
+import { AVALIABLE_RANDOM_NUMBER } from '../constants/randomNumber.js';
+import { CAR_STATUS_SYMBOLS } from '../constants/view.js';
+import { SEPERATOR_SYMBOLS } from '../constants/commons.js';
+import { NumberMaker } from '../NumberMaker.js';
 
-class RacingCars {
+export class RacingCars {
   #moveStatus;
 
   #numberMaker;
 
-  constructor(numberMaker) {
-    this.#moveStatus = {};
-    this.#numberMaker = numberMaker;
+  constructor(carNames, numberMaker) {
+    this.#init(carNames, numberMaker);
   }
 
-  initMoveStatus(carNames) {
-    carNames.forEach((carName) => {
-      this.#moveStatus[carName] = CAR_STATUS_SYMBOLS.EMPTY;
-    });
+  #init(carNames, numberMaker = NumberMaker) {
+    this.#moveStatus = carNames.split(SEPERATOR_SYMBOLS.COMMA).reduce((acc, cur) => {
+      acc[cur] = CAR_STATUS_SYMBOLS.EMPTY;
+      return acc;
+    }, {});
+    this.#numberMaker = numberMaker;
   }
 
   #isMove(carName) {
@@ -24,17 +25,10 @@ class RacingCars {
     return randomNumber >= AVALIABLE_RANDOM_NUMBER;
   }
 
-  move(carNames) {
-    carNames.forEach((carName) => {
-      if (this.#isMove(carName))
-        this.#moveStatus[carName] += CAR_STATUS_SYMBOLS.MOVE;
+  move() {
+    Object.keys(this.#moveStatus).forEach((carName) => {
+      if (this.#isMove(carName)) this.#moveStatus[carName] += CAR_STATUS_SYMBOLS.MOVE;
     });
     return this.#moveStatus;
   }
-
-  getCarNames() {
-    return Object.keys(this.#moveStatus);
-  }
 }
-
-export default RacingCars;

@@ -1,57 +1,81 @@
 import { INPUT_MESSAGE, OUTPUT_MESSAGE } from '../constants/message.js';
-import { RacingTrack } from '../model/index.js';
-import { InputView, OutputView } from '../view/index.js';
+import { RacingGame } from '../model/index.js';
+import { View } from '../view/View.js';
+import { Validator } from '../Validator.js';
 
-class GameController {
+export class GameController {
+  #racingGame;
+
+  #view;
+
   constructor() {
-    this.racingTrack = new RacingTrack();
+    this.#view = new View();
   }
 
-  static async #getRacingCarNames() {
-    const racingCarNames = await InputView.input(INPUT_MESSAGE.RACING_CAR);
-    return racingCarNames;
+  async #retryOnErrors(retryableAction) {
+    try {
+      return await retryableAction();
+    } catch (error) {
+      this.#view.print(error.message);
+      return this.#retryOnErrors(retryableAction);
+    }
   }
 
-  static #printRaceResult(results) {
-    OutputView.print(OUTPUT_MESSAGE.RESULT);
-    results.forEach((result) => {
-      OutputView.print(`${result}\n`);
+  async #inputCarNames() {
+    return this.#retryOnErrors(async () => {
+      const racingCarNames = await this.#view.inputByUser(INPUT_MESSAGE.RACING_CAR);
+      Validator.check(racingCarNames, INPUT_MESSAGE.RACING_CAR);
+      return racingCarNames;
     });
   }
 
-  static #printRacingWinners(winners) {
-    OutputView.print(OUTPUT_MESSAGE.WINNERS(winners));
+  async #inputRacingCount() {
+    return this.#retryOnErrors(async () => {
+      const racingCount = await this.#view.inputByUser(INPUT_MESSAGE.COUNT);
+      Validator.check(racingCount, INPUT_MESSAGE.COUNT);
+      return racingCount;
+    });
   }
 
-  #getRacingResult() {
-    return this.racingTrack.getRacingResult();
+  async #getUserInput() {
+    const carNames = await this.#inputCarNames();
+    const count = await this.#inputRacingCount();
+    return [carNames, count];
   }
 
-  #getRacingWinners() {
-    return this.racingTrack.getRacingWinners();
+  #settingRacingGame(carNames, count) {
+    this.#racingGame = new RacingGame(carNames, count);
   }
 
-  #updateRacingCars(racingCarNames) {
-    this.racingTrack.requestInitMoveStatus(racingCarNames);
+  #printRaceResult(results) {
+    this.#view.print(OUTPUT_MESSAGE.RESULT);
+    results.forEach((result) => {
+      this.#view.print(`${result}\n`);
+    });
   }
 
-  #startRace(carNames) {
-    this.racingTrack.race(carNames);
+  #printRacingWinners(winners) {
+    this.#view.print(OUTPUT_MESSAGE.WINNERS(winners));
   }
 
-  static #printGameResult(result, racingWinners) {
-    GameController.#printRaceResult(result);
-    GameController.#printRacingWinners(racingWinners);
+  #startRace() {
+    this.#racingGame.race();
+  }
+
+  #printGameResult(result, racingWinners) {
+    this.#printRaceResult(result);
+    this.#printRacingWinners(racingWinners);
+  }
+
+  #confirmAfterRacing() {
+    return [this.#racingGame.getRacingResult(), this.#racingGame.confirmRacingWinners()];
   }
 
   async run() {
-    const racingCarNames = await GameController.#getRacingCarNames();
-    this.#updateRacingCars(racingCarNames);
-    this.#startRace(racingCarNames);
-    const result = this.#getRacingResult();
-    const racingWinners = this.#getRacingWinners();
-    GameController.#printGameResult(result, racingWinners);
+    const [carNames, count] = await this.#getUserInput();
+    this.#settingRacingGame(carNames, count);
+    this.#startRace();
+    const [result, racingWinners] = this.#confirmAfterRacing();
+    this.#printGameResult(result, racingWinners);
   }
 }
-
-export default GameController;

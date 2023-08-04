@@ -1,6 +1,6 @@
-import { SEPERATOR_SYMBOLS } from '../constants/index.js';
+import { SEPERATOR_SYMBOLS } from '../constants/commons.js';
 
-class RacingWinners {
+export class RacingWinners {
   #racingWinners;
 
   constructor() {
@@ -30,9 +30,7 @@ class RacingWinners {
   static #createRacingWinners(racingResult) {
     const finalResult = RacingWinners.#createFinalResultArray(racingResult);
     const maxDistance = RacingWinners.#createMaxDistance(finalResult);
-    return finalResult
-      .filter(([, distance]) => distance === maxDistance)
-      .map(([racer]) => racer);
+    return finalResult.filter(([, distance]) => distance === maxDistance).map(([racer]) => racer);
   }
 
   setRacingWinners(racingResult) {
@@ -43,5 +41,3 @@ class RacingWinners {
     return this.#racingWinners;
   }
 }
-
-export default RacingWinners;
