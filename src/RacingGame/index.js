@@ -16,15 +16,10 @@ class RacingGame {
   }
 
   getMaxDistanceDriven() {
-    let maxDistanceDriven = 0;
-
-    this.#cars.forEach((car) => {
-      if (car.getDistanceDriven() > maxDistanceDriven) {
-        maxDistanceDriven = car.getDistanceDriven();
-      }
-    });
-
-    return maxDistanceDriven;
+    return this.#cars.reduce(
+      (max, car) => Math.max(max, car.getDistanceDriven()),
+      0
+    );
   }
 
   getWinningCars() {
