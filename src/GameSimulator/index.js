@@ -6,9 +6,11 @@ import { MAX_ROUNDS } from './constants.js';
 class GameSimulator {
   #racingGame;
   #messageViewer;
+  #maxRounds;
 
-  constructor(messageViewer) {
+  constructor(messageViewer, maxRounds = MAX_ROUNDS) {
     this.#messageViewer = messageViewer;
+    this.#maxRounds = maxRounds;
   }
 
   async setRacingGame() {
@@ -30,7 +32,7 @@ class GameSimulator {
   startRound() {
     this.#messageViewer('\n실행 결과\n');
 
-    for (let i = 0; i < MAX_ROUNDS; i++) {
+    for (let i = 0; i < this.#maxRounds; i++) {
       this.runRound();
       this.#messageViewer('');
     }
