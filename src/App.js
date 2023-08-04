@@ -35,14 +35,6 @@ class App {
     }
   }
 
-  #getModel(trigger, Model, ...args) {
-    try {
-      return new Model(...args);
-    } catch (err) {
-      return this.#showError(err, trigger);
-    }
-  }
-
   async #getCarNames() {
     const names = await this.#getUserInput(MESSAGES.REQUEST.ENTER_THE_CARS);
     const nameList = splitByStandard(names);
@@ -52,10 +44,12 @@ class App {
   }
 
   #setCars(names) {
-    this.#cars = names.map((name) => this.#getModel(this.#getCarNames, Car, name));
-    const completed = this.#cars.every((car) => car);
-
-    if (completed) this.#getRound();
+    try {
+      this.#cars = names.map((name) => new Car(name));
+      this.#getRound();
+    } catch (err) {
+      this.#showError(err, this.#getCarNames);
+    }
   }
 
   async #getRound() {
@@ -65,8 +59,12 @@ class App {
   }
 
   #setTrack(round) {
-    this.#track = this.#getModel(this.#getRound, Track, round);
-    if (this.#track) this.#startRacing();
+    try {
+      this.#track = new Track(round);
+      this.#startRacing();
+    } catch (err) {
+      this.#showError(err, this.#getRound);
+    }
   }
 
   #startRacing() {
