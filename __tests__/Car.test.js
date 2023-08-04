@@ -137,6 +137,22 @@ describe('진행할 라운드를 입력 받는다.', () => {
       Validator.checkValidRound(input);
     }).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
   });
+
+  test(`입력한 라운드가 숫자가 아닌 경우`, () => {
+    expect(() => {
+      const input = '안녕';
+
+      Validator.checkValidRound(input);
+    }).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
+  });
+
+  test(`입력한 라운드가 공백인 경우`, () => {
+    expect(() => {
+      const input = '';
+
+      Validator.checkValidRound(input);
+    }).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
+  });
 });
 
 describe('자동차를 이동시킨다.', () => {
