@@ -27,7 +27,7 @@ class App {
     return userInput;
   }
 
-  #checkValidation(target, validator, trigger) {
+  #checkValidation({ target, validator }, trigger) {
     try {
       validator(target);
     } catch (err) {
@@ -39,7 +39,7 @@ class App {
     const names = await this.#getUserInput(MESSAGES.REQUEST.ENTER_THE_CARS);
     const nameList = splitByStandard(names);
 
-    this.#checkValidation(nameList, Validator.checkValidCarList, () => this.#getCarNames());
+    this.#checkValidation({ target: nameList, validator: Validator.checkValidCarList }, () => this.#getCarNames());
     this.#setCars(nameList);
   }
 
