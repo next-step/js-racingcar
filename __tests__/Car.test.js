@@ -1,7 +1,7 @@
 import Car from '../src/Car';
 import * as getRandomInRangeModule from '../src/utils/getRandomInRange';
 
-describe('자동차 class 속성 테스트', () => {
+describe('Car Class', () => {
   const carName = '자동차';
   let car = null;
 
@@ -9,12 +9,14 @@ describe('자동차 class 속성 테스트', () => {
     car = new Car(carName);
   });
 
-  test('Car class는 name이 있다.', () => {
-    expect(car.getName()).toBe(carName);
-  });
+  describe('class 속성 테스트', () => {
+    test('Car class는 name이 있다.', () => {
+      expect(car.getName()).toBe(carName);
+    });
 
-  test('자동차의 주행거리의 초기값은 0이다.', () => {
-    expect(car.getDistanceDriven()).toBe(0);
+    test('자동차의 주행거리의 초기값은 0이다.', () => {
+      expect(car.getDistanceDriven()).toBe(0);
+    });
   });
 
   describe('자동차 전진 조건 테스트', () => {
