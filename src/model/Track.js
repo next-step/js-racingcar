@@ -6,7 +6,7 @@ class Track {
   #round = 1;
 
   constructor(round) {
-    Validator.isValidRound(round);
+    Validator.checkValidRound(round);
     this.#endRound = round;
   }
 

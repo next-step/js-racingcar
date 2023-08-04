@@ -8,7 +8,7 @@ class Car {
   #distance = 1;
 
   constructor(name) {
-    Validator.isValidName(name);
+    Validator.checkValidCarName(name);
     this.#name = name;
   }
 

@@ -51,7 +51,7 @@ describe('자동차의 이름 목록을 입력 받는다.', () => {
       const input = 'A,B,C';
       const slicedInput = splitByStandard(input);
 
-      Validator.isValidList(slicedInput);
+      Validator.checkValidCarList(slicedInput);
     }).not.toThrow();
   });
 
@@ -60,7 +60,7 @@ describe('자동차의 이름 목록을 입력 받는다.', () => {
       const input = 'JAMES, KANE, MARK, ALEX, LEE';
       const slicedInput = splitByStandard(input);
 
-      Validator.isValidList(slicedInput);
+      Validator.checkValidCarList(slicedInput);
     }).not.toThrow();
   });
 
@@ -71,7 +71,7 @@ describe('자동차의 이름 목록을 입력 받는다.', () => {
     const input = 'A,B,C,D,E,F';
     const slicedInput = splitByStandard(input);
 
-    Validator.isValidNames(slicedInput);
+    Validator.checkValidCarNames(slicedInput);
     expect(() => {}).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_USER_COUNT);
   });
   */
@@ -81,7 +81,7 @@ describe('자동차의 이름 목록을 입력 받는다.', () => {
       const input = 'JAMES';
       const slicedInput = splitByStandard(input);
 
-      Validator.isValidList(slicedInput);
+      Validator.checkValidCarList(slicedInput);
     }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_USER_COUNT);
   });
 
@@ -90,7 +90,7 @@ describe('자동차의 이름 목록을 입력 받는다.', () => {
       const input = 'A,A,B,C,D,E';
       const slicedInput = splitByStandard(input);
 
-      Validator.isValidList(slicedInput);
+      Validator.checkValidCarList(slicedInput);
     }).toThrow(ERROR_MESSAGES.HAS_DUPLICATED_NAME);
   });
 });
@@ -100,7 +100,7 @@ describe('자동차를 생성한다.', () => {
     expect(() => {
       const input = 'Calvin';
 
-      Validator.isValidName(input);
+      Validator.checkValidCarName(input);
     }).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_NAME_LENGTH);
   });
 
@@ -108,7 +108,7 @@ describe('자동차를 생성한다.', () => {
     expect(() => {
       const input = '';
 
-      Validator.isValidName(input);
+      Validator.checkValidCarName(input);
     }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_NAME_LENGTH);
   });
 });
@@ -118,7 +118,7 @@ describe('진행할 라운드를 입력 받는다.', () => {
     expect(() => {
       const input = '3';
 
-      Validator.isValidRound(input);
+      Validator.checkValidRound(input);
     }).not.toThrow();
   });
 
@@ -126,7 +126,7 @@ describe('진행할 라운드를 입력 받는다.', () => {
     expect(() => {
       const input = '0';
 
-      Validator.isValidRound(input);
+      Validator.checkValidRound(input);
     }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_ROUND_COUNT);
   });
 
@@ -134,7 +134,7 @@ describe('진행할 라운드를 입력 받는다.', () => {
     expect(() => {
       const input = '6';
 
-      Validator.isValidRound(input);
+      Validator.checkValidRound(input);
     }).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
   });
 });

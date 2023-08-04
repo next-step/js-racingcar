@@ -39,7 +39,7 @@ class App {
     const names = await this.#getUserInput(MESSAGES.REQUEST.ENTER_THE_CARS);
     const nameList = splitByStandard(names);
 
-    this.#checkValidation(nameList, Validator.isValidList, () => this.#getCarNames());
+    this.#checkValidation(nameList, Validator.checkValidCarList, () => this.#getCarNames());
     this.#setCars(nameList);
   }
 
