@@ -6,35 +6,35 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-class View {
-  static async getUserInput(question) {
+const view = Object.freeze({
+  getUserInput: async (question) => {
     return new Promise((resolve) => {
       rl.question(question, (input) => {
         resolve(input);
       });
     });
-  }
+  },
 
-  static renderStartComment() {
+  renderStartComment: () => {
     console.log(MESSAGES.COMMON.OUTCOME);
-  }
+  },
 
-  static renderCarDistance(car) {
+  renderCarDistance: (car) => {
     const output = MESSAGES.GAME.carsDistance(car);
     console.log(output);
-  }
+  },
 
-  static renderLineBreak() {
+  renderLineBreak: () => {
     console.log('');
-  }
+  },
 
-  static renderResult(names) {
+  renderResult: (names) => {
     console.log(MESSAGES.RESULT.winners(names));
-  }
+  },
 
-  static renderError(err) {
+  renderError: (err) => {
     console.error(err);
-  }
-}
+  },
+});
 
-module.exports = View;
+module.exports = view;

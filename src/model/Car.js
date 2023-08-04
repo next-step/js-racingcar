@@ -1,4 +1,4 @@
-const Validator = require('../Validator.js');
+const validator = require('../validator.js');
 const { MOVE_STANDARD } = require('../constants/racing-rule.js');
 const { getRandomNumber } = require('../utils.js');
 
@@ -8,7 +8,7 @@ class Car {
   #distance = 1;
 
   constructor(name) {
-    Validator.checkValidCarName(name);
+    validator.checkValidCarName(name);
     this.#name = name;
   }
 

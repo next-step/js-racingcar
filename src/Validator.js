@@ -61,24 +61,24 @@ const checkIsNumber = (value) => {
   }
 };
 
-class Validator {
-  static checkValidCarList(names) {
+const validator = Object.freeze({
+  checkValidCarList: (names) => {
     checkOverMaxUserCount(names.length);
     checkUnderMinUserCount(names.length);
     checkDuplication(names);
-  }
+  },
 
-  static checkValidCarName(name) {
+  checkValidCarName: (name) => {
     checkOverMaxCarName(name.length);
     checkUnderMinCarName(name.length);
-  }
+  },
 
-  static checkValidRound(round) {
+  checkValidRound: (round) => {
     checkEmpty(round);
     checkIsNumber(round);
     checkOverMaxRound(round);
     checkUnderMinRound(round);
-  }
-}
+  },
+});
 
-module.exports = Validator;
+module.exports = validator;

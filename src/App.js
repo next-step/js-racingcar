@@ -1,8 +1,8 @@
-const Validator = require('./Validator.js');
+const validator = require('./validator.js');
 const Car = require('./model/Car.js');
 const Track = require('./model/Track.js');
 const WinnerChecker = require('./model/WinnerChecker.js');
-const View = require('./view/view.js');
+const view = require('./view/view.js');
 const { splitByStandard } = require('./utils.js');
 const { MESSAGES } = require('./constants/messages.js');
 
@@ -23,7 +23,7 @@ class App {
   }
 
   async #getUserInput(message) {
-    const userInput = await View.getUserInput(message);
+    const userInput = await view.getUserInput(message);
     return userInput;
   }
 
@@ -39,7 +39,7 @@ class App {
     const names = await this.#getUserInput(MESSAGES.REQUEST.ENTER_THE_CARS);
     const nameList = splitByStandard(names);
 
-    this.#checkValidation({ target: nameList, validator: Validator.checkValidCarList }, () => this.#getCarNames());
+    this.#checkValidation({ target: nameList, validator: validator.checkValidCarList }, () => this.#getCarNames());
     this.#setCars(nameList);
   }
 
@@ -68,8 +68,8 @@ class App {
   }
 
   #startRacing() {
-    View.renderLineBreak();
-    View.renderStartComment();
+    view.renderLineBreak();
+    view.renderStartComment();
 
     while (!this.#track.isEndRound()) {
       this.#processRound();
@@ -81,24 +81,24 @@ class App {
   #processRound() {
     this.#cars.forEach((car) => {
       car.moveByRandomNumber();
-      View.renderCarDistance(car);
+      view.renderCarDistance(car);
     });
 
     this.#track.increaseRound();
-    View.renderLineBreak();
+    view.renderLineBreak();
   }
 
   #finishRacing() {
     this.#winnerChecker.addResult(this.#cars);
     const { winners } = this.#winnerChecker;
 
-    View.renderResult(winners);
+    view.renderResult(winners);
 
     process.exit();
   }
 
   #showError = (err, trigger) => {
-    View.renderError(err.message);
+    view.renderError(err.message);
     trigger();
   };
 
