@@ -1,4 +1,5 @@
 import Car from '../src/Car';
+import * as getRandomInRangeModule from '../src/utils/getRandomInRange';
 
 describe('자동차 class 속성 테스트', () => {
   const carName = '자동차';
@@ -17,21 +18,31 @@ describe('자동차 class 속성 테스트', () => {
   });
 
   describe('자동차 전진 조건 테스트', () => {
-    test('랜덤으로 생성한 숫자가 4이상이면 자동차가 전진할 수 있는 상태이다', () => {
-      jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
+    test.each([4, 5, 6, 7, 8, 9])(
+      '랜덤으로 생성한 숫자가 %i이면 자동차가 전진할 수 있는 상태이다',
+      (randomNumber) => {
+        const getRandomInRangeSpy = jest
+          .spyOn(getRandomInRangeModule, 'getRandomInRange')
+          .mockReturnValue(randomNumber);
 
-      expect(car.canMoveForward()).toBe(true);
+        expect(car.canMoveForward()).toBe(true);
 
-      jest.spyOn(global.Math, 'random').mockRestore();
-    });
+        getRandomInRangeSpy.mockRestore();
+      }
+    );
 
-    test('랜덤으로 생성한 숫자가 4보다 작으면 자동차가 전진할 수 없는 상태이다.', () => {
-      jest.spyOn(global.Math, 'random').mockReturnValue(0.3);
+    test.each([1, 2, 3])(
+      '랜덤으로 생성한 숫자가 %i이면 자동차가 전진할 수 없는 상태이다',
+      (randomNumber) => {
+        const getRandomInRangeSpy = jest
+          .spyOn(getRandomInRangeModule, 'getRandomInRange')
+          .mockReturnValue(randomNumber);
 
-      expect(car.canMoveForward()).toBe(false);
+        expect(car.canMoveForward()).toBe(false);
 
-      jest.spyOn(global.Math, 'random').mockRestore();
-    });
+        getRandomInRangeSpy.mockRestore();
+      }
+    );
   });
 
   describe('자동차 전진 테스트', () => {
@@ -76,40 +87,29 @@ describe('자동차 class 속성 테스트', () => {
 
   describe('자동차 정보 출력 테스트', () => {
     test('주행거리가 0일 떄는 주행거리 없이 이름만 출력 된다.', () => {
-      jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
       const logSpy = jest.spyOn(console, 'log');
 
       car.printInfo();
 
       expect(logSpy).toHaveBeenCalledWith(`${carName} : `);
-
-      jest.spyOn(global.Math, 'random').mockRestore();
     });
 
     describe('주행거리가 0 이상이면 이름과 주행거리를 같이 출력한다.', () => {
-      test('주행거리가 1일 때', () => {
-        jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
+      test.each([1, 2, 3])('주행거리가 %i일 때', (distance) => {
         const logSpy = jest.spyOn(console, 'log');
+        const canMoveForwardSpy = jest
+          .spyOn(car, 'canMoveForward')
+          .mockReturnValue(true);
 
-        car.moveForward();
+        for (let i = 0; i < distance; i++) {
+          car.moveForward();
+        }
         car.printInfo();
 
-        expect(logSpy).toHaveBeenCalledWith(`${carName} : -`);
+        const expectedString = `${carName} : ${'-'.repeat(distance)}`;
+        expect(logSpy).toHaveBeenCalledWith(expectedString);
 
-        jest.spyOn(global.Math, 'random').mockRestore();
-      });
-
-      test('주행거리가 2일 때', () => {
-        jest.spyOn(global.Math, 'random').mockReturnValue(0.4);
-        const logSpy = jest.spyOn(console, 'log');
-
-        car.moveForward();
-        car.moveForward();
-        car.printInfo();
-
-        expect(logSpy).toHaveBeenCalledWith(`${carName} : --`);
-
-        jest.spyOn(global.Math, 'random').mockRestore();
+        canMoveForwardSpy.mockRestore();
       });
     });
   });
