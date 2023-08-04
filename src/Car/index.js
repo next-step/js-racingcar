@@ -1,5 +1,5 @@
 import { getRandomInRange } from '../utils/getRandomInRange.js';
-import { MOVE_FORWARD_LIMIT } from './constants.js';
+import { MOVE_FORWARD_THRESHOLD } from './constants.js';
 
 class Car {
   #name;
@@ -18,7 +18,7 @@ class Car {
   }
 
   canMoveForward() {
-    return getRandomInRange() >= MOVE_FORWARD_LIMIT;
+    return getRandomInRange() >= MOVE_FORWARD_THRESHOLD;
   }
 
   moveForward() {
