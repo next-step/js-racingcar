@@ -1,5 +1,4 @@
 import { getRandomInRange } from '../utils/getRandomInRange.js';
-import { printMessage } from '../utils/printMessage.js';
 import { MOVE_FORWARD_LIMIT } from './constants.js';
 
 class Car {
@@ -26,18 +25,6 @@ class Car {
     if (this.canMoveForward()) {
       this.#distanceDriven = this.#distanceDriven + 1;
     }
-  }
-
-  printInfo() {
-    if (!this.#distanceDriven) {
-      printMessage(`${this.#name} : `);
-
-      return;
-    }
-
-    const distanceString = new Array(this.#distanceDriven).fill('-').join('');
-
-    printMessage(`${this.#name} : ${distanceString}`);
   }
 }
 

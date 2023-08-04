@@ -26,7 +26,9 @@ class GameSimulator {
 
   runRound() {
     this.#racingGame.runRound();
-    this.#racingGame.getCars().forEach((car) => car.printInfo());
+    this.#racingGame.getCars().forEach((car) => {
+      this.printCarStatus(car.getName(), car.getDistanceDriven());
+    });
   }
 
   startRound() {
@@ -40,6 +42,12 @@ class GameSimulator {
 
   getWinningCarNames() {
     return this.#racingGame.getWinningCars().map((car) => car.getName());
+  }
+
+  printCarStatus(name, distanceDriven) {
+    const formattedStatus = `${name} : ${'-'.repeat(distanceDriven)}`;
+
+    this.#messageViewer(formattedStatus);
   }
 
   printWinningCars() {

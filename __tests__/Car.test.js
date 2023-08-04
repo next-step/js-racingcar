@@ -86,33 +86,4 @@ describe('Car Class', () => {
       expect(car.getDistanceDriven()).toBe(prevDistanceDriven);
     });
   });
-
-  describe('자동차 정보 출력 테스트', () => {
-    test('주행거리가 0일 떄는 주행거리 없이 이름만 출력 된다.', () => {
-      const logSpy = jest.spyOn(console, 'log');
-
-      car.printInfo();
-
-      expect(logSpy).toHaveBeenCalledWith(`${carName} : `);
-    });
-
-    describe('주행거리가 0 이상이면 이름과 주행거리를 같이 출력한다.', () => {
-      test.each([1, 2, 3])('주행거리가 %i일 때', (distance) => {
-        const logSpy = jest.spyOn(console, 'log');
-        const canMoveForwardSpy = jest
-          .spyOn(car, 'canMoveForward')
-          .mockReturnValue(true);
-
-        for (let i = 0; i < distance; i++) {
-          car.moveForward();
-        }
-        car.printInfo();
-
-        const expectedString = `${carName} : ${'-'.repeat(distance)}`;
-        expect(logSpy).toHaveBeenCalledWith(expectedString);
-
-        canMoveForwardSpy.mockRestore();
-      });
-    });
-  });
 });
