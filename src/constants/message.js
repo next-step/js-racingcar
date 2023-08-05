@@ -7,6 +7,7 @@ const ERROR = Object.freeze({
   LENGTH_OVERFLOW: (maxLength) =>
     `자동차 이름은 ${maxLength}자리까지 가능합니다.`,
   INVALID_TYPE: (type) => `${type}만 입력이 가능합니다.`,
+  DUPLICATED_CAR_NAME: '동일한 이름의 차량은 생성할 수 없습니다.',
 });
 
 const RACING_GAME = Object.freeze({

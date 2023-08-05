@@ -25,6 +25,7 @@ export class GameController {
     try {
       const userInput = await this.#view.readCarName();
       const carNames = splitCarNameToArray(userInput);
+      Validation.validateCarNameInput(carNames);
       const cars = carNames.map((carName) => new Car(carName));
 
       return cars;

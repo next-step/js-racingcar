@@ -97,3 +97,4 @@ export const View = {
 ### Car
 
 - [x] Car과 관련된 Validation을 Model 내부에서 진행한다.
+- [x] 차량의 중복된 이름은 Controller에서 검증한다.
