@@ -1,7 +1,13 @@
-import ValidationCheck from "../src/classes/ValidationCheck";
 import RacingController from "../src/controllers/RacingController";
 import RacingModel from "../src/model/RacingModel";
 import RacingView from "../src/view/RacingView";
+
+import {
+  validateCarCount,
+  validateDuplicateName,
+  validateEmptyName,
+  validateNameLength,
+} from "../src/utils/regex";
 
 describe("자동차 경주 게임 테스트입니다.", () => {
   let racingModel;
@@ -21,9 +27,7 @@ describe("자동차 경주 게임 테스트입니다.", () => {
     ])(
       "경기 진행을 위해 자동차의 이름을 최소 2개 이상 작성해야 합니다.",
       (carName, expected) => {
-        expect(() => ValidationCheck.validateCarCount(carName)).toThrow(
-          expected
-        );
+        expect(() => validateCarCount(carName)).toThrow(expected);
       }
     );
 
@@ -32,9 +36,7 @@ describe("자동차 경주 게임 테스트입니다.", () => {
       [["car ca"], "이름의 길이는 5자를 넘길 수 없습니다."],
       [["   csa"], "이름의 길이는 5자를 넘길 수 없습니다."],
     ])("자동차 이름은 5자 이하로 작성해야 합니다.", (carName, expected) => {
-      expect(() => ValidationCheck.validateNameLength(carName)).toThrow(
-        expected
-      );
+      expect(() => validateNameLength(carName)).toThrow(expected);
     });
 
     test.each([
@@ -43,9 +45,7 @@ describe("자동차 경주 게임 테스트입니다.", () => {
       [["car1", " ", "car2"], "빈 값은 입력할 수 없습니다."],
       [["car1", " car", "car2"], "빈 값은 입력할 수 없습니다."],
     ])("자동차 이름은 비어있을 수 없습니다.", (carName, expected) => {
-      expect(() => ValidationCheck.validateEmptyName(carName)).toThrow(
-        expected
-      );
+      expect(() => validateEmptyName(carName)).toThrow(expected);
     });
 
     test.each([
@@ -56,9 +56,7 @@ describe("자동차 경주 게임 테스트입니다.", () => {
         "중복되는 이름은 입력할 수 없습니다.",
       ],
     ])("자동차 이름은 중복될 수 없습니다.", (carName, expected) => {
-      expect(() => ValidationCheck.validateDuplicateName(carName)).toThrow(
-        expected
-      );
+      expect(() => validateDuplicateName(carName)).toThrow(expected);
     });
   });
 
@@ -111,30 +109,14 @@ describe("자동차 경주 게임 테스트입니다.", () => {
       const jestSpyOn = jest.spyOn(console, "log");
 
       racingModel.carList = carList;
-      racingView.racingModel = racingModel;
-      racingView.showRacingGameWinners();
+
+      const winners = racingModel.getWinners();
+
+      racingView.showRacingGameWinners(winners);
 
       expect(jestSpyOn).toHaveBeenCalledWith(expected);
 
       jestSpyOn.mockRestore();
     }
   );
-
-  // test("우승자가 여러 명일 때 콤마로 구분해서 출력합니다.", () => {
-  //   const carList = [
-  //     { name: "car1", position: 4 },
-  //     { name: "car2", position: 4 },
-  //     { name: "car3", position: 4 },
-  //   ];
-
-  //   const jestSpyOn = jest.spyOn(console, "log");
-
-  //   racingModel.carList = carList;
-  //   racingView.racingModel = racingModel;
-  //   racingView.showRacingGameWinners();
-
-  //   expect(jestSpyOn).toHaveBeenCalledWith("우승자는 car1,car2,car3입니다");
-
-  //   jestSpyOn.mockRestore();
-  // });
 });
