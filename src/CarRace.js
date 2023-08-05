@@ -95,7 +95,7 @@ export class CarRace {
     }
   }
 
-  getWinners() {
+  getWinnerNames() {
     const maxPosition = Math.max(...this.#cars.map(({ position }) => position));
     const winners = this.#cars.filter(
       ({ position }) => position === maxPosition
@@ -117,7 +117,7 @@ export class CarRace {
       return;
     }
 
-    const winners = this.getWinners();
+    const winners = this.getWinnerNames();
     console.log(`${winners.join(", ")}가 최종 우승하였습니다.`);
   }
 }

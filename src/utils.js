@@ -4,6 +4,5 @@ export const getRandomIntInclusive = (min, max) => {
   return Math.floor(Math.random() * (maxInt - minInt + 1) + minInt);
 };
 
-export const isString = (value) => {
-  return typeof value === "string" || value instanceof String;
-};
+export const isString = (value) =>
+  typeof value === "string" || value instanceof String;

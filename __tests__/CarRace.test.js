@@ -21,7 +21,7 @@ describe("Test class CarRace", () => {
 
   race.run();
 
-  const winners = race.getWinners();
+  const winners = race.getWinnerNames();
   it("should have one or more winners", () => {
     expect(winners?.length).toBeGreaterThanOrEqual(MIN_NUM_OF_WINNERS);
   });
