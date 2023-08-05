@@ -1,4 +1,4 @@
-import { WinnerModel } from '../src/model/WinnerModel.js';
+import { RANDOM_NUMBER_MAX } from '../src/constants/settings.js';
 import CarModel from '../src/model/CarModel.js';
 
 describe('Car Instance Test', () => {
@@ -16,7 +16,7 @@ describe('Car Instance Test', () => {
     const cars = names.map((name) => new CarModel(name));
 
     // when
-    cars.forEach((car) => car.move());
+    cars.forEach((car) => car.move(RANDOM_NUMBER_MAX));
 
     // then
     expect(cars.map((c) => c.getPosition())).toEqual([1, 1, 1]);
