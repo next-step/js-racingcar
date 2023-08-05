@@ -42,8 +42,8 @@
 
 ## Validation
 
-- [ ] Validation에 사용할 재사용 가능한 공통 모듈들을 만든다.
-- [ ] 각 객체가 필요한 Validaiton 파일과 객체를 만든 뒤, 필요한 Validation들을 import하여 조합한 뒤, export한다.
+- [x] Validation에 사용할 재사용 가능한 공통 모듈들을 만든다.
+- [x] 각 객체가 필요한 Validaiton 파일과 객체를 만든 뒤, 필요한 Validation들을 import하여 조합한 뒤, export한다.
 
 ### View
 
@@ -91,8 +91,8 @@ export const View = {
 
 도메인은 런타임이 바뀌더라도 항상 사용할 수 있어야 한다. 즉, 각 도메인은 "도구"를 제외한 것들은 완전무결성을 유지해야한다.
 
-- [ ] 사용하는 "도구"만 DI받고 도구를 제외한 것들은 예쁘게 추상화 해보기.
-- [ ] Vehicle은 변할 수 있다. RacingGame 도메인에서 Car 인스턴스를 생성하여 결합도를 올리기보단, Controller에서 vehicle을 만들어 할당해주도록 한다.
+- [x] 사용하는 "도구"만 DI받고 도구를 제외한 것들은 예쁘게 추상화 해보기.
+- [x] Vehicle은 변할 수 있다. RacingGame 도메인에서 Car 인스턴스를 생성하여 결합도를 올리기보단, Controller에서 vehicle을 만들어 할당해주도록 한다.
 
 ### Car
 
