@@ -31,7 +31,7 @@ const Game = {
       // 자동차 갯수만큼 반복하기
       this.cars.forEach(car => {
         // 랜덤 숫자 조건에 따른 자동차 전진
-        if (utils.randomNumber()) {
+        if ( 4 <= utils.randomNumber()) {
           car.go();
         }
       })

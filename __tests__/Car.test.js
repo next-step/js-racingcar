@@ -1,5 +1,6 @@
 const Game = require('../src/domain/Game.js')
 const Message = require('../src/constants/message.js')
+const utils = require('../src/utils/utils.js')
 
 const DEFAULT_NAME = "jun";
 const carNames = "one,two,three";
@@ -72,8 +73,37 @@ describe("자동차 게임의 횟수 테스트", () => {
     }
   );
 });
+describe("자동차 게임 전진 테스트", () => {
+  beforeAll(() => {
+    Game.register(carNames);
+    Game.declareCount(1);
+  });
+  test("4 이상인 경우 자동차가 전진한다", () => {
+    // randomNumber가 4를 반환하도록 설정
+    jest.spyOn(utils, "randomNumber").mockReturnValue(4);
 
-describe("자동차 게임의 횟수 테스트", () => {
+    Game.gameStart();
+
+    // 자동차가 전진했는지 확인
+    expect(Game.cars[0].position).toBe(1);
+    expect(Game.cars[1].position).toBe(1);
+    expect(Game.cars[2].position).toBe(1);
+  });
+
+  // test("4 미만인 경우 자동차가 멈춘다", () => {
+  //   // randomNumber가 3를 반환하도록 설정
+  //   jest.spyOn(utils.randomNumber()).mockReturnValue(3);
+
+  //   Game.gameStart();
+
+  //   // 자동차가 멈춘 것을 확인
+  //   expect(Game.cars[0].position).toBe(0);
+  //   expect(Game.cars[1].position).toBe(0);
+  //   expect(Game.cars[2].position).toBe(0);
+  // });
+});
+
+describe("우승자 출력 테스트", () => {
   test("우승자를 축하하는 메세지를 정확히 출력하는지 확인", () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
 
@@ -105,6 +135,17 @@ describe("자동차 게임의 횟수 테스트", () => {
 
     consoleSpy.mockRestore();
   });
+  test("우승자가 없는 경우, 즉 모든 자동차의 위치가 0인 경우", () => {
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+  
+    Game.register(carNames);
+    Game.cars.forEach((car) => (car.position = 0));
+    Game.congratulateWinner();
+    expect(consoleSpy).toHaveBeenCalledTimes(1);
+    expect(consoleSpy).toHaveBeenCalledWith(Message.WINNER(['one', 'two', 'three'], 0));
 
+    consoleSpy.mockRestore();
+  });
+  
 })
 
