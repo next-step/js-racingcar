@@ -14,10 +14,9 @@ export class GameController {
   async #setGameConfig() {
     const carNames = await this.#readCarName();
     const totalRound = await this.#readTotalRound();
-
     this.#model = new RacingGame(carNames, totalRound);
 
-    this.#startRacingGame();
+    this.#printGameResult();
   }
 
   async #readCarName() {
@@ -45,12 +44,6 @@ export class GameController {
         return this.#readTotalRound();
       });
     }
-  }
-
-  #startRacingGame() {
-    this.#model.startRace();
-
-    this.#printGameResult();
   }
 
   #printGameResult() {
