@@ -15,7 +15,6 @@ export class GameController {
   async #setGameConfig() {
     const cars = await this.#createCarByUserInput();
     const totalRound = await this.#readTotalRound();
-
     this.#model = new RacingGame(cars, totalRound);
 
     this.#printGameResult();
