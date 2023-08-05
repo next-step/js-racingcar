@@ -1,6 +1,10 @@
-import ValidationCheck from "../classes/ValidationCheck";
-
 import { createRandomValue, readlineInterface } from "../utils/util";
+import {
+  validateCarCount,
+  validateDuplicateName,
+  validateEmptyName,
+  validateNameLength,
+} from "../utils/regex";
 import { MAX_RACING_ROUNDS, MOVE_CAR_THRESHOLD } from "../data/constants";
 
 export default class RacingController {
@@ -45,10 +49,10 @@ export default class RacingController {
   }
 
   checkValidationCarNames(carList) {
-    ValidationCheck.validateCarCount(carList);
-    ValidationCheck.validateEmptyName(carList);
-    ValidationCheck.validateDuplicateName(carList);
-    ValidationCheck.validateNameLength(carList);
+    validateCarCount(carList);
+    validateEmptyName(carList);
+    validateDuplicateName(carList);
+    validateNameLength(carList);
   }
 
   runRacingGame(carList) {

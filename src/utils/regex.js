@@ -1,3 +1,5 @@
+import { MIN_CAR_COUNT, MAX_CAR_NAME_LENGTH } from "../data/constants";
+
 export function validateEmptyName(carList) {
   carList.forEach((car) => {
     if (!car || car.includes(" "))
