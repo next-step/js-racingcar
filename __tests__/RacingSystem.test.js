@@ -52,12 +52,12 @@ describe('Racing System Test', () => {
     it('should be able to control Round', () => {
       // given
       const input = `evan`;
-      const TESTSETTINGS = new GameSettings();
+      const TEST_SETTINGS = new GameSettings();
 
       // @ts-ignore
       // when
-      TESTSETTINGS.round = 1;
-      const racingSystem = new RacingSystem(TESTSETTINGS);
+      TEST_SETTINGS.round = 1;
+      const racingSystem = new RacingSystem(TEST_SETTINGS);
       const logSpy = jest.spyOn(racingSystem.view, 'printBreakLine');
       racingSystem.startGame(input);
 
@@ -72,21 +72,21 @@ describe('Racing System Test', () => {
       const RANGE_TWO = 2;
 
       // then
-      const randomNumber_ONE = getRandomNumber(RANGE_ONE, RANGE_ONE);
-      const randomNumber_TWO = getRandomNumber(RANGE_TWO, RANGE_TWO);
-      expect(randomNumber_ONE).toBe(RANGE_ONE);
-      expect(randomNumber_TWO).toBe(RANGE_TWO);
+      const NUMBER_ONE = getRandomNumber(RANGE_ONE, RANGE_ONE);
+      const NUMBER_TWO = getRandomNumber(RANGE_TWO, RANGE_TWO);
+      expect(NUMBER_ONE).toBe(RANGE_ONE);
+      expect(NUMBER_TWO).toBe(RANGE_TWO);
     });
 
     it('should be able to move-condition', () => {
       // given
       const input = 'evan, perez, john';
-      const TESTSETTINGS = new GameSettings();
+      const TEST_SETTINGS = new GameSettings();
 
       // @ts-ignore
       // when
-      TESTSETTINGS.movementCondition = 0;
-      const racingSystem = new RacingSystem(TESTSETTINGS);
+      TEST_SETTINGS.movementCondition = 0;
+      const racingSystem = new RacingSystem(TEST_SETTINGS);
       racingSystem.startGame(input);
 
       // then
