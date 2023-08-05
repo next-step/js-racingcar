@@ -16,11 +16,11 @@ export class View {
     return userInput;
   }
 
-  async readCarName(inputHandler) {
+  async readCarName() {
     return await this.#readInput(MESSAGE.READ.CAR_NAME);
   }
 
-  async readTotalRound(inputHandler) {
+  async readTotalRound() {
     return await this.#inputView.readUserInput(MESSAGE.READ.TOTAL_ROUND);
   }
 

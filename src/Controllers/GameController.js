@@ -8,7 +8,17 @@ export class GameController {
     this.#model = model;
     this.#view = view;
 
-    this.#readCarName();
+    this.#setGameConfig();
+  }
+
+  async #setGameConfig() {
+    const carNames = await this.#readCarName();
+    const totalRound = await this.#readTotalRound();
+
+    this.#model.setCars(carNames);
+    this.#model.setTotalRounds(totalRound);
+
+    this.#startRacingGame();
   }
 
   async #readCarName() {
@@ -17,18 +27,12 @@ export class GameController {
       const carNames = splitCarNameToArray(userInput);
       carNames.forEach(Validation.validateCarName);
 
-      this.#handleCarNameInput(carNames);
+      return carNames;
     } catch (error) {
-      this.#handleError(error, () => {
-        this.#readCarName();
+      return this.#handleError(error, () => {
+        return this.#readCarName();
       });
     }
-  }
-
-  #handleCarNameInput(carNames) {
-    this.#model.setCars(carNames);
-
-    this.#readTotalRound();
   }
 
   async #readTotalRound() {
@@ -36,18 +40,12 @@ export class GameController {
       const userInput = await this.#view.readTotalRound();
       Validation.validateTotalRounds(userInput);
 
-      this.#handleTotalRoundInput(userInput);
+      return userInput;
     } catch (error) {
-      this.#handleError(error, () => {
-        this.#readTotalRound();
+      return this.#handleError(error, () => {
+        return this.#readTotalRound();
       });
     }
-  }
-
-  #handleTotalRoundInput(userInput) {
-    this.#model.setTotalRounds(userInput);
-
-    this.#startRacingGame();
   }
 
   #startRacingGame() {
@@ -66,9 +64,9 @@ export class GameController {
     this.#view.printError(error);
   }
 
-  #handleError(error, phaseToRetry) {
+  async #handleError(error, phaseToRetry) {
     this.#printError(error.message);
 
-    phaseToRetry();
+    return await phaseToRetry();
   }
 }

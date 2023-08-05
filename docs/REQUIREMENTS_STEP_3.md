@@ -34,6 +34,12 @@
 
 ---
 
+## Controller
+
+- [x] Promise의 장점을 이용하여 carName과 totalRound를 하나의 메서드에서 관리한다.
+- [ ] racingGame의 setter를 제거하고 RaceGame의 생성자에 userInput(config)를 전달한다.
+  - [ ] config에 전달되는 vehicle(Car)은 Controller에서 생성하여 전달한다.
+
 ## Validation
 
 - [ ] Validation에 사용할 재사용 가능한 공통 모듈들을 만든다.
