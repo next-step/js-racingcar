@@ -8,7 +8,7 @@ describe('Racing System Test', () => {
     jest.clearAllMocks();
   });
   describe('if the input is valid', () => {
-    test('should return an array of car names', () => {
+    it('should return an array of car names', () => {
       //given
       const input = `evan,perez,john`;
       const racingSystem = new RacingSystem(new GameSettings());
@@ -16,14 +16,14 @@ describe('Racing System Test', () => {
 
       // then
       const cars = racingSystem.cars;
-      const MaxPosition = Math.max(...cars.map((car) => car.getPosition()));
+      const MAX_POSITION = Math.max(...cars.map((car) => car.getPosition()));
       const winners = cars
-        .filter((v) => v.getPosition() === MaxPosition)
+        .filter((v) => v.getPosition() === MAX_POSITION)
         .map((car) => car.getName());
       expect(winners).toEqual(racingSystem.winners);
     });
 
-    test('should be able to manage range of random Number', () => {});
+    it('should be able to manage range of random Number', () => {});
   });
 
   describe('if the input is invalid', () => {
@@ -31,7 +31,7 @@ describe('Racing System Test', () => {
     const { ERROR } = MESSAGES;
     const racingSystem = new RacingSystem(new GameSettings());
 
-    test('shoud be throw Error If Name is too Long', () => {
+    it('shoud be throw Error If Name is too Long', () => {
       // given
       const exceedName = 'a'.repeat(NAME.MAX_LENGTH + 1);
 
@@ -39,7 +39,7 @@ describe('Racing System Test', () => {
       expect(() => racingSystem.startGame(exceedName)).toThrowError(ERROR.MAX_NAME_LENGTH);
     });
 
-    test('shoud be throw Error If Name is too Short', () => {
+    it('shoud be throw Error If Name is too Short', () => {
       // given
       const shortName = 'b'.repeat(NAME.MIN_LENGTH - 1);
 
@@ -49,7 +49,7 @@ describe('Racing System Test', () => {
   });
 
   describe('if setting has been updated', () => {
-    test('should be able to control Round', () => {
+    it('should be able to control Round', () => {
       // given
       const input = `evan`;
       const TESTSETTINGS = new GameSettings();
@@ -66,7 +66,7 @@ describe('Racing System Test', () => {
       expect(count).toBe(1);
     });
 
-    test('should be able to manage range of random Number', () => {
+    it('should be able to manage range of random Number', () => {
       //given
       const RANGE_ONE = 1;
       const RANGE_TWO = 2;
@@ -78,7 +78,7 @@ describe('Racing System Test', () => {
       expect(randomNumber_TWO).toBe(RANGE_TWO);
     });
 
-    test('should be able to move-condition', () => {
+    it('should be able to move-condition', () => {
       // given
       const input = 'evan, perez, john';
       const TESTSETTINGS = new GameSettings();

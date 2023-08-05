@@ -2,7 +2,7 @@ import { WinnerModel } from '../src/model/WinnerModel.js';
 import CarModel from '../src/model/CarModel.js';
 
 describe('Car Instance Test', () => {
-  test('given car names are should be same in car Instance', () => {
+  it('given car names are should be same in car Instance', () => {
     // given
     const names = ['a', 'b', 'c'];
     const cars = names.map((name) => new CarModel(name));
@@ -11,7 +11,7 @@ describe('Car Instance Test', () => {
     expect(cars.map((c) => c.getName())).toEqual(names);
   });
 
-  test('should be able to move', () => {
+  it('should be able to move', () => {
     const names = ['a', 'b', 'c'];
     const cars = names.map((name) => new CarModel(name));
 
