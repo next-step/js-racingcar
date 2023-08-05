@@ -20,6 +20,21 @@ const utils = {
         if (!this.isAlphabet(name)) {
             throw new Error(Message.ERROR.CAR_NAME_ALPHABET);
         }
+    },
+    validateCount(count) {
+        if (isNaN(count)) {
+            count = Message.RACE_COUNT;
+        }
+
+        if (count > 100) {
+            throw new Error(Message.ERROR.COUNT_MAX);
+        }
+
+        if (count < 1) {
+            throw new Error(Message.ERROR.COUNT_MIN);
+        }
+
+        return count;
     }
 }
 module.exports = utils;

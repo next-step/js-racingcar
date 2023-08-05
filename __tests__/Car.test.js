@@ -1,5 +1,6 @@
 const Game = require('../src/domain/Game.js')
 const Message = require('../src/constants/message.js')
+
 const DEFAULT_NAME = "jun";
 const carNames = "one,two,three";
 const carNamesWithSpace = "one, two, three";
@@ -30,32 +31,47 @@ describe("자동차 이름 테스트", () => {
     ["123!!", Message.ERROR.CAR_NAME_ALPHABET],
   ])(
     "자동차 이름 테스트 : %s",
-    (carName, expected) => {
-      if (typeof expected === "string") {
+    (carName, msg) => {
+      if (typeof msg === "string") {
         // 예외가 발생해야 하는 경우
         expect(() => {
           Game.register(carName);
-        }).toThrow(expected);
+        }).toThrow(msg);
       } else {
         // 정상적으로 등록되는 경우
         const car = Game.register(carName);
-        expect(car.name).toBe(expected);
+        expect(car.name).toBe(msg);
       }
     }
   );
 });
 
 describe("자동차 게임의 횟수 테스트", () => {
-  test("숫자가 전달되는 경우", () => {
-    Game.declareCount(10);
-    expect(Game.race.totalCount).toBe(10);
-  });
   test("숫자가 아닌 값이 전달되는 경우", () => {
     Game.declareCount('abc');
     expect(Game.race.totalCount).toBe(Message.RACE_COUNT);
   });
 
-})
+  const validCounts = [10, Message.RACE_COUNT];
+  const invalidCounts = [101, 0, ''];
+
+  test.each(validCounts)(
+    "유효한 횟수 전달 : %s",
+    (count) => {
+      Game.declareCount(count);
+      expect(Game.race.totalCount).toBe(count);
+    }
+  );
+
+  test.each(invalidCounts)(
+    "유효하지 않은 횟수 전달 : %s",
+    (count) => {
+      expect(() => {
+        Game.declareCount(count);
+      }).toThrow(count > 100 ? Message.ERROR.COUNT_MAX : Message.ERROR.COUNT_MIN);
+    }
+  );
+});
 
 describe("자동차 게임의 횟수 테스트", () => {
   test("우승자를 축하하는 메세지를 정확히 출력하는지 확인", () => {
@@ -76,7 +92,7 @@ describe("자동차 게임의 횟수 테스트", () => {
   });
   test("동일한 위치에 있는 모든 자동차들이 우승자로 선정되는 경우", () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-    
+
     Game.register(carNames);
 
     const samePosition = 5;

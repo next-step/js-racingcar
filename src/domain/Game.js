@@ -20,9 +20,7 @@ const Game = {
 
   // 자동차 게임의 총 횟수 설정하기
   declareCount(count) {
-    if (isNaN(count)) {
-      count = Message.RACE_COUNT
-    }
+    count = utils.validateCount(count);
     this.race.setCount(count);
   },
 
