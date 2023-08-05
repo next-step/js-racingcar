@@ -1,5 +1,6 @@
 import { splitCarNameToArray, Validation } from '../utils';
 import { RacingGame } from '../Domains/RacingGame';
+import { Car } from '../Domains/Car';
 
 export class GameController {
   #model;
@@ -14,7 +15,8 @@ export class GameController {
   async #setGameConfig() {
     const carNames = await this.#readCarName();
     const totalRound = await this.#readTotalRound();
-    this.#model = new RacingGame(carNames, totalRound);
+    const cars = carNames.map((carName) => new Car(carName));
+    this.#model = new RacingGame(cars, totalRound);
 
     this.#printGameResult();
   }

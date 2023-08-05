@@ -1,4 +1,3 @@
-import { Car } from './Car';
 import { MESSAGE, RACING_GAME } from '../constants';
 import {
   getRacingResult,
@@ -14,8 +13,8 @@ export class RacingGame {
   #gameProgress = RACING_GAME.PROGRESS_TITLE;
   #gameResult;
 
-  constructor(carNames, totalRound) {
-    this.#racers = carNames.map((carName) => new Car(carName));
+  constructor(racers, totalRound) {
+    this.#racers = racers;
     this.#totalRound = totalRound;
 
     this.#startRace();
