@@ -1,31 +1,25 @@
+import { RANDOM_NUMBER_MAX, RANDOM_NUMBER_MIN, SEPERATOR } from '../constants/settings.js';
 import CarModel from '../model/CarModel.js';
-import { WinnerModel } from '../model/WinnerModel.js';
-import { getRandomNumber } from '../util/index.js';
+import { getRandomNumber, trimString } from '../util/index.js';
 import CarView from '../view/CarView.js';
-import { Validator } from './Validator.js';
 
 export class RacingSystem {
   cars;
   winners;
-  #settings;
+  round;
   #view;
-  #validator;
 
-  constructor(GameSettings) {
-    this.#settings = GameSettings;
+  constructor() {
     this.view = new CarView();
-    this.#validator = new Validator();
   }
 
-  #initializeGame(names) {
-    this.cars = names.split(this.#settings.seperator).map((name) => {
-      this.#validator.validateConditions(name.trim());
-      return new CarModel(name.trim());
-    });
+  #initializeGame(names, round) {
+    this.cars = names.split(SEPERATOR).map((name) => new CarModel(trimString(name)));
+    this.round = round;
   }
 
-  startGame(names) {
-    this.#initializeGame(names.trim());
+  startGame(names, round) {
+    this.#initializeGame(names, round);
 
     this.#runGame();
 
@@ -34,24 +28,27 @@ export class RacingSystem {
 
   #runGame() {
     this.view.printResultHeader();
-    for (let i = 0; i < this.#settings.round; i++) {
+    for (let i = 0; i < this.round; i++) {
       this.#runRoundProcess();
       this.view.printBreakLine();
     }
   }
 
   #runRoundProcess() {
-    const { randomNumberMax, randomNumberMin, movementCondition } = this.#settings.getSettings();
     this.cars.forEach((car) => {
-      if (getRandomNumber(randomNumberMax, randomNumberMin) >= movementCondition) {
-        car.move();
-      }
+      car.move(getRandomNumber(RANDOM_NUMBER_MIN, RANDOM_NUMBER_MAX));
       this.view.printCarPosition(car.getName(), car.getPosition());
     });
   }
 
+  #getWinners() {
+    const maxPosition = Math.max(...this.cars.map((car) => car.getPosition()));
+    const winners = this.cars.filter((car) => car.getPosition() === maxPosition);
+    return winners.map((winner) => winner.getName());
+  }
+
   #endGame() {
-    this.winners = new WinnerModel(this.cars).winners;
+    this.winners = this.#getWinners();
     this.view.printWinners(this.winners);
   }
 }
