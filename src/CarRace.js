@@ -4,6 +4,8 @@ import { getRandomIntInclusive, isString } from "./utils";
 export const DEFAULT_CONFIG = {
   MAX_NUM_OF_CARS: 5,
   MIN_NUM_OF_CARS: 1,
+  MAX_LENGH_OF_CAR_NAME: 5,
+  MIN_LENGH_OF_CAR_NAME: 1,
   MIN_RANDOM_NUMBER: 0,
   MAX_RANDOM_NUMBER: 9,
   RACE_LAPS: 5,
@@ -21,8 +23,8 @@ export class CarRace {
   #laps = DEFAULT_CONFIG.RACE_LAPS;
   #currentLap = 0;
 
-  constructor(rawCarNames) {
-    const carNames = this.#parseCarNames(rawCarNames);
+  constructor(enteredCarNames) {
+    const carNames = this.#parseCarNames(enteredCarNames);
     if (carNames.length < DEFAULT_CONFIG.MIN_NUM_OF_CARS) {
       throw new InvalidCarNamesError(
         "A number of cars were given that are too small to race."
@@ -33,17 +35,36 @@ export class CarRace {
       .map((carName) => new Car(carName));
   }
 
-  #parseCarNames(rawCarNames) {
-    if (!isString(rawCarNames)) {
+  #parseCarNames(enteredCarNames) {
+    if (!isString(enteredCarNames)) {
       throw new InvalidCarNamesError(
         "The given car names value is not a string"
       );
     }
-    const carNames = rawCarNames
+    const carNames = enteredCarNames
       .split(",")
       .map((carName) => carName.trim())
       .filter((carName) => carName);
-    return [...new Set(carNames)];
+    const uniqueCarNames = [...new Set(carNames)];
+    this.#validateCarNames(uniqueCarNames);
+    return uniqueCarNames;
+  }
+
+  #validateCarNames(carNames) {
+    if (
+      carNames.some(
+        (carName) => carName.length < DEFAULT_CONFIG.MIN_LENGH_OF_CAR_NAME
+      )
+    ) {
+      throw new InvalidCarNamesError("One or more car names are too short");
+    }
+    if (
+      carNames.some(
+        (carName) => carName.length > DEFAULT_CONFIG.MAX_LENGH_OF_CAR_NAME
+      )
+    ) {
+      throw new InvalidCarNamesError("One or more car names are too long");
+    }
   }
 
   #race() {

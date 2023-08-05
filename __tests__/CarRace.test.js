@@ -7,6 +7,10 @@ describe("Test class CarRace", () => {
   it("should initiated with valid car names", () => {
     expect(() => new CarRace()).toThrow(InvalidCarNamesError);
     expect(() => new CarRace("")).toThrow(InvalidCarNamesError);
+    expect(() => new CarRace("tooLongCarName")).toThrow(InvalidCarNamesError);
+    expect(() => new CarRace("car1, tooLongCarName1, tooLongCarName2")).toThrow(
+      InvalidCarNamesError
+    );
   });
 
   const race = new CarRace(TEST_CAR_NAMES.join(","));
