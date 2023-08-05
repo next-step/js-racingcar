@@ -13,6 +13,7 @@ const {
   SKID_MARK,
   MIN_ROUND_COUNT,
   MAX_ROUND_COUNT,
+  MAX_USER_COUNT,
 } = require('../src/constants/racing-rule.js');
 const { MESSAGES, ERROR_MESSAGES } = require('../src/constants/messages.js');
 
@@ -46,35 +47,24 @@ describe('유틸리티 함수 테스트', () => {
 });
 
 describe('자동차의 이름 목록을 입력 받는다.', () => {
-  test('일반적인 케이스 "JAMES, KANE, MARK"', () => {
+  test.each(['JAMES, KANE, MARK', 'JAMES, KANE, MARK, ALEX, LEE'])('일반적인 케이스', (input) => {
     expect(() => {
-      const input = 'A,B,C';
       const slicedInput = splitByStandard(input);
 
       validator.checkValidCarList(slicedInput);
     }).not.toThrow();
   });
 
-  test('일반적인 케이스 "JAMES, KANE, MARK, ALEX, LEE"', () => {
-    expect(() => {
-      const input = 'JAMES, KANE, MARK, ALEX, LEE';
-      const slicedInput = splitByStandard(input);
+  // 현재 최대 인원 제한이 없으므로 skip
 
-      validator.checkValidCarList(slicedInput);
-    }).not.toThrow();
-  });
-
-  /*
-  현재 최대 인원 제한이 없으므로 주석처리
-
-  test(`참가자가 ${MAX_USER_COUNT} 초과인 케이스 "A,B,C,D,E,F"`, () => {
+  test.skip(`참가자가 ${MAX_USER_COUNT} 초과인 케이스 "A,B,C,D,E,F"`, () => {
     const input = 'A,B,C,D,E,F';
     const slicedInput = splitByStandard(input);
 
     validator.checkValidCarNames(slicedInput);
+
     expect(() => {}).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_USER_COUNT);
   });
-  */
 
   test(`참가자가 ${MIN_USER_COUNT}명 미만인 케이스 "JAMES"`, () => {
     expect(() => {
@@ -114,11 +104,9 @@ describe('자동차를 생성한다.', () => {
 });
 
 describe('진행할 라운드를 입력 받는다.', () => {
-  test('일반적인 케이스 "3"', () => {
+  test.each(['1', '2', '3', '4', '5'])('일반적인 케이스', (input) => {
     expect(() => {
-      const input = '3';
-
-      validator.checkValidRound(input);
+      new Track(input);
     }).not.toThrow();
   });
 
@@ -126,7 +114,7 @@ describe('진행할 라운드를 입력 받는다.', () => {
     expect(() => {
       const input = '0';
 
-      validator.checkValidRound(input);
+      new Track(input);
     }).toThrow(ERROR_MESSAGES.LESS_THAN_MIN_ROUND_COUNT);
   });
 
@@ -134,7 +122,7 @@ describe('진행할 라운드를 입력 받는다.', () => {
     expect(() => {
       const input = '6';
 
-      validator.checkValidRound(input);
+      new Track(input);
     }).toThrow(ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
   });
 
@@ -142,7 +130,7 @@ describe('진행할 라운드를 입력 받는다.', () => {
     expect(() => {
       const input = '안녕';
 
-      validator.checkValidRound(input);
+      new Track(input);
     }).toThrow(ERROR_MESSAGES.IS_NOT_NUMBER);
   });
 
@@ -150,7 +138,7 @@ describe('진행할 라운드를 입력 받는다.', () => {
     expect(() => {
       const input = '';
 
-      validator.checkValidRound(input);
+      new Track(input);
     }).toThrow(ERROR_MESSAGES.IS_EMPTY);
   });
 });
