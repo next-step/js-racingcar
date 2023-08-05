@@ -1,3 +1,4 @@
+import { Validation } from '../utils';
 import { CAR } from '../constants';
 
 export class Car {
@@ -5,7 +6,12 @@ export class Car {
   #distance = CAR.DEFAULT_DISTANCE;
 
   constructor(name) {
+    this.#validation(name);
     this.#name = name;
+  }
+
+  #validation(name) {
+    Validation.validateCarName(name);
   }
 
   advance() {

@@ -96,4 +96,4 @@ export const View = {
 
 ### Car
 
-- [ ] Car과 관련된 Validation을 Model 내부에서 진행한다.
+- [x] Car과 관련된 Validation을 Model 내부에서 진행한다.

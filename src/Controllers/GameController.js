@@ -13,24 +13,24 @@ export class GameController {
   }
 
   async #setGameConfig() {
-    const carNames = await this.#readCarName();
+    const cars = await this.#createCarByUserInput();
     const totalRound = await this.#readTotalRound();
-    const cars = carNames.map((carName) => new Car(carName));
+
     this.#model = new RacingGame(cars, totalRound);
 
     this.#printGameResult();
   }
 
-  async #readCarName() {
+  async #createCarByUserInput() {
     try {
       const userInput = await this.#view.readCarName();
       const carNames = splitCarNameToArray(userInput);
-      carNames.forEach(Validation.validateCarName);
+      const cars = carNames.map((carName) => new Car(carName));
 
-      return carNames;
+      return cars;
     } catch (error) {
       return this.#handleError(error, () => {
-        return this.#readCarName();
+        return this.#createCarByUserInput();
       });
     }
   }
