@@ -47,6 +47,3 @@ const _WINNER_POSITION = Math.max(...EXPECT_POSITIONS);
 export const EXPECT_WINNERS = EXPECT_GAME_RESULT.filter(
     (player) => player.getPosition() === _WINNER_POSITION
 ).map((player) => player.getName());
-
-// 게임 끝났을 때 기대되는 결과
-export const EXPECT_WINNER_LOG = `${EXPECT_WINNERS.join(",")}가 최종 우승했습니다.`;

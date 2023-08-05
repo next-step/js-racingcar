@@ -10,7 +10,7 @@ import {
   DEFAULT_CAR_NAMES_INPUT,
   DEFAULT_GAME_SIZE,
   DEFAULT_PLAYERS, EXPECT_POSITION_LOGS,
-  EXPECT_POSITIONS, EXPECT_WINNER_LOG, RANDOM_NUMBERS_ALL
+  EXPECT_POSITIONS, EXPECT_WINNERS, RANDOM_NUMBERS_ALL
 } from "./RacingGame.test.const";
 
 describe("Together RacingGame (여럿이서 하는 레이싱 게임)", () => {
@@ -60,17 +60,19 @@ describe("Together RacingGame (여럿이서 하는 레이싱 게임)", () => {
         });
       })
     });
-  });
 
-  describe("자동차 경주 완료", () => {
     racingGame.getPlayers().forEach((player, playerIdx) => {
       it(`${DEFAULT_GAME_SIZE}회 동안 자동차가 ${CAN_GO_ROUNDS[playerIdx]}번 갈 수 있었을 때, 총 움직인 만큼을 출력 가능한 형태로 표시할 수 있다.`, () => {
         expect(player.getPositionLog()).toBe(EXPECT_POSITION_LOGS[playerIdx]);
       });
     });
+  });
 
-    it(`우승자를 출력 가능한 형태로 표시할 수 있다.`, () => {
-      expect(racingGame.getWinnerLog()).toBe(EXPECT_WINNER_LOG);
+  describe("자동차 경주 완료", () => {
+    describe(`제일 멀리 간 플레이어가 ${EXPECT_WINNERS.join(", ")}일 때`, () => {
+      it(`우승자는 ${EXPECT_WINNERS.join(", ")}이다.`, () => {
+        expect(racingGame.getWinnersNames()).toStrictEqual(EXPECT_WINNERS);
+      });
     });
   });
 });
