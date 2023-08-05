@@ -1,10 +1,10 @@
-import { Car } from "../../../src/domain/Car/Car";
+import { Car } from "./Car";
 import {
   MAX_NAME_LENGTH,
   RUN_THRESHOLD,
   RUN_UNIT,
   START_POSITION,
-} from "../../../src/domain/Car/Car.const";
+} from "./Car.const";
 import {
   DEFAULT_CAR_NAME
 } from "./Car.test.const"
@@ -24,8 +24,8 @@ describe("Car", () => {
       }).toThrow("이름은 공백을 제외한 한글자 이상이어야한다.");
     });
 
-    it(`자동차의 이름이 ${MAX_NAME_LENGTH}글자를 넘어설 경우 에러를 발생한다.`, () => {
-      const name = "";
+    it(`자동차의 이름이 ${MAX_NAME_LENGTH}글자를 초과할 경우 에러가 발생한다.`, () => {
+      const name = "abcdefg";
       expect(() => {
         new Car(name);
       }).toThrow(`이름은 ${MAX_NAME_LENGTH}글자 이하이어야한다.`);

@@ -1,7 +1,7 @@
-import {Car} from "../../../src/domain/Car/Car";
-import {getRandomNumberInRange} from "../../../src/util/getRandomNumber";
-import {RANDOM_MAX_NUMBER, RANDOM_MIN_NUMBER} from "../../../src/domain/RacingGame/RacingGame.const";
-import {RUN_THRESHOLD, RUN_UNIT, START_POSITION} from "../../../src/domain/Car/Car.const";
+import {Car} from "../Car/Car";
+import {getRandomNumberInRange} from "../../util/getRandomNumber";
+import {RANDOM_MAX_NUMBER, RANDOM_MIN_NUMBER} from "./RacingGame.const";
+import {RUN_THRESHOLD, RUN_UNIT, START_POSITION} from "../Car/Car.const";
 
 // 테스트 때 할당할 게임 기본 사이즈
 export const DEFAULT_GAME_SIZE = 5;
@@ -14,7 +14,7 @@ export const DEFAULT_PLAYERS = [new Car("pobi"), new Car("crong"), new Car("honu
 
 // [플레이어][게임 회차]에 할당된 랜덤한 숫자들
 export const RANDOM_NUMBERS_ALL = Array.from(new Array(DEFAULT_PLAYERS.length), () =>
-    Array.from(new Array(GAME_SIZE), () =>
+    Array.from(new Array(DEFAULT_GAME_SIZE), () =>
         getRandomNumberInRange(RANDOM_MIN_NUMBER, RANDOM_MAX_NUMBER)
     )
 );
