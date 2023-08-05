@@ -1,14 +1,8 @@
-export const SETTINGS = Object.freeze({
-  ROUND: 5,
-  NAME: {
-    MAX_LENGTH: 5,
-    MIN_LENGTH: 1,
-  },
-  RANDOM_NUMBER: {
-    MAX: 9,
-    MIN: 0,
-  },
-  MOVEMENT: 1,
-  SEPERATOR: ',',
-  MOVEMENT_CONDITION: 4,
-});
+export const NAME_MAX_LENGTH = 5;
+export const NAME_MIN_LENGTH = 1;
+export const ROUND = 5;
+export const RANDOM_NUMBER_MAX = 9;
+export const RANDOM_NUMBER_MIN = 0;
+export const MOVEMENT_CONDITION = 4;
+export const SEPERATOR = ',';
+export const MOVEMENT = 1;
