@@ -1,16 +1,17 @@
-import Car from './domain/car.js'
+const readline = require('readline')
+const Game = require('./domain/Game.js')
 
-import readline from 'readline';
-
-const rl = readline.createInterface({
+const r1 = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
-const carGame = new Car(rl);
 const r2 = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-Car.carCount(r2);
-carGame.getName();
+// game start
+Game.register(r1);
+Game.declareCount(r2);
+Game.gameStart();
+Game.congratulateWinner();
