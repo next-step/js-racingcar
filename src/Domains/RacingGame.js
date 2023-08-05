@@ -10,22 +10,17 @@ import {
 
 export class RacingGame {
   #cars = RACING_GAME.CARS.DEFAULT_STATE;
-  #totalRounds;
+  #totalRound;
   #gameProgress = RACING_GAME.PROGRESS_TITLE;
   #gameResult;
 
-  constructor() {}
-
-  setCars(carNames) {
+  constructor(carNames, totalRound) {
     this.#cars = carNames.map((carName) => new Car(carName));
-  }
-
-  setTotalRounds(totalRounds) {
-    this.#totalRounds = totalRounds;
+    this.#totalRound = totalRound;
   }
 
   startRace() {
-    for (let round = 0; round < this.#totalRounds; round++) {
+    for (let round = 0; round < this.#totalRound; round++) {
       this.#cars.forEach((car) => {
         this.#randomCarMovement(car);
         this.#recordGameProgress(car);
