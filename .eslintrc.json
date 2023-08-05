@@ -2,7 +2,6 @@
   "ignorePatterns": ["./__tests__/Car.test.js"],
   "rules": {
     "no-implicit-globals": "error",
-    "max-lines-per-function": ["error", 10],
     "max-depth": ["error", 2],
     "eqeqeq": ["error", "always"],
     "no-var": "error",
