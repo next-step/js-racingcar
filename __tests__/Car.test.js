@@ -1,19 +1,14 @@
 import { GameController } from '../src/Controllers/GameController';
 import { Car, RacingGame } from '../src/Domains';
 import { MESSAGE, CAR, RACING_GAME } from '../src/constants';
-import {
-  getRandomIntInRange,
-  splitCarNameToArray,
-  Validation,
-} from '../src/utils';
-import { InputView, OutputView, View } from '../src/Views';
+import { getRandomIntInRange, splitCarNameToArray } from '../src/utils';
+import { View } from '../src/Views';
 
 // 2단계
 describe('게임 시작', () => {
   test('GameController가 정상적으로 생성되는지 확인한다.', () => {
-    const model = new RacingGame();
-    const view = new View(InputView, OutputView);
-    const gameController = new GameController(model, view);
+    const view = new View();
+    const gameController = new GameController(view);
 
     expect(gameController).toBeInstanceOf(GameController);
   });
@@ -30,7 +25,8 @@ describe('자동차 이름 입력', () => {
 
 describe('자동차 이름 유효성 검사', () => {
   test('Car 객체가 정상적으로 생성되는지 확인한다.', () => {
-    const car = new Car('pobi');
+    const VALID_CAR_NAME = 'pobi';
+    const car = new Car(VALID_CAR_NAME);
 
     expect(car).toBeInstanceOf(Car);
   });
@@ -39,8 +35,7 @@ describe('자동차 이름 유효성 검사', () => {
     const INVALID_CAR_NAME = 'pengoose';
 
     expect(() => {
-      const carNames = splitCarNameToArray(INVALID_CAR_NAME);
-      carNames.forEach((carName) => Validation.validateCarName(carName));
+      new Car(INVALID_CAR_NAME);
     }).toThrow(MESSAGE.ERROR.LENGTH_OVERFLOW(CAR.MAX_NAME_LENGTH));
   });
 });
@@ -48,14 +43,10 @@ describe('자동차 이름 유효성 검사', () => {
 describe('자동차 경주 셋팅', () => {
   test('주어진 횟수에 따라 경주가 진행된다.', () => {
     const carNames = splitCarNameToArray('pobi,crong,honux');
-    carNames.forEach((carName) => Validation.validateCarName(carName));
-
+    const cars = carNames.map((carName) => new Car(carName));
     const randomRound = getRandomIntInRange(1, 9);
 
-    const model = new RacingGame();
-    model.setCars(carNames);
-    model.setTotalRounds(randomRound);
-    model.startRace();
+    const model = new RacingGame(cars, randomRound);
 
     const gameResult = model.getGameResult();
     const gameResultLines = gameResult.split('\n');
@@ -69,7 +60,7 @@ describe('자동차 경주 시작', () => {
   test('랜덤 값이 4 이상일 경우 자동차가 전진하는지 확인한다.', () => {
     const car = new Car('pobi');
     const RANDOM_INT = 8;
-    if (RANDOM_INT >= RACING_GAME.CARS.MOVEMENT_THRESHOLD) car.advance();
+    if (RANDOM_INT >= RACING_GAME.RACER.MOVEMENT_THRESHOLD) car.advance();
 
     expect(car.getDistance()).toBe(1);
   });
@@ -77,7 +68,7 @@ describe('자동차 경주 시작', () => {
   test('랜덤 값이 4 미만일 경우 자동차가 전진하지 않는지 확인한다.', () => {
     const car = new Car('pobi');
     const RANDOM_INT = 2;
-    if (RANDOM_INT >= RACING_GAME.CARS.MOVEMENT_THRESHOLD) car.advance();
+    if (RANDOM_INT >= RACING_GAME.RACER.MOVEMENT_THRESHOLD) car.advance();
 
     expect(car.getDistance()).toBe(0);
   });
@@ -86,13 +77,9 @@ describe('자동차 경주 시작', () => {
 describe('우승자 확인', () => {
   test('GameController가 우승자를 정상적으로 출력하는지 확인한다.', () => {
     const carNames = splitCarNameToArray('pobi,crong,honux');
-    carNames.forEach((carName) => Validation.validateCarName(carName));
-
-    const TOTAL_ROUNDS = 5;
-    const model = new RacingGame();
-    model.setCars(carNames);
-    model.setTotalRounds(TOTAL_ROUNDS);
-    model.startRace();
+    const cars = carNames.map((carName) => new Car(carName));
+    const randomRound = getRandomIntInRange(1, 9);
+    const model = new RacingGame(cars, randomRound);
 
     const gameResult = model.getGameResult();
     const gameResultLines = gameResult.split('\n');
