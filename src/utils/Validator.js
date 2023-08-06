@@ -22,9 +22,9 @@ export const Validation = {
 
   /* Total Rounds */
   validateTotalRounds(totalRounds) {
-    if (!isValidPattern(totalRounds, RACING_GAME.TOTAL_ROUND.VALID_PATTERN))
+    if (!isValidPattern(totalRounds, RACING_GAME.REGEX.TOTAL_ROUND))
       throw new Error(
-        MESSAGE.ERROR.INVALID_TYPE(RACING_GAME.TOTAL_ROUND.VALID_TYPE)
+        MESSAGE.ERROR.INVALID_TYPE(MESSAGE.ERROR.INVALID_TOTAL_ROUND)
       );
   },
 
