@@ -2,7 +2,7 @@ import { RACE_CONFIGURE, ERROR_MESSAGE } from '../constants/index';
 import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../race/index';
 import { generateRandomNumber, isDuplicateArray } from '../utils/index';
 
-export default class CarRace {
+export default class CarRaceOrganizer {
   #maxLap = RACE_CONFIGURE.MAX_LAP;
   #minSpeed = RACE_CONFIGURE.MIN_SPEED;
   #maxSpeed = RACE_CONFIGURE.MAX_SPEED;

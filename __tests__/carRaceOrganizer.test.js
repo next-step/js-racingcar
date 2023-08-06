@@ -6,15 +6,15 @@ import {
   DUMMY_DUPLICATE_WINNER_RACE_SET
 } from './constants';
 import { ERROR_MESSAGE, RACE_CONFIGURE } from '../src/constants/index';
-import { CarRace } from '../src/classes/index';
+import { CarRaceOrganizer } from '../src/classes/index';
 import { validateDuplicateCars, validateInputMessage } from '../src/race/index';
 
 const { MAX_LAP } = RACE_CONFIGURE;
 
 const getRaceWinners = (raceModel) => {
-  const carRace = new CarRace(raceModel);
-  carRace.printWinners();
-  return carRace.winners;
+  const CarRaceOrganizer = new CarRaceOrganizer(raceModel);
+  CarRaceOrganizer.printWinners();
+  return CarRaceOrganizer.winners;
 };
 
 describe('자동차 경주 테스트', () => {
@@ -46,28 +46,28 @@ describe('자동차 경주 테스트', () => {
   });
 
   it('자동차 주행 횟수마다 lap이 변경된다.', () => {
-    const carRace = new CarRace(DUMMY_RACE_SET);
-    expect(carRace.lap).toBe(0);
-    carRace.race();
-    carRace.nextLap();
-    expect(carRace.lap).toBe(1);
+    const CarRaceOrganizer = new CarRaceOrganizer(DUMMY_RACE_SET);
+    expect(CarRaceOrganizer.lap).toBe(0);
+    CarRaceOrganizer.race();
+    CarRaceOrganizer.nextLap();
+    expect(CarRaceOrganizer.lap).toBe(1);
   });
 
   it('자동차 주행 횟수 마다 경주 상태를 출력한다.', () => {
-    const carRace = new CarRace(DUMMY_RACE_SET);
-    carRace.race();
-    carRace.printRace();
+    const CarRaceOrganizer = new CarRaceOrganizer(DUMMY_RACE_SET);
+    CarRaceOrganizer.race();
+    CarRaceOrganizer.printRace();
     expect(logSpy).toHaveBeenCalledTimes(DUMMY_RACE_SET.length);
   });
 
   it(`자동차 경주는 총 ${MAX_LAP}회로 이루어진다.`, () => {
-    const carRace = new CarRace();
+    const CarRaceOrganizer = new CarRaceOrganizer();
     for (let lap = 0; lap < MAX_LAP; lap += 1) {
-      expect(carRace.lap).toBe(lap);
-      carRace.nextLap();
+      expect(CarRaceOrganizer.lap).toBe(lap);
+      CarRaceOrganizer.nextLap();
     }
-    carRace.nextLap();
-    expect(carRace.lap).toBe(MAX_LAP);
+    CarRaceOrganizer.nextLap();
+    expect(CarRaceOrganizer.lap).toBe(MAX_LAP);
   });
 
   it('자동차 경주 종료 후, 많은 거리를 이동한 자동차가 우승한다.', () => {
