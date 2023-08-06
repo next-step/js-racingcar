@@ -1,6 +1,6 @@
-import { RACE_CONFIGURE } from '../constants/index';
+import { RACE_CONFIGURE, ERROR_MESSAGE } from '../constants/index';
 import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../race/index';
-import { generateRandomNumber } from '../utils/index';
+import { generateRandomNumber, isDuplicateArray } from '../utils/index';
 
 export default class CarRace {
   #cars = [];
@@ -13,6 +13,7 @@ export default class CarRace {
   #track = RACE_CONFIGURE.TRACK;
 
   constructor(cars) {
+    this.#validateDuplicateCarName(cars);
     this.#cars = cars;
   }
 
@@ -22,6 +23,13 @@ export default class CarRace {
 
   get winners() {
     return this.#winners;
+  }
+
+  #validateDuplicateCarName(cars) {
+    const carNames = cars.map((car) => car.name);
+    if (isDuplicateArray(carNames)) {
+      throw new Error(ERROR_MESSAGE.DUPLICATE_CAR);
+    }
   }
 
   #isRaceDone() {
@@ -41,7 +49,16 @@ export default class CarRace {
     return this.#isRaceDone();
   }
 
-  race() {
+  runFullRace() {
+    while (!this.#isRaceDone()) {
+      this.runSingleRace();
+      this.printRace();
+      this.nextLap();
+    }
+    this.printWinners();
+  }
+
+  runSingleRace() {
     this.#cars.forEach((car) => {
       const distance = this.#getDistance();
       car.move(distance);

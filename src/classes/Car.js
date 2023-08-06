@@ -1,5 +1,5 @@
-import { CAR_CONFIGURE } from '../constants/index';
-import { validateCarName, validateCarNameType } from '../race/index';
+import { CAR_CONFIGURE, ERROR_MESSAGE } from '../constants/index';
+import { isString, isMinimumLength, isMaximumLength } from '../utils/index';
 
 export default class Car {
   #name = null;
@@ -7,7 +7,9 @@ export default class Car {
   #moveCondition = CAR_CONFIGURE.MOVE_CONDITION;
 
   constructor(name) {
+    this.#validateCarNameType(name);
     this.#validateCarName(name);
+
     this.#name = name;
   }
 
@@ -21,8 +23,19 @@ export default class Car {
 
   #validateCarName(carName) {
     const { NAME_MIN_LENGTH: min, NAME_MAX_LENGTH: max } = CAR_CONFIGURE;
-    validateCarName(carName, { min, max });
-    validateCarNameType(carName);
+    if (!isMinimumLength(carName.trim(), min)) {
+      throw new Error(ERROR_MESSAGE.NOT_RECEIVED_CAR_NAME);
+    }
+
+    if (!isMaximumLength(carName.trim(), max)) {
+      throw new Error(ERROR_MESSAGE.CAR_NAME_INCORRECT_LENGTH);
+    }
+  }
+
+  #validateCarNameType(carName) {
+    if (!isString(carName)) {
+      throw new Error(ERROR_MESSAGE.CAR_NAME_NOT_STRING);
+    }
   }
 
   #moveForward() {
