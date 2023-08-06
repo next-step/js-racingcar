@@ -21,8 +21,6 @@ describe('Racing System Test', () => {
         .map((car) => car.getName());
       expect(winners).toEqual(racingSystem.winners);
     });
-
-    it('should be able to manage range of random Number', () => {});
   });
 
   describe('if setting has been updated', () => {
