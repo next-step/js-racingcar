@@ -1,18 +1,30 @@
-import { DEFAULT_POSITION } from '../constants/car.js'
-import { validateName } from '../utils/validate.js'
+import { ERROR_MESSAGE } from '../constants/errorMessages'
 
 export class Car {
+  static DEFAULT_POSITION = 0
   #name
   #position
 
   constructor(name) {
-    validateName(name)
+    this.#validateName(name)
     this.#name = name
-    this.#position = DEFAULT_POSITION
+    this.#position = Car.DEFAULT_POSITION
   }
 
-  move(score) {
-    if (score >= 4) this.#position += 1
+  #validateName(name) {
+    if (name.length > 5 || name.length === 0) {
+      throw new Error(ERROR_MESSAGE)
+    }
+
+    if (!/^[\p{Script=Hangul}\p{Script=Latin}]+$/u.test(name)) {
+      throw new Error(ERROR_MESSAGE.NAME_CHARACTER)
+    }
+
+    this.#name = name
+  }
+
+  move(isMove) {
+    if (isMove) this.#position += 1
   }
 
   get name() {
