@@ -1,14 +1,28 @@
+const defaultAdvanceCondition = () => {
+  return Math.random() * 9 >= 4;
+};
+
 export default class Car {
-  cars;
-  constructor() {
-    this.cars = new Map();
+  name;
+  distance;
+
+  constructor(name, advanceCondition = defaultAdvanceCondition) {
+    this.name = name;
+    this.distance = 0;
+    this.advanceCondition = advanceCondition;
   }
 
-  getCarStatus() {
-    return new Map(this.cars);
+  getName() {
+    return this.name;
   }
 
-  setCarStatus(cars) {
-    this.cars = new Map(cars);
+  getDistance() {
+    return this.distance;
+  }
+
+  advance() {
+    if (this.advanceCondition()) {
+      this.distance += 1;
+    }
   }
 }
