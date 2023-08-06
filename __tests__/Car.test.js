@@ -1,5 +1,6 @@
-import RacingGameController from "../src/class/RacingGameController";
 import Validator from "../src/class/Validator";
+import Cars from "../src/class/Cars";
+import Car from "../src/class/Car";
 
 describe("Validator Class 테스트", () => {
   describe("validateCarNames 테스트", () => {
@@ -41,36 +42,41 @@ describe("Validator Class 테스트", () => {
   });
 });
 
-describe("RacingCarGameController Class 테스트", () => {
-  test("executeOneRound가 지정한 횟수만큼 호출된다.", async () => {
+describe("Car Class 테스트", () => {
+  test("advanceCondition이 true를 반환하면 distance가 1 증가한다.", async () => {
+    const mockAdvanceCondition = () => true;
+
+    const car = new Car("test Car", mockAdvanceCondition);
+
+    car.advance();
+
+    expect(car.getDistance()).toBe(1);
+  });
+});
+
+describe("Cars Class 테스트", () => {
+  test("setRoundNumber로 roundNumber가 갱신되며 지정한 횟수만큼 라운드가 진행된다.", async () => {
     const testRoundNumber = 3;
 
-    const racingCarGame = new RacingGameController(testRoundNumber);
+    const carsModel = new Cars();
+
+    carsModel.setRoundNumber(testRoundNumber);
 
     const executeMultipleRoundsSpy = jest.spyOn(
-      racingCarGame,
+      carsModel,
       "executeMultipleRounds",
     );
 
-    const executeOneRoundSpy = jest.spyOn(
-      racingCarGame.model,
-      "executeOneRound",
-    );
+    const afterRoundActionSpy = jest.fn();
 
-    racingCarGame.executeMultipleRounds();
+    const executeOneRoundSpy = jest.spyOn(carsModel, "executeOneRound");
+
+    carsModel.executeMultipleRounds(afterRoundActionSpy);
 
     expect(executeMultipleRoundsSpy).toHaveBeenCalledTimes(1);
 
+    expect(afterRoundActionSpy).toHaveBeenCalledTimes(testRoundNumber);
+
     expect(executeOneRoundSpy).toHaveBeenCalledTimes(testRoundNumber);
-  });
-
-  test("사용자가 입력한 이동횟수(유효한 경우)로 roundNumber가 갱신된다.", () => {
-    const testRoundNumber = 3;
-
-    const racingCarGame = new RacingGameController();
-
-    racingCarGame.setRoundNumber(testRoundNumber);
-
-    expect(racingCarGame.getRoundNumber()).toEqual(testRoundNumber);
   });
 });

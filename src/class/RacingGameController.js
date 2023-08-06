@@ -2,8 +2,6 @@ import Validator, { RacingCarGameError } from "./Validator";
 import Cars from "./Cars";
 import RacingGameViewer from "./RacingGameViewer";
 
-const DEFAULT_RACING_ROUND_NUMBER = 5;
-
 const CAR_NAME_INPUT_GUIDE =
   "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n";
 
@@ -11,103 +9,92 @@ const RACING_ROUND_INPUT_GUIDE = "시도할 회수는 몇회인가요?\n";
 
 const CAR_NAME_SEPARATOR = ",";
 
+const GAME_STEP = {
+  SET_CARS: "SET_CARS",
+  SET_ROUND_NUMBER: "SET_ROUND_NUMBER",
+  EXECUTE_ROUND: "EXECUTE_ROUND",
+  AWARDS: "AWARDS",
+};
+
 export default class RacingGameController {
   model;
   view;
-  #roundNumber;
+  nextGameStep;
 
-  constructor(roundNumber = DEFAULT_RACING_ROUND_NUMBER) {
-    this.#roundNumber =
-      typeof roundNumber === "number"
-        ? roundNumber
-        : DEFAULT_RACING_ROUND_NUMBER;
+  constructor() {
     this.view = new RacingGameViewer();
     this.model = new Cars();
+    this.nextGameStep = GAME_STEP.SET_CARS;
   }
 
-  executeMultipleRounds() {
-    this.view.printRoundHeader();
-
-    Array.from({ length: this.#roundNumber }, () => {
-      this.model.executeOneRound();
-
-      const statusAfterRound = this.model.getAllCarStatus();
-
-      this.view.printCarStatus(statusAfterRound);
-
-      this.view.printContent("");
-    });
-  }
-
-  handleError(error) {
+  async handleError(error) {
     if (error instanceof RacingCarGameError) {
       this.view.printContent(error.message);
+
+      await this.runGame();
     }
   }
 
-  async userInputCarNames() {
-    try {
-      const enteredUserInput = await this.view.getUserInput(
-        CAR_NAME_INPUT_GUIDE,
-      );
+  async requestCarNames() {
+    const userInput = await this.view.getUserInput(CAR_NAME_INPUT_GUIDE);
 
-      const carNames = enteredUserInput.split(CAR_NAME_SEPARATOR);
+    const carNames = userInput.split(CAR_NAME_SEPARATOR);
 
-      Validator.validateCarNames(carNames);
+    Validator.validateCarNames(carNames);
 
-      carNames.forEach((car) => this.model.addCar(car));
-    } catch (e) {
-      this.handleError(e);
-    }
+    return carNames;
   }
 
-  async useInputRacingRound() {
-    try {
-      const enteredUserInput = await this.view.getUserInput(
-        RACING_ROUND_INPUT_GUIDE,
-      );
+  async requestRoundNumber() {
+    const userInput = await this.view.getUserInput(RACING_ROUND_INPUT_GUIDE);
 
-      Validator.validateRoundNumber(enteredUserInput);
+    Validator.validateRoundNumber(userInput);
 
-      this.setRoundNumber(Number(enteredUserInput));
-    } catch (e) {
-      this.handleError(e);
-    }
-  }
-
-  getWinners() {
-    const carStatus = this.model.getAllCarStatus();
-
-    const maxDistance = Math.max(...carStatus.map((value) => value.distance));
-
-    return carStatus
-      .filter((car) => car.distance === maxDistance)
-      .map((car) => car.name);
-  }
-
-  getRoundNumber() {
-    return this.#roundNumber;
-  }
-
-  setRoundNumber(number) {
-    this.#roundNumber = number;
+    return Number(userInput);
   }
 
   exitGame() {
     this.view.closeViewer();
   }
 
-  async startGame() {
-    await this.userInputCarNames();
+  async setCars() {
+    const carNames = await this.requestCarNames();
 
-    await this.useInputRacingRound();
+    carNames.forEach((car) => this.model.addCar(car));
+  }
 
-    this.executeMultipleRounds();
+  async setRoundNumber() {
+    const roundNumber = await this.requestRoundNumber();
 
-    const winners = this.getWinners();
+    this.model.setRoundNumber(roundNumber);
+  }
 
-    this.view.printWinners(winners);
+  afterRoundAction = (carStatus) => {
+    this.view.printCarStatus(carStatus);
+  };
 
-    this.exitGame();
+  async runGame() {
+    try {
+      if (this.nextGameStep === GAME_STEP.SET_CARS) {
+        await this.setCars();
+        this.nextGameStep = GAME_STEP.SET_ROUND_NUMBER;
+      }
+
+      if (this.nextGameStep === GAME_STEP.SET_ROUND_NUMBER) {
+        await this.setRoundNumber();
+        this.nextGameStep = GAME_STEP.EXECUTE_ROUND;
+      }
+
+      this.view.printRoundHeader();
+      this.model.executeMultipleRounds(this.afterRoundAction);
+      this.nextGameStep = GAME_STEP.AWARDS;
+
+      const winners = this.model.getWinners();
+      this.view.printWinners(winners);
+    } catch (e) {
+      await this.handleError(e);
+    } finally {
+      this.exitGame();
+    }
   }
 }
