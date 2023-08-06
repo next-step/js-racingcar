@@ -8,6 +8,8 @@ const CAR_ADVANCE_THRESHOLD_NUMBER = 4;
 const CAR_NAME_INPUT_GUIDE =
   "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n";
 
+const RACING_ROUND_INPUT_GUIDE = "시도할 회수는 몇회인가요?\n";
+
 const CAR_NAME_SEPARATOR = ",";
 
 const RACING_SCORE_CHAR = "-";
@@ -16,11 +18,17 @@ const ERROR_MESSAGES = {
   INVALID_EMPTY_NAME: "자동차 이름은 빈값일 수 없습니다.",
   INVALID_NAME_LENGTH: "자동차 이름은 5자를 넘길 수 없습니다.",
   DUPLICATE_CAR_NAME: "자동차 이름은 중복될 수 없습니다.",
+  INVALID_RACING_ROUND_FORMAT: "양의 정수 형식의 값을 입력해 주세요.",
+  INVALID_RACING_ROUND_VALUE: "1이상 값을 입력해주세요.",
 };
 
 const RACING_CAR_ERROR_NAME = "RACING_CAR_ERROR";
 
 const WINNER_ANNOUNCEMENT_MESSAGE = "가 최종 우승했습니다.";
+
+const rRacingRound = /^[0-9]+$/;
+
+const RACING_ROUND_MIN_VALUE = 1;
 
 class RacingCarGameError extends Error {
   constructor(message) {
@@ -98,6 +106,52 @@ export default class RacingGameController {
     }
   }
 
+  async userInputCarNames() {
+    try {
+      const enteredUserInput = await this.view.getUserInput(
+        CAR_NAME_INPUT_GUIDE,
+      );
+
+      const carNames = enteredUserInput.split(CAR_NAME_SEPARATOR);
+
+      this.validateCarNames(carNames);
+
+      this.model.setCarStatus(
+        new Map(carNames.map((car) => [car, { distance: 0 }])),
+      );
+    } catch (e) {
+      this.handleError(e);
+      await this.userInputCarNames();
+    }
+  }
+
+  validateRacingRound(number) {
+    if (!rRacingRound.test(number)) {
+      throw new RacingCarGameError(ERROR_MESSAGES.INVALID_RACING_ROUND_FORMAT);
+    }
+
+    const enteredRacingRoundNumber = Number(number);
+
+    if (enteredRacingRoundNumber < RACING_ROUND_MIN_VALUE) {
+      throw new RacingCarGameError(ERROR_MESSAGES.INVALID_RACING_ROUND_VALUE);
+    }
+  }
+
+  async useInputRacingRound() {
+    try {
+      const enteredUserInput = await this.view.getUserInput(
+        RACING_ROUND_INPUT_GUIDE,
+      );
+
+      this.validateRacingRound(enteredUserInput);
+
+      this.setRoundNumber(Number(enteredUserInput));
+    } catch (e) {
+      this.handleError(e);
+      await this.useInputRacingRound();
+    }
+  }
+
   getWinners() {
     const carStatus = this.model.getCarStatus();
 
@@ -118,31 +172,23 @@ export default class RacingGameController {
     this.#roundNumber = number;
   }
 
+  exitGame() {
+    this.view.closeViewer();
+  }
+
   async startGame() {
-    try {
-      const enteredUserInput = await this.view.getUserInput(
-        CAR_NAME_INPUT_GUIDE,
-      );
+    await this.userInputCarNames();
 
-      const carNames = enteredUserInput.split(CAR_NAME_SEPARATOR);
+    await this.useInputRacingRound();
 
-      this.validateCarNames(carNames);
+    this.executeMultipleRounds();
 
-      this.model.setCarStatus(
-        new Map(carNames.map((car) => [car, { distance: 0 }])),
-      );
+    const winners = this.getWinners();
 
-      this.executeMultipleRounds();
-    } catch (error) {
-      this.handleError(error);
-    } finally {
-      const winners = this.getWinners();
+    this.view.printContent(
+      `${winners.join(",")}${WINNER_ANNOUNCEMENT_MESSAGE}`,
+    );
 
-      this.view.printContent(
-        `${winners.join(",")}${WINNER_ANNOUNCEMENT_MESSAGE}`,
-      );
-
-      this.view.closeViewer();
-    }
+    this.exitGame();
   }
 }

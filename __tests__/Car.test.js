@@ -73,7 +73,7 @@ describe("RacingCarGameController Class 테스트", () => {
   });
 
   test("0~9 이외의 문자가 포함된 이동횟수 입력시 에러가 발생한다.", () => {
-    const testRoundNumber = "12ㄹ";
+    const testRoundNumber = "-0.1";
 
     const racingCarGame = new RacingGameController({
       view: new RacingGameViewer(),
@@ -82,6 +82,19 @@ describe("RacingCarGameController Class 테스트", () => {
 
     expect(() =>
       racingCarGame.validateRacingRound(testRoundNumber),
-    ).toThrowError("숫자 형식의 값을 입력해 주세요.");
+    ).toThrowError("양의 정수 형식의 값을 입력해 주세요.");
+  });
+
+  test("0이하의 숫자가 입력된 경우 에러가 발생한다", () => {
+    const testRoundNumber = "0";
+
+    const racingCarGame = new RacingGameController({
+      view: new RacingGameViewer(),
+      model: new Car(),
+    });
+
+    expect(() =>
+      racingCarGame.validateRacingRound(testRoundNumber),
+    ).toThrowError("1이상 값을 입력해주세요.");
   });
 });
