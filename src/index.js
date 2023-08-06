@@ -1,6 +1,6 @@
-import { validateNames, validateRound } from '../src/validate.js';
 import { MESSAGES } from './constants/messages.js';
 import { RacingSystem } from './controller/RacingSystem.js';
+import { validateNames, validateRound } from './domain/validator.js';
 import { manipulateReadline } from './util/manipulateReadline.js';
 
 const racingSystem = new RacingSystem();

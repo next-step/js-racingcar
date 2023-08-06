@@ -1,5 +1,5 @@
 import { MESSAGES } from '../src/constants/messages.js';
-import { validateNames, validateRound } from '../src/validate.js';
+import { validateNames, validateRound } from '../src/domain/validator.js';
 
 describe('Validate Test on readline', () => {
   it('should throw Error if name length greater than 5', () => {

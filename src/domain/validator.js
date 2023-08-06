@@ -1,6 +1,6 @@
-import { MESSAGES } from './constants/messages.js';
-import { NAME_MAX_LENGTH, NAME_MIN_LENGTH, SEPERATOR } from './constants/settings.js';
-import { trimString } from './util/index.js';
+import { MESSAGES } from '../constants/messages.js';
+import { NAME_MAX_LENGTH, NAME_MIN_LENGTH, SEPERATOR } from '../constants/settings.js';
+import { trimString } from '../util/index.js';
 
 export const validateNames = (names) => {
   const namesArray = names.split(SEPERATOR).map((name) => trimString(name));
