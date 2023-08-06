@@ -4,33 +4,38 @@ export class RaceRecords {
   #records
 
   constructor() {
-    this.#records = new Map()
+    this.#records = {}
   }
 
-  #validateRecord(record) {
-    if (
-      !record ||
-      !record.name ||
-      typeof record.name !== 'string' ||
-      typeof record.position !== 'number' ||
-      record.position < 0
-    ) {
-      throw new Error(ERROR_MESSAGE.SINGLE_RECORD_FORMAT)
+  add(records) {
+    this.#validateRecords(records)
+
+    Object.entries(records).forEach(([name, position]) => {
+      if (this.#records[name]) {
+        this.#records[name].push(position)
+      } else {
+        this.#records[name] = [position]
+      }
+    })
+  }
+
+  #validateRecords(records) {
+    if (!records || typeof records !== 'object' || !records.length) {
+      throw new Error(ERROR_MESSAGE.RECORDS_FORMAT)
+    }
+
+    for (const name in records) {
+      if (
+        typeof name !== 'string' ||
+        typeof records[name] !== 'number' ||
+        records[name] < 0
+      ) {
+        throw new Error(ERROR_MESSAGE.SINGLE_RECORD_FORMAT)
+      }
     }
   }
 
-  add(record) {
-    this.#validateRecord(record)
-
-    const positions = this.#records.get(record.name) || []
-    this.#records.set(record.name, [...positions, record.position])
-  }
-
   get records() {
-    const recordsObj = {}
-    this.#records.forEach((value, key) => {
-      recordsObj[key] = value
-    })
-    return recordsObj
+    return this.#records
   }
 }
