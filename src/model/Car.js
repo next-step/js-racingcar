@@ -16,10 +16,14 @@ export class Car {
       throw new Error(ERROR_MESSAGE)
     }
 
-    if (!/^[\p{Script=Hangul}\p{Script=Latin}]+$/u.test(name)) {
+    if (!/^[가-힣a-zA-Z]+$/.test(name)) {
       throw new Error(ERROR_MESSAGE.NAME_CHARACTER)
     }
 
+    this.#setName(name)
+  }
+
+  #setName(name) {
     this.#name = name
   }
 

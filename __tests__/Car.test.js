@@ -25,6 +25,10 @@ describe(`이름이 한글/영문 1~5글자가 아니면 에러를 출력한다.
   test.each([
     ['', false],
     [-1, false],
+    [1, false],
+    ['*', false],
+    ['-', false],
+    ['+', false],
     [null, false],
     [undefined, false],
     [[], false],
