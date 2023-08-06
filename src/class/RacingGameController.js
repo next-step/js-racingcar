@@ -2,11 +2,6 @@ import Validator, { RacingCarGameError } from "./Validator";
 import Cars from "./Cars";
 import RacingGameViewer from "./RacingGameViewer";
 
-const CAR_NAME_INPUT_GUIDE =
-  "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n";
-
-const RACING_ROUND_INPUT_GUIDE = "시도할 회수는 몇회인가요?\n";
-
 const CAR_NAME_SEPARATOR = ",";
 
 const GAME_STEP = {
@@ -21,9 +16,10 @@ export default class RacingGameController {
   view;
   nextGameStep;
 
-  constructor() {
-    this.view = new RacingGameViewer();
-    this.model = new Cars();
+  constructor(model, view) {
+    this.view =
+      view instanceof RacingGameViewer ? view : new RacingGameViewer();
+    this.model = model instanceof Cars ? model : new Cars();
     this.nextGameStep = GAME_STEP.SET_CARS;
   }
 
@@ -36,7 +32,7 @@ export default class RacingGameController {
   }
 
   async requestCarNames() {
-    const userInput = await this.view.getUserInput(CAR_NAME_INPUT_GUIDE);
+    const userInput = await this.view.getCarNamesInput();
 
     const carNames = userInput.split(CAR_NAME_SEPARATOR);
 
@@ -46,7 +42,7 @@ export default class RacingGameController {
   }
 
   async requestRoundNumber() {
-    const userInput = await this.view.getUserInput(RACING_ROUND_INPUT_GUIDE);
+    const userInput = await this.view.getRoundNumberInput();
 
     Validator.validateRoundNumber(userInput);
 
@@ -71,6 +67,7 @@ export default class RacingGameController {
 
   afterRoundAction = (carStatus) => {
     this.view.printCarStatus(carStatus);
+    this.view.printContent("");
   };
 
   async runGame() {

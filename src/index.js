@@ -1,7 +1,5 @@
 import RacingGameController from "./class/RacingGameController";
 
-const RACING_ROUNDS = 5;
-
-const racingCarGame = new RacingGameController(RACING_ROUNDS);
+const racingCarGame = new RacingGameController();
 
 racingCarGame.runGame();
