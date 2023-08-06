@@ -6,3 +6,4 @@ export const RANDOM_NUMBER_MIN = 0;
 export const MOVEMENT_CONDITION = 4;
 export const SEPERATOR = ',';
 export const MOVEMENT = 1;
+export const ATTEMPT_MAX_NUMBER = 10;
