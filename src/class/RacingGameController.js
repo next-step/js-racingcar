@@ -1,8 +1,8 @@
 import Validator, { RacingCarGameError } from "./Validator";
+import Cars from "./Cars";
+import RacingGameViewer from "./RacingGameViewer";
 
 const DEFAULT_RACING_ROUND_NUMBER = 5;
-
-const CAR_ADVANCE_THRESHOLD_NUMBER = 4;
 
 const CAR_NAME_INPUT_GUIDE =
   "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n";
@@ -16,37 +16,27 @@ export default class RacingGameController {
   view;
   #roundNumber;
 
-  constructor({ roundNumber = DEFAULT_RACING_ROUND_NUMBER, view, model }) {
-    this.#roundNumber = roundNumber;
-    this.view = view;
-    this.model = model;
-  }
-
-  executeOneRound() {
-    const carStatus = this.model.getCarStatus();
-
-    carStatus.forEach((carInfo) => {
-      if (this.checkForAdvance()) {
-        carInfo.distance += 1;
-      }
-    });
-
-    this.model.setCarStatus(carStatus);
-
-    this.view.printCarStatus(carStatus);
+  constructor(roundNumber = DEFAULT_RACING_ROUND_NUMBER) {
+    this.#roundNumber =
+      typeof roundNumber === "number"
+        ? roundNumber
+        : DEFAULT_RACING_ROUND_NUMBER;
+    this.view = new RacingGameViewer();
+    this.model = new Cars();
   }
 
   executeMultipleRounds() {
     this.view.printRoundHeader();
 
     Array.from({ length: this.#roundNumber }, () => {
-      this.executeOneRound();
+      this.model.executeOneRound();
+
+      const statusAfterRound = this.model.getAllCarStatus();
+
+      this.view.printCarStatus(statusAfterRound);
+
       this.view.printContent("");
     });
-  }
-
-  checkForAdvance() {
-    return Math.random() * 9 >= CAR_ADVANCE_THRESHOLD_NUMBER;
   }
 
   handleError(error) {
@@ -65,12 +55,9 @@ export default class RacingGameController {
 
       Validator.validateCarNames(carNames);
 
-      this.model.setCarStatus(
-        new Map(carNames.map((car) => [car, { distance: 0 }])),
-      );
+      carNames.forEach((car) => this.model.addCar(car));
     } catch (e) {
       this.handleError(e);
-      await this.userInputCarNames();
     }
   }
 
@@ -85,20 +72,17 @@ export default class RacingGameController {
       this.setRoundNumber(Number(enteredUserInput));
     } catch (e) {
       this.handleError(e);
-      await this.useInputRacingRound();
     }
   }
 
   getWinners() {
-    const carStatus = this.model.getCarStatus();
+    const carStatus = this.model.getAllCarStatus();
 
-    const maxDistance = Math.max(
-      ...[...carStatus.values()].map((value) => value.distance),
-    );
+    const maxDistance = Math.max(...carStatus.map((value) => value.distance));
 
-    return [...carStatus.keys()].filter(
-      (car) => carStatus.get(car).distance === maxDistance,
-    );
+    return carStatus
+      .filter((car) => car.distance === maxDistance)
+      .map((car) => car.name);
   }
 
   getRoundNumber() {

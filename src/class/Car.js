@@ -1,12 +1,8 @@
-const defaultAdvanceCondition = () => {
-  return Math.random() * 9 >= 4;
-};
-
 export default class Car {
   name;
   distance;
 
-  constructor(name, advanceCondition = defaultAdvanceCondition) {
+  constructor(name, advanceCondition) {
     this.name = name;
     this.distance = 0;
     this.advanceCondition = advanceCondition;
@@ -21,7 +17,7 @@ export default class Car {
   }
 
   advance() {
-    if (this.advanceCondition()) {
+    if (this.advanceCondition(this.name, this.distance)) {
       this.distance += 1;
     }
   }

@@ -1,4 +1,4 @@
-import * as readline from "readline";
+import * as readline from "node:readline/promises";
 
 const RACING_SCORE_CHAR = "-";
 
@@ -19,12 +19,10 @@ export default class RacingGameViewer {
   }
 
   printCarStatus(carStatus) {
-    const result = [...carStatus.keys()]
-      .map(
-        (car) =>
-          `${car} : ${RACING_SCORE_CHAR.repeat(carStatus.get(car).distance)}`,
-      )
+    const result = carStatus
+      .map((car) => `${car.name} : ${RACING_SCORE_CHAR.repeat(car.distance)}`)
       .join("\n");
+
     this.printContent(result);
   }
 
