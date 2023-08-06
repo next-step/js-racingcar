@@ -62,6 +62,8 @@ describe('RaceRecords: 자동차 경주 기록', () => {
         { name: '산들' },
         { position: 1 },
         { name: 1, position: 1 },
+        { name: '산들', position: -1 },
+        { name: '산들', position: null },
       ])('%s', (invalidRecord) => {
         expect(() => raceRecords.add(invalidRecord)).toThrow()
       })

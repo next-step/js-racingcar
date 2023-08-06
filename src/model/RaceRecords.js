@@ -11,11 +11,11 @@ export class RaceRecords {
     if (
       !record ||
       !record.name ||
-      !record.position ||
       typeof record.name !== 'string' ||
-      typeof record.position !== 'number'
+      typeof record.position !== 'number' ||
+      record.position < 0
     ) {
-      throw new Error(ERROR_MESSAGE.RECORD_FORMAT)
+      throw new Error(ERROR_MESSAGE.SINGLE_RECORD_FORMAT)
     }
   }
 
