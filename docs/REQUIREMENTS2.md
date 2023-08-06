@@ -21,6 +21,8 @@
 - [X] Model은 carList를 가질 수 있다.
 - [X] Model은 winnerList를 가질 수 있다.
 - [X] Model은 runCondition을 가질 수 있다.
+- [X] Model은 maxMatchLength를 가질 수 있다.
 - [X] Model의 상태가 변경된 경우, 상태 변화를 감지할 수 있다.
 - [X] Model의 carList를 변경할 수 있다.
 - [X] Model의 winnerList를 변경할 수 있다.
+- [X] Model의 maxMatchLength를 변경할 수 있다.
