@@ -3,14 +3,14 @@ import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '
 import { generateRandomNumber, isDuplicateArray } from '../utils/index';
 
 export default class CarRace {
-  #cars = [];
-  #winners = [];
-  #lap = 0;
-
   #maxLap = RACE_CONFIGURE.MAX_LAP;
   #minSpeed = RACE_CONFIGURE.MIN_SPEED;
   #maxSpeed = RACE_CONFIGURE.MAX_SPEED;
   #track = RACE_CONFIGURE.TRACK;
+
+  #cars = [];
+  #winners = [];
+  #lap = 0;
 
   constructor(cars) {
     this.#validateDuplicateCarName(cars);
