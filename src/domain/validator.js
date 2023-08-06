@@ -8,20 +8,21 @@ export const validateNames = (names) => {
     validateNameMaxLength(name);
     validateNameMinLength(name);
   });
-  return true;
 };
 
 export const validateRound = (round) => {
   validateIsNumber(round);
-  return true;
 };
 
 const validateIsNumber = (round) => {
   if (isNaN(round)) {
     throw new Error(MESSAGES.ERROR.IS_NOT_NUMBER);
   }
-};
 
+  if (!Number.isInteger(round) || round <= 0) {
+    throw new Error(MESSAGES.ERROR.IS_NOT_INTEGER_NUMBER);
+  }
+};
 const validateNameMaxLength = (name) => {
   if (name.length > NAME_MAX_LENGTH) {
     throw new Error(MESSAGES.ERROR.MAX_NAME_LENGTH);
