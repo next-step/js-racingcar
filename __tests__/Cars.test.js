@@ -4,12 +4,13 @@ import { Cars } from '../src/model/Cars'
 const CAR_NAMES = ['산들', '뿌꾸']
 
 describe('Cars: 경주에 참여하는 자동차들', () => {
-  const cars = new Cars(CAR_NAMES)
   it('entries: 경주에 참여하는 자동차들의 컬렉션을 보유한다.', () => {
+    const cars = new Cars(CAR_NAMES)
     expect(cars.entries.length).toBe(CAR_NAMES.length)
   })
 
   describe('cars: 자동차 이름 묶음을 바탕으로 자동차 객체를 만든다.', () => {
+    const cars = new Cars(CAR_NAMES)
     it('Car 객체의 인스턴스인지 확인', () => {
       cars.entries.forEach((car) => {
         expect(car).toBeInstanceOf(Car)
@@ -23,7 +24,7 @@ describe('Cars: 경주에 참여하는 자동차들', () => {
     })
   })
 
-  describe('validateNames: 이름 묶음이 1개 이상이 아닌 경우 프로그램을 종료한다.', () => {
+  describe('validateNames(): 이름 묶음이 1개 이상이 아닌 경우 프로그램을 종료한다.', () => {
     test.each([
       [[], 'names 배열이 비어있음'],
       ['', 'names가 문자열임'],
@@ -40,7 +41,7 @@ describe('Cars: 경주에 참여하는 자동차들', () => {
     })
   })
 
-  describe('validateNames: 이름 묶음에 중복된 값이 있을 경우 프로그램을 종료한다.', () => {
+  describe('validateNames(): 이름 묶음에 중복된 값이 있을 경우 프로그램을 종료한다.', () => {
     test.each([
       [['산들', '산들', '산들']],
       [['산들', '산들', '뿌꾸']],
@@ -51,6 +52,27 @@ describe('Cars: 경주에 참여하는 자동차들', () => {
       [['1', '2', '3']],
     ])('%s', (names) => {
       expect(() => new Cars(names)).toThrow()
+    })
+  })
+
+  describe('move(): 자동차를 전진시켜 상태를 변경한다.', () => {
+    const cars = new Cars(CAR_NAMES)
+    it('전달받은 콜백함수 혹은 게임 조건 함수를 실행시켜 자동차 전진 여부를 결정한다.', () => {
+      const alwaysMoveForward = () => true
+
+      cars.move(alwaysMoveForward)
+
+      expect(cars.status).toEqual([
+        { name: '산들', position: 1 },
+        { name: '뿌꾸', position: 1 },
+      ])
+
+      cars.move(alwaysMoveForward)
+
+      expect(cars.status).toEqual([
+        { name: '산들', position: 2 },
+        { name: '뿌꾸', position: 2 },
+      ])
     })
   })
 })

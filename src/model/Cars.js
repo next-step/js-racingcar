@@ -2,7 +2,9 @@ import { ERROR_MESSAGE } from '../constants/errorMessages.js'
 import { Car } from './Car.js'
 
 export class Cars {
+  static MOVE_THRESHOLD = 4
   #entries
+  #status
 
   constructor(names) {
     this.#validateNames(names)
@@ -32,7 +34,27 @@ export class Cars {
     return names.map((name) => new Car(name))
   }
 
+  move(moveCondition) {
+    this.#entries.forEach((car) => {
+      const shouldMove = moveCondition()
+      car.move(shouldMove)
+    })
+  }
+
   get entries() {
     return this.#entries
+  }
+
+  #setStatus() {
+    this.#status = this.#entries.map((car) => ({
+      name: car.name,
+      position: car.position,
+    }))
+  }
+
+  get status() {
+    this.#setStatus()
+
+    return this.#status
   }
 }
