@@ -18,13 +18,18 @@ export default class Car {
     this.#position = position;
   }
 
+  #isEmptyName(name) {
+    return !name;
+  }
+
+  #isLongName(name) {
+    return name.length > Car.NAME_MAX_LENGTH;
+  }
+
   validateName(name) {
-    if (!name) throw new Error(Car.ERROR_MESSAGE.EMPTY_NAME);
+    if (this.#isEmptyName(name)) throw new Error(Car.ERROR_MESSAGE.EMPTY_NAME);
 
-    if (name.length > Car.NAME_MAX_LENGTH)
-      throw new Error(Car.ERROR_MESSAGE.LONG_NAME);
-
-    return;
+    if (this.#isLongName(name)) throw new Error(Car.ERROR_MESSAGE.LONG_NAME);
   }
 
   get name() {
