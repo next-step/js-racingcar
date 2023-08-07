@@ -39,7 +39,7 @@ export default class Game {
 
     this.#validateDuplicateCarNames(carNames);
 
-    this.#cars = carNames.map((carName) => new Car(carName));
+    this.#cars = carNames.map(Car.of);
 
     this.#currRound = Game.INITIAL_ROUND;
     this.#roundHistory = [];
@@ -87,9 +87,7 @@ export default class Game {
   }
 
   #saveRoundHistory() {
-    const roundRecord = this.#cars.map(
-      (car) => new Car(car.name, car.position)
-    );
+    const roundRecord = this.#cars.map((car) => Car.of(car.name, car.position));
 
     this.#roundHistory.push(roundRecord);
   }

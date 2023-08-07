@@ -9,6 +9,8 @@ export default class Car {
     EMPTY_NAME: "자동차 이름은 빈 값으로 설정할 수 없습니다.",
   });
 
+  static of = (name, position) => new Car(name, position);
+
   #name;
   #position;
 
