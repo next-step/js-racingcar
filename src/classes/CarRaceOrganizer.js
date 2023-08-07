@@ -1,20 +1,22 @@
 import { RACE_CONFIGURE, ERROR_MESSAGE } from '../constants/index';
 import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../race/index';
-import { generateRandomNumber, isDuplicateArray } from '../utils/index';
+import { generateRandomNumber, isDuplicateArray, isOnlyNumber } from '../utils/index';
 
 export default class CarRaceOrganizer {
-  #maxLap = RACE_CONFIGURE.MAX_LAP;
   #minSpeed = RACE_CONFIGURE.MIN_SPEED;
   #maxSpeed = RACE_CONFIGURE.MAX_SPEED;
   #track = RACE_CONFIGURE.TRACK;
 
+  #totalLap;
   #cars = [];
   #winners = [];
   #lap = 0;
 
-  constructor(cars) {
+  constructor(cars, totalLap) {
     this.#validateDuplicateCarName(cars);
+    this.#validateLap(totalLap);
     this.#cars = cars;
+    this.#totalLap = Number(totalLap);
   }
 
   get lap() {
@@ -25,6 +27,12 @@ export default class CarRaceOrganizer {
     return this.#winners;
   }
 
+  #validateLap(totalLap) {
+    if (!isOnlyNumber(totalLap)) {
+      throw new Error(ERROR_MESSAGE.INVALID_NUMBER);
+    }
+  }
+
   #validateDuplicateCarName(cars) {
     const carNames = cars.map((car) => car.name);
     if (isDuplicateArray(carNames)) {
@@ -33,7 +41,7 @@ export default class CarRaceOrganizer {
   }
 
   #isRaceDone() {
-    return this.#lap >= this.#maxLap;
+    return this.#lap >= this.#totalLap;
   }
 
   #getDistance() {
