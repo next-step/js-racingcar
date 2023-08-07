@@ -80,7 +80,7 @@ describe("[feature1] 사용자가 유효한 값을 입력하는지 검증한다.
 });
 
 describe("[feature4] 총 5라운드를 반복하고, 우승 자동차 정보를 반환한다.", () => {
-  const VALID_INPUT = "ryang,yang,erica,star";
+  const VALID_INPUT = "yun,yang,erica,star";
   const game = new Game(VALID_INPUT);
 
   it("게임 컨트롤러는 Car 객체를 갖는 배열, View 객체, 현재 라운드, 우승자 배열을 상태값으로 갖는다.", () => {
