@@ -11,10 +11,6 @@ export default class Car {
   #name;
   #position;
 
-  /**
-   * @param {string} name - 자동차 이름
-   * @param {number} position - 자동차 위치
-   */
   constructor(name, position = Car.INITIAL_POSITION) {
     this.validateName(name);
 
@@ -22,11 +18,6 @@ export default class Car {
     this.#position = position;
   }
 
-  /**
-   * 자동차 이름 유효성 검사 수행 - 빈 값이거나 5자 이하면 오류 발생
-   * @param {string} name
-   * @returns
-   */
   validateName(name) {
     if (!name) throw new Error(Car.ERROR_MESSAGE.EMPTY_NAME);
 
@@ -44,19 +35,12 @@ export default class Car {
     return this.#position;
   }
 
-  /**
-   * 자동차 현재 위치를 CAR_MOVE_STEP만큼 전진시킨다.
-   */
   #move() {
     this.#position += Game.CAR_MOVE_STEP;
   }
 
-  /**
-   * 자동차가 CAN_MOVE 전진 조건을 만족한 경우만 자동차를 전진시킨다.
-   * @param {number} randomNumber
-   */
   tryMoveWith(randomNumber) {
-    if (Game.CAN_MOVE(randomNumber)) {
+    if (Game.isMovable(randomNumber)) {
       this.#move();
     }
   }

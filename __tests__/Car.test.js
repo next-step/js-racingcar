@@ -2,9 +2,6 @@ import Game from "../src/Models/Game.js";
 import Car from "../src/Models/Car.js";
 import { getRandomIntRangeOf } from "../src/utils/utils.js";
 
-/**
- * 테스트 파일에서 사용하는 공통 상수
- */
 const CAR_MOVE_CRITERIA = Game.CAR_MOVE_CRITERIA;
 const CAR_MOVE_STEP = Game.CAR_MOVE_STEP;
 const RANDOM_NUM_LOWER_LIMIT = Game.RANDOM_NUM_LOWER_LIMIT;
