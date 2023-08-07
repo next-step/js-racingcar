@@ -9,15 +9,15 @@ const RANDOM_NUM_UPPER_LIMIT = Game.RANDOM_NUM_UPPER_LIMIT;
 const CAR_INIT_POSITION = Car.CAR_INITIAL_POSITION;
 const CAR_ERROR_MESSAGE = Car.ERROR_MESSAGE;
 const CAR_NAME_MAX_LENGTH = Car.NAME_MAX_LENGTH;
-const BASE_STR = "a";
-const VALID_NAME = BASE_STR.repeat(CAR_NAME_MAX_LENGTH);
+
+const VALID_NAME = "erica";
 
 describe("[feature1] 자동차는 이름의 유효성을 확인하고, 유효할 경우만 자동차 객체를 생성한다.", () => {
   it.each([
     { name: "빈 값", input: "", expected: CAR_ERROR_MESSAGE.EMPTY_NAME },
     {
       name: `${CAR_NAME_MAX_LENGTH}자 초과`,
-      input: VALID_NAME + BASE_STR, // CAR_NAME_MAX_LENGTH + 1 길이의 문자열
+      input: "ericagong",
       expected: CAR_ERROR_MESSAGE.LONG_NAME,
     },
   ])(
@@ -73,20 +73,12 @@ describe(`[feature2] 자동차는 ${CAR_MOVE_CRITERIA} 이상이면 전진하고
 
 describe("[feature3] 자동차의 현재 상황 정보를 반환한다.", () => {
   const car = new Car(VALID_NAME, CAR_INIT_POSITION);
-  const RANDOM_MOVABLE_NUM = getRandomIntRangeOf(
-    CAR_MOVE_CRITERIA,
-    RANDOM_NUM_UPPER_LIMIT
-  );
-  const RANDOM_UNMOVABLE_NUM = getRandomIntRangeOf(
-    RANDOM_NUM_LOWER_LIMIT,
-    CAR_MOVE_CRITERIA - 1
-  );
 
   const testCases = [
-    { name: "현재 위치를 유지", input: RANDOM_UNMOVABLE_NUM },
+    { name: "현재 위치를 유지", input: CAR_MOVE_CRITERIA - 1 },
     {
       name: `현재 위치에서 ${CAR_MOVE_STEP}만큼 전진`,
-      input: RANDOM_MOVABLE_NUM,
+      input: CAR_MOVE_CRITERIA,
     },
   ];
 
@@ -102,13 +94,16 @@ describe("[feature3] 자동차의 현재 상황 정보를 반환한다.", () => 
   it.each(testCases)(
     "자동차가 $name 경우, 자동차의 현재 위치를 반환한다.",
     ({ input }) => {
-      const PREV_POS = car.position;
+      const PREVIOUS_POSITION = car.position;
+
       car.tryMoveWith(input);
 
-      const CURR_POS =
-        input >= CAR_MOVE_CRITERIA ? PREV_POS + CAR_MOVE_STEP : PREV_POS;
+      let currentPosition = PREVIOUS_POSITION;
+      if (CAR_MOVE_CRITERIA <= input) {
+        currentPosition += CAR_MOVE_STEP;
+      }
 
-      expect(car.position).toBe(CURR_POS);
+      expect(car.position).toBe(currentPosition);
     }
   );
 });
