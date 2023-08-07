@@ -1,3 +1,4 @@
+import { MUTATION_TYPE } from '../constants/viewModel'
 import { ConsoleView } from './ConsoleView'
 import { PromptView } from './PromptView'
 
@@ -15,10 +16,10 @@ export class View {
 
   update({ type, ...state }) {
     switch (type) {
-      case 'updateCarList':
+      case MUTATION_TYPE.CAR_LIST:
         this.consoleView.renderCarList(state)
         break
-      case 'updateWinnerList':
+      case MUTATION_TYPE.WINNER_LIST:
         this.consoleView.renderWinnerList(state)
         break
     }
