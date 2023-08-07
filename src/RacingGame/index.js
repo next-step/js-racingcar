@@ -1,4 +1,12 @@
+import { getRandomInRange } from '../utils/getRandomInRange';
+
 class RacingGame {
+  /**
+   * 전진 조건.
+   * 해당 값 이상이면 전진할 수 있음.
+   */
+  static MOVE_FORWARD_THRESHOLD = 4;
+
   #cars;
   #rounds;
 
@@ -23,6 +31,10 @@ class RacingGame {
     const maxDistance = this.getMaxDistanceDriven();
 
     return this.#cars.filter((car) => car.getDistanceDriven() === maxDistance);
+  }
+
+  canMoveForward() {
+    return getRandomInRange() >= RacingGame.MOVE_FORWARD_THRESHOLD;
   }
 
   runRound() {

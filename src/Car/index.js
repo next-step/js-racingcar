@@ -1,12 +1,4 @@
-import { getRandomInRange } from '../utils/getRandomInRange.js';
-
 class Car {
-  /**
-   * 전진 조건.
-   * 해당 값 이상이면 전진할 수 있음.
-   */
-  static MOVE_FORWARD_THRESHOLD = 4;
-
   static NAME_LENGTH = {
     MIN: 1,
     MAX: 5,
@@ -48,14 +40,8 @@ class Car {
     return this.#distanceDriven;
   }
 
-  canMoveForward() {
-    return getRandomInRange() >= Car.MOVE_FORWARD_THRESHOLD;
-  }
-
   moveForward() {
-    if (this.canMoveForward()) {
-      this.#distanceDriven = this.#distanceDriven + 1;
-    }
+    this.#distanceDriven = this.#distanceDriven + 1;
   }
 }
 
