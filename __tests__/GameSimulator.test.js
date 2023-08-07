@@ -29,14 +29,13 @@ describe('GameSimulator 테스트', () => {
     });
   });
 
-  describe('자동차 정보 출력 테스트', () => {
-    test('하나의 라운드가 종료 되면 자동차별 차량 정보가 출력 된다.', async () => {
-      const printCarStatusSpy = jest.spyOn(simulator, 'printCarStatus');
+  describe('출력 테스트', () => {
+    test('경기가 끝나면 round 진행했던 기록들이 출력된다.', async () => {
+      const printRecordsSpy = jest.spyOn(simulator, 'printRecords');
 
-      await simulator.setRacingGame();
-      simulator.runRound();
+      await simulator.startGame();
 
-      expect(printCarStatusSpy).toHaveBeenCalledTimes(CAR_NAMES.length);
+      expect(printRecordsSpy).toBeCalled();
     });
   });
 

@@ -1,4 +1,4 @@
-import { getRandomInRange } from '../utils/getRandomInRange';
+import { getRandomInRange } from '../utils/getRandomInRange.js';
 
 class RacingGame {
   /**
@@ -36,7 +36,7 @@ class RacingGame {
   getCarsRecord() {
     return this.#cars.map((car) => ({
       name: car.getName(),
-      drivenDistance: car.getDistanceDriven(),
+      distanceDriven: car.getDistanceDriven(),
     }));
   }
 

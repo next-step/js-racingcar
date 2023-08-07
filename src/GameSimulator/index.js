@@ -5,11 +5,9 @@ import { getUserInputByQuestion } from '../utils/getUserInputByQuestion.js';
 class GameSimulator {
   #racingGame;
   #messageViewer;
-  #maxRounds;
 
-  constructor(messageViewer, maxRounds = GameSimulator.DEFAULT_MAX_ROUNDS) {
+  constructor(messageViewer) {
     this.#messageViewer = messageViewer;
-    this.#maxRounds = maxRounds;
   }
 
   async setRacingGame() {
@@ -28,15 +26,6 @@ class GameSimulator {
     });
   }
 
-  startRound() {
-    this.#messageViewer('\n실행 결과\n');
-
-    for (let i = 0; i < this.#maxRounds; i++) {
-      this.runRound();
-      this.#messageViewer('');
-    }
-  }
-
   getWinningCarNames() {
     return this.#racingGame.getWinningCars().map((car) => car.getName());
   }
@@ -45,6 +34,17 @@ class GameSimulator {
     const formattedStatus = `${name} : ${'-'.repeat(distanceDriven)}`;
 
     this.#messageViewer(formattedStatus);
+  }
+
+  printRecords() {
+    this.#messageViewer('\n실행 결과\n');
+
+    this.#racingGame.getRecords().forEach((records) => {
+      records.forEach(({ name, distanceDriven }) =>
+        this.printCarStatus(name, distanceDriven)
+      );
+      console.log('\n');
+    });
   }
 
   printWinningCars() {
@@ -64,7 +64,8 @@ class GameSimulator {
     try {
       await this.setRacingGame();
 
-      this.startRound();
+      this.#racingGame.startRace();
+      this.printRecords();
       this.printWinningCars();
     } catch (error) {
       this.forceFinish(error.message);
