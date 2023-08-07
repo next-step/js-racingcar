@@ -1,5 +1,4 @@
 import GameSimulator from '../src/GameSimulator';
-import { MAX_ROUNDS } from '../src/GameSimulator/constants';
 import { createMessageViewer } from '../src/utils/createMessageViewer';
 import { getUserInputByQuestion } from '../src/utils/getUserInputByQuestion';
 
@@ -45,7 +44,7 @@ describe('GameSimulator 테스트', () => {
 
         await simulator.startGame();
 
-        expect(runRoundSpy).toBeCalledTimes(MAX_ROUNDS);
+        expect(runRoundSpy).toBeCalledTimes(GameSimulator.DEFAULT_MAX_ROUNDS);
 
         runRoundSpy.mockRestore();
       });

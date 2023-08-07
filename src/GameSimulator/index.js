@@ -1,14 +1,15 @@
 import Car from '../Car/index.js';
 import RacingGame from '../RacingGame/index.js';
 import { getUserInputByQuestion } from '../utils/getUserInputByQuestion.js';
-import { MAX_ROUNDS } from './constants.js';
 
 class GameSimulator {
+  static DEFAULT_MAX_ROUNDS = 5;
+
   #racingGame;
   #messageViewer;
   #maxRounds;
 
-  constructor(messageViewer, maxRounds = MAX_ROUNDS) {
+  constructor(messageViewer, maxRounds = GameSimulator.DEFAULT_MAX_ROUNDS) {
     this.#messageViewer = messageViewer;
     this.#maxRounds = maxRounds;
   }
