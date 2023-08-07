@@ -1,9 +1,14 @@
 import { isValidationName } from "./domain/isValidationName";
-import { getRandomNumber } from "./utils/getRandomNumber";
+import { attemptCount } from "./domain/attemptCount";
+import {
+  RACING_EXPLANATION_MESSAGE,
+  WRONG_INFO_INPUT_GAME_END_MESSAGE,
+} from "./constants/racingGame";
 
-export const startRacingGame = (name) => {
+export const startRacingGame = (name, count) => {
+  console.log(RACING_EXPLANATION_MESSAGE);
   if (!isValidationName(name)) {
-    console.log("잘못된 정보를 입력하여 게임을 종료합니다.");
+    throw new Error(WRONG_INFO_INPUT_GAME_END_MESSAGE);
   }
   const carList = name.split(",");
 
@@ -13,13 +18,7 @@ export const startRacingGame = (name) => {
     return { name, position: 0 };
   });
 
-  for (let i = 0; i < 5; i++) {
-    cars.forEach((car) => {
-      if (getRandomNumber() > 3) car.position++;
-      console.log(`${car.name} : ${"-".repeat(car.position)}`);
-    });
-    console.log("\n");
-  }
+  attemptCount(cars, count);
 
   const maxPosition = Math.max(...cars.map((car) => car.position));
   const winners = cars
