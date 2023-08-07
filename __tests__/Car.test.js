@@ -19,11 +19,12 @@ describe('Car Class', () => {
   });
 
   describe('자동차 이름 검증 테스트', () => {
-    test(`자동차 이름 길이가 ${Car.NAME_LENGTH.MIN}에서 ${Car.NAME_LENGTH.MAX} 사이면 에러가 발생하지 않는다.`, () => {
-      const names = ['자동차1', '자동차2', '자동차3', '자동차4', '자동차5'];
-
-      names.forEach((name) => expect(() => Car.of(name)).not.toThrow());
-    });
+    test.each(['1', '12', '123', '1234', '12345'])(
+      `자동차 이름 길이가 ${Car.NAME_LENGTH.MIN}에서 ${Car.NAME_LENGTH.MAX} 사이면 에러가 발생하지 않는다.`,
+      (name) => {
+        expect(() => Car.of(name)).not.toThrow();
+      }
+    );
 
     test(`자동차 이름 길이는 최대 ${Car.NAME_LENGTH.MAX}글자다.`, () => {
       const name = '최대다섯글자';
