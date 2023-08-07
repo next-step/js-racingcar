@@ -3,10 +3,10 @@ import Game from "../Models/Game";
 export default class Car {
   static INITIAL_POSITION = 0;
   static NAME_MAX_LENGTH = 5;
-  static ERROR_MESSAGE = {
+  static ERROR_MESSAGE = Object.freeze({
     LONG_NAME: "자동차 이름은 5글자를 초과하여 설정할 수 없습니다.",
     EMPTY_NAME: "자동차 이름은 빈 값으로 설정할 수 없습니다.",
-  };
+  });
 
   #name;
   #position;

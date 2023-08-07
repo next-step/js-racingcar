@@ -2,25 +2,13 @@ import Car from "./Car";
 import { getRandomIntRangeOf } from "../utils/utils";
 
 export default class Game {
-  static CAR_MOVE_STEP = 1;
-  static CAR_MOVE_CRITERIA = 4;
-
-  static INITIAL_ROUND = 1;
   static TOTAL_ROUNDS = 5;
-
-  static INPUT_ERROR_MESSAGE = Object.freeze({
-    EMPTY: "빈 값으로는 프로그램이 동작할 수 없습니다.",
-    DUPLICATE_CAR_NAME:
-      "중복된 자동차 이름으로는 프로그램이 동작할 수 없습니다.",
-  });
-
-  // TODO: 클래스 외부로 분리?
   static RANDOM_NUM_LOWER_LIMIT = 0;
   static RANDOM_NUM_UPPER_LIMIT = 9;
+  static CAR_MOVE_CRITERIA = 4;
+  static CAR_MOVE_STEP = 1;
 
-  static isMovable = (randomNumber) => {
-    return randomNumber >= Game.CAR_MOVE_CRITERIA;
-  };
+  static INITIAL_ROUND = 1;
 
   static getRandomNumber = () => {
     return getRandomIntRangeOf(
@@ -28,6 +16,16 @@ export default class Game {
       Game.RANDOM_NUM_UPPER_LIMIT
     );
   };
+
+  static isMovable = (randomNumber) => {
+    return randomNumber >= Game.CAR_MOVE_CRITERIA;
+  };
+
+  static ERROR_MESSAGE = Object.freeze({
+    EMPTY: "빈 값으로는 프로그램이 동작할 수 없습니다.",
+    DUPLICATE_CAR_NAME:
+      "중복된 자동차 이름으로는 프로그램이 동작할 수 없습니다.",
+  });
 
   #cars;
   #currRound;
@@ -54,7 +52,7 @@ export default class Game {
 
   #validateUserInput(userInput) {
     if (this.#isEmptyUserInput(userInput))
-      throw new Error(Game.INPUT_ERROR_MESSAGE.EMPTY);
+      throw new Error(Game.ERROR_MESSAGE.EMPTY);
   }
 
   #parseCarNames(userInput) {
@@ -69,7 +67,7 @@ export default class Game {
 
   #validateDuplicateCarNames(carNames) {
     if (this.#hasDuplicatedCarNames(carNames))
-      throw new Error(Game.INPUT_ERROR_MESSAGE.DUPLICATE_CAR_NAME);
+      throw new Error(Game.ERROR_MESSAGE.DUPLICATE_CAR_NAME);
   }
 
   get cars() {
@@ -89,11 +87,11 @@ export default class Game {
   }
 
   #saveRoundHistory() {
-    const roundCarsHistory = this.#cars.map(
+    const roundRecord = this.#cars.map(
       (car) => new Car(car.name, car.position)
     );
 
-    this.#roundHistory.push(roundCarsHistory);
+    this.#roundHistory.push(roundRecord);
   }
 
   #playRound() {
