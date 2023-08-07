@@ -45,8 +45,8 @@ export default class Car {
   }
 
   tryMoveWith(randomNumber, step = Game.CAR_MOVE_STEP) {
-    if (Game.isMovable(randomNumber)) {
-      this.#move(step);
-    }
+    if (!Game.isMovable(randomNumber)) return;
+
+    this.#move(step);
   }
 }
