@@ -1,7 +1,7 @@
 import { stdin as input, stdout as output } from 'process';
 import readline from 'readline';
-import { ATTEMPT_MAX_NUMBER } from '../constants/settings.js';
 import { MESSAGES } from '../constants/messages.js';
+import { IsMaxAttempt } from '../domain/validator.js';
 
 export const manipulateReadline = {
   rl: readline.createInterface({
@@ -19,7 +19,7 @@ export const manipulateReadline = {
             resolve(answer);
           } catch (error) {
             attempt += 1;
-            if (attempt === ATTEMPT_MAX_NUMBER) {
+            if (IsMaxAttempt(attempt)) {
               console.log(MESSAGES.ERROR.MAX_ATTEMPT_EXCEEDED);
               this.closeReadline();
             } else {

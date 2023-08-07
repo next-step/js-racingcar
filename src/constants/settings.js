@@ -7,3 +7,4 @@ export const MOVEMENT_CONDITION = 4;
 export const SEPERATOR = ',';
 export const MOVEMENT = 1;
 export const ATTEMPT_MAX_NUMBER = 10;
+export const ROUND_MAX_NUMBER = 30;

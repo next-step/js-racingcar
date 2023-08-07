@@ -7,6 +7,7 @@ export const MESSAGES = Object.freeze({
     MIN_NAME_LENGTH: `이름은 ${NAME_MIN_LENGTH}자 이상만 가능합니다.`,
     IS_NOT_NUMBER: '숫자만 입력해주세요.',
     IS_NOT_INTEGER_NUMBER: '양수, 정수만 입력해주세요.',
+    IS_ROUND_MAX_NUMBER: '최대 라운드 수를 초과하셨습니다.',
     MAX_ATTEMPT_EXCEEDED: `${ATTEMPT_MAX_NUMBER}번 이상 잘못된 입력을 하셨습니다. 프로그램을 종료합니다.`,
   },
   GAME: {

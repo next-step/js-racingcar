@@ -10,8 +10,9 @@ describe('Racing System Test', () => {
   describe('if the input is valid', () => {
     it('should return an array of car names', () => {
       //given
-      const input = `evan,perez,john`;
-      racingSystem.startGame(input);
+      const INPUT = `evan,perez,john`;
+      const ROUND = 3;
+      racingSystem.startGame(INPUT, ROUND);
 
       // then
       const cars = racingSystem.cars;
