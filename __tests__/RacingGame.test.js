@@ -143,4 +143,28 @@ describe('RacingGame 테스트', () => {
       expect(racingGame.getRecords().length).toBe(prevRecordLength + 1);
     });
   });
+
+  describe('예외처리 테스트', () => {
+    describe('생성자 첫번째 파라미터 테스트', () => {
+      test.each([[1, 2, 3], ['a', 'b', 'c'], null, undefined])(
+        'Car instance가 아닐 때',
+        (invalidCars) => {
+          expect(() => new RacingGame(invalidCars)).toThrow(
+            RacingGame.ERROR_MESSAGE.NO_CAR_INSTACE
+          );
+        }
+      );
+    });
+
+    describe('생성자 두번째 파라미터 테스트', () => {
+      test.each(['abc', '1', null, {}])(
+        '숫자가 아닐 때',
+        (invalidMaxRounds) => {
+          expect(() => new RacingGame(cars, invalidMaxRounds)).toThrow(
+            RacingGame.ERROR_MESSAGE.INVALID_MAX_ROUNDS
+          );
+        }
+      );
+    });
+  });
 });

@@ -1,3 +1,4 @@
+import Car from '../Car/index.js';
 import { getRandomInRange } from '../utils/getRandomInRange.js';
 
 class RacingGame {
@@ -9,16 +10,33 @@ class RacingGame {
 
   static DEFAULT_MAX_ROUNDS = 5;
 
+  static ERROR_MESSAGE = {
+    NO_CAR_INSTACE: 'Car 클래스가 아닙니다.',
+    INVALID_MAX_ROUNDS: 'Max Round가 숫자가 아닙니다.',
+  };
+
   #cars;
   #rounds;
   #maxRounds;
   #records;
 
   constructor(cars, maxRounds = RacingGame.DEFAULT_MAX_ROUNDS) {
+    this.validate(cars, maxRounds);
+
     this.#cars = cars;
     this.#rounds = 0;
     this.#maxRounds = maxRounds;
     this.#records = [];
+  }
+
+  validate(cars, maxRounds) {
+    if (!cars?.every((car) => car instanceof Car)) {
+      throw new Error(RacingGame.ERROR_MESSAGE.NO_CAR_INSTACE);
+    }
+
+    if (typeof maxRounds !== 'number') {
+      throw new Error(RacingGame.ERROR_MESSAGE.INVALID_MAX_ROUNDS);
+    }
   }
 
   getCars() {
