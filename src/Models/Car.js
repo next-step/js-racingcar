@@ -1,10 +1,13 @@
-import { CAR_MOVE_STEP, CAN_MOVE } from "../constants/game";
-import {
-  CAR_INIT_POSITION,
-  CAR_ERROR_MESSAGE,
-  CAR_NAME_MAX_LENGTH,
-} from "../constants/car.js";
+import Game from "../Models/Game";
+
 export default class Car {
+  static INITIAL_POSITION = 0;
+  static NAME_MAX_LENGTH = 5;
+  static ERROR_MESSAGE = {
+    LONG_NAME: "자동차 이름은 5글자를 초과하여 설정할 수 없습니다.",
+    EMPTY_NAME: "자동차 이름은 빈 값으로 설정할 수 없습니다.",
+  };
+
   #name;
   #position;
 
@@ -12,7 +15,7 @@ export default class Car {
    * @param {string} name - 자동차 이름
    * @param {number} position - 자동차 위치
    */
-  constructor(name, position = CAR_INIT_POSITION) {
+  constructor(name, position = Car.INITIAL_POSITION) {
     this.validateName(name);
 
     this.#name = name;
@@ -25,10 +28,10 @@ export default class Car {
    * @returns
    */
   validateName(name) {
-    if (!name) throw new Error(CAR_ERROR_MESSAGE.EMPTY_NAME);
+    if (!name) throw new Error(Car.ERROR_MESSAGE.EMPTY_NAME);
 
-    if (name.length > CAR_NAME_MAX_LENGTH)
-      throw new Error(CAR_ERROR_MESSAGE.LONG_NAME);
+    if (name.length > Car.NAME_MAX_LENGTH)
+      throw new Error(Car.ERROR_MESSAGE.LONG_NAME);
 
     return;
   }
@@ -45,7 +48,7 @@ export default class Car {
    * 자동차 현재 위치를 CAR_MOVE_STEP만큼 전진시킨다.
    */
   #move() {
-    this.#position += CAR_MOVE_STEP;
+    this.#position += Game.CAR_MOVE_STEP;
   }
 
   /**
@@ -53,7 +56,7 @@ export default class Car {
    * @param {number} randomNumber
    */
   tryMoveWith(randomNumber) {
-    if (CAN_MOVE(randomNumber)) {
+    if (Game.CAN_MOVE(randomNumber)) {
       this.#move();
     }
   }

@@ -1,13 +1,31 @@
 import Car from "./Car";
-import {
-  GAME_INIT_ROUND,
-  INPUT_ERROR_MESSAGE,
-  TOTAL_GAME_ROUNDS,
-  INPUT_SPLIT_SYM,
-} from "../constants/game";
 import { getRandomNumber } from "../utils/utils";
 
 export default class Game {
+  static CAR_MOVE_STEP = 1;
+  static CAR_MOVE_CRITERIA = 4;
+
+  static INITIAL_ROUND = 1;
+  static TOTAL_ROUNDS = 5;
+
+  static INPUT_ERROR_MESSAGE = Object.freeze({
+    EMPTY: "빈 값으로는 프로그램이 동작할 수 없습니다.",
+    DUPLICATE_CAR_NAME:
+      "중복된 자동차 이름으로는 프로그램이 동작할 수 없습니다.",
+  });
+
+  // TODO: 클래스 외부로 분리?
+  static RANDOM_NUM_LOWER_LIMIT = 0;
+  static RANDOM_NUM_UPPER_LIMIT = 9;
+  /**
+   * 게임 내 자동차 전진 조건 충족 여부를 반환한다.
+   * @param {number} randomNumber
+   * @returns {boolean} 자동차 전진 조건 충족 여부
+   */
+  static CAN_MOVE = (randomNumber) => {
+    return randomNumber >= Game.CAR_MOVE_CRITERIA;
+  };
+
   #cars;
   #currRound;
   #playRoundCalls;
@@ -26,7 +44,7 @@ export default class Game {
 
     this.#cars = carNames.map((carName) => new Car(carName));
 
-    this.#currRound = GAME_INIT_ROUND;
+    this.#currRound = Game.INITIAL_ROUND;
     this.#playRoundCalls = 0;
     this.#roundHistory = [];
     this.#winners = [];
@@ -73,7 +91,7 @@ export default class Game {
    * @returns {undefined}
    */
   #validateUserInput(userInput) {
-    if (!userInput) throw new Error(INPUT_ERROR_MESSAGE.EMPTY);
+    if (!userInput) throw new Error(Game.INPUT_ERROR_MESSAGE.EMPTY);
 
     return;
   }
@@ -85,7 +103,9 @@ export default class Game {
    * @returns {string[]}
    */
   #parseCarNames(userInput) {
-    return userInput.split(INPUT_SPLIT_SYM).map((carName) => carName.trim());
+    const INPUT_SPLIT_SYMBOL = ",";
+
+    return userInput.split(INPUT_SPLIT_SYMBOL).map((carName) => carName.trim());
   }
 
   /**
@@ -95,7 +115,7 @@ export default class Game {
    */
   #validateDuplicateCarNames(carNames) {
     if (new Set(carNames).size !== carNames.length)
-      throw new Error(INPUT_ERROR_MESSAGE.DUPLICATE_CAR_NAME);
+      throw new Error(Game.INPUT_ERROR_MESSAGE.DUPLICATE_CAR_NAME);
 
     return;
   }
@@ -140,7 +160,7 @@ export default class Game {
    * 2. 모든 게임 진행 후, 우승자를 선정한다.
    */
   play() {
-    while (this.#currRound <= TOTAL_GAME_ROUNDS) {
+    while (this.#currRound <= Game.TOTAL_ROUNDS) {
       this.#playRound();
       this.#currRound += 1;
     }

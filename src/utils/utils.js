@@ -1,7 +1,4 @@
-import {
-  RANDOM_NUM_LOWER_LIMIT,
-  RANDOM_NUM_UPPER_LIMIT,
-} from "../constants/game";
+import Game from "../Models/Game";
 
 /**
  * getRandomIntRangeOf - Returns a random integer between min (inclusive) and max (inclusive).
@@ -18,5 +15,8 @@ export function getRandomIntRangeOf(min, max) {
  * @returns Number
  */
 export function getRandomNumber() {
-  return getRandomIntRangeOf(RANDOM_NUM_LOWER_LIMIT, RANDOM_NUM_UPPER_LIMIT);
+  return getRandomIntRangeOf(
+    Game.RANDOM_NUM_LOWER_LIMIT,
+    Game.RANDOM_NUM_UPPER_LIMIT
+  );
 }

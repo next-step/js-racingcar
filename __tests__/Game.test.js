@@ -1,11 +1,11 @@
 import Game from "../src/Models/Game";
-import {
-  INPUT_ERROR_MESSAGE,
-  GAME_INIT_ROUND,
-  TOTAL_GAME_ROUNDS,
-} from "../src/constants/game";
+import Car from "../src/Models/Car";
 
-import { CAR_ERROR_MESSAGE } from "../src/constants/car";
+const GAME_INIT_ROUND = Game.INITIAL_ROUND;
+const TOTAL_GAME_ROUNDS = Game.TOTAL_ROUNDS;
+const INPUT_ERROR_MESSAGE = Game.INPUT_ERROR_MESSAGE;
+
+const CAR_ERROR_MESSAGE = Car.ERROR_MESSAGE;
 
 describe("[feature1] 사용자가 입력한 값의 유효성을 확인한다.", () => {
   it.each([
