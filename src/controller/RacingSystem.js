@@ -7,7 +7,7 @@ export class RacingSystem {
   cars;
   winners;
   round;
-  #view;
+  view;
 
   constructor() {
     this.view = new CarView();
@@ -28,10 +28,12 @@ export class RacingSystem {
 
   #runGame() {
     this.view.printResultHeader();
-    for (let i = 0; i < this.round; i++) {
-      this.#runRoundProcess();
-      this.view.printBreakLine();
-    }
+    Array(this.round)
+      .fill()
+      .forEach(() => {
+        this.#runRoundProcess();
+        this.view.printBreakLine();
+      });
   }
 
   #runRoundProcess() {

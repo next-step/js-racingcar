@@ -18,7 +18,7 @@ describe('Validate Test on readline', () => {
     const results = input.map((v) => validateNames(v));
 
     // then
-    expect(results.every((v) => v === true)).toBe(true);
+    expect(results).toEqual([undefined, undefined]);
   });
 
   it('should throw Error if name length less than 1', () => {
@@ -35,5 +35,13 @@ describe('Validate Test on readline', () => {
 
     // then
     expect(() => validateRound(input)).toThrowError(MESSAGES.ERROR.IS_NOT_NUMBER);
+  });
+  
+  it('should throw Error if round is not a intefer', () => {
+    // given
+    const input = -1;
+
+    // then
+    expect(() => validateRound(input)).toThrowError(MESSAGES.ERROR.IS_NOT_INTEGER_NUMBER);
   });
 });
