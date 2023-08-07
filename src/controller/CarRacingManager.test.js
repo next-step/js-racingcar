@@ -1,6 +1,28 @@
 import { CONDITIONS, INTERVAL_ROUND_TIME } from "../constants/constants";
-import { CarModel } from "../model/CarModel";
-import { CarRacingManager } from "./CarRacingManager";
+import CarModel from "../model/CarModel";
+import CarRacingManager from "./CarRacingManager";
+
+function gameSetUp() {
+  jest.useFakeTimers();
+  const carRacingManager = new CarRacingManager();
+
+  const processEnd = () => {};
+  const sleep = () => {};
+  const gameStart = () => {
+    carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, sleep);
+    jest.advanceTimersByTime(
+      INTERVAL_ROUND_TIME * (CONDITIONS.max_game_round_number + 1),
+    );
+  };
+
+  const spyOn = {
+    printGameEndMessage: jest.spyOn(carRacingManager, "printGameEndMessage"),
+    roundStart: jest.spyOn(carRacingManager, "roundStart"),
+    log: jest.spyOn(console, "log"),
+  };
+
+  return { carRacingManager, gameStart, spyOn };
+}
 
 describe("자동자 경주 게임", () => {
   beforeEach(() => {
@@ -55,7 +77,7 @@ describe("자동자 경주 게임", () => {
       gameStart();
 
       expect(spyOn.printGameEndMessage).toBeCalledWith(
-        `${carRacingManager.getWinnersName()}가 최종 우승했습니다.`
+        `${carRacingManager.getWinnersName()}가 최종 우승했습니다.`,
       );
     });
 
@@ -70,25 +92,3 @@ describe("자동자 경주 게임", () => {
     });
   });
 });
-
-function gameSetUp() {
-  jest.useFakeTimers();
-  const carRacingManager = new CarRacingManager();
-
-  const processEnd = () => {};
-  const sleep = () => {};
-  const gameStart = () => {
-    carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, sleep);
-    jest.advanceTimersByTime(
-      INTERVAL_ROUND_TIME * (CONDITIONS.max_game_round_number + 1)
-    );
-  };
-
-  const spyOn = {
-    printGameEndMessage: jest.spyOn(carRacingManager, "printGameEndMessage"),
-    roundStart: jest.spyOn(carRacingManager, "roundStart"),
-    log: jest.spyOn(console, "log"),
-  };
-
-  return { carRacingManager, gameStart, spyOn };
-}

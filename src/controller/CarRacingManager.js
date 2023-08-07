@@ -4,15 +4,13 @@ import {
   INTERVAL_ROUND_TIME,
   MOVEMENT_PRINT,
   NAME_SEPARATOR,
-} from "../constants/constants.js";
-import { CarModel } from "../model/CarModel.js";
-import { GameModel } from "../model/GameModel.js";
-import { getRandomNumberInRange } from "../utils/utils.js";
+} from "../constants/constants";
+import CarModel from "../model/CarModel";
+import GameModel from "../model/GameModel";
+import { getRandomNumberInRange } from "../utils/utils";
 
-export class CarRacingManager {
+export default class CarRacingManager {
   #gameModel = new GameModel();
-
-  constructor() {}
 
   gameStart(names, endProcess) {
     try {
@@ -40,7 +38,7 @@ export class CarRacingManager {
   }
 
   roundStart() {
-    this.#gameModel.participants.forEach((car) => {
+    this.#gameModel.participants.forEach(car => {
       car.go(getRandomNumberInRange());
       this.printCarAndMove(car.name, car.movement);
     });
@@ -52,17 +50,17 @@ export class CarRacingManager {
   }
 
   getParticipantsName() {
-    return this.#gameModel.participants.map((v) => v.name);
+    return this.#gameModel.participants.map(v => v.name);
   }
 
   getWinnersName(winners = this.#gameModel.winners) {
-    return winners.map((winner) => winner.name).join(NAME_SEPARATOR);
+    return winners.map(winner => winner.name).join(NAME_SEPARATOR);
   }
 
   setParticipants(names) {
     this.#gameModel.participants = names
       .split(NAME_SEPARATOR)
-      .map((name) => new CarModel(name.trim()));
+      .map(name => new CarModel(name.trim()));
   }
 
   printCarAndMove(name, movement) {

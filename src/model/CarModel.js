@@ -1,7 +1,17 @@
-import { CONDITIONS, ERROR_MESSAGES } from "../constants/constants.js";
+import { CONDITIONS, ERROR_MESSAGES } from "../constants/constants";
 
-export class CarModel {
+function validateName(name) {
+  if (name.length > CONDITIONS.max_car_name_length) {
+    throw new Error(ERROR_MESSAGES.OVER_MAXIMUM_CAR_NAME_LENGTH);
+  }
+
+  if (!name) {
+    throw new Error(ERROR_MESSAGES.WHITE_CAR_NAME);
+  }
+}
+export default class CarModel {
   #name = "";
+
   #movement = 0;
 
   constructor(name) {
@@ -14,7 +24,7 @@ export class CarModel {
 
   set name(aName) {
     const name = aName.trim();
-    this.#validateName(name);
+    validateName(name);
     this.#name = name;
   }
 
@@ -25,16 +35,6 @@ export class CarModel {
   go(number) {
     if (CONDITIONS.can_move_number <= number) {
       this.#movement += 1;
-    }
-  }
-
-  #validateName(name) {
-    if (name.length > CONDITIONS.max_car_name_length) {
-      throw new Error(ERROR_MESSAGES.OVER_MAXIMUM_CAR_NAME_LENGTH);
-    }
-
-    if (!name) {
-      throw new Error(ERROR_MESSAGES.WHITE_CAR_NAME);
     }
   }
 }

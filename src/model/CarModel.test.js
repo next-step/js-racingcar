@@ -1,5 +1,5 @@
 import { ERROR_MESSAGES } from "../constants/constants";
-import { CarModel } from "./CarModel";
+import CarModel from "./CarModel";
 
 const DEFAULT_NAME = "크롱";
 
@@ -11,9 +11,9 @@ describe("CarModel", () => {
   });
 
   test("자동차의 이름은 5자 이하만 가능하다.", () => {
-    expect(() => {
-      new CarModel("크롱크롱크롱");
-    }).toThrow(ERROR_MESSAGES.OVER_MAXIMUM_CAR_NAME_LENGTH);
+    expect(() => new CarModel("크롱크롱크롱")).toThrow(
+      ERROR_MESSAGES.OVER_MAXIMUM_CAR_NAME_LENGTH,
+    );
   });
 
   test("자동차의 이름은 공백을 가질 수 없다.", () => {

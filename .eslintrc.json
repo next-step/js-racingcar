@@ -14,5 +14,13 @@
     "max-lines-per-function": ["error", 16],
     "operator-linebreak": ["error", "before"],
     "no-unused-expressions": ["error", { "allowTernary": true }]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.js", "**/*.spec.js"],
+      "rules": {
+        "max-lines-per-function": "off"
+      }
+    }
+  ]
 }
