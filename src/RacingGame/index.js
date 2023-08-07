@@ -16,10 +16,7 @@ class RacingGame {
   }
 
   getMaxDistanceDriven() {
-    return this.#cars.reduce(
-      (max, car) => Math.max(max, car.getDistanceDriven()),
-      0
-    );
+    return Math.max(...this.#cars.map((car) => car.getDistanceDriven()));
   }
 
   getWinningCars() {
