@@ -28,12 +28,10 @@ export class RacingSystem {
 
   #runGame() {
     this.view.printResultHeader();
-    Array(this.round)
-      .fill()
-      .forEach(() => {
-        this.#runRoundProcess();
-        this.view.printBreakLine();
-      });
+    Array.from({ length: this.round }).forEach(() => {
+      this.#runRoundProcess();
+      this.view.printBreakLine();
+    });
   }
 
   #runRoundProcess() {
