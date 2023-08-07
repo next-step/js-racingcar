@@ -1,4 +1,5 @@
 import { Observable } from '../utils/Observable'
+import { ACTION_TYPE } from '../constants/viewModel'
 
 export class PromptView extends Observable {
   constructor() {
@@ -10,17 +11,22 @@ export class PromptView extends Observable {
       '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n',
       carNames => {
         prompt.question('시도할 회수는 몇회인가요?\n', maxMatchLength => {
-          this.notify({ type: 'ready', state: { carNames, maxMatchLength } })
+          this.notify({
+            type: ACTION_TYPE.READY,
+            state: { carNames, maxMatchLength }
+          })
 
-          console.log('시작하려면 start를, 종료하려면 exit를 입력하세요.')
+          console.log(
+            `시작하려면 ${ACTION_TYPE.START}를, 종료하려면 ${ACTION_TYPE.EXIT}를 입력하세요.`
+          )
           prompt.prompt()
 
           prompt.on('line', line => {
             switch (line) {
-              case 'start':
-                this.notify({ type: 'start' })
+              case ACTION_TYPE.START:
+                this.notify({ type: ACTION_TYPE.START })
                 break
-              case 'exit':
+              case ACTION_TYPE.EXIT:
                 prompt.close()
                 break
               default:

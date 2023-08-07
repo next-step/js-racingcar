@@ -1,4 +1,5 @@
 import { Car } from '../../src/components/Car2'
+import { MUTATION_TYPE } from '../../src/constants/viewModel'
 import { Observable } from '../../src/utils/Observable'
 import { ViewModel } from '../../src/viewModel/ViewModel'
 
@@ -70,7 +71,10 @@ describe('ViewModel', () => {
     const viewModel = new ViewModel(mockModel)
 
     // When
-    viewModel.handleMutation({ type: 'updateCarList', carList: ['sonny'] })
+    viewModel.handleMutation({
+      type: MUTATION_TYPE.CAR_LIST,
+      carList: ['sonny']
+    })
 
     // Then
     expect(viewModel.state.carList).toEqual(['sonny'])

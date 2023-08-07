@@ -1,3 +1,4 @@
+import { MUTATION_TYPE } from '../../src/constants/viewModel'
 import { ConsoleView } from '../../src/view/ConsoleView'
 import { View } from '../../src/view/View'
 
@@ -21,7 +22,10 @@ describe('View', () => {
     ]
 
     // When
-    View.prototype.update.call(context, { type: 'updateCarList', carList })
+    View.prototype.update.call(context, {
+      type: MUTATION_TYPE.CAR_LIST,
+      carList
+    })
 
     // Then
     expect(logSpy.mock.calls[0][0]).toBe('\nsonny : -\nson : ')
@@ -34,7 +38,7 @@ describe('View', () => {
 
     // When
     View.prototype.update.call(context, {
-      type: 'updateWinnerList',
+      type: MUTATION_TYPE.WINNER_LIST,
       winnerList
     })
 

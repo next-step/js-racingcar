@@ -1,4 +1,5 @@
 import { Observable } from '../utils/Observable'
+import { ACTION_TYPE, MUTATION_TYPE } from '../constants/viewModel'
 import { generateCarList, generateWinnerList, generateRace } from './getters'
 
 export class ViewModel extends Observable {
@@ -16,10 +17,10 @@ export class ViewModel extends Observable {
 
   handleAction({ type, state }) {
     switch (type) {
-      case 'ready':
+      case ACTION_TYPE.READY:
         this.ready(state)
         break
-      case 'start':
+      case ACTION_TYPE.START:
         this.start()
         break
     }
@@ -40,7 +41,7 @@ export class ViewModel extends Observable {
     const carList = generateCarList(carNames)
 
     this.handleMutation({
-      type: 'ready',
+      type: MUTATION_TYPE.READY,
       carList,
       maxMatchLength,
       winnerList: []
@@ -55,11 +56,14 @@ export class ViewModel extends Observable {
       match++
       race.startRound()
 
-      this.handleMutation({ type: 'updateCarList', carList: race.participants })
+      this.handleMutation({
+        type: MUTATION_TYPE.CAR_LIST,
+        carList: race.participants
+      })
     }
 
     const winnerList = generateWinnerList(race.participants)
-    this.handleMutation({ type: 'updateWinnerList', winnerList })
+    this.handleMutation({ type: MUTATION_TYPE.WINNER_LIST, winnerList })
   }
 
   update() {
