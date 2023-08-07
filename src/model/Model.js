@@ -16,28 +16,10 @@ export class Model extends Observable {
     }
   }
 
-  setCarList(carList) {
+  setState(state) {
     this.#state = {
       ...this.#state,
-      carList
-    }
-
-    this.notify(this.#state)
-  }
-
-  setWinnerList(winnerList) {
-    this.#state = {
-      ...this.#state,
-      winnerList
-    }
-
-    this.notify(this.#state)
-  }
-
-  setMaxMatchLength(maxMatchLength) {
-    this.#state = {
-      ...this.#state,
-      maxMatchLength
+      ...state
     }
 
     this.notify(this.#state)
@@ -45,5 +27,9 @@ export class Model extends Observable {
 
   getState() {
     return this.#state
+  }
+
+  destroy() {
+    this.unsubscribeAll()
   }
 }
