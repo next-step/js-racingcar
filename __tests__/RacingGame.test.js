@@ -49,35 +49,35 @@ describe('RacingGame 테스트', () => {
   });
 
   describe('레이싱 게임 우승 테스트', () => {
-    beforeEach(() => {
-      cars.forEach((car, index) => {
-        for (let i = 0; i < index; i++) {
-          car.moveForward();
-        }
+    describe('단독 우승 테스트', () => {
+      beforeEach(() => {
+        cars.forEach((car, index) => {
+          for (let i = 0; i < index; i++) {
+            car.moveForward();
+          }
+        });
+      });
+
+      test('가장 멀리 간 거리를 구할 수 있다.', () => {
+        expect(racingGame.getMaxDistanceDriven()).toBe(2);
+      });
+
+      test('우승한 자동차를 구할 수 있다.', () => {
+        const [winningCar] = racingGame.getWinningCars();
+        const lastCar = cars.at(-1);
+
+        expect(winningCar).toEqual(lastCar);
       });
     });
 
-    test('가장 멀리 간 거리를 구할 수 있다.', () => {
-      expect(racingGame.getMaxDistanceDriven()).toBe(2);
-    });
+    describe('우승자가 여러명 일 때', () => {
+      test('모든 자동차가 이동 거리가 똑같다면 모든 자동차가 우승자다.', () => {
+        cars.forEach((car) => {
+          car.moveForward();
+        });
 
-    test('우승한 자동차를 구할 수 있다.', () => {
-      const [winningCar] = racingGame.getWinningCars();
-      const lastCar = cars.at(-1);
-
-      expect(winningCar).toEqual(lastCar);
-    });
-
-    test('가장 멀리간 자동차가 여러대이면 모두다 우승자다.', () => {
-      expect(
-        racingGame
-          .getWinningCars()
-          .every(
-            (winningCar) =>
-              winningCar.getDistanceDriven() ===
-              racingGame.getMaxDistanceDriven()
-          )
-      ).toBe(true);
+        expect(racingGame.getWinningCars()).toEqual(cars);
+      });
     });
   });
 
