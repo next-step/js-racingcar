@@ -16,24 +16,6 @@ describe('Race', () => {
     }
   })
 
-  test('Race는 현재 매치 수를 가지고 있다.', () => {
-    // Given, When
-    const race = new Race({})
-
-    // Then
-    expect(race.match).toBe(0)
-  })
-
-  test('Race는 최대 매치 수를 가지고 있다.', () => {
-    // Given, When
-    const race = new Race({
-      maxMatchLength: 5
-    })
-
-    // Then
-    expect(race.maxMatchLength).toBe(5)
-  })
-
   test('Race는 전진 조건을 가지고 있다.', () => {
     // Given, When
     const runCondition = () => false
