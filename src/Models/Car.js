@@ -40,8 +40,8 @@ export default class Car {
     return this.#position;
   }
 
-  #move() {
-    this.#position += Game.CAR_MOVE_STEP;
+  #move(step = Game.CAR_MOVE_STEP) {
+    this.#position += step;
   }
 
   tryMoveWith(randomNumber) {
