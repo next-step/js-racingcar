@@ -1,4 +1,3 @@
-// import { RacingCarGame } from './App'
 import { Model } from './model/Model'
 import { ViewModel } from './viewModel/ViewModel'
 import { View } from './view/View'
