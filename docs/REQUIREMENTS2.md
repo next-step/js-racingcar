@@ -24,13 +24,13 @@
 
 ## ViewModel
 
-- ViewModel은 View에서 전달받은 문자열의 carList를 CarComponent로 변환하여 Model에 전달한다.
-- ViewModel은 View에서 전달받은 maxMatchLength를 Model에 전달한다.
-- [X] update() - ViewModel은 update시, 변경된 상태를 전달한다.
-- [X] destroy() - ViewModel은 destroy 이후 update를 호출한 경우, 상태를 전달받을 수 없다.
-
-- [X] start() - ViewModel은 Race의 라운드를 진행시키고 라운드가 진행될 때마다 결과를 알린다.
-- [X] start() - ViewModel은 Race가 끝난 뒤, winnerList를 Model에 전달한다.
+- [ ] handleAction() - 외부에서 입력받은 액션이 ready인 경우, ready 메서드를 실행시킨다.
+- [ ] handleAction() - 외부에서 입력받은 액션이 start인 경우, start 메서드를 실행시킨다.
+- [ ] handleMutation() - 전달받은 state로 ViewModel의 state와 Model의 state를 업데이트 한다.
+- [ ] start() - Race의 라운드를 진행시키고 라운드가 진행될 때마다 Model에 현재 carList를 전달한다.
+- [ ] start() - Race가 모두 종료되고 Model에 winnerList를 전달한다.
+- [ ] update() - update시, 구독하고 있는 요소에게 ViewModel의 state를 전달한다.
+- [ ] destroy() - ViewModel은 destroy 이후 update를 호출한 경우, 상태를 전달받을 수 없다.
 
 ### getters
 
