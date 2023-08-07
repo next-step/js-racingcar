@@ -50,45 +50,9 @@ describe('Model', () => {
     model.subscribe(spy)
 
     // When
-    model.setCarList(['sonny'])
+    model.setState({ carList: ['sonny'] })
 
     // Then
     expect(logSpy.mock.calls[0][0]).toBe('changed state!')
-  })
-
-  test('Model의 carList를 변경할 수 있다.', () => {
-    // Given
-    const model = new Model()
-
-    // When
-    model.setCarList(['sonny'])
-
-    // Then
-    const { carList } = model.getState()
-    expect(carList).toEqual(['sonny'])
-  })
-
-  test('Model의 winnerList를 변경할 수 있다.', () => {
-    // Given
-    const model = new Model()
-
-    // When
-    model.setWinnerList(['sonny', 'son'])
-
-    // Then
-    const { winnerList } = model.getState()
-    expect(winnerList).toEqual(['sonny', 'son'])
-  })
-
-  test('Model의 maxMatchLength를 변경할 수 있다.', () => {
-    // Given
-    const model = new Model()
-
-    // When
-    model.setMaxMatchLength(10)
-
-    // Then
-    const { maxMatchLength } = model.getState()
-    expect(maxMatchLength).toEqual(10)
   })
 })
