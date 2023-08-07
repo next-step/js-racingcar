@@ -12,9 +12,9 @@ describe('GameSimulator 테스트', () => {
 
   beforeEach(() => {
     simulator = new GameSimulator(messageViewer);
-    getUserInputByQuestion.mockImplementation(() =>
-      Promise.resolve(CAR_NAMES.join(','))
-    );
+    getUserInputByQuestion
+      .mockImplementationOnce(() => Promise.resolve(CAR_NAMES.join(',')))
+      .mockImplementationOnce(() => Promise.resolve(3));
   });
 
   afterEach(() => {
@@ -22,10 +22,10 @@ describe('GameSimulator 테스트', () => {
   });
 
   describe('입력 테스트', () => {
-    test('게임을 시작하면 경주할 자동차를 입력 받을 수 있다.', () => {
-      simulator.startGame();
+    test('게임을 시작하면 경주할 자동차와 round 횟수를 입력 받는다.', async () => {
+      await simulator.startGame();
 
-      expect(getUserInputByQuestion).toHaveBeenCalled();
+      expect(getUserInputByQuestion).toBeCalledTimes(2);
     });
   });
 
