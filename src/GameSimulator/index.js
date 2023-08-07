@@ -3,8 +3,6 @@ import RacingGame from '../RacingGame/index.js';
 import { getUserInputByQuestion } from '../utils/getUserInputByQuestion.js';
 
 class GameSimulator {
-  static DEFAULT_MAX_ROUNDS = 5;
-
   #racingGame;
   #messageViewer;
   #maxRounds;

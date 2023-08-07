@@ -27,42 +27,6 @@ describe('GameSimulator 테스트', () => {
 
       expect(getUserInputByQuestion).toHaveBeenCalled();
     });
-
-    describe('자동차 주행 테스트', () => {
-      test('자동차 입력을 받은 후 startRound 함수가 호출 된다.', async () => {
-        const startRoundSpy = jest.spyOn(simulator, 'startRound');
-
-        await simulator.startGame();
-
-        expect(startRoundSpy).toHaveBeenCalled();
-
-        startRoundSpy.mockRestore();
-      });
-
-      test('round는 기본 5회동안 진행된다.', async () => {
-        const runRoundSpy = jest.spyOn(simulator, 'runRound');
-
-        await simulator.startGame();
-
-        expect(runRoundSpy).toBeCalledTimes(GameSimulator.DEFAULT_MAX_ROUNDS);
-
-        runRoundSpy.mockRestore();
-      });
-
-      test('시뮬레이터 생성시 maxRounds가 설정 된다면 해당 maxRounds 만큼 진행한다.', async () => {
-        const maxRounds = 10;
-
-        simulator = new GameSimulator(mockViewer, maxRounds);
-
-        const runRoundSpy = jest.spyOn(simulator, 'runRound');
-
-        await simulator.startGame();
-
-        expect(runRoundSpy).toBeCalledTimes(maxRounds);
-
-        runRoundSpy.mockRestore();
-      });
-    });
   });
 
   describe('자동차 정보 출력 테스트', () => {

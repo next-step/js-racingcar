@@ -7,13 +7,17 @@ class RacingGame {
    */
   static MOVE_FORWARD_THRESHOLD = 4;
 
+  static DEFAULT_MAX_ROUNDS = 5;
+
   #cars;
   #rounds;
+  #maxRounds;
   #records;
 
-  constructor(cars) {
+  constructor(cars, maxRounds = RacingGame.DEFAULT_MAX_ROUNDS) {
     this.#cars = cars;
     this.#rounds = 0;
+    this.#maxRounds = maxRounds;
     this.#records = [];
   }
 
@@ -59,6 +63,12 @@ class RacingGame {
 
     this.#cars.forEach((car) => car.moveForward());
     this.saveCurrentRecord();
+  }
+
+  startRace() {
+    for (let i = 0; i < this.#maxRounds; i++) {
+      this.runRound();
+    }
   }
 }
 

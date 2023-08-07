@@ -99,6 +99,32 @@ describe('RacingGame 테스트', () => {
       );
     });
 
+    test(`RacingGame round는 기본 ${RacingGame.DEFAULT_MAX_ROUNDS}회동안 진행된다.`, async () => {
+      const runRoundSpy = jest.spyOn(racingGame, 'runRound');
+
+      racingGame.startRace();
+
+      expect(runRoundSpy).toBeCalledTimes(RacingGame.DEFAULT_MAX_ROUNDS);
+
+      runRoundSpy.mockRestore();
+    });
+
+    describe('생성시 maxRounds가 설정 된다면 해당 maxRounds 만큼 진행한다.', () => {
+      test.each([6, 8, 10])(
+        'maxRounds를 %i로 설정한 경우',
+        async (maxRounds) => {
+          racingGame = new RacingGame(cars, maxRounds);
+          const runRoundSpy = jest.spyOn(racingGame, 'runRound');
+
+          racingGame.startRace();
+
+          expect(runRoundSpy).toBeCalledTimes(maxRounds);
+
+          runRoundSpy.mockRestore();
+        }
+      );
+    });
+
     test('round 진행시 각 자동차들은 전진 함수가 실행 된다.', () => {
       const spyList = cars.map((car) => jest.spyOn(car, 'moveForward'));
 
