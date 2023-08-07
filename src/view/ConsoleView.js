@@ -15,6 +15,10 @@ export class ConsoleView {
     console.log(`\n${winnerList.join(', ')}(이)가 최종 우승했습니다.`)
   }
 
+  renderError({ error }) {
+    console.log(error)
+  }
+
   update(state) {
     this.renderCarList(state)
     this.renderWinnerList(state)

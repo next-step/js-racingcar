@@ -5,13 +5,15 @@ import { PromptView } from './PromptView'
 export class View {
   constructor(gamePrompt, viewModel) {
     this.viewModel = viewModel
+    this.gamePrompt = gamePrompt
+
     this.consoleView = new ConsoleView()
-    this.promptView = new PromptView()
+    this.promptView = new PromptView(gamePrompt, viewModel)
 
     this.viewModel.subscribe(this.update.bind(this))
     this.promptView.subscribe(viewModel.handleAction.bind(viewModel))
 
-    this.promptView.render(gamePrompt)
+    this.update(viewModel.getState())
   }
 
   update({ type, ...state }) {
@@ -21,6 +23,13 @@ export class View {
         break
       case MUTATION_TYPE.WINNER_LIST:
         this.consoleView.renderWinnerList(state)
+        break
+      case MUTATION_TYPE.ERROR:
+        this.consoleView.renderError(state)
+        this.promptView.update(state)
+        break
+      default:
+        this.promptView.update(state)
         break
     }
   }
