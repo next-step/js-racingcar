@@ -19,7 +19,8 @@ export default class GameController {
   }
 
   addEventHandlerToView() {
-    this.#view.handleInputWith((userInput) => this.#playGameWith(userInput));
+    const promptEventHandler = (userInput) => this.#playGameWith(userInput);
+    this.#view.addEventHandlerToPrompt(promptEventHandler);
   }
 
   #playGameWith(userInput) {

@@ -1,21 +1,14 @@
-import readline from "readline";
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
-const MESSAGES = Object.freeze({
-  INIT_GUIDE:
-    "경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분).\n",
-  RESULT_GUIDE: "실행 결과",
-  WINNER_POSTFIX: "가 최종 우승했습니다.",
-  ERROR_PREFIX: "[ERROR]",
-});
+import { rl } from "../utils";
 
 export default class View {
-  handleInputWith(cbFunc) {
-    rl.question(MESSAGES.INIT_GUIDE, (input) => {
+  static MESSAGES = Object.freeze({
+    INITIAL_GUIDE:
+      "경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분).\n",
+    RESULT_GUIDE: "실행 결과",
+  });
+
+  addEventHandlerToPrompt(cbFunc) {
+    rl.question(MESSAGES.INITIAL_GUIDE, (input) => {
       cbFunc(input);
       rl.close();
     });
@@ -26,19 +19,16 @@ export default class View {
   }
 
   #logDivider() {
-    const DIVIDER_SYM = "";
-    this.#log(DIVIDER_SYM);
+    const DIVIDER_SYMBOL = "";
+    this.#log(DIVIDER_SYMBOL);
   }
 
   #logCarStatus(car) {
-    const DISTANCE_SYM = "-";
-    const SPLIT_SYM = " : ";
-
-    this.#log(`${car.name}${SPLIT_SYM}${DISTANCE_SYM.repeat(car.position)}`);
+    this.#log(`${car.name} : ${"-".repeat(car.position)}`);
   }
 
   logErrorMessage(errorMsg) {
-    this.#log(MESSAGES.ERROR_PREFIX, errorMsg);
+    this.#log("[ERROR]", errorMsg);
   }
 
   logResultGuideMessage() {
@@ -56,9 +46,8 @@ export default class View {
   }
 
   logWinners(winners) {
-    const SEPARATOR_SYM = ", ";
     const winnerNames = winners.map((winner) => winner.name);
 
-    this.#log(winnerNames.join(SEPARATOR_SYM) + MESSAGES.WINNER_POSTFIX);
+    this.#log(winnerNames.join(", ") + "가 최종 우승했습니다.");
   }
 }

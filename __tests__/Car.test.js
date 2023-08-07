@@ -1,6 +1,6 @@
 import Game from "../src/Models/Game.js";
 import Car from "../src/Models/Car.js";
-import { getRandomIntRangeOf } from "../src/utils/utils.js";
+import { getRandomIntRangeOf } from "../src/utils";
 
 const CAR_MOVE_CRITERIA = Game.CAR_MOVE_CRITERIA;
 const CAR_MOVE_STEP = Game.CAR_MOVE_STEP;

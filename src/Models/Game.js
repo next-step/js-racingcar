@@ -1,5 +1,5 @@
 import Car from "./Car";
-import { getRandomIntRangeOf } from "../utils/utils";
+import { getRandomIntRangeOf } from "../utils";
 
 export default class Game {
   static TOTAL_ROUNDS = 5;
