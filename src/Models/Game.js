@@ -50,6 +50,30 @@ export default class Game {
     this.#winners = [];
   }
 
+  #isEmptyUserInput(userInput) {
+    return !userInput;
+  }
+
+  #validateUserInput(userInput) {
+    if (this.#isEmptyUserInput(userInput))
+      throw new Error(Game.INPUT_ERROR_MESSAGE.EMPTY);
+  }
+
+  #parseCarNames(userInput) {
+    const INPUT_SPLIT_SYMBOL = ",";
+
+    return userInput.split(INPUT_SPLIT_SYMBOL).map((carName) => carName.trim());
+  }
+
+  #hasDuplicatedCarNames(carNames) {
+    return new Set(carNames).size !== carNames.length;
+  }
+
+  #validateDuplicateCarNames(carNames) {
+    if (this.#hasDuplicatedCarNames(carNames))
+      throw new Error(Game.INPUT_ERROR_MESSAGE.DUPLICATE_CAR_NAME);
+  }
+
   get cars() {
     return this.#cars;
   }
@@ -68,25 +92,6 @@ export default class Game {
 
   get winners() {
     return this.#winners;
-  }
-
-  #validateUserInput(userInput) {
-    if (!userInput) throw new Error(Game.INPUT_ERROR_MESSAGE.EMPTY);
-
-    return;
-  }
-
-  #parseCarNames(userInput) {
-    const INPUT_SPLIT_SYMBOL = ",";
-
-    return userInput.split(INPUT_SPLIT_SYMBOL).map((carName) => carName.trim());
-  }
-
-  #validateDuplicateCarNames(carNames) {
-    if (new Set(carNames).size !== carNames.length)
-      throw new Error(Game.INPUT_ERROR_MESSAGE.DUPLICATE_CAR_NAME);
-
-    return;
   }
 
   #saveRoundHistory() {
