@@ -39,11 +39,10 @@
 - [X] generateWinnerList() - 모든 참가자가 출발선에 있는 경우, 빈 배열을 반환한다.
 - [X] generateRace() - 전달받은 carList, runCondition을 기반으로 Race component를 생성한다.
 
-
-
 ## View
 
-- View가 생성되었을 때 Model의 상태값에 따라 view가 노출되어야 한다.
+- [ ] update() - update시 type이 updateCarList인 경우, ConsoleView의 carList에 Model의 state를 담아 호출한다.
+- [ ] update() - update시 type이 updateWinnerList인 경우, ConsoleView의 winnerList에 Model의 state를 담아 호출한다.
 
 ### ConsoleView
 
