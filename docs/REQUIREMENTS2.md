@@ -44,3 +44,9 @@
 ## View
 
 - View가 생성되었을 때 Model의 상태값에 따라 view가 노출되어야 한다.
+
+### ConsoleView
+
+- [ ] renderCarList() - 전달받은 carList를 기반으로 name과 position을 출력한다.
+- [ ] renderWinnerList() - 전달받은 winnerList를 기반으로 우승자를 출력한다.
+- [ ] renderWinnerList() - 전달받은 winnerList가 빈 배열인 경우, 우승자가 없다는 메시지를 출력한다..
