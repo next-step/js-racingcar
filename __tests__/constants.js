@@ -1,3 +1,5 @@
+export const DUMMY_INPUT_TOTAL_LAP = 5;
+
 export const DUMMY_CORRECT_CARS = [
   { name: 'mario', movableDistance: 4, notMovableDistance: 0 },
   { name: 'yoshi', movableDistance: 5, notMovableDistance: 1 },
@@ -53,6 +55,22 @@ export const DUMMY_DUPLICATE_WINNER_RACE_SET = [
   { name: 'yoshi', moved: 2 },
   { name: 'koopa', moved: 3 },
   { name: 'peach', moved: 3 }
+];
+
+export const DUMMY_RACE_TOTAL_LAPS = [
+  { inputTotalLap: 1 },
+  { inputTotalLap: 100 },
+  { inputTotalLap: 3 },
+  { inputTotalLap: 77 },
+  { inputTotalLap: 5 }
+];
+
+export const DUMMY_INCORRECT_RACE_TOTAL_LAPS = [
+  { inputTotalLap: {} },
+  { inputTotalLap: () => {} },
+  { inputTotalLap: -1 },
+  { inputTotalLap: NaN },
+  { inputTotalLap: null }
 ];
 
 export const DUMMY_CARS = ['mario', 'yoshi', 'koopa', 'peach'];

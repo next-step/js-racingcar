@@ -1,18 +1,19 @@
 import {
+  DUMMY_INPUT_TOTAL_LAP,
   DUMMY_CARS,
   DUMMY_INPUT_CAR_NAMES,
   DUMMY_INCORRECT_INPUT_CAR_NAMES,
   DUMMY_RACE_SET,
   DUMMY_WINNER_RACE_SET,
-  DUMMY_DUPLICATE_WINNER_RACE_SET
+  DUMMY_DUPLICATE_WINNER_RACE_SET,
+  DUMMY_RACE_TOTAL_LAPS,
+  DUMMY_INCORRECT_RACE_TOTAL_LAPS
 } from './constants';
-import { ERROR_MESSAGE, RACE_CONFIGURE } from '../src/constants/index';
+import { ERROR_MESSAGE } from '../src/constants/index';
 import { CarRaceOrganizer, Car } from '../src/classes/index';
 
-const { MAX_LAP } = RACE_CONFIGURE;
-
 const getRaceWinners = (raceModel) => {
-  const carRaceOrganizer = new CarRaceOrganizer(raceModel);
+  const carRaceOrganizer = new CarRaceOrganizer(raceModel, DUMMY_INPUT_TOTAL_LAP);
   carRaceOrganizer.printWinners();
   return carRaceOrganizer.winners;
 };
@@ -41,7 +42,7 @@ describe('자동차 경주 테스트', () => {
     ({ input }) => {
       const cars = getCars(input);
       expect(() => {
-        new CarRaceOrganizer(cars);
+        new CarRaceOrganizer(cars, DUMMY_INPUT_TOTAL_LAP);
       }).not.toThrow();
     }
   );
@@ -55,7 +56,7 @@ describe('자동차 경주 테스트', () => {
 
   test.each(DUMMY_RACE_SET)('자동차 주행 횟수마다 lap이 변경된다.', ({ input }) => {
     const cars = getCars(input);
-    const carRaceOrganizer = new CarRaceOrganizer(cars);
+    const carRaceOrganizer = new CarRaceOrganizer(cars, DUMMY_INPUT_TOTAL_LAP);
     expect(carRaceOrganizer.lap).toBe(0);
     carRaceOrganizer.runSingleRace();
     carRaceOrganizer.nextLap();
@@ -64,22 +65,44 @@ describe('자동차 경주 테스트', () => {
 
   it('자동차 주행 횟수 마다 경주 상태를 출력한다.', () => {
     const cars = getCars(DUMMY_CARS);
-    const carRaceOrganizer = new CarRaceOrganizer(cars);
+    const carRaceOrganizer = new CarRaceOrganizer(cars, DUMMY_INPUT_TOTAL_LAP);
     carRaceOrganizer.runSingleRace();
     carRaceOrganizer.printRace();
     expect(logSpy).toHaveBeenCalledTimes(DUMMY_CARS.length);
   });
 
-  it(`자동차 경주는 총 ${MAX_LAP}회로 이루어진다.`, () => {
-    const cars = getCars(DUMMY_CARS);
-    const carRaceOrganizer = new CarRaceOrganizer(cars);
-    for (let lap = 0; lap < MAX_LAP; lap += 1) {
-      expect(carRaceOrganizer.lap).toBe(lap);
-      carRaceOrganizer.nextLap();
+  test.each(DUMMY_RACE_TOTAL_LAPS)(
+    '자동차 경주 횟수는 사용자에게 숫자($inputTotalLap) 형태로 입력 받는다.',
+    ({ inputTotalLap }) => {
+      const cars = getCars(DUMMY_CARS);
+      expect(() => {
+        new CarRaceOrganizer(cars, inputTotalLap);
+      }).not.toThrow();
     }
-    carRaceOrganizer.nextLap();
-    expect(carRaceOrganizer.lap).toBe(MAX_LAP);
-  });
+  );
+  test.each(DUMMY_INCORRECT_RACE_TOTAL_LAPS)(
+    '입력 받은 경주 횟수는 양수이어야 하며, 숫자만 취급한다. ($inputTotalLap)',
+    ({ inputTotalLap }) => {
+      const cars = getCars(DUMMY_CARS);
+      expect(() => {
+        new CarRaceOrganizer(cars, inputTotalLap);
+      }).toThrowError(ERROR_MESSAGE.INVALID_NUMBER);
+    }
+  );
+
+  test.each(DUMMY_RACE_TOTAL_LAPS)(
+    '입려된 자동차 경주 횟수($inputTotalLap)만큼 경주가 진행된다.',
+    ({ inputTotalLap }) => {
+      const cars = getCars(DUMMY_CARS);
+      const carRaceOrganizer = new CarRaceOrganizer(cars, inputTotalLap);
+      for (let lap = 0; lap < inputTotalLap; lap += 1) {
+        expect(carRaceOrganizer.lap).toBe(lap);
+        carRaceOrganizer.nextLap();
+      }
+      carRaceOrganizer.nextLap();
+      expect(carRaceOrganizer.lap).toBe(inputTotalLap);
+    }
+  );
 
   it('자동차 경주 종료 후, 많은 거리를 이동한 자동차가 우승한다.', () => {
     const winners = getRaceWinners(DUMMY_WINNER_RACE_SET);
