@@ -2,6 +2,7 @@ import { startRacingGame } from ".";
 import { isValidationName } from "./domain/isValidationName";
 import { getRandomNumber } from "./utils/getRandomNumber";
 import { attemptCount } from "./domain/attemptCount";
+import { runSafelyFunc } from "./utils/runSafelyFunc";
 
 import {
   ZERO_UP_INPUT_MESSAGE,
