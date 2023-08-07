@@ -1,15 +1,9 @@
-import { Car, CarRace } from './classes/index';
+import { Car, CarRaceOrganizer } from './classes/index';
 
-const startGame = (inputCars) => {
+const startGame = (inputCars, inputTotalLap) => {
   const cars = inputCars.map((car) => new Car(car));
-  const carRace = new CarRace(cars);
-
-  while (!carRace.isRaceDone()) {
-    carRace.race();
-    carRace.printRace();
-    carRace.nextLap();
-  }
-  carRace.printWinners();
+  const carRaceOrganizer = new CarRaceOrganizer(cars, inputTotalLap);
+  carRaceOrganizer.runFullRace();
 };
 
 export default startGame;

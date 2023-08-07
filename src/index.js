@@ -1,5 +1,4 @@
 import startGame from './startGame';
-import { CarPrompter } from './classes/index';
+import { executeReadInput } from './race/index';
 
-const prompt = new CarPrompter();
-prompt.executeReadInput(startGame);
+executeReadInput(startGame);

@@ -1,4 +1,5 @@
 {
+  "endOfLine": "auto",
   "singleQuote": true,
   "bracketSpacing": true,
   "printWidth": 120,
