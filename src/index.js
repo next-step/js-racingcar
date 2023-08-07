@@ -1,9 +1,26 @@
-import { RacingCarGame } from './App'
+// import { RacingCarGame } from './App'
+import { Model } from './model/Model'
+import { ViewModel } from './viewModel/ViewModel'
+import { View } from './view/View'
 import { gamePrompt } from './utils/gamePrompt'
 
-const racingCarGameApp = new RacingCarGame()
+class App {
+  constructor() {
+    this.model = new Model()
+    this.viewModel = new ViewModel(this.model)
+    this.view = new View(gamePrompt, this.viewModel)
 
-gamePrompt.question(`경주할 자동차 이름을 입력하세요. \n`, carNames => {
-  racingCarGameApp.start(carNames)
-  gamePrompt.close()
-})
+    gamePrompt.on('close', () => {
+      this.destroy()
+      process.exit()
+    })
+  }
+
+  destroy() {
+    this.viewModel.destroy()
+    this.model.destroy()
+    this.view.destroy()
+  }
+}
+
+new App()
