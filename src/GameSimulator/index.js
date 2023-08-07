@@ -46,13 +46,6 @@ class GameSimulator {
     this.#messageViewer(`${winningCarNames}가 최종 우승했습니다.`);
   }
 
-  forceFinish(message) {
-    this.#messageViewer(message);
-    this.#messageViewer('프로그램을 종료하겠습니다.');
-
-    process.exit(1);
-  }
-
   async startGame() {
     try {
       await this.setRacingGame();
@@ -61,7 +54,9 @@ class GameSimulator {
       this.printRecords();
       this.printWinningCars();
     } catch (error) {
-      this.forceFinish(error.message);
+      this.#messageViewer(error.message);
+      this.#messageViewer('\n게임을 다시 시작하겠습니다.\n');
+      this.startGame();
     }
   }
 }
