@@ -126,14 +126,11 @@ describe('RacingGame 테스트', () => {
     });
 
     test('round 진행시 각 자동차들은 전진 함수가 실행 된다.', () => {
-      const spyList = cars.map((car) => jest.spyOn(car, 'moveForward'));
+      const canMoveForwardSpy = jest.spyOn(racingGame, 'canMoveForward');
 
       racingGame.runRound();
 
-      spyList.forEach((spy) => {
-        expect(spy).toBeCalled();
-        spy.mockRestore();
-      });
+      expect(canMoveForwardSpy).toBeCalledTimes(carNames.length);
     });
 
     test('round 진행시 경주 기록이 저장되어 records의 길이가 1 늘어난다', () => {

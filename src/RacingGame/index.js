@@ -61,7 +61,11 @@ class RacingGame {
   runRound() {
     this.#rounds = this.#rounds + 1;
 
-    this.#cars.forEach((car) => car.moveForward());
+    this.#cars.forEach((car) => {
+      if (this.canMoveForward()) {
+        car.moveForward();
+      }
+    });
     this.saveCurrentRecord();
   }
 
