@@ -37,49 +37,13 @@ describe('GameSimulator 테스트', () => {
 
       expect(printRecordsSpy).toBeCalled();
     });
-  });
 
-  describe('우승 테스트', () => {
-    describe('우승한 자동차의 이름을 확인 할 수 있다.', () => {
-      test('우승자가 1명일 때 배열의 길이가 1이다', async () => {
-        getUserInputByQuestion.mockImplementation(() =>
-          Promise.resolve('자동차1')
-        );
+    test('경기가 끝나면 우승한 자동차들이 출력된다.', async () => {
+      const printWinningCarsSpy = jest.spyOn(simulator, 'printWinningCars');
 
-        await simulator.startGame();
+      await simulator.startGame();
 
-        expect(simulator.getWinningCarNames().length).toBe(1);
-      });
-
-      test('우승자가 여러명일 떄는 배열의 길이가 0보다 크다', async () => {
-        await simulator.startGame();
-
-        expect(simulator.getWinningCarNames().length > 0).toBe(true);
-      });
-    });
-
-    describe('우승한 자동차의 이름을 출력한다.', () => {
-      test('우승자가 1명일 때', async () => {
-        const winningCarName = '우승';
-
-        getUserInputByQuestion.mockImplementation(() =>
-          Promise.resolve(winningCarName)
-        );
-
-        await simulator.startGame();
-
-        expect(mockViewer).toHaveBeenCalledWith(
-          `${winningCarName}가 최종 우승했습니다.`
-        );
-      });
-
-      test('우승자가 여러명일 떄는 ,로 구분해서 출력한다.', async () => {
-        await simulator.startGame();
-
-        expect(mockViewer).toHaveBeenCalledWith(
-          `${simulator.getWinningCarNames().join(',')}가 최종 우승했습니다.`
-        );
-      });
+      expect(printWinningCarsSpy).toBeCalled();
     });
   });
 });

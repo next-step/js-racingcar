@@ -19,17 +19,6 @@ class GameSimulator {
     this.#racingGame = new RacingGame(carNames.map(Car.of));
   }
 
-  runRound() {
-    this.#racingGame.runRound();
-    this.#racingGame.getCars().forEach((car) => {
-      this.printCarStatus(car.getName(), car.getDistanceDriven());
-    });
-  }
-
-  getWinningCarNames() {
-    return this.#racingGame.getWinningCars().map((car) => car.getName());
-  }
-
   printCarStatus(name, distanceDriven) {
     const formattedStatus = `${name} : ${'-'.repeat(distanceDriven)}`;
 
@@ -48,7 +37,10 @@ class GameSimulator {
   }
 
   printWinningCars() {
-    const winningCarNames = this.getWinningCarNames().join(',');
+    const winningCarNames = this.#racingGame
+      .getWinningCars()
+      .map((car) => car.getName())
+      .join(',');
 
     this.#messageViewer(`${winningCarNames}가 최종 우승했습니다.`);
   }
