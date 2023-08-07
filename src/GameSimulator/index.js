@@ -43,7 +43,7 @@ class GameSimulator {
       records.forEach(({ name, distanceDriven }) =>
         this.printCarStatus(name, distanceDriven)
       );
-      console.log('\n');
+      this.#messageViewer('\n');
     });
   }
 
