@@ -47,6 +47,6 @@
 
 ### ConsoleView
 
-- [ ] renderCarList() - 전달받은 carList를 기반으로 name과 position을 출력한다.
-- [ ] renderWinnerList() - 전달받은 winnerList를 기반으로 우승자를 출력한다.
-- [ ] renderWinnerList() - 전달받은 winnerList가 빈 배열인 경우, 우승자가 없다는 메시지를 출력한다..
+- [X] renderCarList() - 전달받은 carList를 기반으로 name과 position을 출력한다.
+- [X] renderWinnerList() - 전달받은 winnerList를 기반으로 우승자를 출력한다.
+- [X] renderWinnerList() - 전달받은 winnerList가 빈 배열인 경우, 우승자가 없다는 메시지를 출력한다.
