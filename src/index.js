@@ -1,21 +1,21 @@
-import { MESSAGES } from './constants/index.js';
+import { MESSAGES } from './constants/messages.js';
 import { RacingSystem } from './controller/RacingSystem.js';
-import { GameSettings } from './model/GameSettings.js';
-import { terminal } from './util/getReadLine.js';
+import { validateNames, validateRound } from './domain/validator.js';
+import { manipulateReadline } from './util/manipulateReadline.js';
 
-const racingSystem = new RacingSystem(new GameSettings());
+const racingSystem = new RacingSystem();
 
-//eslint-disable-next-line max-lines-per-function
-function main() {
-  terminal.question(`${MESSAGES.GAME.START_PROMPT}\n`, (answer) => {
-    try {
-      racingSystem.startGame(answer);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      terminal.close();
-    }
-  });
+async function main() {
+  const NAMES = await manipulateReadline.questionReadline(
+    `${MESSAGES.GAME.START_PROMPT}`,
+    validateNames,
+  );
+  const ROUND = await manipulateReadline.questionReadline(
+    `${MESSAGES.GAME.ROUND_HEADER}`,
+    validateRound,
+  );
+  racingSystem.startGame(NAMES, ROUND);
+  manipulateReadline.closeReadline();
 }
 
 main();

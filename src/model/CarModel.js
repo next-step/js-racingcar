@@ -1,4 +1,4 @@
-import { SETTINGS } from '../constants/index.js';
+import { MOVEMENT, MOVEMENT_CONDITION } from '../constants/settings.js';
 
 class CarModel {
   name;
@@ -8,8 +8,10 @@ class CarModel {
     this.name = name;
   }
 
-  move() {
-    this.position += SETTINGS.MOVEMENT;
+  move(randomNumber) {
+    if (randomNumber >= MOVEMENT_CONDITION) {
+      this.position += MOVEMENT;
+    }
   }
 
   getPosition() {
