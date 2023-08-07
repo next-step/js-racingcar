@@ -1,4 +1,4 @@
-import { CAR } from '../constants/car'
+import { CAR } from '../constants/components/car'
 
 export class Car {
   #state

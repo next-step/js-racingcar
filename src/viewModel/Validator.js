@@ -1,10 +1,6 @@
 import { isString, isNumber } from '../utils/validator'
-import {
-  CAR_ERROR_MESSAGE,
-  CAR,
-  RACING_CAR_LIST,
-  RACE_ERROR_MESSAGE
-} from '../constants/model'
+import { RACE, RACE_ERROR_MESSAGE } from '../constants/components/race'
+import { CAR_ERROR_MESSAGE, CAR } from '../constants/components/car'
 
 export class Validator {
   constructor({ carNames, maxMatchLength }) {
@@ -70,16 +66,14 @@ export class Validator {
 
   #validateCarLength(carNames) {
     const isEnoughParticipants =
-      carNames.split(',').length >= RACING_CAR_LIST.MIN_PARTICIPANTS_LENGTH
+      carNames.split(',').length >= RACE.MIN_PARTICIPANTS_LENGTH
 
     if (isEnoughParticipants) {
       return
     }
 
     this.setError(
-      RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(
-        RACING_CAR_LIST.MIN_PARTICIPANTS_LENGTH
-      )
+      RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(RACE.MIN_PARTICIPANTS_LENGTH)
     )
   }
 

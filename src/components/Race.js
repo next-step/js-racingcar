@@ -1,11 +1,11 @@
-import { RACING_CAR_LIST } from '../constants/racingCarList'
+import { RACE } from '../constants/components/race'
 
 export class Race {
   #state
 
   constructor({ runCondition, participants }) {
     this.#state = {
-      runCondition: runCondition || RACING_CAR_LIST.DEFAULT_RUN_CONDITION,
+      runCondition: runCondition || RACE.DEFAULT_RUN_CONDITION,
       participants: participants || []
     }
   }
