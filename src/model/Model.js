@@ -1,7 +1,7 @@
 import { Observable } from '../utils/Observable'
 import { getRandomNumber } from '../utils/number'
-import { CAR } from '../constants/car'
-import { RACING_CAR_LIST } from '../constants/racingCarList'
+import { CAR } from '../constants/components/car'
+import { RACE } from '../constants/components/race'
 
 export class Model extends Observable {
   #state
@@ -11,7 +11,7 @@ export class Model extends Observable {
     this.#state = {
       carList: [],
       winnerList: [],
-      maxMatchLength: RACING_CAR_LIST.DEFAULT_MAX_MATCH_LENGTH,
+      maxMatchLength: RACE.DEFAULT_MAX_MATCH_LENGTH,
       runCondition: () => getRandomNumber() > CAR.RUN_THRESHOLDS
     }
   }

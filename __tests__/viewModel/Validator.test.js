@@ -1,8 +1,5 @@
-import {
-  RACING_CAR_LIST,
-  RACE_ERROR_MESSAGE,
-  CAR_ERROR_MESSAGE
-} from '../../src/constants/model'
+import { RACE, RACE_ERROR_MESSAGE } from '../../src/constants/components/race'
+import { CAR_ERROR_MESSAGE } from '../../src/constants/components/car'
 import { Validator } from '../../src/viewModel/Validator'
 
 describe('viewModel/Validator', () => {
@@ -31,9 +28,7 @@ describe('viewModel/Validator', () => {
     // Then
     expect(isValid).toBeFalsy()
     expect(error).toBe(
-      RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(
-        RACING_CAR_LIST.MIN_PARTICIPANTS_LENGTH
-      )
+      RACE_ERROR_MESSAGE.LACK_PARTICIPANTS(RACE.MIN_PARTICIPANTS_LENGTH)
     )
   })
 
