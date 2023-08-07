@@ -1,4 +1,4 @@
-import { Race } from '../../src/components/Race'
+import { Race } from '../../../src/domain/components/Race'
 
 describe('Race', () => {
   let mockModel

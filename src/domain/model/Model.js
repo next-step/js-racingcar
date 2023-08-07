@@ -1,7 +1,7 @@
-import { Observable } from '../utils/Observable'
-import { getRandomNumber } from '../utils/number'
-import { CAR } from '../constants/components/car'
-import { RACE } from '../constants/components/race'
+import { Observable } from '../../utils/Observable'
+import { getRandomNumber } from '../../utils/number'
+import { CAR } from '../../constants/components/car'
+import { RACE } from '../../constants/components/race'
 
 export class Model extends Observable {
   #state

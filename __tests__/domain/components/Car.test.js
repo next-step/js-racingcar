@@ -1,4 +1,4 @@
-import { Car } from '../../src/components/Car'
+import { Car } from '../../../src/domain/components/Car'
 
 describe('Car - Feature', () => {
   test('Car는 이름을 가질 수 있다.', () => {

@@ -1,5 +1,5 @@
-import { Model } from './model/Model'
-import { ViewModel } from './viewModel/ViewModel'
+import { Model } from './domain/model/Model'
+import { ViewModel } from './domain/viewModel/ViewModel'
 import { View } from './view/View'
 import { gamePrompt } from './utils/gamePrompt'
 

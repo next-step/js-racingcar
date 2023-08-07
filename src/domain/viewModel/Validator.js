@@ -1,6 +1,6 @@
-import { isString, isNumber } from '../utils/validator'
-import { RACE, RACE_ERROR_MESSAGE } from '../constants/components/race'
-import { CAR_ERROR_MESSAGE, CAR } from '../constants/components/car'
+import { isString, isNumber } from '../../utils/validator'
+import { RACE, RACE_ERROR_MESSAGE } from '../../constants/components/race'
+import { CAR_ERROR_MESSAGE, CAR } from '../../constants/components/car'
 
 export class Validator {
   constructor({ carNames, maxMatchLength }) {

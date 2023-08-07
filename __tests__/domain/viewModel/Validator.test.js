@@ -1,6 +1,9 @@
-import { RACE, RACE_ERROR_MESSAGE } from '../../src/constants/components/race'
-import { CAR_ERROR_MESSAGE } from '../../src/constants/components/car'
-import { Validator } from '../../src/viewModel/Validator'
+import {
+  RACE,
+  RACE_ERROR_MESSAGE
+} from '../../../src/constants/components/race'
+import { CAR_ERROR_MESSAGE } from '../../../src/constants/components/car'
+import { Validator } from '../../../src/domain/viewModel/Validator'
 
 describe('viewModel/Validator', () => {
   test.each([['aaaaaa'], ['bbbbbb'], ['ccccccc'], ['dddddd']])(

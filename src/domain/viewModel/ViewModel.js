@@ -1,5 +1,5 @@
-import { Observable } from '../utils/Observable'
-import { ACTION_TYPE, MUTATION_TYPE } from '../constants/viewModel'
+import { Observable } from '../../utils/Observable'
+import { ACTION_TYPE, MUTATION_TYPE } from '../../constants/viewModel'
 import { generateCarList, generateWinnerList, generateRace } from './getters'
 import { Validator } from './Validator'
 
