@@ -1,15 +1,18 @@
 {
-  "rules": {},
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-  ]
+  "extends": ["airbnb-base", "plugin:prettier/recommended", "prettier"],
+  "rules": {
+    "max-depth": ["error", 2],
+    "max-lines-per-function": ["error", 16],
+    "operator-linebreak": ["error", "before"],
+    "no-unused-expressions": ["error", { "allowTernary": true }]
+  }
 }

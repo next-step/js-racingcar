@@ -6,13 +6,11 @@
       "program": "${workspaceFolder}/src/index.js",
       "request": "launch",
       "runtimeArgs": ["-r", "esm"],
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "sourceMaps": true,
       "localRoot": "${workspaceFolder}/dist",
       "preLaunchTask": "build",
       "type": "node"
-    },
+    }
   ]
 }
