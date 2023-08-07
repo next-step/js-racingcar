@@ -86,27 +86,17 @@ describe('RacingGame 테스트', () => {
       expect(racingGame.getRounds()).toBe(0);
     });
 
-    describe('round 진행시 rounds 값이 하나 증가한다. ', () => {
-      test('처음 round 진행시 rounds 값은 1이다.', () => {
-        racingGame.runRound();
+    describe('round 진행시 rounds 값이 하나 증가한다.', () => {
+      test.each([1, 2, 3])(
+        'round %i번 진행시 rounds 값은 %i이다.',
+        (runRoundTimes) => {
+          for (let i = 0; i < runRoundTimes; i++) {
+            racingGame.runRound();
+          }
 
-        expect(racingGame.getRounds()).toBe(1);
-      });
-
-      test('round 두번 진행시 rounds 값은 2다', () => {
-        racingGame.runRound();
-        racingGame.runRound();
-
-        expect(racingGame.getRounds()).toBe(2);
-      });
-
-      test('round 세번 진행시 rounds 값은 3이다', () => {
-        racingGame.runRound();
-        racingGame.runRound();
-        racingGame.runRound();
-
-        expect(racingGame.getRounds()).toBe(3);
-      });
+          expect(racingGame.getRounds()).toBe(runRoundTimes);
+        }
+      );
     });
 
     test('round 진행시 각 자동차들은 전진 함수가 실행 된다.', () => {
