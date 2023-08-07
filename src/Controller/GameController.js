@@ -1,5 +1,5 @@
-import Game from "../Models/Game";
 import PromptView from "../View/PromptView";
+import Game from "../Models/Game";
 
 export default class GameController {
   #view;

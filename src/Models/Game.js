@@ -1,5 +1,5 @@
-import Car from "./Car";
 import { getRandomIntRangeOf } from "../utils";
+import Car from "./Car";
 
 export default class Game {
   static TOTAL_ROUNDS = 5;
@@ -46,6 +46,22 @@ export default class Game {
     this.#winners = [];
   }
 
+  get cars() {
+    return this.#cars;
+  }
+
+  get currRound() {
+    return this.#currRound;
+  }
+
+  get roundHistory() {
+    return this.#roundHistory;
+  }
+
+  get winners() {
+    return this.#winners;
+  }
+
   #isEmptyUserInput(userInput) {
     return !userInput;
   }
@@ -68,22 +84,6 @@ export default class Game {
   #validateDuplicateCarNames(carNames) {
     if (this.#hasDuplicatedCarNames(carNames))
       throw new Error(Game.ERROR_MESSAGE.DUPLICATE_CAR_NAME);
-  }
-
-  get cars() {
-    return this.#cars;
-  }
-
-  get currRound() {
-    return this.#currRound;
-  }
-
-  get roundHistory() {
-    return this.#roundHistory;
-  }
-
-  get winners() {
-    return this.#winners;
   }
 
   #saveRoundHistory() {

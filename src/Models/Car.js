@@ -3,6 +3,7 @@ import Game from "../Models/Game";
 export default class Car {
   static INITIAL_POSITION = 0;
   static NAME_MAX_LENGTH = 5;
+
   static ERROR_MESSAGE = Object.freeze({
     LONG_NAME: "자동차 이름은 5글자를 초과하여 설정할 수 없습니다.",
     EMPTY_NAME: "자동차 이름은 빈 값으로 설정할 수 없습니다.",
@@ -18,6 +19,14 @@ export default class Car {
     this.#position = position;
   }
 
+  get name() {
+    return this.#name;
+  }
+
+  get position() {
+    return this.#position;
+  }
+
   #isEmptyName(name) {
     return !name;
   }
@@ -30,14 +39,6 @@ export default class Car {
     if (this.#isEmptyName(name)) throw new Error(Car.ERROR_MESSAGE.EMPTY_NAME);
 
     if (this.#isLongName(name)) throw new Error(Car.ERROR_MESSAGE.LONG_NAME);
-  }
-
-  get name() {
-    return this.#name;
-  }
-
-  get position() {
-    return this.#position;
   }
 
   #move(step) {
