@@ -1,76 +1,103 @@
 import { Observable } from '../utils/Observable'
 import { ACTION_TYPE, MUTATION_TYPE } from '../constants/viewModel'
 import { generateCarList, generateWinnerList, generateRace } from './getters'
+import { Validator } from './Validator'
 
 export class ViewModel extends Observable {
+  #state
+
   constructor(model) {
     super()
 
     this.model = model
     this.model.subscribe(this.update.bind(this))
 
-    this.state = {
+    const initialState = {
+      step: 1,
       type: '',
+      error: '',
+      carNames: '',
       ...model.getState()
     }
+    this.#state = initialState
   }
 
-  handleAction({ type, state }) {
-    switch (type) {
-      case ACTION_TYPE.READY:
-        this.ready(state)
-        break
-      case ACTION_TYPE.START:
-        this.start()
-        break
-    }
-  }
-
-  handleMutation({ type, ...state }) {
-    this.state = {
-      type,
+  handleMutation({ type, state }) {
+    this.#state = {
       ...this.model.getState(),
-      ...state
+      ...state,
+      type
     }
 
-    const { carList, winnerList, maxMatchLength, runCondition } = this.state
+    const { carList, winnerList, maxMatchLength, runCondition } = this.#state
     this.model.setState({ carList, winnerList, maxMatchLength, runCondition })
   }
 
-  ready({ carNames, maxMatchLength }) {
-    const carList = generateCarList(carNames)
+  handleAction({ type, payload }) {
+    const state = { ...this.#state, ...payload }
 
-    this.handleMutation({
-      type: MUTATION_TYPE.READY,
-      carList,
-      maxMatchLength,
-      winnerList: []
+    const { isValid, error } = new Validator({
+      maxMatchLength: Number(state.maxMatchLength),
+      carNames: state.carNames
     })
+
+    if (!isValid) {
+      const { step, carNames } = this.#state
+
+      this.handleMutation({
+        type: MUTATION_TYPE.ERROR,
+        state: { error, carNames, step }
+      })
+      return
+    }
+
+    switch (type) {
+      case ACTION_TYPE.START:
+        this.start()
+        break
+      case ACTION_TYPE.CHANGE_STEP:
+        this.handleMutation({
+          type: MUTATION_TYPE.STEP,
+          state: {
+            ...state,
+            maxMatchLength: Number(state.maxMatchLength),
+            carList: generateCarList(state.carNames)
+          }
+        })
+        break
+    }
   }
 
   start() {
     let match = 0
-    const race = generateRace(this.state)
+    const race = generateRace(this.#state)
 
-    while (match < this.state.maxMatchLength) {
+    while (match < this.#state.maxMatchLength) {
       match++
       race.startRound()
 
       this.handleMutation({
         type: MUTATION_TYPE.CAR_LIST,
-        carList: race.participants
+        state: { carList: race.participants }
       })
     }
 
     const winnerList = generateWinnerList(race.participants)
-    this.handleMutation({ type: MUTATION_TYPE.WINNER_LIST, winnerList })
+    this.handleMutation({
+      type: MUTATION_TYPE.WINNER_LIST,
+      state: { winnerList }
+    })
   }
 
   update() {
-    this.notify(this.state)
+    this.notify(this.#state)
   }
 
   destroy() {
     this.unsubscribeAll()
+  }
+
+  getState() {
+    return this.#state
   }
 }

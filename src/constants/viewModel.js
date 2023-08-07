@@ -1,11 +1,12 @@
 export const MUTATION_TYPE = {
-  READY: 'ready',
   CAR_LIST: 'updateCarList',
-  WINNER_LIST: 'updateWinnerList'
+  WINNER_LIST: 'updateWinnerList',
+  STEP: 'updateStep',
+  ERROR: 'error'
 }
 
 export const ACTION_TYPE = {
-  READY: 'ready',
   START: 'start',
-  EXIT: 'exit'
+  EXIT: 'exit',
+  CHANGE_CAR_NAMES: 'changeCarNames'
 }

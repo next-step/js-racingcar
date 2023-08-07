@@ -1,5 +1,5 @@
 import { Car } from '../../src/components/Car2'
-import { MUTATION_TYPE } from '../../src/constants/viewModel'
+import { ACTION_TYPE, MUTATION_TYPE } from '../../src/constants/viewModel'
 import { Observable } from '../../src/utils/Observable'
 import { ViewModel } from '../../src/viewModel/ViewModel'
 
@@ -35,34 +35,41 @@ describe('ViewModel', () => {
     jest.clearAllMocks()
   })
 
-  test('handleAction() - 외부에서 입력받은 액션이 ready인 경우, ready 메서드를 실행시킨다.', () => {
+  test('handleAction() - 외부에서 입력받은 state값이 올바르지 않은 경우, error를 설정하는 뮤테이션을 실행시킨다.', () => {
     // Given
     jest
-      .spyOn(ViewModel.prototype, 'ready')
-      .mockImplementationOnce(() => console.log('toBeCalled ready'))
+      .spyOn(ViewModel.prototype, 'handleMutation')
+      .mockImplementationOnce(({ type }) => console.log(type))
     const mockModel = new MockModel()
     const viewModel = new ViewModel(mockModel)
 
     // When
-    viewModel.handleAction({ type: 'ready' })
+    viewModel.handleAction({ type: ACTION_TYPE.CHANGE_STEP })
 
     // Then
-    expect(logSpy.mock.calls[0][0]).toBe('toBeCalled ready')
+    expect(logSpy.mock.calls[0][0]).toBe(MUTATION_TYPE.ERROR)
   })
 
-  test('handleAction() - 외부에서 입력받은 액션이 start인 경우, start 메서드를 실행시킨다.', () => {
+  test('handleAction() - 외부에서 입력받은 state값이 올바른 경우, 액션에 해당하는 뮤테이션을 실행시킨다.', () => {
     // Given
     jest
-      .spyOn(ViewModel.prototype, 'start')
-      .mockImplementationOnce(() => console.log('toBeCalled start'))
+      .spyOn(ViewModel.prototype, 'handleMutation')
+      .mockImplementationOnce(({ type }) => console.log(type))
     const mockModel = new MockModel()
     const viewModel = new ViewModel(mockModel)
 
     // When
-    viewModel.handleAction({ type: 'start' })
+    viewModel.handleAction({
+      type: ACTION_TYPE.CHANGE_STEP,
+      payload: {
+        carNames: 'sonny, son',
+        maxMatchLength: 5,
+        step: 2
+      }
+    })
 
     // Then
-    expect(logSpy.mock.calls[0][0]).toBe('toBeCalled start')
+    expect(logSpy.mock.calls[0][0]).toBe(MUTATION_TYPE.STEP)
   })
 
   test('handleMutation() - 전달받은 state로 ViewModel의 state와 Model의 state를 업데이트 한다.', () => {
@@ -73,11 +80,11 @@ describe('ViewModel', () => {
     // When
     viewModel.handleMutation({
       type: MUTATION_TYPE.CAR_LIST,
-      carList: ['sonny']
+      state: { carList: ['sonny'] }
     })
 
     // Then
-    expect(viewModel.state.carList).toEqual(['sonny'])
+    expect(viewModel.getState().carList).toEqual(['sonny'])
     expect(mockModel.getState().carList).toEqual(['sonny'])
   })
 
@@ -85,7 +92,13 @@ describe('ViewModel', () => {
     // Given
     const mockModel = new MockModel()
     const viewModel = new ViewModel(mockModel)
-    viewModel.ready({ carNames: 'sonny, son', maxMatchLength: 3 })
+    viewModel.handleAction({
+      type: ACTION_TYPE.CHANGE_STEP,
+      payload: {
+        carNames: 'sonny, son',
+        maxMatchLength: 5
+      }
+    })
 
     // When
     viewModel.start()
@@ -101,7 +114,13 @@ describe('ViewModel', () => {
     // Given
     const mockModel = new MockModel()
     const viewModel = new ViewModel(mockModel)
-    viewModel.ready({ carNames: 'sonny, son', maxMatchLength: 3 })
+    viewModel.handleAction({
+      type: ACTION_TYPE.CHANGE_STEP,
+      payload: {
+        carNames: 'sonny, son',
+        maxMatchLength: 3
+      }
+    })
 
     // When
     viewModel.start()
@@ -115,7 +134,7 @@ describe('ViewModel', () => {
     const spy = state => console.log(state.mock)
     const mockModel = new MockModel()
     const viewModel = new ViewModel(mockModel)
-    viewModel.handleMutation({ mock: 'mock' })
+    viewModel.handleMutation({ state: { mock: 'mock' } })
     viewModel.subscribe(spy)
 
     // When
