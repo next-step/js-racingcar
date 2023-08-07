@@ -1,13 +1,13 @@
 import Game from "../Models/Game";
-import View from "../View/View";
+import PromptView from "../View/PromptView";
 
 export default class GameController {
   #view;
   #game;
 
   constructor() {
-    this.#view = new View();
-    this.addEventHandlerToView();
+    this.#view = new PromptView();
+    this.#addEventHandlerToView();
   }
 
   get view() {
@@ -18,14 +18,14 @@ export default class GameController {
     return this.#game;
   }
 
-  addEventHandlerToView() {
+  #addEventHandlerToView() {
     const promptEventHandler = (userInput) => this.#playGameWith(userInput);
     this.#view.addEventHandlerToPrompt(promptEventHandler);
   }
 
   #playGameWith(userInput) {
     try {
-      this.#setGame(userInput);
+      this.#setUpGame(userInput);
       this.#startGame();
       this.#printGameResult();
     } catch (error) {
@@ -33,7 +33,7 @@ export default class GameController {
     }
   }
 
-  #setGame(userInput) {
+  #setUpGame(userInput) {
     this.#game = new Game(userInput);
   }
 
