@@ -41,8 +41,8 @@
 
 ## View
 
-- [ ] update() - update시 type이 updateCarList인 경우, ConsoleView의 carList에 Model의 state를 담아 호출한다.
-- [ ] update() - update시 type이 updateWinnerList인 경우, ConsoleView의 winnerList에 Model의 state를 담아 호출한다.
+- [X] update() - update시 type이 updateCarList인 경우, ConsoleView의 carList에 Model의 state를 담아 호출한다.
+- [X] update() - update시 type이 updateWinnerList인 경우, ConsoleView의 winnerList에 Model의 state를 담아 호출한다.
 
 ### ConsoleView
 
