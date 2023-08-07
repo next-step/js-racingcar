@@ -1,4 +1,4 @@
-import { Car } from '../../src/components/Car2'
+import { Car } from '../../src/components/Car'
 import { Race } from '../../src/components/Race'
 import {
   generateCarList,

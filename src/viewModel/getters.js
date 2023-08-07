@@ -1,4 +1,4 @@
-import { Car } from '../components/Car2'
+import { Car } from '../components/Car'
 import { Race } from '../components/Race'
 
 export const generateCarList = carNames => {
