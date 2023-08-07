@@ -1,7 +1,7 @@
-import { Car } from '../../src/components/Car'
-import { ACTION_TYPE, MUTATION_TYPE } from '../../src/constants/viewModel'
-import { Observable } from '../../src/utils/Observable'
-import { ViewModel } from '../../src/viewModel/ViewModel'
+import { Car } from '../../../src/domain/components/Car'
+import { ACTION_TYPE, MUTATION_TYPE } from '../../../src/constants/viewModel'
+import { Observable } from '../../../src/utils/Observable'
+import { ViewModel } from '../../../src/domain/viewModel/ViewModel'
 
 describe('ViewModel', () => {
   let logSpy

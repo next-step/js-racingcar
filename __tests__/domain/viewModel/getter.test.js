@@ -1,10 +1,10 @@
-import { Car } from '../../src/components/Car'
-import { Race } from '../../src/components/Race'
+import { Car } from '../../../src/domain/components/Car'
+import { Race } from '../../../src/domain/components/Race'
 import {
   generateCarList,
   generateWinnerList,
   generateRace
-} from '../../src/viewModel/getters'
+} from '../../../src/domain/viewModel/getters'
 
 describe('ViewModel/getters', () => {
   describe('generateCarList()', () => {

@@ -1,4 +1,4 @@
-import { RACE } from '../constants/components/race'
+import { RACE } from '../../constants/components/race'
 
 export class Race {
   #state

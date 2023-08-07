@@ -1,4 +1,4 @@
-import { Model } from '../../src/model/Model'
+import { Model } from '../../../src/domain/model/Model'
 
 describe('Model', () => {
   let logSpy
