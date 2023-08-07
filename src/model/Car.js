@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../constants/errorMessages'
+import { ERROR_MESSAGE } from '../constants/errorMessages.js'
 
 export class Car {
   static DEFAULT_POSITION = 0

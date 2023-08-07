@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../constants/errorMessages'
+import { ERROR_MESSAGE } from '../constants/errorMessages.js'
 
 export class RaceRecords {
   #records
@@ -20,7 +20,12 @@ export class RaceRecords {
   }
 
   #validateRecords(records) {
-    if (!records || typeof records !== 'object' || !records.length) {
+    if (
+      !records ||
+      typeof records !== 'object' ||
+      Array.isArray(records) ||
+      Object.keys(records).length === 0
+    ) {
       throw new Error(ERROR_MESSAGE.RECORDS_FORMAT)
     }
 

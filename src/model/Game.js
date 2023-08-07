@@ -6,6 +6,7 @@ import { RaceWinners } from './RaceWinners.js'
 export class Game {
   static DEFAULT_ROUNDS = 5
   static DEFAULT_CURRENT_ROUND = 1
+  static MOVE_THRESHOLD = 4
   #cars
   #entries
   #rounds
@@ -52,7 +53,7 @@ export class Game {
 
   #determineShouldMove(limit = 9) {
     const randomNumber = Math.ceil(Math.random() * limit)
-    return randomNumber > Cars.MOVE_THRESHOLD
+    return randomNumber > Game.MOVE_THRESHOLD
   }
 
   #convertStatusToRecord(statuses) {

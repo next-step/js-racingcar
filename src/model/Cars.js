@@ -2,7 +2,6 @@ import { ERROR_MESSAGE } from '../constants/errorMessages.js'
 import { Car } from './Car.js'
 
 export class Cars {
-  static MOVE_THRESHOLD = 4
   #entries
   #status
 

@@ -7,4 +7,5 @@ export const ERROR_MESSAGE = {
     "자동차 경주 기록의 형식이 올바르지 않습니다. {' 이름' : 1, '이름' : 2 } 형태여야 합니다.",
   COLLECTIVE_RECORDS_FORMAT:
     '전체 자동차 경주 기록의 형식이 올바르지 않습니다. { name : [1,2,3], name : [1,2,3] } 의 형태여야 합니다.',
+  DUPLICATED_INPUTS: '중복된 이름은 입력할 수 없습니다.',
 }
