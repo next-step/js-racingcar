@@ -1,5 +1,5 @@
 import Car from "./Car";
-import { getRandomNumber } from "../utils/utils";
+import { getRandomIntRangeOf } from "../utils/utils";
 
 export default class Game {
   static CAR_MOVE_STEP = 1;
@@ -20,6 +20,13 @@ export default class Game {
 
   static isMovable = (randomNumber) => {
     return randomNumber >= Game.CAR_MOVE_CRITERIA;
+  };
+
+  static getRandomNumber = () => {
+    return getRandomIntRangeOf(
+      Game.RANDOM_NUM_LOWER_LIMIT,
+      Game.RANDOM_NUM_UPPER_LIMIT
+    );
   };
 
   #cars;
@@ -92,7 +99,7 @@ export default class Game {
 
   #playRound() {
     this.#cars.forEach((car) => {
-      car.tryMoveWith(getRandomNumber());
+      car.tryMoveWith(Game.getRandomNumber());
     });
 
     this.#playRoundCalls += 1;
