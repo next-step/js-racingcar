@@ -31,7 +31,6 @@ export default class Game {
 
   #cars;
   #currRound;
-  #playRoundCalls;
   #roundHistory;
   #winners;
 
@@ -45,7 +44,6 @@ export default class Game {
     this.#cars = carNames.map((carName) => new Car(carName));
 
     this.#currRound = Game.INITIAL_ROUND;
-    this.#playRoundCalls = 0;
     this.#roundHistory = [];
     this.#winners = [];
   }
@@ -82,10 +80,6 @@ export default class Game {
     return this.#currRound;
   }
 
-  get playRoundCalls() {
-    return this.#playRoundCalls;
-  }
-
   get roundHistory() {
     return this.#roundHistory;
   }
@@ -107,8 +101,6 @@ export default class Game {
       car.tryMoveWith(Game.getRandomNumber());
     });
 
-    this.#playRoundCalls += 1;
-
     this.#saveRoundHistory();
   }
 
@@ -119,7 +111,7 @@ export default class Game {
   }
 
   play() {
-    while (this.#currRound <= Game.TOTAL_ROUNDS) {
+    while (this.#currRound < Game.INITIAL_ROUND + Game.TOTAL_ROUNDS) {
       this.#playRound();
       this.#currRound += 1;
     }
