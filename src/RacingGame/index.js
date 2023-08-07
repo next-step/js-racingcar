@@ -9,10 +9,12 @@ class RacingGame {
 
   #cars;
   #rounds;
+  #records;
 
   constructor(cars) {
     this.#cars = cars;
     this.#rounds = 0;
+    this.#records = [];
   }
 
   getCars() {
@@ -21,6 +23,17 @@ class RacingGame {
 
   getRounds() {
     return this.#rounds;
+  }
+
+  getRecords() {
+    return this.#records;
+  }
+
+  getCarsRecord() {
+    return this.#cars.map((car) => ({
+      name: car.getName(),
+      drivenDistance: car.getDistanceDriven(),
+    }));
   }
 
   getMaxDistanceDriven() {
@@ -37,10 +50,15 @@ class RacingGame {
     return getRandomInRange() >= RacingGame.MOVE_FORWARD_THRESHOLD;
   }
 
+  saveCurrentRecord() {
+    this.#records.push(this.getCarsRecord());
+  }
+
   runRound() {
     this.#rounds = this.#rounds + 1;
 
     this.#cars.forEach((car) => car.moveForward());
+    this.saveCurrentRecord();
   }
 }
 

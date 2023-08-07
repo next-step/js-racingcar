@@ -109,5 +109,15 @@ describe('RacingGame 테스트', () => {
         spy.mockRestore();
       });
     });
+
+    test('round 진행시 경주 기록이 저장되어 records의 길이가 1 늘어난다', () => {
+      const saveRecordSpy = jest.spyOn(racingGame, 'saveCurrentRecord');
+      const prevRecordLength = racingGame.getRecords().length;
+
+      racingGame.runRound();
+
+      expect(saveRecordSpy).toBeCalled();
+      expect(racingGame.getRecords().length).toBe(prevRecordLength + 1);
+    });
   });
 });
