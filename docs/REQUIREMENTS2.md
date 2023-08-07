@@ -34,10 +34,10 @@
 
 ### getters
 
-- [ ] generateCarList() - 문자열로 전달받은 carName을 기반으로 Car component를 생성한다.
-- [ ] generateWinnerList() - 전달받은 participants를 기반으로 우승자를 담은 배열을 반환한다.
-- [ ] generateWinnerList() - 모든 참가자가 출발선에 있는 경우, 빈 배열을 반환한다.
-- [ ] generateRace() - 전달받은 carList, runCondition을 기반으로 Race component를 생성한다.
+- [X] generateCarList() - 문자열로 전달받은 carName을 기반으로 Car component를 생성한다.
+- [X] generateWinnerList() - 전달받은 participants를 기반으로 우승자를 담은 배열을 반환한다.
+- [X] generateWinnerList() - 모든 참가자가 출발선에 있는 경우, 빈 배열을 반환한다.
+- [X] generateRace() - 전달받은 carList, runCondition을 기반으로 Race component를 생성한다.
 
 
 
