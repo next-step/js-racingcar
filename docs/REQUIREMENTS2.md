@@ -32,6 +32,13 @@
 - [X] update() - update시, 구독하고 있는 요소에게 ViewModel의 state를 전달한다.
 - [X] destroy() - ViewModel은 destroy 이후 update를 호출한 경우, 상태를 전달받을 수 없다.
 
+### Validator
+
+- [ ] 경주의 최대 경기 횟수가 숫자가 아닌 경우, 유효성 여부와 에러 메시지를 확인할 수 있다.
+- [ ] 경주에 참여한 자동차가 한 대인 경우, 유효성 여부와 에러 메시지를 확인할 수 있다.
+- [ ] 자동차의 이름이 문자열이 아닌 경우, 유효성 여부와 에러 메시지를 확인할 수 있다.
+
+
 ### getters
 
 - [X] generateCarList() - 문자열로 전달받은 carName을 기반으로 Car component를 생성한다.
