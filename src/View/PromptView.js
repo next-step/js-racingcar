@@ -8,7 +8,7 @@ export default class PromptView {
   });
 
   addEventHandlerToPrompt(cbFunc) {
-    rl.question(MESSAGES.INITIAL_GUIDE, (input) => {
+    rl.question(PromptView.MESSAGES.INITIAL_GUIDE, (input) => {
       cbFunc(input);
       rl.close();
     });
@@ -34,7 +34,7 @@ export default class PromptView {
   logResultGuideMessage() {
     this.#logDivider();
 
-    this.#log(MESSAGES.RESULT_GUIDE);
+    this.#log(PromptView.MESSAGES.RESULT_GUIDE);
   }
 
   logRoundStatus(cars) {
