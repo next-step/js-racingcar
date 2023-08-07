@@ -31,7 +31,7 @@ describe('View', () => {
     expect(logSpy.mock.calls[0][0]).toBe('\nsonny : -\nson : ')
   })
 
-  test('update() - update시 type이 updateWinnerList인 경우, ConsoleView의 carList에 Model의 state를 담아 호출한다.', () => {
+  test('update() - update시 type이 updateWinnerList인 경우, ConsoleView의 winnerList에 Model의 state를 담아 호출한다.', () => {
     // Given
     const context = { consoleView: new ConsoleView() }
     const winnerList = ['sonny', 'son']
@@ -46,5 +46,22 @@ describe('View', () => {
     expect(logSpy.mock.calls[0][0]).toBe(
       '\nsonny, son(이)가 최종 우승했습니다.'
     )
+  })
+
+  test('update() - update시 type이 error인 경우, ConsoleView의 error에 Model의 state를 담아 호출한다.', () => {
+    // Given
+    const context = {
+      consoleView: new ConsoleView(),
+      promptView: { update() {} }
+    }
+
+    // When
+    View.prototype.update.call(context, {
+      type: MUTATION_TYPE.ERROR,
+      error: 'error!!'
+    })
+
+    // Then
+    expect(logSpy.mock.calls[0][0]).toBe('error!!')
   })
 })

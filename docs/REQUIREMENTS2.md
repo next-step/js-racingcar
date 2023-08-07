@@ -38,7 +38,6 @@
 - [X] 경주에 참여한 자동차가 한 대인 경우, 유효성 여부와 에러 메시지를 확인할 수 있다.
 - [X] 자동차의 이름이 문자열이 아닌 경우, 유효성 여부와 에러 메시지를 확인할 수 있다.
 
-
 ### getters
 
 - [X] generateCarList() - 문자열로 전달받은 carName을 기반으로 Car component를 생성한다.
@@ -50,6 +49,7 @@
 
 - [X] update() - update시 type이 updateCarList인 경우, ConsoleView의 carList에 Model의 state를 담아 호출한다.
 - [X] update() - update시 type이 updateWinnerList인 경우, ConsoleView의 winnerList에 Model의 state를 담아 호출한다.
+- [X] update() - update시 type이 error인 경우, ConsoleView의 error에 Model의 state를 담아 호출한다.
 
 ### ConsoleView
 
