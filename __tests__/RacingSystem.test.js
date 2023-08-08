@@ -1,4 +1,4 @@
-import { RacingSystem } from '../src/controller/RacingSystem.js';
+import { RacingSystem } from '../src/domain/controller/RacingSystem.js';
 import { getRandomNumber } from '../src/util/getRandomNumber.js';
 
 describe('Racing System Test', () => {
