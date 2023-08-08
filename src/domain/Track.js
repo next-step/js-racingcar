@@ -1,4 +1,4 @@
-const Validator = require('../Validator');
+const validator = require('../validator.js');
 
 class Track {
   #endRound;
@@ -6,8 +6,12 @@ class Track {
   #round = 1;
 
   constructor(round) {
-    Validator.isValidRound(round);
-    this.#endRound = round;
+    try {
+      validator.checkValidRound(round);
+      this.#endRound = round;
+    } catch ({ message }) {
+      throw new Error(message);
+    }
   }
 
   get round() {

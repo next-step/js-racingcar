@@ -39,6 +39,10 @@ const ERROR_MESSAGES = Object.freeze({
   LESS_THAN_MIN_ROUND_COUNT: `${MIN_ROUND_COUNT}회를 넘는 라운드 수를 입력해주세요!`,
   MORE_THAN_MAX_ROUND_COUNT: `${MAX_ROUND_COUNT}회 미만 라운드 수를 입력해주세요!`,
 
+  IS_NOT_NUMBER: `숫자로 된 값을 입력해주세요!`,
+
+  IS_EMPTY: '값을 입력해주세요',
+
   HAS_DUPLICATED_NAME: '중복된 이름이 존재합니다!',
 });
 

@@ -16,6 +16,8 @@ const SPLIT_STANDARD_KOR = '쉼표';
 
 const MOVE_STANDARD = 4;
 
+const MOVING_DISTANCE_PER_ROUND = 1;
+
 const SKID_MARK = '-';
 
 const DEFAULT_RACING_ROUND = 5;
@@ -35,4 +37,5 @@ module.exports = {
   SPLIT_STANDARD_KOR,
   SKID_MARK,
   DEFAULT_RACING_ROUND,
+  MOVING_DISTANCE_PER_ROUND,
 };

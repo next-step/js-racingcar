@@ -1,10 +1,11 @@
-const Validator = require('./Validator.js');
-const Car = require('./model/Car.js');
-const Track = require('./model/Track.js');
-const WinnerChecker = require('./model/WinnerChecker.js');
-const View = require('./view/view.js');
+const validator = require('./validator.js');
+const Car = require('./domain/Car.js');
+const Track = require('./domain/Track.js');
+const WinnerChecker = require('./domain/WinnerChecker.js');
+const view = require('./view/view.js');
 const { splitByStandard } = require('./utils.js');
 const { MESSAGES } = require('./constants/messages.js');
+const utils = require('./utils.js');
 
 class App {
   #track;
@@ -23,11 +24,11 @@ class App {
   }
 
   async #getUserInput(message) {
-    const userInput = await View.getUserInput(message);
+    const userInput = await view.getUserInput(message);
     return userInput;
   }
 
-  #checkValidation(target, validator, trigger) {
+  #checkValidation({ target, validator }, trigger) {
     try {
       validator(target);
     } catch (err) {
@@ -35,27 +36,21 @@ class App {
     }
   }
 
-  #getModel(trigger, Model, ...args) {
-    try {
-      return new Model(...args);
-    } catch (err) {
-      return this.#showError(err, trigger);
-    }
-  }
-
   async #getCarNames() {
     const names = await this.#getUserInput(MESSAGES.REQUEST.ENTER_THE_CARS);
     const nameList = splitByStandard(names);
 
-    this.#checkValidation(nameList, Validator.isValidList, this.#getCarNames);
+    this.#checkValidation({ target: nameList, validator: validator.checkValidCarList }, () => this.#getCarNames());
     this.#setCars(nameList);
   }
 
   #setCars(names) {
-    this.#cars = names.map((name) => this.#getModel(this.#getCarNames, Car, name));
-    const completed = this.#cars.every((car) => car);
-
-    if (completed) this.#getRound();
+    try {
+      this.#cars = names.map((name) => new Car(name));
+      this.#getRound();
+    } catch (err) {
+      this.#showError(err, () => this.#getCarNames());
+    }
   }
 
   async #getRound() {
@@ -65,13 +60,17 @@ class App {
   }
 
   #setTrack(round) {
-    this.#track = this.#getModel(this.#getRound, Track, round);
-    if (this.#track) this.#startRacing();
+    try {
+      this.#track = new Track(round);
+      this.#startRacing();
+    } catch (err) {
+      this.#showError(err, () => this.#getRound());
+    }
   }
 
   #startRacing() {
-    View.renderLineBreak();
-    View.renderStartComment();
+    view.renderLineBreak();
+    view.renderStartComment();
 
     while (!this.#track.isEndRound()) {
       this.#processRound();
@@ -82,26 +81,29 @@ class App {
 
   #processRound() {
     this.#cars.forEach((car) => {
-      car.moveByRandomNumber();
-      View.renderCarDistance(car);
+      const power = utils.getRandomNumber();
+      car.move(power);
+
+      view.renderCarDistance(car);
     });
 
     this.#track.increaseRound();
-    View.renderLineBreak();
+    view.renderLineBreak();
   }
 
   #finishRacing() {
     this.#winnerChecker.addResult(this.#cars);
     const { winners } = this.#winnerChecker;
-    View.renderResult(winners);
+
+    view.renderResult(winners);
 
     process.exit();
   }
 
-  #showError(err, trigger) {
-    View.renderError(err.message);
-    trigger.call(this);
-  }
+  #showError = (err, trigger) => {
+    view.renderError(err.message);
+    trigger();
+  };
 
   #reset() {
     this.#cars = [];

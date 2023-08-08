@@ -8,35 +8,60 @@ const {
   MIN_ROUND_COUNT,
 } = require('./constants/racing-rule.js');
 
-const isOverMaxValue = (value, maxCount, message) => {
-  if (Number(value) > maxCount) throw new Error(message);
-};
+const isOverMaxCarName = (name) => Number(name) > MAX_NAME_LENGTH;
 
-const isUnderMinValue = (value, minCount, message) => {
-  if (Number(value) < minCount) throw new Error(message);
-};
+const isUnderMinCarName = (name) => Number(name) < MIN_NAME_LENGTH;
 
-const hasDuplicated = (names) => {
-  const hasDuplicatedNames = new Set(names).size !== names.length;
-  if (hasDuplicatedNames) throw new Error(ERROR_MESSAGES.HAS_DUPLICATED_NAME);
-};
+const isOverMaxUserCount = (count) => Number(count) > MAX_USER_COUNT;
 
-class Validator {
-  static isValidList(names) {
-    isOverMaxValue(names.length, MAX_USER_COUNT, ERROR_MESSAGES.MORE_THAN_MAX_USER_COUNT);
-    isUnderMinValue(names.length, MIN_USER_COUNT, ERROR_MESSAGES.LESS_THAN_MIN_USER_COUNT);
-    hasDuplicated(names);
-  }
+const isUnderMinUserCount = (count) => Number(count) < MIN_USER_COUNT;
 
-  static isValidName(name) {
-    isOverMaxValue(name.length, MAX_NAME_LENGTH, ERROR_MESSAGES.MORE_THAN_MAX_NAME_LENGTH);
-    isUnderMinValue(name.length, MIN_NAME_LENGTH, ERROR_MESSAGES.LESS_THAN_MIN_NAME_LENGTH);
-  }
+const isOverMaxRound = (count) => Number(count) > MAX_ROUND_COUNT;
 
-  static isValidRound(round) {
-    isOverMaxValue(round, MAX_ROUND_COUNT, ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
-    isUnderMinValue(round, MIN_ROUND_COUNT, ERROR_MESSAGES.LESS_THAN_MIN_ROUND_COUNT);
-  }
-}
+const isUnderMinRound = (count) => Number(count) < MIN_ROUND_COUNT;
 
-module.exports = Validator;
+const isDuplication = (names) => new Set(names).size !== names.length;
+
+const isEmpty = (value) => value.length === 0;
+
+const isIsNumber = (value) => Number.isNaN(+value);
+
+const validator = Object.freeze({
+  checkValidCarList: (names) => {
+    if (isOverMaxUserCount(names.length)) {
+      throw new Error(ERROR_MESSAGES.MORE_THAN_MAX_USER_COUNT);
+    }
+    if (isUnderMinUserCount(names.length)) {
+      throw new Error(ERROR_MESSAGES.LESS_THAN_MIN_USER_COUNT);
+    }
+    if (isDuplication(names)) {
+      throw new Error(ERROR_MESSAGES.HAS_DUPLICATED_NAME);
+    }
+  },
+
+  checkValidCarName: (name) => {
+    if (isOverMaxCarName(name.length)) {
+      throw new Error(ERROR_MESSAGES.MORE_THAN_MAX_NAME_LENGTH);
+    }
+    if (isUnderMinCarName(name.length)) {
+      throw new Error(ERROR_MESSAGES.LESS_THAN_MIN_NAME_LENGTH);
+    }
+  },
+
+  checkValidRound: (round) => {
+    if (isEmpty(round)) {
+      throw new Error(ERROR_MESSAGES.IS_EMPTY);
+    }
+    if (isIsNumber(round)) {
+      throw new Error(ERROR_MESSAGES.IS_NOT_NUMBER);
+    }
+    if (isOverMaxRound(round)) {
+      throw new Error(ERROR_MESSAGES.MORE_THAN_MAX_ROUND_COUNT);
+    }
+    if (isUnderMinRound(round)) {
+      throw new Error(ERROR_MESSAGES.LESS_THAN_MIN_ROUND_COUNT);
+    }
+  },
+});
+
+module.exports = validator;
