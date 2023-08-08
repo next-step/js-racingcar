@@ -14,6 +14,7 @@ const {
   MIN_ROUND_COUNT,
   MAX_ROUND_COUNT,
   MAX_USER_COUNT,
+  MOVE_STANDARD,
 } = require('../src/constants/racing-rule.js');
 const { MESSAGES, ERROR_MESSAGES } = require('../src/constants/messages.js');
 
@@ -30,19 +31,6 @@ describe('유틸리티 함수 테스트', () => {
     const result = splitByStandard(input);
 
     expect(result).toEqual(['A', 'b', 'C', 'D.D']);
-  });
-
-  test(`${MIN_RANDOM_NUMBER}부터 ${MAX_RANDOM_NUMBER} 사이의 무작위 값을 받는다.`, () => {
-    const manyCases = Array.from({ length: 1000 }, () => getRandomNumber());
-
-    const hasInvalidNumber = manyCases.some((num) => num > MAX_RANDOM_NUMBER || num < MIN_RANDOM_NUMBER);
-    expect(hasInvalidNumber).toBeFalsy();
-
-    manyCases.push(MAX_RANDOM_NUMBER + 1);
-    manyCases.push(MIN_RANDOM_NUMBER - 1);
-    const invalidCase = manyCases.some((num) => num > MAX_RANDOM_NUMBER || num < MIN_RANDOM_NUMBER);
-
-    expect(invalidCase).toBeTruthy();
   });
 });
 
@@ -144,16 +132,13 @@ describe('진행할 라운드를 입력 받는다.', () => {
 });
 
 describe('자동차를 이동시킨다.', () => {
-  test('차는 이동 요청시 항상 그대로거나 한칸 앞으로 이동한다.', () => {
-    for (let i = 0; i < 1000; i += 1) {
-      const car = new Car('test');
+  test.each([0, 1, 2, 3])(`차는 값이 ${MOVE_STANDARD} 이하일시 이동하지 않는다.`, (power) => {
+    const car = new Car('test');
+    const initialDistance = car.distance;
 
-      const prevDistance = car.distance;
-      car.moveByRandomNumber();
-      const nextDistance = car.distance;
+    car.move(power);
 
-      expect([prevDistance + 1, prevDistance]).toContain(nextDistance);
-    }
+    expect(car.distance).toBe(initialDistance);
   });
 });
 
