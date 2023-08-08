@@ -1,6 +1,5 @@
 const validator = require('../../validator.js');
 const { MOVE_STANDARD } = require('../../constants/racing-rule.js');
-const { getRandomNumber } = require('../../utils.js');
 
 class Car {
   #name;
@@ -20,15 +19,10 @@ class Car {
     return this.#distance;
   }
 
-  #move() {
-    this.#distance += 1;
-  }
-
-  moveByRandomNumber() {
-    const randomNumber = getRandomNumber();
-    const isMoved = randomNumber >= MOVE_STANDARD;
-
-    if (isMoved) this.#move();
+  move(power) {
+    if (power >= MOVE_STANDARD) {
+      this.#distance += 1;
+    }
   }
 }
 

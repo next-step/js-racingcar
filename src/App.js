@@ -1,10 +1,11 @@
 const validator = require('./validator.js');
-const Car = require('./model/Car.js');
-const Track = require('./model/Track.js');
-const WinnerChecker = require('./model/WinnerChecker.js');
+const Car = require('./domain/model/Car.js');
+const Track = require('./domain/model/Track.js');
+const WinnerChecker = require('./domain/model/WinnerChecker.js');
 const view = require('./view/view.js');
-const { splitByStandard } = require('./utils.js');
+const { splitByStandard, getRandomNumber } = require('./utils.js');
 const { MESSAGES } = require('./constants/messages.js');
+const utils = require('./utils.js');
 
 class App {
   #track;
@@ -80,7 +81,9 @@ class App {
 
   #processRound() {
     this.#cars.forEach((car) => {
-      car.moveByRandomNumber();
+      const power = utils.getRandomNumber();
+      car.move(power);
+
       view.renderCarDistance(car);
     });
 
