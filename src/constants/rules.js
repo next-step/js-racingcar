@@ -13,6 +13,8 @@ export const CAR_NAME_SEPARATOR = ",";
 export const CAR_NAME_INPUT_PROMPT =
   "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n";
 
+export const HOW_MANY_TRIES_PROMPT = "시도할 회수는 몇회인가요?";
+
 export const RACE_RESULT_MESSAGE = "실행 결과";
 
 export const WINNER_ANNOUNCEMENT_MESSAGE = "가 최종 우승했습니다.";
