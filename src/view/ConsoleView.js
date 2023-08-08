@@ -16,7 +16,7 @@ export class ConsoleView {
   }
 
   renderError({ error }) {
-    console.log(error)
+    console.log(`\n ⚠️ ${error} ⚠️\n`)
   }
 
   update(state) {
