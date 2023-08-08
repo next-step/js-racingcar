@@ -1,45 +1,35 @@
 import Car from "./Car";
 
-const CAR_ADVANCE_MAX_NUMBER = 9;
-
-const CAR_ADVANCE_THRESHOLD_NUMBER = 4;
-
 const DEFAULT_RACING_ROUND_NUMBER = 5;
 
-const defaultAdvanceCondition = () => {
-  return Math.random() * CAR_ADVANCE_MAX_NUMBER >= CAR_ADVANCE_THRESHOLD_NUMBER;
-};
-
 export default class Cars {
-  cars;
-  advanceCondition;
-  roundNumber;
+  #cars;
+  #roundNumber;
 
-  constructor(advanceCondition = defaultAdvanceCondition) {
-    this.cars = [];
-    this.advanceCondition = advanceCondition;
-    this.roundNumber = DEFAULT_RACING_ROUND_NUMBER;
+  constructor() {
+    this.#cars = [];
+    this.#roundNumber = DEFAULT_RACING_ROUND_NUMBER;
   }
 
-  addCar(name) {
-    const car = new Car(name, this.advanceCondition);
+  addCar(name, advanceCondition) {
+    const car = new Car(name, advanceCondition);
 
-    this.cars.push(car);
+    this.#cars.push(car);
   }
 
   getAllCarStatus() {
-    return this.cars.map((car) => ({
-      name: car.getName(),
-      distance: car.getDistance(),
+    return this.#cars.map((car) => ({
+      name: car.name,
+      distance: car.distance,
     }));
   }
 
   executeOneRound() {
-    this.cars.forEach((car) => car.advance());
+    this.#cars.forEach((car) => car.advance());
   }
 
   executeMultipleRounds(afterRoundAction) {
-    Array.from({ length: this.roundNumber }, () => {
+    Array.from({ length: this.#roundNumber }, () => {
       this.executeOneRound();
 
       afterRoundAction(this.getAllCarStatus());
@@ -47,14 +37,14 @@ export default class Cars {
   }
 
   getWinners() {
-    const maxDistance = Math.max(...this.cars.map((car) => car.getDistance()));
+    const maxDistance = Math.max(...this.#cars.map((car) => car.distance));
 
-    return this.cars
-      .filter((car) => car.getDistance() === maxDistance)
-      .map((car) => car.getName());
+    return this.#cars
+      .filter((car) => car.distance === maxDistance)
+      .map((car) => car.name);
   }
 
   setRoundNumber(number) {
-    this.roundNumber = number;
+    this.#roundNumber = number;
   }
 }
