@@ -1,4 +1,4 @@
-const validator = require('../validator');
+const validator = require('../../validator.js');
 
 class Track {
   #endRound;

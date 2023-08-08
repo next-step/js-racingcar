@@ -1,6 +1,6 @@
-const Car = require('../src/model/Car.js');
-const Track = require('../src/model/Track.js');
-const WinnerChecker = require('../src/model/WinnerChecker.js');
+const Car = require('../src/domain/model/Car.js');
+const Track = require('../src/domain/model/Track.js');
+const WinnerChecker = require('../src/domain/model/WinnerChecker.js');
 const validator = require('../src/validator.js');
 const { getRandomNumber, splitByStandard } = require('../src/utils.js');
 const {

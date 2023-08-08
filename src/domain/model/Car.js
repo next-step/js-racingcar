@@ -1,6 +1,6 @@
-const validator = require('../validator.js');
-const { MOVE_STANDARD } = require('../constants/racing-rule.js');
-const { getRandomNumber } = require('../utils.js');
+const validator = require('../../validator.js');
+const { MOVE_STANDARD } = require('../../constants/racing-rule.js');
+const { getRandomNumber } = require('../../utils.js');
 
 class Car {
   #name;
