@@ -4,11 +4,11 @@ import { getUserInputByQuestion } from '../utils/getUserInputByQuestion.js';
 
 class GameSimulator {
   #racingGame;
-  #messageViewer;
+  #gameViewer;
   checkCanMoveForward;
 
-  constructor(messageViewer, checkCanMoveForward) {
-    this.#messageViewer = messageViewer;
+  constructor(gameViewer, checkCanMoveForward) {
+    this.#gameViewer = gameViewer;
     this.checkCanMoveForward = checkCanMoveForward;
   }
 
@@ -23,31 +23,6 @@ class GameSimulator {
     this.#racingGame = new RacingGame(cars, maxRounds);
   }
 
-  printCarStatus(name, distanceDriven) {
-    const formattedStatus = `${name} : ${'-'.repeat(distanceDriven)}`;
-
-    this.#messageViewer(formattedStatus);
-  }
-
-  printRecords() {
-    this.#messageViewer('\n실행 결과\n');
-
-    this.#racingGame.records.forEach((records) => {
-      records.forEach(({ name, distanceDriven }) =>
-        this.printCarStatus(name, distanceDriven)
-      );
-      this.#messageViewer('\n');
-    });
-  }
-
-  printWinningCars() {
-    const winningCarNames = this.#racingGame.winningCars
-      .map((car) => car.name)
-      .join(',');
-
-    this.#messageViewer(`${winningCarNames}가 최종 우승했습니다.`);
-  }
-
   async startGame() {
     try {
       await this.setRacingGame();
@@ -55,11 +30,10 @@ class GameSimulator {
       this.#racingGame.startRace({
         checkCanMoveForward: this.checkCanMoveForward,
       });
-      this.printRecords();
-      this.printWinningCars();
+      this.#gameViewer.printRecords(this.#racingGame.records);
+      this.#gameViewer.printWinningCars(this.#racingGame.winningCars);
     } catch (error) {
-      this.#messageViewer(error.message);
-      this.#messageViewer('\n게임을 다시 시작하겠습니다.\n');
+      this.#gameViewer.printRestart(error.message);
       this.startGame();
     }
   }
