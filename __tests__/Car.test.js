@@ -140,6 +140,15 @@ describe('자동차를 이동시킨다.', () => {
 
     expect(car.distance).toBe(initialDistance);
   });
+
+  test.each([4, 5, 6, 7, 8, 9])(`차는 값이 ${MOVE_STANDARD} 이상일시 한칸 이동한다.`, (power) => {
+    const car = new Car('test');
+    const initialDistance = car.distance;
+
+    car.move(power);
+
+    expect(car.distance).toBe(initialDistance + 1);
+  });
 });
 
 describe('경기를 진행한다.', () => {
