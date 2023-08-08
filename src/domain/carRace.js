@@ -1,11 +1,13 @@
 import { CAR_RACE_LAP_LIMIT } from '../constants';
 import { getStringFromArray } from '../utils/common';
+import { ERROR_MESSAGE } from '../validation/errorMessage';
 import CarRaceView from '../view';
 
 export default class CarRace {
   #participants;
   #winners;
   #isRaceStarted = false;
+  #lapCount = 0;
 
   constructor(participants) {
     this.#participants = participants;
@@ -39,6 +41,10 @@ export default class CarRace {
     return this.getCarNames(this.winners);
   }
 
+  get lapCount() {
+    return this.#lapCount;
+  }
+
   start(view) {
     if (view) {
       view.welcome();
@@ -61,5 +67,13 @@ export default class CarRace {
     }
     const names = cars.map((car) => car.name);
     return getStringFromArray(names);
+  }
+
+  setLapCount(lapCount) {
+    if (typeof lapCount !== 'number' || lapCount < 1) {
+      throw new Error(ERROR_MESSAGE.CAR_RACE_LAP_COUNT);
+    }
+
+    this.#lapCount = Math.round(lapCount);
   }
 }
