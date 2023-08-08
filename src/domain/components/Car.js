@@ -1,4 +1,4 @@
-import { CAR } from '../../constants/components/car'
+import { CAR, CAR_ERROR_MESSAGE } from '../../constants/components/car'
 
 export class Car {
   #state
@@ -21,13 +21,13 @@ export class Car {
     return this.#state.name
   }
   set name(_) {
-    console.log('name을 직접 할당할 수 없습니다.')
+    console.log(CAR_ERROR_MESSAGE.NOT_ASSIGN_NAME)
   }
 
   get position() {
     return this.#state.position
   }
   set position(_) {
-    console.log('position을 직접 할당할 수 없습니다.')
+    console.log(CAR_ERROR_MESSAGE.NOT_ASSIGN_POSITION)
   }
 }

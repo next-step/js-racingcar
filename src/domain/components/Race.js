@@ -1,4 +1,4 @@
-import { RACE } from '../../constants/components/race'
+import { RACE, RACE_ERROR_MESSAGE } from '../../constants/components/race'
 
 export class Race {
   #state
@@ -20,13 +20,13 @@ export class Race {
     return this.#state.runCondition
   }
   set runCondition(_) {
-    console.log('직접 접근할 수 없습니다.')
+    console.log(RACE_ERROR_MESSAGE.NOT_ASSIGN_RUN_CONDITION)
   }
 
   get participants() {
     return this.#state.participants
   }
   set participants(_) {
-    console.log('직접 접근할 수 없습니다.')
+    console.log(RACE_ERROR_MESSAGE.NOT_ASSIGN_PARTICIPANTS)
   }
 }

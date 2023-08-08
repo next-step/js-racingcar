@@ -9,5 +9,7 @@ export const RACE_ERROR_MESSAGE = {
   OVER_MATCH_MAX_LENGTH: '최대 경주 횟수 이상으로 설정할 수 없습니다!',
   LACK_PARTICIPANTS: minNum =>
     `경주에 참여한 자동차들은 최소 ${minNum}명 이상이어야만 합니다!`,
-  NOT_VALID_MATCH_LENGTH: '최대 경주 횟수는 숫자여야만 합니다!'
+  NOT_VALID_MATCH_LENGTH: '최대 경주 횟수는 숫자여야만 합니다!',
+  NOT_ASSIGN_RUN_CONDITION: 'runCondition을 직접 할당할 수 없습니다.',
+  NOT_ASSIGN_PARTICIPANTS: 'participants를 직접 할당할 수 없습니다.'
 }
