@@ -4,10 +4,10 @@ import {
   INTERVAL_ROUND_TIME,
   MOVEMENT_PRINT,
   NAME_SEPARATOR,
-} from "../constants/constants";
-import CarModel from "../model/CarModel";
-import GameModel from "../model/GameModel";
-import { getRandomNumberInRange } from "../utils/utils";
+} from "../constants/constants.js";
+import CarModel from "../model/CarModel.js";
+import GameModel from "../model/GameModel.js";
+import { getRandomNumberInRange } from "../utils/utils.js";
 
 export default class CarRacingManager {
   #gameModel = new GameModel();

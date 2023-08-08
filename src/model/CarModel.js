@@ -1,4 +1,4 @@
-import { CONDITIONS, ERROR_MESSAGES } from "../constants/constants";
+import { CONDITIONS, ERROR_MESSAGES } from "../constants/constants.js";
 
 function validateName(name) {
   if (name.length > CONDITIONS.max_car_name_length) {

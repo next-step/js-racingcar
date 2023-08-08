@@ -1,6 +1,6 @@
-import { CONDITIONS, ERROR_MESSAGES } from "../constants/constants";
-import { getIndexesOfMaxValue } from "../utils/utils";
-import CarModel from "./CarModel";
+import { CONDITIONS, ERROR_MESSAGES } from "../constants/constants.js";
+import { getIndexesOfMaxValue } from "../utils/utils.js";
+import CarModel from "./CarModel.js";
 
 function validateParticipants(cars) {
   if (!Array.isArray(cars) || !cars.every(car => car instanceof CarModel)) {
