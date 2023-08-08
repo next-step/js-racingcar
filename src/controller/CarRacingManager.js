@@ -18,7 +18,7 @@ export default class CarRacingManager {
       console.log(GAME_MESSAGES.GAME_START);
       this.roundInterval(endProcess);
     } catch (error) {
-      this.gameEnd(endProcess, error.message);
+      CarRacingManager.gameEnd(endProcess, error.message);
     }
   }
 
@@ -28,25 +28,20 @@ export default class CarRacingManager {
       if (this.#gameModel.round > this.#gameModel.totalRound) {
         clearInterval(interval);
         const winnerMessage = `${this.getWinnersName()}가 최종 우승했습니다.`;
-        return this.gameEnd(endProcess, winnerMessage);
+        return CarRacingManager.gameEnd(endProcess, winnerMessage);
       }
 
       this.roundStart();
 
-      console.log("");
+      return console.log("");
     }, INTERVAL_ROUND_TIME);
   }
 
   roundStart() {
     this.#gameModel.participants.forEach(car => {
       car.go(getRandomNumberInRange());
-      this.printCarAndMove(car.name, car.movement);
+      CarRacingManager.printCarAndMove(car.name, car.movement);
     });
-  }
-
-  gameEnd(endProcess, message) {
-    this.printGameEndMessage(message);
-    endProcess();
   }
 
   getParticipantsName() {
@@ -67,11 +62,16 @@ export default class CarRacingManager {
     this.#gameModel.totalRound = totalRound;
   }
 
-  printCarAndMove(name, movement) {
+  static gameEnd(endProcess, message) {
+    CarRacingManager.printGameEndMessage(message);
+    endProcess();
+  }
+
+  static printCarAndMove(name, movement) {
     console.log(`${name}: ${MOVEMENT_PRINT.repeat(movement)}`);
   }
 
-  printGameEndMessage(message) {
+  static printGameEndMessage(message) {
     if (message) console.log(message);
     console.log(GAME_MESSAGES.GAME_OVER);
   }

@@ -21,7 +21,7 @@ function validateTotalRound(totalRound) {
     throw new Error(ERROR_MESSAGES.WHITE_TOTAL_ROUND);
   }
   const numberTotalRound = Number(totalRound);
-  if (isNaN(numberTotalRound)) {
+  if (Number.isNaN(numberTotalRound)) {
     throw new Error(ERROR_MESSAGES.INVALID_TOTAL_ROUND_TYPE);
   }
   if (
@@ -34,7 +34,9 @@ function validateTotalRound(totalRound) {
 
 export default class GameModel {
   #round = 0;
+
   #totalRound;
+
   #participants = [];
 
   get participants() {

@@ -12,9 +12,14 @@
   "rules": {
     "max-depth": ["error", 2],
     "max-lines-per-function": ["error", 16],
-    "operator-linebreak": ["error", "before"],
     "no-unused-expressions": ["error", { "allowTernary": true }],
-    "import/extensions": ["never"]
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "always" // 'js' 확장자 항상 허용
+      }
+    ]
   },
   "overrides": [
     {

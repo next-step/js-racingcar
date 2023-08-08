@@ -1,5 +1,5 @@
-import { ERROR_MESSAGES } from "../constants/constants";
-import CarModel from "./CarModel";
+import { ERROR_MESSAGES } from "../constants/constants.js";
+import CarModel from "./CarModel.js";
 
 const DEFAULT_NAME = "크롱";
 

@@ -1,5 +1,5 @@
-import CarModel from "./CarModel";
-import GameModel from "./GameModel";
+import CarModel from "./CarModel.js";
+import GameModel from "./GameModel.js";
 
 const DEFAULT_NAMES = ["크롱", "뽀로로", "루피", "포비"];
 const DEFAULT_CARS = DEFAULT_NAMES.map(v => new CarModel(v));

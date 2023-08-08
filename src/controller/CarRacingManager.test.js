@@ -1,6 +1,6 @@
-import { INTERVAL_ROUND_TIME } from "../constants/constants";
-import CarModel from "../model/CarModel";
-import CarRacingManager from "./CarRacingManager";
+import { INTERVAL_ROUND_TIME } from "../constants/constants.js";
+import CarModel from "../model/CarModel.js";
+import CarRacingManager from "./CarRacingManager.js";
 
 function gameSetUp() {
   jest.useFakeTimers();
@@ -13,7 +13,7 @@ function gameSetUp() {
   };
 
   const spyOn = {
-    printGameEndMessage: jest.spyOn(carRacingManager, "printGameEndMessage"),
+    printGameEndMessage: jest.spyOn(CarRacingManager, "printGameEndMessage"),
     roundStart: jest.spyOn(carRacingManager, "roundStart"),
     log: jest.spyOn(console, "log"),
   };
@@ -51,9 +51,9 @@ describe("자동자 경주 게임", () => {
 
   describe("경주 진행", () => {
     test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
-      const { carRacingManager, spyOn } = gameSetUp();
+      const { spyOn } = gameSetUp();
 
-      carRacingManager.printCarAndMove("뽀로로", 3);
+      CarRacingManager.printCarAndMove("뽀로로", 3);
 
       expect(spyOn.log).toBeCalledWith("뽀로로: ---");
     });
