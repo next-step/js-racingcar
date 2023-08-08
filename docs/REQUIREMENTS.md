@@ -1,36 +1,57 @@
-# 요구사항
+# 리팩터링 요구사항
 
-## 자동차 1대의 요구사항
+## Components
 
-- 자동차는 이름을 가질 수 있다.
-- 자동차는 앞으로 전진할 수 있다.
-- 자동차의 이름은 5자 이내의 문자열만 가질 수 있다.
-- 자동차는 전진할 때, 전달받은 onRun 함수를 호출한다.
+### Car
 
-## 자동차 경주 요구사항
+- [X] Car는 이름을 가질 수 있다.
+- [X] Car는 앞으로 전진할 수 있다.
 
-- 자동차 이름을 쉼표로 구분할 수 있다.
-  - 자동차 이름은 5자 이하만 가능하다.
-- 경주가 시작될 때, 경주에 참여한 자동차들을 최대 경기 횟수 동안 앞으로 전진시킨다.
-  - 경주의 전진 조건이 있는 경우, 해당 조건에 해당하는 자동차만 앞으로 전진 시킨다.
-- 경주의 한 라운드가 끝날 때마다 전달받은 onEndRound 함수에 경주에 참여한 자동차 목록을 인자로 넣어 호출한다.
-- 경주의 최대 경기 횟수를 정할 수 있다.
-- 경주에 참여한 자동차들의 목록을 출력할 수 있다.
-- 경주가 끝난 뒤, 경주에 우승한 자동차를 출력할 수 있다.
-- 경주에 참여한 자동차가 한 대인 경우, 에러가 발생한다.
-- 경주의 최대 경기 횟수가 숫자가 아닌 경우, 에러가 발생한다.
-- 경주의 최대 경기 횟수가 정의되지 않은 경우, 5회로 지정한다.
+### Race
 
-## 자동차 경주 게임 요구사항
+- [X] Race는 전진 조건을 가지고 있다.
+- [X] Race는 경주의 참여자 목록을 가지고 있다.
+- [X] Race는 각 라운드마다 전진 조건에 해당하는 참여자를 이동시킬 수 있다.
 
-- 자동차 경주는 5회로 고정하여 진행한다.
-- 게임이 시작되면 콘솔로 자동차 이름을 받는다.
-- 게임이 시작되면 자동차는 전진한다.
-- 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우에만 자동차가 전진할 수 있다.
-- 게임을 완료한 후 누가 우승했는지 알려준다.
-  - 우승자는 한 명 이상일 수 있다.
-  - 우승자가 여러명인 경우, 쉼표를 이용하여 구분한다.
-- 게임에 참여한 자동차 목록을 수정할 수 있다.
-- 게임을 다시 시작하는 경우, 기존의 자동차들로 게임을 진행한다.
-- 사용자가 잘못된 입력 값을 작성한 경우, "오류로 인해 게임이 종료되었습니다!"라는 에러 메시지 출력과 함께 프로그램을 종료한다.
-- 게임에 참여한 자동차 중에 중복된 이름이 있는 경우, 에러가 발생한다.
+## Model
+
+- [X] Model은 carList를 가질 수 있다.
+- [X] Model은 winnerList를 가질 수 있다.
+- [X] Model은 runCondition을 가질 수 있다.
+- [X] Model은 maxMatchLength를 가질 수 있다.
+- [X] Model의 state를 변경할 수 있다.
+- [X] Model의 상태가 변경된 경우, 상태 변화를 감지할 수 있다.
+
+## ViewModel
+
+- [X] handleAction() - 외부에서 입력받은 state값이 올바르지 않은 경우, error를 설정하는 뮤테이션을 시켜 state를 변경한다.
+- [X] handleAction() - 외부에서 입력받은 state값이 올바른 경우, 액션에 해당하는 뮤테이션을 시켜 state를 변경한다.
+- [X] start() - Race의 라운드를 진행시키고 라운드가 진행될 때마다 Model에 현재 carList를 전달한다.
+- [X] start() - Race가 모두 종료되고 Model에 winnerList를 전달한다.
+- [X] update() - update시, 구독하고 있는 요소에게 ViewModel의 state를 전달한다.
+- [X] destroy() - ViewModel은 destroy 이후 update를 호출한 경우, 상태를 전달받을 수 없다.
+
+### Validator
+
+- [X] 경주의 최대 경기 횟수가 숫자가 아닌 경우, 에러를 발생시킨다.
+- [X] 경주에 참여한 자동차가 한 대인 경우, 에러를 발생시킨다.
+- [X] 자동차의 이름이 문자열이 아닌 경우, 에러를 발생시킨다.
+
+### getters
+
+- [X] generateCarList() - 문자열로 전달받은 carName을 기반으로 Car component를 생성한다.
+- [X] generateWinnerList() - 전달받은 participants를 기반으로 우승자를 담은 배열을 반환한다.
+- [X] generateWinnerList() - 모든 참가자가 출발선에 있는 경우, 빈 배열을 반환한다.
+- [X] generateRace() - 전달받은 carList, runCondition을 기반으로 Race component를 생성한다.
+
+## View
+
+- [X] update() - update시 type이 updateCarList인 경우, ConsoleView의 carList에 Model의 state를 담아 호출한다.
+- [X] update() - update시 type이 updateWinnerList인 경우, ConsoleView의 winnerList에 Model의 state를 담아 호출한다.
+- [X] update() - update시 type이 error인 경우, ConsoleView의 error에 Model의 state를 담아 호출한다.
+
+### ConsoleView
+
+- [X] renderCarList() - 전달받은 carList를 기반으로 name과 position을 출력한다.
+- [X] renderWinnerList() - 전달받은 winnerList를 기반으로 우승자를 출력한다.
+- [X] renderWinnerList() - 전달받은 winnerList가 빈 배열인 경우, 우승자가 없다는 메시지를 출력한다.
