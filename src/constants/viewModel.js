@@ -1,8 +1,8 @@
 export const MUTATION_TYPE = {
-  CAR_LIST: 'updateCarList',
-  WINNER_LIST: 'updateWinnerList',
-  STEP: 'updateStep',
-  ERROR: 'error'
+  SET_CAR_LIST: 'setCarList',
+  SET_WINNER_LIST: 'setWinnerList',
+  SET_STEP: 'setStep',
+  SET_ERROR: 'setError'
 }
 
 export const ACTION_TYPE = {

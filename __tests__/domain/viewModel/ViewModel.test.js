@@ -47,7 +47,7 @@ describe('ViewModel', () => {
     viewModel.handleAction({ type: ACTION_TYPE.CHANGE_STEP })
 
     // Then
-    expect(logSpy.mock.calls[0][0]).toBe(MUTATION_TYPE.ERROR)
+    expect(logSpy.mock.calls[0][0]).toBe(MUTATION_TYPE.SET_ERROR)
   })
 
   test('handleAction() - 외부에서 입력받은 state값이 올바른 경우, 액션에 해당하는 뮤테이션을 실행시킨다.', () => {
@@ -69,7 +69,7 @@ describe('ViewModel', () => {
     })
 
     // Then
-    expect(logSpy.mock.calls[0][0]).toBe(MUTATION_TYPE.STEP)
+    expect(logSpy.mock.calls[0][0]).toBe(MUTATION_TYPE.SET_STEP)
   })
 
   test('handleMutation() - 전달받은 state로 ViewModel의 state와 Model의 state를 업데이트 한다.', () => {
@@ -79,7 +79,7 @@ describe('ViewModel', () => {
 
     // When
     viewModel.handleMutation({
-      type: MUTATION_TYPE.CAR_LIST,
+      type: MUTATION_TYPE.SET_CAR_LIST,
       state: { carList: ['sonny'] }
     })
 

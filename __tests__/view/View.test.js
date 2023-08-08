@@ -23,7 +23,7 @@ describe('View', () => {
 
     // When
     View.prototype.update.call(context, {
-      type: MUTATION_TYPE.CAR_LIST,
+      type: MUTATION_TYPE.SET_CAR_LIST,
       carList
     })
 
@@ -38,7 +38,7 @@ describe('View', () => {
 
     // When
     View.prototype.update.call(context, {
-      type: MUTATION_TYPE.WINNER_LIST,
+      type: MUTATION_TYPE.SET_WINNER_LIST,
       winnerList
     })
 
@@ -57,7 +57,7 @@ describe('View', () => {
 
     // When
     View.prototype.update.call(context, {
-      type: MUTATION_TYPE.ERROR,
+      type: MUTATION_TYPE.SET_ERROR,
       error: 'error!!'
     })
 

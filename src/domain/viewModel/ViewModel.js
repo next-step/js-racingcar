@@ -34,18 +34,18 @@ export class ViewModel extends Observable {
   }
 
   handleAction({ type, payload }) {
-    const state = { ...this.#state, ...payload }
+    const newState = { ...this.#state, ...payload }
 
     const { isValid, error } = new Validator({
-      maxMatchLength: Number(state.maxMatchLength),
-      carNames: state.carNames
+      maxMatchLength: Number(newState.maxMatchLength),
+      carNames: newState.carNames
     })
 
     if (!isValid) {
       const { step, carNames } = this.#state
 
       this.handleMutation({
-        type: MUTATION_TYPE.ERROR,
+        type: MUTATION_TYPE.SET_ERROR,
         state: { error, carNames, step }
       })
       return
@@ -57,11 +57,11 @@ export class ViewModel extends Observable {
         break
       case ACTION_TYPE.CHANGE_STEP:
         this.handleMutation({
-          type: MUTATION_TYPE.STEP,
+          type: MUTATION_TYPE.SET_STEP,
           state: {
-            ...state,
-            maxMatchLength: Number(state.maxMatchLength),
-            carList: generateCarList(state.carNames)
+            ...newState,
+            maxMatchLength: Number(newState.maxMatchLength),
+            carList: generateCarList(newState.carNames)
           }
         })
         break
@@ -77,14 +77,14 @@ export class ViewModel extends Observable {
       race.startRound()
 
       this.handleMutation({
-        type: MUTATION_TYPE.CAR_LIST,
+        type: MUTATION_TYPE.SET_CAR_LIST,
         state: { carList: race.participants }
       })
     }
 
     const winnerList = generateWinnerList(race.participants)
     this.handleMutation({
-      type: MUTATION_TYPE.WINNER_LIST,
+      type: MUTATION_TYPE.SET_WINNER_LIST,
       state: { winnerList }
     })
   }

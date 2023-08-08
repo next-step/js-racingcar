@@ -18,13 +18,13 @@ export class View {
 
   update({ type, ...state }) {
     switch (type) {
-      case MUTATION_TYPE.CAR_LIST:
+      case MUTATION_TYPE.SET_CAR_LIST:
         this.consoleView.renderCarList(state)
         break
-      case MUTATION_TYPE.WINNER_LIST:
+      case MUTATION_TYPE.SET_WINNER_LIST:
         this.consoleView.renderWinnerList(state)
         break
-      case MUTATION_TYPE.ERROR:
+      case MUTATION_TYPE.SET_ERROR:
         this.consoleView.renderError(state)
         this.promptView.update(state)
         break
