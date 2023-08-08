@@ -1,6 +1,6 @@
-const Car = require('../src/domain/model/Car.js');
-const Track = require('../src/domain/model/Track.js');
-const WinnerChecker = require('../src/domain/model/WinnerChecker.js');
+const Car = require('../src/domain/Car.js');
+const Track = require('../src/domain/Track.js');
+const WinnerChecker = require('../src/domain/WinnerChecker.js');
 const validator = require('../src/validator.js');
 const { splitByStandard } = require('../src/utils.js');
 const {

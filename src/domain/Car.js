@@ -1,5 +1,5 @@
-const validator = require('../../validator.js');
-const { MOVE_STANDARD, MOVING_DISTANCE_PER_ROUND } = require('../../constants/racing-rule.js');
+const validator = require('../validator.js');
+const { MOVE_STANDARD, MOVING_DISTANCE_PER_ROUND } = require('../constants/racing-rule.js');
 
 class Car {
   #name;
@@ -7,8 +7,12 @@ class Car {
   #distance = 1;
 
   constructor(name) {
-    validator.checkValidCarName(name);
-    this.#name = name;
+    try {
+      validator.checkValidCarName(name);
+      this.#name = name;
+    } catch ({ message }) {
+      throw new Error(message);
+    }
   }
 
   get name() {
