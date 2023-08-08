@@ -35,36 +35,36 @@ export class ViewModel extends Observable {
 
   handleAction({ type, payload }) {
     const newState = { ...this.#state, ...payload }
+    const validator = new Validator()
 
-    const { isValid, error } = new Validator({
-      maxMatchLength: Number(newState.maxMatchLength),
-      carNames: newState.carNames
-    })
+    try {
+      validator.validate({
+        maxMatchLength: Number(newState.maxMatchLength),
+        carNames: newState.carNames
+      })
 
-    if (!isValid) {
+      switch (type) {
+        case ACTION_TYPE.START:
+          this.start()
+          break
+        case ACTION_TYPE.CHANGE_STEP:
+          this.handleMutation({
+            type: MUTATION_TYPE.SET_STEP,
+            state: {
+              ...newState,
+              maxMatchLength: Number(newState.maxMatchLength),
+              carList: generateCarList(newState.carNames)
+            }
+          })
+          break
+      }
+    } catch (error) {
       const { step, carNames } = this.#state
 
       this.handleMutation({
         type: MUTATION_TYPE.SET_ERROR,
         state: { error, carNames, step }
       })
-      return
-    }
-
-    switch (type) {
-      case ACTION_TYPE.START:
-        this.start()
-        break
-      case ACTION_TYPE.CHANGE_STEP:
-        this.handleMutation({
-          type: MUTATION_TYPE.SET_STEP,
-          state: {
-            ...newState,
-            maxMatchLength: Number(newState.maxMatchLength),
-            carList: generateCarList(newState.carNames)
-          }
-        })
-        break
     }
   }
 
