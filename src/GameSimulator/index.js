@@ -30,7 +30,7 @@ class GameSimulator {
   printRecords() {
     this.#messageViewer('\n실행 결과\n');
 
-    this.#racingGame.getRecords().forEach((records) => {
+    this.#racingGame.records.forEach((records) => {
       records.forEach(({ name, distanceDriven }) =>
         this.printCarStatus(name, distanceDriven)
       );
@@ -39,8 +39,7 @@ class GameSimulator {
   }
 
   printWinningCars() {
-    const winningCarNames = this.#racingGame
-      .getWinningCars()
+    const winningCarNames = this.#racingGame.winningCars
       .map((car) => car.name)
       .join(',');
 

@@ -14,9 +14,7 @@ describe('RacingGame 테스트', () => {
 
   describe('레이싱 게임 세팅 테스트', () => {
     test('경주에 참여할 자동차들이 있다.', () => {
-      expect(racingGame.getCars().every((car) => car instanceof Car)).toBe(
-        true
-      );
+      expect(racingGame.cars.every((car) => car instanceof Car)).toBe(true);
     });
   });
 
@@ -59,11 +57,11 @@ describe('RacingGame 테스트', () => {
       });
 
       test('가장 멀리 간 거리를 구할 수 있다.', () => {
-        expect(racingGame.getMaxDistanceDriven()).toBe(2);
+        expect(racingGame.maxDistanceDriven).toBe(2);
       });
 
       test('우승한 자동차를 구할 수 있다.', () => {
-        const [winningCar] = racingGame.getWinningCars();
+        const [winningCar] = racingGame.winningCars;
         const lastCar = cars.at(-1);
 
         expect(winningCar).toEqual(lastCar);
@@ -76,14 +74,14 @@ describe('RacingGame 테스트', () => {
           car.moveForward();
         });
 
-        expect(racingGame.getWinningCars()).toEqual(cars);
+        expect(racingGame.winningCars).toEqual(cars);
       });
     });
   });
 
   describe('경주 라운드 테스트', () => {
     test('RacingGame에는 rounds 속성의 초기값은 0이다.', () => {
-      expect(racingGame.getRounds()).toBe(0);
+      expect(racingGame.rounds).toBe(0);
     });
 
     describe('round 진행시 rounds 값이 하나 증가한다.', () => {
@@ -94,7 +92,7 @@ describe('RacingGame 테스트', () => {
             racingGame.runRound();
           }
 
-          expect(racingGame.getRounds()).toBe(runRoundTimes);
+          expect(racingGame.rounds).toBe(runRoundTimes);
         }
       );
     });
@@ -135,12 +133,12 @@ describe('RacingGame 테스트', () => {
 
     test('round 진행시 경주 기록이 저장되어 records의 길이가 1 늘어난다', () => {
       const saveRecordSpy = jest.spyOn(racingGame, 'saveCurrentRecord');
-      const prevRecordLength = racingGame.getRecords().length;
+      const prevRecordLength = racingGame.records.length;
 
       racingGame.runRound();
 
       expect(saveRecordSpy).toBeCalled();
-      expect(racingGame.getRecords().length).toBe(prevRecordLength + 1);
+      expect(racingGame.records.length).toBe(prevRecordLength + 1);
     });
   });
 

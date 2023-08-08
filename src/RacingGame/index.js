@@ -39,33 +39,33 @@ class RacingGame {
     }
   }
 
-  getCars() {
+  get cars() {
     return this.#cars;
   }
 
-  getRounds() {
+  get rounds() {
     return this.#rounds;
   }
 
-  getRecords() {
+  get records() {
     return this.#records;
   }
 
-  getCarsRecord() {
+  get carsRecord() {
     return this.#cars.map((car) => ({
       name: car.name,
       distanceDriven: car.distanceDriven,
     }));
   }
 
-  getMaxDistanceDriven() {
+  get maxDistanceDriven() {
     return Math.max(...this.#cars.map((car) => car.distanceDriven));
   }
 
-  getWinningCars() {
-    const maxDistance = this.getMaxDistanceDriven();
-
-    return this.#cars.filter((car) => car.distanceDriven === maxDistance);
+  get winningCars() {
+    return this.#cars.filter(
+      (car) => car.distanceDriven === this.maxDistanceDriven
+    );
   }
 
   canMoveForward() {
@@ -73,7 +73,7 @@ class RacingGame {
   }
 
   saveCurrentRecord() {
-    this.#records.push(this.getCarsRecord());
+    this.#records.push(this.carsRecord);
   }
 
   runRound() {
