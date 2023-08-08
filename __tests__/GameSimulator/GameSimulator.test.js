@@ -1,8 +1,8 @@
-import GameSimulator from '../src/GameSimulator';
-import { createMessageViewer } from '../src/utils/createMessageViewer';
-import { getUserInputByQuestion } from '../src/utils/getUserInputByQuestion';
+import GameSimulator from '../../src/GameSimulator';
+import { createMessageViewer } from '../../src/utils/createMessageViewer';
+import { getUserInputByQuestion } from '../../src/utils/getUserInputByQuestion';
 
-jest.mock('../src/utils/getUserInputByQuestion');
+jest.mock('../../src/utils/getUserInputByQuestion');
 
 describe('GameSimulator 테스트', () => {
   const mockViewer = jest.fn();
@@ -11,7 +11,7 @@ describe('GameSimulator 테스트', () => {
   let simulator = null;
 
   beforeEach(() => {
-    simulator = new GameSimulator(messageViewer);
+    simulator = new GameSimulator(messageViewer, () => true);
     getUserInputByQuestion
       .mockImplementationOnce(() => Promise.resolve(CAR_NAMES.join(',')))
       .mockImplementationOnce(() => Promise.resolve(3));

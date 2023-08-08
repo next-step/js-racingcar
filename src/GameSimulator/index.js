@@ -5,9 +5,11 @@ import { getUserInputByQuestion } from '../utils/getUserInputByQuestion.js';
 class GameSimulator {
   #racingGame;
   #messageViewer;
+  checkCanMoveForward;
 
-  constructor(messageViewer) {
+  constructor(messageViewer, checkCanMoveForward) {
     this.#messageViewer = messageViewer;
+    this.checkCanMoveForward = checkCanMoveForward;
   }
 
   async setRacingGame() {
@@ -50,7 +52,9 @@ class GameSimulator {
     try {
       await this.setRacingGame();
 
-      this.#racingGame.startRace();
+      this.#racingGame.startRace({
+        checkCanMoveForward: this.checkCanMoveForward,
+      });
       this.printRecords();
       this.printWinningCars();
     } catch (error) {

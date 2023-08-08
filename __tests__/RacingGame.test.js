@@ -1,6 +1,5 @@
 import Car from '../src/Car';
 import RacingGame from '../src/RacingGame';
-import * as getRandomInRangeModule from '../src/utils/getRandomInRange';
 
 describe('RacingGame 테스트', () => {
   const carNames = ['자동차1', '자동차2', '자동차3'];
@@ -18,32 +17,12 @@ describe('RacingGame 테스트', () => {
     });
   });
 
-  describe('자동차 전진 조건 테스트', () => {
-    test.each([4, 5, 6, 7, 8, 9])(
-      '랜덤으로 생성한 숫자가 %i이면 자동차가 전진할 수 있는 상태이다',
-      (randomNumber) => {
-        const getRandomInRangeSpy = jest
-          .spyOn(getRandomInRangeModule, 'getRandomInRange')
-          .mockReturnValue(randomNumber);
+  describe('자동차 게임 전진 테스트', () => {
+    test('자동차 전진 조건을 만족하면 자동차는 전진한다.', () => {
+      racingGame.startRace({ checkCanMoveForward: () => true });
 
-        expect(racingGame.canMoveForward()).toBe(true);
-
-        getRandomInRangeSpy.mockRestore();
-      }
-    );
-
-    test.each([1, 2, 3])(
-      '랜덤으로 생성한 숫자가 %i이면 자동차가 전진할 수 없는 상태이다',
-      (randomNumber) => {
-        const getRandomInRangeSpy = jest
-          .spyOn(getRandomInRangeModule, 'getRandomInRange')
-          .mockReturnValue(randomNumber);
-
-        expect(racingGame.canMoveForward()).toBe(false);
-
-        getRandomInRangeSpy.mockRestore();
-      }
-    );
+      expect(racingGame.cars.every((car) => car.distanceDriven > 0)).toBe(true);
+    });
   });
 
   describe('레이싱 게임 우승 테스트', () => {
@@ -100,7 +79,7 @@ describe('RacingGame 테스트', () => {
     test(`RacingGame round는 기본 ${RacingGame.DEFAULT_MAX_ROUNDS}회동안 진행된다.`, async () => {
       const runRoundSpy = jest.spyOn(racingGame, 'runRound');
 
-      racingGame.startRace();
+      racingGame.startRace({ checkCanMoveForward: () => true });
 
       expect(runRoundSpy).toBeCalledTimes(RacingGame.DEFAULT_MAX_ROUNDS);
 
@@ -114,21 +93,13 @@ describe('RacingGame 테스트', () => {
           racingGame = new RacingGame(cars, maxRounds);
           const runRoundSpy = jest.spyOn(racingGame, 'runRound');
 
-          racingGame.startRace();
+          racingGame.startRace({ checkCanMoveForward: () => true });
 
           expect(runRoundSpy).toBeCalledTimes(maxRounds);
 
           runRoundSpy.mockRestore();
         }
       );
-    });
-
-    test('round 진행시 각 자동차들은 전진 함수가 실행 된다.', () => {
-      const canMoveForwardSpy = jest.spyOn(racingGame, 'canMoveForward');
-
-      racingGame.runRound();
-
-      expect(canMoveForwardSpy).toBeCalledTimes(carNames.length);
     });
 
     test('round 진행시 경주 기록이 저장되어 records의 길이가 1 늘어난다', () => {

@@ -1,13 +1,6 @@
 import Car from '../Car/index.js';
-import { getRandomInRange } from '../utils/getRandomInRange.js';
 
 class RacingGame {
-  /**
-   * 전진 조건.
-   * 해당 값 이상이면 전진할 수 있음.
-   */
-  static MOVE_FORWARD_THRESHOLD = 4;
-
   static DEFAULT_MAX_ROUNDS = 5;
 
   static ERROR_MESSAGE = {
@@ -68,28 +61,24 @@ class RacingGame {
     );
   }
 
-  canMoveForward() {
-    return getRandomInRange() >= RacingGame.MOVE_FORWARD_THRESHOLD;
-  }
-
   saveCurrentRecord() {
     this.#records.push(this.carsRecord);
   }
 
-  runRound() {
+  runRound(checkCanMoveForward) {
     this.#rounds = this.#rounds + 1;
 
     this.#cars.forEach((car) => {
-      if (this.canMoveForward()) {
+      if (typeof checkCanMoveForward === 'function' && checkCanMoveForward()) {
         car.moveForward();
       }
     });
     this.saveCurrentRecord();
   }
 
-  startRace() {
+  startRace({ checkCanMoveForward }) {
     for (let i = 0; i < this.#maxRounds; i++) {
-      this.runRound();
+      this.runRound(checkCanMoveForward);
     }
   }
 }
