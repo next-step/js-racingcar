@@ -2,19 +2,18 @@ const Car = require('../src/domain/model/Car.js');
 const Track = require('../src/domain/model/Track.js');
 const WinnerChecker = require('../src/domain/model/WinnerChecker.js');
 const validator = require('../src/validator.js');
-const { getRandomNumber, splitByStandard } = require('../src/utils.js');
+const { splitByStandard } = require('../src/utils.js');
 const {
   MIN_USER_COUNT,
   MIN_NAME_LENGTH,
   MAX_NAME_LENGTH,
-  MIN_RANDOM_NUMBER,
-  MAX_RANDOM_NUMBER,
   SPLIT_STANDARD,
   SKID_MARK,
   MIN_ROUND_COUNT,
   MAX_ROUND_COUNT,
   MAX_USER_COUNT,
   MOVE_STANDARD,
+  MOVING_DISTANCE_PER_ROUND,
 } = require('../src/constants/racing-rule.js');
 const { MESSAGES, ERROR_MESSAGES } = require('../src/constants/messages.js');
 
@@ -141,14 +140,17 @@ describe('자동차를 이동시킨다.', () => {
     expect(car.distance).toBe(initialDistance);
   });
 
-  test.each([4, 5, 6, 7, 8, 9])(`차는 값이 ${MOVE_STANDARD} 이상일시 한칸 이동한다.`, (power) => {
-    const car = new Car('test');
-    const initialDistance = car.distance;
+  test.each([4, 5, 6, 7, 8, 9])(
+    `차는 값이 ${MOVE_STANDARD} 이상일시 ${MOVING_DISTANCE_PER_ROUND}칸 이동한다.`,
+    (power) => {
+      const car = new Car('test');
+      const initialDistance = car.distance;
 
-    car.move(power);
+      car.move(power);
 
-    expect(car.distance).toBe(initialDistance + 1);
-  });
+      expect(car.distance).toBe(initialDistance + MOVING_DISTANCE_PER_ROUND);
+    }
+  );
 });
 
 describe('경기를 진행한다.', () => {

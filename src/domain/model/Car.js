@@ -1,5 +1,5 @@
 const validator = require('../../validator.js');
-const { MOVE_STANDARD } = require('../../constants/racing-rule.js');
+const { MOVE_STANDARD, MOVING_DISTANCE_PER_ROUND } = require('../../constants/racing-rule.js');
 
 class Car {
   #name;
@@ -21,7 +21,7 @@ class Car {
 
   move(power) {
     if (power >= MOVE_STANDARD) {
-      this.#distance += 1;
+      this.#distance += MOVING_DISTANCE_PER_ROUND;
     }
   }
 }
