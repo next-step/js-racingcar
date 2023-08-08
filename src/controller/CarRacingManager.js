@@ -1,5 +1,4 @@
 import {
-  CONDITIONS,
   GAME_MESSAGES,
   INTERVAL_ROUND_TIME,
   MOVEMENT_PRINT,
@@ -12,9 +11,10 @@ import { getRandomNumberInRange } from "../utils/utils.js";
 export default class CarRacingManager {
   #gameModel = new GameModel();
 
-  gameStart(names, endProcess) {
+  gameStart(names, endProcess, totalRound) {
     try {
       this.setParticipants(names);
+      this.setTotalRound(totalRound);
       console.log(GAME_MESSAGES.GAME_START);
       this.roundInterval(endProcess);
     } catch (error) {
@@ -25,7 +25,7 @@ export default class CarRacingManager {
   roundInterval(endProcess) {
     const interval = setInterval(() => {
       this.#gameModel.increaseRound();
-      if (this.#gameModel.round > CONDITIONS.max_game_round_number) {
+      if (this.#gameModel.round > this.#gameModel.totalRound) {
         clearInterval(interval);
         const winnerMessage = `${this.getWinnersName()}가 최종 우승했습니다.`;
         return this.gameEnd(endProcess, winnerMessage);
@@ -61,6 +61,10 @@ export default class CarRacingManager {
     this.#gameModel.participants = names
       .split(NAME_SEPARATOR)
       .map(name => new CarModel(name.trim()));
+  }
+
+  setTotalRound(totalRound) {
+    this.#gameModel.totalRound = totalRound;
   }
 
   printCarAndMove(name, movement) {

@@ -7,5 +7,7 @@ const rl = readline.createInterface({ input, output });
 const carRacingManager = new CarRacingManager();
 
 rl.question(GAME_MESSAGES.ASK_NAMES, names => {
-  carRacingManager.gameStart(names, () => process.exit());
+  rl.question(GAME_MESSAGES.ASK_TRY_ROUND_COUNT, totalRound => {
+    carRacingManager.gameStart(names, process.exit, totalRound);
+  });
 });

@@ -2,17 +2,19 @@ import { CONDITIONS, INTERVAL_ROUND_TIME } from "../constants/constants";
 import CarModel from "../model/CarModel";
 import CarRacingManager from "./CarRacingManager";
 
+const DEFAULT_START_PROPS = {
+  NAMES: "뽀로로, 크롱, 루피",
+  PROCESS_END: () => {},
+};
+
 function gameSetUp() {
   jest.useFakeTimers();
   const carRacingManager = new CarRacingManager();
 
   const processEnd = () => {};
-  const sleep = () => {};
-  const gameStart = () => {
-    carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, sleep);
-    jest.advanceTimersByTime(
-      INTERVAL_ROUND_TIME * (CONDITIONS.max_game_round_number + 1),
-    );
+  const gameStart = (totalRound = 5) => {
+    carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, totalRound);
+    jest.advanceTimersByTime(INTERVAL_ROUND_TIME * (totalRound + 1));
   };
 
   const spyOn = {
@@ -61,12 +63,12 @@ describe("자동자 경주 게임", () => {
       expect(spyOn.log).toBeCalledWith("뽀로로: ---");
     });
 
-    test("자동차 경주는 5회로 고정하여 진행한다.", () => {
+    test("사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.", () => {
       const { gameStart, spyOn } = gameSetUp();
 
-      gameStart();
+      gameStart(10);
 
-      expect(spyOn.roundStart).toBeCalledTimes(5);
+      expect(spyOn.roundStart).toBeCalledTimes(10);
     });
   });
 

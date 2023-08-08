@@ -17,7 +17,7 @@ function validateParticipants(cars) {
 }
 export default class GameModel {
   #round = 0;
-
+  #totalRound;
   #participants = [];
 
   get participants() {
@@ -36,6 +36,14 @@ export default class GameModel {
 
   increaseRound() {
     this.#round += 1;
+  }
+
+  get totalRound() {
+    return this.#totalRound;
+  }
+
+  set totalRound(totalRound) {
+    this.#totalRound = totalRound;
   }
 
   get winners() {
