@@ -1,7 +1,7 @@
 import { CONDITIONS, ERROR_MESSAGES } from "../constants/constants.js";
 
 function validateName(name) {
-  if (name.length > CONDITIONS.max_car_name_length) {
+  if (name.length > CONDITIONS.CAR_MAX_NAME_LENGTH) {
     throw new Error(ERROR_MESSAGES.OVER_MAXIMUM_CAR_NAME_LENGTH);
   }
 
@@ -33,7 +33,7 @@ export default class CarModel {
   }
 
   go(number) {
-    if (CONDITIONS.can_move_number <= number) {
+    if (CONDITIONS.CAR_CAN_MOVE_NUMBER <= number) {
       this.#movement += 1;
     }
   }

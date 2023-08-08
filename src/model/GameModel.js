@@ -7,7 +7,7 @@ function validateParticipants(cars) {
     throw new Error(ERROR_MESSAGES.INVALID_PARTICIPANT_TYPE);
   }
 
-  if (cars.length < CONDITIONS.min_game_participants_number) {
+  if (cars.length < CONDITIONS.GAME_MIN_PARTICIPANTS_NUMBER) {
     throw new Error(ERROR_MESSAGES.INVALID_PARTICIPANT_LENGTH);
   }
 

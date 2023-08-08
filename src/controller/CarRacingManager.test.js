@@ -1,11 +1,6 @@
-import { CONDITIONS, INTERVAL_ROUND_TIME } from "../constants/constants";
+import { INTERVAL_ROUND_TIME } from "../constants/constants";
 import CarModel from "../model/CarModel";
 import CarRacingManager from "./CarRacingManager";
-
-const DEFAULT_START_PROPS = {
-  NAMES: "뽀로로, 크롱, 루피",
-  PROCESS_END: () => {},
-};
 
 function gameSetUp() {
   jest.useFakeTimers();
