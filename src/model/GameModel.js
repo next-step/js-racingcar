@@ -15,6 +15,23 @@ function validateParticipants(cars) {
     throw new Error(ERROR_MESSAGES.DUPLICATED_PARTICIPANTS_NAME);
   }
 }
+
+function validateTotalRound(totalRound) {
+  if (!totalRound) {
+    throw new Error(ERROR_MESSAGES.WHITE_TOTAL_ROUND);
+  }
+  const numberTotalRound = Number(totalRound);
+  if (isNaN(numberTotalRound)) {
+    throw new Error(ERROR_MESSAGES.INVALID_TOTAL_ROUND_TYPE);
+  }
+  if (
+    numberTotalRound < CONDITIONS.GAME_MIN_TOTAL_ROUND_NUMBER ||
+    CONDITIONS.GAME_MAX_TOTAL_ROUND_NUMBER < numberTotalRound
+  ) {
+    throw new Error(ERROR_MESSAGES.INVALID_TOTAL_ROUND_SIZE);
+  }
+}
+
 export default class GameModel {
   #round = 0;
   #totalRound;
@@ -43,6 +60,7 @@ export default class GameModel {
   }
 
   set totalRound(totalRound) {
+    validateTotalRound(totalRound);
     this.#totalRound = totalRound;
   }
 
