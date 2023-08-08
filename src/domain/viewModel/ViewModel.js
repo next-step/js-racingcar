@@ -22,7 +22,7 @@ export class ViewModel extends Observable {
     this.#state = initialState
   }
 
-  handleMutation({ type, state }) {
+  #handleMutation({ type, state }) {
     this.#state = {
       ...this.model.getState(),
       ...state,
@@ -48,7 +48,7 @@ export class ViewModel extends Observable {
           this.start()
           break
         case ACTION_TYPE.CHANGE_STEP:
-          this.handleMutation({
+          this.#handleMutation({
             type: MUTATION_TYPE.SET_STEP,
             state: {
               ...newState,
@@ -61,7 +61,7 @@ export class ViewModel extends Observable {
     } catch (error) {
       const { step, carNames } = this.#state
 
-      this.handleMutation({
+      this.#handleMutation({
         type: MUTATION_TYPE.SET_ERROR,
         state: { error, carNames, step }
       })
@@ -76,14 +76,14 @@ export class ViewModel extends Observable {
       match++
       race.startRound()
 
-      this.handleMutation({
+      this.#handleMutation({
         type: MUTATION_TYPE.SET_CAR_LIST,
         state: { carList: race.participants }
       })
     }
 
     const winnerList = generateWinnerList(race.participants)
-    this.handleMutation({
+    this.#handleMutation({
       type: MUTATION_TYPE.SET_WINNER_LIST,
       state: { winnerList }
     })

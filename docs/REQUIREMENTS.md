@@ -24,9 +24,8 @@
 
 ## ViewModel
 
-- [X] handleAction() - 외부에서 입력받은 state값이 올바르지 않은 경우, error를 설정하는 뮤테이션을 실행시킨다.
-- [X] handleAction() - 외부에서 입력받은 state값이 올바른 경우, 액션에 해당하는 뮤테이션을 실행시킨다.
-- [X] handleMutation() - 전달받은 state로 ViewModel의 state와 Model의 state를 업데이트 한다.
+- [X] handleAction() - 외부에서 입력받은 state값이 올바르지 않은 경우, error를 설정하는 뮤테이션을 시켜 state를 변경한다.
+- [X] handleAction() - 외부에서 입력받은 state값이 올바른 경우, 액션에 해당하는 뮤테이션을 시켜 state를 변경한다.
 - [X] start() - Race의 라운드를 진행시키고 라운드가 진행될 때마다 Model에 현재 carList를 전달한다.
 - [X] start() - Race가 모두 종료되고 Model에 winnerList를 전달한다.
 - [X] update() - update시, 구독하고 있는 요소에게 ViewModel의 state를 전달한다.

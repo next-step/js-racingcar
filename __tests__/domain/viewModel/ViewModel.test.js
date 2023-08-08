@@ -1,7 +1,8 @@
 import { Car } from '../../../src/domain/components/Car'
-import { ACTION_TYPE, MUTATION_TYPE } from '../../../src/constants/viewModel'
+import { ACTION_TYPE } from '../../../src/constants/viewModel'
 import { Observable } from '../../../src/utils/Observable'
 import { ViewModel } from '../../../src/domain/viewModel/ViewModel'
+import { CAR, CAR_ERROR_MESSAGE } from '../../../src/constants/components/car'
 
 describe('ViewModel', () => {
   let logSpy
@@ -35,11 +36,8 @@ describe('ViewModel', () => {
     jest.clearAllMocks()
   })
 
-  test('handleAction() - 외부에서 입력받은 state값이 올바르지 않은 경우, error를 설정하는 뮤테이션을 실행시킨다.', () => {
+  test('handleAction() - 외부에서 입력받은 state값이 올바르지 않은 경우, error를 설정하는 뮤테이션을 시켜 state를 변경한다.', () => {
     // Given
-    jest
-      .spyOn(ViewModel.prototype, 'handleMutation')
-      .mockImplementationOnce(({ type }) => console.log(type))
     const mockModel = new MockModel()
     const viewModel = new ViewModel(mockModel)
 
@@ -47,14 +45,13 @@ describe('ViewModel', () => {
     viewModel.handleAction({ type: ACTION_TYPE.CHANGE_STEP })
 
     // Then
-    expect(logSpy.mock.calls[0][0]).toBe(MUTATION_TYPE.SET_ERROR)
+    expect(viewModel.getState().error).toEqual(
+      new Error(CAR_ERROR_MESSAGE.UNDER_NAME_MIN_LENGTH(CAR.MIN_NAME_LENGTH))
+    )
   })
 
-  test('handleAction() - 외부에서 입력받은 state값이 올바른 경우, 액션에 해당하는 뮤테이션을 실행시킨다.', () => {
+  test('handleAction() - 외부에서 입력받은 state값이 올바른 경우, 액션에 해당하는 뮤테이션을 시켜 state를 변경한다.', () => {
     // Given
-    jest
-      .spyOn(ViewModel.prototype, 'handleMutation')
-      .mockImplementationOnce(({ type }) => console.log(type))
     const mockModel = new MockModel()
     const viewModel = new ViewModel(mockModel)
 
@@ -69,23 +66,7 @@ describe('ViewModel', () => {
     })
 
     // Then
-    expect(logSpy.mock.calls[0][0]).toBe(MUTATION_TYPE.SET_STEP)
-  })
-
-  test('handleMutation() - 전달받은 state로 ViewModel의 state와 Model의 state를 업데이트 한다.', () => {
-    // Given
-    const mockModel = new MockModel()
-    const viewModel = new ViewModel(mockModel)
-
-    // When
-    viewModel.handleMutation({
-      type: MUTATION_TYPE.SET_CAR_LIST,
-      state: { carList: ['sonny'] }
-    })
-
-    // Then
-    expect(viewModel.getState().carList).toEqual(['sonny'])
-    expect(mockModel.getState().carList).toEqual(['sonny'])
+    expect(viewModel.getState().carNames).toEqual('sonny, son')
   })
 
   test('start() - Race의 라운드를 진행시키고 라운드가 진행될 때마다 Model에 현재 carList를 전달한다.', () => {
@@ -131,25 +112,23 @@ describe('ViewModel', () => {
 
   test('update() - update시, 구독하고 있는 요소에게 ViewModel의 state를 전달한다.', () => {
     // Given
-    const spy = state => console.log(state.mock)
+    const spy = state => console.log(state.step)
     const mockModel = new MockModel()
     const viewModel = new ViewModel(mockModel)
-    viewModel.handleMutation({ state: { mock: 'mock' } })
     viewModel.subscribe(spy)
 
     // When
     viewModel.update()
 
     // Then
-    expect(logSpy.mock.calls[0][0]).toBe('mock')
+    expect(logSpy.mock.calls[0][0]).toBe(1)
   })
 
   test('destroy() - ViewModel은 destroy 이후 update를 호출한 경우, 상태를 전달받을 수 없다.', () => {
     // Given
-    const spy = state => console.log(state.mock)
+    const spy = state => console.log(state.step)
     const mockModel = new MockModel()
     const viewModel = new ViewModel(mockModel)
-    viewModel.handleMutation({ mock: 'mock' })
     viewModel.subscribe(spy)
 
     // When
