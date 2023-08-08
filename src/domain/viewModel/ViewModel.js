@@ -12,14 +12,13 @@ export class ViewModel extends Observable {
     this.model = model
     this.model.subscribe(this.update.bind(this))
 
-    const initialState = {
+    this.#state = {
       step: 1,
       type: '',
       error: '',
       carNames: '',
       ...model.getState()
     }
-    this.#state = initialState
   }
 
   #handleMutation({ type, state }) {
