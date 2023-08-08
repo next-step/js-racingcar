@@ -1,7 +1,7 @@
-import { RANDOM_NUMBER_MAX, RANDOM_NUMBER_MIN, SEPERATOR } from '../constants/settings.js';
+import { RANDOM_NUMBER_MAX, RANDOM_NUMBER_MIN, SEPERATOR } from '../../constants/settings.js';
+import { getRandomNumber, trimString } from '../../util/index.js';
+import CarView from '../../view/CarView.js';
 import CarModel from '../model/CarModel.js';
-import { getRandomNumber, trimString } from '../util/index.js';
-import CarView from '../view/CarView.js';
 
 export class RacingSystem {
   cars;

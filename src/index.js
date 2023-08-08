@@ -1,5 +1,5 @@
 import { MESSAGES } from './constants/messages.js';
-import { RacingSystem } from './controller/RacingSystem.js';
+import { RacingSystem } from './domain/controller/RacingSystem.js';
 import { validateNames, validateRound } from './domain/validator.js';
 import { manipulateReadline } from './util/manipulateReadline.js';
 
