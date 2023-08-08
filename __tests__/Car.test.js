@@ -10,11 +10,11 @@ describe('Car Class', () => {
 
   describe('class 속성 테스트', () => {
     test('Car class는 name이 있다.', () => {
-      expect(car.getName()).toBe(carName);
+      expect(car.name).toBe(carName);
     });
 
     test('자동차의 주행거리의 초기값은 0이다.', () => {
-      expect(car.getDistanceDriven()).toBe(0);
+      expect(car.distanceDriven).toBe(0);
     });
   });
 
@@ -47,15 +47,13 @@ describe('Car Class', () => {
     test.each([1, 2, 3])(
       '자동차가 한번 전진시 주행거리의 값이 %i 늘어난다.',
       (moveForwardTimes) => {
-        const prevDistanceDriven = car.getDistanceDriven();
+        const prevDistanceDriven = car.distanceDriven;
 
         for (let i = 0; i < moveForwardTimes; i++) {
           car.moveForward();
         }
 
-        expect(car.getDistanceDriven()).toBe(
-          prevDistanceDriven + moveForwardTimes
-        );
+        expect(car.distanceDriven).toBe(prevDistanceDriven + moveForwardTimes);
       }
     );
   });

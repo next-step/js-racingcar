@@ -32,11 +32,11 @@ class Car {
     }
   }
 
-  getName() {
+  get name() {
     return this.#name;
   }
 
-  getDistanceDriven() {
+  get distanceDriven() {
     return this.#distanceDriven;
   }
 

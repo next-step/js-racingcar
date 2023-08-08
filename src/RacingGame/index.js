@@ -53,19 +53,19 @@ class RacingGame {
 
   getCarsRecord() {
     return this.#cars.map((car) => ({
-      name: car.getName(),
-      distanceDriven: car.getDistanceDriven(),
+      name: car.name,
+      distanceDriven: car.distanceDriven,
     }));
   }
 
   getMaxDistanceDriven() {
-    return Math.max(...this.#cars.map((car) => car.getDistanceDriven()));
+    return Math.max(...this.#cars.map((car) => car.distanceDriven));
   }
 
   getWinningCars() {
     const maxDistance = this.getMaxDistanceDriven();
 
-    return this.#cars.filter((car) => car.getDistanceDriven() === maxDistance);
+    return this.#cars.filter((car) => car.distanceDriven === maxDistance);
   }
 
   canMoveForward() {

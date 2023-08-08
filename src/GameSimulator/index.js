@@ -41,7 +41,7 @@ class GameSimulator {
   printWinningCars() {
     const winningCarNames = this.#racingGame
       .getWinningCars()
-      .map((car) => car.getName())
+      .map((car) => car.name)
       .join(',');
 
     this.#messageViewer(`${winningCarNames}가 최종 우승했습니다.`);
