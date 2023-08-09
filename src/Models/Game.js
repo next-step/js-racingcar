@@ -48,8 +48,6 @@ export default class Game {
 
     this.#validateDuplicateCarNames(carNames);
 
-    // TODO sideEffect 존재 -> 원인 확인하기
-    // this.#cars = carNames.map(Car.of);
     this.#cars = carNames.map((carName) => Car.of(carName));
 
     this.#currRound = Game.INITIAL_ROUND;
