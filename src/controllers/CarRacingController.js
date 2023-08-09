@@ -18,11 +18,7 @@ class CarRacingController {
     this.#consoleOutput = new ConsoleOutput();
   }
 
-  getRace() {
-    return this.#race;
-  }
-
-  splitToCars(carNames) {
+  #splitToCars(carNames) {
     const cars = carNames
       .split(CHARACTERS.CAR_SEPERATOR)
       .map((car) => new Car(car));
@@ -30,11 +26,15 @@ class CarRacingController {
     return cars;
   }
 
+  getRace() {
+    return this.#race;
+  }
+
   async startRace() {
     const carNames = await this.#consoleInput.readCarNames();
     this.#readline.close();
 
-    const cars = this.splitToCars(carNames);
+    const cars = this.#splitToCars(carNames);
     this.#race = new Race(cars);
 
     this.playRace();
