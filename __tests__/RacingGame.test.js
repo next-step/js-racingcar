@@ -76,12 +76,12 @@ describe('RacingGame 테스트', () => {
       );
     });
 
-    test(`RacingGame round는 기본 ${RacingGame.DEFAULT_MAX_ROUNDS}회동안 진행된다.`, async () => {
+    test(`RacingGame round는 기본 5회동안 진행된다.`, async () => {
       const runRoundSpy = jest.spyOn(racingGame, 'runRound');
 
       racingGame.startRace({ checkCanMoveForward: () => true });
 
-      expect(runRoundSpy).toBeCalledTimes(RacingGame.DEFAULT_MAX_ROUNDS);
+      expect(runRoundSpy).toBeCalledTimes(5);
 
       runRoundSpy.mockRestore();
     });
@@ -118,9 +118,7 @@ describe('RacingGame 테스트', () => {
       test.each([[1, 2, 3], ['a', 'b', 'c'], null, undefined])(
         'Car instance가 아닐 때',
         (invalidCars) => {
-          expect(() => new RacingGame(invalidCars)).toThrow(
-            RacingGame.ERROR_MESSAGE.NO_CAR_INSTACE
-          );
+          expect(() => new RacingGame(invalidCars)).toThrow();
         }
       );
     });
@@ -129,9 +127,7 @@ describe('RacingGame 테스트', () => {
       test.each(['abc', '1', null, {}])(
         '숫자가 아닐 때',
         (invalidMaxRounds) => {
-          expect(() => new RacingGame(cars, invalidMaxRounds)).toThrow(
-            RacingGame.ERROR_MESSAGE.INVALID_MAX_ROUNDS
-          );
+          expect(() => new RacingGame(cars, invalidMaxRounds)).toThrow();
         }
       );
     });

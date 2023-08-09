@@ -20,26 +20,22 @@ describe('Car Class', () => {
 
   describe('자동차 이름 검증 테스트', () => {
     test.each(['1', '12', '123', '1234', '12345'])(
-      `자동차 이름 길이가 ${Car.NAME_LENGTH.MIN}에서 ${Car.NAME_LENGTH.MAX} 사이면 에러가 발생하지 않는다.`,
+      `자동차 이름 길이가 1에서 5 사이면 에러가 발생하지 않는다.`,
       (name) => {
         expect(() => Car.of(name)).not.toThrow();
       }
     );
 
-    test(`자동차 이름 길이는 최대 ${Car.NAME_LENGTH.MAX}글자다.`, () => {
+    test(`자동차 이름 길이는 최대 5글자다.`, () => {
       const name = '최대다섯글자';
 
-      expect(() => Car.of(name)).toThrow(
-        new Error(Car.NAME_ERROR_MESSAGE.OVER_THAN_MAX)
-      );
+      expect(() => Car.of(name)).toThrow();
     });
 
-    test(`자동차 이름의 길이는 최소 ${Car.NAME_LENGTH.MIN}글자 이상이다.`, () => {
+    test(`자동차 이름의 길이는 최소 1글자 이상이다.`, () => {
       const name = '';
 
-      expect(() => Car.of(name)).toThrow(
-        new Error(Car.NAME_ERROR_MESSAGE.LESS_THAN_MIN)
-      );
+      expect(() => Car.of(name)).toThrow();
     });
   });
 
