@@ -13,8 +13,8 @@ export default class CarRaceOrganizer {
   #lap = 0;
 
   constructor(cars, totalLap) {
-    this.#validateDuplicateCarName(cars);
-    this.#validateLap(totalLap);
+    CarRaceOrganizer.validateDuplicateCarName(cars);
+    CarRaceOrganizer.validateTotalLap(totalLap);
     this.#cars = cars;
     this.#totalLap = Number(totalLap);
   }
@@ -27,16 +27,16 @@ export default class CarRaceOrganizer {
     return this.#winners;
   }
 
-  #validateLap(totalLap) {
-    if (!isOnlyNumber(totalLap)) {
-      throw new Error(ERROR_MESSAGE.INVALID_NUMBER);
-    }
-  }
-
-  #validateDuplicateCarName(cars) {
+  static validateDuplicateCarName(cars) {
     const carNames = cars.map((car) => car.name);
     if (isDuplicateArray(carNames)) {
       throw new Error(ERROR_MESSAGE.DUPLICATE_CAR);
+    }
+  }
+
+  static validateTotalLap(totalLap) {
+    if (!isOnlyNumber(totalLap)) {
+      throw new Error(ERROR_MESSAGE.INVALID_NUMBER);
     }
   }
 

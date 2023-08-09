@@ -1,19 +1,13 @@
 import { stdin as input, stdout as output } from 'process';
 import * as readline from 'readline';
-import { splitString, isFunction } from '../utils/index';
+import { splitString } from '../utils/index';
 import { ALERT_MESSAGE, ERROR_MESSAGE, CAR_CONFIGURE } from '../constants/index';
 import { printMessage } from './viewer';
 
-const readlineInterface = readline.createInterface({ input, output });
-
 const { INPUT_CAR_MESSAGE, RETRY_MESSAGE, QUESTION_RACE_LAP_MESSAGE } = ALERT_MESSAGE;
-const { NOT_RECEIVED_FUNCTION, NOT_RECEIVED_INPUT_CARS, NOT_RECEIVED_INPUT_LAP } = ERROR_MESSAGE;
+const { NOT_RECEIVED_INPUT_CARS, NOT_RECEIVED_INPUT_LAP } = ERROR_MESSAGE;
 
-const validatePromptListenerType = (listener) => {
-  if (!isFunction(listener)) {
-    throw new Error(NOT_RECEIVED_FUNCTION);
-  }
-};
+const readlineInterface = readline.createInterface({ input, output });
 
 const convertInputMessageToArray = (inputMessage) => splitString(inputMessage, CAR_CONFIGURE.NAME_SEPARATOR);
 
@@ -27,20 +21,31 @@ const readInputMessage = (questionMessage, errorMessage) =>
     });
   });
 
-const executeReadInput = async (listener) => {
+export const errorFallback = (error) => {
+  printMessage(error);
+  printMessage(RETRY_MESSAGE);
+};
+
+export const executeReadInputCar = async () => {
   try {
     const inputCars = await readInputMessage(INPUT_CAR_MESSAGE, NOT_RECEIVED_INPUT_CARS);
-    const inputRaceLap = await readInputMessage(QUESTION_RACE_LAP_MESSAGE, NOT_RECEIVED_INPUT_LAP);
-
-    validatePromptListenerType(listener);
-    listener(convertInputMessageToArray(inputCars), Number(inputRaceLap));
+    return convertInputMessageToArray(inputCars);
   } catch (error) {
-    printMessage(error);
-    printMessage(RETRY_MESSAGE);
-    await executeReadInput(listener);
-  } finally {
-    readlineInterface.close();
+    errorFallback(error);
+    return executeReadInputCar();
   }
 };
 
-export default executeReadInput;
+export const executeReadInputTotalLap = async () => {
+  try {
+    const inputTotalLap = await readInputMessage(QUESTION_RACE_LAP_MESSAGE, NOT_RECEIVED_INPUT_LAP);
+    return Number(inputTotalLap);
+  } catch (error) {
+    errorFallback(error);
+    return executeReadInputTotalLap();
+  }
+};
+
+export const endPrompter = () => {
+  readlineInterface.close();
+};

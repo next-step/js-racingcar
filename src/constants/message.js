@@ -7,7 +7,6 @@ export const ERROR_MESSAGE = Object.freeze({
   NOT_RECEIVED_CAR_NAME: '참여중인 자동차에 누락된 이름이 존재합니다.',
   NOT_RECEIVED_INPUT_CARS: '참여 할 자동차들을 입력해주세요.',
   NOT_RECEIVED_INPUT_LAP: '주행 횟수를 입력해주세요.',
-  NOT_RECEIVED_FUNCTION: '리스너 함수는 function 타입만 올 수 있습니다.',
   INVALID_INPUT: '올바르지 않은 입력입니다.',
   INVALID_NUMBER: '주행 횟수는 숫자만 입력해주세요.'
 });
