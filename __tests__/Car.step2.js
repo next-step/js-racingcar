@@ -4,7 +4,7 @@ import { MAX_CAR_NAME_LENGTH } from "../src/constants/rules";
 import {
   validateDuplicationItemList,
   validateEmptyString,
-} from "../src/utils/helpers";
+} from "../src/validator";
 
 describe("RacingCarGameController 사용자가 입력하는 데이터", () => {
   const duplicateNameList = ["frank", "frank"];
@@ -12,7 +12,7 @@ describe("RacingCarGameController 사용자가 입력하는 데이터", () => {
 
   test("사용자가 입력 값 validation 중복 유효성 검사한다. ", () => {
     expect(() => validateDuplicationItemList(duplicateNameList)).toThrow(
-      ERROR_MESSAGE.duplicateCarName
+      ERROR_MESSAGE.duplicateName
     );
   });
   test("Max length 유효성 검사, empty string  유효성검사", () => {
