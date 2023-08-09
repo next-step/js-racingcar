@@ -4,33 +4,23 @@ import {
   DUMMY_INPUT_CAR_NAMES,
   DUMMY_INCORRECT_INPUT_CAR_NAMES,
   DUMMY_RACE_SET,
-  DUMMY_WINNER_RACE_SET,
-  DUMMY_DUPLICATE_WINNER_RACE_SET,
   DUMMY_RACE_TOTAL_LAPS,
   DUMMY_INCORRECT_RACE_TOTAL_LAPS
 } from './constants';
 import { ERROR_MESSAGE } from '../src/constants/index';
 import { CarRaceOrganizer, Car } from '../src/classes/index';
 
-const getRaceWinners = (raceModel) => {
-  const carRaceOrganizer = new CarRaceOrganizer(raceModel, DUMMY_INPUT_TOTAL_LAP);
-  carRaceOrganizer.printWinners();
-  return carRaceOrganizer.winners;
-};
-
 const getCars = (inputCars) => {
   return inputCars.map((name) => new Car(name));
 };
 
+const getRaceWinners = (cars) => {
+  const carRaceOrganizer = new CarRaceOrganizer(cars, DUMMY_INPUT_TOTAL_LAP);
+  carRaceOrganizer.printWinners();
+  return carRaceOrganizer.winners;
+};
+
 describe('자동차 경주 테스트', () => {
-  beforeEach(() => {
-    logSpy = jest.spyOn(global.console, 'log');
-  });
-
-  afterEach(() => {
-    logSpy.mockClear();
-  });
-
   it('자동차 경주에 참여하는 자동차가 없을 시 오류가 발생한다.', () => {
     expect(() => {
       new CarRaceOrganizer();
@@ -67,11 +57,13 @@ describe('자동차 경주 테스트', () => {
   });
 
   it('자동차 주행 횟수 마다 경주 상태를 출력한다.', () => {
+    const logSpy = jest.spyOn(console, 'log');
     const cars = getCars(DUMMY_CARS);
     const carRaceOrganizer = new CarRaceOrganizer(cars, DUMMY_INPUT_TOTAL_LAP);
     carRaceOrganizer.runSingleRace();
     carRaceOrganizer.printRace();
     expect(logSpy).toHaveBeenCalledTimes(DUMMY_CARS.length);
+    logSpy.mockClear();
   });
 
   test.each(DUMMY_RACE_TOTAL_LAPS)('자동차 경주 횟수는 숫자($inputTotalLap)만 취급한다.', ({ inputTotalLap }) => {
@@ -104,14 +96,19 @@ describe('자동차 경주 테스트', () => {
     }
   );
 
-  it('자동차 경주 종료 후, 많은 거리를 이동한 자동차가 우승한다.', () => {
-    const winners = getRaceWinners(DUMMY_WINNER_RACE_SET);
+  it('자동차 경주 종료 후, 가장 많은 거리를 이동한 자동차가 우승한다.', () => {
+    const cars = getCars(DUMMY_CARS);
+    cars.map((car, index) => car.move(index + 1));
+    const winners = getRaceWinners(cars);
     expect(winners).toHaveLength(1);
-    expect(winners.pop()).toBe('peach');
+    expect(winners.pop()).toBe(cars.pop().name);
   });
 
-  it('우승자는 여러 명일 수 있다.', () => {
-    const winners = getRaceWinners(DUMMY_DUPLICATE_WINNER_RACE_SET);
-    expect(winners).toHaveLength(2);
+  it('자동차 경주 종료 후, 최종 이동한 거리가 같다면 우승자는 여러 명이다.', () => {
+    const cars = getCars(DUMMY_CARS);
+    cars.map((car) => car.move(4));
+    const winners = getRaceWinners(cars);
+    expect(winners).toHaveLength(cars.length);
+    expect(winners.pop()).toBe(cars.pop().name);
   });
 });
