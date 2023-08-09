@@ -1,15 +1,10 @@
-import readline from 'readline';
+import * as readline from 'node:readline/promises';
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
 export const getUserInputByQuestion = (question) => {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  return new Promise((resolve) => {
-    rl.question(question + '\n', (answer) => {
-      rl.close();
-      resolve(answer);
-    });
-  });
+  return rl.question(question + '\n');
 };

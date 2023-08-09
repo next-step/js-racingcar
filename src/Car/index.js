@@ -1,11 +1,14 @@
-import { getRandomInRange } from '../utils/getRandomInRange.js';
-import {
-  NAME_LENGTH,
-  NAME_ERROR_MESSAGE,
-  MOVE_FORWARD_THRESHOLD,
-} from './constants.js';
-
 class Car {
+  static NAME_LENGTH = {
+    MIN: 1,
+    MAX: 5,
+  };
+
+  static NAME_ERROR_MESSAGE = {
+    LESS_THAN_MIN: `자동차 이름은 최소 ${Car.NAME_LENGTH.MIN}글자 이상 입니다.`,
+    OVER_THAN_MAX: `자동차 이름은 최대 ${Car.NAME_LENGTH.MAX}글자 입니다.`,
+  };
+
   #name;
   #distanceDriven = 0;
 
@@ -20,31 +23,25 @@ class Car {
   }
 
   validateName(name) {
-    if (name.length < NAME_LENGTH.MIN) {
-      throw new Error(NAME_ERROR_MESSAGE.LESS_THAN_MIN);
+    if (name.length < Car.NAME_LENGTH.MIN) {
+      throw new Error(Car.NAME_ERROR_MESSAGE.LESS_THAN_MIN);
     }
 
-    if (name.length > NAME_LENGTH.MAX) {
-      throw new Error(NAME_ERROR_MESSAGE.OVER_THAN_MAX);
+    if (name.length > Car.NAME_LENGTH.MAX) {
+      throw new Error(Car.NAME_ERROR_MESSAGE.OVER_THAN_MAX);
     }
   }
 
-  getName() {
+  get name() {
     return this.#name;
   }
 
-  getDistanceDriven() {
+  get distanceDriven() {
     return this.#distanceDriven;
   }
 
-  canMoveForward() {
-    return getRandomInRange() >= MOVE_FORWARD_THRESHOLD;
-  }
-
   moveForward() {
-    if (this.canMoveForward()) {
-      this.#distanceDriven = this.#distanceDriven + 1;
-    }
+    this.#distanceDriven = this.#distanceDriven + 1;
   }
 }
 

@@ -1,74 +1,79 @@
 import Car from '../Car/index.js';
 import RacingGame from '../RacingGame/index.js';
-import { getUserInputByQuestion } from '../utils/getUserInputByQuestion.js';
-import { MAX_ROUNDS } from './constants.js';
 
 class GameSimulator {
   #racingGame;
-  #messageViewer;
+  #gameViewer;
+  #gameInput;
+  #carNames;
   #maxRounds;
+  checkCanMoveForward;
 
-  constructor(messageViewer, maxRounds = MAX_ROUNDS) {
-    this.#messageViewer = messageViewer;
-    this.#maxRounds = maxRounds;
+  constructor(gameViewer, gameInput, checkCanMoveForward) {
+    this.#gameViewer = gameViewer;
+    this.#gameInput = gameInput;
+    this.checkCanMoveForward = checkCanMoveForward;
   }
 
   async setRacingGame() {
-    const inputString = await getUserInputByQuestion(
-      '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).'
-    );
-    const carNames = inputString.split(',');
-
-    this.#racingGame = new RacingGame(carNames.map(Car.of));
-  }
-
-  runRound() {
-    this.#racingGame.runRound();
-    this.#racingGame.getCars().forEach((car) => {
-      this.printCarStatus(car.getName(), car.getDistanceDriven());
-    });
-  }
-
-  startRound() {
-    this.#messageViewer('\n실행 결과\n');
-
-    for (let i = 0; i < this.#maxRounds; i++) {
-      this.runRound();
-      this.#messageViewer('');
+    if (!this.#carNames) {
+      await this.setCarNames();
     }
+
+    if (!this.#maxRounds) {
+      await this.setMaxRounds();
+    }
+
+    this.#racingGame = new RacingGame(
+      this.#carNames.map(Car.of),
+      this.#maxRounds
+    );
   }
 
-  getWinningCarNames() {
-    return this.#racingGame.getWinningCars().map((car) => car.getName());
+  async setCarNames() {
+    const inputString = await this.#gameInput.getCarNamesByInput();
+
+    this.#carNames = inputString.split(',');
   }
 
-  printCarStatus(name, distanceDriven) {
-    const formattedStatus = `${name} : ${'-'.repeat(distanceDriven)}`;
-
-    this.#messageViewer(formattedStatus);
-  }
-
-  printWinningCars() {
-    const winningCarNames = this.getWinningCarNames().join(',');
-
-    this.#messageViewer(`${winningCarNames}가 최종 우승했습니다.`);
-  }
-
-  forceFinish(message) {
-    this.#messageViewer(message);
-    this.#messageViewer('프로그램을 종료하겠습니다.');
-
-    process.exit(1);
+  async setMaxRounds() {
+    this.#maxRounds = await this.#gameInput.getMaxRounsByInput();
   }
 
   async startGame() {
     try {
       await this.setRacingGame();
 
-      this.startRound();
-      this.printWinningCars();
+      this.#racingGame.startRace({
+        checkCanMoveForward: this.checkCanMoveForward,
+      });
+      this.#gameViewer.printRecords(this.#racingGame.records);
+      this.#gameViewer.printWinningCars(this.#racingGame.winningCars);
     } catch (error) {
-      this.forceFinish(error.message);
+      this.handleError(error.message);
+    }
+  }
+
+  handleError(errorMessage) {
+    this.#gameViewer.printErrorMessage(errorMessage);
+
+    switch (errorMessage) {
+      case Car.NAME_ERROR_MESSAGE.LESS_THAN_MIN:
+      case Car.NAME_ERROR_MESSAGE.OVER_THAN_MAX:
+        this.#carNames = null;
+        this.#maxRounds = null;
+
+        this.#gameViewer.printRestart();
+        this.startGame();
+
+        break;
+      case RacingGame.ERROR_MESSAGE.INVALID_MAX_ROUNDS:
+        this.#maxRounds = null;
+
+        this.#gameViewer.printRestart();
+        this.startGame();
+
+        break;
     }
   }
 }
