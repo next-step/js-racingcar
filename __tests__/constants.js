@@ -56,7 +56,8 @@ export const DUMMY_INCORRECT_RACE_TOTAL_LAPS = [
   { inputTotalLap: () => {} },
   { inputTotalLap: -1 },
   { inputTotalLap: NaN },
-  { inputTotalLap: null }
+  { inputTotalLap: null },
+  { inputTotalLap: 0 }
 ];
 
 export const DUMMY_CARS = ['mario', 'yoshi', 'koopa', 'peach'];

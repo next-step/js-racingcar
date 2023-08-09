@@ -66,7 +66,7 @@ describe('자동차 경주 테스트', () => {
     logSpy.mockClear();
   });
 
-  test.each(DUMMY_RACE_TOTAL_LAPS)('자동차 경주 횟수는 숫자($inputTotalLap)만 취급한다.', ({ inputTotalLap }) => {
+  test.each(DUMMY_RACE_TOTAL_LAPS)('자동차 경주 횟수는 양수($inputTotalLap)만 취급한다.', ({ inputTotalLap }) => {
     const cars = getCars(DUMMY_CARS);
     expect(() => {
       new CarRaceOrganizer(cars, inputTotalLap);
@@ -78,7 +78,7 @@ describe('자동차 경주 테스트', () => {
       const cars = getCars(DUMMY_CARS);
       expect(() => {
         new CarRaceOrganizer(cars, inputTotalLap);
-      }).toThrowError(ERROR_MESSAGE.INVALID_NUMBER);
+      }).toThrowError(ERROR_MESSAGE.NOT_RECEIVED_POSITIVE_NUMBER);
     }
   );
 

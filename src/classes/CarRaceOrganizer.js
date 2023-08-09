@@ -1,6 +1,6 @@
 import { RACE_CONFIGURE, ERROR_MESSAGE } from '../constants/index';
 import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../race/index';
-import { generateRandomNumber, isDuplicateArray, isOnlyNumber } from '../utils/index';
+import { generateRandomNumber, isDuplicateArray, isOnlyPositiveNumber } from '../utils/index';
 
 export default class CarRaceOrganizer {
   #minSpeed = RACE_CONFIGURE.MIN_SPEED;
@@ -35,8 +35,8 @@ export default class CarRaceOrganizer {
   }
 
   static validateTotalLap(totalLap) {
-    if (!isOnlyNumber(totalLap)) {
-      throw new Error(ERROR_MESSAGE.INVALID_NUMBER);
+    if (!isOnlyPositiveNumber(totalLap)) {
+      throw new Error(ERROR_MESSAGE.NOT_RECEIVED_POSITIVE_NUMBER);
     }
   }
 
