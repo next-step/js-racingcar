@@ -32,8 +32,13 @@ class CarRacingController {
     const carNames = await this.#consoleInput.readCarNames();
     this.#readline.close();
 
-    const cars = this.#splitToCars(carNames);
-    this.#race = new Race(cars);
+    try {
+      const cars = this.#splitToCars(carNames);
+      this.#race = new Race(cars);
+    } catch (e) {
+      console.error(e.message);
+      return;
+    }
 
     this.playRace();
   }
