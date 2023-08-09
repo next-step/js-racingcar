@@ -1,5 +1,4 @@
 import { ERROR_MESSAGE } from "../constants/ErrorMessage";
-import { isValidInputLength } from "./validator";
 
 export default class GameTrack {
   constructor() {
@@ -14,11 +13,8 @@ export default class GameTrack {
    */
   setGameStatus(carNames) {
     carNames.split(",").forEach(carName => {
-      if (!isValidInputLength(carName.trim()))
-        throw Error(ERROR_MESSAGE.maxCarNameLength);
-
       if (this.isValidCarDuplicateName(carName.trim())) {
-        throw new Error(ERROR_MESSAGE.duplicateCarName);
+        throw new Error(ERROR_MESSAGE.duplicateName);
       }
 
       this.gameStatus.push({ carName: carName.trim(), forward: "" });
