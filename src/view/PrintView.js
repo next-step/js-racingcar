@@ -1,5 +1,5 @@
 export const updateView = {
-  print(message) {
+  printMessage(message) {
     console.log(message);
   },
   printErrorMessage(message) {

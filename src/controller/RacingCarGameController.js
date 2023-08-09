@@ -13,8 +13,9 @@ import {
 
 import { updateView } from "../view/PrintView";
 
-import { getRandomNumber, validateDuplicationItemList } from "../utils/helpers";
 import { validateNameList } from "./validator.js";
+import { getRandomNumber } from "../utils/helpers";
+import { validateDuplicationItemList } from "../validator";
 
 export default class RacingCarGameController {
   constructor(readline) {
@@ -36,7 +37,7 @@ export default class RacingCarGameController {
         this.readline.question(HOW_MANY_TRIES_PROMPT, tryChance => {
           this.numberRacingRounds = tryChance;
 
-          updateView.print(`\n 실행결과 \n`);
+          updateView.printMessage(`\n 실행결과 \n`);
 
           this.gameTrack.setGameStatus(carName);
           this.startRace(this.numberRacingRounds);
@@ -64,7 +65,7 @@ export default class RacingCarGameController {
       const gameStatus = this.getGameStatus();
       updateView.printGameStatus(gameStatus);
 
-      updateView.print("\n");
+      updateView.printMessage("\n");
     }
   }
 
@@ -102,7 +103,7 @@ export default class RacingCarGameController {
   }
 
   exit(error) {
-    updateView.print(error.message);
+    updateView.printErrorMessage(error.message);
     return this.replayGame();
   }
 }
