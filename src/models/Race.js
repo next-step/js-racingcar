@@ -1,14 +1,36 @@
-import { ERROR_MESSAGE } from "../constants/Messages";
-import { CAR, RACE } from "../constants/Numbers";
+import {
+  DUPLICATE_NAME,
+  MIN_CAR_COUNT_NOT_REACHED,
+} from "../constants/ErrorMessages";
+import {
+  CAR_RUN_THRESHOLD,
+  RACE_MAX_ROLL_NUMBER,
+  RACE_MIN_CAR_COUNT,
+  RACE_MIN_ROLL_NUMBER,
+} from "../constants/Numbers";
+import { getRandomInt } from "../utils";
 
 class Race {
   #cars;
   #winners;
 
   constructor(cars) {
-    this.validateRace(cars);
+    this.#validateRace(cars);
 
     this.#cars = cars;
+  }
+
+  #validateRace(cars) {
+    const carNameArr = cars.map((car) => car.getName());
+    const carNameSet = new Set(carNameArr);
+
+    if (carNameArr.length < RACE_MIN_CAR_COUNT) {
+      throw Error(MIN_CAR_COUNT_NOT_REACHED);
+    }
+
+    if (carNameArr.length !== carNameSet.size) {
+      throw Error(DUPLICATE_NAME);
+    }
   }
 
   getCars() {
@@ -28,31 +50,11 @@ class Race {
     return maxPosition;
   }
 
-  getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-
-  validateRace(cars) {
-    const carNameArr = cars.map((car) => car.getName());
-    const carNameSet = new Set(carNameArr);
-
-    if (carNameArr.length < RACE.MIN_CAR_COUNT) {
-      throw Error(ERROR_MESSAGE.MIN_CAR_COUNT_NOT_REACHED);
-    }
-
-    if (carNameArr.length !== carNameSet.size) {
-      throw Error(ERROR_MESSAGE.DUPLICATE_NAME);
-    }
-  }
-
   playOneRound() {
     this.#cars.forEach((car) => {
       if (
-        this.getRandomInt(RACE.MIN_ROLL_NUMBER, RACE.MAX_ROLL_NUMBER) >=
-        CAR.RUN_THRESHOLD
+        getRandomInt(RACE_MIN_ROLL_NUMBER, RACE_MAX_ROLL_NUMBER) >=
+        CAR_RUN_THRESHOLD
       )
         car.move();
     });
