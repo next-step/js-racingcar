@@ -1,6 +1,6 @@
-import { MAX_CAR_NAME_LENGTH } from "../constants/rules";
-import { ERROR_MESSAGE } from "../constants/ErrorMessage";
-import { validateEmptyString } from "../validator";
+import { ERROR_MESSAGE } from "../../constants/ErrorMessage";
+import { MAX_CAR_NAME_LENGTH } from "../../constants/rules";
+import { validateEmptyString } from "../../validator";
 
 export const validateNameList = itemList => {
   itemList.forEach(name => {

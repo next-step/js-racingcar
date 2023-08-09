@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "../constants/ErrorMessage";
+import { ERROR_MESSAGE } from "../../constants/ErrorMessage";
 
 export default class GameTrack {
   constructor() {

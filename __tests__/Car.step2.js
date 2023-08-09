@@ -1,6 +1,7 @@
-import { validateMaxLength } from "../src/controller/validator";
 import { ERROR_MESSAGE } from "../src/constants/ErrorMessage";
 import { MAX_CAR_NAME_LENGTH } from "../src/constants/rules";
+import { validateMaxLength } from "../src/domain/controller/validator";
+
 import {
   validateDuplicationItemList,
   validateEmptyString,

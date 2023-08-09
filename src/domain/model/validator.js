@@ -1,4 +1,7 @@
-import { MAX_CAR_NAME_LENGTH, MIN_CAR_NAME_LENGTH } from "../constants/rules";
+import {
+  MAX_CAR_NAME_LENGTH,
+  MIN_CAR_NAME_LENGTH,
+} from "../../constants/rules";
 
 /**
  * 이름은 1~5자만 가능하다.

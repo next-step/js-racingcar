@@ -1,5 +1,9 @@
+import { validateNameList } from "./validator";
+
 import GameTrack from "../model/GameTrack";
 import GameWinners from "../model/GameWinners";
+
+import { updateView } from "../../view/PrintView";
 
 import {
   CAR_NAME_INPUT_PROMPT,
@@ -9,13 +13,10 @@ import {
   RACE_FORWARD_RANDOM_NUMBER_LIMIT,
   HOW_MANY_TRIES_PROMPT,
   WINNER_ANNOUNCEMENT_MESSAGE,
-} from "../constants/rules";
+} from "../../constants/rules";
 
-import { updateView } from "../view/PrintView";
-
-import { validateNameList } from "./validator.js";
-import { getRandomNumber } from "../utils/helpers";
-import { validateDuplicationItemList } from "../validator";
+import { getRandomNumber } from "../../utils/helpers";
+import { validateDuplicationItemList } from "../../validator";
 
 export default class RacingCarGameController {
   constructor(readline) {
