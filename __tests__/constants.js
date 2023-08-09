@@ -43,20 +43,6 @@ export const DUMMY_RACE_SET = [
   { input: ['peach', 'mario'] }
 ];
 
-export const DUMMY_WINNER_RACE_SET = [
-  { name: 'mario', moved: 1 },
-  { name: 'yoshi', moved: 2 },
-  { name: 'koopa', moved: 3 },
-  { name: 'peach', moved: 4 }
-];
-
-export const DUMMY_DUPLICATE_WINNER_RACE_SET = [
-  { name: 'mario', moved: 1 },
-  { name: 'yoshi', moved: 2 },
-  { name: 'koopa', moved: 3 },
-  { name: 'peach', moved: 3 }
-];
-
 export const DUMMY_RACE_TOTAL_LAPS = [
   { inputTotalLap: 1 },
   { inputTotalLap: 100 },
