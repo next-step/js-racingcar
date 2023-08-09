@@ -1,36 +1,26 @@
-import { CAR_MOVE_STEP, CAN_MOVE } from "../constants/game";
-import {
-  CAR_INIT_POSITION,
-  CAR_ERROR_MESSAGE,
-  CAR_NAME_MAX_LENGTH,
-} from "../constants/car.js";
+import Game from "../Models/Game";
+
 export default class Car {
+  static INITIAL_POSITION = 0;
+  static NAME_MAX_LENGTH = 5;
+
+  static ERROR_MESSAGE = Object.freeze({
+    LONG_NAME: "자동차 이름은 5글자를 초과하여 설정할 수 없습니다.",
+    EMPTY_NAME: "자동차 이름은 빈 값으로 설정할 수 없습니다.",
+  });
+
+  static of(name, position) {
+    return new Car(name, position);
+  }
+
   #name;
   #position;
 
-  /**
-   * @param {string} name - 자동차 이름
-   * @param {number} position - 자동차 위치
-   */
-  constructor(name, position = CAR_INIT_POSITION) {
+  constructor(name, position = Car.INITIAL_POSITION) {
     this.validateName(name);
 
     this.#name = name;
     this.#position = position;
-  }
-
-  /**
-   * 자동차 이름 유효성 검사 수행 - 빈 값이거나 5자 이하면 오류 발생
-   * @param {string} name
-   * @returns
-   */
-  validateName(name) {
-    if (!name) throw new Error(CAR_ERROR_MESSAGE.EMPTY_NAME);
-
-    if (name.length > CAR_NAME_MAX_LENGTH)
-      throw new Error(CAR_ERROR_MESSAGE.LONG_NAME);
-
-    return;
   }
 
   get name() {
@@ -41,20 +31,27 @@ export default class Car {
     return this.#position;
   }
 
-  /**
-   * 자동차 현재 위치를 CAR_MOVE_STEP만큼 전진시킨다.
-   */
-  #move() {
-    this.#position += CAR_MOVE_STEP;
+  #isEmptyName(name) {
+    return !name;
   }
 
-  /**
-   * 자동차가 CAN_MOVE 전진 조건을 만족한 경우만 자동차를 전진시킨다.
-   * @param {number} randomNumber
-   */
-  tryMoveWith(randomNumber) {
-    if (CAN_MOVE(randomNumber)) {
-      this.#move();
-    }
+  #isLongName(name) {
+    return name.length > Car.NAME_MAX_LENGTH;
+  }
+
+  validateName(name) {
+    if (this.#isEmptyName(name)) throw new Error(Car.ERROR_MESSAGE.EMPTY_NAME);
+
+    if (this.#isLongName(name)) throw new Error(Car.ERROR_MESSAGE.LONG_NAME);
+  }
+
+  #move(step) {
+    this.#position += step;
+  }
+
+  tryMoveWith(randomNumber, step = Game.CAR_MOVE_STEP) {
+    if (!Game.isMovable(randomNumber)) return;
+
+    this.#move(step);
   }
 }
