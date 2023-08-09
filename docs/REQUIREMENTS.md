@@ -156,8 +156,8 @@
    [ ] callback에서 async/await 으로 변경
 
 2. 클래스 필요성
-   [ ] Controller, View 클래스 -> 일반 객체로 변경
-   [ ] Controller, View 모듈화
+   [ ] Controller, View 클래스 -> 일반 객체로 변경 - step2 확장 후 고민
+   [ ] Controller, View 모듈화 
 
 3. 테스트
    [X] 테스트케이스 자동 생성 코드 제거
