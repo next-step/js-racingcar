@@ -20,7 +20,7 @@ class GameSimulator {
     const cars = carNames.map(Car.of);
     const maxRounds = await getUserInputByQuestion('시도할 회수는 몇회인가요?');
 
-    this.#racingGame = new RacingGame(cars, maxRounds);
+    this.#racingGame = new RacingGame(cars, Number(maxRounds));
   }
 
   async startGame() {

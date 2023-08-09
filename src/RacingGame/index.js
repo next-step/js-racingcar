@@ -27,7 +27,7 @@ class RacingGame {
       throw new Error(RacingGame.ERROR_MESSAGE.NO_CAR_INSTACE);
     }
 
-    if (typeof maxRounds !== 'number') {
+    if (typeof maxRounds !== 'number' || isNaN(maxRounds)) {
       throw new Error(RacingGame.ERROR_MESSAGE.INVALID_MAX_ROUNDS);
     }
   }
