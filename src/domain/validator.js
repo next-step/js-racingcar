@@ -1,17 +1,17 @@
-import { MESSAGES } from '../constants/messages.js';
+import { stringTrimer } from '../util/index.js';
 import {
   ATTEMPT_MAX_NUMBER,
+  MESSAGES,
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
   ROUND_MAX_NUMBER,
   SEPERATOR,
-} from '../constants/settings.js';
-import { trimString } from '../util/index.js';
+} from './constants/index.js';
 
-export const IsMaxAttempt = (attempt) => attempt > ATTEMPT_MAX_NUMBER;
+export const isMaxAttempt = (attempt) => attempt > ATTEMPT_MAX_NUMBER;
 
 export const validateNames = (names) => {
-  const namesArray = names.split(SEPERATOR).map((name) => trimString(name));
+  const namesArray = names.split(SEPERATOR).map((name) => stringTrimer(name));
   namesArray.forEach((name) => {
     validateNameMaxLength(name);
     validateNameMinLength(name);

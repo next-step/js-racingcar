@@ -1,21 +1,21 @@
-import { MESSAGES } from './constants/messages.js';
+import { MESSAGES } from './domain/constants/index.js';
 import { RacingSystem } from './domain/controller/RacingSystem.js';
 import { validateNames, validateRound } from './domain/validator.js';
-import { manipulateReadline } from './util/manipulateReadline.js';
+import { readlineController } from './util/index.js';
 
 const racingSystem = new RacingSystem();
 
 async function main() {
-  const NAMES = await manipulateReadline.questionReadline(
+  const NAMES = await readlineController.questionReadline(
     `${MESSAGES.GAME.START_PROMPT}`,
     validateNames,
   );
-  const ROUND = await manipulateReadline.questionReadline(
+  const ROUND = await readlineController.questionReadline(
     `${MESSAGES.GAME.ROUND_HEADER}`,
     validateRound,
   );
   racingSystem.startGame(NAMES, ROUND);
-  manipulateReadline.closeReadline();
+  readlineController.closeReadline();
 }
 
 main();

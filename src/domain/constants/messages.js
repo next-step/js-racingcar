@@ -1,4 +1,4 @@
-import { ATTEMPT_MAX_NUMBER, NAME_MAX_LENGTH, NAME_MIN_LENGTH, SEPERATOR } from './settings.js';
+import { ATTEMPT_MAX_NUMBER, NAME_MAX_LENGTH, NAME_MIN_LENGTH, SEPERATOR } from './index.js';
 
 export const MESSAGES = Object.freeze({
   ERROR: {

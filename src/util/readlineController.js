@@ -1,6 +1,6 @@
 import { stdin as input, stdout as output } from 'process';
 import readline from 'readline';
-import { MESSAGES } from '../domain/constants/messages.js';
+import { MESSAGES } from '../domain/constants/index.js';
 import { isMaxAttempt } from '../domain/validator.js';
 
 export const readlineController = {
