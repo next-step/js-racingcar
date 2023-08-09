@@ -1,6 +1,6 @@
-import { CHARACTERS } from "../constants/Characters";
-import { MESSAGE } from "../constants/Messages";
-import { RACE } from "../constants/Numbers";
+import { CAR_SEPERATOR } from "../constants/Characters";
+import { RESULT_OF_RACE } from "../constants/Messages";
+import { RACE_MAX_ROUND } from "../constants/Numbers";
 import Car from "../models/Car";
 import Race from "../models/Race";
 import ConsoleInput from "../views/ConsoleInput";
@@ -19,9 +19,7 @@ class CarRacingController {
   }
 
   #splitToCars(carNames) {
-    const cars = carNames
-      .split(CHARACTERS.CAR_SEPERATOR)
-      .map((car) => new Car(car));
+    const cars = carNames.split(CAR_SEPERATOR).map((car) => new Car(car));
 
     return cars;
   }
@@ -41,8 +39,8 @@ class CarRacingController {
   }
 
   playRace() {
-    this.#consoleOutput.print(`\n${MESSAGE.RESULT_OF_RACE}`);
-    for (let i = 0; i < RACE.MAX_ROUND; i++) {
+    this.#consoleOutput.print(`\n${RESULT_OF_RACE}`);
+    for (let i = 0; i < RACE_MAX_ROUND; i++) {
       this.#race.playOneRound();
       this.#consoleOutput.printAllPositions(this.#race.getCars());
     }

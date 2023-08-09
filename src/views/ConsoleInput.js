@@ -1,4 +1,4 @@
-import { MESSAGE } from "../constants/Messages";
+import { INPUT_CAR_NAMES } from "../constants/Messages";
 
 class ConsoleInput {
   #readline;
@@ -8,7 +8,7 @@ class ConsoleInput {
   }
 
   readCarNames() {
-    return this.#readline.question(`${MESSAGE.INPUT_CAR_NAMES}\n`);
+    return this.#readline.question(`${INPUT_CAR_NAMES}\n`);
   }
 }
 

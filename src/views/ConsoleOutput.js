@@ -1,5 +1,5 @@
-import { CHARACTERS } from "../constants/Characters";
-import { MESSAGE } from "../constants/Messages";
+import { CAR_SEPERATOR, PROGRESS_UNIT } from "../constants/Characters";
+import { WINNER_IS } from "../constants/Messages";
 
 class ConsoleOutput {
   print(query) {
@@ -9,9 +9,7 @@ class ConsoleOutput {
   printWinners(cars) {
     const carNamesArr = cars.map((car) => car.getName());
 
-    console.log(
-      MESSAGE.WINNER_IS(carNamesArr.join(`${CHARACTERS.CAR_SEPERATOR} `))
-    );
+    console.log(WINNER_IS(carNamesArr.join(`${CAR_SEPERATOR} `)));
   }
 
   printAllPositions(cars) {
@@ -23,7 +21,7 @@ class ConsoleOutput {
 
   printEachPosition(car) {
     console.log(
-      `${car.getName()} : ${CHARACTERS.PROGRESS_UNIT.repeat(car.getPosition())}`
+      `${car.getName()} : ${PROGRESS_UNIT.repeat(car.getPosition())}`
     );
   }
 
