@@ -28,8 +28,11 @@ class GameViewer {
     this.#messageViewer(`${winningCarNames}가 최종 우승했습니다.`);
   }
 
-  printRestart(errorMessage) {
-    this.#messageViewer(errorMessage);
+  printErrorMessage(errorMessage) {
+    this.#messageViewer(`\n${errorMessage}\n`);
+  }
+
+  printRestart() {
     this.#messageViewer('\n게임을 다시 시작하겠습니다.\n');
   }
 }
