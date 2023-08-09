@@ -2,10 +2,10 @@ import { getUserInputByQuestion } from '../../src/utils/getUserInputByQuestion';
 
 const USER_ANSWER = '사용자 입력 값';
 
-jest.mock('readline', () => {
+jest.mock('node:readline/promises', () => {
   return {
     createInterface: jest.fn().mockReturnValue({
-      question: jest.fn((_, callback) => callback(USER_ANSWER)),
+      question: jest.fn(() => Promise.resolve(USER_ANSWER)),
       close: jest.fn(),
     }),
   };
