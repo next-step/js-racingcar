@@ -31,11 +31,15 @@
     "eslint": "^8.31.0",
     "esm": "^3.2.25",
     "jest": "^29.3.1",
+    "jest-plugin-context": "^2.9.0",
     "prettier": "^2.8.2",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
   },
   "jest": {
+    "setupFiles": [
+      "jest-plugin-context/setup"
+    ],
     "transform": {
       "\\.[jt]sx?$": "babel-jest"
     }

@@ -1,6 +1,5 @@
 import { Car } from "../Car/Car";
 import { getRandomNumberInRange } from "../../util/getRandomNumber";
-import { Console } from "../../util/Console";
 import {MIN_GAME_SIZE, RANDOM_MAX_NUMBER, RANDOM_MIN_NUMBER} from "./RacingGame.const";
 import {containsOnlyNumbers} from "../../util/containsOnlyNumbers";
 
@@ -13,28 +12,6 @@ export class RacingGame {
     this.#players = [];
   }
 
-  static readCarNamesInput() {
-    return new Promise((resolve, _) => {
-      Console.readLine(
-        "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).",
-        (userInput) => {
-          resolve(userInput);
-        }
-      );
-    });
-  }
-
-  static readRacingGameSizeInput() {
-    return new Promise((resolve, _) => {
-      Console.readLine(
-          "시도할 회수는 몇회인가요?",
-          (userInput) => {
-            resolve(userInput);
-          }
-      );
-    });
-  }
-
   #validateRacingGameSize = (size) => {
     if (!containsOnlyNumbers(size))
       throw new Error(`레이싱 게임 시도 회수를 숫자로 제대로 입력해야합니다.`);
@@ -42,6 +19,9 @@ export class RacingGame {
       throw new Error(`레이싱 게임 시도 회수는 ${MIN_GAME_SIZE} 이상이어야 합니다.`);
   };
 
+  getRacingGameSize() {
+    return this.#racingGameSize;
+  }
   setRacingGameSize(racingGameSize) {
     this.#validateRacingGameSize(racingGameSize)
     this.#racingGameSize = racingGameSize;
@@ -68,17 +48,10 @@ export class RacingGame {
     return getRandomNumberInRange(RANDOM_MIN_NUMBER, RANDOM_MAX_NUMBER);
   }
 
-  #playOneRound() {
+  playOneRound() {
     for (let playerIdx = 0; playerIdx < this.#players.length; playerIdx++) {
       this.playerPlayOneRound(playerIdx, this.getRandomNumberToRun());
     }
-  }
-
-  #printOneRoundGameResult() {
-    const result = this.#players
-      .map((player) => player.getPositionLog())
-      .join("\n");
-    Console.print(result, "\n");
   }
 
   #getWinnerPosition() {
@@ -95,18 +68,5 @@ export class RacingGame {
   getWinnersNames() {
     const winners = this.getWinners();
     return winners.map((winner) => winner.getName());
-  }
-
-  getWinnerLog() {
-    return `${this.getWinnersNames().join(",")}가 최종 우승했습니다.`;
-  }
-
-  playGame() {
-    Console.print("\n실행 결과");
-    for (let round = 0; round < this.#racingGameSize; round++) {
-      this.#playOneRound();
-      this.#printOneRoundGameResult();
-    }
-    Console.print(this.getWinnerLog());
   }
 }

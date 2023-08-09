@@ -1,1 +1,0 @@
-export const DEFAULT_CAR_NAME = "sonata";
