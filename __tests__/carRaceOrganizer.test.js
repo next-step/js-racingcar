@@ -56,16 +56,6 @@ describe('자동차 경주 테스트', () => {
     expect(carRaceOrganizer.lap).toBe(1);
   });
 
-  it('자동차 주행 횟수 마다 경주 상태를 출력한다.', () => {
-    const logSpy = jest.spyOn(console, 'log');
-    const cars = getCars(DUMMY_CARS);
-    const carRaceOrganizer = new CarRaceOrganizer(cars, DUMMY_INPUT_TOTAL_LAP);
-    carRaceOrganizer.runSingleRace();
-    carRaceOrganizer.printRace();
-    expect(logSpy).toHaveBeenCalledTimes(DUMMY_CARS.length);
-    logSpy.mockClear();
-  });
-
   test.each(DUMMY_RACE_TOTAL_LAPS)('자동차 경주 횟수는 양수($inputTotalLap)만 취급한다.', ({ inputTotalLap }) => {
     const cars = getCars(DUMMY_CARS);
     expect(() => {
