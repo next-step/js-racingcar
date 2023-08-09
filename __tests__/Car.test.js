@@ -18,29 +18,28 @@ describe('자동차 테스트', () => {
     expect(car.name).toBe(name);
   });
 
-  test.each(DUMMY_INCORRECT_CAR_NAMES)('자동차 이름은 공백일 수 없다.($name)', ({ name }) => {
+  test.each(DUMMY_INCORRECT_CAR_NAMES)('자동차 이름($name)에 공백만 존재한다면 오류가 발생한다.', ({ name }) => {
     expect(() => {
       new Car(name);
     }).toThrowError(ERROR_MESSAGE.NOT_RECEIVED_CAR_NAME);
   });
 
   test.each(DUMMY_EXCEEDED_CAR_NAMES)(
-    `자동차 이름($name)은 최대${CAR_CONFIGURE.NAME_MAX_LENGTH} 글자 까지 허용한다.`,
+    `자동차 이름($name)에서 ${CAR_CONFIGURE.NAME_MAX_LENGTH}글자를 초과하면 오류가 발생한다.`,
     ({ name }) => {
       expect(() => {
         new Car(name);
       }).toThrowError(ERROR_MESSAGE.CAR_NAME_INCORRECT_LENGTH);
     }
   );
-
-  test.each(DUMMY_NOT_STRING_CAR_NAMES)(`자동차 이름($name)은 문자열 타입만 허용한다. `, ({ name }) => {
+  test.each(DUMMY_NOT_STRING_CAR_NAMES)(`자동차 이름($name)이 문자열 형식이 아니면 오류가 발생한다. `, ({ name }) => {
     expect(() => {
       new Car(name);
     }).toThrowError(ERROR_MESSAGE.CAR_NAME_NOT_STRING);
   });
 
   test.each(DUMMY_CORRECT_CARS)(
-    `자동차 경주에서 거리 값이 ${CAR_CONFIGURE.MOVE_CONDITION} 미만이면 멈춘다. (자동차: $name, 거리:$movableDistance)`,
+    `자동차 경주에서 거리 값이 ${CAR_CONFIGURE.MOVE_CONDITION} 미만이면 전진하지 않는다. (자동차: $name, 거리:$movableDistance)`,
     ({ name, notMovableDistance }) => {
       const carMoved = getCarMoved(name, notMovableDistance);
       expect(carMoved).toBe(0);

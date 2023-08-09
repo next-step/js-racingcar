@@ -31,7 +31,7 @@ describe('자동차 경주 테스트', () => {
     logSpy.mockClear();
   });
 
-  it('경주를 시작하기 위해 반드시 참여하는 자동차 이름을 입력받아야한다.', () => {
+  it('자동차 경주에 참여하는 자동차가 없을 시 오류가 발생한다.', () => {
     expect(() => {
       new CarRaceOrganizer();
     }).toThrowError(ERROR_MESSAGE.NOT_RECEIVED_CAR_NAMES);
@@ -47,12 +47,15 @@ describe('자동차 경주 테스트', () => {
     }
   );
 
-  test.each(DUMMY_INCORRECT_INPUT_CAR_NAMES)('경주에 참여하는 자동차 이름은 중복이될 수 없다.', ({ input }) => {
-    const cars = getCars(input);
-    expect(() => {
-      new CarRaceOrganizer(cars);
-    }).toThrow(ERROR_MESSAGE.DUPLICATE_CAR);
-  });
+  test.each(DUMMY_INCORRECT_INPUT_CAR_NAMES)(
+    '자동차 경주에 참여하는 자동차가 중복된다면 오류가 발생한다.',
+    ({ input }) => {
+      const cars = getCars(input);
+      expect(() => {
+        new CarRaceOrganizer(cars);
+      }).toThrowError(ERROR_MESSAGE.DUPLICATE_CAR);
+    }
+  );
 
   test.each(DUMMY_RACE_SET)('자동차 주행 횟수마다 lap이 변경된다.', ({ input }) => {
     const cars = getCars(input);
@@ -71,17 +74,14 @@ describe('자동차 경주 테스트', () => {
     expect(logSpy).toHaveBeenCalledTimes(DUMMY_CARS.length);
   });
 
-  test.each(DUMMY_RACE_TOTAL_LAPS)(
-    '자동차 경주 횟수는 사용자에게 숫자($inputTotalLap) 형태로 입력 받는다.',
-    ({ inputTotalLap }) => {
-      const cars = getCars(DUMMY_CARS);
-      expect(() => {
-        new CarRaceOrganizer(cars, inputTotalLap);
-      }).not.toThrow();
-    }
-  );
+  test.each(DUMMY_RACE_TOTAL_LAPS)('자동차 경주 횟수는 숫자($inputTotalLap)만 취급한다.', ({ inputTotalLap }) => {
+    const cars = getCars(DUMMY_CARS);
+    expect(() => {
+      new CarRaceOrganizer(cars, inputTotalLap);
+    }).not.toThrowError();
+  });
   test.each(DUMMY_INCORRECT_RACE_TOTAL_LAPS)(
-    '입력 받은 경주 횟수는 양수이어야 하며, 숫자만 취급한다. ($inputTotalLap)',
+    '자동차 경주 횟수가 양수가 아니면 오류가 발생한다.($inputTotalLap)',
     ({ inputTotalLap }) => {
       const cars = getCars(DUMMY_CARS);
       expect(() => {
@@ -91,7 +91,7 @@ describe('자동차 경주 테스트', () => {
   );
 
   test.each(DUMMY_RACE_TOTAL_LAPS)(
-    '입려된 자동차 경주 횟수($inputTotalLap)만큼 경주가 진행된다.',
+    '입력된 자동차 경주 횟수($inputTotalLap)만큼 경주가 진행된다.',
     ({ inputTotalLap }) => {
       const cars = getCars(DUMMY_CARS);
       const carRaceOrganizer = new CarRaceOrganizer(cars, inputTotalLap);
