@@ -7,7 +7,7 @@
     "start": "npm run build-prod && node dist/bundle.js",
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
-    "test": "jest --watch"
+    "test": "jest -i --watch"
   },
   "repository": {
     "type": "git",
