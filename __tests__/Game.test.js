@@ -90,8 +90,6 @@ describe("[feature4] 총 5라운드를 반복하고, 우승 자동차 정보를 
     expect(game.winners).toBeInstanceOf(Array);
   });
 
-  // TODO question) private method의 호출 횟수를 테스트하기 위해 별도의 변수를 추가했는데,
-  // 테스트를 위한 코드는 프로덕션에서 분리하는게 좋다고 하셔서, 어떻게 해야할지 고민입니다.
   it("다섯 라운드가 진행된다.", () => {
     game.play();
     expect(game.currRound - 1).toBe(TOTAL_GAME_ROUNDS);
