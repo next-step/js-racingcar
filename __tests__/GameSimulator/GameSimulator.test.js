@@ -1,3 +1,4 @@
+import GameInput from '../../src/GameInput';
 import GameSimulator from '../../src/GameSimulator';
 import GameViewer from '../../src/GameViewer';
 import { createMessageViewer } from '../../src/utils/createMessageViewer';
@@ -9,14 +10,16 @@ describe('GameSimulator 테스트', () => {
   const mockViewer = jest.fn();
   const messageViewer = createMessageViewer(mockViewer);
   const gameViewer = new GameViewer(messageViewer);
+  const gameInput = new GameInput(getUserInputByQuestion);
   const CAR_NAMES = ['자동차1', '자동차2', '자동차3', '자동차4', '자동차5'];
   let simulator = null;
 
   beforeEach(() => {
-    simulator = new GameSimulator(gameViewer, () => true);
     getUserInputByQuestion
       .mockImplementationOnce(() => Promise.resolve(CAR_NAMES.join(',')))
       .mockImplementationOnce(() => Promise.resolve(3));
+
+    simulator = new GameSimulator(gameViewer, gameInput, () => true);
   });
 
   afterEach(() => {

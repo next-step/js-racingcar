@@ -1,26 +1,25 @@
 import Car from '../Car/index.js';
 import RacingGame from '../RacingGame/index.js';
-import { getUserInputByQuestion } from '../utils/getUserInputByQuestion.js';
 
 class GameSimulator {
   #racingGame;
   #gameViewer;
+  #gameInput;
   checkCanMoveForward;
 
-  constructor(gameViewer, checkCanMoveForward) {
+  constructor(gameViewer, gameInput, checkCanMoveForward) {
     this.#gameViewer = gameViewer;
+    this.#gameInput = gameInput;
     this.checkCanMoveForward = checkCanMoveForward;
   }
 
   async setRacingGame() {
-    const inputString = await getUserInputByQuestion(
-      '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).'
-    );
+    const inputString = await this.#gameInput.getCarNamesByInput();
     const carNames = inputString.split(',');
     const cars = carNames.map(Car.of);
-    const maxRounds = await getUserInputByQuestion('시도할 회수는 몇회인가요?');
+    const maxRounds = await this.#gameInput.getMaxRounsByInput();
 
-    this.#racingGame = new RacingGame(cars, Number(maxRounds));
+    this.#racingGame = new RacingGame(cars, maxRounds);
   }
 
   async startGame() {
