@@ -1,67 +1,51 @@
-import {
-  splitCarNameToArray,
-  validateCarName,
-  validateTotalRounds,
-} from '../utils';
+import { splitCarNameToArray, Validation } from '../utils';
+import { RacingGame } from '../Domains/RacingGame';
+import { Car } from '../Domains/Car';
 
 export class GameController {
   #model;
   #view;
 
-  constructor(model, view) {
-    this.#model = model;
+  constructor(view) {
     this.#view = view;
 
-    this.#readCarName();
+    this.#setGameConfig();
   }
 
-  #readCarName() {
-    this.#view.readCarName((userInput) => this.#validateCarName(userInput));
-  }
-
-  #validateCarName(userInput) {
-    try {
-      const carNames = splitCarNameToArray(userInput);
-      carNames.forEach(validateCarName);
-
-      this.#handleCarNameInput(carNames);
-    } catch (error) {
-      this.#handleError(error, this.#readCarName.bind(this));
-    }
-  }
-
-  #handleCarNameInput(carNames) {
-    this.#model.setCars(carNames);
-
-    this.#readTotalRound();
-  }
-
-  #readTotalRound() {
-    this.#view.readTotalRound((userInput) =>
-      this.#validateTotalRound(userInput)
-    );
-  }
-
-  #validateTotalRound(userInput) {
-    try {
-      validateTotalRounds(userInput);
-
-      this.#handleTotalRoundInput(userInput);
-    } catch (error) {
-      this.#handleError(error, this.#readTotalRound.bind(this));
-    }
-  }
-
-  #handleTotalRoundInput(userInput) {
-    this.#model.setTotalRounds(userInput);
-
-    this.#startRacingGame();
-  }
-
-  #startRacingGame() {
-    this.#model.startRace();
+  async #setGameConfig() {
+    const cars = await this.#createCarByUserInput();
+    const totalRound = await this.#readTotalRound();
+    this.#model = new RacingGame(cars, totalRound);
 
     this.#printGameResult();
+  }
+
+  async #createCarByUserInput() {
+    try {
+      const userInput = await this.#view.readCarName();
+      const carNames = splitCarNameToArray(userInput);
+      Validation.validateCarNameInput(carNames);
+      const cars = carNames.map((carName) => new Car(carName));
+
+      return cars;
+    } catch (error) {
+      return this.#handleError(error, () => {
+        return this.#createCarByUserInput();
+      });
+    }
+  }
+
+  async #readTotalRound() {
+    try {
+      const userInput = await this.#view.readTotalRound();
+      Validation.validateTotalRounds(userInput);
+
+      return userInput;
+    } catch (error) {
+      return this.#handleError(error, () => {
+        return this.#readTotalRound();
+      });
+    }
   }
 
   #printGameResult() {
@@ -74,9 +58,9 @@ export class GameController {
     this.#view.printError(error);
   }
 
-  #handleError(error, phaseToRetry) {
+  async #handleError(error, phaseToRetry) {
     this.#printError(error.message);
 
-    phaseToRetry();
+    return await phaseToRetry();
   }
 }

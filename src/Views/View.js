@@ -1,24 +1,27 @@
 import { MESSAGE } from '../constants';
+import { Validation } from '../utils';
+import { InputView, OutputView } from './';
 
 export class View {
-  #inputView;
-  #outputView;
+  #inputView = InputView;
+  #outputView = OutputView;
+  #validator = Validation.validateInput;
 
-  constructor(inputView, outputView) {
-    this.#inputView = inputView;
-    this.#outputView = outputView;
+  constructor() {}
+
+  async #readInput(message) {
+    const userInput = await this.#inputView.readUserInput(message);
+    this.#validator(userInput);
+
+    return userInput;
   }
 
-  readCarName(inputHandler) {
-    this.#inputView.readUserInput(MESSAGE.READ.CAR_NAME, (userInput) => {
-      inputHandler(userInput);
-    });
+  async readCarName() {
+    return await this.#readInput(MESSAGE.READ.CAR_NAME);
   }
 
-  readTotalRound(inputHandler) {
-    this.#inputView.readUserInput(MESSAGE.READ.TOTAL_ROUND, (userInput) => {
-      inputHandler(userInput);
-    });
+  async readTotalRound() {
+    return await this.#inputView.readUserInput(MESSAGE.READ.TOTAL_ROUND);
   }
 
   printGameResult(gameResult) {

@@ -1,10 +1,8 @@
 import { Console } from '../utils';
 
 export const InputView = {
-  readUserInput(message, userInputHandler) {
-    Console.readLine(message, (userInput) => {
-      userInputHandler(userInput);
-    });
+  async readUserInput(message) {
+    return await Console.readLine(message);
   },
 
   close() {

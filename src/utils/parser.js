@@ -1,4 +1,4 @@
-import { RACING_GAME, UTIL } from '../constants';
+import { MESSAGE, UTIL } from '../constants';
 
 export const splitCarNameToArray = (userInput) =>
   userInput.split(UTIL.CAR_NAME_DELIMITER);
@@ -31,4 +31,4 @@ export const findWinners = (cars, maxDistance) => {
 };
 
 export const parseGameResult = (gameProgress, winners) =>
-  RACING_GAME.GAME_RESULT(gameProgress, winners);
+  MESSAGE.RACING_GAME.GAME_RESULT(gameProgress, winners);
