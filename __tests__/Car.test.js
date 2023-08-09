@@ -74,12 +74,12 @@ describe(`[feature2] 자동차는 전진조건에 부합하면 전진하고, 아
 });
 
 describe("[feature3] 자동차의 현재 상황 정보를 반환한다.", () => {
-  const car = new Car(VALID_NAME, CAR_INITIAL_POSITION);
+  const car = new Car(VALID_NAME);
 
   const testCases = [
-    { name: "현재 위치를 유지", input: CAR_MOVE_CRITERIA - 1 },
+    { name: "현재 위치를 유지하는 경우", input: CAR_MOVE_CRITERIA - 1 },
     {
-      name: `현재 위치에서 ${CAR_MOVE_STEP}만큼 전진`,
+      name: `현재 위치에서 ${CAR_MOVE_STEP}만큼 전진하는 경우`,
       input: CAR_MOVE_CRITERIA,
     },
   ];
@@ -94,7 +94,7 @@ describe("[feature3] 자동차의 현재 상황 정보를 반환한다.", () => 
   );
 
   it.each(testCases)(
-    "자동차가 $name 경우, 자동차의 현재 위치를 반환한다.",
+    "자동차가 $name, 자동차의 현재 위치를 반환한다.",
     ({ input }) => {
       const PREVIOUS_POSITION = car.position;
 
