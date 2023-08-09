@@ -22,7 +22,7 @@ class Race {
   getMaxPosition() {
     const maxPosition = this.#cars.reduce((prev, cur) => {
       if (cur.getPosition() >= prev) return cur.getPosition();
-      else return prev;
+      return prev;
     }, 0);
 
     return maxPosition;
@@ -63,7 +63,7 @@ class Race {
 
     const winners = this.#cars.reduce((prev, cur) => {
       if (cur.getPosition() === maxPosition) return [...prev, cur];
-      else return prev;
+      return prev;
     }, []);
 
     this.#winners = winners;
