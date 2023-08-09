@@ -48,12 +48,29 @@ describe('RacingGame 테스트', () => {
     });
 
     describe('우승자가 여러명 일 때', () => {
-      test('모든 자동차가 이동 거리가 똑같다면 모든 자동차가 우승자다.', () => {
-        cars.forEach((car) => {
+      test('최대 이동거리와 같은 자동차의 수가 2대이면 우승 자동차의 수는 2대다.', () => {
+        racingGame.cars[0].moveForward();
+        racingGame.cars[1].moveForward();
+
+        expect(
+          racingGame.cars.filter(
+            (car) => car.distanceDriven === racingGame.maxDistanceDriven
+          ).length
+        ).toBe(2);
+        expect(racingGame.winningCars.length).toEqual(2);
+      });
+
+      test('자동차의 이동거리가 모두 최대 이동거리면 우승자는 모든 자동차다.', () => {
+        racingGame.cars.forEach((car) => {
           car.moveForward();
         });
 
-        expect(racingGame.winningCars).toEqual(cars);
+        expect(
+          racingGame.cars.every(
+            (car) => car.distanceDriven === racingGame.maxDistanceDriven
+          )
+        ).toBe(true);
+        expect(racingGame.winningCars).toEqual(racingGame.cars);
       });
     });
   });
