@@ -1,6 +1,6 @@
-import { RANDOM_NUMBER_MAX, RANDOM_NUMBER_MIN, SEPERATOR } from '../../constants/settings.js';
-import { getRandomNumber, trimString } from '../../util/index.js';
+import { randomNumberGenerator, stringTrimer } from '../../util/index.js';
 import CarView from '../../view/CarView.js';
+import { RANDOM_NUMBER_MAX, RANDOM_NUMBER_MIN, SEPERATOR } from '../constants/index.js';
 import CarModel from '../model/CarModel.js';
 
 export class RacingSystem {
@@ -14,7 +14,7 @@ export class RacingSystem {
   }
 
   #initializeGame(names, round) {
-    this.cars = names.split(SEPERATOR).map((name) => new CarModel(trimString(name)));
+    this.cars = names.split(SEPERATOR).map((name) => new CarModel(stringTrimer(name)));
     this.round = round;
   }
 
@@ -36,7 +36,7 @@ export class RacingSystem {
 
   #runRoundProcess() {
     this.cars.forEach((car) => {
-      car.move(getRandomNumber(RANDOM_NUMBER_MIN, RANDOM_NUMBER_MAX));
+      car.move(randomNumberGenerator(RANDOM_NUMBER_MIN, RANDOM_NUMBER_MAX));
       this.view.printCarPosition(car.getName(), car.getPosition());
     });
   }

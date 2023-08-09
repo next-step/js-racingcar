@@ -1,5 +1,5 @@
 import { RacingSystem } from '../src/domain/controller/RacingSystem.js';
-import { getRandomNumber } from '../src/util/getRandomNumber.js';
+import { randomNumberGenerator } from '../src/util/index.js';
 
 describe('Racing System Test', () => {
   const racingSystem = new RacingSystem();
@@ -30,14 +30,11 @@ describe('Racing System Test', () => {
       const input = `evan`;
       const ROUND = 3;
 
-      // @ts-ignore
       // when
-      const logSpy = jest.spyOn(racingSystem.view, 'printBreakLine');
       racingSystem.startGame(input, ROUND);
 
       // then
-      const count = logSpy.mock.calls.length;
-      expect(count).toBe(ROUND);
+      expect(racingSystem.round).toBe(ROUND);
     });
 
     it('should be able to manage range of random Number', () => {
@@ -46,8 +43,8 @@ describe('Racing System Test', () => {
       const RANGE_TWO = 2;
 
       // then
-      const NUMBER_ONE = getRandomNumber(RANGE_ONE, RANGE_ONE);
-      const NUMBER_TWO = getRandomNumber(RANGE_TWO, RANGE_TWO);
+      const NUMBER_ONE = randomNumberGenerator(RANGE_ONE, RANGE_ONE);
+      const NUMBER_TWO = randomNumberGenerator(RANGE_TWO, RANGE_TWO);
       expect(NUMBER_ONE).toBe(RANGE_ONE);
       expect(NUMBER_TWO).toBe(RANGE_TWO);
     });

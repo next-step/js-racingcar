@@ -1,5 +1,5 @@
+import { RANDOM_NUMBER_MAX } from '../src/domain/constants/index.js';
 import CarModel from '../src/domain/model/CarModel.js';
-import { RANDOM_NUMBER_MAX } from '../src/constants/settings.js';
 
 describe('Car Instance Test', () => {
   it('given car names are should be same in car Instance', () => {

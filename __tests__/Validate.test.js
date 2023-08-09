@@ -1,6 +1,5 @@
-import { ATTEMPT_MAX_NUMBER, ROUND_MAX_NUMBER } from '../src/constants/settings.js';
-import { MESSAGES } from '../src/constants/messages.js';
-import { IsMaxAttempt, validateNames, validateRound } from '../src/domain/validator.js';
+import { MESSAGES, ATTEMPT_MAX_NUMBER, ROUND_MAX_NUMBER } from '../src/domain/constants/index.js';
+import { isMaxAttempt, validateNames, validateRound } from '../src/domain/validator.js';
 
 describe('Validate Test on readline', () => {
   it('should throw Error if name length greater than 5', () => {
@@ -38,9 +37,9 @@ describe('Validate Test on readline', () => {
     expect(() => validateRound(INPUT)).toThrowError(MESSAGES.ERROR.IS_NOT_NUMBER);
   });
 
-  it('should throw Error if round is not a integer', () => {
+  it('should throw Error if round is not an integer', () => {
     // given
-    const INPUT = -1;
+    const INPUT = 1.5;
 
     // then
     expect(() => validateRound(INPUT)).toThrowError(MESSAGES.ERROR.IS_NOT_INTEGER_NUMBER);
@@ -59,6 +58,6 @@ describe('Validate Test on readline', () => {
     const ATTEMPT = ATTEMPT_MAX_NUMBER + 1;
 
     // then
-    expect(IsMaxAttempt(ATTEMPT)).toBe(true);
+    expect(isMaxAttempt(ATTEMPT)).toBe(true);
   });
 });
