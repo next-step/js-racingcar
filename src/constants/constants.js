@@ -19,6 +19,7 @@ export const GAME_MESSAGES = {
   GAME_START: "\n실행결과",
   GAME_OVER: "게임이 종료되었습니다.",
   WINNER_ALERT_SUFFIX: "가 최종 우승했습니다.",
+  PER_ROUND_END: "",
 };
 
 export const ERROR_MESSAGES = {

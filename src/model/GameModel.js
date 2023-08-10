@@ -4,11 +4,11 @@ import CarModel from "./CarModel.js";
 
 function validateParticipants(cars) {
   if (!Array.isArray(cars) || !cars.every(car => car instanceof CarModel)) {
-    throw new Error(ERROR_MESSAGES.INVALID_PARTICIPANT_TYPE);
+    throw new Error(ERROR_MESSAGES.INVALID_PARTICIPANTS_TYPE);
   }
 
   if (cars.length < CONDITIONS.GAME_MIN_PARTICIPANTS_NUMBER) {
-    throw new Error(ERROR_MESSAGES.INVALID_PARTICIPANT_LENGTH);
+    throw new Error(ERROR_MESSAGES.INVALID_PARTICIPANTS_LENGTH);
   }
 
   if (new Set(cars.map(car => car.name)).size !== cars.length) {
@@ -45,7 +45,6 @@ export default class GameModel {
 
   set participants(cars) {
     validateParticipants(cars);
-
     this.#participants = cars;
   }
 
