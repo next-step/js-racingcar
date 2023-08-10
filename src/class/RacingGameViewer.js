@@ -19,16 +19,16 @@ export default class RacingGameViewer {
     });
   }
 
-  async getUserInput(question) {
-    return await this.readline.question(question);
+  getUserInput(question) {
+    return this.readline.question(question);
   }
 
-  async getRoundNumberInput() {
-    return await this.getUserInput(RACING_ROUND_INPUT_GUIDE);
+  getRoundNumberInput() {
+    return this.getUserInput(RACING_ROUND_INPUT_GUIDE);
   }
 
-  async getCarNamesInput() {
-    return await this.getUserInput(CAR_NAME_INPUT_GUIDE);
+  getCarNamesInput() {
+    return this.getUserInput(CAR_NAME_INPUT_GUIDE);
   }
 
   printContent(content) {
