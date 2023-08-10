@@ -3,6 +3,7 @@ import RacingGame from '../src/RacingGame';
 
 describe('RacingGame 테스트', () => {
   const carNames = ['자동차1', '자동차2', '자동차3'];
+  const checkCanMoveForward = () => true;
   let cars = null;
   let racingGame = null;
 
@@ -19,7 +20,7 @@ describe('RacingGame 테스트', () => {
 
   describe('자동차 게임 전진 테스트', () => {
     test('자동차 전진 조건을 만족하면 자동차는 전진한다.', () => {
-      racingGame.startRace({ checkCanMoveForward: () => true });
+      racingGame.startRace(checkCanMoveForward);
 
       expect(racingGame.cars.every((car) => car.distanceDriven > 0)).toBe(true);
     });
@@ -96,7 +97,7 @@ describe('RacingGame 테스트', () => {
     test(`RacingGame round는 기본 5회동안 진행된다.`, async () => {
       const runRoundSpy = jest.spyOn(racingGame, 'runRound');
 
-      racingGame.startRace({ checkCanMoveForward: () => true });
+      racingGame.startRace(checkCanMoveForward);
 
       expect(runRoundSpy).toBeCalledTimes(5);
 
@@ -110,7 +111,7 @@ describe('RacingGame 테스트', () => {
           racingGame = new RacingGame(cars, maxRounds);
           const runRoundSpy = jest.spyOn(racingGame, 'runRound');
 
-          racingGame.startRace({ checkCanMoveForward: () => true });
+          racingGame.startRace(checkCanMoveForward);
 
           expect(runRoundSpy).toBeCalledTimes(maxRounds);
 

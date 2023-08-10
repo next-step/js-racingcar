@@ -8,6 +8,6 @@ import { getUserInputByQuestion } from './utils/getUserInputByQuestion.js';
 const messageViewer = createMessageViewer(console.log);
 const gameViewer = new GameViewer(messageViewer);
 const gameInput = new GameInput(getUserInputByQuestion);
-const simulator = new GameSimulator(gameViewer, gameInput, checkCanMoveForward);
+const simulator = new GameSimulator(gameViewer, gameInput);
 
-simulator.startGame();
+simulator.startGame(checkCanMoveForward);

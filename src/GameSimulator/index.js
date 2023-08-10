@@ -7,12 +7,10 @@ class GameSimulator {
   #gameInput;
   #carNames;
   #maxRounds;
-  checkCanMoveForward;
 
-  constructor(gameViewer, gameInput, checkCanMoveForward) {
+  constructor(gameViewer, gameInput) {
     this.#gameViewer = gameViewer;
     this.#gameInput = gameInput;
-    this.checkCanMoveForward = checkCanMoveForward;
   }
 
   async setRacingGame() {
@@ -40,13 +38,11 @@ class GameSimulator {
     this.#maxRounds = await this.#gameInput.getMaxRounsByInput();
   }
 
-  async startGame() {
+  async startGame(checkCanMoveForward) {
     try {
       await this.setRacingGame();
 
-      this.#racingGame.startRace({
-        checkCanMoveForward: this.checkCanMoveForward,
-      });
+      this.#racingGame.startRace(checkCanMoveForward);
       this.#gameViewer.printRecords(this.#racingGame.records);
       this.#gameViewer.printWinningCars(this.#racingGame.winningCars);
     } catch (error) {

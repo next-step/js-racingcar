@@ -76,7 +76,7 @@ class RacingGame {
     this.saveCurrentRecord();
   }
 
-  startRace({ checkCanMoveForward }) {
+  startRace(checkCanMoveForward) {
     for (let i = 0; i < this.#maxRounds; i++) {
       this.runRound(checkCanMoveForward);
     }

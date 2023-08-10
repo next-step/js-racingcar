@@ -12,6 +12,8 @@ describe('GameSimulator 테스트', () => {
   const gameViewer = new GameViewer(messageViewer);
   const gameInput = new GameInput(getUserInputByQuestion);
   const CAR_NAMES = ['자동차1', '자동차2', '자동차3', '자동차4', '자동차5'];
+  const checkCanMoveForward = () => true;
+
   let simulator = null;
 
   beforeEach(() => {
@@ -19,7 +21,7 @@ describe('GameSimulator 테스트', () => {
       .mockImplementationOnce(() => Promise.resolve(CAR_NAMES.join(',')))
       .mockImplementationOnce(() => Promise.resolve(3));
 
-    simulator = new GameSimulator(gameViewer, gameInput, () => true);
+    simulator = new GameSimulator(gameViewer, gameInput);
   });
 
   afterEach(() => {
@@ -28,7 +30,7 @@ describe('GameSimulator 테스트', () => {
 
   describe('입력 테스트', () => {
     test('게임을 시작하면 경주할 자동차와 round 횟수를 입력 받는다.', async () => {
-      await simulator.startGame();
+      await simulator.startGame(checkCanMoveForward);
 
       expect(getUserInputByQuestion).toBeCalledTimes(2);
     });
@@ -38,7 +40,7 @@ describe('GameSimulator 테스트', () => {
     test('경기가 끝나면 round 진행했던 기록들이 출력된다.', async () => {
       const printRecordsSpy = jest.spyOn(gameViewer, 'printRecords');
 
-      await simulator.startGame();
+      await simulator.startGame(checkCanMoveForward);
 
       expect(printRecordsSpy).toBeCalled();
     });
@@ -46,7 +48,7 @@ describe('GameSimulator 테스트', () => {
     test('경기가 끝나면 우승한 자동차들이 출력된다.', async () => {
       const printWinningCarsSpy = jest.spyOn(gameViewer, 'printWinningCars');
 
-      await simulator.startGame();
+      await simulator.startGame(checkCanMoveForward);
 
       expect(printWinningCarsSpy).toBeCalled();
     });
