@@ -1,8 +1,18 @@
+import { input, closeReadLine } from '../utils/console';
+
 export default class CarRaceView {
-  welcome() {
-    console.log(
-      '경주할 자동차 이름을 입력하세요(이름은 쉽표(,)를 기준으로 구분).'
+  async inputCarName() {
+    return await input(
+      '경주할 자동차 이름을 입력하세요(이름은 쉽표(,)를 기준으로 구분).\n'
     );
+  }
+
+  async inputRaceLapCount() {
+    return await input('시도할 회수는 몇회인가요?\n');
+  }
+
+  closeInput() {
+    closeReadLine();
   }
 
   printMessage(message) {
