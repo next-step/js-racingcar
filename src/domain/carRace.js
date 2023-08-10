@@ -1,7 +1,7 @@
 import { CAR_RACE_LAP_LIMIT } from '../constants';
 import { getStringFromArray } from '../utils/common';
 import { ERROR_MESSAGE } from '../validation/errorMessage';
-import CarRaceView from '../view';
+import CarRaceView from '../view/carView';
 
 export default class CarRace {
   #participants;
@@ -26,9 +26,9 @@ export default class CarRace {
       return;
     }
 
-    const sortedParticipants = this.#participants.toSorted(
-      (car1, car2) => car2.distance - car1.distance
-    );
+    const sortedParticipants = [
+      ...this.#participants.sort((car1, car2) => car2.distance - car1.distance),
+    ];
 
     this.#winners = sortedParticipants.filter(
       (car) => sortedParticipants[0].distance === car.distance
@@ -45,20 +45,16 @@ export default class CarRace {
     return this.#lapCount;
   }
 
-  start(view) {
-    if (view) {
-      view.welcome();
-      view.printMessage('실행결과');
-      view.printMessage(this.participantNames);
+  set lapCount(lapCount) {
+    if (lapCount < 1) {
+      throw new Error(ERROR_MESSAGE.CAR_RACE_LAP_COUNT);
     }
 
-    for (let i = 0; i < CAR_RACE_LAP_LIMIT; i++) {
-      this.#participants.forEach((car) => car.runOneLap());
-      view && view.printLapResult(this.#participants);
-    }
+    this.#lapCount = Math.round(Number.parseInt(lapCount));
+  }
 
-    this.#isRaceStarted = true;
-    view && view.printWinners(this.winnerNames);
+  set isRaceStarted(isRaceStarted) {
+    this.#isRaceStarted = isRaceStarted;
   }
 
   getCarNames(cars) {
@@ -67,13 +63,5 @@ export default class CarRace {
     }
     const names = cars.map((car) => car.name);
     return getStringFromArray(names);
-  }
-
-  setLapCount(lapCount) {
-    if (typeof lapCount !== 'number' || lapCount < 1) {
-      throw new Error(ERROR_MESSAGE.CAR_RACE_LAP_COUNT);
-    }
-
-    this.#lapCount = Math.round(lapCount);
   }
 }
