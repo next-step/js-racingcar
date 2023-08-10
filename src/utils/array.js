@@ -1,2 +1,2 @@
-export const isDuplicateArray = (arr) => new Set(arr).size !== arr.length;
-export const isTruthyArray = (array) => array.every((item) => !!item);
+export const isDuplicateArray = (array) => new Set(array).size !== array.length;
+export const isTruthyArray = (array) => array.every(Boolean);

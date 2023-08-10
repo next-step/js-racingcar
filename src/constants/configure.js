@@ -8,7 +8,6 @@ export const CAR_CONFIGURE = Object.freeze({
 export const RACE_CONFIGURE = Object.freeze({
   MAX_SPEED: 9,
   MIN_SPEED: 0,
-  MAX_LAP: 5,
   TRACK: '-',
   DISPLAY_SEPARATOR: ','
 });
