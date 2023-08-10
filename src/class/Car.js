@@ -9,12 +9,10 @@ const defaultAdvanceCondition = () => {
 export default class Car {
   #name;
   #distance;
-  #advanceCondition;
 
-  constructor(name, advanceCondition = defaultAdvanceCondition) {
+  constructor(name) {
     this.#name = name;
     this.#distance = 0;
-    this.#advanceCondition = advanceCondition;
   }
 
   get name() {
@@ -25,8 +23,8 @@ export default class Car {
     return this.#distance;
   }
 
-  advance() {
-    if (this.#advanceCondition(this.#name, this.#distance)) {
+  advance(advanceCondition = defaultAdvanceCondition) {
+    if (advanceCondition(this.#name, this.#distance)) {
       this.#distance += 1;
     }
   }

@@ -5,10 +5,18 @@ const DEFAULT_RACING_ROUND_NUMBER = 5;
 export default class Cars {
   #cars;
   #roundNumber;
+  #advanceConditions;
 
-  constructor() {
+  constructor(advanceConditions) {
     this.#cars = [];
     this.#roundNumber = DEFAULT_RACING_ROUND_NUMBER;
+    this.#advanceConditions =
+      advanceConditions instanceof Array &&
+      advanceConditions.every(
+        (advanceCondition) => typeof advanceCondition === "function",
+      )
+        ? advanceConditions
+        : [];
   }
 
   addCar(name, advanceCondition) {
@@ -24,13 +32,13 @@ export default class Cars {
     }));
   }
 
-  executeOneRound() {
-    this.#cars.forEach((car) => car.advance());
+  executeOneRound(advanceCondition) {
+    this.#cars.forEach((car) => car.advance(advanceCondition));
   }
 
   executeMultipleRounds(afterRoundAction) {
-    Array.from({ length: this.#roundNumber }, () => {
-      this.executeOneRound();
+    Array.from({ length: this.#roundNumber }, (_, index) => {
+      this.executeOneRound(this.#advanceConditions[index]);
 
       afterRoundAction(this.getAllCarStatus());
     });

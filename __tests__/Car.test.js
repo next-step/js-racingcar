@@ -46,11 +46,11 @@ describe("Car Class 테스트", () => {
   test("advanceCondition이 true를 반환하면 distance가 1 증가한다.", async () => {
     const mockAdvanceCondition = () => true;
 
-    const car = new Car("test Car", mockAdvanceCondition);
+    const car = new Car("test Car");
 
-    car.advance();
+    car.advance(mockAdvanceCondition);
 
-    expect(car.getDistance()).toBe(1);
+    expect(car.distance).toBe(1);
   });
 });
 
