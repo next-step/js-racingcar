@@ -7,27 +7,27 @@ import View from "../view/View.js";
 export default class CarRacingManager {
   #gameModel = new GameModel();
 
-  gameStart(names, endProcess, totalRound) {
+  gameStart(names, totalRound) {
     try {
       this.setParticipants(names);
       this.setTotalRound(totalRound);
       View.printGameStartMessage();
-      this.roundInterval(endProcess);
+      this.roundInterval();
+      View.printGameEndMessage();
+      View.end();
     } catch (error) {
       View.printErrorMessage(error.message);
       View.printGameEndMessage();
-      endProcess();
+      View.end();
     }
   }
 
-  roundInterval(endProcess) {
+  roundInterval() {
     const interval = setInterval(() => {
       this.#gameModel.increaseRound();
       if (this.#gameModel.round > this.#gameModel.totalRound) {
         clearInterval(interval);
         View.printWinnerMessage(this.getWinnersName());
-        View.printGameEndMessage();
-        endProcess();
         return;
       }
 

@@ -7,13 +7,13 @@ function gameSetUp() {
   jest.useFakeTimers();
   const carRacingManager = new CarRacingManager();
 
-  const processEnd = () => {};
   const gameStart = (totalRound = 5) => {
-    carRacingManager.gameStart("뽀로로, 크롱, 루피", processEnd, totalRound);
+    carRacingManager.gameStart("뽀로로, 크롱, 루피", totalRound);
     jest.advanceTimersByTime(INTERVAL_ROUND_TIME * (totalRound + 1));
   };
 
   const spyOn = {
+    printGameEndMessage: jest.spyOn(View, "printGameEndMessage"),
     printWinnerMessage: jest.spyOn(View, "printWinnerMessage"),
     roundStart: jest.spyOn(carRacingManager, "roundStart"),
     log: jest.spyOn(console, "log"),
@@ -41,12 +41,11 @@ describe("자동자 경주 게임", () => {
     });
 
     test("사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.", () => {
-      const carRacingManager = new CarRacingManager();
-      const processEnd = jest.fn();
+      const { carRacingManager, spyOn } = gameSetUp();
 
-      carRacingManager.gameStart("뽀로로, 크롱크롱크롱, 루피", processEnd);
+      carRacingManager.gameStart("뽀로로, 크롱크롱크롱, 루피", 5);
 
-      expect(processEnd).toBeCalled();
+      expect(spyOn.printGameEndMessage).toBeCalled();
     });
   });
 

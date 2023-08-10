@@ -1,13 +1,12 @@
-import readline from "readline";
-import { stdin as input, stdout as output } from "process";
 import CarRacingManager from "./controller/CarRacingManager.js";
-import { GAME_MESSAGES } from "./constants/constants.js";
+import View from "./view/View.js";
 
-const rl = readline.createInterface({ input, output });
 const carRacingManager = new CarRacingManager();
 
-rl.question(GAME_MESSAGES.ASK_NAMES, names => {
-  rl.question(GAME_MESSAGES.ASK_TRY_ROUND_COUNT, totalRound => {
-    carRacingManager.gameStart(names, process.exit, totalRound);
-  });
-});
+const app = async () => {
+  const names = await View.askNames();
+  const totalRound = await View.askTotalRound();
+  carRacingManager.gameStart(names, totalRound);
+};
+
+app();
