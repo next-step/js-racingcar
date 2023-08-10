@@ -5,19 +5,15 @@ class GameViewer {
     this.#messageViewer = messageViewer;
   }
 
-  printCarStatus(name, distanceDriven) {
-    const formattedStatus = `${name} : ${'-'.repeat(distanceDriven)}`;
-
-    this.#messageViewer(formattedStatus);
+  printCarStatus({ name, distanceDriven }) {
+    this.#messageViewer(`${name} : ${'-'.repeat(distanceDriven)}`);
   }
 
   printRecords(records) {
     this.#messageViewer('\n실행 결과\n');
 
-    records.forEach((records) => {
-      records.forEach(({ name, distanceDriven }) =>
-        this.printCarStatus(name, distanceDriven)
-      );
+    records.forEach((carsRecord) => {
+      carsRecord.forEach((record) => this.printCarStatus(record));
       this.#messageViewer('\n');
     });
   }
