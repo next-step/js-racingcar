@@ -1,5 +1,6 @@
 {
   "rules": {},
+  "plugins": ["prettier"],
   "env": {
     "es6": true,
     "node": true
@@ -8,8 +9,5 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-  ]
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"]
 }
