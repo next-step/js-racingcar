@@ -1,39 +1,23 @@
+import { Car } from "../src/Car";
 import {
   CAR_NAME_MAX_LENGTH,
   CAR_NAME_MIN_LENGTH,
-  DEFAULT_MOVE_THRESHOLD,
-  Car,
-  InvalidNameError,
-} from "../src/Car";
+  DEFAULT_CAR_CONFIG,
+} from "../src/constants";
+import { CarNameError } from "../src/errors";
+import { generateRandomString } from "../src/utils";
 
 const TEST_CAR_NAME = "car1";
 
-// https://www.slingacademy.com/article/ways-to-generate-random-strings-in-javascript/
-const generateRandomString = (length) => {
-  let result = "";
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-};
-
 describe("Test class Car", () => {
   it("should be granted a valid name", () => {
-    expect(() => new Car()).toThrow(InvalidNameError);
+    expect(() => new Car()).toThrow(CarNameError);
     const tooShortName = generateRandomString(CAR_NAME_MIN_LENGTH - 1);
-    expect(() => new Car(tooShortName)).toThrow(InvalidNameError);
+    expect(() => new Car(tooShortName)).toThrow(CarNameError);
     const tooLongName = generateRandomString(CAR_NAME_MAX_LENGTH + 1);
-    expect(() => new Car(tooLongName)).toThrow(InvalidNameError);
+    expect(() => new Car(tooLongName)).toThrow(CarNameError);
   });
 
-  // console.assert(
-  //   TEST_CAR_NAME.length < CAR_NAME_MIN_LENGTH ||
-  //     TEST_CAR_NAME.length > CAR_NAME_MAX_LENGTH,
-  //   '"TEST_CAR_NAME" is invalid.'
-  // );
   const car = new Car(TEST_CAR_NAME);
   it("should have a name", () => {
     expect(car.name).toEqual(TEST_CAR_NAME);
@@ -45,15 +29,15 @@ describe("Test class Car", () => {
 
   it("should move if the random number is greater than or equal to the threshold", () => {
     let carPosition = car.position;
-    car.move(DEFAULT_MOVE_THRESHOLD - 1);
+    car.move(DEFAULT_CAR_CONFIG.MOVE_THRESHOLD - 1);
     expect(car.position).toEqual(carPosition);
 
     carPosition = car.position;
-    car.move(DEFAULT_MOVE_THRESHOLD);
+    car.move(DEFAULT_CAR_CONFIG.MOVE_THRESHOLD);
     expect(car.position).toEqual(carPosition + 1);
 
     carPosition = car.position;
-    car.move(DEFAULT_MOVE_THRESHOLD + 1);
+    car.move(DEFAULT_CAR_CONFIG.MOVE_THRESHOLD + 1);
     expect(car.position).toEqual(carPosition + 1);
   });
 });
