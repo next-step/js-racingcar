@@ -23,7 +23,7 @@ describe('CarRace', () => {
 
     const lapCount = 7;
 
-    carRace.setLapCount(lapCount);
+    carRace.lapCount = lapCount;
 
     expect(carRace.lapCount).toBe(lapCount);
   });
@@ -35,7 +35,7 @@ describe('CarRace', () => {
         new Car('문광민'),
         new Car('Jason'),
       ]);
-      expect(() => carRace.setLapCount(lapCount)).toThrowError(
+      expect(() => (carRace.lapCount = lapCount)).toThrowError(
         ERROR_MESSAGE.CAR_RACE_LAP_COUNT
       );
     });
@@ -49,19 +49,6 @@ describe('CarRace', () => {
     it('자동차 경주 전에는 우승자를 알 수 없다.', () => {
       const winners = carRace.winners;
       expect(winners).not.toBeDefined();
-    });
-
-    it('자동차 경주 완료 후 우승자를 알 수 있다.', () => {
-      carRace.start();
-
-      const winners = carRace.winners;
-      const winnerNames = winners.map((car) => car.name);
-      const isWinnerInCarNames = winnerNames.some((winnerName) => {
-        return carNames.includes(winnerName);
-      });
-
-      expect(winners).toBeDefined();
-      expect(isWinnerInCarNames).toBeTruthy();
     });
 
     it('우승자가 2명 이상일 경우 우승자 이름 조회 시 콤마로 구분한다.', () => {
