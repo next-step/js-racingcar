@@ -73,13 +73,8 @@ export default class Game {
     return this.#winners;
   }
 
-  #isEmptyUserInput(userInput) {
-    return !userInput;
-  }
-
   #validateUserInput(userInput) {
-    if (this.#isEmptyUserInput(userInput))
-      throw new Error(Game.ERROR_MESSAGE.EMPTY);
+    if (!userInput) throw new Error(Game.ERROR_MESSAGE.EMPTY);
   }
 
   #parseCarNames(userInput) {

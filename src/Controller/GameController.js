@@ -10,14 +10,6 @@ export default class GameController {
     this.#addEventHandlerToView();
   }
 
-  get view() {
-    return this.#view;
-  }
-
-  get game() {
-    return this.#game;
-  }
-
   #addEventHandlerToView() {
     const promptEventHandler = (userInput) => this.#playGameWith(userInput);
     this.#view.addEventHandlerToPrompt(promptEventHandler);
@@ -44,9 +36,7 @@ export default class GameController {
   #printGameResult() {
     this.#view.logResultGuideMessage();
 
-    this.#game.roundHistory.forEach((roundCarsInfo) => {
-      this.#view.logRoundStatus(roundCarsInfo);
-    });
+    this.#view.logAllRoundStatus(this.#game.roundHistory);
 
     this.#view.logWinners(this.#game.winners);
   }

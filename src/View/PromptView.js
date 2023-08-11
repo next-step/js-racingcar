@@ -1,4 +1,4 @@
-import { rl } from "../utils";
+import { readLineInterface } from "../utils";
 
 export default class PromptView {
   static MESSAGES = Object.freeze({
@@ -8,15 +8,13 @@ export default class PromptView {
   });
 
   addEventHandlerToPrompt(cbFunc) {
-    rl.question(PromptView.MESSAGES.INITIAL_GUIDE, (input) => {
+    readLineInterface.question(PromptView.MESSAGES.INITIAL_GUIDE, (input) => {
       cbFunc(input);
-      rl.close();
+      readLineInterface.close();
     });
   }
 
-  #log(...rest) {
-    return console.log(...rest);
-  }
+  #log = console.log;
 
   #logDivider() {
     const DIVIDER_SYMBOL = "";
@@ -37,12 +35,18 @@ export default class PromptView {
     this.#log(PromptView.MESSAGES.RESULT_GUIDE);
   }
 
-  logRoundStatus(cars) {
+  #logRoundStatus(cars) {
     cars.forEach((car) => {
       this.#logCarStatus(car);
     });
 
     this.#logDivider();
+  }
+
+  logAllRoundStatus(rounds) {
+    rounds.forEach((round) => {
+      this.#logRoundStatus(round);
+    });
   }
 
   logWinners(winners) {

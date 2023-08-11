@@ -2,7 +2,6 @@ import Game from "../src/Models/Game";
 import Car from "../src/Models/Car";
 
 const GAME_INIT_ROUND = Game.INITIAL_ROUND;
-const TOTAL_GAME_ROUNDS = Game.TOTAL_ROUNDS;
 const INPUT_ERROR_MESSAGE = Game.ERROR_MESSAGE;
 
 const CAR_ERROR_MESSAGE = Car.ERROR_MESSAGE;
@@ -52,7 +51,7 @@ describe("[feature1] 사용자가 유효한 값을 입력하는지 검증한다.
       }
     );
 
-    it("사용자 입력에 5글자 이상인 자동차 이름이 있는 경우, 에러를 발생시킨다.", () => {
+    it("사용자 입력에 6 글자 이상인 자동차 이름이 있는 경우, 에러를 발생시킨다.", () => {
       expect(() => new Game("aaaaa, bbbbbb,cccccc")).toThrow(
         CAR_ERROR_MESSAGE.LONG_NAME
       );
@@ -80,23 +79,30 @@ describe("[feature1] 사용자가 유효한 값을 입력하는지 검증한다.
 });
 
 describe("[feature4] 총 5라운드를 반복하고, 우승 자동차 정보를 반환한다.", () => {
-  const VALID_INPUT = "yun,yang,erica,star";
-  const game = new Game(VALID_INPUT);
+  const game = new Game("yun,yang,erica,star");
 
   it("게임 컨트롤러는 Car 객체를 갖는 배열, View 객체, 현재 라운드, 우승자 배열을 상태값으로 갖는다.", () => {
     expect(game.cars).toBeInstanceOf(Array);
-    expect(game.currRound).toBeDefined();
-    expect(game.currRound).toBe(GAME_INIT_ROUND);
-    expect(game.winners).toBeInstanceOf(Array);
+    expect(game.cars.length).toBe(4);
+    expect(game.currRound).toBe(1);
+    expect(game.winners).toEqual([]);
   });
 
   it("다섯 라운드가 진행된다.", () => {
     game.play();
-    expect(game.currRound - 1).toBe(TOTAL_GAME_ROUNDS);
+    expect(game.currRound - 1).toBe(5);
   });
 
-  it("배열 형태로 우승자 정보를 반환한다.", () => {
+  it("게임을 끝낸 뒤, 우승자 정보를 반환한다.", () => {
+    game.play();
+
+    const winnerNames = [];
+    game.winners.forEach((winner) => {
+      winnerNames.push(winner.name);
+    });
+
     expect(game.winners).toBeInstanceOf(Array);
+    // expect(winnerNames).toContain("star");
     expect(game.winners.length).toBeGreaterThan(0);
   });
 });
