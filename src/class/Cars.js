@@ -1,15 +1,12 @@
 import Car from "./Car";
 
-const DEFAULT_RACING_ROUND_NUMBER = 5;
-
 export default class Cars {
-  #cars;
-  #roundNumber;
+  #cars = [];
+  #DEFAULT_RACING_ROUND_NUMBER = 5;
+  #roundNumber = this.#DEFAULT_RACING_ROUND_NUMBER;
   #advanceConditions;
 
   constructor(advanceConditions) {
-    this.#cars = [];
-    this.#roundNumber = DEFAULT_RACING_ROUND_NUMBER;
     this.#advanceConditions =
       advanceConditions instanceof Array &&
       advanceConditions.every(
@@ -19,8 +16,8 @@ export default class Cars {
         : [];
   }
 
-  addCar(name, advanceCondition) {
-    const car = new Car(name, advanceCondition);
+  addCar(name) {
+    const car = new Car(name);
 
     this.#cars.push(car);
   }
