@@ -68,4 +68,13 @@ describe('Game: 자동차 경주 게임 모델', () => {
       expect(() => new Game(carNames)).toThrow()
     })
   })
+
+  describe('validateRounds(): 받아온 경주 횟수가 올바른 숫자가 아닐 경우 에러를 출력한다.', () => {
+    test.each([null, undefined, 0, -1, '숫자가 아님'])(
+      'new Game(%s)',
+      (rounds) => {
+        expect(() => new Game(['산들,뿌꾸'], rounds)).toThrow()
+      },
+    )
+  })
 })

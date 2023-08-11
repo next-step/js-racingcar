@@ -17,6 +17,7 @@ export class Game {
 
   constructor(carNames, rounds = Game.DEFAULT_ROUNDS) {
     this.#validateCarName(carNames)
+    this.#validateRounds(rounds)
     this.#cars = new Cars(carNames)
     this.#entries = this.#cars.entries
     this.#rounds = rounds
@@ -48,6 +49,14 @@ export class Game {
       carNames.some((name) => !name || typeof name !== 'string')
     ) {
       throw new Error(ERROR_MESSAGE.NAMES_TO_BE_VALID)
+    }
+  }
+
+  #validateRounds(rounds) {
+    const roundsNumber = Number(rounds)
+
+    if (!roundsNumber || isNaN(roundsNumber) || roundsNumber <= 0) {
+      throw new Error(ERROR_MESSAGE.ROUNDS_TO_BE_VALID)
     }
   }
 
