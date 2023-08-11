@@ -10,12 +10,30 @@ export class GameController {
   }
 
   async run() {
-    await this.#view.getUserInput()
+    try {
+      const carNames = await this.#view.getCarNames()
+      const rounds = await this.#view.getRounds()
+      this.#game = new Game(carNames, rounds)
 
-    const userInput = this.#view.userInput
-    this.#game = new Game(userInput)
-    this.#game.run()
+      this.#game.run()
+    } catch (error) {
+      this.#printError(error)
+      return this.#handleError(error, () => {
+        return this.run()
+      })
+    }
 
     this.#view.printResult(this.#game.records, this.#game.winners)
+    process.exit()
+  }
+
+  #printError(error) {
+    this.#view.printError(error)
+  }
+
+  async #handleError(error, phaseToRetry) {
+    this.#printError(error.message)
+
+    return await phaseToRetry()
   }
 }
