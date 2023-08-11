@@ -11,11 +11,8 @@ export class RaceRecords {
     this.#validateRecords(records)
 
     Object.entries(records).forEach(([name, position]) => {
-      if (this.#records[name]) {
-        this.#records[name].push(position)
-      } else {
-        this.#records[name] = [position]
-      }
+      this.#records[name] = this.#records[name] || []
+      this.#records[name].push(position)
     })
   }
 

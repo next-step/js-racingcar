@@ -17,23 +17,11 @@ export class GameController {
 
       this.#game.run()
     } catch (error) {
-      this.#printError(error)
-      return this.#handleError(error, () => {
-        return this.run()
-      })
+      this.#view.printError(error)
+      return this.run()
     }
 
     this.#view.printResult(this.#game.records, this.#game.winners)
     process.exit()
-  }
-
-  #printError(error) {
-    this.#view.printError(error)
-  }
-
-  async #handleError(error, phaseToRetry) {
-    this.#printError(error.message)
-
-    return await phaseToRetry()
   }
 }

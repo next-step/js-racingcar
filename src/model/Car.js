@@ -2,6 +2,8 @@ import { ERROR_MESSAGE } from '../constants/errorMessages.js'
 
 export class Car {
   static DEFAULT_POSITION = 0
+  static VALID_NAME_MAX_LENGTH = 5
+  static VALID_NAME_MIN_LENGTH = 0
   #name
   #position
 
@@ -12,7 +14,10 @@ export class Car {
   }
 
   #validateName(name) {
-    if (name.length > 5 || name.length === 0) {
+    if (
+      name.length > Car.VALID_NAME_MAX_LENGTH ||
+      name.length === Car.VALID_NAME_MIN_LENGTH
+    ) {
       throw new Error(ERROR_MESSAGE)
     }
 
@@ -27,8 +32,8 @@ export class Car {
     this.#name = name
   }
 
-  move(isMove) {
-    if (isMove) this.#position += 1
+  move(moving) {
+    if (moving) this.#position += 1
   }
 
   get name() {
