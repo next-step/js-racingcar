@@ -7,39 +7,55 @@ import View from "../view/View.js";
 export default class CarRacingManager {
   #gameModel = new GameModel();
 
-  gameStart(names, totalRound) {
-    try {
-      this.setParticipants(names);
-      this.setTotalRound(totalRound);
-      View.printGameStartMessage();
-      this.roundInterval();
-      View.printGameEndMessage();
-      View.end();
-    } catch (error) {
-      View.printErrorMessage(error.message);
-      View.printGameEndMessage();
-      View.end();
-    }
+  #view = View;
+
+  async start() {
+    await this.settingGame();
+    await this.playGame();
+    this.endGame();
+  }
+
+  async settingGame() {
+    await this.retryUntilSuccess(async () => {
+      this.setParticipants(await this.#view.askNames());
+    });
+
+    await this.retryUntilSuccess(async () => {
+      this.setTotalRound(await this.#view.askTotalRound());
+    });
+  }
+
+  async playGame() {
+    this.#view.printGameStartMessage();
+    await this.roundInterval();
+    this.#view.printWinnerMessage(this.getWinnersName());
+  }
+
+  endGame() {
+    this.#view.printGameEndMessage();
+    this.#view.end();
   }
 
   roundInterval() {
-    const interval = setInterval(() => {
-      this.#gameModel.increaseRound();
-      if (this.#gameModel.round > this.#gameModel.totalRound) {
-        clearInterval(interval);
-        View.printWinnerMessage(this.getWinnersName());
-        return;
-      }
+    return new Promise(resolve => {
+      const interval = setInterval(() => {
+        this.#gameModel.increaseRound();
+        if (this.#gameModel.round > this.#gameModel.totalRound) {
+          clearInterval(interval);
+          resolve();
+          return;
+        }
 
-      this.roundStart();
-      View.printPerRoundEnd();
-    }, INTERVAL_ROUND_TIME);
+        this.roundStart();
+        this.#view.printPerRoundEnd();
+      }, INTERVAL_ROUND_TIME);
+    });
   }
 
   roundStart() {
     this.#gameModel.participants.forEach(car => {
       car.go(getRandomNumberInRange());
-      View.printCarAndMove(car.name, car.movement);
+      this.#view.printCarAndMove(car.name, car.movement);
     });
   }
 
@@ -59,5 +75,14 @@ export default class CarRacingManager {
 
   setTotalRound(totalRound) {
     this.#gameModel.totalRound = totalRound;
+  }
+
+  async retryUntilSuccess(callback) {
+    try {
+      await callback();
+    } catch (error) {
+      this.#view.printErrorMessage(error.message);
+      await this.retryUntilSuccess(callback);
+    }
   }
 }
