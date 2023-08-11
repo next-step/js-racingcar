@@ -9,7 +9,7 @@ describe('Cars: 경주에 참여하는 자동차들', () => {
     expect(cars.entries.length).toBe(CAR_NAMES.length)
   })
 
-  describe('cars: 자동차 이름 묶음을 바탕으로 자동차 객체를 만든다.', () => {
+  describe('자동차 이름을 받아와 이를 바탕으로 바탕으로 자동차 객체를 만든다.', () => {
     const cars = new Cars(CAR_NAMES)
     it('Car 객체의 인스턴스인지 확인', () => {
       cars.entries.forEach((car) => {
@@ -22,9 +22,26 @@ describe('Cars: 경주에 참여하는 자동차들', () => {
         expect(cars.entries[index].name).toBe(name)
       })
     })
+
+    test.each([[['산들', '뿌꾸', '천둥']], [['a', 'b', 'c', 'd', 'e']]])(
+      '자동차 이름이 배열로 주어진 경우 : %s',
+      (names) => {
+        const cars = new Cars(names)
+        expect(cars.entries.length).toBe(names.length)
+      },
+    )
+
+    test.each([['산들,뿌꾸,천둥'], ['a,b,c,d,e,f']])(
+      '자동차 이름이 문자열로 주어진 경우 : %s',
+      (names) => {
+        const cars = new Cars(names)
+        const carNamesArr = names.split(',')
+        expect(cars.entries.length).toBe(carNamesArr.length)
+      },
+    )
   })
 
-  describe('validateNames(): 이름 묶음이 1개 이상이 아닌 경우 프로그램을 종료한다.', () => {
+  describe('validateNames(): 이름이 유효하지 않은 경우 프로그램을 종료한다.', () => {
     test.each([
       [[], 'names 배열이 비어있음'],
       ['', 'names가 문자열임'],
@@ -36,6 +53,9 @@ describe('Cars: 경주에 참여하는 자동차들', () => {
       [new Car('뿌꾸'), 'names가 Car 객체임'],
       ['배열이 아닌 문자열인 경우', 'names가 문자열임'],
       [{ carName: '산들', position: 0 }, 'names가 객체임'],
+      [[1, 2, 3], 'names 가 숫자 배열임'],
+      [['1', '2', '3'], 'names 가 숫자 문자열 배열임'],
+      ['1,2,3', 'names 가 숫자 문자열임'],
     ])('new Cars(%s) 는 에러를 출력한다. 이유: %s', (names) => {
       expect(() => new Cars(names)).toThrow()
     })
@@ -48,8 +68,8 @@ describe('Cars: 경주에 참여하는 자동차들', () => {
       [['산들', '뿌꾸', '뿌꾸']],
       [['산들', '뿌꾸', '산들']],
       [['sdsdfsdf', '뿌꾸', 'sdsdfsdf']],
-      [[1, 2, 3]],
-      [['1', '2', '3']],
+      [['산들,산들,산들']],
+      [['1,1,1']],
     ])('%s', (names) => {
       expect(() => new Cars(names)).toThrow()
     })

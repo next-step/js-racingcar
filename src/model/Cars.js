@@ -2,46 +2,57 @@ import { ERROR_MESSAGE } from '../constants/errorMessages.js'
 import { Car } from './Car.js'
 
 export class Cars {
+  #carNames
   #entries
   #status
 
   constructor(names) {
-    this.#validateNames(names)
-  }
-
-  #validateNames(names) {
-    if (!Array.isArray(names) || !names.length) {
-      throw new Error(ERROR_MESSAGE.NAMES_TO_BE_VALID)
-    }
-
-    if (this.#hasDuplicateNames(names)) {
-      throw new Error('중복된 이름이 있습니다.')
-    }
-
-    this.#setEntries(names)
-  }
-
-  #hasDuplicateNames(names) {
-    return new Set(names).size !== names.length
-  }
-
-  #setEntries(names) {
-    this.#entries = this.#makeEntries(names)
-  }
-
-  #makeEntries(names) {
-    return names.map((name) => new Car(name))
+    this.#setCarNames(names)
+    this.#validateCarNames(this.#carNames)
+    this.#setEntries(this.#carNames)
   }
 
   move(moveCondition) {
     this.#entries.forEach((car) => {
-      const shouldMove = moveCondition()
-      car.move(shouldMove)
+      const moving = moveCondition()
+      car.move(moving)
     })
   }
 
-  get entries() {
-    return this.#entries
+  #setCarNames(names) {
+    if (Array.isArray(names)) {
+      this.#carNames = names
+      return
+    }
+
+    this.#carNames = names.split(',')
+  }
+
+  #validateCarNames(carNames) {
+    if (
+      !Array.isArray(carNames) ||
+      !carNames.length ||
+      carNames.some((car) => !car || typeof car !== 'string')
+    ) {
+      throw new Error(ERROR_MESSAGE.NAMES_TO_BE_VALID)
+    }
+
+    if (this.#hasDuplicatedNames(carNames)) {
+      throw new Error(ERROR_MESSAGE.HAS_DUPLICATED_NAMES)
+    }
+  }
+
+  #hasDuplicatedNames(names) {
+    return new Set(names).size !== names.length
+  }
+
+  #setEntries(names) {
+    let entries = names
+    if (typeof names === 'string') {
+      entries = names.split(',')
+    }
+
+    this.#entries = entries.map((name) => new Car(name))
   }
 
   #setStatus() {
@@ -49,6 +60,10 @@ export class Cars {
       name: car.name,
       position: car.position,
     }))
+  }
+
+  get entries() {
+    return this.#entries
   }
 
   get status() {
