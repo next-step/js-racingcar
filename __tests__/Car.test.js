@@ -23,27 +23,27 @@ describe('Car: 한 대의 자동차', () => {
 
 describe(`이름이 한글/영문 1~5글자가 아니면 에러를 출력한다.`, () => {
   test.each([
-    ['', false],
-    [-1, false],
-    [1, false],
-    ['*', false],
-    ['-', false],
-    ['+', false],
-    [null, false],
-    [undefined, false],
-    [[], false],
-    [{}, false],
-    [new Car('뿌꾸'), false],
-    ['산들', true],
-    ['xand', true],
-    ['산들뿌꾸천둥', false],
-    ['xander', false],
-  ])('new Car(%s) => %s', (carName, isValid) => {
-    if (isValid) {
-      const car = new Car(carName)
-      expect(car.name).toEqual(carName)
-    } else {
-      expect(() => new Car(carName)).toThrow()
-    }
+    [''],
+    [-1],
+    [1],
+    ['*'],
+    ['-'],
+    ['+'],
+    [null],
+    [undefined],
+    [[]],
+    [{}],
+    [new Car('뿌꾸')],
+    ['산들뿌꾸천둥'],
+    ['xander'],
+  ])('에러를 출력한다 : new Car(%s) => %s', (carName) => {
+    expect(() => new Car(carName)).toThrow()
   })
+
+  test.each([['산들'], ['산들천둥'], ['abcde'], ['산들뿌꾸천']])(
+    '에러를 출력하지 않는다 :  new Car(%s) => %s ',
+    (carName) => {
+      expect(() => new Car(carName)).not.toThrow()
+    },
+  )
 })
