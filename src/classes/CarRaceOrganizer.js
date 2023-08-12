@@ -1,11 +1,11 @@
-import { RACE_CONFIGURE, ERROR_MESSAGE } from '../constants/index';
+import { ERROR_MESSAGE } from '../constants/index';
 import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../race/index';
 import { generateRandomNumber, isDuplicateArray, isOnlyPositiveNumber } from '../utils/index';
 
 export default class CarRaceOrganizer {
-  #minSpeed = RACE_CONFIGURE.MIN_SPEED;
-  #maxSpeed = RACE_CONFIGURE.MAX_SPEED;
-  #track = RACE_CONFIGURE.TRACK;
+  #minSpeed = 0;
+  #maxSpeed = 9;
+  #track = '-';
 
   #totalLap;
   #cars = [];

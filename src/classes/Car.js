@@ -2,10 +2,9 @@ import { CAR_CONFIGURE, ERROR_MESSAGE } from '../constants/index';
 import { isString, isMinimumLength, isMaximumLength } from '../utils/index';
 
 export default class Car {
-  #moveCondition = CAR_CONFIGURE.MOVE_CONDITION;
-
-  #name = null;
+  #moveCondition = 4;
   #moved = 0;
+  #name = null;
 
   constructor(name) {
     this.#validateCarNameType(name);
