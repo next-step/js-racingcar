@@ -1,81 +1,54 @@
-import { Car } from "./Car";
-import { getRandomIntInclusive, isString } from "./utils";
+import {
+  DEFAULT_CAR_RACE_CONFIG,
+  RACE_MAX_CAR,
+  RACE_MIN_CAR,
+  RACE_MAX_LAP,
+  RACE_MIN_LAP,
+} from "./constants";
+import { RaceCarCountError, RaceLapCountError } from "./errors";
+import { getRandomIntInclusive } from "./utils";
 
-export const DEFAULT_CONFIG = {
-  MAX_NUM_OF_CARS: 5,
-  MIN_NUM_OF_CARS: 1,
-  MAX_LENGH_OF_CAR_NAME: 5,
-  MIN_LENGH_OF_CAR_NAME: 1,
-  MIN_RANDOM_NUMBER: 0,
-  MAX_RANDOM_NUMBER: 9,
-  RACE_LAPS: 5,
+const CAR_RACE_STATE = {
+  NOT_INITIALIZED: 0,
+  READY_TO_START: 1,
+  RUNNING: 2,
+  FINISHED: 3,
 };
-
-export class InvalidCarNamesError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = "InvalidCarNamesError";
-  }
-}
 
 export class CarRace {
   #cars = [];
-  #laps = DEFAULT_CONFIG.RACE_LAPS;
+  #laps = DEFAULT_CAR_RACE_CONFIG.RACE_LAPS;
   #currentLap = 0;
 
-  constructor(enteredCarNames) {
-    const carNames = this.#parseCarNames(enteredCarNames);
-    if (carNames.length < DEFAULT_CONFIG.MIN_NUM_OF_CARS) {
-      throw new InvalidCarNamesError(
-        "A number of cars were given that are too small to race."
-      );
-    }
-    this.#cars = carNames
-      .slice(0, DEFAULT_CONFIG.MAX_NUM_OF_CARS)
-      .map((carName) => new Car(carName));
+  get currentLap() {
+    return this.#currentLap;
   }
 
-  #parseCarNames(enteredCarNames) {
-    if (!isString(enteredCarNames)) {
-      throw new InvalidCarNamesError(
-        "The given car names value is not a string"
-      );
-    }
-    const carNames = enteredCarNames
-      .split(",")
-      .map((carName) => carName.trim())
-      .filter((carName) => carName);
-    const uniqueCarNames = [...new Set(carNames)];
-    this.#validateCarNames(uniqueCarNames);
-    return uniqueCarNames;
+  get laps() {
+    return this.#laps;
   }
 
-  #validateCarNames(carNames) {
-    if (
-      carNames.some(
-        (carName) => carName.length < DEFAULT_CONFIG.MIN_LENGH_OF_CAR_NAME
-      )
-    ) {
-      throw new InvalidCarNamesError("One or more car names are too short");
+  get state() {
+    if (this.#cars.length === 0) {
+      return CAR_RACE_STATE.NOT_INITIALIZED;
     }
-    if (
-      carNames.some(
-        (carName) => carName.length > DEFAULT_CONFIG.MAX_LENGH_OF_CAR_NAME
-      )
-    ) {
-      throw new InvalidCarNamesError("One or more car names are too long");
+    if (this.#currentLap === 0) {
+      return CAR_RACE_STATE.READY_TO_START;
     }
+    if (this.#currentLap === this.#laps) {
+      return CAR_RACE_STATE.FINISHED;
+    }
+    return CAR_RACE_STATE.RUNNING;
   }
 
   #race() {
-    this.#cars.forEach((car) =>
-      car.move(
-        getRandomIntInclusive(
-          DEFAULT_CONFIG.MIN_RANDOM_NUMBER,
-          DEFAULT_CONFIG.MAX_RANDOM_NUMBER
-        )
-      )
-    );
+    this.#cars.forEach((car) => {
+      const randomNumber = getRandomIntInclusive(
+        DEFAULT_CAR_RACE_CONFIG.MIN_RANDOM_NUMBER,
+        DEFAULT_CAR_RACE_CONFIG.MAX_RANDOM_NUMBER
+      );
+      car.move(randomNumber);
+    });
     this.#currentLap += 1;
   }
 
@@ -83,7 +56,24 @@ export class CarRace {
     return this.#cars.map(({ name }) => name);
   }
 
-  run(options = { verbose: true }) {
+  setCars(cars) {
+    if (cars.length < RACE_MIN_CAR || cars.length > RACE_MAX_CAR) {
+      throw new RaceCarCountError("Invalid number of cars");
+    }
+    this.#cars = cars;
+  }
+
+  setLaps(laps) {
+    if (laps < RACE_MIN_LAP || laps > RACE_MAX_LAP) {
+      throw new RaceLapCountError("Invalid number of laps");
+    }
+    this.#laps = laps;
+  }
+
+  start(options = { verbose: true }) {
+    if (this.state !== CAR_RACE_STATE.READY_TO_START) {
+      throw new Error("Not ready or has been started");
+    }
     while (this.#currentLap < this.#laps) {
       this.#race();
       if (options?.verbose) {
@@ -96,6 +86,9 @@ export class CarRace {
   }
 
   getWinnerNames() {
+    if (this.state !== CAR_RACE_STATE.FINISHED) {
+      throw new Error("The race has not been finished");
+    }
     const maxPosition = Math.max(...this.#cars.map(({ position }) => position));
     const winners = this.#cars.filter(
       ({ position }) => position === maxPosition
@@ -112,11 +105,10 @@ export class CarRace {
   }
 
   printWinners() {
-    if (this.#currentLap !== this.#laps) {
+    if (this.state !== CAR_RACE_STATE.FINISHED) {
       console.log("아직 경기가 끝나지 않았습니다.");
       return;
     }
-
     const winners = this.getWinnerNames();
     console.log(`${winners.join(", ")}가 최종 우승하였습니다.`);
   }
