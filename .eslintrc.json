@@ -4,7 +4,8 @@
     "no-console": "off",
     "prettier/prettier": ["off"],
     "lines-between-class-members": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "consistent-return": "off"
   },
   "env": {
     "es6": true,
