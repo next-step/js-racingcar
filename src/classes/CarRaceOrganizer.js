@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../constants/index';
+import { ERROR_MESSAGE, RACE_CONFIGURE } from '../constants/index';
 import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../race/index';
 import { generateRandomNumber, isDuplicateArray, isOnlyPositiveNumber } from '../utils/index';
 
@@ -37,6 +37,10 @@ export default class CarRaceOrganizer {
   static validateTotalLap(totalLap) {
     if (!isOnlyPositiveNumber(totalLap)) {
       throw new Error(ERROR_MESSAGE.NOT_RECEIVED_POSITIVE_NUMBER);
+    }
+
+    if (totalLap > RACE_CONFIGURE.MAX_LAP) {
+      throw new Error(ERROR_MESSAGE.OVER_LAP);
     }
   }
 

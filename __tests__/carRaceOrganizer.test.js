@@ -86,6 +86,13 @@ describe('자동차 경주 테스트', () => {
     }
   );
 
+  it('자동차 경주 주행 횟수가 100회 이상이면 오류가 발생한다.', () => {
+    const cars = getCars(DUMMY_CARS);
+    expect(() => {
+      new CarRaceOrganizer(cars, 101);
+    }).toThrowError(ERROR_MESSAGE.OVER_LAP);
+  });
+
   it('자동차 경주 종료 후, 가장 많은 거리를 이동한 자동차가 우승한다.', () => {
     const cars = getCars(DUMMY_CARS);
     cars.map((car, index) => car.move(index + 1));

@@ -4,4 +4,7 @@ export const CAR_CONFIGURE = Object.freeze({
   NAME_SEPARATOR: ','
 });
 
-export const DISPLAY_SEPARATOR = ',';
+export const RACE_CONFIGURE = Object.freeze({
+  DISPLAY_SEPARATOR: ',',
+  MAX_LAP: 100
+});
