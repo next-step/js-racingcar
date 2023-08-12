@@ -1,3 +1,3 @@
-import startGame from './startGame';
+import startGame from './domain/race/startGame';
 
 startGame();

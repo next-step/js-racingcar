@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE, RACE_CONFIGURE } from '../constants/index';
-import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../race/index';
-import { generateRandomNumber, isDuplicateArray, isOnlyPositiveNumber } from '../utils/index';
+import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../../view/viewer';
+import { generateRandomNumber, isDuplicateArray, isOnlyPositiveNumber } from '../../utils/index';
 
 export default class CarRaceOrganizer {
   #minSpeed = 0;

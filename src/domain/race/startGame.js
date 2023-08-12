@@ -1,5 +1,5 @@
-import { executeReadInputCar, executeReadInputTotalLap, errorFallback, endPrompter } from './race/index';
-import { Car, CarRaceOrganizer } from './classes/index';
+import { executeReadInputCar, executeReadInputTotalLap, errorFallback, endPrompter } from './prompter';
+import { Car, CarRaceOrganizer } from '../classes/index';
 
 const getValidCarsFromPrompt = async () => {
   try {

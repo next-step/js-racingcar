@@ -1,8 +1,8 @@
 import { stdin as input, stdout as output } from 'process';
 import * as readline from 'readline';
-import { splitString } from '../utils/index';
+import { splitString } from '../../utils/string';
 import { ALERT_MESSAGE, ERROR_MESSAGE, CAR_CONFIGURE } from '../constants/index';
-import { printMessage } from './viewer';
+import { printMessage } from '../../view/viewer';
 
 const { INPUT_CAR_MESSAGE, RETRY_MESSAGE, QUESTION_RACE_LAP_MESSAGE } = ALERT_MESSAGE;
 const { NOT_RECEIVED_INPUT_CARS, NOT_RECEIVED_INPUT_LAP } = ERROR_MESSAGE;

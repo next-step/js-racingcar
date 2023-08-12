@@ -7,8 +7,8 @@ import {
   DUMMY_RACE_TOTAL_LAPS,
   DUMMY_INCORRECT_RACE_TOTAL_LAPS
 } from './constants';
-import { CAR_CONFIGURE, ERROR_MESSAGE } from '../src/constants/index';
-import { CarRaceOrganizer, Car } from '../src/classes/index';
+import { CAR_CONFIGURE, ERROR_MESSAGE } from '../src/domain/constants/index';
+import { CarRaceOrganizer, Car } from '../src/domain/classes/index';
 
 const { NAME_SEPARATOR } = CAR_CONFIGURE;
 

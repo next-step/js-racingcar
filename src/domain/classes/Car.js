@@ -1,5 +1,5 @@
 import { CAR_CONFIGURE, ERROR_MESSAGE } from '../constants/index';
-import { isString, isMinimumLength, isMaximumLength } from '../utils/index';
+import { isString, isMinimumLength, isMaximumLength } from '../../utils/index';
 
 export default class Car {
   #moveCondition = 4;

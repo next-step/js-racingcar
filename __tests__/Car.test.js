@@ -4,8 +4,8 @@ import {
   DUMMY_EXCEEDED_CAR_NAMES,
   DUMMY_NOT_STRING_CAR_NAMES
 } from './constants';
-import { CAR_CONFIGURE, ERROR_MESSAGE } from '../src/constants/index';
-import { Car } from '../src/classes/index';
+import { CAR_CONFIGURE, ERROR_MESSAGE } from '../src/domain/constants/index';
+import { Car } from '../src/domain/classes/index';
 
 const getCarMoved = (name, distance) => {
   const car = new Car(name);
