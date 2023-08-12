@@ -62,12 +62,15 @@ export default class CarRaceOrganizer {
   }
 
   runFullRace() {
-    while (!this.#isRaceDone()) {
-      this.runSingleRace();
-      this.printRace();
-      this.nextLap();
+    if (this.#isRaceDone()) {
+      this.printWinners();
+      return;
     }
-    this.printWinners();
+
+    this.runSingleRace();
+    this.printRace();
+    this.nextLap();
+    this.runFullRace();
   }
 
   runSingleRace() {
