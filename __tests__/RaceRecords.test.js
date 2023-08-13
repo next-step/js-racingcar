@@ -1,4 +1,4 @@
-import { RaceRecords } from '../src/model/RaceRecords'
+import { RaceRecords } from '../src/domain/model/RaceRecords'
 
 describe('RaceRecords: 자동차 경주 기록', () => {
   it('RaceRecords.value: 각 라운드별로 진행된 자동차 경주의 기록 컬렉션을 보유한다.', () => {

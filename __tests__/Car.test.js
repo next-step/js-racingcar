@@ -1,4 +1,4 @@
-import { Car } from '../src/model/Car'
+import { Car } from '../src/domain/model/Car'
 
 const CAR_NAME = '산들'
 

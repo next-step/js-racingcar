@@ -1,4 +1,4 @@
-import { Game } from '../src/model/Game'
+import { Game } from '../src/domain/model/Game'
 
 const CAR_NAMES = ['산들', '뿌꾸', '천둥']
 const ROUNDS = 5

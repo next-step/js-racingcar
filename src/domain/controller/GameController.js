@@ -1,4 +1,4 @@
-import { View } from '../view/View.js'
+import { View } from '../../view/View.js'
 import { Game } from '../model/Game.js'
 
 export class GameController {

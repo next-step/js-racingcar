@@ -1,4 +1,4 @@
-import { GameController } from './controller/GameController.js'
+import { GameController } from './domain/controller/GameController.js'
 
 export class App {
   #gameController

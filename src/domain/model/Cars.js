@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../constants/errorMessages.js'
+import { ERROR_MESSAGE } from '../../constants/errorMessages.js'
 import { Car } from './Car.js'
 
 export class Cars {

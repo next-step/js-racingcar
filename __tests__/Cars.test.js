@@ -1,5 +1,5 @@
-import { Car } from '../src/model/Car'
-import { Cars } from '../src/model/Cars'
+import { Car } from '../src/domain/model/Car'
+import { Cars } from '../src/domain/model/Cars'
 
 const CAR_NAMES = ['산들', '뿌꾸']
 
