@@ -27,7 +27,9 @@ export const Cars = (function () {
   function playOneRound(cars) {
     cars.forEach((car) => {
       const randomNumber = getRandomIntRangeOf(0, 9);
-      if (randomNumber >= CAR_MOVE_CRITERIA) car.move();
+      if (randomNumber >= CAR_MOVE_CRITERIA) {
+        car.move();
+      }
     });
   }
 
@@ -36,6 +38,7 @@ export const Cars = (function () {
   }
 
   return {
+    ERROR_MESSAGE,
     from,
     playOneRound,
     getRoundRecord,
