@@ -4,9 +4,9 @@ import {
   RACE_MIN_CAR,
   RACE_MAX_LAP,
   RACE_MIN_LAP,
-} from "./constants";
-import { RaceCarCountError, RaceLapCountError } from "./errors";
-import { getRandomIntInclusive } from "./utils";
+} from "../constants";
+import { RaceCarCountError, RaceLapCountError } from "../errors";
+import { getRandomIntInclusive } from "../utils";
 
 const CAR_RACE_STATE = {
   NOT_INITIALIZED: 0,
