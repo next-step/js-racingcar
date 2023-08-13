@@ -46,13 +46,42 @@ describe("CarRace class", () => {
   race.setCars(TEST_CARS);
   race.setLaps(TEST_NUMBER_OF_LAPS);
 
+  it("should have the current lap and it should be 0.", () => {
+    expect(race.currentLap).toEqual(0);
+  });
+
+  it("should have the current position of cars and they should be all 0", () => {
+    expect(race.currentPositions.length).toEqual(TEST_CARS);
+    race.currentPositions.forEach(({ position }) => {
+      expect(position).toEqual(0);
+    });
+  });
+
+  it("should race for the given number of laps.", () => {
+    const lapsBefore = race.currentLap;
+    race.start(1);
+    expect(race.currentLap).toEqual(lapsBefore + 1);
+  });
+
   race.start();
-  it("should race for the set number of laps.", () => {
+  it("should race until the end", () => {
     expect(race.currentLap).toEqual(TEST_NUMBER_OF_LAPS);
   });
 
   const winners = race.getWinnerNames();
   it("should have one or more winners", () => {
     expect(winners.length).toBeGreaterThanOrEqual(MIN_NUM_OF_WINNERS);
+  });
+
+  it("should have correct winners", () => {
+    const carPositions = race.currentPositions.map(({ position }) => position);
+    const maxPosition = Math.max(...carPositions);
+    race.currentPositions.forEach(({ carName, position }) => {
+      if (winners.includes(carName)) {
+        expect(position).toEqual(maxPosition);
+      } else {
+        expect(position).toBeLessThan(maxPosition);
+      }
+    });
   });
 });
