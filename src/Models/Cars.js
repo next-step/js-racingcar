@@ -2,6 +2,7 @@ import Car from "./Car";
 import { getRandomIntRangeOf } from "../utils";
 
 export const Cars = (function () {
+  const CAR_MOVE_CRITERIA = 4;
   const ERROR_MESSAGE = Object.freeze({
     DUPLICATE_CAR_NAME:
       "중복된 자동차 이름으로는 프로그램이 동작할 수 없습니다.",
@@ -26,7 +27,7 @@ export const Cars = (function () {
   function playOneRound(cars) {
     cars.forEach((car) => {
       const randomNumber = getRandomIntRangeOf(0, 9);
-      if (randomNumber >= 4) car.move();
+      if (randomNumber >= CAR_MOVE_CRITERIA) car.move();
     });
   }
 

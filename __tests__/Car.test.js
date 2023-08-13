@@ -1,87 +1,88 @@
 import Car from "../src/Models/Car.js";
-import Game from "../src/Models/Game.js";
 
-const CAR_MOVE_CRITERIA = Game.CAR_MOVE_CRITERIA;
-const CAR_ERROR_MESSAGE = Car.ERROR_MESSAGE;
+describe("자동차는 이름의 유효성을 확인하고, 유효할 경우만 자동차 객체를 생성한다.", () => {
+  const CAR_ERROR_MESSAGE = Car.ERROR_MESSAGE;
 
-describe("[feature1] 자동차는 이름의 유효성을 확인하고, 유효할 경우만 자동차 객체를 생성한다.", () => {
   it("자동차 이름이 빈 값이면 에러를 발생시킨다.", () => {
-    expect(() => new Car("")).toThrow(CAR_ERROR_MESSAGE.EMPTY_NAME);
+    expect(() => Car.of("")).toThrow(CAR_ERROR_MESSAGE.EMPTY_NAME);
   });
 
-  it("자동차 이름이 5자 초과면 에러를 발생시킨다.", () => {
-    expect(() => new Car("ericagong")).toThrow(CAR_ERROR_MESSAGE.LONG_NAME);
+  it("자동차 이름이 5자 초과라면 에러를 발생시킨다.", () => {
+    expect(() => Car.of("ericagong")).toThrow(CAR_ERROR_MESSAGE.LONG_NAME);
   });
 
-  it("5자 이하의 유효한 자동차 이름이라면 오류를 발생시키지 않는다.", () => {
-    expect(() => new Car("erica")).not.toThrow();
+  it("5자 이하의 유효한 자동차 이름이라면, 오류를 발생시키지 않는다.", () => {
+    expect(() => Car.of("erica")).not.toThrow();
   });
 
-  it("유효한 자동차 이름이라면, 자동차 객체를 생성하고 이름과 현재 위치를 상태값으로 갖는다.", () => {
-    const car = new Car("erica");
+  it.each([{ position: 0 }, { position: 1 }])(
+    "유효한 자동차 이름과 위치가 주어지면, 이름과 위치를 상태로 갖는 자동차 객체를 생성한다.",
+    ({ position }) => {
+      const car = Car.of("erica", position);
 
+      expect(car.name).toBe("erica");
+      expect(car.position).toBe(position);
+    }
+  );
+});
+
+describe(`자동차가 전진하면, 현재 위치가 1만큼 증가한다.`, () => {
+  it.each([{ position: 0 }, { position: 1 }])(
+    "자동차가 전진하면 현재 위치가 1만큼 증가한다.",
+    ({ position }) => {
+      const car = Car.of("erica", position);
+      const currentPosition = car.position;
+
+      car.move();
+      expect(car.position).toBe(currentPosition + 1);
+    }
+  );
+});
+//   const CAR_MOVE_CRITERIA = 4;
+//   let testCases = [];
+
+//   for (let i = 0; i < 9; i++) {
+//     testCases.push({
+//       input: i,
+//       isMovable: i >= CAR_MOVE_CRITERIA,
+//     });
+//   }
+//   const movableTestCases = testCases.filter(({ isMovable }) => isMovable);
+//   const immovableTestCases = testCases.filter(({ isMovable }) => !isMovable);
+//   it.each(immovableTestCases)(
+//     `자동차는 전진 조건에 부합하지 않으면 현재 위치를 유지한다. (input = $input)`,
+//     ({ input }) => {
+//       const car = Car.of("erica");
+//       car.tryMoveWith(input);
+//       expect(car.position).toBe(0);
+//     }
+//   );
+//   it.each(movableTestCases)(
+//     `자동차는 전진 조건에 부합하면, 전진한다. (input = $input)`,
+//     ({ input }) => {
+//       const car = Car.of("erica", 0);
+//       car.tryMoveWith(input);
+//       expect(car.position).toBe(1);
+//     }
+//   );
+// });
+
+describe("자동차는 이름과 현재 위치 정보를 반환한다.", () => {
+  const car = Car.of("erica", 0);
+
+  it("자동차 객체는 이름을 반환한다.", () => {
     expect(car.name).toBe("erica");
+  });
+
+  it("자동차 객체는 현재 위치를 반환한다.", () => {
     expect(car.position).toBe(0);
   });
+
+  it("자동차 객체는 이름과 현재 이름을 객체 형태로 반환한다.", () => {
+    expect(car.getRecord()).toBeInstanceOf(Object);
+    expect(car.getRecord()).toHaveProperty("name");
+    expect(car.getRecord()).toHaveProperty("position");
+  });
 });
 
-describe(`[feature2] 자동차는 전진조건에 부합하면 전진하고, 아니면 현재 위치를 유지한다.`, () => {
-  let testCases = [];
-
-  for (let i = 0; i < 9; i++) {
-    testCases.push({
-      input: i,
-      isMovable: Game.isMovable(i),
-    });
-  }
-  const movableTestCases = testCases.filter(({ isMovable }) => isMovable);
-  const immovableTestCases = testCases.filter(({ isMovable }) => !isMovable);
-  it.each(immovableTestCases)(
-    `자동차는 전진 조건에 부합하지 않으면 현재 위치를 유지한다. (input = $input)`,
-    ({ input }) => {
-      const car = new Car("erica");
-      car.tryMoveWith(input);
-      expect(car.position).toBe(0);
-    }
-  );
-  it.each(movableTestCases)(
-    `자동차는 전진 조건에 부합하면, 전진한다. (input = $input)`,
-    ({ input }) => {
-      const car = new Car("erica", 0);
-      car.tryMoveWith(input);
-      expect(car.position).toBe(1);
-    }
-  );
-});
-
-describe("[feature3] 자동차의 현재 상황 정보를 반환한다.", () => {
-  const testCases = [
-    { name: "현재 위치를 유지하는 경우", input: CAR_MOVE_CRITERIA - 1 },
-    {
-      name: `현재 위치에서 1 만큼 전진하는 경우`,
-      input: CAR_MOVE_CRITERIA,
-    },
-  ];
-
-  it.each(testCases)(
-    "자동차가 $name 경우, 자동차의 이름을 반환한다.",
-    ({ input }) => {
-      const car = new Car("erica");
-      car.tryMoveWith(input);
-      expect(car.name).toBe("erica");
-    }
-  );
-
-  it.each(testCases)(
-    "자동차가 $name, 자동차의 현재 위치를 반환한다.",
-    ({ input }) => {
-      const car = new Car("erica", 0);
-      let currentPosition = car.position;
-      car.tryMoveWith(input);
-      if (CAR_MOVE_CRITERIA <= input) {
-        currentPosition += 1;
-      }
-      expect(car.position).toBe(currentPosition);
-    }
-  );
-});
+// describe(`[feature2] 자동차는 랜덤 숫자가 4 이상이면 전진하고, 아니면 현재 위치를 유지한다.`, () => {
