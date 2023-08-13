@@ -34,7 +34,7 @@ export class Game {
     }
 
     // 모든 라운드 종료 후 우승자를 선정함
-    this.#setWinners(this.#records.records)
+    this.#setWinners(this.#records.value)
   }
 
   #validateRounds(rounds) {
@@ -47,7 +47,7 @@ export class Game {
 
   #determineShouldMove(limit = 9) {
     const randomNumber = Math.ceil(Math.random() * limit)
-    return randomNumber > Game.MOVE_THRESHOLD
+    return randomNumber > Game.MOVE_THRESHOL
   }
 
   #convertStatusToRecord(statuses) {
@@ -58,7 +58,7 @@ export class Game {
   }
 
   #setWinners(records) {
-    this.#winners = new RaceWinners(records).winners
+    this.#winners = new RaceWinners(records).value
   }
 
   get rounds() {
@@ -70,7 +70,7 @@ export class Game {
   }
 
   get records() {
-    return this.#records.records
+    return this.#records.value
   }
 
   get winners() {
