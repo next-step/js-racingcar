@@ -1,4 +1,5 @@
 import Car from "../src/Models/Car.js";
+import { FixedStrategy } from "../src/Models/MoveStrategy.js";
 
 describe("Car는 이름의 유효성을 확인하고, 유효할 경우만 Car 객체를 생성한다.", () => {
   const CAR_ERROR_MESSAGE = Car.ERROR_MESSAGE;
@@ -36,46 +37,43 @@ describe("Car는 이름의 유효성을 확인하고, 유효할 경우만 Car �
   );
 });
 
-describe(`Car가 전진하면, 현재 위치가 1만큼 증가한다.`, () => {
-  it.each([{ position: 0 }, { position: 1 }])(
-    "Car가 전진하면 현재 위치가 1만큼 증가한다.",
-    ({ position }) => {
-      const car = Car.of("erica", position);
-      const currentPosition = car.position;
+describe(`Car는 전진 조건에 부합하면 전진하고, 아니면 현재 위치를 유지한다.`, () => {
+  describe(`자동차는 랜덤 숫자가 4 이상이면 전진하고, 아니면 현재 위치를 유지한다.`, () => {
+    it.each([4, 9])(
+      `숫자가 4 이상이면 현재 위치에서 1만큼 이동한다.`,
+      (num) => {
+        const car = Car.of("erica", 0);
+        car.tryMove(new FixedStrategy(num));
+        expect(car.position).toBe(1);
+      }
+    );
+    it.each([0, 3])(`숫자가 4 미만이면 현재 위치를 유지한다.`, (num) => {
+      const car = Car.of("erica", 0);
+      car.tryMove(new FixedStrategy(num));
+      expect(car.position).toBe(0);
+    });
+  });
 
-      car.move();
-      expect(car.position).toBe(currentPosition + 1);
-    }
-  );
+  describe(`자동차는 전진 조건 변경 시, 변경 조건에 따라 이동 여부를 결정한다.`, () => {
+    it.each([5, 9])(
+      `숫자가 5 이상이면 현재 위치에서 1만큼 이동한다.`,
+      (num) => {
+        const car = Car.of("erica", 0);
+        const strategy = new FixedStrategy(num);
+        strategy.setMovableCriteria(5);
+        car.tryMove(strategy);
+        expect(car.position).toBe(1);
+      }
+    );
+    it.each([0, 3, 4])(`숫자가 5 미만이면 현재 위치를 유지한다.`, (num) => {
+      const car = Car.of("erica", 0);
+      const strategy = new FixedStrategy(num);
+      strategy.setMovableCriteria(5);
+      car.tryMove(strategy);
+      expect(car.position).toBe(0);
+    });
+  });
 });
-//   const CAR_MOVE_CRITERIA = 4;
-//   let testCases = [];
-
-//   for (let i = 0; i < 9; i++) {
-//     testCases.push({
-//       input: i,
-//       isMovable: i >= CAR_MOVE_CRITERIA,
-//     });
-//   }
-//   const movableTestCases = testCases.filter(({ isMovable }) => isMovable);
-//   const immovableTestCases = testCases.filter(({ isMovable }) => !isMovable);
-//   it.each(immovableTestCases)(
-//     `자동차는 전진 조건에 부합하지 않으면 현재 위치를 유지한다. (input = $input)`,
-//     ({ input }) => {
-//       const car = Car.of("erica");
-//       car.tryMoveWith(input);
-//       expect(car.position).toBe(0);
-//     }
-//   );
-//   it.each(movableTestCases)(
-//     `자동차는 전진 조건에 부합하면, 전진한다. (input = $input)`,
-//     ({ input }) => {
-//       const car = Car.of("erica", 0);
-//       car.tryMoveWith(input);
-//       expect(car.position).toBe(1);
-//     }
-//   );
-// });
 
 describe("Car는 이름과 현재 위치 정보를 반환한다.", () => {
   const car = Car.of("erica", 0);
@@ -94,5 +92,3 @@ describe("Car는 이름과 현재 위치 정보를 반환한다.", () => {
     expect(car.getRecord()).toHaveProperty("position");
   });
 });
-
-// describe(`[feature2] 자동차는 랜덤 숫자가 4 이상이면 전진하고, 아니면 현재 위치를 유지한다.`, () => {

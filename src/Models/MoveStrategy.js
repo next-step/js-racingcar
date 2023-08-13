@@ -1,6 +1,6 @@
 class MoveStrategy {
   movableCriteria;
-  static DEFAULT_MOVABLE_CRITERIA = 5;
+  static DEFAULT_MOVABLE_CRITERIA = 4;
 
   constructor() {
     this.movableCriteria = MoveStrategy.DEFAULT_MOVABLE_CRITERIA;

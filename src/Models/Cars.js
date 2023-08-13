@@ -1,5 +1,5 @@
 import Car from "./Car";
-import { RandomStrategy } from "./Strategy";
+import { RandomStrategy } from "./MoveStrategy";
 // import { getRandomIntRangeOf } from "../utils";
 
 export const Cars = (function () {
