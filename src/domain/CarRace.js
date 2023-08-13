@@ -60,6 +60,10 @@ export class CarRace {
     return this.#cars.map(({ name }) => name);
   }
 
+  getCurrentPositions() {
+    return this.#cars.map(({ name, position }) => ({ name, position }));
+  }
+
   setCars(cars) {
     if (cars.length < RACE_MIN_CAR || cars.length > RACE_MAX_CAR) {
       throw new RaceCarCountError("Invalid number of cars");
@@ -74,15 +78,21 @@ export class CarRace {
     this.#laps = laps;
   }
 
-  start(options = { verbose: true }) {
-    if (this.state !== CAR_RACE_STATE.READY_TO_START) {
-      throw new RaceStateError("Not ready or has been started");
+  start(laps, options = { verbose: true }) {
+    if (
+      this.state !== CAR_RACE_STATE.READY_TO_START &&
+      this.state !== CAR_RACE_STATE.RUNNING
+    ) {
+      throw new RaceStateError(`Cannot start race in the state ${this.state}`);
     }
-    while (this.#currentLap < this.#laps) {
+    laps = laps || this.#laps;
+    let lapCount = 0;
+    while (lapCount < laps && this.#currentLap < this.#laps) {
       this.#race();
       if (options?.verbose) {
         this.printStatus();
       }
+      lapCount += 1;
     }
     if (options?.verbose) {
       this.printWinners();
