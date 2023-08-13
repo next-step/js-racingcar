@@ -33,9 +33,8 @@ const Game = {
       this.cars.forEach(car => {
         // 랜덤 숫자 조건에 따른 자동차 전진
         if ( 4 <= this.getNumb()) {
-          car.go();
+           car.go();
         }
-      })
     }
   },
 

@@ -77,7 +77,6 @@ describe("자동차 게임의 횟수 테스트", () => {
 describe("우승자 출력 테스트", () => {
   test("우승자를 축하하는 메세지를 정확히 출력하는지 확인", () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-
     Game.register(carNames);
 
     Game.cars[0].position = 3;
