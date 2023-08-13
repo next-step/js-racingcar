@@ -3,11 +3,16 @@ import { Game } from "../src/Models/Game";
 
 const DEFAULT_TOTAL_ROUNDS = 5;
 describe("사용자가 유효한 값을 입력한 경우, 게임을 세팅한다.", () => {
-  it("사용자 입력이 빈 값인 경우, 에러를 발생시킨다.", () => {
+  it("자동차 이름들이 빈 값인 경우, 에러를 발생시킨다.", () => {
     // CHECK 테스트 코드를 위해 public으로 빼는게 맞는지?
     expect(() => Game.setGame("", DEFAULT_TOTAL_ROUNDS)).toThrow(
       Game.ERROR_MESSAGE.EMPTY
     );
+  });
+
+  it("시도 횟수가 빈 값인 경우, 에러를 발생시킨다.", () => {
+    // CHECK 테스트 코드를 위해 public으로 빼는게 맞는지?
+    expect(() => Game.setGame("erica")).toThrow(Game.ERROR_MESSAGE.EMPTY);
   });
 
   describe("사용자가 유효한 값을 입력하면, 자동차 배열을 생성한다.", () => {
