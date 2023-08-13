@@ -8,18 +8,16 @@ export const PromptView = (function () {
     RESULT: "실행 결과",
   });
 
-  function addEventHandlerToPrompt(cbFunc) {
-    readLineInterface.question(
-      GUIDE_MESSAGES.CAR_NAMES_INPUT,
-      (carNamesInput) => {
-        readLineInterface.question(
-          GUIDE_MESSAGES.TOTAL_ROUNDS_INPUT,
-          (roundsInput) => {
-            cbFunc(carNamesInput, roundsInput);
-          }
-        );
-      }
-    );
+  async function addEventHandlerToPrompt(cbFunc) {
+    const carNamesInput = await new Promise((resolve) => {
+      readLineInterface.question(GUIDE_MESSAGES.CAR_NAMES_INPUT, resolve);
+    });
+
+    const roundsInput = await new Promise((resolve) => {
+      readLineInterface.question(GUIDE_MESSAGES.TOTAL_ROUNDS_INPUT, resolve);
+    });
+
+    cbFunc(carNamesInput, roundsInput);
   }
 
   const log = console.log;
