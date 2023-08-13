@@ -25,6 +25,10 @@ export const PromptView = (function () {
     cbFunc(carNamesInput, roundsInput);
   }
 
+  function close() {
+    readLineInterface.close();
+  }
+
   const log = console.log;
 
   function logDivider() {
@@ -71,6 +75,7 @@ export const PromptView = (function () {
 
   return {
     getInputsThen,
+    close,
     logErrorMessage,
     logGameResult,
   };

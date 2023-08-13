@@ -1,8 +1,8 @@
 import { Game } from "../Models/Game";
 import { PromptView } from "../View/PromptView";
-import { readLineInterface } from "../utils";
 
 export const GameController = (function () {
+  // CHECK 직관적인 메소드 네이밍
   function addEventHandlerToPrompt() {
     PromptView.getInputsThen(playGame);
   }
@@ -23,12 +23,12 @@ export const GameController = (function () {
       terminateGame();
     } catch (error) {
       handleError(error);
-      setEventHandler();
+      addEventHandlerToPrompt();
     }
   }
 
   function terminateGame() {
-    readLineInterface.close();
+    PromptView.close();
   }
 
   return {

@@ -7,6 +7,13 @@ describe("Car는 이름의 유효성을 확인하고, 유효할 경우만 Car �
     expect(() => Car.of("")).toThrow(CAR_ERROR_MESSAGE.EMPTY_NAME);
   });
 
+  it.each([1031, true, null, undefined, {}, [], function () {}])(
+    "Car 이름이 문자열 형태가 아니라면 에러를 발생시킨다.",
+    (carName) => {
+      expect(() => Car.of(carName)).toThrow(CAR_ERROR_MESSAGE.NOT_STRING_NAME);
+    }
+  );
+
   it.each(["erica0", "ericaGong", "*****!", "951031"])(
     "Car 이름이 5자 초과라면 에러를 발생시킨다.",
     (carName) => {
