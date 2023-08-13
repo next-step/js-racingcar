@@ -16,7 +16,6 @@ export const PromptView = (function () {
           GUIDE_MESSAGES.TOTAL_ROUNDS_INPUT,
           (roundsInput) => {
             cbFunc(carNamesInput, roundsInput);
-            readLineInterface.close();
           }
         );
       }
