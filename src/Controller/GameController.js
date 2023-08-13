@@ -1,47 +1,31 @@
-import PromptView from "../View/PromptView";
-import Game from "../Models/Game";
+import { Game } from "../Models/Game";
+import { PromptView } from "../View/PromptView";
 
-export default class GameController {
-  #view;
-  #game;
-
-  constructor() {
-    this.#view = new PromptView();
-    this.#addEventHandlerToView();
+export const GameController = (function () {
+  function setEventHandler() {
+    const eventHandler = (userInput) => playGame(userInput);
+    PromptView.addEventHandlerToPrompt(eventHandler);
   }
 
-  #addEventHandlerToView() {
-    const promptEventHandler = (userInput) => this.#playGameWith(userInput);
-    this.#view.addEventHandlerToPrompt(promptEventHandler);
+  function handleResult(result) {
+    PromptView.logGameResult(result);
   }
 
-  #playGameWith(userInput) {
+  function handleError(error) {
+    PromptView.logErrorMessage(error.message);
+  }
+
+  function playGame(userInput) {
     try {
-      this.#setUpGame(userInput);
-      this.#startGame();
-      this.#printGameResult();
+      Game.setGame(userInput);
+      Game.playGame();
+      handleResult(Game.getGameResult());
     } catch (error) {
-      this.#printError(error);
+      handleError(error);
     }
   }
 
-  #setUpGame(userInput) {
-    this.#game = new Game(userInput);
-  }
-
-  #startGame() {
-    this.#game.play();
-  }
-
-  #printGameResult() {
-    this.#view.logResultGuideMessage();
-
-    this.#view.logAllRoundStatus(this.#game.roundHistory);
-
-    this.#view.logWinners(this.#game.winners);
-  }
-
-  #printError(error) {
-    this.#view.logErrorMessage(error.message);
-  }
-}
+  return {
+    setEventHandler,
+  };
+})();

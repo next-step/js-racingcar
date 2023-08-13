@@ -1,3 +1,3 @@
-import GameController from "./Controller/GameController";
+import { GameController } from "./Controller/GameController";
 
-new GameController();
+GameController.setEventHandler();
