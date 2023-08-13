@@ -1,5 +1,5 @@
-import { Car } from '../src/domain/model/Car'
-import { Cars } from '../src/domain/model/Cars'
+import { Car } from '../src/domain/Car'
+import { Cars } from '../src/domain/Cars'
 
 const CAR_NAMES = ['산들', '뿌꾸']
 
@@ -86,7 +86,6 @@ describe('Cars: 경주에 참여하는 자동차들', () => {
         { name: '산들', position: 1 },
         { name: '뿌꾸', position: 1 },
       ])
-
       cars.move(alwaysMoveForward)
 
       expect(cars.status).toEqual([

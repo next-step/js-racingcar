@@ -1,5 +1,5 @@
-import { View } from '../../view/View.js'
-import { Game } from '../model/Game.js'
+import { View } from './View.js'
+import { Game } from '../domain/Game.js'
 
 export class GameController {
   #game

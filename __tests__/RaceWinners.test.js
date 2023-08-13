@@ -1,4 +1,4 @@
-import { RaceWinners } from '../src/domain/model/RaceWinners'
+import { RaceWinners } from '../src/domain/RaceWinners'
 
 describe('RaceWinners: 자동차 경주 우승자', () => {
   describe('new RaceWinners(records)', () => {

@@ -1,5 +1,5 @@
-import { ERROR_MESSAGE } from '../../constants/errorMessages.js'
-import { isObject } from '../../utils/isObject.js'
+import { ERROR_MESSAGE } from '../constants/errorMessages.js'
+import { isObject } from '../utils/isObject.js'
 
 export class RaceRecords {
   #value

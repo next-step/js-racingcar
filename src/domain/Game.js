@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../../constants/errorMessages.js'
+import { ERROR_MESSAGE } from '../constants/errorMessages.js'
 import { Cars } from './Cars.js'
 import { RaceRecords } from './RaceRecords.js'
 import { RaceWinners } from './RaceWinners.js'
@@ -47,7 +47,7 @@ export class Game {
 
   #determineShouldMove(limit = 9) {
     const randomNumber = Math.ceil(Math.random() * limit)
-    return randomNumber > Game.MOVE_THRESHOL
+    return randomNumber >= Game.MOVE_THRESHOLD
   }
 
   #convertStatusToRecord(statuses) {
