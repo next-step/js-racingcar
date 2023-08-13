@@ -3,7 +3,8 @@ import { PromptView } from "../View/PromptView";
 
 export const GameController = (function () {
   function setEventHandler() {
-    const eventHandler = (userInput) => playGame(userInput);
+    const eventHandler = (carNames, totalRounds) =>
+      playGame(carNames, totalRounds);
     PromptView.addEventHandlerToPrompt(eventHandler);
   }
 
@@ -15,9 +16,9 @@ export const GameController = (function () {
     PromptView.logErrorMessage(error.message);
   }
 
-  function playGame(userInput) {
+  function playGame(carNames, totalRounds) {
     try {
-      Game.setGame(userInput);
+      Game.setGame(carNames, totalRounds);
       Game.playGame();
       handleResult(Game.getGameResult());
     } catch (error) {

@@ -2,16 +2,25 @@ import { readLineInterface } from "../utils";
 
 export const PromptView = (function () {
   const GUIDE_MESSAGES = Object.freeze({
-    INITIATE:
+    CAR_NAMES_INPUT:
       "경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분).\n",
+    TOTAL_ROUNDS_INPUT: "시도할 회수는 몇회인가요?\n",
     RESULT: "실행 결과",
   });
 
   function addEventHandlerToPrompt(cbFunc) {
-    readLineInterface.question(GUIDE_MESSAGES.INITIATE, (input) => {
-      cbFunc(input);
-      readLineInterface.close();
-    });
+    readLineInterface.question(
+      GUIDE_MESSAGES.CAR_NAMES_INPUT,
+      (carNamesInput) => {
+        readLineInterface.question(
+          GUIDE_MESSAGES.TOTAL_ROUNDS_INPUT,
+          (roundsInput) => {
+            cbFunc(carNamesInput, roundsInput);
+            readLineInterface.close();
+          }
+        );
+      }
+    );
   }
 
   const log = console.log;
