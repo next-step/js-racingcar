@@ -53,7 +53,13 @@ export default class Car {
     };
   }
 
-  move() {
+  #move() {
     this.#position += Car.MOVE_STEP;
+  }
+
+  tryMove(moveStartegy) {
+    if (moveStartegy.getNumber() >= moveStartegy.movableCriteria) {
+      this.#move();
+    }
   }
 }
