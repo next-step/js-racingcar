@@ -3,10 +3,8 @@ import { PromptView } from "../View/PromptView";
 import { readLineInterface } from "../utils";
 
 export const GameController = (function () {
-  function setEventHandler() {
-    const eventHandler = (carNames, totalRounds) =>
-      playGame(carNames, totalRounds);
-    PromptView.addEventHandlerToPrompt(eventHandler);
+  function addEventHandlerToPrompt() {
+    PromptView.getInputsThen(playGame);
   }
 
   function handleResult(result) {
@@ -34,6 +32,6 @@ export const GameController = (function () {
   }
 
   return {
-    setEventHandler,
+    addEventHandlerToPrompt,
   };
 })();

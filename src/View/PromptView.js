@@ -8,14 +8,19 @@ export const PromptView = (function () {
     RESULT: "실행 결과",
   });
 
-  async function addEventHandlerToPrompt(cbFunc) {
-    const carNamesInput = await new Promise((resolve) => {
-      readLineInterface.question(GUIDE_MESSAGES.CAR_NAMES_INPUT, resolve);
+  async function readLineFromPrompt(guideMessage) {
+    return new Promise((resolve) => {
+      readLineInterface.question(guideMessage, resolve);
     });
+  }
 
-    const roundsInput = await new Promise((resolve) => {
-      readLineInterface.question(GUIDE_MESSAGES.TOTAL_ROUNDS_INPUT, resolve);
-    });
+  async function getInputsThen(cbFunc) {
+    const carNamesInput = await readLineFromPrompt(
+      GUIDE_MESSAGES.CAR_NAMES_INPUT
+    );
+    const roundsInput = await readLineFromPrompt(
+      GUIDE_MESSAGES.TOTAL_ROUNDS_INPUT
+    );
 
     cbFunc(carNamesInput, roundsInput);
   }
@@ -65,7 +70,7 @@ export const PromptView = (function () {
   }
 
   return {
-    addEventHandlerToPrompt,
+    getInputsThen,
     logErrorMessage,
     logGameResult,
   };
