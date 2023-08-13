@@ -51,8 +51,9 @@ describe("CarRace class", () => {
   });
 
   it("should have the current position of cars and they should be all 0", () => {
-    expect(race.currentPositions.length).toEqual(TEST_CARS);
-    race.currentPositions.forEach(({ position }) => {
+    const currentPositions = race.getCurrentPositions();
+    expect(currentPositions.length).toEqual(TEST_CARS.length);
+    currentPositions.forEach(({ position }) => {
       expect(position).toEqual(0);
     });
   });
@@ -63,21 +64,20 @@ describe("CarRace class", () => {
     expect(race.currentLap).toEqual(lapsBefore + 1);
   });
 
-  race.start();
   it("should race until the end", () => {
+    race.start();
     expect(race.currentLap).toEqual(TEST_NUMBER_OF_LAPS);
   });
 
-  const winners = race.getWinnerNames();
   it("should have one or more winners", () => {
+    const winners = race.getWinnerNames();
     expect(winners.length).toBeGreaterThanOrEqual(MIN_NUM_OF_WINNERS);
-  });
 
-  it("should have correct winners", () => {
-    const carPositions = race.currentPositions.map(({ position }) => position);
+    const currentPositions = race.getCurrentPositions();
+    const carPositions = currentPositions.map(({ position }) => position);
     const maxPosition = Math.max(...carPositions);
-    race.currentPositions.forEach(({ carName, position }) => {
-      if (winners.includes(carName)) {
+    currentPositions.forEach(({ name, position }) => {
+      if (winners.includes(name)) {
         expect(position).toEqual(maxPosition);
       } else {
         expect(position).toBeLessThan(maxPosition);
