@@ -1,3 +1,5 @@
+import Validator from "./Validator";
+
 export default class Car {
   #name;
   #distance;
@@ -9,8 +11,11 @@ export default class Car {
       this.#CAR_ADVANCE_THRESHOLD_NUMBER
     );
   };
+  #validateCarName = Validator.validateCarName;
 
   constructor(name) {
+    this.#validateCarName(name);
+
     this.#name = name;
     this.#distance = 0;
   }

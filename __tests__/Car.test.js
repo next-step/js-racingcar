@@ -1,82 +1,46 @@
-import Validator from "../src/class/Validator";
-import Cars from "../src/class/Cars";
 import Car from "../src/class/Car";
 
-describe("Validator Class 테스트", () => {
-  describe("validateCarNames 테스트", () => {
-    test("자동차 이름 중 빈값인 자동차가 포함되면 에러가 발생한다.", () => {
-      expect(() => Validator.validateCarNames(["", "테스트"])).toThrowError(
-        "자동차 이름은 빈값일 수 없습니다.",
-      );
-    });
-
-    test("자동차 이름 중 6자 이상인 자동차가 있으면 에러가 발생한다.", async () => {
-      expect(() =>
-        Validator.validateCarNames(["테스트", "123456"]),
-      ).toThrowError("자동차 이름은 5자를 넘길 수 없습니다.");
-    });
-
-    test("자동차 이름 중 같은 이름의 자동차가 있으면 에러가 발생한다.", async () => {
-      expect(() =>
-        Validator.validateCarNames(["테스트", "테스트"]),
-      ).toThrowError("자동차 이름은 중복될 수 없습니다.");
-    });
-  });
-
-  describe("validateRoundNumber 테스트", () => {
-    test("0~9 이외의 문자가 포함된 이동횟수 입력시 에러가 발생한다.", () => {
-      const testRoundNumber = "-0.1";
-
-      expect(() => Validator.validateRoundNumber(testRoundNumber)).toThrowError(
-        "양의 정수 형식의 값을 입력해 주세요.",
-      );
-    });
-
-    test("0이하의 숫자가 입력된 경우 에러가 발생한다", () => {
-      const testRoundNumber = "0";
-
-      expect(() => Validator.validateRoundNumber(testRoundNumber)).toThrowError(
-        "1이상 값을 입력해주세요.",
-      );
-    });
-  });
-});
-
 describe("Car Class 테스트", () => {
+  test("자동차 이름이 빈값이면 에러가 발생한다.", () => {
+    expect(() => new Car("")).toThrowError("자동차 이름은 빈값일 수 없습니다.");
+  });
+
+  test("자동차 이름이 6자 이상이면 에러가 발생한다.", () => {
+    expect(() => new Car("123456")).toThrowError(
+      "자동차 이름은 5자를 넘길 수 없습니다.",
+    );
+  });
+
+  const carNameTypeTestCases = [
+    [{}, "자동차 이름은 문자열이여야 합니다."],
+    [1, "자동차 이름은 문자열이여야 합니다."],
+    [() => {}, "자동차 이름은 문자열이여야 합니다."],
+    [undefined, "자동차 이름은 문자열이여야 합니다."],
+  ];
+
+  carNameTypeTestCases.forEach(([carName, expected]) => {
+    test(`자동차 이름의 자료형이 ${typeof carName}일때 에러가 발생한다`, () => {
+      expect(() => new Car(carName)).toThrowError(expected);
+    });
+  });
+
   test("advanceCondition이 true를 반환하면 distance가 1 증가한다.", async () => {
     const mockAdvanceCondition = () => true;
 
-    const car = new Car("test Car");
+    const car = new Car("test");
 
     car.advance(mockAdvanceCondition);
 
     expect(car.distance).toBe(1);
   });
-});
 
-describe("Cars Class 테스트", () => {
-  test("setRoundNumber로 roundNumber가 갱신되며 지정한 횟수만큼 라운드가 진행된다.", async () => {
-    const testRoundNumber = 3;
+  test("advanceCondition이 false를 반환하면 distance 유지된다.", async () => {
+    const mockAdvanceCondition = () => false;
 
-    const carsModel = new Cars();
+    const car = new Car("test");
 
-    carsModel.setRoundNumber(testRoundNumber);
+    car.advance(mockAdvanceCondition);
 
-    const executeMultipleRoundsSpy = jest.spyOn(
-      carsModel,
-      "executeMultipleRounds",
-    );
-
-    const afterRoundActionSpy = jest.fn();
-
-    const executeOneRoundSpy = jest.spyOn(carsModel, "executeOneRound");
-
-    carsModel.executeMultipleRounds(afterRoundActionSpy);
-
-    expect(executeMultipleRoundsSpy).toHaveBeenCalledTimes(1);
-
-    expect(afterRoundActionSpy).toHaveBeenCalledTimes(testRoundNumber);
-
-    expect(executeOneRoundSpy).toHaveBeenCalledTimes(testRoundNumber);
+    expect(car.distance).toBe(0);
   });
 });

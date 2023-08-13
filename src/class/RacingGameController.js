@@ -1,52 +1,23 @@
-import Validator, { RacingCarGameError } from "./Validator";
+import { RacingCarGameError } from "./Validator";
 import Cars from "./Cars";
 import RacingGameViewer from "./RacingGameViewer";
-
-const CAR_NAME_SEPARATOR = ",";
-
-const GAME_STEP = {
-  SET_CARS: "SET_CARS",
-  SET_ROUND_NUMBER: "SET_ROUND_NUMBER",
-  EXECUTE_ROUND: "EXECUTE_ROUND",
-  AWARDS: "AWARDS",
-};
 
 export default class RacingGameController {
   model;
   view;
-  nextGameStep;
 
   constructor(model, view) {
     this.view =
       view instanceof RacingGameViewer ? view : new RacingGameViewer();
     this.model = model instanceof Cars ? model : new Cars();
-    this.nextGameStep = GAME_STEP.SET_CARS;
   }
 
   async handleError(error) {
     if (error instanceof RacingCarGameError) {
       this.view.printContent(error.message);
 
-      await this.runGame();
+      await this.execute();
     }
-  }
-
-  async requestCarNames() {
-    const userInput = await this.view.getCarNamesInput();
-
-    const carNames = userInput.split(CAR_NAME_SEPARATOR);
-
-    Validator.validateCarNames(carNames);
-
-    return carNames;
-  }
-
-  async requestRoundNumber() {
-    const userInput = await this.view.getRoundNumberInput();
-
-    Validator.validateRoundNumber(userInput);
-
-    return Number(userInput);
   }
 
   exitGame() {
@@ -54,13 +25,13 @@ export default class RacingGameController {
   }
 
   async setCars() {
-    const carNames = await this.requestCarNames();
+    const carNames = await this.view.getCarNamesInput();
 
-    carNames.forEach((car) => this.model.addCar(car));
+    this.model.initializeCarsFromString(carNames);
   }
 
   async setRoundNumber() {
-    const roundNumber = await this.requestRoundNumber();
+    const roundNumber = await this.view.getRoundNumberInput();
 
     this.model.setRoundNumber(roundNumber);
   }
@@ -70,24 +41,28 @@ export default class RacingGameController {
     this.view.printContent("");
   };
 
-  async runGame() {
+  awards() {
+    this.view.printWinners(this.model.getWinners());
+  }
+
+  runGame() {
+    this.view.printRoundHeader();
+    this.model.executeMultipleRounds(this.afterRoundAction);
+  }
+
+  async execute() {
     try {
-      if (this.nextGameStep === GAME_STEP.SET_CARS) {
+      if (this.model.nextGameStep === this.model.GAME_STEP.SET_CARS) {
         await this.setCars();
-        this.nextGameStep = GAME_STEP.SET_ROUND_NUMBER;
       }
 
-      if (this.nextGameStep === GAME_STEP.SET_ROUND_NUMBER) {
+      if (this.model.nextGameStep === this.model.GAME_STEP.SET_ROUND_NUMBER) {
         await this.setRoundNumber();
-        this.nextGameStep = GAME_STEP.EXECUTE_ROUND;
       }
 
-      this.view.printRoundHeader();
-      this.model.executeMultipleRounds(this.afterRoundAction);
-      this.nextGameStep = GAME_STEP.AWARDS;
+      this.runGame();
 
-      const winners = this.model.getWinners();
-      this.view.printWinners(winners);
+      this.awards();
     } catch (e) {
       await this.handleError(e);
     } finally {

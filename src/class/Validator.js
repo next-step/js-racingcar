@@ -1,6 +1,7 @@
 const ERROR_MESSAGES = {
   INVALID_EMPTY_NAME: "자동차 이름은 빈값일 수 없습니다.",
   INVALID_NAME_LENGTH: "자동차 이름은 5자를 넘길 수 없습니다.",
+  INVALID_NAME_TYPE: "자동차 이름은 문자열이여야 합니다.",
   DUPLICATE_CAR_NAME: "자동차 이름은 중복될 수 없습니다.",
   INVALID_RACING_ROUND_FORMAT: "양의 정수 형식의 값을 입력해 주세요.",
   INVALID_RACING_ROUND_VALUE: "1이상 값을 입력해주세요.",
@@ -22,21 +23,27 @@ export class RacingCarGameError extends Error {
 }
 
 export default class Validator {
-  static validateCarNames(names) {
-    for (const name of names) {
-      if (name.trim().length < CAR_NAME_MIN_LENGTH) {
-        throw new RacingCarGameError(ERROR_MESSAGES.INVALID_EMPTY_NAME);
-      }
+  static validateCarNames(newCarNames, carNames) {
+    const carNamesSet = new Set(carNames);
 
-      if (name.length > CAR_NAME_MAX_LENGTH) {
-        throw new RacingCarGameError(ERROR_MESSAGES.INVALID_NAME_LENGTH);
+    newCarNames.forEach((newCar) => {
+      if (carNamesSet.has(newCar)) {
+        throw new RacingCarGameError(ERROR_MESSAGES.DUPLICATE_CAR_NAME);
       }
+    });
+  }
+
+  static validateCarName(name) {
+    if (typeof name !== "string") {
+      throw new RacingCarGameError(ERROR_MESSAGES.INVALID_NAME_TYPE);
     }
 
-    const uniqueCarNames = new Set(names.map((name) => name.trim()));
+    if (name.trim().length < CAR_NAME_MIN_LENGTH) {
+      throw new RacingCarGameError(ERROR_MESSAGES.INVALID_EMPTY_NAME);
+    }
 
-    if (names.length !== uniqueCarNames.size) {
-      throw new RacingCarGameError(ERROR_MESSAGES.DUPLICATE_CAR_NAME);
+    if (name.length > CAR_NAME_MAX_LENGTH) {
+      throw new RacingCarGameError(ERROR_MESSAGES.INVALID_NAME_LENGTH);
     }
   }
 
