@@ -1,5 +1,5 @@
-import { Car } from "../src/Car";
-import { CarRace } from "../src/CarRace";
+import { Car } from "../src/domain/Car";
+import { CarRace } from "../src/domain/CarRace";
 import {
   RACE_MAX_CAR,
   RACE_MIN_CAR,
