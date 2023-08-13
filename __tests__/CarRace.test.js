@@ -9,7 +9,7 @@ import {
 import {
   RaceCarCountError,
   RaceLapCountError,
-  RaceSetupError,
+  RaceStateError,
 } from "../src/errors";
 import { generateRandomCarNames } from "../src/utils";
 
@@ -21,7 +21,7 @@ const MIN_NUM_OF_WINNERS = 1;
 describe("CarRace class", () => {
   it("cannot start race before initialized", () => {
     const race = new CarRace();
-    expect(() => race.start()).toThrow();
+    expect(() => race.start()).toThrow(RaceStateError);
   });
 
   it("should be set with proper number of cars", () => {

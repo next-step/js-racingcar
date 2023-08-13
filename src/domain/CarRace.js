@@ -5,11 +5,15 @@ import {
   RACE_MAX_LAP,
   RACE_MIN_LAP,
 } from "../constants";
-import { RaceCarCountError, RaceLapCountError } from "../errors";
+import {
+  RaceCarCountError,
+  RaceLapCountError,
+  RaceStateError,
+} from "../errors";
 import { getRandomIntInclusive } from "../utils";
 
 const CAR_RACE_STATE = {
-  NOT_INITIALIZED: 0,
+  NOT_READY: 0,
   READY_TO_START: 1,
   RUNNING: 2,
   FINISHED: 3,
@@ -30,7 +34,7 @@ export class CarRace {
 
   get state() {
     if (this.#cars.length === 0) {
-      return CAR_RACE_STATE.NOT_INITIALIZED;
+      return CAR_RACE_STATE.NOT_READY;
     }
     if (this.#currentLap === 0) {
       return CAR_RACE_STATE.READY_TO_START;
@@ -72,7 +76,7 @@ export class CarRace {
 
   start(options = { verbose: true }) {
     if (this.state !== CAR_RACE_STATE.READY_TO_START) {
-      throw new Error("Not ready or has been started");
+      throw new RaceStateError("Not ready or has been started");
     }
     while (this.#currentLap < this.#laps) {
       this.#race();
@@ -87,7 +91,7 @@ export class CarRace {
 
   getWinnerNames() {
     if (this.state !== CAR_RACE_STATE.FINISHED) {
-      throw new Error("The race has not been finished");
+      throw new RaceStateError("The race has not been finished");
     }
     const maxPosition = Math.max(...this.#cars.map(({ position }) => position));
     const winners = this.#cars.filter(
