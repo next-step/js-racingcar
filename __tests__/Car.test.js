@@ -119,4 +119,21 @@ describe("우승자 출력 테스트", () => {
   });
   
 })
+describe("자동차 게임 전진 테스트", () => {
+  test("4 이상인 경우 자동차가 전진한다", () => {
+    Game.register(carNames);
+    Game.declareCount(1);
 
+
+    // randomNumber가 4를 반환하도록 설정
+    jest.spyOn(utils, "randomNumber").mockReturnValue(4);
+
+    Game.getNumb = utils.randomNumber;
+    Game.gameStart();
+
+    // 자동차가 전진했는지 확인
+    expect(Game.cars[0].position).toBe(1);
+    expect(Game.cars[1].position).toBe(1);
+    expect(Game.cars[2].position).toBe(1);
+  });
+});
