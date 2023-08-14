@@ -30,6 +30,10 @@ const startGame = async () => {
     const totalLap = await getValidTotalLapFromPrompt();
     const carRaceOrganizer = new CarRaceOrganizer(cars, totalLap);
     carRaceOrganizer.runFullRace();
+    return {
+      history: carRaceOrganizer.history,
+      winners: carRaceOrganizer.winners
+    };
   } catch (error) {
     errorFallback(error);
     startGame();

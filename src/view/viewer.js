@@ -22,3 +22,25 @@ export const createRaceWinnerMessage = (winners) =>
 export const printMessage = (message = '') => {
   console.log(message);
 };
+
+/**
+ * 자동차 주행 경주 내용을 출력한다.
+ * @param {array} history: 레이스 경주 내용
+ * @param {array} winners: 레이스 우승자
+ */
+export const printRace = (history) => {
+  history.forEach(({ cars }) => {
+    printMessage();
+    cars.forEach(({ car, distance }) => {
+      printMessage(createRaceStatusMessage(car, distance, RACE_CONFIGURE.TRACK));
+    });
+  });
+};
+
+/**
+ * 자동차 경주의 우승자를 출력한다.
+ * @param {array} winners
+ */
+export const printWinners = (winners) => {
+  printMessage(createRaceWinnerMessage(winners));
+};
