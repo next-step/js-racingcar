@@ -105,9 +105,10 @@ describe(`게임을 총 ${DEFAULT_TOTAL_ROUNDS}라운드 진행한다.`, () => {
   });
 });
 
-describe("올바른 우승자를 찾는다.", () => {
+describe("올바른 우승자 정보를 반환한다.", () => {
   const CAR_NAMES_INPUT = "erica, Erica, ryang, yang, theon";
-  it("우승자가 한 명인 경우, 올바른 우승자를 찾는다.", () => {
+
+  it("우승자가 한 명인 경우, 올바른 우승자를 반환한다.", () => {
     Game.setGame(CAR_NAMES_INPUT, DEFAULT_TOTAL_ROUNDS);
     Game.playGame(new MoveStrategies("50000"));
     const gameResult = Game.getGameResult();
@@ -115,7 +116,7 @@ describe("올바른 우승자를 찾는다.", () => {
   });
 
   it.each(["55000", "55500", "55500", "55550", "55555"])(
-    "우승자가 두 명 이상인 경우, 올바른 우승자를 찾는다.",
+    "우승자가 두 명 이상인 경우, 올바른 우승자를 반환한다.",
     (str) => {
       Game.setGame(CAR_NAMES_INPUT, DEFAULT_TOTAL_ROUNDS);
       Game.playGame(new MoveStrategies(str));
