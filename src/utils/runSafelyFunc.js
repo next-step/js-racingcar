@@ -1,3 +1,4 @@
+
 export const runSafelyFunc = async (func, ...args) => {
   try {
     return await func(...args);
