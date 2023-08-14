@@ -1,3 +1,25 @@
+export class MoveStrategies {
+  #strategies;
+
+  constructor(str) {
+    this.#strategies = [];
+
+    Array.from(str).forEach((char, idx) => {
+      let strategy;
+      switch (char) {
+        case "R":
+          strategy = new RandomStrategy();
+          break;
+        default:
+          strategy = new FixedStrategy(Number(char));
+      }
+      this.#strategies.push(strategy);
+    });
+
+    return this.#strategies;
+  }
+}
+
 class MoveStrategy {
   movableCondition;
 

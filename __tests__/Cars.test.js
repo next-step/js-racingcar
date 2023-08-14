@@ -1,6 +1,6 @@
 import Car from "../src/Models/Car";
 import { Cars } from "../src/Models/Cars";
-import { FixedStrategy } from "../src/Models/MoveStrategy";
+import { FixedStrategy, MoveStrategies } from "../src/Models/MoveStrategy";
 
 describe("CarNames의 유효성을 확인하고, 유효할 경우만 Car 배열을 생성한다.", () => {
   // CHECK 테스트 코드를 위해 public으로 빼는게 맞는지?
@@ -56,12 +56,18 @@ describe("CarNames의 유효성을 확인하고, 유효할 경우만 Car 배열�
   });
 });
 
-describe("playOneRound 테스트 함수 작성", () => {
-  it("한 라운드가 진행되면, Cars 배열의 모든 Car들이 tryMove 함수를 호출한다.", () => {
-    const cars = Cars.from(["erica", "Erica", "theon", "yang", "ryang"]);
-    const spyTryMove = jest.spyOn(Car.prototype, "tryMove");
-    Cars.playOneRound(cars);
+describe("한 라운드가 진행되면, Cars 배열의 모든 Car들이 이동 여부를 결정한다.", () => {
+  const cars = Cars.from(["erica", "Erica", "theon", "yang", "ryang"]);
+  const spyTryMove = jest.spyOn(Car.prototype, "tryMove");
+  Cars.playOneRound(cars, new MoveStrategies("12345"));
+
+  it("Cars 배열의 모든 Car들이 tryMove 함수를 한 번 씩 호출한다.", () => {
     expect(spyTryMove).toHaveBeenCalledTimes(cars.length);
+  });
+
+  it("Cars 배열 내 모든 자동차들이 올바르게 이동한다.", () => {
+    const expectedPosition = [0, 0, 0, 1, 1];
+    expect(cars.map((car) => car.position)).toEqual(expectedPosition);
   });
 });
 

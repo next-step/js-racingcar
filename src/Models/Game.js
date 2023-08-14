@@ -1,10 +1,11 @@
 import { Cars } from "./Cars";
-import { RandomStrategy } from "./MoveStrategy";
+import { MoveStrategies } from "./MoveStrategy";
 
 export const Game = (function () {
   const roundHistory = [];
   let cars = [];
   let totalRounds = 0;
+
   const ERROR_MESSAGE = Object.freeze({
     EMPTY: "빈 값으로는 프로그램이 동작할 수 없습니다.",
     NOT_NUMBER: "시도 횟수로는 숫자를 입력해주세요.",
@@ -45,9 +46,11 @@ export const Game = (function () {
     totalRounds = Number(roundsInput);
   }
 
-  function playGame(moveStrategy = new RandomStrategy()) {
+  function playGame(
+    moveStrategies = new MoveStrategies("R".repeat(cars.length))
+  ) {
     while (totalRounds--) {
-      Cars.playOneRound(cars, moveStrategy);
+      Cars.playOneRound(cars, moveStrategies);
 
       roundHistory.push(Cars.getRoundRecord(cars));
     }

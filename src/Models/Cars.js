@@ -21,9 +21,9 @@ export const Cars = (function () {
     return carNames.map((carName) => Car.of(carName));
   }
 
-  function playOneRound(cars, moveStrategy) {
-    cars.forEach((car) => {
-      car.tryMove(moveStrategy);
+  function playOneRound(cars, moveStrategies) {
+    cars.forEach((car, idx) => {
+      car.tryMove(moveStrategies[idx]);
     });
   }
 
