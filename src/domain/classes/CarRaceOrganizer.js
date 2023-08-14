@@ -1,13 +1,12 @@
 import { ERROR_MESSAGE, RACE_CONFIGURE } from '../constants/index';
-import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../../view/viewer';
 import { generateRandomNumber, isDuplicateArray, isOnlyPositiveNumber } from '../../utils/index';
 
 export default class CarRaceOrganizer {
   #minSpeed = 0;
   #maxSpeed = 9;
-  #track = '-';
 
   #totalLap;
+  #history = [];
   #cars = [];
   #winners = [];
   #lap = 0;
@@ -25,6 +24,10 @@ export default class CarRaceOrganizer {
 
   get winners() {
     return this.#winners;
+  }
+
+  get history() {
+    return this.#history;
   }
 
   static validateDuplicateCarName(cars) {
@@ -52,6 +55,13 @@ export default class CarRaceOrganizer {
     return generateRandomNumber(this.#minSpeed, this.#maxSpeed);
   }
 
+  #setHistory() {
+    this.#history.push({
+      lap: this.#lap,
+      cars: this.#cars.map((car) => ({ car: car.name, distance: car.moved }))
+    });
+  }
+
   #setWinners() {
     const maxMove = this.#cars.reduce((max, car) => (car.moved > max.moved ? car : max), this.#cars[0]).moved;
     this.#winners = this.#cars.filter((car) => car.moved === maxMove).map((car) => car.name);
@@ -61,18 +71,6 @@ export default class CarRaceOrganizer {
     return this.#isRaceDone();
   }
 
-  runFullRace() {
-    if (this.#isRaceDone()) {
-      this.printWinners();
-      return;
-    }
-
-    this.runSingleRace();
-    this.printRace();
-    this.nextLap();
-    this.runFullRace();
-  }
-
   runSingleRace() {
     this.#cars.forEach((car) => {
       const distance = this.#getDistance();
@@ -80,21 +78,25 @@ export default class CarRaceOrganizer {
     });
   }
 
+  runFullRace() {
+    if (this.#isRaceDone()) {
+      this.stopRace();
+      return;
+    }
+
+    this.runSingleRace();
+    this.nextLap();
+    this.#setHistory();
+    this.runFullRace();
+  }
+
   nextLap() {
     if (!this.#isRaceDone()) {
-      printMessage();
       this.#lap += 1;
     }
   }
 
-  printRace() {
-    this.#cars.forEach((car) => {
-      printMessage(createRaceStatusMessage(car.name, car.moved, this.#track));
-    });
-  }
-
-  printWinners() {
+  stopRace() {
     this.#setWinners();
-    printMessage(createRaceWinnerMessage(this.#winners));
   }
 }
