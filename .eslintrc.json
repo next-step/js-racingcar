@@ -1,8 +1,9 @@
 {
-  "rules": {},
+  "root": true,
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -11,5 +12,13 @@
   "extends": [
     "eslint:recommended",
     "plugin:prettier/recommended"
-  ]
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  }
 }
