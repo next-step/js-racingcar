@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE } from '../src/constants/errorMessage';
 import Car from '../src/domain/car';
-import CarRace from '../src/domain/carRace';
+import CarRace from '../src/domain/CarRace';
 
 describe('CarRace', () => {
   it('자동차 이름은 쉼표(,)를 기준으로 구분한다.', () => {
