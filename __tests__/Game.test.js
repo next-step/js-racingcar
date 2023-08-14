@@ -3,53 +3,55 @@ import { Game } from "../src/Models/Game";
 import { MoveStrategies } from "../src/Models/MoveStrategy";
 
 const DEFAULT_TOTAL_ROUNDS = 5;
-describe("사용자가 유효한 값을 입력한 경우, 게임을 세팅한다.", () => {
-  it.each(["", null, undefined, " "])(
-    "자동차 이름들이 빈 값인 경우, 에러를 발생시킨다.",
-    (carNamesInput) => {
-      expect(() => Game.setGame(carNamesInput, DEFAULT_TOTAL_ROUNDS)).toThrow(
-        Game.ERROR_MESSAGE.EMPTY
-      );
-    }
-  );
+describe("게임 설정 테스트", () => {
+  describe("유효하지 않은 값을 입력한 경우", () => {
+    it.each(["", null, undefined, " "])(
+      "자동차 이름이 빈 값인 경우, 에러를 발생시킨다.",
+      (carNamesInput) => {
+        expect(() => Game.setGame(carNamesInput, DEFAULT_TOTAL_ROUNDS)).toThrow(
+          Game.ERROR_MESSAGE.EMPTY
+        );
+      }
+    );
 
-  it.each(["", null, undefined, " "])(
-    "시도 횟수가 빈 값인 경우, 에러를 발생시킨다.",
-    (roundsInput) => {
-      expect(() => Game.setGame("erica", roundsInput)).toThrow(
-        Game.ERROR_MESSAGE.EMPTY
-      );
-    }
-  );
+    it.each(["", null, undefined, " "])(
+      "시도 횟수가 빈 값인 경우, 에러를 발생시킨다.",
+      (roundsInput) => {
+        expect(() => Game.setGame("erica", roundsInput)).toThrow(
+          Game.ERROR_MESSAGE.EMPTY
+        );
+      }
+    );
 
-  it.each(["12@", "123456*", "12ab", "abcde", "-12a"])(
-    "시도 횟수가 숫자 형태가 아닌 경우, 에러를 발생시킨다.",
-    (roundsInput) => {
-      expect(() => Game.setGame("erica", roundsInput)).toThrow(
-        Game.ERROR_MESSAGE.NOT_NUMBER
-      );
-    }
-  );
+    it.each(["12@", "123456*", "12ab", "abcde", "-12a"])(
+      "시도 횟수가 숫자 형태가 아닌 경우, 에러를 발생시킨다.",
+      (roundsInput) => {
+        expect(() => Game.setGame("erica", roundsInput)).toThrow(
+          Game.ERROR_MESSAGE.NOT_NUMBER
+        );
+      }
+    );
 
-  it.each([1.5, 0.5, 1.03])(
-    "시도 횟수가 정수가 아닌 경우, 에러를 발생시킨다.",
-    (roundsInput) => {
-      expect(() => Game.setGame("erica", roundsInput)).toThrow(
-        Game.ERROR_MESSAGE.NOT_INTEGER
-      );
-    }
-  );
+    it.each([1.5, 0.5, 1.03])(
+      "시도 횟수가 정수가 아닌 경우, 에러를 발생시킨다.",
+      (roundsInput) => {
+        expect(() => Game.setGame("erica", roundsInput)).toThrow(
+          Game.ERROR_MESSAGE.NOT_INTEGER
+        );
+      }
+    );
 
-  it.each([-10, -1, 0])(
-    "시도 횟수가 양의 정수가 아닌 경우, 에러를 발생시킨다.",
-    (roundsInput) => {
-      expect(() => Game.setGame("erica", roundsInput)).toThrow(
-        Game.ERROR_MESSAGE.NOT_POSITIVE
-      );
-    }
-  );
+    it.each([-10, -1, 0])(
+      "시도 횟수가 양의 정수가 아닌 경우, 에러를 발생시킨다.",
+      (roundsInput) => {
+        expect(() => Game.setGame("erica", roundsInput)).toThrow(
+          Game.ERROR_MESSAGE.NOT_POSITIVE
+        );
+      }
+    );
+  });
 
-  describe("사용자가 유효한 값을 입력하면, 에러를 발생시키지 않는다.", () => {
+  describe("유효한 값을 입력한 경우", () => {
     it.each(["e", "er", "eri", "eric", "erica", "  _", "!!! "])(
       "자동차 이름을 하나만 입력한 경우",
       (userInput) => {
@@ -75,9 +77,14 @@ describe(`게임을 총 ${DEFAULT_TOTAL_ROUNDS}라운드 진행한다.`, () => {
   const CAR_NAMES_INPUT = "erica, Erica, ryang, yang, theon";
   const spyPlayOneRound = jest.spyOn(Cars, "playOneRound");
 
-  Game.setGame(CAR_NAMES_INPUT, DEFAULT_TOTAL_ROUNDS);
-  Game.playGame(new MoveStrategies("50011"));
-  const gameResult = Game.getGameResult();
+  beforeAll(() => {
+    Game.setGame(CAR_NAMES_INPUT, DEFAULT_TOTAL_ROUNDS);
+    Game.playGame(new MoveStrategies("50011"));
+  });
+
+  afterAll(() => {
+    spyPlayOneRound.mockClear();
+  });
 
   it("각 라운드를 진행하는 함수를 5번 호출한다.", () => {
     expect(spyPlayOneRound).toBeCalledTimes(DEFAULT_TOTAL_ROUNDS);
@@ -92,6 +99,8 @@ describe(`게임을 총 ${DEFAULT_TOTAL_ROUNDS}라운드 진행한다.`, () => {
       position: 0,
     }));
 
+    const gameResult = Game.getGameResult();
+
     gameResult.roundHistory.forEach((roundRecord) => {
       expectedRoundHistory[0].position += 1;
       expect(roundRecord).toEqual(expectedRoundHistory);
@@ -101,11 +110,11 @@ describe(`게임을 총 ${DEFAULT_TOTAL_ROUNDS}라운드 진행한다.`, () => {
   });
 
   it("우승자가 한 명인 경우, 올바른 우승자를 찾는다.", () => {
-    expect(gameResult.winnerNames).toEqual(["erica"]);
+    expect(Game.getGameResult().winnerNames).toEqual(["erica"]);
   });
 });
 
-describe("올바른 우승자 정보를 반환한다.", () => {
+describe("우승자 판단 테스트", () => {
   const CAR_NAMES_INPUT = "erica, Erica, ryang, yang, theon";
 
   it("우승자가 한 명인 경우, 올바른 우승자를 반환한다.", () => {

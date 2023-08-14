@@ -14,9 +14,11 @@ export const Game = (function () {
   });
 
   function isEmpty(value) {
-    if (value === null || value === undefined) return true;
-    if (typeof value === "string" && value.trim() === "") return true;
-    return false;
+    return (
+      value === null ||
+      value === undefined ||
+      (typeof value === "string" && value.trim() === "")
+    );
   }
 
   function validateUserInput(input) {
