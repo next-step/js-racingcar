@@ -1,3 +1,3 @@
-export * from './manipulateReadline.js';
-export * from './trimString.js';
-export * from './getRandomNumber.js';
+export * from './readlineController.js';
+export * from './stringTrimer.js';
+export * from './randomNumberGenerator.js';

@@ -1,4 +1,4 @@
-import { MOVEMENT, MOVEMENT_CONDITION } from '../constants/settings.js';
+import { MOVEMENT, MOVEMENT_CONDITION } from '../constants/index.js';
 
 class CarModel {
   name;
