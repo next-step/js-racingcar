@@ -58,7 +58,7 @@ export default class Car {
   }
 
   tryMove(moveStartegy) {
-    if (moveStartegy.getNumber() >= moveStartegy.movableCriteria) {
+    if (moveStartegy.isMovable()) {
       this.#move();
     }
   }

@@ -1,6 +1,5 @@
 import Car from "./Car";
 import { RandomStrategy } from "./MoveStrategy";
-// import { getRandomIntRangeOf } from "../utils";
 
 export const Cars = (function () {
   const ERROR_MESSAGE = Object.freeze({
@@ -27,10 +26,6 @@ export const Cars = (function () {
   function playOneRound(cars) {
     cars.forEach((car) => {
       car.tryMove(new RandomStrategy());
-      // const randomNumber = Random.getNumber();
-      // if (randomNumber >= Random.movableCriteria) {
-      //   car.move();
-      // }
     });
   }
 

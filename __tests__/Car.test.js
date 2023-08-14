@@ -4,16 +4,16 @@ import { FixedStrategy } from "../src/Models/MoveStrategy.js";
 describe("Car는 이름의 유효성을 확인하고, 유효할 경우만 Car 객체를 생성한다.", () => {
   const CAR_ERROR_MESSAGE = Car.ERROR_MESSAGE;
 
-  it("Car 이름이 빈 값이면 에러를 발생시킨다.", () => {
-    expect(() => Car.of("")).toThrow(CAR_ERROR_MESSAGE.EMPTY_NAME);
-  });
-
   it.each([1031, true, null, undefined, {}, [], function () {}])(
     "Car 이름이 문자열 형태가 아니라면 에러를 발생시킨다.",
     (carName) => {
       expect(() => Car.of(carName)).toThrow(CAR_ERROR_MESSAGE.NOT_STRING_NAME);
     }
   );
+
+  it("Car 이름이 빈 값이면 에러를 발생시킨다.", () => {
+    expect(() => Car.of("")).toThrow(CAR_ERROR_MESSAGE.EMPTY_NAME);
+  });
 
   it.each(["erica0", "ericaGong", "*****!", "951031"])(
     "Car 이름이 5자 초과라면 에러를 발생시킨다.",
@@ -30,7 +30,6 @@ describe("Car는 이름의 유효성을 확인하고, 유효할 경우만 Car �
     "유효한 Car 이름과 위치가 주어지면, 이름과 위치를 상태로 갖는 Car 객체를 생성한다.",
     ({ position }) => {
       const car = Car.of("erica", position);
-
       expect(car.name).toBe("erica");
       expect(car.position).toBe(position);
     }
@@ -68,7 +67,7 @@ describe(`Car는 전진 조건에 부합하면 전진하고, 아니면 현재 �
     it.each([0, 3, 4])(`숫자가 5 미만이면 현재 위치를 유지한다.`, (num) => {
       const car = Car.of("erica", 0);
       const strategy = new FixedStrategy(num);
-      strategy.setMovableCriteria(5);
+      strategy.setMovableCondition((num) => num >= 5);
       car.tryMove(strategy);
       expect(car.position).toBe(0);
     });

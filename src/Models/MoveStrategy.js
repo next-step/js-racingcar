@@ -1,9 +1,9 @@
 class MoveStrategy {
-  movableCriteria;
-  static DEFAULT_MOVABLE_CRITERIA = 4;
+  movableCondition;
+  static defaultMovableCondition = (num) => num >= 4;
 
   constructor() {
-    this.movableCriteria = MoveStrategy.DEFAULT_MOVABLE_CRITERIA;
+    this.movableCondition = MoveStrategy.defaultMovableCondition;
   }
 
   getNumber() {
@@ -12,6 +12,10 @@ class MoveStrategy {
 
   isMovable() {
     throw new Error("isMovable()이 구현되지 않았습니다.");
+  }
+
+  setMovableCondition(conditionFunc) {
+    this.movableCondition = conditionFunc;
   }
 
   setMovableCriteria(criteria) {
@@ -37,7 +41,7 @@ export class RandomStrategy extends MoveStrategy {
   }
 
   isMovable() {
-    this.getNumber() >= this.movableCriteria;
+    return this.movableCondition(this.getNumber());
   }
 }
 
@@ -54,6 +58,6 @@ export class FixedStrategy extends MoveStrategy {
   }
 
   isMovable() {
-    return this.#num >= this.movableCriteria;
+    return this.movableCondition(this.getNumber());
   }
 }
