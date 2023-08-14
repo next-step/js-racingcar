@@ -4,7 +4,7 @@ export class MoveStrategies {
   constructor(str) {
     this.#strategies = [];
 
-    Array.from(str).forEach((char, idx) => {
+    Array.from(str).forEach((char) => {
       let strategy;
       switch (char) {
         case "R":

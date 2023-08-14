@@ -1,6 +1,6 @@
 import { Cars } from "../src/Models/Cars";
 import { Game } from "../src/Models/Game";
-import { FixedStrategy, MoveStrategies } from "../src/Models/MoveStrategy";
+import { MoveStrategies } from "../src/Models/MoveStrategy";
 
 const DEFAULT_TOTAL_ROUNDS = 5;
 describe("사용자가 유효한 값을 입력한 경우, 게임을 세팅한다.", () => {

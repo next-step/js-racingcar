@@ -32,7 +32,6 @@ export const Cars = (function () {
   }
 
   return {
-    // CHECK 테스트 코드를 위해 public으로 빼는게 맞는지?
     ERROR_MESSAGE,
     from,
     playOneRound,

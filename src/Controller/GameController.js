@@ -2,7 +2,6 @@ import { Game } from "../Models/Game";
 import { PromptView } from "../View/PromptView";
 
 export const GameController = (function () {
-  // CHECK 직관적인 메소드 네이밍
   function addEventHandlerToPrompt() {
     PromptView.getInputsThen(playGame);
   }

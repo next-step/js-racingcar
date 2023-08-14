@@ -1,9 +1,8 @@
 import Car from "../src/Models/Car";
 import { Cars } from "../src/Models/Cars";
-import { FixedStrategy, MoveStrategies } from "../src/Models/MoveStrategy";
+import { MoveStrategies } from "../src/Models/MoveStrategy";
 
 describe("CarNames의 유효성을 확인하고, 유효할 경우만 Car 배열을 생성한다.", () => {
-  // CHECK 테스트 코드를 위해 public으로 빼는게 맞는지?
   const CARS_ERROR_MESSAGE = Cars.ERROR_MESSAGE;
 
   it.each([
