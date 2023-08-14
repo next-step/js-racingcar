@@ -1,10 +1,7 @@
-import {Controller} from './controller/Controller';
-import {queryCarNames} from './view/queryCarNames';
-import {printRacingInfo} from './view/printRacingInfo';
-import {printWinners} from './view/printWinners';
-import {queryRacingNumber} from './view/queryRacingNumber';
-
-export const MAXIMUM_CAR_NAME_LENGTH = 5;
+import {Controller} from './domain/controller/Controller';
+import {queryValidInput} from './view/queryValidInput';
+import {validateCarNames} from './domain/validateCarNames';
+import {validateTotalRacingCount} from './domain/validateTotalRacingCount';
 
 const startGame = (carNames, totalRacingCount) => {
   const controller = new Controller();
@@ -13,20 +10,25 @@ const startGame = (carNames, totalRacingCount) => {
   while (controller.currentRaceNumber < totalRacingCount) {
     controller.race();
     const currentRacingInfo = controller.getCarsDistance();
-    printRacingInfo(currentRacingInfo);
+    console.log(currentRacingInfo.map(car => `${car.carName} : ${'-'.repeat(car.distance)}`).join('\n'), '\n');
   }
 
   const racingResult = controller.getCarsDistance();
   const winners = controller.getMaximumDistanceCars(racingResult);
-  printWinners(winners.map(winner => winner.carName));
+  console.log(`${winners.map(winner => winner.carName).join(', ')}가 최종 우승했습니다.`);
 };
 
-function main() {
-  const onInputCarNames = carNames => {
-    queryRacingNumber(totalRacingCount => startGame(carNames, totalRacingCount));
-  };
+const main = async () => {
+  const carNameInput = await queryValidInput(
+    '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n',
+    validateCarNames,
+  );
+  const totalRacingCountInput = await queryValidInput('시도할 회수는 몇회인가요?\n', validateTotalRacingCount);
 
-  queryCarNames(onInputCarNames);
-}
+  const carNames = carNameInput.split(',').map(carName => carName.trim());
+  const totalRacingCount = Number(totalRacingCountInput);
+
+  startGame(carNames, totalRacingCount);
+};
 
 main();
