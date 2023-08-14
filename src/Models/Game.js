@@ -26,9 +26,10 @@ export const Game = (function () {
   function validateRoundsInput(input) {
     if (isEmpty(input)) throw new Error(ERROR_MESSAGE.EMPTY);
 
-    if (isNaN(input)) throw new Error(ERROR_MESSAGE.NOT_NUMBER);
-    if (!Number.isInteger(input)) throw new Error(ERROR_MESSAGE.NOT_INTEGER);
-    if (input < 1) throw new Error(ERROR_MESSAGE.NOT_POSITIVE);
+    const round = Number(input);
+    if (isNaN(round)) throw new Error(ERROR_MESSAGE.NOT_NUMBER);
+    if (!Number.isInteger(round)) throw new Error(ERROR_MESSAGE.NOT_INTEGER);
+    if (round < 1) throw new Error(ERROR_MESSAGE.NOT_POSITIVE);
   }
 
   function parseCarNames(userInput) {
