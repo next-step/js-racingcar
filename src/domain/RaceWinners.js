@@ -1,11 +1,11 @@
 import { ERROR_MESSAGE } from '../constants/errorMessages.js'
 
 export class RaceWinners {
-  #winners
+  #value
 
   constructor(records) {
     this.#validateRecords(records)
-    this.#winners = this.#findWinners(records)
+    this.#value = this.#findWinners(records)
   }
 
   #validateRecords(records) {
@@ -28,19 +28,13 @@ export class RaceWinners {
     const lengths = values.map((value) => value.length)
     const uniqueLengths = [...new Set(lengths)]
     if (uniqueLengths.length !== 1) return false
-
     // 모든 values 가 배열인지 확인
     if (!values.every((value) => Array.isArray(value))) return false
 
     // 모든 values 의 value 요소가 0이상의 숫자인지 확인
-    if (
-      !values
-        .flatMap((value) => value)
-        .every((value) => typeof value === 'number' && value >= 0)
-    )
-      return false
-
-    return true
+    return values
+      .flat()
+      .every((value) => typeof value === 'number' && value >= 0)
   }
 
   #findWinners(records) {
@@ -60,7 +54,7 @@ export class RaceWinners {
       .map((entry) => entry.name)
   }
 
-  get winners() {
-    return this.#winners
+  get value() {
+    return this.#value
   }
 }

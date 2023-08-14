@@ -8,20 +8,16 @@ export class Game {
   static DEFAULT_CURRENT_ROUND = 1
   static MOVE_THRESHOLD = 4
   #cars
-  #entries
   #rounds
   #currentRound
-  #currentRecord
   #records
   #winners
 
   constructor(carNames, rounds = Game.DEFAULT_ROUNDS) {
-    this.#validateCarName(carNames)
+    this.#validateRounds(rounds)
     this.#cars = new Cars(carNames)
-    this.#entries = this.#cars.entries
     this.#rounds = rounds
     this.#currentRound = Game.DEFAULT_CURRENT_ROUND
-    this.#currentRecord = {}
     this.#records = new RaceRecords()
   }
 
@@ -38,37 +34,31 @@ export class Game {
     }
 
     // 모든 라운드 종료 후 우승자를 선정함
-    this.#setWinners(this.#records.records)
+    this.#setWinners(this.#records.value)
   }
 
-  #validateCarName(carNames) {
-    if (
-      !carNames ||
-      !Array.isArray(carNames) ||
-      carNames.some((name) => !name || typeof name !== 'string')
-    ) {
-      throw new Error(ERROR_MESSAGE.NAMES_TO_BE_VALID)
+  #validateRounds(rounds) {
+    const roundsNumber = Number(rounds)
+
+    if (!roundsNumber || isNaN(roundsNumber) || roundsNumber <= 0) {
+      throw new Error(ERROR_MESSAGE.ROUNDS_TO_BE_VALID)
     }
   }
 
   #determineShouldMove(limit = 9) {
     const randomNumber = Math.ceil(Math.random() * limit)
-    return randomNumber > Game.MOVE_THRESHOLD
+    return randomNumber >= Game.MOVE_THRESHOLD
   }
 
   #convertStatusToRecord(statuses) {
-    const record = {}
-    statuses.forEach((status) => (record[status.name] = status.position))
-
-    return record
+    return statuses.reduce(
+      (acc, { name, position }) => ({ ...acc, [name]: position }),
+      {},
+    )
   }
 
   #setWinners(records) {
-    this.#winners = new RaceWinners(records).winners
-  }
-
-  get entries() {
-    return this.#entries
+    this.#winners = new RaceWinners(records).value
   }
 
   get rounds() {
@@ -79,12 +69,8 @@ export class Game {
     return this.#currentRound
   }
 
-  get currentRecord() {
-    return this.#currentRecord
-  }
-
   get records() {
-    return this.#records.records
+    return this.#records.value
   }
 
   get winners() {

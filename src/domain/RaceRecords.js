@@ -1,31 +1,24 @@
 import { ERROR_MESSAGE } from '../constants/errorMessages.js'
+import { isObject } from '../utils/isObject.js'
 
 export class RaceRecords {
-  #records
+  #value
 
   constructor() {
-    this.#records = {}
+    this.#value = {}
   }
 
   add(records) {
     this.#validateRecords(records)
 
     Object.entries(records).forEach(([name, position]) => {
-      if (this.#records[name]) {
-        this.#records[name].push(position)
-      } else {
-        this.#records[name] = [position]
-      }
+      this.#value[name] = this.#value[name] || []
+      this.#value[name].push(position)
     })
   }
 
   #validateRecords(records) {
-    if (
-      !records ||
-      typeof records !== 'object' ||
-      Array.isArray(records) ||
-      Object.keys(records).length === 0
-    ) {
+    if (!records || !isObject(records) || Object.keys(records).length === 0) {
       throw new Error(ERROR_MESSAGE.RECORDS_FORMAT)
     }
 
@@ -40,7 +33,7 @@ export class RaceRecords {
     }
   }
 
-  get records() {
-    return this.#records
+  get value() {
+    return this.#value
   }
 }

@@ -1,4 +1,4 @@
-import { RaceWinners } from '../src/model/RaceWinners'
+import { RaceWinners } from '../src/domain/RaceWinners'
 
 describe('RaceWinners: 자동차 경주 우승자', () => {
   describe('new RaceWinners(records)', () => {
@@ -6,18 +6,18 @@ describe('RaceWinners: 자동차 경주 우승자', () => {
       const records = { 산들: [0, 1, 2], 뿌꾸: [1, 2, 3] }
       const raceWinners = new RaceWinners(records)
 
-      expect(raceWinners.winners).toEqual(['뿌꾸'])
+      expect(raceWinners.value).toEqual(['뿌꾸'])
     })
   })
 
-  describe('raceWinners.winners: 최종 우승 자동차의 갯수는 1개 이상이다.', () => {
+  describe('raceWinners.value: 최종 우승 자동차의 갯수는 1개 이상이다.', () => {
     test.each([
       [{ 산들: [0, 1, 2], 뿌꾸: [1, 2, 3] }, ['뿌꾸']],
       [{ 산들: [0, 0, 1], 뿌꾸: [0, 0, 0] }, ['산들']],
       [{ 산들: [1, 2, 3, 4, 5], 뿌꾸: [0, 1, 2, 3, 3] }, ['산들']],
     ])('new RaceWinners(%o) => 우승자 : %s', (records, expected) => {
       const raceWinners = new RaceWinners(records)
-      expect(raceWinners.winners).toEqual(expected)
+      expect(raceWinners.value).toEqual(expected)
     })
   })
 
