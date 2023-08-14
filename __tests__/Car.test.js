@@ -59,7 +59,7 @@ describe(`Car는 전진 조건에 부합하면 전진하고, 아니면 현재 �
       (num) => {
         const car = Car.of("erica", 0);
         const strategy = new FixedStrategy(num);
-        strategy.setMovableCriteria(5);
+        strategy.setMovableCondition((num) => num >= 5);
         car.tryMove(strategy);
         expect(car.position).toBe(1);
       }
@@ -85,7 +85,7 @@ describe("Car는 이름과 현재 위치 정보를 반환한다.", () => {
     expect(car.position).toBe(0);
   });
 
-  it("Car 객체는 이름과 현재 이름을 객체 형태로 반환한다.", () => {
+  it("Car 객체는 이름과 현재 이름을 속성으로 가진 객체 타입을 반환한다.", () => {
     expect(car.getRecord()).toBeInstanceOf(Object);
     expect(car.getRecord()).toHaveProperty("name");
     expect(car.getRecord()).toHaveProperty("position");

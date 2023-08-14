@@ -1,5 +1,6 @@
 class MoveStrategy {
   movableCondition;
+
   static defaultMovableCondition = (num) => num >= 4;
 
   constructor() {
@@ -16,10 +17,6 @@ class MoveStrategy {
 
   setMovableCondition(conditionFunc) {
     this.movableCondition = conditionFunc;
-  }
-
-  setMovableCriteria(criteria) {
-    this.movableCriteria = criteria;
   }
 }
 
