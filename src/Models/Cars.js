@@ -22,7 +22,6 @@ export const Cars = (function () {
     return carNames.map((carName) => Car.of(carName));
   }
 
-  // TODO 랜덤 숫자 생성 외부로 분리
   function playOneRound(cars) {
     cars.forEach((car) => {
       car.tryMove(new RandomStrategy());

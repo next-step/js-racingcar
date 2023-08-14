@@ -1,16 +1,19 @@
+import Car from "../src/Models/Car";
 import { Cars } from "../src/Models/Cars";
+import { FixedStrategy } from "../src/Models/MoveStrategy";
 
 describe("CarNames의 유효성을 확인하고, 유효할 경우만 Car 배열을 생성한다.", () => {
   // CHECK 테스트 코드를 위해 public으로 빼는게 맞는지?
   const CARS_ERROR_MESSAGE = Cars.ERROR_MESSAGE;
 
   it.each([
-    { carNames: ["erica", "erica"] },
-    { carNames: ["gong0", "gong0"] },
+    { carNames: ["erica", "erica", " "] },
+    { carNames: ["gong0", "gong0", "Gong"] },
     { carNames: ["1031", "1031"] },
-    { carNames: ["*****", "*****"] },
+    { carNames: ["*****", "*****", "**!**", "***!*", "*****"] },
     { carNames: ["*e*1C", "*e*1C"] },
     { carNames: [" ", " "] },
+    { carNames: ["", ""] },
   ])(
     "CarNames에 중복된 Car 이름이 존재하면, 에러를 발생시킨다.",
     ({ carNames }) => {
@@ -24,11 +27,18 @@ describe("CarNames의 유효성을 확인하고, 유효할 경우만 Car 배열�
     { carNames: ["erica", "Erica"] },
     { carNames: ["gong0", "Gong0", "1031", "1031!", "*****"] },
     { carNames: ["*e*1C", "*e*1c", "ERICA", "Pan", "theon"] },
+    { carNames: ["!****", "*!***", "**!**", "***!*", "****!"] },
   ])(
     "CarNames에 중복된 Car 이름이 존재하지 않으면, Car 배열을 생성한다.",
     ({ carNames }) => {
       expect(() => Cars.from(carNames)).not.toThrow();
-      expect(Cars.from(carNames)).toHaveLength(carNames.length);
+      const cars = Cars.from(carNames);
+      const expectedCars = carNames.map((carName) => ({
+        name: carName,
+        position: 0,
+      }));
+      expect(cars.map((car) => car.getRecord())).toEqual(expectedCars);
+      expect(cars).toHaveLength(carNames.length);
     }
   );
 
@@ -46,8 +56,14 @@ describe("CarNames의 유효성을 확인하고, 유효할 경우만 Car 배열�
   });
 });
 
-// TODO playOneRound 테스트 함수 작성
-describe("playOneRound 테스트 함수 작성", () => {});
+describe("playOneRound 테스트 함수 작성", () => {
+  it("한 라운드가 진행되면, Cars 배열의 모든 Car들이 tryMove 함수를 호출한다.", () => {
+    const cars = Cars.from(["erica", "Erica", "theon", "yang", "ryang"]);
+    const spyTryMove = jest.spyOn(Car.prototype, "tryMove");
+    Cars.playOneRound(cars);
+    expect(spyTryMove).toHaveBeenCalledTimes(cars.length);
+  });
+});
 
 it.each([
   { carNames: ["erica", "Erica"] },
@@ -56,9 +72,10 @@ it.each([
 ])("자동차 배열에 속한 모든 자동차의 정보를 반환한다.", ({ carNames }) => {
   const cars = Cars.from(carNames);
   const roundRecord = Cars.getRoundRecord(cars);
-
+  const expectedRecord = carNames.map((carName) => ({
+    name: carName,
+    position: 0,
+  }));
+  expect(roundRecord).toEqual(expectedRecord);
   expect(roundRecord).toHaveLength(carNames.length);
-  expect(roundRecord).toEqual(
-    carNames.map((carName) => ({ name: carName, position: 0 }))
-  );
 });
