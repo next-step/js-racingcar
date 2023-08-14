@@ -1,3 +1,3 @@
-import { CarRacingGame } from './domain/CarRacingGame';
+import CarRace from './domain/carRace';
 
-new CarRacingGame().start();
+new CarRace();

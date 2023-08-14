@@ -1,13 +1,19 @@
 import { ERROR_MESSAGE } from '../constants/errorMessage';
 import { getStringFromArray } from '../utils/common';
+import CarRaceView from '../view/CarRacingView';
+import Car from './car';
 
 export default class CarRace {
   #participants;
   #winners;
   #lapCount = 0;
+  #carRaceView;
 
-  constructor(participants) {
-    this.#participants = participants;
+  constructor() {
+    this.#carRaceView = new CarRaceView();
+    this.#init().then(() => {
+      this.start();
+    });
   }
 
   get participants() {
@@ -69,5 +75,50 @@ export default class CarRace {
     }
 
     return result;
+  }
+
+  #init = async () => {
+    while (this.#participants === undefined) {
+      await this.#setParticipants();
+    }
+
+    while (this.#lapCount < 1) {
+      await this.#setCarRaceLap();
+    }
+    this.#carRaceView.closeInput();
+  };
+
+  #setParticipants = async () => {
+    try {
+      const carNames = await this.#carRaceView.inputCarName();
+      if (carNames) {
+        this.#participants = carNames.split(',').map((name) => new Car(name));
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  #setCarRaceLap = async () => {
+    try {
+      const lapCount = await this.#carRaceView.inputRaceLapCount();
+      if (lapCount) {
+        this.lapCount = lapCount;
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  start() {
+    this.#carRaceView.printMessage('실행결과');
+    this.#carRaceView.printMessage(this.participantNames);
+
+    for (let i = 0; i < this.lapCount; i++) {
+      this.participants.forEach((car) => car.runOneLap());
+      this.#carRaceView.printLapResult(this.participants);
+    }
+
+    this.#carRaceView.printWinners(this.winnerNames);
   }
 }
