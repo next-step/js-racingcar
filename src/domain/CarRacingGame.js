@@ -1,6 +1,6 @@
 import Car from './car.js';
 import CarRace from './carRace.js';
-import CarRaceView from '../view/CarRaceView.js';
+import CarRaceView from '../view/CarRacingView.js';
 
 export class CarRacingGame {
   #carRaceView;
