@@ -17,8 +17,8 @@ const getCars = (inputCars) => {
 };
 
 const getRaceWinners = (cars) => {
-  const carRaceOrganizer = new CarRaceOrganizer(cars, DUMMY_INPUT_TOTAL_LAP);
-  carRaceOrganizer.printWinners();
+  const carRaceOrganizer = new CarRaceOrganizer(cars, 1);
+  carRaceOrganizer.stopRace();
   return carRaceOrganizer.winners;
 };
 
