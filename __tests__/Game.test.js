@@ -2,13 +2,12 @@ import { Cars } from "../src/Models/Cars";
 import { Game } from "../src/Models/Game";
 import { MoveStrategies } from "../src/Models/MoveStrategy";
 
-const DEFAULT_TOTAL_ROUNDS = 5;
 describe("게임 설정 테스트", () => {
   describe("유효하지 않은 값을 입력한 경우", () => {
     it.each(["", null, undefined, " "])(
       "자동차 이름이 빈 값인 경우, 에러를 발생시킨다.",
       (carNamesInput) => {
-        expect(() => Game.setGame(carNamesInput, DEFAULT_TOTAL_ROUNDS)).toThrow(
+        expect(() => Game.setGame(carNamesInput, 5)).toThrow(
           Game.ERROR_MESSAGE.EMPTY
         );
       }
@@ -55,9 +54,7 @@ describe("게임 설정 테스트", () => {
     it.each(["e", "er", "eri", "eric", "erica", "  _", "!!! "])(
       "자동차 이름을 하나만 입력한 경우",
       (userInput) => {
-        expect(() =>
-          Game.setGame(userInput, DEFAULT_TOTAL_ROUNDS)
-        ).not.toThrow();
+        expect(() => Game.setGame(userInput, 5)).not.toThrow();
       }
     );
 
@@ -68,17 +65,16 @@ describe("게임 설정 테스트", () => {
       "test1, Test2, tEsT1, test2, TeSt1",
       "name1, name2, name3, name4, name5",
     ])("중복 없이 자동차 이름을 여러 개 입력한 경우", (userInput) => {
-      expect(() => Game.setGame(userInput, DEFAULT_TOTAL_ROUNDS)).not.toThrow();
+      expect(() => Game.setGame(userInput, 5)).not.toThrow();
     });
   });
 });
 
-describe(`게임을 총 ${DEFAULT_TOTAL_ROUNDS}라운드 진행한다.`, () => {
-  const CAR_NAMES_INPUT = "erica, Erica, ryang, yang, theon";
+describe(`게임을 총 5라운드 진행한다.`, () => {
   const spyPlayOneRound = jest.spyOn(Cars, "playOneRound");
 
   beforeAll(() => {
-    Game.setGame(CAR_NAMES_INPUT, DEFAULT_TOTAL_ROUNDS);
+    Game.setGame("erica, Erica, ryang, yang, theon", 5);
     Game.playGame(new MoveStrategies("50011"));
   });
 
@@ -87,13 +83,13 @@ describe(`게임을 총 ${DEFAULT_TOTAL_ROUNDS}라운드 진행한다.`, () => {
   });
 
   it("각 라운드를 진행하는 함수를 5번 호출한다.", () => {
-    expect(spyPlayOneRound).toBeCalledTimes(DEFAULT_TOTAL_ROUNDS);
+    expect(spyPlayOneRound).toBeCalledTimes(5);
   });
 
   it("각 라운드 별 기록을 올바르게 roundHistory에 저장한다.", () => {
-    const carNames = CAR_NAMES_INPUT.split(",").map((carName) =>
-      carName.trim()
-    );
+    const carNames = "erica, Erica, ryang, yang, theon"
+      .split(",")
+      .map((carName) => carName.trim());
     const expectedRoundHistory = carNames.map((carName) => ({
       name: carName,
       position: 0,
@@ -106,7 +102,7 @@ describe(`게임을 총 ${DEFAULT_TOTAL_ROUNDS}라운드 진행한다.`, () => {
       expect(roundRecord).toEqual(expectedRoundHistory);
     });
 
-    expect(gameResult.roundHistory.length).toBe(DEFAULT_TOTAL_ROUNDS);
+    expect(gameResult.roundHistory.length).toBe(5);
   });
 
   it("우승자가 한 명인 경우, 올바른 우승자를 찾는다.", () => {
@@ -115,10 +111,8 @@ describe(`게임을 총 ${DEFAULT_TOTAL_ROUNDS}라운드 진행한다.`, () => {
 });
 
 describe("우승자 판단 테스트", () => {
-  const CAR_NAMES_INPUT = "erica, Erica, ryang, yang, theon";
-
   it("우승자가 한 명인 경우, 올바른 우승자를 반환한다.", () => {
-    Game.setGame(CAR_NAMES_INPUT, DEFAULT_TOTAL_ROUNDS);
+    Game.setGame("erica, Erica, ryang, yang, theon", 5);
     Game.playGame(new MoveStrategies("50000"));
     const gameResult = Game.getGameResult();
     expect(gameResult.winnerNames).toEqual(["erica"]);
@@ -127,13 +121,13 @@ describe("우승자 판단 테스트", () => {
   it.each(["55000", "55500", "55500", "55550", "55555"])(
     "우승자가 두 명 이상인 경우, 올바른 우승자를 반환한다.",
     (str) => {
-      Game.setGame(CAR_NAMES_INPUT, DEFAULT_TOTAL_ROUNDS);
+      Game.setGame("erica, Erica, ryang, yang, theon", 5);
       Game.playGame(new MoveStrategies(str));
       const gameResult = Game.getGameResult();
 
-      const carNames = CAR_NAMES_INPUT.split(",").map((carName) =>
-        carName.trim()
-      );
+      const carNames = "erica, Erica, ryang, yang, theon"
+        .split(",")
+        .map((carName) => carName.trim());
       const expectedWinnerNames = carNames.filter(
         (_, index) => str[index] === "5"
       );
