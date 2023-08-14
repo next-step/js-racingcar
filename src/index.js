@@ -6,11 +6,11 @@ import {queryRacingNumber} from './view/queryRacingNumber';
 
 export const MAXIMUM_CAR_NAME_LENGTH = 5;
 
-const startGame = (carNames, racingNumber) => {
+const startGame = (carNames, totalRacingCount) => {
   const controller = new Controller();
   controller.createCars(carNames);
 
-  while (controller.currentRaceNumber < racingNumber) {
+  while (controller.currentRaceNumber < totalRacingCount) {
     controller.race();
     const currentRacingInfo = controller.getCarsDistance();
     printRacingInfo(currentRacingInfo);
@@ -23,7 +23,7 @@ const startGame = (carNames, racingNumber) => {
 
 function main() {
   const onInputCarNames = carNames => {
-    queryRacingNumber(racingNumber => startGame(carNames, racingNumber));
+    queryRacingNumber(totalRacingCount => startGame(carNames, totalRacingCount));
   };
 
   queryCarNames(onInputCarNames);

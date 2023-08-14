@@ -5,14 +5,14 @@ export const queryRacingNumber = onInput => {
   queryLineInput({
     queryText: '시도할 회수는 몇회인가요?\n',
     onLineInput: line => {
-      const racingNumber = Number(line);
-      if (!isPositiveInteger(racingNumber)) {
+      const totalRacingCount = Number(line);
+      if (!isPositiveInteger(totalRacingCount)) {
         console.log('양의 정수를 입력해주세요.\n');
         queryRacingNumber(carNames);
         return;
       }
 
-      onInput(racingNumber);
+      onInput(totalRacingCount);
     },
   });
 };
