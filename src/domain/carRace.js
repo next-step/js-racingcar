@@ -4,7 +4,6 @@ import { getStringFromArray } from '../utils/common';
 export default class CarRace {
   #participants;
   #winners;
-  #isRaceStarted = false;
   #lapCount = 0;
 
   constructor(participants) {
@@ -20,7 +19,7 @@ export default class CarRace {
   }
 
   get winners() {
-    if (!this.#participants || !this.#isRaceStarted) {
+    if (!this.#participants || !this.isRaceStart()) {
       return;
     }
 
@@ -48,8 +47,6 @@ export default class CarRace {
       throw new Error(ERROR_MESSAGE.CAR_RACE_LAP_COUNT);
     }
 
-    this.#isRaceStarted = true;
-
     this.#lapCount = Math.round(Number.parseInt(lapCount));
   }
 
@@ -59,5 +56,18 @@ export default class CarRace {
     }
     const names = cars.map((car) => car.name);
     return getStringFromArray(names);
+  }
+
+  isRaceStart() {
+    let result = false;
+
+    for (const participant of this.#participants) {
+      if (participant.distance > 0) {
+        result = true;
+        break;
+      }
+    }
+
+    return result;
   }
 }
