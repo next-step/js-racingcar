@@ -53,7 +53,7 @@ export default class CarRace {
       throw new Error(ERROR_MESSAGE.CAR_RACE_LAP_COUNT);
     }
 
-    this.#lapCount = Math.round(Number.parseInt(lapCount));
+    this.#lapCount = Math.round(parseInt(lapCount, 10));
   }
 
   getCarNames(cars) {
