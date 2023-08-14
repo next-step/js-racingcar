@@ -1,5 +1,4 @@
 import Car from "./Car";
-import { RandomStrategy } from "./MoveStrategy";
 
 export const Cars = (function () {
   const ERROR_MESSAGE = Object.freeze({
@@ -22,9 +21,9 @@ export const Cars = (function () {
     return carNames.map((carName) => Car.of(carName));
   }
 
-  function playOneRound(cars) {
+  function playOneRound(cars, moveStrategy) {
     cars.forEach((car) => {
-      car.tryMove(new RandomStrategy());
+      car.tryMove(moveStrategy);
     });
   }
 

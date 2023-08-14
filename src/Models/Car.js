@@ -57,8 +57,8 @@ export default class Car {
     this.#position += Car.MOVE_STEP;
   }
 
-  tryMove(moveStartegy) {
-    if (moveStartegy.isMovable()) {
+  tryMove(moveStrategy) {
+    if (moveStrategy.isMovable()) {
       this.#move();
     }
   }

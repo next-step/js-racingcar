@@ -1,4 +1,5 @@
 import { Cars } from "./Cars";
+import { RandomStrategy } from "./MoveStrategy";
 
 export const Game = (function () {
   const roundHistory = [];
@@ -11,17 +12,22 @@ export const Game = (function () {
     NOT_POSITIVE: "시도 횟수로는 1 이상의 숫자를 입력해주세요.",
   });
 
+  function isEmpty(value) {
+    if (value === null || value === undefined) return true;
+    if (typeof value === "string" && value.trim() === "") return true;
+    return false;
+  }
+
   function validateUserInput(input) {
-    if (!input) throw new Error(ERROR_MESSAGE.EMPTY);
+    if (isEmpty(input)) throw new Error(ERROR_MESSAGE.EMPTY);
   }
 
   function validateRoundsInput(input) {
-    if (!input) throw new Error(ERROR_MESSAGE.EMPTY);
+    if (isEmpty(input)) throw new Error(ERROR_MESSAGE.EMPTY);
 
-    const round = Number(input);
-    if (isNaN(round)) throw new Error(ERROR_MESSAGE.NOT_NUMBER);
-    if (!Number.isInteger(round)) throw new Error(ERROR_MESSAGE.NOT_INTEGER);
-    if (round < 1) throw new Error(ERROR_MESSAGE.NOT_POSITIVE);
+    if (isNaN(input)) throw new Error(ERROR_MESSAGE.NOT_NUMBER);
+    if (!Number.isInteger(input)) throw new Error(ERROR_MESSAGE.NOT_INTEGER);
+    if (input < 1) throw new Error(ERROR_MESSAGE.NOT_POSITIVE);
   }
 
   function parseCarNames(userInput) {
@@ -39,9 +45,9 @@ export const Game = (function () {
     totalRounds = Number(roundsInput);
   }
 
-  function playGame() {
+  function playGame(moveStrategy = new RandomStrategy()) {
     while (totalRounds--) {
-      Cars.playOneRound(cars);
+      Cars.playOneRound(cars, moveStrategy);
 
       roundHistory.push(Cars.getRoundRecord(cars));
     }
