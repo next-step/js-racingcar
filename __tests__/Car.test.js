@@ -1,6 +1,5 @@
-import { CAR_NAME_LENGTH_LIMIT } from '../src/constants';
+import { ERROR_MESSAGE } from '../src/constants/errorMessage';
 import Car from '../src/domain/car';
-import { ERROR_MESSAGE } from '../src/validation/errorMessage';
 
 describe('Car', () => {
   describe('자동차에 이름을 부여할 수 있다', () => {

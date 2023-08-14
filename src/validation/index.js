@@ -1,5 +1,5 @@
 import { isEmpty, isStringOverLength } from '../utils/common';
-import { ERROR_MESSAGE } from './errorMessage';
+import { ERROR_MESSAGE } from '../constants/errorMessage';
 
 export const validateOverStringLength = ({
   value,

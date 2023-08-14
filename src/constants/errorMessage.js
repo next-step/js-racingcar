@@ -1,4 +1,4 @@
-import { CAR_NAME_LENGTH_LIMIT } from '../constants';
+import { CAR_NAME_LENGTH_LIMIT } from '../constants/race-rule';
 
 export const ERROR_MESSAGE = Object.freeze({
   EMPTY_ARGUMENT: '인자가 null 또는 undefined입니다.',

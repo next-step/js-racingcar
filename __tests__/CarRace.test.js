@@ -1,7 +1,6 @@
-import { CAR_RACE_LAP_LIMIT } from '../src/constants';
+import { ERROR_MESSAGE } from '../src/constants/errorMessage';
 import Car from '../src/domain/car';
 import CarRace from '../src/domain/carRace';
-import { ERROR_MESSAGE } from '../src/validation/errorMessage';
 
 describe('CarRace', () => {
   it('자동차 이름은 쉼표(,)를 기준으로 구분한다.', () => {

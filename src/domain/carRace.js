@@ -1,7 +1,5 @@
-import { CAR_RACE_LAP_LIMIT } from '../constants';
+import { ERROR_MESSAGE } from '../constants/errorMessage';
 import { getStringFromArray } from '../utils/common';
-import { ERROR_MESSAGE } from '../validation/errorMessage';
-import CarRaceView from '../view/carView';
 
 export default class CarRace {
   #participants;
@@ -50,11 +48,9 @@ export default class CarRace {
       throw new Error(ERROR_MESSAGE.CAR_RACE_LAP_COUNT);
     }
 
-    this.#lapCount = Math.round(Number.parseInt(lapCount));
-  }
+    this.#isRaceStarted = true;
 
-  set isRaceStarted(isRaceStarted) {
-    this.#isRaceStarted = isRaceStarted;
+    this.#lapCount = Math.round(Number.parseInt(lapCount));
   }
 
   getCarNames(cars) {
