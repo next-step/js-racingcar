@@ -1,6 +1,6 @@
-import { startRaceGame } from './domain/race/index';
-import { printWinners, printRace } from './view/viewer';
+import { startRaceGame, createRaceStatusMessage, createRaceWinnerMessage } from './domain/race/index';
+import { printMessage, printMessageList } from './view/viewer';
 
 const { history, winners } = await startRaceGame();
-printRace(history);
-printWinners(winners);
+printMessageList(createRaceStatusMessage(history), (item) => item.join('\n'));
+printMessage(createRaceWinnerMessage(winners));

@@ -15,5 +15,6 @@ export const ERROR_MESSAGE = Object.freeze({
 export const ALERT_MESSAGE = Object.freeze({
   INPUT_CAR_MESSAGE: `경주 할 자동차 이름을 입력하세요.(이름은 (${CAR_CONFIGURE.NAME_SEPARATOR})를 기준으로 구분)`,
   RETRY_MESSAGE: '게임을 다시 시작합니다.',
-  QUESTION_RACE_LAP_MESSAGE: '시도할 횟수는 몇회인가요?'
+  QUESTION_RACE_LAP_MESSAGE: '시도할 횟수는 몇회인가요?',
+  WINNER_MESSAGE: '가 최종 우승했습니다.'
 });
