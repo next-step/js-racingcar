@@ -1,2 +1,2 @@
 export * from './prompter';
-export { default as startGame } from './startGame';
+export { default as startRaceGame } from './raceGameInitializer';

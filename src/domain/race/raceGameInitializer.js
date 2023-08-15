@@ -9,7 +9,7 @@ const getValidCarsFromPrompt = async () => {
     return cars;
   } catch (error) {
     errorFallback(error);
-    return getValidCarsFromPrompt();
+    getValidCarsFromPrompt();
   }
 };
 
@@ -20,11 +20,11 @@ const getValidTotalLapFromPrompt = async () => {
     return inputTotalLap;
   } catch (error) {
     errorFallback(error);
-    return getValidTotalLapFromPrompt();
+    getValidTotalLapFromPrompt();
   }
 };
 
-const startGame = async () => {
+const startRaceGame = async () => {
   try {
     const cars = await getValidCarsFromPrompt();
     const totalLap = await getValidTotalLapFromPrompt();
@@ -36,10 +36,10 @@ const startGame = async () => {
     };
   } catch (error) {
     errorFallback(error);
-    startGame();
+    startRaceGame();
   } finally {
     endPrompter();
   }
 };
 
-export default startGame;
+export default startRaceGame;
