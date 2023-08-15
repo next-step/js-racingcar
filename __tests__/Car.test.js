@@ -21,23 +21,11 @@ describe("Car Class 테스트", () => {
     });
   });
 
-  test("advanceCondition이 true를 반환하면 distance가 1 증가한다.", async () => {
-    const mockAdvanceCondition = () => true;
-
+  test("advance 메소드가 실행되면 distance가 1 증가한다.", async () => {
     const car = new Car("test");
 
-    car.advance(mockAdvanceCondition);
+    car.advance();
 
     expect(car.distance).toBe(1);
-  });
-
-  test("advanceCondition이 false를 반환하면 distance 유지된다.", async () => {
-    const mockAdvanceCondition = () => false;
-
-    const car = new Car("test");
-
-    car.advance(mockAdvanceCondition);
-
-    expect(car.distance).toBe(0);
   });
 });

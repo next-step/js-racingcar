@@ -3,7 +3,6 @@ import Car from "./Car";
 export default class Cars {
   static #DEFAULT_RACING_ROUND_NUMBER = 5;
   static #RACING_ROUND_MIN_VALUE = 1;
-  #roundNumber = Cars.#DEFAULT_RACING_ROUND_NUMBER;
   static GAME_STEP = Object.freeze({
     SET_CARS: "SET_CARS",
     SET_ROUND_NUMBER: "SET_ROUND_NUMBER",
@@ -16,7 +15,6 @@ export default class Cars {
     INVALID_RACING_ROUND_VALUE: "1이상 값을 입력해주세요.",
   });
   static #rRacingRound = /^[0-9]+$/;
-
   static #CAR_ADVANCE_MAX_NUMBER = 9;
   static #CAR_ADVANCE_THRESHOLD_NUMBER = 4;
   static #defaultAdvanceCondition = () => {
@@ -26,6 +24,7 @@ export default class Cars {
     );
   };
 
+  #roundNumber = Cars.#DEFAULT_RACING_ROUND_NUMBER;
   #cars = [];
   #nextGameStep = Cars.GAME_STEP.SET_CARS;
 

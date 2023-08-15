@@ -48,40 +48,62 @@ describe("Cars Class 테스트", () => {
 
     carsModel.roundNumber = testRoundNumber;
 
-    const executeMultipleRoundsSpy = jest.spyOn(
-      carsModel,
-      "executeMultipleRounds",
-    );
-
     let afterRoundActionCallCount = 0;
     const afterRoundAction = () => {
       afterRoundActionCallCount += 1;
     };
 
-    const executeOneRoundSpy = jest.spyOn(carsModel, "executeOneRound");
+    let executeOneRoundCount = 0;
+    const originalExecuteOneRound = carsModel.executeOneRound;
+
+    carsModel.executeOneRound = function (...args) {
+      executeOneRoundCount += 1;
+      return originalExecuteOneRound.apply(this, args);
+    };
+
+    let executeMultipleRoundCount = 0;
+    const originalExecuteMultipleRound = carsModel.executeMultipleRounds;
+
+    carsModel.executeMultipleRounds = function (...args) {
+      executeMultipleRoundCount += 1;
+
+      return originalExecuteMultipleRound.apply(this, args);
+    };
 
     carsModel.executeMultipleRounds(afterRoundAction);
 
-    expect(executeMultipleRoundsSpy).toHaveBeenCalledTimes(1);
+    expect(executeMultipleRoundCount).toBe(1);
 
     expect(afterRoundActionCallCount).toBe(testRoundNumber);
 
-    expect(executeOneRoundSpy).toHaveBeenCalledTimes(testRoundNumber);
+    expect(executeOneRoundCount).toBe(testRoundNumber);
   });
 
-  test("getWinners를 통해 올바른 우승자가 출력된다", () => {
+  test("getWinners를 통해 올바른 우승자가 출력된다.(1명)", () => {
     const mockAdvanceCondition = (name) => {
       return name === "test1";
     };
 
-    const carsModel = new Cars([mockAdvanceCondition]);
-
-    carsModel.addCars(["test1", "test2"]);
+    const carsModel = new Cars(["test1", "test2"]);
 
     carsModel.roundNumber = 1;
 
-    carsModel.executeMultipleRounds();
+    carsModel.executeMultipleRounds(() => {}, [mockAdvanceCondition]);
 
     expect(carsModel.winners).toEqual(["test1"]);
+  });
+
+  test("getWinners를 통해 올바른 우승자가 출력된다.(여러명)", () => {
+    const mockAdvanceCondition = (name) => {
+      return name === "test1" || name === "test2";
+    };
+
+    const carsModel = new Cars(["test1", "test2", "test3"]);
+
+    carsModel.roundNumber = 1;
+
+    carsModel.executeMultipleRounds(() => {}, [mockAdvanceCondition]);
+
+    expect(carsModel.winners).toEqual(["test1", "test2"]);
   });
 });
