@@ -2,9 +2,6 @@ import { ERROR_MESSAGE, RACE_CONFIGURE } from '../constants/index';
 import { generateRandomNumber, isDuplicateArray, isOnlyPositiveNumber } from '../../utils/index';
 
 export default class CarRaceOrganizer {
-  #minSpeed = 0;
-  #maxSpeed = 9;
-
   #totalLap;
   #history = [];
   #cars = [];
@@ -52,7 +49,8 @@ export default class CarRaceOrganizer {
   }
 
   #getDistance() {
-    return generateRandomNumber(this.#minSpeed, this.#maxSpeed);
+    const { MIN_SPEED, MAX_SPEED } = RACE_CONFIGURE;
+    return generateRandomNumber(MIN_SPEED, MAX_SPEED);
   }
 
   #setHistory() {
