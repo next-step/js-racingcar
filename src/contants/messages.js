@@ -1,8 +1,7 @@
 export const INPUT_MSG =
   "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n";
-export const TOTAL_ROUND_MSG = "\n실행 결과";
-export const ROUND_MSG = (round) => `${round}라운드`;
-export const RESULT_MSG = (winners) => `${winners}가 최종 우승했습니다.\n`;
+export const RESULT_TITLE_MSG = "\n실행 결과";
+export const WINNER_MSG = (winners) => `${winners}가 최종 우승했습니다.\n`;
 
 export const ERROR_MSG = Object.freeze({
   MAX_LENGTH: (MAX_LENGTH) =>

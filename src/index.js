@@ -11,7 +11,7 @@ const rl = readline.createInterface({
 const racingGame = new RacingGame();
 
 rl.question(INPUT_MSG, (answer) => {
-  racingGame.setPlayers(answer);
+  racingGame.setCars(answer);
   rl.close();
 });
 

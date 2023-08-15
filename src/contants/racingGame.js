@@ -1,3 +1,4 @@
 export const SEPARATOR = ",";
-export const FORWARD_INDICATOR = "-";
 export const TOTAL_ROUND = 5;
+export const NAME_MAX_LENGTH = 5;
+export const NAME_MIN_LENGTH = 1;
