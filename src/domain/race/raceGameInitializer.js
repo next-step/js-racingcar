@@ -1,5 +1,5 @@
-import { executeReadInputCar, executeReadInputTotalLap, errorFallback, endPrompter } from './race/index';
-import { Car, CarRaceOrganizer } from './classes/index';
+import { executeReadInputCar, executeReadInputTotalLap, errorFallback, endPrompter } from './prompter';
+import { Car, CarRaceOrganizer } from '../classes/index';
 
 const getValidCarsFromPrompt = async () => {
   try {
@@ -9,7 +9,7 @@ const getValidCarsFromPrompt = async () => {
     return cars;
   } catch (error) {
     errorFallback(error);
-    return getValidCarsFromPrompt();
+    getValidCarsFromPrompt();
   }
 };
 
@@ -20,22 +20,26 @@ const getValidTotalLapFromPrompt = async () => {
     return inputTotalLap;
   } catch (error) {
     errorFallback(error);
-    return getValidTotalLapFromPrompt();
+    getValidTotalLapFromPrompt();
   }
 };
 
-const startGame = async () => {
+const startRaceGame = async () => {
   try {
     const cars = await getValidCarsFromPrompt();
     const totalLap = await getValidTotalLapFromPrompt();
     const carRaceOrganizer = new CarRaceOrganizer(cars, totalLap);
     carRaceOrganizer.runFullRace();
+    return {
+      history: carRaceOrganizer.history,
+      winners: carRaceOrganizer.winners
+    };
   } catch (error) {
     errorFallback(error);
-    startGame();
+    startRaceGame();
   } finally {
     endPrompter();
   }
 };
 
-export default startGame;
+export default startRaceGame;

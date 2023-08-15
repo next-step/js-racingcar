@@ -1,13 +1,14 @@
 export const CAR_CONFIGURE = Object.freeze({
-  MOVE_CONDITION: 4,
   NAME_MIN_LENGTH: 1,
   NAME_MAX_LENGTH: 5,
+  MOVE_CONDITION: 4,
   NAME_SEPARATOR: ','
 });
 
 export const RACE_CONFIGURE = Object.freeze({
-  MAX_SPEED: 9,
-  MIN_SPEED: 0,
+  DISPLAY_SEPARATOR: ',',
   TRACK: '-',
-  DISPLAY_SEPARATOR: ','
+  MAX_LAP: 100,
+  MIN_SPEED: 0,
+  MAX_SPEED: 9
 });

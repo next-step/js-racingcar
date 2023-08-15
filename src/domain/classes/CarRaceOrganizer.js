@@ -1,13 +1,9 @@
-import { RACE_CONFIGURE, ERROR_MESSAGE } from '../constants/index';
-import { createRaceStatusMessage, createRaceWinnerMessage, printMessage } from '../race/index';
-import { generateRandomNumber, isDuplicateArray, isOnlyPositiveNumber } from '../utils/index';
+import { ERROR_MESSAGE, RACE_CONFIGURE } from '../constants/index';
+import { generateRandomNumber, isDuplicateArray, isOnlyPositiveNumber } from '../../utils/index';
 
 export default class CarRaceOrganizer {
-  #minSpeed = RACE_CONFIGURE.MIN_SPEED;
-  #maxSpeed = RACE_CONFIGURE.MAX_SPEED;
-  #track = RACE_CONFIGURE.TRACK;
-
   #totalLap;
+  #history = [];
   #cars = [];
   #winners = [];
   #lap = 0;
@@ -27,6 +23,10 @@ export default class CarRaceOrganizer {
     return this.#winners;
   }
 
+  get history() {
+    return this.#history;
+  }
+
   static validateDuplicateCarName(cars) {
     const carNames = cars.map((car) => car.name);
     if (isDuplicateArray(carNames)) {
@@ -38,6 +38,10 @@ export default class CarRaceOrganizer {
     if (!isOnlyPositiveNumber(totalLap)) {
       throw new Error(ERROR_MESSAGE.NOT_RECEIVED_POSITIVE_NUMBER);
     }
+
+    if (totalLap > RACE_CONFIGURE.MAX_LAP) {
+      throw new Error(ERROR_MESSAGE.OVER_LAP);
+    }
   }
 
   #isRaceDone() {
@@ -45,7 +49,15 @@ export default class CarRaceOrganizer {
   }
 
   #getDistance() {
-    return generateRandomNumber(this.#minSpeed, this.#maxSpeed);
+    const { MIN_SPEED, MAX_SPEED } = RACE_CONFIGURE;
+    return generateRandomNumber(MIN_SPEED, MAX_SPEED);
+  }
+
+  #setHistory() {
+    this.#history.push({
+      lap: this.#lap,
+      cars: this.#cars.map((car) => ({ car: car.name, distance: car.moved }))
+    });
   }
 
   #setWinners() {
@@ -53,41 +65,32 @@ export default class CarRaceOrganizer {
     this.#winners = this.#cars.filter((car) => car.moved === maxMove).map((car) => car.name);
   }
 
-  isRaceDone() {
-    return this.#isRaceDone();
-  }
-
-  runFullRace() {
-    while (!this.#isRaceDone()) {
-      this.runSingleRace();
-      this.printRace();
-      this.nextLap();
-    }
-    this.printWinners();
-  }
-
-  runSingleRace() {
+  #moveCarsByDistance() {
     this.#cars.forEach((car) => {
       const distance = this.#getDistance();
       car.move(distance);
     });
   }
 
-  nextLap() {
+  runFullRace() {
+    if (this.#isRaceDone()) {
+      this.stopRace();
+      return;
+    }
+
+    this.#moveCarsByDistance();
+    this.#nextLap();
+    this.#setHistory();
+    this.runFullRace();
+  }
+
+  #nextLap() {
     if (!this.#isRaceDone()) {
-      printMessage();
       this.#lap += 1;
     }
   }
 
-  printRace() {
-    this.#cars.forEach((car) => {
-      printMessage(createRaceStatusMessage(car.name, car.moved, this.#track));
-    });
-  }
-
-  printWinners() {
+  stopRace() {
     this.#setWinners();
-    printMessage(createRaceWinnerMessage(this.#winners));
   }
 }

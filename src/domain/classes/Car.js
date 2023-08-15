@@ -1,11 +1,9 @@
 import { CAR_CONFIGURE, ERROR_MESSAGE } from '../constants/index';
-import { isString, isMinimumLength, isMaximumLength } from '../utils/index';
+import { isString, isMinimumLength, isMaximumLength } from '../../utils/index';
 
 export default class Car {
-  #moveCondition = CAR_CONFIGURE.MOVE_CONDITION;
-
-  #name = null;
   #moved = 0;
+  #name = null;
 
   constructor(name) {
     this.#validateCarNameType(name);
@@ -48,7 +46,7 @@ export default class Car {
   }
 
   #isMovable(distance) {
-    return distance >= this.#moveCondition;
+    return distance >= CAR_CONFIGURE.MOVE_CONDITION;
   }
 
   move(distance) {
