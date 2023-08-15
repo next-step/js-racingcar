@@ -40,6 +40,10 @@ class Car {
     return this.#distanceDriven;
   }
 
+  get record() {
+    return { name: this.#name, distanceDriven: this.#distanceDriven };
+  }
+
   moveForward() {
     this.#distanceDriven = this.#distanceDriven + 1;
   }

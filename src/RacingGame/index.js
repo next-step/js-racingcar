@@ -45,10 +45,7 @@ class RacingGame {
   }
 
   get carsRecord() {
-    return this.#cars.map((car) => ({
-      name: car.name,
-      distanceDriven: car.distanceDriven,
-    }));
+    return this.#cars.map((car) => car.record);
   }
 
   get maxDistanceDriven() {

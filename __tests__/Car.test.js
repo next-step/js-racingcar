@@ -53,4 +53,31 @@ describe('Car Class', () => {
       }
     );
   });
+
+  describe('자동차 기록 테스트', () => {
+    test('기록 객체는 이름과 주행거리 속성을 포함해야 한다.', () => {
+      expect(car.record).toHaveProperty('name');
+      expect(car.record).toHaveProperty('distanceDriven');
+    });
+
+    const testCases = [
+      { name: 'carA', moveForwardTimes: 1 },
+      { name: 'carB', moveForwardTimes: 2 },
+      { name: 'carC', moveForwardTimes: 3 },
+    ];
+
+    test.each(testCases)(
+      '기록의 이름과 주행거리는 현재 자동차의 이름, 주행거리와 일치해야 한다.',
+      ({ name, moveForwardTimes }) => {
+        const car = Car.of(name);
+
+        for (let i = 0; i < moveForwardTimes; i++) {
+          car.moveForward();
+        }
+
+        expect(car.record.name).toBe(name);
+        expect(car.record.distanceDriven).toBe(car.distanceDriven);
+      }
+    );
+  });
 });
