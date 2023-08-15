@@ -19,7 +19,7 @@ export default class RacingGame {
     try {
       const names = inputValue.split(SEPARATOR);
 
-      this.validateNames(names);
+      this.#validateNames(names);
 
       this.#cars = names.map((name) => {
         return new Car(name);
@@ -33,7 +33,7 @@ export default class RacingGame {
     return this.#cars;
   }
 
-  validateNames(names) {
+  #validateNames(names) {
     names.forEach((name) => {
       if (name.length > NAME_MAX_LENGTH) {
         throw new Error(ERROR_MSG.MAX_LENGTH(NAME_MAX_LENGTH));
@@ -57,12 +57,12 @@ export default class RacingGame {
     print(RESULT_TITLE_MSG);
 
     for (let round = 0; round < TOTAL_ROUND; round++) {
-      this.playOneRound();
+      this.#playOneRound();
       print(this.getCarStatuses());
     }
   }
 
-  playOneRound() {
+  #playOneRound() {
     this.#cars.forEach((car) => {
       const condition = generateRandomNumber();
       car.move(condition);
@@ -76,12 +76,12 @@ export default class RacingGame {
   }
 
   getWinners() {
-    const winners = this.determineWinners();
+    const winners = this.#determineWinners();
     const winnerNames = this.getWinnerNames(winners);
     print(WINNER_MSG(winnerNames));
   }
 
-  determineWinners() {
+  #determineWinners() {
     const maxPosition = Math.max(...this.#cars.map((car) => car.getPosition()));
     return this.#cars.filter((car) => car.getPosition() === maxPosition);
   }
