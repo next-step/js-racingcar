@@ -53,9 +53,11 @@ describe('자동차 경주 테스트', () => {
     const cars = getCars(input);
     const carRaceOrganizer = new CarRaceOrganizer(cars, DUMMY_INPUT_TOTAL_LAP);
     expect(carRaceOrganizer.lap).toBe(0);
-    carRaceOrganizer.runSingleRace();
-    carRaceOrganizer.nextLap();
-    expect(carRaceOrganizer.lap).toBe(1);
+    carRaceOrganizer.runFullRace();
+    carRaceOrganizer.history.forEach((history, index) => {
+      const lap = index + 1;
+      expect(history.lap).toBe(lap);
+    });
   });
 
   test.each(DUMMY_RACE_TOTAL_LAPS)('자동차 경주 횟수는 양수($inputTotalLap)만 취급한다.', ({ inputTotalLap }) => {
