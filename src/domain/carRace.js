@@ -1,11 +1,12 @@
-import { CAR_RACE_LAP_LIMIT } from '../constants';
+import { ERROR_MESSAGE } from '../constants/errorMessage';
 import { getStringFromArray } from '../utils/common';
-import CarRaceView from '../view';
+import CarRaceView from '../view/View';
+import Car from './car';
 
 export default class CarRace {
   #participants;
   #winners;
-  #isRaceStarted = false;
+  #lapCount = 0;
 
   constructor(participants) {
     this.#participants = participants;
@@ -20,13 +21,13 @@ export default class CarRace {
   }
 
   get winners() {
-    if (!this.#participants || !this.#isRaceStarted) {
+    if (!this.#participants || !this.isRaceStart()) {
       return;
     }
 
-    const sortedParticipants = this.#participants.toSorted(
-      (car1, car2) => car2.distance - car1.distance
-    );
+    const sortedParticipants = [
+      ...this.#participants.sort((car1, car2) => car2.distance - car1.distance),
+    ];
 
     this.#winners = sortedParticipants.filter(
       (car) => sortedParticipants[0].distance === car.distance
@@ -39,20 +40,16 @@ export default class CarRace {
     return this.getCarNames(this.winners);
   }
 
-  start(view) {
-    if (view) {
-      view.welcome();
-      view.printMessage('실행결과');
-      view.printMessage(this.participantNames);
+  get lapCount() {
+    return this.#lapCount;
+  }
+
+  set lapCount(lapCount) {
+    if (lapCount < 1) {
+      throw new Error(ERROR_MESSAGE.CAR_RACE_LAP_COUNT);
     }
 
-    for (let i = 0; i < CAR_RACE_LAP_LIMIT; i++) {
-      this.#participants.forEach((car) => car.runOneLap());
-      view && view.printLapResult(this.#participants);
-    }
-
-    this.#isRaceStarted = true;
-    view && view.printWinners(this.winnerNames);
+    this.#lapCount = Math.round(parseInt(lapCount, 10));
   }
 
   getCarNames(cars) {
@@ -61,5 +58,27 @@ export default class CarRace {
     }
     const names = cars.map((car) => car.name);
     return getStringFromArray(names);
+  }
+
+  isRaceStart() {
+    let result = false;
+
+    for (const participant of this.#participants) {
+      if (participant.distance > 0) {
+        result = true;
+        break;
+      }
+    }
+
+    return result;
+  }
+
+  addParticipants(newParticipants) {
+    if (!this.#participants) {
+      this.#participants = newParticipants;
+      return;
+    }
+
+    this.#participants = [...this.#participants, newParticipants];
   }
 }

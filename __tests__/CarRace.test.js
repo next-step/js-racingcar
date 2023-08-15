@@ -1,6 +1,6 @@
-import { CAR_RACE_LAP_LIMIT } from '../src/constants';
+import { ERROR_MESSAGE } from '../src/constants/errorMessage';
 import Car from '../src/domain/car';
-import CarRace from '../src/domain/carRace';
+import CarRace from '../src/domain/CarRace';
 
 describe('CarRace', () => {
   it('자동차 이름은 쉼표(,)를 기준으로 구분한다.', () => {
@@ -13,14 +13,31 @@ describe('CarRace', () => {
     expect(carRace.participantNames).toBe('광민, 문광민, Jason');
   });
 
-  it('자동차 경주는 5회로 고정한다.', () => {
-    const car = new Car('광민');
-    const carRace = new CarRace([car]);
-    const runOneLap = jest.spyOn(car, 'runOneLap');
+  it('자동차 경주 횟수를 지정할 수 있다.', () => {
+    const carRace = new CarRace([
+      new Car('광민'),
+      new Car('문광민'),
+      new Car('Jason'),
+    ]);
 
-    carRace.start();
+    const lapCount = 7;
 
-    expect(runOneLap).toBeCalledTimes(CAR_RACE_LAP_LIMIT);
+    carRace.lapCount = lapCount;
+
+    expect(carRace.lapCount).toBe(lapCount);
+  });
+
+  describe('자동차 경주 횟수는 1이상의 양수이어야 한다.', () => {
+    test.each([[0], [-1], [-1.2]])('.setLapCount(%n)', (lapCount) => {
+      const carRace = new CarRace([
+        new Car('광민'),
+        new Car('문광민'),
+        new Car('Jason'),
+      ]);
+      expect(() => (carRace.lapCount = lapCount)).toThrowError(
+        ERROR_MESSAGE.CAR_RACE_LAP_COUNT
+      );
+    });
   });
 
   describe('우승자', () => {
@@ -31,19 +48,6 @@ describe('CarRace', () => {
     it('자동차 경주 전에는 우승자를 알 수 없다.', () => {
       const winners = carRace.winners;
       expect(winners).not.toBeDefined();
-    });
-
-    it('자동차 경주 완료 후 우승자를 알 수 있다.', () => {
-      carRace.start();
-
-      const winners = carRace.winners;
-      const winnerNames = winners.map((car) => car.name);
-      const isWinnerInCarNames = winnerNames.some((winnerName) => {
-        return carNames.includes(winnerName);
-      });
-
-      expect(winners).toBeDefined();
-      expect(isWinnerInCarNames).toBeTruthy();
     });
 
     it('우승자가 2명 이상일 경우 우승자 이름 조회 시 콤마로 구분한다.', () => {

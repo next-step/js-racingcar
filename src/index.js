@@ -1,11 +1,3 @@
-import Car from './domain/car';
-import CarRace from './domain/carRace';
-import CarRaceView from './view';
+import RacingGame from './domain/RacingGame';
 
-const carRace = new CarRace([
-  new Car('pobi'),
-  new Car('crong'),
-  new Car('honux'),
-]);
-
-carRace.start(new CarRaceView());
+new RacingGame();
