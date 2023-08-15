@@ -1,10 +1,10 @@
-import { RacingCarGameError } from "./Validator";
 import Cars from "./Cars";
 import RacingGameViewer from "./RacingGameViewer";
 
 export default class RacingGameController {
   model;
   view;
+  static #CAR_NAME_SEPARATOR = ",";
 
   constructor(model, view) {
     this.view =
@@ -13,11 +13,9 @@ export default class RacingGameController {
   }
 
   async handleError(error) {
-    if (error instanceof RacingCarGameError) {
-      this.view.printContent(error.message);
+    this.view.printContent(error.message);
 
-      await this.execute();
-    }
+    await this.execute();
   }
 
   exitGame() {
@@ -27,13 +25,13 @@ export default class RacingGameController {
   async setCars() {
     const carNames = await this.view.getCarNamesInput();
 
-    this.model.initializeCarsFromString(carNames);
+    this.model.addCars(
+      carNames.split(RacingGameController.#CAR_NAME_SEPARATOR),
+    );
   }
 
   async setRoundNumber() {
-    const roundNumber = await this.view.getRoundNumberInput();
-
-    this.model.setRoundNumber(roundNumber);
+    this.model.roundNumber = await this.view.getRoundNumberInput();
   }
 
   afterRoundAction = (carStatus) => {
@@ -42,7 +40,7 @@ export default class RacingGameController {
   };
 
   awards() {
-    this.view.printWinners(this.model.getWinners());
+    this.view.printWinners(this.model.winners);
   }
 
   runGame() {
@@ -52,11 +50,11 @@ export default class RacingGameController {
 
   async execute() {
     try {
-      if (this.model.nextGameStep === this.model.GAME_STEP.SET_CARS) {
+      if (this.model.nextGameStep === Cars.GAME_STEP.SET_CARS) {
         await this.setCars();
       }
 
-      if (this.model.nextGameStep === this.model.GAME_STEP.SET_ROUND_NUMBER) {
+      if (this.model.nextGameStep === Cars.GAME_STEP.SET_ROUND_NUMBER) {
         await this.setRoundNumber();
       }
 

@@ -1,17 +1,26 @@
-import Validator from "./Validator";
-
 export default class Car {
   #name;
   #distance;
-  #CAR_ADVANCE_MAX_NUMBER = 9;
-  #CAR_ADVANCE_THRESHOLD_NUMBER = 4;
-  #defaultAdvanceCondition = () => {
-    return (
-      Math.random() * this.#CAR_ADVANCE_MAX_NUMBER >=
-      this.#CAR_ADVANCE_THRESHOLD_NUMBER
-    );
+  static ERROR_MESSAGES = Object.freeze({
+    INVALID_EMPTY_NAME: "자동차 이름은 빈값일 수 없습니다.",
+    INVALID_NAME_LENGTH: "자동차 이름은 5자를 넘길 수 없습니다.",
+    INVALID_NAME_TYPE: "자동차 이름은 문자열이여야 합니다.",
+  });
+  static #CAR_NAME_MAX_LENGTH = 5;
+  static #CAR_NAME_MIN_LENGTH = 1;
+  #validateCarName = (name) => {
+    if (typeof name !== "string") {
+      throw new Error(Car.ERROR_MESSAGES.INVALID_NAME_TYPE);
+    }
+
+    if (name.trim().length < Car.#CAR_NAME_MIN_LENGTH) {
+      throw new Error(Car.ERROR_MESSAGES.INVALID_EMPTY_NAME);
+    }
+
+    if (name.length > Car.#CAR_NAME_MAX_LENGTH) {
+      throw new Error(Car.ERROR_MESSAGES.INVALID_NAME_LENGTH);
+    }
   };
-  #validateCarName = Validator.validateCarName;
 
   constructor(name) {
     this.#validateCarName(name);
@@ -28,13 +37,7 @@ export default class Car {
     return this.#distance;
   }
 
-  advance(advanceCondition) {
-    if (
-      typeof advanceCondition === "function"
-        ? advanceCondition(this.#name, this.#distance)
-        : this.#defaultAdvanceCondition()
-    ) {
-      this.#distance += 1;
-    }
+  advance() {
+    this.#distance += 1;
   }
 }
