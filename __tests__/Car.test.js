@@ -11,16 +11,13 @@ describe("Car Class 테스트", () => {
     );
   });
 
-  const carNameTypeTestCases = [
-    [{}, "자동차 이름은 문자열이여야 합니다."],
-    [1, "자동차 이름은 문자열이여야 합니다."],
-    [() => {}, "자동차 이름은 문자열이여야 합니다."],
-    [undefined, "자동차 이름은 문자열이여야 합니다."],
-  ];
+  const carNameTypeTestCases = [{}, 1, () => {}, undefined];
 
-  carNameTypeTestCases.forEach(([carName, expected]) => {
+  carNameTypeTestCases.forEach((carName) => {
     test(`자동차 이름의 자료형이 ${typeof carName}일때 에러가 발생한다`, () => {
-      expect(() => new Car(carName)).toThrowError(expected);
+      expect(() => new Car(carName)).toThrowError(
+        "자동차 이름은 문자열이여야 합니다.",
+      );
     });
   });
 

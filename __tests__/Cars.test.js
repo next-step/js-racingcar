@@ -21,24 +21,24 @@ describe("Cars Class 테스트", () => {
     );
   });
 
-  test("0~9 이외의 문자가 포함된 이동횟수 입력시 에러가 발생한다.", () => {
+  test("0~9 이외의 문자가 포함된 라운드를 입력시 에러가 발생한다.", () => {
     const carsModel = new Cars();
 
     const testRoundNumber = "-0.1";
 
-    expect(() => carsModel.setRoundNumber(testRoundNumber)).toThrowError(
-      "양의 정수 형식의 값을 입력해 주세요.",
-    );
+    expect(() => {
+      carsModel.roundNumber = testRoundNumber;
+    }).toThrowError("양의 정수 형식의 값을 입력해 주세요.");
   });
 
-  test("0이하의 숫자가 입력된 경우 에러가 발생한다", () => {
+  test("0을 입력시 에러가 발생한다", () => {
     const carsModel = new Cars();
 
     const testRoundNumber = "0";
 
-    expect(() => carsModel.setRoundNumber(testRoundNumber)).toThrowError(
-      "1이상 값을 입력해주세요.",
-    );
+    expect(() => {
+      carsModel.roundNumber = testRoundNumber;
+    }).toThrowError("1이상 값을 입력해주세요.");
   });
 
   test("setRoundNumber로 roundNumber가 갱신되며 지정한 횟수만큼 라운드가 진행된다.", () => {
@@ -46,7 +46,7 @@ describe("Cars Class 테스트", () => {
 
     const carsModel = new Cars();
 
-    carsModel.setRoundNumber(testRoundNumber);
+    carsModel.roundNumber = testRoundNumber;
 
     const executeMultipleRoundsSpy = jest.spyOn(
       carsModel,
@@ -55,7 +55,7 @@ describe("Cars Class 테스트", () => {
 
     let afterRoundActionCallCount = 0;
     const afterRoundAction = () => {
-      afterRoundActionCallCount++;
+      afterRoundActionCallCount += 1;
     };
 
     const executeOneRoundSpy = jest.spyOn(carsModel, "executeOneRound");
@@ -78,10 +78,10 @@ describe("Cars Class 테스트", () => {
 
     carsModel.addCars(["test1", "test2"]);
 
-    carsModel.setRoundNumber(1);
+    carsModel.roundNumber = 1;
 
     carsModel.executeMultipleRounds();
 
-    expect(carsModel.getWinners()).toEqual(["test1"]);
+    expect(carsModel.winners).toEqual(["test1"]);
   });
 });
