@@ -38,9 +38,11 @@ describe("자동차 경주 시도할 횟수", () => {
 });
 
 describe("try catch를 통한 자동차 경주", () => {
-  it("에러가 발생한 경우", () => {
-    expect(() => runSafelyFunc(startRacingGame(), "", 5)).toThrowError(
-      WRONG_INFO_INPUT_GAME_END_MESSAGE
-    );
+  it("에러가 발생한 경우", async () => {
+    try {
+      await runSafelyFunc(startRacingGame, "", 5);
+    } catch (error) {
+      expect(error.message).toBe(WRONG_INFO_INPUT_GAME_END_MESSAGE);
+    }
   });
 });

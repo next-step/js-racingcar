@@ -1,7 +1,9 @@
-export const runSafelyFunc = (func, ...args) => {
+
+export const runSafelyFunc = async (func, ...args) => {
   try {
-    return func(...args);
+    return await func(...args);
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
