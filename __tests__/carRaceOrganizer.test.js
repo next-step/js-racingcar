@@ -7,7 +7,7 @@ import {
   DUMMY_RACE_TOTAL_LAPS,
   DUMMY_INCORRECT_RACE_TOTAL_LAPS
 } from './constants';
-import { CAR_CONFIGURE, ERROR_MESSAGE } from '../src/domain/constants/index';
+import { RACE_CONFIGURE, CAR_CONFIGURE, ERROR_MESSAGE } from '../src/domain/constants/index';
 import { CarRaceOrganizer, Car } from '../src/domain/classes/index';
 
 const { NAME_SEPARATOR } = CAR_CONFIGURE;
@@ -87,7 +87,7 @@ describe('자동차 경주 테스트', () => {
   it('자동차 경주 주행 횟수가 100회 초과이면 오류가 발생한다.', () => {
     const cars = getCars(DUMMY_CARS);
     expect(() => {
-      new CarRaceOrganizer(cars, 101);
+      new CarRaceOrganizer(cars, RACE_CONFIGURE.MAX_LAP + 1);
     }).toThrowError(ERROR_MESSAGE.OVER_LAP);
   });
 
@@ -103,15 +103,18 @@ describe('자동차 경주 테스트', () => {
 
   it('자동차 경주 종료 후, 가장 많은 거리를 이동한 자동차가 우승한다.', () => {
     const cars = getCars(DUMMY_CARS);
-    cars.map((car, index) => (index === cars.length - 1 ? car.move(4) : car.move(index)));
+    const LAST_CAR_INDEX = cars.length - 1;
+
+    cars.map((car, index) => (index === LAST_CAR_INDEX ? car.move(CAR_CONFIGURE.MOVE_CONDITION) : car.move(index)));
     const winners = getRaceWinners(cars);
+
     expect(winners).toHaveLength(1);
     expect(winners.join(NAME_SEPARATOR)).toBe(DUMMY_CARS.pop());
   });
 
   it('자동차 경주 종료 후, 최종 이동한 거리가 같다면 우승자는 여러 명이다.', () => {
     const cars = getCars(DUMMY_CARS);
-    cars.map((car) => car.move(4));
+    cars.map((car) => car.move(CAR_CONFIGURE.MOVE_CONDITION));
     const winners = getRaceWinners(cars);
     expect(winners).toHaveLength(cars.length);
     expect(winners.join(NAME_SEPARATOR)).toBe(DUMMY_CARS.join(NAME_SEPARATOR));

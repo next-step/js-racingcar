@@ -39,7 +39,7 @@ describe('자동차 테스트', () => {
   });
 
   test.each(DUMMY_CORRECT_CARS)(
-    '자동차 경주에서 거리 값이 4 미만이면 전진하지 않는다. (자동차: $name, 거리:$movableDistance)',
+    `자동차 경주에서 거리 값이 ${CAR_CONFIGURE.MOVE_CONDITION} 미만이면 전진하지 않는다. (자동차: $name, 거리:$movableDistance)`,
     ({ name, notMovableDistance }) => {
       const carMoved = getCarMoved(name, notMovableDistance);
       expect(carMoved).toBe(0);
@@ -47,7 +47,7 @@ describe('자동차 테스트', () => {
   );
 
   test.each(DUMMY_CORRECT_CARS)(
-    '자동차 경주에서 거리 값이 4 이상일 때 전진한다. (자동차: $name, 거리:$movableDistance)',
+    `자동차 경주에서 거리 값이 ${CAR_CONFIGURE.MOVE_CONDITION} 이상일 때 전진한다. (자동차: $name, 거리:$movableDistance)`,
     ({ name, movableDistance }) => {
       const carMoved = getCarMoved(name, movableDistance);
       expect(carMoved).toBe(1);
