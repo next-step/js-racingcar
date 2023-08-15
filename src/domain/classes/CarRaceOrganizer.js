@@ -65,10 +65,6 @@ export default class CarRaceOrganizer {
     this.#winners = this.#cars.filter((car) => car.moved === maxMove).map((car) => car.name);
   }
 
-  isRaceDone() {
-    return this.#isRaceDone();
-  }
-
   runSingleRace() {
     this.#cars.forEach((car) => {
       const distance = this.#getDistance();
