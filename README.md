@@ -3,3 +3,28 @@
 </p>
 <h2 align="middle">자동차 경주 게임</h2>
 <p align="middle">자바스크립트로 구현 하는 자동차 경주 게임</p>
+
+```
+src
+├── constants
+│ ├── errorMessage.js
+│ └── rules.js
+├── domain
+│ ├── model
+│ │ ├── GameTrack.js
+│ │ ├── GameTrack.test.js
+│ │ └── GameWinners.js
+│ │ └── GameWinners.test.js
+├── UI
+│ ├── Controller
+│ │ ├── RacingCarGameController.js
+│ │ ├── validator.js
+│ ├── View
+│   └── PrintView.js
+└── utils
+│   └── helpers.js
+│   └── validator.js
+|
+├── index.js
+
+```
