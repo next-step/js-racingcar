@@ -1,4 +1,4 @@
-import RacingCarGameController from "./domain/controller/RacingCarGameController";
+import RacingCarGameController from "./UI/Controller/RacingCarGameController";
 
 const rl = require("readline").createInterface({
   input: process.stdin,
