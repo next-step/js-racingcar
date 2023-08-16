@@ -12,11 +12,11 @@ export default class GameWinners {
    * @returns {*} string[] - winners
    */
   setGameWinners(gameStatus) {
-    const maxLength = Math.max(...gameStatus.map(car => car.forward.length));
+    const maxLength = Math.max(...gameStatus.map(car => car.forward));
 
     // 중복 winners 처리하기
     gameStatus.forEach(car => {
-      if (car.forward.length === maxLength) this.winners.push(car.carName);
+      if (car.forward === maxLength) this.winners.push(car.carName);
     });
 
     return this.winners;
