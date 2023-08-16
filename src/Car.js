@@ -1,4 +1,4 @@
-import { DEFAULT_POSITION, MOVE_UNIT, FORWARD_INDICATOR } from "./contants/car";
+import { DEFAULT_POSITION, MOVE_UNIT } from "./contants/car";
 
 export default class Car {
   #name;
@@ -18,9 +18,5 @@ export default class Car {
 
   moveForward() {
     this.#position += MOVE_UNIT;
-  }
-
-  getStatus() {
-    return `${this.#name} : ${FORWARD_INDICATOR.repeat(this.#position)}`;
   }
 }

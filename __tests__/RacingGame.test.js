@@ -7,7 +7,7 @@ describe("경주할 자동차 입력", () => {
   test("자동차는 이름은 5자 이하만 가능하다.", () => {
     const racingGame = new RacingGame();
     expect(() => {
-      racingGame.cars = "jangjang";
+      racingGame.cars = "jjjang";
     }).toThrow(ERROR_MSG.MAX_LENGTH(NAME_MAX_LENGTH));
   });
 
@@ -49,5 +49,13 @@ describe("경기 시작", () => {
     const condition = generateRandomNumber();
     expect(condition).toBeGreaterThanOrEqual(0);
     expect(condition).toBeLessThanOrEqual(9);
+  });
+
+  test("모든 자동차의 전진 현황을 출력할 수 있다.", () => {
+    const racingGame = new RacingGame();
+    racingGame.cars = "jang,kim";
+    const firstCar = racingGame.cars[0];
+    firstCar.moveForward();
+    expect(racingGame.getCarStatuses()).toBe("jang : -\nkim : \n");
   });
 });

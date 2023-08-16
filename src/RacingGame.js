@@ -8,6 +8,7 @@ import {
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
   FORWARD_CONDITION,
+  FORWARD_INDICATOR,
 } from "./contants/racingGame";
 import { ERROR_MSG, RESULT_TITLE_MSG, WINNER_MSG } from "./contants/messages";
 
@@ -78,7 +79,10 @@ export default class RacingGame {
 
   getCarStatuses() {
     return this.#cars.reduce((acc, car) => {
-      return acc + car.getStatus() + "\n";
+      const carStatus = `${car.name} : ${FORWARD_INDICATOR.repeat(
+        car.position,
+      )}`;
+      return acc + carStatus + "\n";
     }, "");
   }
 
