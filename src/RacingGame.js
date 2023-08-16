@@ -15,7 +15,7 @@ export default class RacingGame {
 
   constructor() {}
 
-  setCars(inputValue) {
+  set cars(inputValue) {
     try {
       const names = inputValue.split(SEPARATOR);
 
@@ -29,7 +29,7 @@ export default class RacingGame {
     }
   }
 
-  getCars() {
+  get cars() {
     return this.#cars;
   }
 
@@ -82,8 +82,8 @@ export default class RacingGame {
   }
 
   #determineWinners() {
-    const maxPosition = Math.max(...this.#cars.map((car) => car.getPosition()));
-    return this.#cars.filter((car) => car.getPosition() === maxPosition);
+    const maxPosition = Math.max(...this.#cars.map((car) => car.position));
+    return this.#cars.filter((car) => car.position === maxPosition);
   }
 
   getWinnerNames(winners) {

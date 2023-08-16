@@ -13,11 +13,11 @@ export default class Car {
     this.#name = name;
   }
 
-  getName() {
+  get name() {
     return this.#name;
   }
 
-  getPosition() {
+  get position() {
     return this.#position;
   }
 
@@ -28,8 +28,6 @@ export default class Car {
   }
 
   getStatus() {
-    return `${this.getName()} : ${FORWARD_INDICATOR.repeat(
-      this.getPosition(),
-    )}`;
+    return `${this.#name} : ${FORWARD_INDICATOR.repeat(this.#position)}`;
   }
 }

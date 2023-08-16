@@ -7,21 +7,21 @@ describe("경주할 자동차 입력", () => {
   test("자동차는 이름은 5자 이하만 가능하다.", () => {
     const racingGame = new RacingGame();
     expect(() => {
-      racingGame.setCars("jangjang");
+      racingGame.cars = "jangjang";
     }).toThrow(ERROR_MSG.MAX_LENGTH(NAME_MAX_LENGTH));
   });
 
   test("자동차 이름에 공백은 불가능하다.", () => {
     const racingGame = new RacingGame();
     expect(() => {
-      racingGame.setCars("");
+      racingGame.cars = "";
     }).toThrow(ERROR_MSG.MIN_LENGTH(NAME_MIN_LENGTH));
   });
 
   test("자동차 이름은 영어 문자열만 가능하다.", () => {
     const racingGame = new RacingGame();
     expect(() => {
-      racingGame.setCars("123!");
+      racingGame.cars = "123!";
     }).toThrow(ERROR_MSG.PATTERN);
   });
 
@@ -30,16 +30,16 @@ describe("경주할 자동차 입력", () => {
     const carsStr = cars.join(SEPARATOR);
 
     const racingGame = new RacingGame();
-    racingGame.setCars(carsStr);
-    racingGame.getCars().forEach((car, index) => {
-      expect(car.getName()).toBe(cars[index]);
+    racingGame.cars = carsStr;
+    racingGame.cars.forEach((car, index) => {
+      expect(car.name).toBe(cars[index]);
     });
   });
 
   test("중복되는 이름은 허용하지 않는다.", () => {
     const racingGame = new RacingGame();
     expect(() => {
-      racingGame.setCars("jang,jang,kim");
+      racingGame.cars = "jang,jang,kim";
     }).toThrow(ERROR_MSG.UINIQUE);
   });
 });
