@@ -7,6 +7,7 @@ import {
   TOTAL_ROUND,
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
+  FORWARD_CONDITION,
 } from "./contants/racingGame";
 import { ERROR_MSG, RESULT_TITLE_MSG, WINNER_MSG } from "./contants/messages";
 
@@ -64,9 +65,15 @@ export default class RacingGame {
 
   #playOneRound() {
     this.#cars.forEach((car) => {
-      const condition = generateRandomNumber();
-      car.move(condition);
+      const randomNumber = generateRandomNumber();
+      if (this.#checkForwardCondition(randomNumber)) {
+        car.moveForward();
+      }
     });
+  }
+
+  #checkForwardCondition(number) {
+    return number >= FORWARD_CONDITION;
   }
 
   getCarStatuses() {

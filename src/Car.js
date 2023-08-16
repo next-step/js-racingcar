@@ -1,9 +1,4 @@
-import {
-  DEFAULT_POSITION,
-  MOVE_UNIT,
-  FORWARD_CONDITION,
-  FORWARD_INDICATOR,
-} from "./contants/car";
+import { DEFAULT_POSITION, MOVE_UNIT, FORWARD_INDICATOR } from "./contants/car";
 
 export default class Car {
   #name;
@@ -21,10 +16,8 @@ export default class Car {
     return this.#position;
   }
 
-  move(condition) {
-    if (condition >= FORWARD_CONDITION) {
-      this.#position += MOVE_UNIT;
-    }
+  moveForward() {
+    this.#position += MOVE_UNIT;
   }
 
   getStatus() {
