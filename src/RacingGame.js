@@ -87,6 +87,6 @@ export default class RacingGame {
   }
 
   getWinnerNames(winners) {
-    return winners.map((winner) => winner.getName()).join(SEPARATOR);
+    return winners.map((winner) => winner.name).join(SEPARATOR);
   }
 }
