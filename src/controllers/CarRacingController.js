@@ -1,5 +1,5 @@
 import { CAR_SEPERATOR } from "../constants/Characters";
-import { RESULT_OF_RACE } from "../constants/Messages";
+import { INPUT_CAR_NAMES, RESULT_OF_RACE } from "../constants/Messages";
 import { RACE_MAX_ROUND } from "../constants/Numbers";
 import Car from "../models/Car";
 import Race from "../models/Race";
@@ -29,7 +29,7 @@ class CarRacingController {
   }
 
   async startRace() {
-    const carNames = await this.#consoleInput.readCarNames();
+    const carNames = await this.#consoleInput.readline(INPUT_CAR_NAMES);
     this.#readline.close();
 
     try {
