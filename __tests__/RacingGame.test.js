@@ -1,7 +1,7 @@
 import RacingGame, { SEPARATOR } from "../src/RacingGame";
 import { generateRandomNumber } from "../src/utils/generator";
 import { compareNumber } from "../src/utils/compare";
-import { ERROR_CAR_NAME } from "../src/contants/messages";
+import { ERROR_CAR_NAME, NEWLINE } from "../src/contants/messages";
 import {
   FORWARD_CONDITION,
   NAME_MAX_LENGTH,
@@ -78,6 +78,8 @@ describe("경기 시작", () => {
     racingGame.cars = "jang,kim";
     const firstCar = racingGame.cars[0];
     firstCar.moveForward();
-    expect(racingGame.getCarStatuses()).toBe("jang : -\nkim : \n");
+    expect(racingGame.getCarStatuses()).toBe(
+      `jang : -${NEWLINE}kim : ${NEWLINE}`,
+    );
   });
 });

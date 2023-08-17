@@ -13,7 +13,7 @@ import {
   RANDOM_NUMBER_MIN,
   RANDOM_NUMBER_MAX,
 } from "./contants/racingGame";
-import { ERROR_CAR_NAME, INFORMATION } from "./contants/messages";
+import { ERROR_CAR_NAME, INFORMATION, NEWLINE } from "./contants/messages";
 
 export default class RacingGame {
   #cars;
@@ -59,7 +59,7 @@ export default class RacingGame {
   }
 
   start() {
-    print(INFORMATION.STATUS);
+    print(NEWLINE + INFORMATION.STATUS);
 
     for (let round = 0; round < TOTAL_ROUND; round++) {
       this.#playOneRound();
@@ -84,14 +84,14 @@ export default class RacingGame {
       const carStatus = `${car.name} : ${FORWARD_INDICATOR.repeat(
         car.position,
       )}`;
-      return acc + carStatus + "\n";
+      return acc + carStatus + NEWLINE;
     }, "");
   }
 
   getWinners() {
     const winners = this.#determineWinners();
     const winnerNames = this.getWinnerNames(winners);
-    print(INFORMATION.WINNERS(winnerNames));
+    print(INFORMATION.WINNERS(winnerNames) + NEWLINE);
   }
 
   #determineWinners() {

@@ -1,7 +1,7 @@
 import readline from "readline";
 
 import RacingGame from "./RacingGame";
-import { INFORMATION } from "./contants/messages";
+import { INFORMATION, NEWLINE } from "./contants/messages";
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -10,7 +10,7 @@ const rl = readline.createInterface({
 
 const racingGame = new RacingGame();
 
-rl.question(INFORMATION.INPUT, (answer) => {
+rl.question(INFORMATION.INPUT + NEWLINE, (answer) => {
   racingGame.cars = answer;
   rl.close();
 });
