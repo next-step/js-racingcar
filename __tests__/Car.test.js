@@ -19,6 +19,13 @@ describe('Car Class', () => {
   });
 
   describe('자동차 이름 검증 테스트', () => {
+    test.each([1, undefined, null, ['123'], {}])(
+      `자동차 이름은 문자열이여야 한다.`,
+      (name) => {
+        expect(() => Car.of(name)).toThrow();
+      }
+    );
+
     test.each(['1', '12', '123', '1234', '12345'])(
       `자동차 이름 길이가 1에서 5 사이면 에러가 발생하지 않는다.`,
       (name) => {
