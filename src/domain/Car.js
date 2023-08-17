@@ -2,9 +2,9 @@ import {
   CAR_NAME_MAX_LENGTH,
   CAR_NAME_MIN_LENGTH,
   DEFAULT_CAR_CONFIG,
-} from "./constants";
-import { CarNameError } from "./errors";
-import { isString } from "./utils";
+} from "../constants";
+import { CarNameError } from "../errors";
+import { isString } from "../utils";
 
 export class Car {
   #name;

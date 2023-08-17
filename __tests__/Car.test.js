@@ -1,4 +1,4 @@
-import { Car } from "../src/Car";
+import { Car } from "../src/domain/Car";
 import {
   CAR_NAME_MAX_LENGTH,
   CAR_NAME_MIN_LENGTH,

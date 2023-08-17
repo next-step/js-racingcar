@@ -4,12 +4,16 @@ import {
   RACE_MIN_CAR,
   RACE_MAX_LAP,
   RACE_MIN_LAP,
-} from "./constants";
-import { RaceCarCountError, RaceLapCountError } from "./errors";
-import { getRandomIntInclusive } from "./utils";
+} from "../constants";
+import {
+  RaceCarCountError,
+  RaceLapCountError,
+  RaceStateError,
+} from "../errors";
+import { getRandomIntInclusive } from "../utils";
 
 const CAR_RACE_STATE = {
-  NOT_INITIALIZED: 0,
+  NOT_READY: 0,
   READY_TO_START: 1,
   RUNNING: 2,
   FINISHED: 3,
@@ -30,7 +34,7 @@ export class CarRace {
 
   get state() {
     if (this.#cars.length === 0) {
-      return CAR_RACE_STATE.NOT_INITIALIZED;
+      return CAR_RACE_STATE.NOT_READY;
     }
     if (this.#currentLap === 0) {
       return CAR_RACE_STATE.READY_TO_START;
@@ -39,6 +43,10 @@ export class CarRace {
       return CAR_RACE_STATE.FINISHED;
     }
     return CAR_RACE_STATE.RUNNING;
+  }
+
+  get isFinished() {
+    return this.#currentLap > 0 && this.#currentLap === this.#laps;
   }
 
   #race() {
@@ -56,6 +64,10 @@ export class CarRace {
     return this.#cars.map(({ name }) => name);
   }
 
+  getCurrentPositions() {
+    return this.#cars.map(({ name, position }) => ({ name, position }));
+  }
+
   setCars(cars) {
     if (cars.length < RACE_MIN_CAR || cars.length > RACE_MAX_CAR) {
       throw new RaceCarCountError("Invalid number of cars");
@@ -70,46 +82,29 @@ export class CarRace {
     this.#laps = laps;
   }
 
-  start(options = { verbose: true }) {
-    if (this.state !== CAR_RACE_STATE.READY_TO_START) {
-      throw new Error("Not ready or has been started");
+  start(laps) {
+    if (
+      this.state !== CAR_RACE_STATE.READY_TO_START &&
+      this.state !== CAR_RACE_STATE.RUNNING
+    ) {
+      throw new RaceStateError(`Cannot start race in the state ${this.state}`);
     }
-    while (this.#currentLap < this.#laps) {
+    laps = laps || this.#laps;
+    let lapCount = 0;
+    while (lapCount < laps && this.#currentLap < this.#laps) {
       this.#race();
-      if (options?.verbose) {
-        this.printStatus();
-      }
-    }
-    if (options?.verbose) {
-      this.printWinners();
+      lapCount += 1;
     }
   }
 
   getWinnerNames() {
     if (this.state !== CAR_RACE_STATE.FINISHED) {
-      throw new Error("The race has not been finished");
+      throw new RaceStateError("The race has not been finished");
     }
     const maxPosition = Math.max(...this.#cars.map(({ position }) => position));
     const winners = this.#cars.filter(
       ({ position }) => position === maxPosition
     );
     return winners.map(({ name }) => name);
-  }
-
-  printStatus() {
-    console.log(`현재 경주 바퀴: ${this.#currentLap}`);
-    this.#cars.forEach((car) =>
-      console.log(`${car.name}: ${"-".repeat(car.position)}`)
-    );
-    console.log("");
-  }
-
-  printWinners() {
-    if (this.state !== CAR_RACE_STATE.FINISHED) {
-      console.log("아직 경기가 끝나지 않았습니다.");
-      return;
-    }
-    const winners = this.getWinnerNames();
-    console.log(`${winners.join(", ")}가 최종 우승하였습니다.`);
   }
 }

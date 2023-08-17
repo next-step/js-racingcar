@@ -1,5 +1,5 @@
-import { Car } from "../src/Car";
-import { CarRace } from "../src/CarRace";
+import { Car } from "../src/domain/Car";
+import { CarRace } from "../src/domain/CarRace";
 import {
   RACE_MAX_CAR,
   RACE_MIN_CAR,
@@ -9,7 +9,7 @@ import {
 import {
   RaceCarCountError,
   RaceLapCountError,
-  RaceSetupError,
+  RaceStateError,
 } from "../src/errors";
 import { generateRandomCarNames } from "../src/utils";
 
@@ -21,7 +21,7 @@ const MIN_NUM_OF_WINNERS = 1;
 describe("CarRace class", () => {
   it("cannot start race before initialized", () => {
     const race = new CarRace();
-    expect(() => race.start()).toThrow();
+    expect(() => race.start()).toThrow(RaceStateError);
   });
 
   it("should be set with proper number of cars", () => {
@@ -46,13 +46,42 @@ describe("CarRace class", () => {
   race.setCars(TEST_CARS);
   race.setLaps(TEST_NUMBER_OF_LAPS);
 
-  race.start();
-  it("should race for the set number of laps.", () => {
+  it("should have the current lap and it should be 0.", () => {
+    expect(race.currentLap).toEqual(0);
+  });
+
+  it("should have the current position of cars and they should be all 0", () => {
+    const currentPositions = race.getCurrentPositions();
+    expect(currentPositions.length).toEqual(TEST_CARS.length);
+    currentPositions.forEach(({ position }) => {
+      expect(position).toEqual(0);
+    });
+  });
+
+  it("should race for the given number of laps.", () => {
+    const lapsBefore = race.currentLap;
+    race.start(1);
+    expect(race.currentLap).toEqual(lapsBefore + 1);
+  });
+
+  it("should race until the end", () => {
+    race.start();
     expect(race.currentLap).toEqual(TEST_NUMBER_OF_LAPS);
   });
 
-  const winners = race.getWinnerNames();
   it("should have one or more winners", () => {
+    const winners = race.getWinnerNames();
     expect(winners.length).toBeGreaterThanOrEqual(MIN_NUM_OF_WINNERS);
+
+    const currentPositions = race.getCurrentPositions();
+    const carPositions = currentPositions.map(({ position }) => position);
+    const maxPosition = Math.max(...carPositions);
+    currentPositions.forEach(({ name, position }) => {
+      if (winners.includes(name)) {
+        expect(position).toEqual(maxPosition);
+      } else {
+        expect(position).toBeLessThan(maxPosition);
+      }
+    });
   });
 });

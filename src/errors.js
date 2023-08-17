@@ -19,9 +19,9 @@ export class RaceLapCountError extends Error {
   }
 }
 
-export class RaceSetupError extends Error {
+export class RaceStateError extends Error {
   constructor(message) {
     super(message);
-    this.name = "RaceSetupError";
+    this.name = "RaceStateError";
   }
 }
