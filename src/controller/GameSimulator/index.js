@@ -1,5 +1,5 @@
-import Car from '../Car/index.js';
-import RacingGame from '../RacingGame/index.js';
+import Car from '../../domain/Car/index.js';
+import RacingGame from '../../domain/RacingGame/index.js';
 
 class GameSimulator {
   #racingGame;

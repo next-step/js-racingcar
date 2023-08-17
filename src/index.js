@@ -1,7 +1,7 @@
-import GameInput from './GameInput/index.js';
-import GameSimulator from './GameSimulator/index.js';
-import { checkCanMoveForward } from './GameSimulator/utils.js';
-import GameViewer from './GameViewer/index.js';
+import GameInput from './view/GameInput/index.js';
+import GameSimulator from './controller/GameSimulator/index.js';
+import { checkCanMoveForward } from './controller/GameSimulator/utils.js';
+import GameViewer from './view/GameViewer/index.js';
 import { createMessageViewer } from './utils/createMessageViewer.js';
 import { getUserInputByQuestion } from './utils/getUserInputByQuestion.js';
 

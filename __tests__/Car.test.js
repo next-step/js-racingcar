@@ -1,4 +1,4 @@
-import Car from '../src/Car';
+import Car from '../src/domain/Car';
 
 describe('Car Class', () => {
   const carName = '자동차';

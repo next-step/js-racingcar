@@ -1,5 +1,5 @@
-import Car from '../src/Car';
-import CarList from '../src/CarList';
+import Car from '../src/domain/Car';
+import CarList from '../src/domain/CarList';
 
 describe('CarList 테스트', () => {
   const carNames = ['자동차1', '자동차2', '자동차3'];

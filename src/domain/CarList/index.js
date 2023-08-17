@@ -1,4 +1,4 @@
-import Car from '../Car';
+import Car from '../Car/index.js';
 
 class CarList {
   static ERROR_MESSAGE = {
