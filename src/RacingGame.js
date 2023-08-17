@@ -1,6 +1,7 @@
 import Car from "./Car";
 import { isDuplicated, isAlphabet } from "./utils/validator";
 import { generateRandomNumber } from "./utils/generator";
+import { compareNumber } from "./utils/compare";
 import { print } from "./utils/print";
 import {
   SEPARATOR,
@@ -10,7 +11,7 @@ import {
   FORWARD_CONDITION,
   FORWARD_INDICATOR,
 } from "./contants/racingGame";
-import { ERROR_MSG, RESULT_TITLE_MSG, WINNER_MSG } from "./contants/messages";
+import { ERROR_CAR_NAME, INFORMATION } from "./contants/messages";
 
 export default class RacingGame {
   #cars;
@@ -38,25 +39,25 @@ export default class RacingGame {
   #validateNames(names) {
     names.forEach((name) => {
       if (name.length > NAME_MAX_LENGTH) {
-        throw new Error(ERROR_MSG.MAX_LENGTH(NAME_MAX_LENGTH));
+        throw new Error(ERROR_CAR_NAME.MAX_LENGTH(NAME_MAX_LENGTH));
       }
 
       if (name.length < NAME_MIN_LENGTH) {
-        throw new Error(ERROR_MSG.MIN_LENGTH(NAME_MIN_LENGTH));
+        throw new Error(ERROR_CAR_NAME.MIN_LENGTH(NAME_MIN_LENGTH));
       }
 
       if (!isAlphabet(name)) {
-        throw new Error(ERROR_MSG.PATTERN);
+        throw new Error(ERROR_CAR_NAME.PATTERN);
       }
     });
 
     if (isDuplicated(names)) {
-      throw new Error(ERROR_MSG.UINIQUE);
+      throw new Error(ERROR_CAR_NAME.UINIQUE);
     }
   }
 
   start() {
-    print(RESULT_TITLE_MSG);
+    print(INFORMATION.STATUS);
 
     for (let round = 0; round < TOTAL_ROUND; round++) {
       this.#playOneRound();
@@ -67,14 +68,10 @@ export default class RacingGame {
   #playOneRound() {
     this.#cars.forEach((car) => {
       const randomNumber = generateRandomNumber();
-      if (this.#checkForwardCondition(randomNumber)) {
+      if (compareNumber(randomNumber, FORWARD_CONDITION, ">=")) {
         car.moveForward();
       }
     });
-  }
-
-  #checkForwardCondition(number) {
-    return number >= FORWARD_CONDITION;
   }
 
   getCarStatuses() {
@@ -89,7 +86,7 @@ export default class RacingGame {
   getWinners() {
     const winners = this.#determineWinners();
     const winnerNames = this.getWinnerNames(winners);
-    print(WINNER_MSG(winnerNames));
+    print(INFORMATION.WINNERS(winnerNames));
   }
 
   #determineWinners() {
