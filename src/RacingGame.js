@@ -10,6 +10,8 @@ import {
   NAME_MIN_LENGTH,
   FORWARD_CONDITION,
   FORWARD_INDICATOR,
+  RANDOM_NUMBER_MIN,
+  RANDOM_NUMBER_MAX,
 } from "./contants/racingGame";
 import { ERROR_CAR_NAME, INFORMATION } from "./contants/messages";
 
@@ -67,7 +69,10 @@ export default class RacingGame {
 
   #playOneRound() {
     this.#cars.forEach((car) => {
-      const randomNumber = generateRandomNumber();
+      const randomNumber = generateRandomNumber(
+        RANDOM_NUMBER_MIN,
+        RANDOM_NUMBER_MAX,
+      );
       if (compareNumber(randomNumber, FORWARD_CONDITION, ">=")) {
         car.moveForward();
       }

@@ -6,6 +6,8 @@ import {
   FORWARD_CONDITION,
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
+  RANDOM_NUMBER_MAX,
+  RANDOM_NUMBER_MIN,
 } from "../src/contants/racingGame";
 
 describe("경주할 자동차 입력", () => {
@@ -52,9 +54,12 @@ describe("경주할 자동차 입력", () => {
 describe("경기 시작", () => {
   describe("0에서 9 사이에서 무작위 값을 생성하여 부여한다.", () => {
     test("0에서 9 사이에서 무작위 값을 생성한다.", () => {
-      const randomNumber = generateRandomNumber();
-      expect(randomNumber).toBeGreaterThanOrEqual(0);
-      expect(randomNumber).toBeLessThanOrEqual(9);
+      const randomNumber = generateRandomNumber(
+        RANDOM_NUMBER_MIN,
+        RANDOM_NUMBER_MAX,
+      );
+      expect(randomNumber).toBeGreaterThanOrEqual(RANDOM_NUMBER_MIN);
+      expect(randomNumber).toBeLessThanOrEqual(RANDOM_NUMBER_MAX);
     });
 
     test("자동차는 랜덤 숫자가 4 이상이면 앞으로 전진한다.", () => {

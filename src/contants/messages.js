@@ -16,3 +16,7 @@ export const ERROR_CAR_NAME = Object.freeze({
 export const ERROR_COMPARE = Object.freeze({
   COMPARISON_OPERATOR: "잘못된 비교 연산자입니다.",
 });
+
+export const ERROR_RANDOM_NUMBER = Object.freeze({
+  MIN_LESS_THAN_MAX: "잘못된 비교 연산자입니다.",
+});
