@@ -15,10 +15,7 @@ export const ERROR_CAR_NAME = Object.freeze({
   UINIQUE: "중복되는 이름은 허용하지 않습니다.",
 });
 
-export const ERROR_COMPARE = Object.freeze({
+export const ERROR_NUMBER = Object.freeze({
+  MIN_LESS_THAN_MAX: "최소값은 최대값보다 작아야 합니다.",
   COMPARISON_OPERATOR: "잘못된 비교 연산자입니다.",
-});
-
-export const ERROR_RANDOM_NUMBER = Object.freeze({
-  MIN_LESS_THAN_MAX: "잘못된 비교 연산자입니다.",
 });

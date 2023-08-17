@@ -1,6 +1,8 @@
 import readline from "readline";
 
 import RacingGame from "./RacingGame";
+import { validateNames } from "./utils/validator";
+import { print } from "./utils/print";
 import { INFORMATION, NEWLINE } from "./contants/messages";
 
 const rl = readline.createInterface({
@@ -8,15 +10,16 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-const racingGame = new RacingGame();
-
+let inputValue;
 rl.question(INFORMATION.INPUT + NEWLINE, (answer) => {
-  racingGame.cars = answer;
+  validateNames(answer);
+  inputValue = answer;
   rl.close();
 });
 
 rl.on("close", () => {
-  racingGame.start();
-  racingGame.getWinners();
+  const racingGame = new RacingGame(inputValue);
+  racingGame.play();
+  print(INFORMATION.WINNERS(racingGame.getWinnerNames()));
   process.exit();
 });

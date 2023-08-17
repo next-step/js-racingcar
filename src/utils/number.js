@@ -1,4 +1,11 @@
-import { ERROR_COMPARE } from "../contants/messages";
+import { ERROR_NUMBER } from "../contants/messages";
+
+export function generateRandomNumber(min, max) {
+  if (min >= max) {
+    throw new Error(ERROR_NUMBER.MIN_LESS_THAN_MAX);
+  }
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 export function compareNumber(
   number,
@@ -17,6 +24,6 @@ export function compareNumber(
     case "===":
       return number === conditionValue;
     default:
-      throw new Error(ERROR_COMPARE.COMPARISON_OPERATOR);
+      throw new Error(ERROR_NUMBER.COMPARISON_OPERATOR);
   }
 }
