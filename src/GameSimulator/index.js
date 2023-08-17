@@ -22,10 +22,7 @@ class GameSimulator {
       await this.setMaxRounds();
     }
 
-    this.#racingGame = new RacingGame(
-      this.#carNames.map(Car.of),
-      this.#maxRounds
-    );
+    this.#racingGame = new RacingGame(this.#carNames, this.#maxRounds);
   }
 
   async setCarNames() {
