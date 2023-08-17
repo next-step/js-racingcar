@@ -43,38 +43,38 @@ class GameSimulator {
       this.#gameViewer.printRecords(this.#racingGame.records);
       this.#gameViewer.printWinningCars(this.#racingGame.winningCars);
     } catch (error) {
-      this.handleError(error.message);
+      this.handleError(error.message, checkCanMoveForward);
     }
   }
 
-  restartGame() {
+  restartGame(checkCanMoveForward) {
     this.#gameViewer.printRestart();
-    this.startGame();
+    this.startGame(checkCanMoveForward);
   }
 
-  restartGameFromCarNames() {
+  restartGameFromCarNames(checkCanMoveForward) {
     this.#carNames = null;
     this.#maxRounds = null;
-    this.restartGame();
+    this.restartGame(checkCanMoveForward);
   }
 
-  restartGameFromMaxRounds() {
+  restartGameFromMaxRounds(checkCanMoveForward) {
     this.#maxRounds = null;
-    this.restartGame();
+    this.restartGame(checkCanMoveForward);
   }
 
-  handleError(errorMessage) {
+  handleError(errorMessage, checkCanMoveForward) {
     this.#gameViewer.printErrorMessage(errorMessage);
 
     switch (errorMessage) {
       case Car.NAME_ERROR_MESSAGE.NOT_STRING:
       case Car.NAME_ERROR_MESSAGE.LESS_THAN_MIN:
       case Car.NAME_ERROR_MESSAGE.OVER_THAN_MAX:
-        this.restartGameFromCarNames();
+        this.restartGameFromCarNames(checkCanMoveForward);
 
         break;
       case RacingGame.ERROR_MESSAGE.INVALID_MAX_ROUNDS:
-        this.restartGameFromMaxRounds();
+        this.restartGameFromMaxRounds(checkCanMoveForward);
 
         break;
     }
