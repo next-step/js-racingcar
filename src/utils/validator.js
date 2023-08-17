@@ -4,5 +4,16 @@ export function isAlphabet(str) {
 }
 
 export function isDuplicated(arr) {
-  return arr.find((item, index) => arr.indexOf(item) !== index);
+  const itemSet = new Set();
+  let hasDuplicate = false;
+
+  arr.forEach((item) => {
+    if (itemSet.has(item)) {
+      hasDuplicate = true;
+    } else {
+      itemSet.add(item);
+    }
+  });
+
+  return hasDuplicate;
 }
