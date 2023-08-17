@@ -27,10 +27,10 @@ export default class RacingGame {
     return this.#cars;
   }
 
-  play() {
+  play(totalRounds) {
     print(INFORMATION.STATUS);
 
-    for (let round = 0; round < TOTAL_ROUND; round++) {
+    for (let round = 0; round < totalRounds; round++) {
       this.#playOneRound();
       print(this.getCarStatuses());
     }
