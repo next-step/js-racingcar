@@ -11,14 +11,15 @@ describe("Car Class 테스트", () => {
     );
   });
 
-  const carNameTypeTestCases = [{}, 1, () => {}, undefined];
-
-  carNameTypeTestCases.forEach((carName) => {
-    test(`자동차 이름의 자료형이 ${typeof carName}일때 에러가 발생한다`, () => {
-      expect(() => new Car(carName)).toThrowError(
-        "자동차 이름은 문자열이여야 합니다.",
-      );
-    });
+  test.each`
+    name         | type
+    ${{}}        | ${typeof {}}
+    ${() => {}}  | ${typeof (() => {})}
+    ${undefined} | ${typeof undefined}
+  `("자동차 이름의 자료형이 $type 일때 에러가 발생한다.", ({ name }) => {
+    expect(() => new Car(name)).toThrowError(
+      "자동차 이름은 문자열이여야 합니다.",
+    );
   });
 
   test("advance 메소드가 실행되면 distance가 1 증가한다.", async () => {
