@@ -1,5 +1,5 @@
-import Cars from "./Cars";
 import RacingGameViewer from "./RacingGameViewer";
+import RacingGame from "./RacingGame";
 
 export default class RacingGameController {
   model;
@@ -9,7 +9,7 @@ export default class RacingGameController {
   constructor(model, view) {
     this.view =
       view instanceof RacingGameViewer ? view : new RacingGameViewer();
-    this.model = model instanceof Cars ? model : new Cars();
+    this.model = model instanceof RacingGame ? model : new RacingGame();
   }
 
   async handleError(error) {
@@ -25,9 +25,7 @@ export default class RacingGameController {
   async setCars() {
     const carNames = await this.view.getCarNamesInput();
 
-    this.model.addCars(
-      carNames.split(RacingGameController.#CAR_NAME_SEPARATOR),
-    );
+    this.model.cars = carNames.split(RacingGameController.#CAR_NAME_SEPARATOR);
   }
 
   async setRoundNumber() {
@@ -40,7 +38,7 @@ export default class RacingGameController {
   };
 
   awards() {
-    this.view.printWinners(this.model.winners);
+    this.view.printWinners(this.model.cars.winners);
   }
 
   runGame() {
@@ -50,11 +48,11 @@ export default class RacingGameController {
 
   async execute() {
     try {
-      if (this.model.nextGameStep === Cars.GAME_STEP.SET_CARS) {
+      if (this.model.nextGameStep === RacingGame.GAME_STEP.SET_CARS) {
         await this.setCars();
       }
 
-      if (this.model.nextGameStep === Cars.GAME_STEP.SET_ROUND_NUMBER) {
+      if (this.model.nextGameStep === RacingGame.GAME_STEP.SET_ROUND_NUMBER) {
         await this.setRoundNumber();
       }
 
