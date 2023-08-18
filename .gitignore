@@ -1,2 +1,9 @@
+# dependencies
 node_modules/
+
+# production
 dist/
+
+# Editor directories and files
+.vscode/*
+.idea
