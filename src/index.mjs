@@ -9,11 +9,11 @@ import {
   NOT_ALLOW_CHARACTER,
   NUM_ERROR_MESSAGE,
   RACE_COUNT,
-} from "./constants";
+} from "./constants.mjs";
 
 export class Car {
   #name;
-  #position = 0;
+  #position = 1;
   constructor(name) {
     this.validateName(name);
     this.#name = name;

@@ -1,5 +1,5 @@
-import { Car, Race } from "../src";
-import { NAME_ERROR_MESSAGE, NUM_ERROR_MESSAGE } from "../src/constants";
+import { Car, Race } from "../src/index.mjs";
+import { NAME_ERROR_MESSAGE, NUM_ERROR_MESSAGE } from "../src/constants.mjs";
 
 const CAR_NAME = "hello";
 
