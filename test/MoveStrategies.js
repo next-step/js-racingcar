@@ -2,8 +2,8 @@ import {
   StrategiesNotStringError,
   StrategyElementNotRorNumericError,
 } from "./errors";
-import RandomStrategy from "./RandomStrategy";
-import FixedStrategy from "../../../testFixture/FixedStrategy";
+import RandomStrategy from "../src/Models/MoveStrategy/RandomStrategy";
+import FixedStrategy from "./FixedStrategy";
 
 export default class MoveStrategies {
   #strategies;

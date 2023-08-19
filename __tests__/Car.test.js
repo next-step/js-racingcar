@@ -4,7 +4,7 @@ import {
   CarNameEmptyError,
   CarNameTooLongError,
 } from "../src/Models/Car/errors.js";
-import FixedStrategy from "../testFixture/FixedStrategy";
+import FixedStrategy from "../test/FixedStrategy";
 
 describe("Car 생성자 테스트", () => {
   describe("CarName 유효성 검사 테스트", () => {

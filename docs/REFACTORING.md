@@ -147,5 +147,6 @@
 
 ### step2 피드백 기반 질문
 
-[ ] test layer와 production layer 분리 의미 = testFixures 어디에 위치?
+[X] test layer와 production layer 분리 의미 = test 폴더 어디에 위치?
+[ ] test용 파일을 위한 test 코드 -> 배보다 배꼽이 커지는 건 아닌지?
 [ ] 테스트가 필요한 핵심적인 private 코드가 있다면 역할 분리 고민 -> GenerateNumber 분리 ?

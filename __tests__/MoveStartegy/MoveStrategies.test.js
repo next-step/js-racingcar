@@ -1,9 +1,9 @@
-import MoveStrategies from "../../src/Models/MoveStrategy/MoveStrategies";
+import MoveStrategies from "../../test/MoveStrategies";
 import {
   StrategiesNotStringError,
   StrategyElementNotRorNumericError,
-} from "../../src/Models/MoveStrategy/errors";
-import FixedStrategy from "../../testFixture/FixedStrategy";
+} from "../../test/errors";
+import FixedStrategy from "../../test/FixedStrategy";
 import RandomStrategy from "../../src/Models/MoveStrategy/RandomStrategy";
 
 describe("생성자 테스트", () => {

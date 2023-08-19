@@ -6,7 +6,7 @@ import {
   TotalRoundsNotPositiveError,
   TotalRoundsIsEmptyError,
 } from "../src/Models/Game/errors";
-import MoveStrategies from "../src/Models/MoveStrategy/MoveStrategies";
+import MoveStrategies from "../test/MoveStrategies";
 
 describe("게임 설정 테스트", () => {
   const { setGame } = createGame();

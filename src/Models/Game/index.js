@@ -6,7 +6,7 @@ import {
   TotalRoundsNotPositiveError,
 } from "./errors";
 import { createCars } from "../Cars";
-import MoveStrategies from "../MoveStrategy/MoveStrategies";
+import RandomStrategy from "../MoveStrategy/RandomStrategy";
 
 export const createGame = (carNamesInput, roundsInput) => {
   const roundHistory = [];
@@ -51,9 +51,7 @@ export const createGame = (carNamesInput, roundsInput) => {
     totalRounds = Number(roundsInput);
   }
 
-  function playGame(
-    moveStrategies = new MoveStrategies("R".repeat(cars.length))
-  ) {
+  function playGame(moveStrategies = cars.map(() => new RandomStrategy())) {
     while (totalRounds--) {
       playOneRound(cars, moveStrategies);
 

@@ -1,5 +1,5 @@
-import FixedStrategy from "../../testFixture/FixedStrategy";
-import { FixedNumberIsNotNumberError } from "../../testFixture/errors";
+import FixedStrategy from "../../test/FixedStrategy";
+import { FixedNumberIsNotNumberError } from "../../test/errors";
 
 describe("생성자 테스트", () => {
   describe("number 유효성 검사 테스트", () => {
