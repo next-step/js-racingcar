@@ -1,5 +1,5 @@
-import { Game } from "../Models/Game";
-import { PromptView } from "../View/PromptView";
+import { Game } from "./Models/Game";
+import { PromptView } from "./View/PromptView";
 
 export const GameController = (function () {
   function addEventHandlerToPrompt() {
