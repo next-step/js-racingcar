@@ -73,6 +73,7 @@ export class Race {
       }
       yield this.#cars;
     }
+    this.#isStarted = false;
   }
   getResult() {
     return this.#cars.filter((car) => car.getPosition() === RACE_COUNT);
