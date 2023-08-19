@@ -1,4 +1,4 @@
-import { Car } from "../src";
+import { Car, Race } from "../src";
 import { NAME_ERROR_MESSAGE, NUM_ERROR_MESSAGE } from "../src/constants";
 
 const CAR_NAME = "hello";
@@ -40,6 +40,26 @@ describe("자동차  경주 게임", () => {
       expect(() => {
         car.run(11);
       }).toThrowError(NUM_ERROR_MESSAGE.NOT_IN_RANGE);
+    });
+  });
+  describe("경주", () => {
+    test("경주는 자동차 객체를 받는다", () => {
+      const cars = [new Car("h"), new Car("e"), new Car("l"), new Car("0")];
+      expect(new Race(cars).getCars()).toBe(cars);
+    });
+    test("경주룰 시작한다", () => {
+      const cars = [new Car("h"), new Car("e"), new Car("l"), new Car("0")];
+      const race = new Race(cars);
+      expect(race.getStarted()).toBe(false);
+      for (const result of race.start()) {
+        expect(result).toHaveLength(cars.length);
+      }
+    });
+    test("경주결과를 볼수 있다", () => {
+      const cars = [new Car("h"), new Car("e"), new Car("l"), new Car("0")];
+      const race = new Race(cars);
+      race.start();
+      expect(race.getResult()).toBeInstanceOf(Array);
     });
   });
 });

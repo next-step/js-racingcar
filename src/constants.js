@@ -16,3 +16,5 @@ export const NUM_ERROR_MESSAGE = {
   NOT_NUMBER: "num should be number",
   NOT_IN_RANGE: `num should be ${MIN_NUM} or more and ${MAX_NUM} or less`,
 };
+
+export const RACE_COUNT = 5;
