@@ -1,4 +1,9 @@
-import { readLineInterface } from "../utils";
+import readline from "readline";
+
+const readlineInterface = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
 export const createView = () => {
   const GUIDE_MESSAGES = Object.freeze({
@@ -8,17 +13,17 @@ export const createView = () => {
     RESULT: "실행 결과",
   });
 
-  async function readLineFromConsole(guideMessage) {
+  async function readlineFromConsole(guideMessage) {
     return new Promise((resolve) => {
-      readLineInterface.question(guideMessage, resolve);
+      readlineInterface.question(guideMessage, resolve);
     });
   }
 
   async function addEventHandlerToView(cbFunc) {
-    const carNamesInput = await readLineFromConsole(
+    const carNamesInput = await readlineFromConsole(
       GUIDE_MESSAGES.CAR_NAMES_INPUT
     );
-    const roundsInput = await readLineFromConsole(
+    const roundsInput = await readlineFromConsole(
       GUIDE_MESSAGES.TOTAL_ROUNDS_INPUT
     );
 
@@ -26,7 +31,7 @@ export const createView = () => {
   }
 
   function closeView() {
-    readLineInterface.close();
+    readlineInterface.close();
   }
 
   const log = console.log;
