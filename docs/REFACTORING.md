@@ -129,18 +129,22 @@
 ### step2 피드백 기반 반영 사항
 
 1. 목적에 맞는 구현 방식 선택
-   [ ] IIFE -> 일반 함수 변경
-   [ ] 프로덕션 layer vs 테스트 layer 분리
-   [ ] Runtime 에러 객체 - Custom 에러 객체 상속 구조 도입
+   [X] IIFE -> 일반 함수 변경
+   [X] 프로덕션 layer vs 테스트 layer 분리
+   [X] Runtime 에러 객체 - Custom 에러 객체 상속 구조 도입
    [ ] 존재하는 함수가 있다면, 수레바퀴 재발명 지양 \*readline Promise 기반 API
 
 2. 테스트 코드 가독성 향상
    [ ] 상수 사용 지양
-   [ ] 굳이 저장할 필요 없다면 변수 사용 지양
-   [ ] 결과값도 하드코딩 값으로 변경
-   [ ] testcase 인식 가능하도록 name 변경
+   [X] 굳이 저장할 필요 없다면 변수 사용 지양
+   [X] 결과값도 하드코딩 값으로 변경
+   [X] testcase 인식 가능하도록 name 변경
    [ ] jest.fn, jest.spyOn 지양 -> 역할 분리?
 
 3. 객체의 역할과 책임 분리
    [ ] 테스트가 필요한 핵심적인 private 코드가 있다면 역할 분리 고민
    [ ] 객체는 메시지로 소통
+
+### step2 피드백 기반 질문
+
+[ ] test layer와 production layer 분리 의미 = testFixures 어디에 위치?
