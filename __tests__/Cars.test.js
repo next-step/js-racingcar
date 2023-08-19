@@ -1,81 +1,83 @@
 import Car from "../src/Models/Car";
-import { Cars } from "../src/Models/Cars";
-import { MoveStrategies } from "../src/Models/MoveStrategy";
+import createCars from "../src/Models/Cars";
+import { DuplicatedCarNameError } from "../src/Models/Cars/errors";
+import MoveStrategies from "../src/Models/MoveStrategy/MoveStrategies";
 
-describe("Cars 클래스 테스트", () => {
-  const CARS_ERROR_MESSAGE = Cars.ERROR_MESSAGE;
-
+const { from, playOneRound, getRoundRecord } = createCars();
+describe("from() 테스트", () => {
   describe("CarNames 유효성 검사", () => {
-    it.each([
-      { carNames: ["erica", "erica", " "] },
-      { carNames: ["gong0", "gong0", "Gong"] },
-      { carNames: ["1031", "1031"] },
-      { carNames: ["*****", "*****", "**!**", "***!*", "*****"] },
-      { carNames: ["*e*1C", "*e*1C"] },
-      { carNames: [" ", " "] },
-      { carNames: ["", ""] },
-    ])("중복된 Car 이름이 존재하면 에러를 발생시킵니다.", ({ carNames }) => {
-      expect(() => Cars.from(carNames)).toThrow(
-        CARS_ERROR_MESSAGE.DUPLICATE_CAR_NAME
-      );
+    describe("중복된 자동차 이름이 존재하면, 에러를 발생시킨다.", () => {
+      it.each([
+        { carNames: ["erica", "erica", " "] },
+        { carNames: ["gong0", "gong0", "Gong"] },
+        { carNames: ["1031", "1031"] },
+        { carNames: ["*****", "*****", "**!**", "***!*", "*****"] },
+        { carNames: ["*e*1C", "*e*1C"] },
+        { carNames: [" ", " "] },
+        { carNames: ["", ""] },
+      ])("$carNames", ({ carNames }) => {
+        expect(() => from(carNames)).toThrow(DuplicatedCarNameError);
+      });
     });
 
-    it.each([
-      { carNames: ["erica", "Erica"] },
-      { carNames: ["gong0", "Gong0", "1031", "1031!", "*****"] },
-      { carNames: ["*e*1C", "*e*1c", "ERICA", "Pan", "theon"] },
-      { carNames: ["!****", "*!***", "**!**", "***!*", "****!"] },
-    ])("중복된 Car 이름이 없으면 Car 배열을 생성합니다.", ({ carNames }) => {
-      expect(() => Cars.from(carNames)).not.toThrow();
-      const cars = Cars.from(carNames);
-      const expectedCars = carNames.map((carName) => ({
-        name: carName,
-        position: 0,
-      }));
-      expect(cars.map((car) => car.getRecord())).toEqual(expectedCars);
-      expect(cars).toHaveLength(carNames.length);
+    describe("유효하면, 에러를 발생시키지 않는다.", () => {
+      it.each([
+        { carNames: ["erica", "Erica"] },
+        { carNames: ["gong0", "Gong0", "1031", "1031!", "*****"] },
+        { carNames: ["*e*1C", "*e*1c", "ERICA", "Pan", "theon"] },
+        { carNames: ["!****", "*!***", "**!**", "***!*", "****!"] },
+      ])("$carNames", ({ carNames }) => {
+        expect(() => from(carNames)).not.toThrow();
+      });
     });
 
-    it.each([
-      { carNames: ["erica", "Erica"] },
-      { carNames: ["gong0", "Gong0", "1031", "1031!", "*****"] },
-      { carNames: ["*e*1C", "*e*1c", "ERICA", "Pan", "theon"] },
-    ])("유효한 CarNames 배열로, Car 배열을 생성합니다.", ({ carNames }) => {
-      const cars = Cars.from(carNames);
-      expect(cars).toHaveLength(carNames.length);
-      cars.forEach((car) => {
-        expect(car.getRecord()).toEqual({ name: car.name, position: 0 });
+    describe("중복이 없으면, Car 배열을 생성한다.", () => {
+      it.each([
+        { carNames: ["erica", "Erica"] },
+        { carNames: ["gong0", "Gong0", "1031", "1031!", "*****"] },
+        { carNames: ["*e*1C", "*e*1c", "ERICA", "Pan", "theon"] },
+        { carNames: ["!****", "*!***", "**!**", "***!*", "****!"] },
+      ])("$carNames", ({ carNames }) => {
+        const cars = from(carNames);
+
+        cars.forEach((car, idx) => {
+          expect(car).toBeInstanceOf(Car);
+          const { name, position } = car.getRecord();
+          expect(name).toBe(carNames[idx]);
+          expect(position).toBe(0);
+        });
+
+        expect(cars).toHaveLength(carNames.length);
       });
     });
   });
+});
 
-  describe("한 라운드가 진행되면, Cars 배열의 모든 Car들이 이동 여부를 결정합니다.", () => {
-    const cars = Cars.from(["erica", "Erica", "theon", "yang", "ryang"]);
-    const spyTryMove = jest.spyOn(Car.prototype, "tryMove");
-    Cars.playOneRound(cars, new MoveStrategies("12345"));
+describe("playOneRound() 테스트", () => {
+  const cars = from(["erica", "Erica", "theon", "yang", "ryang"]);
+  playOneRound(cars, new MoveStrategies("12345"));
 
-    it("Cars 배열의 모든 Car들이 tryMove 함수를 호출합니다.", () => {
-      expect(spyTryMove).toHaveBeenCalledTimes(cars.length);
-    });
-
-    it("Cars 배열 내 모든 자동차들이 올바르게 이동합니다.", () => {
-      const expectedPosition = [0, 0, 0, 1, 1];
-      expect(cars.map((car) => car.position)).toEqual(expectedPosition);
-    });
+  it("Cars 배열 내 모든 자동차들이 올바르게 이동한다.", () => {
+    expect(cars.map((car) => car.getRecord().position)).toEqual([
+      0, 0, 0, 1, 1,
+    ]);
   });
+});
 
-  it.each([
-    { carNames: ["erica", "Erica"] },
-    { carNames: ["gong0", "Gong0", "1031", "1031!", "*****"] },
-    { carNames: ["*e*1C", "*e*1c", "ERICA", "Pan", "theon"] },
-  ])("자동차 배열에 속한 모든 자동차의 정보를 반환합니다.", ({ carNames }) => {
-    const cars = Cars.from(carNames);
-    const roundRecord = Cars.getRoundRecord(cars);
-    const expectedRecord = carNames.map((carName) => ({
-      name: carName,
-      position: 0,
-    }));
-    expect(roundRecord).toEqual(expectedRecord);
-    expect(roundRecord).toHaveLength(carNames.length);
+describe("getRoundRecord() 테스트", () => {
+  describe("Cars 내 모든 Car 정보를 반환한다.", () => {
+    it.each([
+      { carNames: ["erica", "Erica"] },
+      { carNames: ["gong0", "Gong0", "1031", "1031!", "*****"] },
+      { carNames: ["*e*1C", "*e*1c", "ERICA", "Pan", "theon"] },
+    ])("$carNames", ({ carNames }) => {
+      const cars = from(carNames);
+      const roundRecord = getRoundRecord(cars);
+
+      roundRecord.forEach((record, idx) => {
+        expect(record.name).toBe(carNames[idx]);
+        expect(record.position).toBe(0);
+      });
+    });
   });
 });
