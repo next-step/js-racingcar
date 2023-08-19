@@ -1,7 +1,7 @@
 import Car from "../Car";
 import { DuplicatedCarNameError } from "./errors";
 
-export default createCars = () => {
+export const createCars = () => {
   function hasDuplicatedCarNames(carNames) {
     return new Set(carNames).size !== carNames.length;
   }

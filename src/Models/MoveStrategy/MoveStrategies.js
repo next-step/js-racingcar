@@ -3,7 +3,7 @@ import {
   StrategyElementNotRorNumericError,
 } from "./errors";
 import RandomStrategy from "./RandomStrategy";
-import FixedStrategy from "./FixedStrategy";
+import FixedStrategy from "../../../testFixture/FixedStrategy";
 
 export default class MoveStrategies {
   #strategies;

@@ -3,7 +3,7 @@ import {
   StrategiesNotStringError,
   StrategyElementNotRorNumericError,
 } from "../../src/Models/MoveStrategy/errors";
-import FixedStrategy from "../../src/Models/MoveStrategy/FixedStrategy";
+import FixedStrategy from "../../testFixture/FixedStrategy";
 import RandomStrategy from "../../src/Models/MoveStrategy/RandomStrategy";
 
 describe("생성자 테스트", () => {

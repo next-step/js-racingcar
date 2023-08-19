@@ -1,5 +1,5 @@
 import Car from "../src/Models/Car";
-import createCars from "../src/Models/Cars";
+import { createCars } from "../src/Models/Cars";
 import { DuplicatedCarNameError } from "../src/Models/Cars/errors";
 import MoveStrategies from "../src/Models/MoveStrategy/MoveStrategies";
 

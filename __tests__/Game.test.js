@@ -1,4 +1,4 @@
-import createGame from "../src/Models/Game";
+import { createGame } from "../src/Models/Game";
 import {
   CarNamesIsEmptyError,
   TotalRoundsNotNumberError,

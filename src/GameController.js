@@ -1,36 +1,40 @@
-import { Game } from "./Models/Game";
-import { PromptView } from "./View/PromptView";
+import { createView } from "./View";
+import { createGame } from "./Models/Game";
 
-export const GameController = (function () {
-  function addEventHandlerToPrompt() {
-    PromptView.getInputsThen(playGame);
+export const createGameController = () => {
+  const { addEventHandlerToView, closeView, logErrorMessage, logGameResult } =
+    createView();
+
+  function initiate() {
+    addEventHandlerToView(play);
   }
 
   function handleResult(result) {
-    PromptView.logGameResult(result);
+    logGameResult(result);
   }
 
   function handleError(error) {
-    PromptView.logErrorMessage(error.message);
+    logErrorMessage(error.getMessage());
   }
 
-  function playGame(carNames, totalRounds) {
+  function terminate() {
+    closeView();
+  }
+
+  function play(carNames, totalRounds) {
+    const { setGame, playGame, getGameResult } = createGame();
     try {
-      Game.setGame(carNames, totalRounds);
-      Game.playGame();
-      handleResult(Game.getGameResult());
-      terminateGame();
+      setGame(carNames, totalRounds);
+      playGame();
+      handleResult(getGameResult());
+      terminate();
     } catch (error) {
       handleError(error);
-      addEventHandlerToPrompt();
+      initiate();
     }
   }
 
-  function terminateGame() {
-    PromptView.close();
-  }
-
   return {
-    addEventHandlerToPrompt,
+    initiate,
   };
-})();
+};

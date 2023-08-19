@@ -5,10 +5,10 @@ import {
   TotalRoundsNotIntegerError,
   TotalRoundsNotPositiveError,
 } from "./errors";
-import createCars from "../Cars";
+import { createCars } from "../Cars";
 import MoveStrategies from "../MoveStrategy/MoveStrategies";
 
-export default createGame = (carNamesInput, roundsInput) => {
+export const createGame = (carNamesInput, roundsInput) => {
   const roundHistory = [];
   let cars = [];
   let totalRounds = 0;
