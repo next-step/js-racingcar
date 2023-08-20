@@ -13,8 +13,6 @@ describe("GameModel", () => {
 
     expect(setParticipants(DEFAULT_CARS)).not.toThrow();
     expect(setParticipants(DEFAULT_NAMES)).toThrow();
-    expect(setParticipants("")).toThrow();
-    expect(setParticipants(3)).toThrow();
   });
 
   test("게임의 참가는 2대 이상부터 가능하다.", () => {

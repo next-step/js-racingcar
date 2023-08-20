@@ -9,7 +9,7 @@ export default class CarRacingManager {
 
   #view = View;
 
-  async start() {
+  async run() {
     await this.settingGame();
     await this.playGame();
     this.endGame();
@@ -39,8 +39,8 @@ export default class CarRacingManager {
   roundInterval() {
     return new Promise(resolve => {
       const interval = setInterval(() => {
-        this.#gameModel.increaseRound();
-        if (this.#gameModel.round > this.#gameModel.totalRound) {
+        this.#gameModel.incrementRound();
+        if (this.#gameModel.currentRound > this.#gameModel.totalRound) {
           clearInterval(interval);
           resolve();
           return;

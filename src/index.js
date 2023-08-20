@@ -2,4 +2,4 @@ import CarRacingManager from "./controller/CarRacingManager.js";
 
 const carRacingManager = new CarRacingManager();
 
-carRacingManager.start();
+carRacingManager.run();
