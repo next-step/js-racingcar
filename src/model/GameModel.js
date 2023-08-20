@@ -4,10 +4,7 @@ import {
   NAME_SEPARATOR,
 } from "../constants/constants.js";
 import CarModel from "./CarModel.js";
-import {
-  getIndexesOfMaxValue,
-  getRandomNumberInRange,
-} from "../utils/utils.js";
+import getRandomNumberInRange from "../utils/getRandomNumberInRange.js";
 
 export default class GameModel {
   #currentRound = 1;
@@ -60,11 +57,9 @@ export default class GameModel {
   }
 
   get winners() {
-    const maxMoveIndexes = getIndexesOfMaxValue(
-      this.participants.map(car => car.movement),
-    );
-
-    return maxMoveIndexes.map(v => this.participants[v]);
+    const lastRecord = this.#records.at(-1);
+    const maxMovement = Math.max(...lastRecord.map(car => car.movement));
+    return lastRecord.filter(car => maxMovement === car.movement);
   }
 
   static #validateParticipants(cars) {
