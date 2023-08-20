@@ -5,6 +5,7 @@ import { stdin, stdout } from "process";
 import {
   ERROR_MESSAGES,
   GAME_MESSAGES,
+  INTERVAL_ROUND_TIME,
   MOVEMENT_PRINT,
 } from "../constants/constants.js";
 
@@ -25,9 +26,19 @@ export default class View {
     View.#print(GAME_MESSAGES.GAME_START);
   }
 
-  static printResult(gameModel) {
-    gameModel.records.forEach(record => View.#printRecord(record));
-    View.printWinnerMessage(gameModel.winners.map(car => car.name));
+  static async printResult(gameModel) {
+    return new Promise(resolve => {
+      let round = 1;
+      const interval = setInterval(() => {
+        if (round > gameModel.totalRound) {
+          clearInterval(interval);
+          View.printWinnerMessage(gameModel.winners.map(car => car.name));
+          return resolve();
+        }
+        View.#printRecord(gameModel.records[round - 1]);
+        round += 1;
+      }, INTERVAL_ROUND_TIME);
+    });
   }
 
   static printGameEndMessage() {

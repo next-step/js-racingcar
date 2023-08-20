@@ -8,7 +8,7 @@ export default class CarRacingManager {
 
   async run() {
     await this.settingGame();
-    this.playGame();
+    await this.playGame();
     this.endGame();
   }
 
@@ -22,10 +22,10 @@ export default class CarRacingManager {
     });
   }
 
-  playGame() {
+  async playGame() {
     this.#view.printGameStartMessage();
     this.#gameModel.play();
-    this.#view.printResult(this.#gameModel);
+    await this.#view.printResult(this.#gameModel);
   }
 
   endGame() {

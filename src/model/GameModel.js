@@ -43,7 +43,12 @@ export default class GameModel {
     this.#participants = participants;
   }
 
-  set totalRound(totalRound) {
+  get totalRound() {
+    return this.#totalRound;
+  }
+
+  set totalRound(aTotalRound) {
+    const totalRound = Number(aTotalRound);
     GameModel.#validateTotalRound(totalRound);
     this.#totalRound = totalRound;
   }
