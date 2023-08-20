@@ -32,7 +32,9 @@ export const createGame = (carNamesInput, roundsInput) => {
     const round = Number(input);
     if (Number.isNaN(round)) throw new TotalRoundsNotNumberError();
     if (!Number.isInteger(round)) throw new TotalRoundsNotIntegerError();
-    if (round < 1) throw new TotalRoundsNotPositiveError();
+
+    const ONE = 1;
+    if (round < ONE) throw new TotalRoundsNotPositiveError();
   }
 
   function parseCarNames(userInput) {
