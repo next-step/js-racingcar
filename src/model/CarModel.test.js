@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from "../constants/constants.js";
+import { CONDITIONS, ERROR_MESSAGES } from "../constants/constants.js";
 import CarModel from "./CarModel.js";
 
 const DEFAULT_NAME = "크롱";
@@ -10,7 +10,7 @@ describe("CarModel", () => {
     expect(car.name).toBe(DEFAULT_NAME);
   });
 
-  test("자동차의 이름은 5자 이하만 가능하다.", () => {
+  test(`자동차의 이름은 ${CONDITIONS.CAR_MAX_NAME_LENGTH}자 이하만 가능하다.`, () => {
     expect(() => new CarModel("크롱크롱크롱")).toThrow(
       ERROR_MESSAGES.OVER_MAXIMUM_CAR_NAME_LENGTH,
     );
@@ -21,7 +21,7 @@ describe("CarModel", () => {
     expect(() => new CarModel("   ")).toThrow(ERROR_MESSAGES.WHITE_CAR_NAME);
   });
 
-  test("주어진 숫자가 4 이상일 경우 전진한다.", () => {
+  test(`주어진 숫자가 ${CONDITIONS.CAR_CAN_MOVE_NUMBER} 이상일 경우 전진한다.`, () => {
     const car = new CarModel(DEFAULT_NAME);
 
     car.go(4);
@@ -29,7 +29,7 @@ describe("CarModel", () => {
     expect(car.movement).toBe(1);
   });
 
-  test("주어진 숫자가 4 미만일 경우 전진하지않는다.", () => {
+  test(`주어진 숫자가 ${CONDITIONS.CAR_CAN_MOVE_NUMBER}  미만일 경우 전진하지않는다.`, () => {
     const car = new CarModel(DEFAULT_NAME);
 
     [0, 1, 2, 3].forEach(car.go);
