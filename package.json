@@ -4,7 +4,7 @@
   "description": "우아한테크코스 웹 프론트엔드 레벨1 자동차 경주 미션",
   "main": "src/index.js",
   "scripts": {
-    "start": "npm run build-prod && node dist/bundle.js",
+    "start": "node src/index.js",
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
     "test": "jest --watch"
