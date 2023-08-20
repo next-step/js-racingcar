@@ -142,11 +142,11 @@
    [X] jest.fn, jest.spyOn 지양 -> 역할 분리?
 
 3. 객체의 역할과 책임 분리
-   [ ] 테스트가 필요한 핵심적인 private 코드가 있다면 역할 분리 고민 -> GenerateNumber 분리 ?
+   [X] 테스트가 필요한 핵심적인 private 코드가 있다면 역할 분리 고민 -> generateNumber 분리
    [X] 객체는 메시지로 소통
 
 ### step2 피드백 기반 질문
 
 [X] test layer와 production layer 분리 의미 = test 폴더 어디에 위치?
-[ ] test용 파일을 위한 test 코드 -> 배보다 배꼽이 커지는 건 아닌지?
-[ ] 테스트가 필요한 핵심적인 private 코드가 있다면 역할 분리 고민 -> GenerateNumber 분리 ?
+[X] test용 파일을 위한 test 코드 -> 배보다 배꼽이 커지는 건 아닌지?
+[X] 테스트가 필요한 핵심적인 private 코드가 있다면 역할 분리 고민 -> generateNumber 분리 하지 않기로 결정 (캡슐화 << 추상 메소드 미구현 에러처리)
