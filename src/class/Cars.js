@@ -1,60 +1,66 @@
 import Car from "./Car";
 
-const CAR_ADVANCE_MAX_NUMBER = 9;
-
-const CAR_ADVANCE_THRESHOLD_NUMBER = 4;
-
-const DEFAULT_RACING_ROUND_NUMBER = 5;
-
-const defaultAdvanceCondition = () => {
-  return Math.random() * CAR_ADVANCE_MAX_NUMBER >= CAR_ADVANCE_THRESHOLD_NUMBER;
-};
-
 export default class Cars {
-  cars;
-  advanceCondition;
-  roundNumber;
+  static ERROR_MESSAGES = Object.freeze({
+    DUPLICATE_CAR_NAME: "자동차 이름은 중복될 수 없습니다.",
+  });
 
-  constructor(advanceCondition = defaultAdvanceCondition) {
-    this.cars = [];
-    this.advanceCondition = advanceCondition;
-    this.roundNumber = DEFAULT_RACING_ROUND_NUMBER;
+  #cars = [];
+
+  constructor(names) {
+    if (Array.isArray(names)) {
+      this.addCars(names);
+    }
   }
 
-  addCar(name) {
-    const car = new Car(name, this.advanceCondition);
-
-    this.cars.push(car);
-  }
-
-  getAllCarStatus() {
-    return this.cars.map((car) => ({
-      name: car.getName(),
-      distance: car.getDistance(),
+  get allStatus() {
+    return this.#cars.map((car) => ({
+      name: car.name,
+      distance: car.distance,
     }));
   }
 
-  executeOneRound() {
-    this.cars.forEach((car) => car.advance());
+  get carNames() {
+    return this.#cars.map((car) => car.name);
   }
 
-  executeMultipleRounds(afterRoundAction) {
-    Array.from({ length: this.roundNumber }, () => {
-      this.executeOneRound();
+  #validateCarNames = (newCars) => {
+    const carNamesSet = new Set(this.carNames);
 
-      afterRoundAction(this.getAllCarStatus());
+    newCars.forEach((newCar) => {
+      if (carNamesSet.has(newCar)) {
+        throw new Error(Cars.ERROR_MESSAGES.DUPLICATE_CAR_NAME);
+      }
+    });
+  };
+
+  addCar(name) {
+    this.#validateCarNames([name]);
+
+    const car = new Car(name);
+
+    this.#cars.push(car);
+  }
+
+  addCars(names) {
+    this.#validateCarNames(names, this.carNames);
+
+    names.forEach((car) => this.addCar(car));
+  }
+
+  advanceCars(callback) {
+    this.#cars.forEach((car) => {
+      if (callback(car)) {
+        car.advance();
+      }
     });
   }
 
-  getWinners() {
-    const maxDistance = Math.max(...this.cars.map((car) => car.getDistance()));
+  get winners() {
+    const maxDistance = Math.max(...this.#cars.map((car) => car.distance));
 
-    return this.cars
-      .filter((car) => car.getDistance() === maxDistance)
-      .map((car) => car.getName());
-  }
-
-  setRoundNumber(number) {
-    this.roundNumber = number;
+    return this.#cars
+      .filter((car) => car.distance === maxDistance)
+      .map((car) => car.name);
   }
 }
