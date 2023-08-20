@@ -29,7 +29,7 @@ describe("CarModel", () => {
     expect(car.movement).toBe(1);
   });
 
-  test(`주어진 숫자가 ${CONDITIONS.CAR_CAN_MOVE_NUMBER}  미만일 경우 전진하지않는다.`, () => {
+  test(`주어진 숫자가 ${CONDITIONS.CAR_CAN_MOVE_NUMBER} 미만일 경우 전진하지않는다.`, () => {
     const car = new CarModel(DEFAULT_NAME);
 
     [0, 1, 2, 3].forEach(car.go);

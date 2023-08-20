@@ -1,80 +1,36 @@
-import { INTERVAL_ROUND_TIME, NAME_SEPARATOR } from "../constants/constants.js";
-import CarModel from "../model/CarModel.js";
 import GameModel from "../model/GameModel.js";
-import { getRandomNumberInRange } from "../utils/utils.js";
 import View from "../view/View.js";
 
 export default class CarRacingManager {
-  #gameModel = new GameModel();
+  #gameModel = new GameModel("ddddd,dddd", 4);
 
   #view = View;
 
   async run() {
     await this.settingGame();
-    await this.playGame();
+    this.playGame();
     this.endGame();
   }
 
   async settingGame() {
     await this.retryUntilSuccess(async () => {
-      this.setParticipants(await this.#view.askNames());
+      this.#gameModel.participants = await this.#view.askNames();
     });
 
     await this.retryUntilSuccess(async () => {
-      this.setTotalRound(await this.#view.askTotalRound());
+      this.#gameModel.totalRound = await this.#view.askTotalRound();
     });
   }
 
-  async playGame() {
+  playGame() {
     this.#view.printGameStartMessage();
-    await this.roundInterval();
-    this.#view.printWinnerMessage(this.getWinnersName());
+    this.#gameModel.play();
+    this.#view.printResult(this.#gameModel);
   }
 
   endGame() {
     this.#view.printGameEndMessage();
     this.#view.end();
-  }
-
-  roundInterval() {
-    return new Promise(resolve => {
-      const interval = setInterval(() => {
-        this.#gameModel.incrementRound();
-        if (this.#gameModel.currentRound > this.#gameModel.totalRound) {
-          clearInterval(interval);
-          resolve();
-          return;
-        }
-
-        this.roundStart();
-        this.#view.printPerRoundEnd();
-      }, INTERVAL_ROUND_TIME);
-    });
-  }
-
-  roundStart() {
-    this.#gameModel.participants.forEach(car => {
-      car.go(getRandomNumberInRange());
-      this.#view.printCarAndMove(car.name, car.movement);
-    });
-  }
-
-  getParticipantsName() {
-    return this.#gameModel.participants.map(v => v.name);
-  }
-
-  getWinnersName(winners = this.#gameModel.winners) {
-    return winners.map(winner => winner.name).join(NAME_SEPARATOR);
-  }
-
-  setParticipants(names) {
-    this.#gameModel.participants = names
-      .split(NAME_SEPARATOR)
-      .map(name => new CarModel(name.trim()));
-  }
-
-  setTotalRound(totalRound) {
-    this.#gameModel.totalRound = totalRound;
   }
 
   async retryUntilSuccess(callback) {

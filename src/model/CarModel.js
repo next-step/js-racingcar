@@ -9,6 +9,16 @@ export default class CarModel {
     this.name = name;
   }
 
+  go(number) {
+    if (CONDITIONS.CAR_CAN_MOVE_NUMBER <= number) {
+      this.#movement += 1;
+    }
+  }
+
+  getInfo() {
+    return { name: this.#name, movement: this.#movement };
+  }
+
   get name() {
     return this.#name;
   }
@@ -21,12 +31,6 @@ export default class CarModel {
 
   get movement() {
     return this.#movement;
-  }
-
-  go(number) {
-    if (CONDITIONS.CAR_CAN_MOVE_NUMBER <= number) {
-      this.#movement += 1;
-    }
   }
 
   static #validateName(name) {

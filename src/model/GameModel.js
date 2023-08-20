@@ -1,38 +1,62 @@
-import { CONDITIONS, ERROR_MESSAGES } from "../constants/constants.js";
-import { getIndexesOfMaxValue } from "../utils/utils.js";
+import {
+  CONDITIONS,
+  ERROR_MESSAGES,
+  NAME_SEPARATOR,
+} from "../constants/constants.js";
 import CarModel from "./CarModel.js";
+import {
+  getIndexesOfMaxValue,
+  getRandomNumberInRange,
+} from "../utils/utils.js";
 
 export default class GameModel {
-  #currentRound = 0;
+  #currentRound = 1;
 
   #totalRound;
 
   #participants = [];
 
+  #records = [];
+
+  constructor(names, totalRound) {
+    this.participants = names;
+    this.totalRound = totalRound;
+  }
+
+  play() {
+    for (let i = this.#currentRound; i <= this.#totalRound; i += 1) {
+      this.#currentRound = i;
+      this.#participants.forEach(car => {
+        car.go(getRandomNumberInRange());
+      });
+      this.#records.push(this.#participants.map(car => car.getInfo()));
+    }
+  }
+
   get participants() {
     return this.#participants;
   }
 
-  set participants(cars) {
-    GameModel.#validateParticipants(cars);
-    this.#participants = cars;
+  set participants(names) {
+    const participants = names
+      .split(NAME_SEPARATOR)
+      .map(name => new CarModel(name.trim()));
+
+    GameModel.#validateParticipants(participants);
+    this.#participants = participants;
+  }
+
+  set totalRound(totalRound) {
+    GameModel.#validateTotalRound(totalRound);
+    this.#totalRound = totalRound;
   }
 
   get currentRound() {
     return this.#currentRound;
   }
 
-  incrementRound() {
-    this.#currentRound += 1;
-  }
-
-  get totalRound() {
-    return this.#totalRound;
-  }
-
-  set totalRound(totalRound) {
-    GameModel.#validateTotalRound(totalRound);
-    this.#totalRound = totalRound;
+  get records() {
+    return this.#records;
   }
 
   get winners() {

@@ -23,6 +23,7 @@ export const GAME_MESSAGES = {
 };
 
 export const ERROR_MESSAGES = {
+  PREFIX: "[ERROR]: ",
   WHITE_CAR_NAME: "이름을 입력해주세요.",
   OVER_MAXIMUM_CAR_NAME_LENGTH: `이름은 ${CONDITIONS.CAR_MAX_NAME_LENGTH}자 이하만 가능합니다.`,
   INVALID_PARTICIPANTS_TYPE: "참여자는 자동차만 등록할 수 있습니다.",
