@@ -45,4 +45,33 @@ describe("GameModel", () => {
 
     expect(game.currentRound).toBe(DEFAULT_TOTAL_ROUND);
   });
+
+  test("이동거리가 가장 큰 사랑이 우승자가 된다.", () => {
+    const records = [
+      [
+        { name: "뽀로로", movement: 4 },
+        { name: "루피", movement: 2 },
+        { name: "크롱", movement: 2 },
+      ],
+    ];
+    const game = new GameModel(DEFAULT_NAMES, DEFAULT_TOTAL_ROUND, records);
+
+    expect(game.winners).toEqual([{ name: "뽀로로", movement: 4 }]);
+  });
+
+  test("가장 큰 이동거리를 가진 사람이 복수일 경우, 모두 우승자가 된다.", () => {
+    const records = [
+      [
+        { name: "뽀로로", movement: 4 },
+        { name: "루피", movement: 2 },
+        { name: "크롱", movement: 4 },
+      ],
+    ];
+    const game = new GameModel(DEFAULT_NAMES, DEFAULT_TOTAL_ROUND, records);
+
+    expect(game.winners).toEqual([
+      { name: "뽀로로", movement: 4 },
+      { name: "크롱", movement: 4 },
+    ]);
+  });
 });

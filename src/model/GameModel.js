@@ -15,9 +15,10 @@ export default class GameModel {
 
   #records = [];
 
-  constructor(names, totalRound) {
+  constructor(names, totalRound, records = []) {
     this.participants = names;
     this.totalRound = totalRound;
+    this.#records = records;
   }
 
   play() {
