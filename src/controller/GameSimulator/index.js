@@ -1,5 +1,5 @@
-import Car from '../Car/index.js';
-import RacingGame from '../RacingGame/index.js';
+import Car from '../../domain/Car/index.js';
+import RacingGame from '../../domain/RacingGame/index.js';
 
 class GameSimulator {
   #racingGame;
@@ -7,12 +7,10 @@ class GameSimulator {
   #gameInput;
   #carNames;
   #maxRounds;
-  checkCanMoveForward;
 
-  constructor(gameViewer, gameInput, checkCanMoveForward) {
+  constructor(gameViewer, gameInput) {
     this.#gameViewer = gameViewer;
     this.#gameInput = gameInput;
-    this.checkCanMoveForward = checkCanMoveForward;
   }
 
   async setRacingGame() {
@@ -24,10 +22,7 @@ class GameSimulator {
       await this.setMaxRounds();
     }
 
-    this.#racingGame = new RacingGame(
-      this.#carNames.map(Car.of),
-      this.#maxRounds
-    );
+    this.#racingGame = new RacingGame(this.#carNames, this.#maxRounds);
   }
 
   async setCarNames() {
@@ -40,38 +35,46 @@ class GameSimulator {
     this.#maxRounds = await this.#gameInput.getMaxRounsByInput();
   }
 
-  async startGame() {
+  async startGame(checkCanMoveForward) {
     try {
       await this.setRacingGame();
 
-      this.#racingGame.startRace({
-        checkCanMoveForward: this.checkCanMoveForward,
-      });
+      this.#racingGame.startRace(checkCanMoveForward);
       this.#gameViewer.printRecords(this.#racingGame.records);
       this.#gameViewer.printWinningCars(this.#racingGame.winningCars);
     } catch (error) {
-      this.handleError(error.message);
+      this.handleError(error.message, checkCanMoveForward);
     }
   }
 
-  handleError(errorMessage) {
+  restartGame(checkCanMoveForward) {
+    this.#gameViewer.printRestart();
+    this.startGame(checkCanMoveForward);
+  }
+
+  restartGameFromCarNames(checkCanMoveForward) {
+    this.#carNames = null;
+    this.#maxRounds = null;
+    this.restartGame(checkCanMoveForward);
+  }
+
+  restartGameFromMaxRounds(checkCanMoveForward) {
+    this.#maxRounds = null;
+    this.restartGame(checkCanMoveForward);
+  }
+
+  handleError(errorMessage, checkCanMoveForward) {
     this.#gameViewer.printErrorMessage(errorMessage);
 
     switch (errorMessage) {
+      case Car.NAME_ERROR_MESSAGE.NOT_STRING:
       case Car.NAME_ERROR_MESSAGE.LESS_THAN_MIN:
       case Car.NAME_ERROR_MESSAGE.OVER_THAN_MAX:
-        this.#carNames = null;
-        this.#maxRounds = null;
-
-        this.#gameViewer.printRestart();
-        this.startGame();
+        this.restartGameFromCarNames(checkCanMoveForward);
 
         break;
       case RacingGame.ERROR_MESSAGE.INVALID_MAX_ROUNDS:
-        this.#maxRounds = null;
-
-        this.#gameViewer.printRestart();
-        this.startGame();
+        this.restartGameFromMaxRounds(checkCanMoveForward);
 
         break;
     }

@@ -1,4 +1,4 @@
-import { getRandomInRange } from '../utils/getRandomInRange.js';
+import { getRandomInRange } from '../../utils/getRandomInRange.js';
 
 /**
  * 전진 조건.

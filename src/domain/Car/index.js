@@ -5,6 +5,7 @@ class Car {
   };
 
   static NAME_ERROR_MESSAGE = {
+    NOT_STRING: '자동차 이름은 문자열이여야 합니다.',
     LESS_THAN_MIN: `자동차 이름은 최소 ${Car.NAME_LENGTH.MIN}글자 이상 입니다.`,
     OVER_THAN_MAX: `자동차 이름은 최대 ${Car.NAME_LENGTH.MAX}글자 입니다.`,
   };
@@ -23,6 +24,10 @@ class Car {
   }
 
   validateName(name) {
+    if (typeof name !== 'string') {
+      throw new Error(Car.NAME_ERROR_MESSAGE.NOT_STRING);
+    }
+
     if (name.length < Car.NAME_LENGTH.MIN) {
       throw new Error(Car.NAME_ERROR_MESSAGE.LESS_THAN_MIN);
     }
@@ -38,6 +43,10 @@ class Car {
 
   get distanceDriven() {
     return this.#distanceDriven;
+  }
+
+  get record() {
+    return { name: this.#name, distanceDriven: this.#distanceDriven };
   }
 
   moveForward() {
