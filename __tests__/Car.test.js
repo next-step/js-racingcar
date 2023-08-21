@@ -1,4 +1,7 @@
-import { InputCarNames, Car } from "../src";
+import Car from "../src/Car";
+import InputCarNames from "../src/InputCarNames";
+import PrintRoundResult from "../src/PrintRoundResult";
+import RacingGame from "../src/RacingGame";
 
 describe("자동차 이름을 입력받기", () => {
   test("사용자로부터 자동차 이름을 입력받는다.", () => {
@@ -78,9 +81,31 @@ describe("자동차 1대로 경주 진행", () => {
 
   test("생성된 값이 4 이상인 자동차만 전진.", () => {
     const carObject = new Car("jy");
-    const randomNumber = carObject.getRandomNumber();
-    if (randomNumber >= 4) expect(carObject.getPosition()).toBe(1);
+    const spyFn = jest
+      .spyOn(carObject, "getRandomNumber")
+      .mockImplementationOnce(() => 3)
+      .mockImplementationOnce(() => 4);
+
+    carObject.runRound();
+
+    expect(spyFn).toBeCalledTimes(1);
+    expect(carObject.getPosition()).toBe(0);
+
+    carObject.runRound();
+
+    expect(spyFn).toBeCalledTimes(2);
+    expect(carObject.getPosition()).toBe(1);
+
+    spyFn.mockRestore();
   });
 
-  //   test("경주를 5회로 고정하여 진행")
+  test("경주를 5회로 고정하여 진행", () => {
+    const carObject = new Car("jy");
+    const spyFn = jest.spyOn(carObject, "runRound");
+
+    RacingGame([carObject]);
+
+    expect(spyFn).toBeCalledTimes(5);
+    spyFn.mockRestore();
+  });
 });
