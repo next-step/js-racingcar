@@ -2,7 +2,7 @@ import GameModel from "../model/GameModel.js";
 import View from "../view/View.js";
 
 export default class CarRacingManager {
-  #gameModel = new GameModel("ddddd,dddd", 4);
+  #gameModel;
 
   #view = View;
 
@@ -13,13 +13,18 @@ export default class CarRacingManager {
   }
 
   async settingGame() {
+    let names;
+    let totalRound;
     await this.retryUntilSuccess(async () => {
-      this.#gameModel.participants = await this.#view.askNames();
+      names = await this.#view.askNames();
+      GameModel.validateParticipants(GameModel.participantsMapFrom(names));
     });
 
     await this.retryUntilSuccess(async () => {
-      this.#gameModel.totalRound = await this.#view.askTotalRound();
+      totalRound = await this.#view.askTotalRound();
+      GameModel.validateTotalRound(totalRound);
     });
+    this.#gameModel = new GameModel(names, totalRound);
   }
 
   async playGame() {

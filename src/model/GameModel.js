@@ -16,7 +16,7 @@ export default class GameModel {
   #records = [];
 
   constructor(names, totalRound, records = []) {
-    this.participants = names;
+    this.participants = GameModel.participantsMapFrom(names);
     this.totalRound = totalRound;
     this.#records = records;
   }
@@ -35,13 +35,13 @@ export default class GameModel {
     return this.#participants;
   }
 
-  set participants(names) {
-    const participants = names
-      .split(NAME_SEPARATOR)
-      .map(name => new CarModel(name.trim()));
+  set participants(cars) {
+    GameModel.validateParticipants(cars);
+    this.#participants = cars;
+  }
 
-    GameModel.#validateParticipants(participants);
-    this.#participants = participants;
+  static participantsMapFrom(names) {
+    return names.split(NAME_SEPARATOR).map(name => new CarModel(name.trim()));
   }
 
   get totalRound() {
@@ -50,7 +50,7 @@ export default class GameModel {
 
   set totalRound(aTotalRound) {
     const totalRound = Number(aTotalRound);
-    GameModel.#validateTotalRound(totalRound);
+    GameModel.validateTotalRound(totalRound);
     this.#totalRound = totalRound;
   }
 
@@ -68,7 +68,7 @@ export default class GameModel {
     return lastRecord.filter(car => maxMovement === car.movement);
   }
 
-  static #validateParticipants(cars) {
+  static validateParticipants(cars) {
     if (!Array.isArray(cars) || !cars.every(car => car instanceof CarModel)) {
       throw new Error(ERROR_MESSAGES.INVALID_PARTICIPANTS_TYPE);
     }
@@ -82,7 +82,7 @@ export default class GameModel {
     }
   }
 
-  static #validateTotalRound(totalRound) {
+  static validateTotalRound(totalRound) {
     if (!totalRound) {
       throw new Error(ERROR_MESSAGES.WHITE_TOTAL_ROUND);
     }
