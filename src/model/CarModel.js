@@ -10,7 +10,7 @@ export default class CarModel {
   }
 
   go(number) {
-    if (CONDITIONS.CAR_CAN_MOVE_NUMBER <= number) {
+    if (CONDITIONS.CAR_MOVE_THRESHOLD <= number) {
       this.#movement += 1;
     }
   }
@@ -34,7 +34,7 @@ export default class CarModel {
   }
 
   static #validateName(name) {
-    if (name.length > CONDITIONS.CAR_MAX_NAME_LENGTH) {
+    if (name.length > CONDITIONS.MAX_CAR_NAME_LENGTH) {
       throw new Error(ERROR_MESSAGES.OVER_MAXIMUM_CAR_NAME_LENGTH);
     }
 

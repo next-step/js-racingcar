@@ -73,7 +73,10 @@ export default class GameModel {
       throw new Error(ERROR_MESSAGES.INVALID_PARTICIPANTS_TYPE);
     }
 
-    if (cars.length < CONDITIONS.GAME_MIN_PARTICIPANTS_NUMBER) {
+    if (
+      cars.length < CONDITIONS.MIN_GAME_PARTICIPANTS ||
+      cars.length > CONDITIONS.MAX_GAME_PARTICIPANTS
+    ) {
       throw new Error(ERROR_MESSAGES.INVALID_PARTICIPANTS_LENGTH);
     }
 
@@ -91,8 +94,8 @@ export default class GameModel {
       throw new Error(ERROR_MESSAGES.INVALID_TOTAL_ROUND_TYPE);
     }
     if (
-      numberTotalRound < CONDITIONS.GAME_MIN_TOTAL_ROUND_NUMBER ||
-      CONDITIONS.GAME_MAX_TOTAL_ROUND_NUMBER < numberTotalRound
+      numberTotalRound < CONDITIONS.MIN_GAME_TOTAL_ROUND ||
+      CONDITIONS.MAX_GAME_TOTAL_ROUND < numberTotalRound
     ) {
       throw new Error(ERROR_MESSAGES.INVALID_TOTAL_ROUND_SIZE);
     }

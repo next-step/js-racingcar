@@ -44,24 +44,16 @@ describe("GameModel", () => {
     });
 
     describe("전체라운드 설정", () => {
-      test(`전체라운드는 ${CONDITIONS.GAME_MIN_TOTAL_ROUND_NUMBER}~${CONDITIONS.GAME_MAX_TOTAL_ROUND_NUMBER}를 가진다`, () => {
-        expect(
-          setTotalRound(CONDITIONS.GAME_MIN_TOTAL_ROUND_NUMBER),
-        ).not.toThrow();
-        expect(
-          setTotalRound(CONDITIONS.GAME_MAX_TOTAL_ROUND_NUMBER),
-        ).not.toThrow();
+      test(`전체라운드는 ${CONDITIONS.MIN_GAME_TOTAL_ROUND}~${CONDITIONS.MAX_GAME_TOTAL_ROUND}를 가진다`, () => {
+        expect(setTotalRound(CONDITIONS.MIN_GAME_TOTAL_ROUND)).not.toThrow();
+        expect(setTotalRound(CONDITIONS.MAX_GAME_TOTAL_ROUND)).not.toThrow();
       });
     });
 
     describe("전체라운드 설정 예외처리", () => {
-      test(`전체라운드가 ${CONDITIONS.GAME_MIN_TOTAL_ROUND_NUMBER}~${CONDITIONS.GAME_MAX_TOTAL_ROUND_NUMBER}을 만족하지 못하면 에러를 던진다`, () => {
-        expect(
-          setTotalRound(CONDITIONS.GAME_MIN_TOTAL_ROUND_NUMBER - 1),
-        ).toThrow();
-        expect(
-          setTotalRound(CONDITIONS.GAME_MAX_TOTAL_ROUND_NUMBER + 1),
-        ).toThrow();
+      test(`전체라운드가 ${CONDITIONS.MIN_GAME_TOTAL_ROUND}~${CONDITIONS.MAX_GAME_TOTAL_ROUND}을 만족하지 못하면 에러를 던진다`, () => {
+        expect(setTotalRound(CONDITIONS.MIN_GAME_TOTAL_ROUND - 1)).toThrow();
+        expect(setTotalRound(CONDITIONS.MAX_GAME_TOTAL_ROUND + 1)).toThrow();
       });
     });
   });
