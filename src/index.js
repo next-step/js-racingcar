@@ -1,3 +1,3 @@
-import RacingGame from './domain/RacingGame';
+import RacingGame from './RacingGame';
 
 new RacingGame();

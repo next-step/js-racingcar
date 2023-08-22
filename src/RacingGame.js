@@ -1,6 +1,6 @@
-import View from '../view/View';
-import CarRace from './CarRace';
-import Car from './car';
+import View from './view/View';
+import CarRace from './domain/CarRace';
+import Car from './domain/car';
 
 export default class RacingGame {
   #race;
