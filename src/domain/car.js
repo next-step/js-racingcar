@@ -1,7 +1,10 @@
-import { CAR_MOVE_POSSIBLE_NUMBER, CAR_NAME_LENGTH_LIMIT } from '../constants';
+import { ERROR_MESSAGE } from '../constants/errorMessage';
+import {
+  CAR_MOVE_POSSIBLE_NUMBER,
+  CAR_NAME_LENGTH_LIMIT,
+} from '../constants/race-rule';
 import { getRandomInt, isMoreThanNumber } from '../utils/common';
 import { validateEmptyString, validateOverStringLength } from '../validation';
-import { ERROR_MESSAGE } from '../validation/errorMessage';
 
 export default class Car {
   #name;

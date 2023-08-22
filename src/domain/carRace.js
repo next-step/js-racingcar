@@ -1,12 +1,11 @@
-import { CAR_RACE_LAP_LIMIT } from '../constants';
+import { ERROR_MESSAGE } from '../constants/errorMessage';
 import { getStringFromArray } from '../utils/common';
-import { ERROR_MESSAGE } from '../validation/errorMessage';
-import CarRaceView from '../view/carView';
+import CarRaceView from '../view/View';
+import Car from './car';
 
 export default class CarRace {
   #participants;
   #winners;
-  #isRaceStarted = false;
   #lapCount = 0;
 
   constructor(participants) {
@@ -22,7 +21,7 @@ export default class CarRace {
   }
 
   get winners() {
-    if (!this.#participants || !this.#isRaceStarted) {
+    if (!this.#participants || !this.isRaceStart()) {
       return;
     }
 
@@ -50,11 +49,7 @@ export default class CarRace {
       throw new Error(ERROR_MESSAGE.CAR_RACE_LAP_COUNT);
     }
 
-    this.#lapCount = Math.round(Number.parseInt(lapCount));
-  }
-
-  set isRaceStarted(isRaceStarted) {
-    this.#isRaceStarted = isRaceStarted;
+    this.#lapCount = Math.round(parseInt(lapCount, 10));
   }
 
   getCarNames(cars) {
@@ -63,5 +58,27 @@ export default class CarRace {
     }
     const names = cars.map((car) => car.name);
     return getStringFromArray(names);
+  }
+
+  isRaceStart() {
+    let result = false;
+
+    for (const participant of this.#participants) {
+      if (participant.distance > 0) {
+        result = true;
+        break;
+      }
+    }
+
+    return result;
+  }
+
+  addParticipants(newParticipants) {
+    if (!this.#participants) {
+      this.#participants = newParticipants;
+      return;
+    }
+
+    this.#participants = [...this.#participants, newParticipants];
   }
 }
