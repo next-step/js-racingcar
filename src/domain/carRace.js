@@ -1,7 +1,5 @@
 import { ERROR_MESSAGE } from '../constants/errorMessage';
 import { getStringFromArray } from '../utils/common';
-import CarRaceView from '../view/View';
-import Car from './car';
 
 export default class CarRace {
   #participants;
