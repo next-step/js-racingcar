@@ -1,3 +1,4 @@
-import GameController from "./Controller/GameController";
+import { createGameController } from "./GameController";
 
-new GameController();
+const { initiate } = createGameController();
+initiate();
