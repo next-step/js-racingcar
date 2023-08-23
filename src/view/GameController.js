@@ -1,13 +1,12 @@
 import RacingGame from '../domain/RacingGame';
-import { input } from '../utils/console';
-import { RacingCameView } from './RacingGameVIew';
+import { RacingGameView } from './RacingGameVIew';
 
 export class GameController {
   #racingGame;
   #racingGameView;
 
   constructor() {
-    this.#racingGameView = new RacingCameView();
+    this.#racingGameView = new RacingGameView();
   }
 
   async start() {
