@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../src/constants/errorMessage';
-import Car from '../src/domain/car';
+import Car from '../src/domain/Car';
 import CarRace from '../src/domain/CarRace';
 
 describe('CarRace', () => {
