@@ -25,6 +25,7 @@ describe("자동차 경주", () => {
       const race = new Race();
       expect(race.totalMatches).toBe(NUMBER_OF_MATCHES);
     });
+
     test("자동차를 등록할 수 있다.", () => {
       const race = new Race();
       const names = "pobi,crong,honux";
@@ -34,8 +35,32 @@ describe("자동차 경주", () => {
 
       expect(carNames).toBe(names);
     });
-    test("자동차가 전진하는 조건은 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다.", () => {});
-    test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.", () => {});
+
+    test("자동차가 전진하는 조건은 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다.", () => {
+      const race = new Race();
+      const car = new Car("pobi");
+      const spy = jest.spyOn(race, "checkMove");
+      spy.mockReturnValue(true);
+      race.doMove(car);
+      expect(car.position).toBe(1);
+    });
+
+    test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.", () => {
+      const race = new Race();
+      const names = "pobi,crong,honux";
+
+      const nameArray = names.split(",");
+
+      const spy = jest.spyOn(race, "checkMove");
+      spy.mockReturnValue(true);
+
+      race.setCars(...nameArray);
+      race.startRound();
+      race.startRound();
+      race.startRound();
+      const result = race.getResult();
+      expect(result).toStrictEqual(nameArray);
+    });
   });
 
   test("랜덤 함수는 지정된 범위 내의 숫자만 반환한다.", () => {

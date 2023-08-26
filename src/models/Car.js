@@ -14,6 +14,10 @@ class Car {
       throw new Error(ERROR_MESSAGE.EXCEED_MAXIMUM_NAME_LENGTH);
     }
   }
+
+  move() {
+    this.position += 1;
+  }
 }
 
 export default Car;
