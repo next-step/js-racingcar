@@ -1,10 +1,14 @@
-import RacingCar from '../src/racing-car.js';
-import Racer from '../src/racer.js';
+import RacingCar from '../src/domain/racing-car.js';
+import Racer from '../src/domain/racer.js';
+import UserIO from '../src/view/user-io.js';
 import { getRandomNumber } from '../src/utils/common.util.js';
 import {
   ERROR_EXIT_MESSAGE,
   ERROR_WRONG_INPUT_MESSAGE,
 } from '../src/constants/error.const.js';
+import { readline } from '../src/utils/readline.util.js';
+
+const userIO = new UserIO(readline);
 
 const racingCar = new RacingCar();
 const racer = new Racer();
@@ -84,7 +88,7 @@ describe('Racing Car Game', () => {
       { name: 'honux', state: '-' },
     ];
     racingCar.race(racers);
-    racingCar.printWinners();
+    userIO.outputWinners(racingCar.getWinners());
 
     expect(racingCar.winners.length > 0).toBe(true);
   });
@@ -99,7 +103,7 @@ describe('Racing Car Game', () => {
       { name: 'honux', state: '-' },
     ];
     racingCar.race(racers);
-    racingCar.printWinners();
+    userIO.outputWinners(racingCar.getWinners());
 
     if (racingCar.winners.length > 1) {
       expect(racingCar.getWinners()).toMatch(/,/);
@@ -112,7 +116,7 @@ describe('Racing Car Game', () => {
 
     const testInput = () => {
       if (!racingCar.validateCarNamesInput('pobi,crong,honuasdfx')) {
-        racingCar.exit();
+        userIO.exit();
       }
     };
 
