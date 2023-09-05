@@ -1,16 +1,6 @@
-import {
-  ERROR_EXIT_MESSAGE,
-  ERROR_WRONG_INPUT_MESSAGE,
-} from './constants/error.const.js';
-import {
-  PRINT_RESULT,
-  QUESTION_CAR_NAMES,
-  QUESTION_COUNT,
-} from './constants/race.const.js';
-import { REGEX_PUNCTUAL_CHARACTERS } from './constants/regex.const.js';
+import { REGEX_PUNCTUAL_CHARACTERS } from '../constants/regex.const.js';
 import Racer from './racer.js';
-import { print } from './utils/common.util.js';
-import { readline } from './utils/readline.util.js';
+import { print } from '../utils/common.util.js';
 
 const racer = new Racer();
 
@@ -29,33 +19,6 @@ class RacingCar {
     this.count = 0;
     this.racers = [];
     this.winners = [];
-  }
-
-  start() {
-    readline.question(QUESTION_CAR_NAMES, (names) => {
-      if (!this.validateCarNamesInput(names)) {
-        this.printWrongInput();
-        return this.start();
-      }
-
-      readline.question(QUESTION_COUNT, (count) => {
-        if (!this.validateCountInput(count)) {
-          this.printWrongInput();
-          return this.start();
-        }
-
-        this.setCount(count);
-
-        this.printTitle();
-
-        this.setRacers(names);
-
-        this.race(this.racers);
-        this.printWinners();
-
-        readline.close();
-      });
-    });
   }
 
   validateCarNamesInput(names) {
@@ -134,25 +97,6 @@ class RacingCar {
 
   getWinners() {
     return this.winners.join(', ');
-  }
-
-  printTitle() {
-    print('');
-    print(PRINT_RESULT);
-  }
-
-  printWinners() {
-    print(`${this.winners.join(', ')}가 최종 우승했습니다.`);
-  }
-
-  printWrongInput() {
-    print('');
-    print(ERROR_WRONG_INPUT_MESSAGE);
-    print('');
-  }
-
-  exit() {
-    throw new Error(ERROR_EXIT_MESSAGE);
   }
 }
 

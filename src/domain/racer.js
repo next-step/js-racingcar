@@ -1,4 +1,4 @@
-import { getRandomNumber, print } from './utils/common.util.js';
+import { getRandomNumber, print } from '../utils/common.util.js';
 
 class Racer {
   #MIN_RANDOM_NUMBER = 0;
