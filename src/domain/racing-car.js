@@ -56,9 +56,9 @@ class RacingCar {
   }
 
   validateCountInput(count) {
-    const isValidated = !Number.isNaN(parseInt(count));
+    const isNumber = !Number.isNaN(parseInt(count));
 
-    return isValidated;
+    return isNumber;
   }
 
   race(racers) {
