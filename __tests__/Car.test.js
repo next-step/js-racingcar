@@ -30,11 +30,7 @@ describe('Racing Car Game', () => {
   it('Race Loop times 5 -> true', () => {
     initialize();
 
-    const racers = [
-      { name: 'pobi', state: '-' },
-      { name: 'crong', state: '-' },
-      { name: 'honux', state: '-' },
-    ];
+    const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
     racingCar.setCount(5);
     racingCar.race(racers);
     expect(racingCar.count).toBe(5);
@@ -46,20 +42,16 @@ describe('Racing Car Game', () => {
 
     initialize();
 
-    const racers = [
-      { name: 'pobi', state: '-' },
-      { name: 'crong', state: '-' },
-      { name: 'honux', state: '-' },
-    ];
+    const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
 
-    racers.forEach(({ name, state }) => {
-      userIO.outputRacingState(name, state);
+    racers.forEach((racer) => {
+      userIO.outputRacingState(racer.name, racer.state);
     });
 
     expect(spyFn).toBeCalledTimes(3);
-    expect(spyFn).toBeCalledWith('pobi', '-');
-    expect(spyFn).toBeCalledWith('crong', '-');
-    expect(spyFn).toBeCalledWith('honux', '-');
+    expect(spyFn).toBeCalledWith('pobi', racers[0].state);
+    expect(spyFn).toBeCalledWith('crong', racers[1].state);
+    expect(spyFn).toBeCalledWith('honux', racers[2].state);
   });
 
   // 전진하는 조건은 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다.
@@ -82,11 +74,7 @@ describe('Racing Car Game', () => {
   it('Print Race Winner Names', () => {
     initialize();
 
-    const racers = [
-      { name: 'pobi', state: '-' },
-      { name: 'crong', state: '-' },
-      { name: 'honux', state: '-' },
-    ];
+    const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
     racingCar.race(racers);
     userIO.outputWinnerNames(racingCar.getWinnerNames());
 
@@ -97,11 +85,7 @@ describe('Racing Car Game', () => {
   it('Race Winner Names', () => {
     initialize();
 
-    const racers = [
-      { name: 'pobi', state: '-' },
-      { name: 'crong', state: '-' },
-      { name: 'honux', state: '-' },
-    ];
+    const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
     racingCar.race(racers);
     userIO.outputWinnerNames(racingCar.getWinnerNames());
 
@@ -149,11 +133,7 @@ describe('Racing Car Game', () => {
   it('Car race within user input count', () => {
     initialize();
 
-    const racers = [
-      { name: 'pobi', state: '-' },
-      { name: 'crong', state: '-' },
-      { name: 'honux', state: '-' },
-    ];
+    const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
     racingCar.setCount(5);
     racingCar.race(racers);
 
