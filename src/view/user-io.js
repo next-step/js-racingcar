@@ -45,10 +45,6 @@ class UserIO {
     print('');
   }
 
-  outputAmount(purchasedLottoCounts) {
-    print(`${purchasedLottoCounts}개를 구매했습니다.`);
-  }
-
   outputErrorMessage(errorMsg) {
     print(errorMsg);
   }
