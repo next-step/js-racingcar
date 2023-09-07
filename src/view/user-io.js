@@ -39,15 +39,6 @@ class UserIO {
     print(PRINT_RESULT);
   }
 
-  outputRacingStates(racers, count) {
-    for (let i = 0; i < count; i += 1) {
-      racers.forEach(({ name, state }) => {
-        this.outputRacingState(name, state);
-      });
-      this.outputEmpty();
-    }
-  }
-
   outputRacingState(name, state) {
     print(`${name} : ${state}`);
   }
