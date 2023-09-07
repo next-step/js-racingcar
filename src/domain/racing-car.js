@@ -8,7 +8,7 @@ class RacingCar {
 
   count;
   racers;
-  winners;
+  winnerNames;
 
   constructor() {
     this.init();
@@ -17,7 +17,7 @@ class RacingCar {
   init() {
     this.count = 0;
     this.racers = [];
-    this.winners = [];
+    this.winnerNames = [];
   }
 
   validateCarNamesInput(names) {
@@ -67,7 +67,7 @@ class RacingCar {
       });
     }
 
-    this.setWinners(racers);
+    this.setWinnerNames(racers);
   }
 
   setCount(count) {
@@ -83,11 +83,11 @@ class RacingCar {
     });
   }
 
-  setWinners(racers) {
+  setWinnerNames(racers) {
     const maxGos = Math.max(...racers.map((racer) => racer.state.length));
     racers.forEach((racer) => {
       if (racer.state.length === maxGos) {
-        this.winners.push(racer.name);
+        this.winnerNames.push(racer.name);
       }
     });
   }
@@ -96,8 +96,8 @@ class RacingCar {
     return this.racers;
   }
 
-  getWinners() {
-    return this.winners.join(', ');
+  getWinnerNames() {
+    return this.winnerNames.join(', ');
   }
 }
 

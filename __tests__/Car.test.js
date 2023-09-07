@@ -79,7 +79,7 @@ describe('Racing Car Game', () => {
   });
 
   // 자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.
-  it('Print Race Winners', () => {
+  it('Print Race Winner Names', () => {
     initialize();
 
     const racers = [
@@ -88,13 +88,13 @@ describe('Racing Car Game', () => {
       { name: 'honux', state: '-' },
     ];
     racingCar.race(racers);
-    userIO.outputWinners(racingCar.getWinners());
+    userIO.outputWinnerNames(racingCar.getWinnerNames());
 
-    expect(racingCar.winners.length > 0).toBe(true);
+    expect(racingCar.winnerNames.length > 0).toBe(true);
   });
 
   // 우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.
-  it('Race Winners', () => {
+  it('Race Winner Names', () => {
     initialize();
 
     const racers = [
@@ -103,10 +103,10 @@ describe('Racing Car Game', () => {
       { name: 'honux', state: '-' },
     ];
     racingCar.race(racers);
-    userIO.outputWinners(racingCar.getWinners());
+    userIO.outputWinnerNames(racingCar.getWinnerNames());
 
-    if (racingCar.winners.length > 1) {
-      expect(racingCar.getWinners()).toMatch(/,/);
+    if (racingCar.winnerNames.length > 1) {
+      expect(racingCar.getWinnerNames()).toMatch(/,/);
     }
   });
 
