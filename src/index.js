@@ -8,35 +8,35 @@ const racingCar = new RacingCar();
 const startRacing = async () => {
   let carNames = [];
 
-  await userIO.inputCarNames().then((names) => {
-    if (!racingCar.validateCarNamesInput(names)) {
-      userIO.outputWrongInput();
-      return startRacing();
-    }
+  const names = await userIO.inputCarNames();
 
-    carNames = names;
-  });
+  if (!racingCar.validateCarNamesInput(names)) {
+    userIO.outputWrongInput();
+    return startRacing();
+  }
 
-  await userIO.inputCount().then((count) => {
-    if (!racingCar.validateCountInput(count)) {
-      userIO.outputWrongInput();
-      return startRacing();
-    }
+  carNames = names;
 
-    racingCar.setCount(count);
+  const count = await userIO.inputCount();
 
-    userIO.outputTitle();
+  if (!racingCar.validateCountInput(count)) {
+    userIO.outputWrongInput();
+    return startRacing();
+  }
 
-    racingCar.setRacers(carNames);
+  racingCar.setCount(count);
 
-    racingCar.race(racingCar.racers);
+  userIO.outputTitle();
 
-    userIO.outputRacingStates(racingCar.getRacers(), racingCar.count);
+  racingCar.setRacers(carNames);
 
-    userIO.outputWinnerNames(racingCar.getWinnerNames());
+  racingCar.race(racingCar.racers);
 
-    userIO.close();
-  });
+  userIO.outputRacingStates(racingCar.getRacers(), racingCar.count);
+
+  userIO.outputWinnerNames(racingCar.getWinnerNames());
+
+  userIO.close();
 };
 
 startRacing();
