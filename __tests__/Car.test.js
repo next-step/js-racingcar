@@ -42,7 +42,7 @@ describe('Racing Car Game', () => {
 
   // 자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.
   it('Logging Car name', () => {
-    const spyFn = jest.spyOn(racer, 'printRacingState');
+    const spyFn = jest.spyOn(userIO, 'outputRacingState');
 
     initialize();
 
@@ -53,7 +53,7 @@ describe('Racing Car Game', () => {
     ];
 
     racers.forEach(({ name, state }) => {
-      racer.printRacingState(name, state);
+      userIO.outputRacingState(name, state);
     });
 
     expect(spyFn).toBeCalledTimes(3);

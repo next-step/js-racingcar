@@ -30,9 +30,26 @@ class UserIO {
     });
   }
 
-  outputTitle() {
+  outputEmpty() {
     print('');
+  }
+
+  outputTitle() {
+    this.outputEmpty();
     print(PRINT_RESULT);
+  }
+
+  outputRacingStates(racers, count) {
+    for (let i = 0; i < count; i += 1) {
+      racers.forEach(({ name, state }) => {
+        this.outputRacingState(name, state);
+      });
+      this.outputEmpty();
+    }
+  }
+
+  outputRacingState(name, state) {
+    print(`${name} : ${state}`);
   }
 
   outputWinners(winners) {
@@ -40,9 +57,9 @@ class UserIO {
   }
 
   outputWrongInput() {
-    print('');
+    this.outputEmpty();
     print(ERROR_WRONG_INPUT_MESSAGE);
-    print('');
+    this.outputEmpty();
   }
 
   outputErrorMessage(errorMsg) {

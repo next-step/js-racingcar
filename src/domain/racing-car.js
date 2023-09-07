@@ -1,6 +1,5 @@
 import { REGEX_PUNCTUAL_CHARACTERS } from '../constants/regex.const.js';
 import Racer from './racer.js';
-import { print } from '../utils/common.util.js';
 
 const racer = new Racer();
 
@@ -65,9 +64,7 @@ class RacingCar {
     for (let i = 0; i < this.count; i += 1) {
       racers.forEach((r) => {
         racer.goForward(r);
-        racer.printRacingState(r.name, r.state);
       });
-      print('');
     }
 
     this.setWinners(racers);
@@ -93,6 +90,10 @@ class RacingCar {
         this.winners.push(racer.name);
       }
     });
+  }
+
+  getRacers() {
+    return this.racers;
   }
 
   getWinners() {
