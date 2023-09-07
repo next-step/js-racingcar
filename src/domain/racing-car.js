@@ -1,7 +1,9 @@
 import { REGEX_PUNCTUAL_CHARACTERS } from '../constants/regex.const.js';
+import UserIO from '../view/user-io.js';
 import Racer from './racer.js';
 
 const racer = new Racer();
+const userIO = new UserIO();
 
 class RacingCar {
   #CAR_NAME_LENGTH_LIMIT = 5;
@@ -60,11 +62,13 @@ class RacingCar {
     return isNumber;
   }
 
-  race(racers) {
+  race(racers, hasOutput) {
     for (let i = 0; i < this.count; i += 1) {
       racers.forEach((r) => {
         racer.goForward(r);
+        hasOutput && userIO.outputRacingState(r.name, r.state);
       });
+      hasOutput && userIO.outputEmpty();
     }
 
     this.setWinnerNames(racers);

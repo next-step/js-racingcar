@@ -30,7 +30,7 @@ const startRacing = async () => {
 
   racingCar.setRacers(carNames);
 
-  racingCar.race(racingCar.racers);
+  racingCar.race(racingCar.racers, true);
 
   userIO.outputWinnerNames(racingCar.getWinnerNames());
 
