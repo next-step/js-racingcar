@@ -25,8 +25,8 @@ describe("자동차 경주", () => {
 
   describe("레이싱 객체 생성", () => {
     test("자동차 경주는 5회로 고정하여 진행한다.", () => {
-      const race = new Race();
-      expect(race.totalMatches).toBe(NUMBER_OF_MATCHES);
+      const game = new Game();
+      expect(game.totalMatches).toBe(NUMBER_OF_MATCHES);
     });
 
     test("자동차를 등록할 수 있다.", () => {
