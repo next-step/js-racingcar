@@ -5,11 +5,9 @@ import { ERROR_MESSAGE, NUMBER_OF_MATCHES, ZERO } from "../constants";
 
 export class Game {
   totalMatches;
-  currentMatches;
   race;
   constructor() {
     this.totalMatches = NUMBER_OF_MATCHES;
-    this.currentMatches = ZERO;
     this.race = new Race();
   }
 

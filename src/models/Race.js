@@ -27,7 +27,6 @@ class Race {
   }
 
   startRound() {
-    this.currentMatches += 1;
     this.cars.forEach((car) => this.doMove(car));
     this.print();
   }
