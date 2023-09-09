@@ -79,7 +79,7 @@ describe("자동차 경주", () => {
     const expected = game.race.cars.map((car) => car.name);
     expect(expected).toStrictEqual(nameList);
   });
-  test("자동차 이름은 쉼표(,)를 기준으로 구분한다.", () => {});
+
   test("사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.", () => {});
   test("우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.", () => {});
 });
