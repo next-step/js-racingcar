@@ -42,8 +42,13 @@ export class Game {
   }
 
   printWinners() {
-    const winners = this.getResult().join(", ");
-    console.log(`${winners}가 최종 우승했습니다.`);
+    const result = this.getResult();
+    if (result.length > 0) {
+      const winners = this.getResult().join(", ");
+      console.log(`${winners}가 최종 우승했습니다.`);
+    } else {
+      console.log("우승자가 없습니다.");
+    }
   }
 }
 

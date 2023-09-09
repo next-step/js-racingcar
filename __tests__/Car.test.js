@@ -98,4 +98,13 @@ describe("자동차 경주", () => {
     game.printWinners();
     expect(spyLog).toHaveBeenCalledWith("pobi, honux가 최종 우승했습니다.");
   });
+
+  test("우승자가 없을 경우, 우승자가 없다는 문구를 표시한다.", () => {
+    const game = new Game();
+    const spyLog = jest.spyOn(console, "log");
+    const spyGetResult = jest.spyOn(game, "getResult");
+    spyGetResult.mockReturnValue([]);
+    game.printWinners();
+    expect(spyLog).toHaveBeenCalledWith("우승자가 없습니다.");
+  });
 });
