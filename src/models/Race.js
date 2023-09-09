@@ -1,14 +1,10 @@
-import { NUMBER_OF_MATCHES, RANDOM_RANGE, ZERO } from "../constants";
+import { RANDOM_RANGE } from "../constants";
 import { random } from "../utils/random";
 import Car from "./Car";
 
 class Race {
-  totalMatches;
-  currentMatches;
   cars;
   constructor() {
-    this.totalMatches = NUMBER_OF_MATCHES;
-    this.currentMatches = ZERO;
     this.cars = [];
   }
 
@@ -33,14 +29,7 @@ class Race {
   startRound() {
     this.currentMatches += 1;
     this.cars.forEach((car) => this.doMove(car));
-    // this.print();
-  }
-
-  getResult() {
-    const maxPosition = Math.max(...this.cars.map((car) => car.position));
-    return this.cars
-      .filter((car) => car.position === maxPosition)
-      .map((car) => car.name);
+    this.print();
   }
 
   print() {

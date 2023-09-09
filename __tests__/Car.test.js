@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE, NUMBER_OF_MATCHES } from "../src/constants";
 import Car from "../src/models/Car";
-import { Game } from "../src/models/Game";
+import Game from "../src/models/Game";
 import Race from "../src/models/Race";
 import { random } from "../src/utils/random";
 
@@ -10,11 +10,13 @@ describe("자동차 경주", () => {
       const car = new Car("pobi");
       expect(car.name).toBe("pobi");
     });
+
     test("자동차 이름은 5자 이하만 가능하다.", () => {
       expect(() => {
         const car = new Car("pobicronghonux");
       }).toThrow(ERROR_MESSAGE.EXCEED_MAXIMUM_NAME_LENGTH);
     });
+
     test("자동차의 기본 위치는 0이다.", () => {
       const car = new Car("pobi");
       expect(car.position).toBe(0);
@@ -47,20 +49,18 @@ describe("자동차 경주", () => {
     });
 
     test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.", () => {
-      const race = new Race();
-      const names = "pobi,crong,honux";
+      const game = new Game();
+      const spyGetNames = jest.spyOn(game, "getNames");
 
-      const nameArray = names.split(",");
+      const nameList = ["pobi", "crong", "honux"];
+      spyGetNames.mockReturnValue(nameList);
 
-      const spy = jest.spyOn(race, "checkMove");
-      spy.mockReturnValue(true);
+      const spyCheckMove = jest.spyOn(game.race, "checkMove");
+      spyCheckMove.mockReturnValue(true);
 
-      race.setCars(...nameArray);
-      race.startRound();
-      race.startRound();
-      race.startRound();
-      const result = race.getResult();
-      expect(result).toStrictEqual(nameArray);
+      game.start();
+      const result = game.getResult();
+      expect(result).toStrictEqual(nameList);
     });
   });
 
@@ -80,6 +80,22 @@ describe("자동차 경주", () => {
     expect(expected).toStrictEqual(nameList);
   });
 
-  test("사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.", () => {});
-  test("우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.", () => {});
+  test("사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.", () => {
+    const game = new Game();
+    const spy = jest.spyOn(game, "getNames");
+    const nameList = [];
+    spy.mockReturnValue(nameList);
+    expect(() => {
+      game.start();
+    }).toThrow(ERROR_MESSAGE.LACK_OF_MINIMUM_CARS);
+  });
+
+  test("우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.", () => {
+    const game = new Game();
+    const spyLog = jest.spyOn(console, "log");
+    const spyGetResult = jest.spyOn(game, "getResult");
+    spyGetResult.mockReturnValue(["pobi", "honux"]);
+    game.printWinners();
+    expect(spyLog).toHaveBeenCalledWith("pobi, honux가 최종 우승했습니다.");
+  });
 });
