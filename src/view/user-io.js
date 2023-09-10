@@ -39,7 +39,7 @@ class UserIO {
     print(PRINT_RESULT);
   }
 
-  outputRacingState(name, state) {
+  outputRacingState({ name, state }) {
     print(`${name} : ${state}`);
   }
 

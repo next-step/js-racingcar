@@ -35,7 +35,10 @@ const race = (carNames, count) => {
 
   racingCar.setRacers(carNames);
 
-  racingCar.race(racingCar.racers, true);
+  racingCar.race({
+    onSingleRoundDone: () => userIO.outputEmpty(),
+    onRacerMove: (racer) => userIO.outputRacingState(racer),
+  });
 
   userIO.outputWinnerNames(racingCar.getWinnerNames());
 };

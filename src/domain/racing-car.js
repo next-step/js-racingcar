@@ -61,16 +61,16 @@ class RacingCar {
     return isNumber;
   }
 
-  race(racers, hasOutput) {
+  race({ onSingleRoundDone = () => {}, onRacerMove = () => {} }) {
     for (let i = 0; i < this.count; i += 1) {
-      racers.forEach((racer) => {
+      this.racers.forEach((racer) => {
         racer.goForward();
-        hasOutput && userIO.outputRacingState(racer.name, racer.state);
+        onRacerMove(racer);
       });
-      hasOutput && userIO.outputEmpty();
+      onSingleRoundDone();
     }
 
-    this.setWinnerNames(racers);
+    this.setWinnerNames(this.racers);
   }
 
   setCount(count) {

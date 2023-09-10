@@ -32,6 +32,7 @@ describe('Racing Car Game', () => {
 
     const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
     racingCar.setCount(5);
+    racingCar.setRacers('pobi,crong,honux');
     racingCar.race(racers);
     expect(racingCar.count).toBe(5);
   });
@@ -75,6 +76,7 @@ describe('Racing Car Game', () => {
     initialize();
 
     const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
+    racingCar.setRacers('pobi,crong,honux');
     racingCar.race(racers);
     userIO.outputWinnerNames(racingCar.getWinnerNames());
 
@@ -86,6 +88,7 @@ describe('Racing Car Game', () => {
     initialize();
 
     const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
+    racingCar.setRacers('pobi,crong,honux');
     racingCar.race(racers);
     userIO.outputWinnerNames(racingCar.getWinnerNames());
 
@@ -134,6 +137,7 @@ describe('Racing Car Game', () => {
     initialize();
 
     const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
+    racingCar.setRacers('pobi,crong,honux');
     racingCar.setCount(5);
     racingCar.race(racers);
 
