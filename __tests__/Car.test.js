@@ -1,10 +1,14 @@
-import RacingCar from '../src/racing-car.js';
-import Racer from '../src/racer.js';
+import RacingCar from '../src/domain/racing-car.js';
+import Racer from '../src/domain/racer.js';
+import UserIO from '../src/view/user-io.js';
 import { getRandomNumber } from '../src/utils/common.util.js';
 import {
   ERROR_EXIT_MESSAGE,
   ERROR_WRONG_INPUT_MESSAGE,
 } from '../src/constants/error.const.js';
+import { readline } from '../src/utils/readline.util.js';
+
+const userIO = new UserIO(readline);
 
 const racingCar = new RacingCar();
 const racer = new Racer();
@@ -26,36 +30,29 @@ describe('Racing Car Game', () => {
   it('Race Loop times 5 -> true', () => {
     initialize();
 
-    const racers = [
-      { name: 'pobi', state: '-' },
-      { name: 'crong', state: '-' },
-      { name: 'honux', state: '-' },
-    ];
+    const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
     racingCar.setCount(5);
+    racingCar.setRacers('pobi,crong,honux');
     racingCar.race(racers);
     expect(racingCar.count).toBe(5);
   });
 
   // 자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.
   it('Logging Car name', () => {
-    const spyFn = jest.spyOn(racer, 'printRacingState');
+    const spyFn = jest.spyOn(userIO, 'outputRacingState');
 
     initialize();
 
-    const racers = [
-      { name: 'pobi', state: '-' },
-      { name: 'crong', state: '-' },
-      { name: 'honux', state: '-' },
-    ];
+    const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
 
-    racers.forEach(({ name, state }) => {
-      racer.printRacingState(name, state);
+    racers.forEach((racer) => {
+      userIO.outputRacingState(racer.name, racer.state);
     });
 
     expect(spyFn).toBeCalledTimes(3);
-    expect(spyFn).toBeCalledWith('pobi', '-');
-    expect(spyFn).toBeCalledWith('crong', '-');
-    expect(spyFn).toBeCalledWith('honux', '-');
+    expect(spyFn).toBeCalledWith('pobi', racers[0].state);
+    expect(spyFn).toBeCalledWith('crong', racers[1].state);
+    expect(spyFn).toBeCalledWith('honux', racers[2].state);
   });
 
   // 전진하는 조건은 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다.
@@ -75,34 +72,28 @@ describe('Racing Car Game', () => {
   });
 
   // 자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.
-  it('Print Race Winners', () => {
+  it('Print Race Winner Names', () => {
     initialize();
 
-    const racers = [
-      { name: 'pobi', state: '-' },
-      { name: 'crong', state: '-' },
-      { name: 'honux', state: '-' },
-    ];
+    const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
+    racingCar.setRacers('pobi,crong,honux');
     racingCar.race(racers);
-    racingCar.printWinners();
+    userIO.outputWinnerNames(racingCar.getWinnerNames());
 
-    expect(racingCar.winners.length > 0).toBe(true);
+    expect(racingCar.winnerNames.length > 0).toBe(true);
   });
 
   // 우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.
-  it('Race Winners', () => {
+  it('Race Winner Names', () => {
     initialize();
 
-    const racers = [
-      { name: 'pobi', state: '-' },
-      { name: 'crong', state: '-' },
-      { name: 'honux', state: '-' },
-    ];
+    const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
+    racingCar.setRacers('pobi,crong,honux');
     racingCar.race(racers);
-    racingCar.printWinners();
+    userIO.outputWinnerNames(racingCar.getWinnerNames());
 
-    if (racingCar.winners.length > 1) {
-      expect(racingCar.getWinners()).toMatch(/,/);
+    if (racingCar.winnerNames.length > 1) {
+      expect(racingCar.getWinnerNames()).toMatch(/,/);
     }
   });
 
@@ -112,7 +103,7 @@ describe('Racing Car Game', () => {
 
     const testInput = () => {
       if (!racingCar.validateCarNamesInput('pobi,crong,honuasdfx')) {
-        racingCar.exit();
+        userIO.exit();
       }
     };
 
@@ -145,11 +136,8 @@ describe('Racing Car Game', () => {
   it('Car race within user input count', () => {
     initialize();
 
-    const racers = [
-      { name: 'pobi', state: '-' },
-      { name: 'crong', state: '-' },
-      { name: 'honux', state: '-' },
-    ];
+    const racers = [new Racer('pobi'), new Racer('crong'), new Racer('honux')];
+    racingCar.setRacers('pobi,crong,honux');
     racingCar.setCount(5);
     racingCar.race(racers);
 
