@@ -17,6 +17,14 @@ class Car {
     return this.position;
   }
 
+  static shouldCarMove(randomValue) {
+    if (randomValue >= 4) {
+      return true;
+    }
+
+    return false;
+  }
+
   move() {
     this.position++;
   }
