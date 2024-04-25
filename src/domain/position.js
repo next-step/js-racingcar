@@ -4,7 +4,7 @@ export class Position {
 
   #value;
 
-  constructor(value) {
+  constructor(value = 0) {
     if (value < this.#MIN_VALUE) {
       throw new Error(`${this.#MIN_VALUE}보다 작을 수 없습니다.`);
     }
@@ -13,5 +13,9 @@ export class Position {
 
   increase() {
     this.#value += this.#INCREASE_VALUE;
+  }
+
+  get value() {
+    return this.#value;
   }
 }

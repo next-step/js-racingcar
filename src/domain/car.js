@@ -12,7 +12,15 @@ export class Car {
 
   move(movable) {
     if (movable()) {
-      this.#position = this.#position.increase();
+      this.#position.increase();
     }
+  }
+
+  get name() {
+    return this.#name.value;
+  }
+
+  get position() {
+    return this.#position.value;
   }
 }

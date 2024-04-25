@@ -1,9 +1,9 @@
-import { Name } from "../../src/domain/name.js";
+import { Name } from '../../src/domain/name.js';
 
 describe("객체 생성", () => {
   it("생성", () => {
-    const name = new Name("name");
-    expect(name).toEqual(new Name("name"));
+    const name = new Name('name');
+    expect(name.value).toEqual('name');
   });
 
   it.each([

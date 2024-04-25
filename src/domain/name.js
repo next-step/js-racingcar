@@ -18,4 +18,9 @@ export class Name {
       throw new Error(`${this.#MAX_LENGTH}자 이상의 이름을 생성할 수 없습니다.`);
     }
   }
+
+  get value() {
+    return this.#value;
+  }
+  
 }
