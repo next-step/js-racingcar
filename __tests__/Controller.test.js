@@ -79,4 +79,18 @@ describe("컨트롤러 테스트", () => {
     expect(rounds.length).toBe(ROUND_TIMES);
     rounds.forEach((e) => expect(e).toBeInstanceOf(Round));
   });
+
+  test("우승자를 출력한다.", () => {
+    //given
+    const controller = new Controller();
+    const input = "car1,car2,car3";
+    controller.init(input);
+    controller.play(ROUND_TIMES);
+
+    //when
+    const winners = controller.winners;
+
+    //then
+    winners.forEach((e) => expect(input).toContain(e));
+  });
 });

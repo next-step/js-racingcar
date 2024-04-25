@@ -51,4 +51,9 @@ export class Controller {
   get carNames() {
     return [...this.carNames];
   }
+
+  get winners() {
+    const winners = this.rounds.at(-1).winners;
+    return winners.map((e) => e.name);
+  }
 }
