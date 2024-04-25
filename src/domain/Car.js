@@ -1,5 +1,6 @@
 import Name from './Name';
 import Move from './Move';
+import Utils from '../utils/inedx';
 
 class Car extends Move {
   #name;
@@ -11,6 +12,13 @@ class Car extends Move {
 
   getName() {
     return this.#name;
+  }
+
+  forward() {
+    if (Utils.generateRandomNumber() > 4) {
+      return super.forward();
+    }
+    return this;
   }
 }
 
