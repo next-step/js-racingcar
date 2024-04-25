@@ -36,6 +36,10 @@ class Car {
   move() {
     this.position++;
   }
+
+  positionToString() {
+    return "-".repeat(this.position);
+  }
 }
 
 export default Car;

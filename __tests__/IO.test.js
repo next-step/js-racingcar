@@ -1,3 +1,4 @@
+import Car from "../src/domain/Car";
 import { joinNamesByComma, splitNamesByComma } from "../src/utils/IO";
 
 describe("입출력 테스트", () => {
@@ -21,5 +22,17 @@ describe("입출력 테스트", () => {
 
     // then
     expect(joinedNames).toBe("pobi, crong, honux");
+  });
+
+  test("자동차의 현재 위치를 '-' 으로 표현", () => {
+    // given
+    const car = new Car("ganbu");
+    car.move();
+
+    // when
+    const carPositionToString = car.positionToString();
+
+    // then
+    expect(carPositionToString).toBe("-");
   });
 });
