@@ -1,4 +1,8 @@
-import { RACE_ROUND } from "./constants";
+import {
+  ERROR_DUPLICATE_CAR_NAME,
+  ERROR_INVALID_CAR_NAME,
+  RACE_ROUND,
+} from "./constants";
 import { Car } from "./domain";
 import { getRandomInRange, readLineAsync } from "./utils";
 
@@ -8,7 +12,7 @@ export class App {
     this.winners = [];
   }
 
-  async race() {
+  race() {
     console.log("\n실행 결과");
     for (let round = 1; round <= RACE_ROUND; round++) {
       this.cars.forEach((car) => {
@@ -32,11 +36,25 @@ export class App {
       const name = await readLineAsync(
         "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n"
       );
+
+      if (!name) return;
+
       const carNames = name.split(",").map((name) => name.trim());
+
+      if (carNames.some((name) => name === "")) {
+        throw new Error(ERROR_INVALID_CAR_NAME);
+      }
+
+      const nameSet = new Set(carNames);
+      if (nameSet.size !== carNames.length) {
+        throw new Error(ERROR_DUPLICATE_CAR_NAME);
+      }
+
       this.cars = carNames.map((name) => new Car(name));
       this.race();
     } catch (error) {
       console.error(error.message);
+      throw error;
     }
   }
 }
