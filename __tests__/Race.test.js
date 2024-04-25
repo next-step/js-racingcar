@@ -23,7 +23,7 @@ describe("자동차 경주 게임 테스트", () => {
     await app.play();
 
     // then
-    expect(app.winners.length).toBe(1);
+    expect(app.getWinners().length).toBe(1);
   });
 
   test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상이다.", async () => {
@@ -35,6 +35,6 @@ describe("자동차 경주 게임 테스트", () => {
     await app.play();
 
     // then
-    expect(app.winners.length).toBeGreaterThan(0);
+    expect(app.getWinners().length).toBeGreaterThan(0);
   });
 });

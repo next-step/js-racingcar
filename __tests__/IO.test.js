@@ -34,7 +34,7 @@ describe("입/출력 테스트", () => {
 
     // then
     const cars = TEST_CAR_NAMES.split(",");
-    expect(app.cars.length).toBe(cars.length);
+    expect(app.getCars().length).toBe(cars.length);
     cars.forEach((car) => {
       expect(logSpy).toHaveBeenCalledWith(`${car.trim()} : `);
     });
@@ -50,7 +50,8 @@ describe("입/출력 테스트", () => {
 
     // then
     expect(logSpy).toHaveBeenCalledWith(
-      `${app.winners
+      `${app
+        .getWinners()
         .map((car) => car.getName())
         .join(", ")}가 최종 우승했습니다.`
     );

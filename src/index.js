@@ -57,6 +57,14 @@ export class App {
       throw error;
     }
   }
+
+  getCars() {
+    return this.cars;
+  }
+
+  getWinners() {
+    return this.winners;
+  }
 }
 
 const app = new App();
