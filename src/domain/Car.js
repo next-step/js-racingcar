@@ -1,4 +1,8 @@
-import { ERROR_EMPTY_CAR_NAME, ERROR_LONG_CAR_NAME } from "../constants";
+import {
+  ERROR_EMPTY_CAR_NAME,
+  ERROR_LONG_CAR_NAME,
+  MOVE_FORWARD_CAR,
+} from "../constants";
 
 export class Car {
   constructor(name) {
@@ -9,5 +13,20 @@ export class Car {
       throw new Error(ERROR_LONG_CAR_NAME);
     }
     this.name = name;
+    this.position = 0;
+  }
+
+  move(condition) {
+    if (condition >= MOVE_FORWARD_CAR) {
+      this.position += 1;
+    }
+  }
+
+  getPosition() {
+    return this.position;
+  }
+
+  getName() {
+    return this.name;
   }
 }
