@@ -7,6 +7,7 @@ import { Car } from "../src/domain";
 import { getRandomInRange } from "../src/utils";
 
 jest.mock("../src/utils", () => ({
+  readLineAsync: jest.fn(),
   getRandomInRange: jest.fn(),
 }));
 
