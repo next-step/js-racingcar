@@ -1,4 +1,4 @@
-import { CAR_MOVE_CONDITION } from "./RacingConfig";
+import { CAR_MOVE_CONDITION } from "../const/RacingConfig";
 
 export class Car {
   position = 0;

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 import { Car } from "../src/domain/Car";
-import { CAR_MOVE_CONDITION } from "../src/domain/RacingConfig";
+import { CAR_MOVE_CONDITION } from "../src/const/RacingConfig";
 
 describe("자동차 테스트", () => {
   test("자동차의 이름은 5글자 이하여야한다.", () => {
