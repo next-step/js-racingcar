@@ -21,4 +21,14 @@ describe('이동 기능 테스트', () => {
     // then
     expect(backward).toBe(-1);
   });
+  it('정지할 수 있다.', () => {
+    // given
+    const movement = new Move();
+
+    // when
+    const stop = movement.stop().getPosition();
+
+    // then
+    expect(stop).toBe(0);
+  });
 });
