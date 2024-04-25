@@ -18,14 +18,27 @@ describe('자동차 테스트', () => {
     expect(name.length <= 5).toBeTruthy();
   });
 
-  test('자동차는 전진할 수 있다.', () => {
+  test('자동차가 전진하는 조건은 0에서 9 사이에서 무작위로 얻은 값이 4 이상일 때이다.', () => {
     // given
     const car = new Car('pobi');
+    Car.getRandomNumber = jest.fn().mockReturnValue(4);
 
     // when
     car.move();
 
     // then
     expect(car.position).toBe(1);
+  });
+
+  test('자동차가 전진하는 조건은 0에서 9 사이에서 무작위로 얻은 값이 4 이상일 때이다.', () => {
+    // given
+    const car = new Car('pobi');
+    Car.getRandomNumber = jest.fn().mockReturnValue(3);
+
+    // when
+    car.move();
+
+    // then
+    expect(car.position).toBe(0);
   });
 });
