@@ -4,7 +4,7 @@ import {
   RACE_ROUND,
 } from "./constants";
 import { Car } from "./domain";
-import { getRandomInRange, readLineAsync } from "./utils";
+import { getRandom, readLineAsync } from "./utils";
 
 export class App {
   constructor() {
@@ -16,7 +16,7 @@ export class App {
     console.log("\n실행 결과");
     for (let round = 1; round <= RACE_ROUND; round++) {
       this.cars.forEach((car) => {
-        car.move(getRandomInRange());
+        car.move(getRandom());
         console.log(`${car.getName()} : ${"-".repeat(car.getPosition())}`);
       });
       console.log("");

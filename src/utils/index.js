@@ -1,2 +1,2 @@
-export * from "./getRandomValue";
+export * from "./getRandom";
 export * from "./readLineAsync";

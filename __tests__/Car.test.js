@@ -4,16 +4,16 @@ import {
   MOVE_FORWARD_CAR,
 } from "../src/constants";
 import { Car } from "../src/domain";
-import { getRandomInRange } from "../src/utils";
+import { getRandom } from "../src/utils";
 
 jest.mock("../src/utils", () => ({
   readLineAsync: jest.fn(),
-  getRandomInRange: jest.fn(),
+  getRandom: jest.fn(),
 }));
 
 describe("자동차 테스트", () => {
   afterEach(() => {
-    getRandomInRange.mockReset();
+    getRandom.mockReset();
   });
 
   test("자동차 이름은 5자 이하인 경우 정상", () => {
@@ -53,13 +53,13 @@ describe("자동차 테스트", () => {
     // given
     const car = new Car("Car");
     const position = 1;
-    getRandomInRange.mockReturnValue(MOVE_FORWARD_CAR);
+    getRandom.mockReturnValue(MOVE_FORWARD_CAR);
 
     // when
-    car.move(getRandomInRange());
+    car.move(getRandom());
 
     // then
     expect(car.getPosition()).toBe(position);
-    expect(getRandomInRange).toHaveBeenCalled();
+    expect(getRandom).toHaveBeenCalled();
   });
 });

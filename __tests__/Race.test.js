@@ -6,7 +6,7 @@ const TEST_CAR_NAMES = "pobi,crong,honux";
 
 jest.mock("../src/utils", () => ({
   readLineAsync: jest.fn(),
-  getRandomInRange: jest.fn(),
+  getRandom: jest.fn(),
 }));
 
 describe("자동차 경주 게임 테스트", () => {
