@@ -5,3 +5,9 @@ export const splitNamesByComma = (names) => {
 export const joinNamesByComma = (nameArray) => {
   return nameArray.join(", ");
 };
+
+export const printCarsStatus = (cars) => {
+  cars.forEach((car) => {
+    console.log(car.statusToString());
+  });
+};

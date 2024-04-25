@@ -40,6 +40,10 @@ class Car {
   positionToString() {
     return "-".repeat(this.position);
   }
+
+  statusToString() {
+    return `${this.name} : ${this.positionToString()}`;
+  }
 }
 
 export default Car;
