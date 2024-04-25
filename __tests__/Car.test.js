@@ -9,8 +9,8 @@ describe('이름 기능 테스트', () => {
     const name1 = new Name('pucci');
     const name2 = new Name('hyunseo', 7);
 
-    expect(name1.getName().length).toBe(5);
+    expect(name1.getName()).toBe('pucci');
     expect(() => new Name('hyunseo', 3)).toThrow();
-    expect(name2.getName().length).toBe(7);
+    expect(name2.getName()).toBe('hyunseo');
   });
 });
