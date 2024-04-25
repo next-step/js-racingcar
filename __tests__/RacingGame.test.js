@@ -10,7 +10,8 @@ import Car from '../src/Car';
 describe('경주 게임 테스트', () => {
   test('자동차 경주는 5회 진행한다.', () => {
     // given
-    const racingGame = new RacingGame();
+    const cars = [new Car('pobi'), new Car('crong'), new Car('honux')];
+    const racingGame = new RacingGame(cars);
 
     // when
     racingGame.start();
@@ -34,6 +35,6 @@ describe('경주 게임 테스트', () => {
     racingGame.start();
 
     // then
-    expect(racingGame.winners).toEqual(['honux']);
+    expect(racingGame.winners).toEqual([racingGame.cars[2]]);
   });
 });
