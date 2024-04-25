@@ -1,3 +1,5 @@
+import Move from '../src/domain/Move';
+
 describe('이동 기능 테스트', () => {
   it('전진할 수 있다.', () => {
     // given
