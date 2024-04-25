@@ -1,20 +1,30 @@
 import { RACE_ROUND } from "./constants";
 import { Car } from "./domain";
-import { readLineAsync } from "./utils";
+import { getRandomInRange, readLineAsync } from "./utils";
 
 export class App {
   constructor() {
     this.cars = [];
+    this.winners = [];
   }
 
   async race() {
     console.log("\n실행 결과");
     for (let round = 1; round <= RACE_ROUND; round++) {
       this.cars.forEach((car) => {
+        car.move(getRandomInRange());
         console.log(`${car.getName()} : ${"-".repeat(car.getPosition())}`);
       });
       console.log("");
     }
+
+    const maxPosition = Math.max(...this.cars.map((car) => car.getPosition()));
+    this.winners = this.cars.filter((car) => car.getPosition() === maxPosition);
+    console.log(
+      `${this.winners
+        .map((car) => car.getName())
+        .join(" ")}가 최종 우승했습니다.`
+    );
   }
 
   async play() {
