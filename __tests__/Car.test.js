@@ -5,4 +5,13 @@ describe('이름 기능 테스트', () => {
     const name = new Name('pucci');
     expect(name.getName()).toBe('pucci');
   });
+  it('이름 n자 이하로 길이를 제한할 수 있다. (default: 5)', () => {
+    const name1 = new Name('pucci');
+    const name2 = new Name('hyunseo', 3);
+    const name3 = new Name('hyunseo', 7);
+
+    expect(name1.getName().length).toBe(5);
+    expect(name2.getName()).toThrow();
+    expect(name3.getName().length).toBe(7);
+  });
 });
