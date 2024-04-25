@@ -15,13 +15,13 @@ describe("이동", () => {
   });
 
   it("이동", () => {
-    car.move(4);
+    car.move(() => true);
 
     expect(car).toEqual(new Car('name', 1));
   });
 
   it("정지", () => {
-    car.move(3);
+    car.move(() => false);
 
     expect(car).toEqual(new Car('name', 0));
   });

@@ -10,8 +10,8 @@ export class Car {
     this.#position = new Position(position);
   }
 
-  move(number) {
-    if (number >= 4) {
+  move(movable) {
+    if (movable()) {
       this.#position = this.#position.increase();
     }
   }
