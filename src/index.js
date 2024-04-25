@@ -23,7 +23,7 @@ export class App {
     console.log(
       `${this.winners
         .map((car) => car.getName())
-        .join(" ")}가 최종 우승했습니다.`
+        .join(", ")}가 최종 우승했습니다.`
     );
   }
 
