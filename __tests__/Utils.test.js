@@ -1,17 +1,18 @@
+import Utils from '../src/utils/inedx';
+
 describe('유틸 함수 기능 테스트', () => {
-  it('난수를 생성합니다. n 이상 ~ m 이하', () => {
+  it('0~9사이의 난수를 생성합니다.', () => {
     // given
     const randomFn = Utils.generateRandomNumber;
-    const range = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     // when
-    const randomValue1 = range.includes(randomFn(0, 9));
-    const randomValue2 = range.includes(randomFn(0, 10));
-    const randomValue3 = range.includes(randomFn(-1, 8));
+    const randomNumber = randomFn(0, 9);
+    const range = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     // then
-    expect(randomValue1).toBeTruthy();
-    expect(randomValue2).toBeFalsy();
-    expect(randomValue3).toBeFalsy();
+    expect(randomNumber).toEqual(expect.any(Number));
+    expect(randomNumber).toBeGreaterThanOrEqual(0);
+    expect(randomNumber).toBeLessThanOrEqual(9);
+    expect(range).toContain(randomNumber);
   });
 });
