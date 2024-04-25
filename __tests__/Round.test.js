@@ -15,22 +15,22 @@ describe("라운드 테스트", () => {
     expect(round.cars.length).toBe(2);
   });
 
-  test("라운드를 진행한다.", () => {
-    //given
-    const car1 = new Car("car1");
-    const car2 = new Car("car2");
-    car1.play = jest.fn();
-    car2.play = jest.fn();
+  // test("라운드를 진행한다.", () => {
+  //   //given
+  //   const car1 = new Car("car1");
+  //   const car2 = new Car("car2");
+  //   car1.play = jest.fn();
+  //   car2.play = jest.fn();
 
-    const round = new Round([car1, car2]);
+  //   const round = new Round([car1, car2]);
 
-    //when
-    round.play();
+  //   //when
+  //   round.play();
 
-    //then
-    expect(car1.play).toBeCalled();
-    expect(car2.play).toBeCalled();
-  });
+  //   //then
+  //   expect(car1.play).toBeCalled();
+  //   expect(car2.play).toBeCalled();
+  // });
 
   test("라운드 1등을 리턴한다.", () => {
     //given

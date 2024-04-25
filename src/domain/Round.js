@@ -2,15 +2,25 @@ import { MAX_RANDOM_NUMBER, MIN_RANDOM_NUMBER } from "../const/RacingConfig";
 import { getRandom } from "../common/Random";
 
 export class Round {
+  cars;
+
   constructor(cars) {
     this.cars = cars;
   }
 
   play() {
-    this.cars?.forEach((car) => {
+    const copyCars = this.cars.map((e) => e.copy());
+
+    copyCars.forEach((e) => {
       const random = getRandom(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
-      car.play(random);
+      e.play(random);
     });
+
+    this.cars = copyCars;
+  }
+
+  get cars() {
+    return [...this.cars];
   }
 
   get winners() {

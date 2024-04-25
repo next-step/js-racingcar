@@ -19,4 +19,10 @@ export class Car {
   move() {
     this.position++;
   }
+
+  copy() {
+    const copy = new Car(this.name);
+    copy.position = this.position;
+    return copy;
+  }
 }
