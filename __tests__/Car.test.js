@@ -17,4 +17,15 @@ describe('자동차 테스트', () => {
     // then
     expect(name.length <= 5).toBeTruthy();
   });
+
+  test('자동차는 전진할 수 있다.', () => {
+    // given
+    const car = new Car('pobi');
+
+    // when
+    car.move();
+
+    // then
+    expect(car.position).toBe(1);
+  });
 });
