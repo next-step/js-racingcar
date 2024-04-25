@@ -1,6 +1,5 @@
 class CarRace {
-  constructor(competitors, toalRaceCount) {
-    this.remainingRaceCount = toalRaceCount;
+  constructor(competitors) {
     this.competitors = competitors;
   }
 
@@ -23,13 +22,9 @@ class CarRace {
   }
 
   race() {
-    while (this.remainingRaceCount > 0) {
-      this.competitors.forEach((competitor) => {
-        competitor.moveRandom();
-      });
-
-      this.remainingRaceCount--;
-    }
+    this.competitors.forEach((competitor) => {
+      competitor.moveRandom();
+    });
   }
 }
 
