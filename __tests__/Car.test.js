@@ -25,8 +25,18 @@ describe('자동차 기능 테스트', () => {
     const fordPosition = ford.backward().getPosition();
 
     // then
-    expect(taxiPosition).toBe(1);
+    expect([0, 1]).toContain(taxiPosition);
     expect(teslaPosition).toBe(0);
     expect(fordPosition).toBe(-1);
+  });
+  it('전진하는 조건은 0~9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다.', () => {
+    // given
+    const car = new Car('taxi');
+
+    // when
+    const carPosition = car.forward().getPosition();
+
+    // then
+    expect([0, 1]).toContain(carPosition);
   });
 });
