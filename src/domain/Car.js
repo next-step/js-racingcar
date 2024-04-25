@@ -25,6 +25,14 @@ class Car {
     return false;
   }
 
+  moveRandom() {
+    const randomValue = Math.floor(Math.random() * 10);
+
+    if (Car.shouldCarMove(randomValue)) {
+      this.move();
+    }
+  }
+
   move() {
     this.position++;
   }
