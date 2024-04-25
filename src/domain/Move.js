@@ -15,6 +15,10 @@ class Move {
     return this;
   }
 
+  stop() {
+    return this;
+  }
+
   getPosition() {
     return this.#position;
   }
