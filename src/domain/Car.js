@@ -15,7 +15,7 @@ class Car extends Move {
   }
 
   forward() {
-    if (Utils.generateRandomNumber() > 4) {
+    if (Utils.generateRandomNumber(0, 9) > 4) {
       return super.forward();
     }
     return this;
