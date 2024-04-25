@@ -1,3 +1,5 @@
+import { MAX_NAME_LENGTH } from '../constants';
+
 class Name {
   #name;
   constructor(name, maxLen = MAX_NAME_LENGTH) {
