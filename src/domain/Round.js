@@ -12,4 +12,11 @@ export class Round {
       car.play(random);
     });
   }
+
+  get winners() {
+    const positions = this.cars.map((car) => car.position);
+    const max = Math.max(...positions);
+
+    return this.cars.filter((car) => car.position === max);
+  }
 }

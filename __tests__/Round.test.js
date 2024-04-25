@@ -31,4 +31,22 @@ describe("라운드 테스트", () => {
     expect(car1.play).toBeCalled();
     expect(car2.play).toBeCalled();
   });
+
+  test("라운드 1등을 리턴한다.", () => {
+    //given
+    const winner1 = new Car("car1");
+    const winner2 = new Car("car2");
+    const loser = new Car("car3");
+
+    winner1.move();
+    winner2.move();
+
+    const racing = new Round([winner1, winner2, loser]);
+
+    //when
+    const winners = racing.winners;
+
+    //then
+    expect(winners).toEqual([winner1, winner2]);
+  });
 });
