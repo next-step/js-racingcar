@@ -4,6 +4,7 @@ const TEST_CAR_NAMES = "pobi,crong,honux";
 
 jest.mock("../src/utils", () => ({
   readLineAsync: jest.fn().mockResolvedValue(TEST_CAR_NAMES),
+  getRandomInRange: jest.fn(),
 }));
 
 describe("입/출력 테스트", () => {
