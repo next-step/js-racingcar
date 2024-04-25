@@ -16,7 +16,11 @@ class Car {
   }
 
   move() {
-    this.#position += 1;
+    if (Car.getRandomNumber() >= 4) this.#position += 1;
+  }
+
+  static getRandomNumber() {
+    return Math.floor(Math.random() * 10);
   }
 }
 
