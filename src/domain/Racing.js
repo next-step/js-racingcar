@@ -42,12 +42,22 @@ class Racing {
     while (!this.#isEndedRace()) {
       this.#race();
     }
-    this.#winners = this.#getPlayersPosition();
+    this.#winners = this.#setWinners();
     return this;
   }
 
   getWinners() {
     return this.#winners;
+  }
+
+  #setWinners() {
+    return this.#players.filter(
+      (player) => player.getPosition() === this.#lapCount
+    );
+  }
+
+  getWinnerNames() {
+    return this.#winners.map((player) => player.getName());
   }
 }
 
