@@ -25,6 +25,10 @@ class Car {
     return false;
   }
 
+  static isValidName(name) {
+    return name.length <= 5;
+  }
+
   moveRandom() {
     const randomValue = Math.floor(Math.random() * 10);
 

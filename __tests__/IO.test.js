@@ -3,6 +3,7 @@ import {
   joinNamesByComma,
   printCarsStatus,
   splitNamesByComma,
+  validateInput,
 } from "../src/utils/IO";
 
 describe("입출력 테스트", () => {
@@ -58,6 +59,19 @@ describe("입출력 테스트", () => {
     expect(logSpy).toHaveBeenCalledWith("ganu : -");
     expect(logSpy).toHaveBeenCalledWith("toto : -");
 
-    console.log.mockClear();
+    logSpy.mockClear();
+  });
+
+  test("사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.", () => {
+    // given
+    const USER_INPUT = "bababi,crong,honux";
+
+    // when
+    const validateUserInput = () => {
+      validateInput(USER_INPUT);
+    };
+
+    // then
+    expect(validateUserInput).toThrow("이름은 5자 이하여야 합니다.");
   });
 });
