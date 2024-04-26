@@ -41,5 +41,16 @@ describe('자동차 입출력 테스트', () => {
 
     // then
     expect(race.winner).toEqual('tang, huru')
+  });
+
+  test('사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다', () => {
+    // given
+    const car = new Car('oxlzlo');
+    const race = new Race(car);
+
+    // when
+    // then
+    expect(() => race.start().toThrow());
+    // expect(() => race.start()).toThrow();
   })
 })
