@@ -11,4 +11,17 @@ describe('자동차 경주 기능 테스트', () => {
     // then
     expect(playerCount).toBe(3);
   });
+  it('자동차 경주는 n회로 고정하여 진행한다. (default: 5)', () => {
+    // given
+    const firstRacingPlayers = new Racing(['taxi', 'tesla', 'ford']);
+    const secondRacingPlayers = new Racing(['taxi', 'tesla', 'ford'], 10);
+
+    // when
+    const firstLapCount = firstRacingPlayers.getLapCount();
+    const secondLapCount = secondRacingPlayers.getLapCount();
+
+    // then
+    expect(firstLapCount).toBe(5);
+    expect(secondLapCount).toBe(10);
+  });
 });
