@@ -1,8 +1,5 @@
-import {
-  ERROR_EMPTY_CAR_NAME,
-  ERROR_LONG_CAR_NAME,
-  MOVE_FORWARD_CAR,
-} from "../src/constants";
+import { App } from "../src";
+import { ERROR_EMPTY_CAR_NAME, ERROR_LONG_CAR_NAME } from "../src/constants";
 import { Car } from "../src/domain";
 import { getRandom } from "../src/utils";
 
@@ -53,10 +50,10 @@ describe("자동차 테스트", () => {
     // given
     const car = new Car("Car");
     const position = 1;
-    getRandom.mockReturnValue(MOVE_FORWARD_CAR);
+    getRandom.mockReturnValue(Car.MOVE_FORWARD_CAR);
 
     // when
-    car.move(getRandom());
+    car.move(getRandom(App.MOVE_MIN, App.MOVE_MAX));
 
     // then
     expect(car.getPosition()).toBe(position);

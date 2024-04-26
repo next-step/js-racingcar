@@ -7,6 +7,10 @@ import { Car } from "./domain";
 import { getRandom, readLineAsync } from "./utils";
 
 export class App {
+  static MOVE_MIN = 0;
+  static MOVE_MAX = 9;
+  static RACE_ROUND = 5;
+
   constructor() {
     this.cars = [];
     this.winners = [];
@@ -14,9 +18,9 @@ export class App {
 
   race() {
     console.log("\n실행 결과");
-    for (let round = 1; round <= RACE_ROUND; round++) {
+    for (let round = 1; round <= App.RACE_ROUND; round++) {
       this.cars.forEach((car) => {
-        car.move(getRandom());
+        car.move(getRandom(App.MOVE_MIN, App.MOVE_MAX));
         console.log(`${car.getName()} : ${"-".repeat(car.getPosition())}`);
       });
       console.log("");

@@ -1,15 +1,14 @@
-import {
-  ERROR_EMPTY_CAR_NAME,
-  ERROR_LONG_CAR_NAME,
-  MOVE_FORWARD_CAR,
-} from "../constants";
+import { ERROR_EMPTY_CAR_NAME, ERROR_LONG_CAR_NAME } from "../constants";
 
 export class Car {
+  static MOVE_FORWARD_CAR = 4;
+  static CAR_NAME_MAX_LEN = 5;
+
   constructor(name) {
     if (!name.length) {
       throw new Error(ERROR_EMPTY_CAR_NAME);
     }
-    if (name.length > 5) {
+    if (name.length > Car.CAR_NAME_MAX_LEN) {
       throw new Error(ERROR_LONG_CAR_NAME);
     }
     this.name = name;
@@ -17,7 +16,7 @@ export class Car {
   }
 
   move(condition) {
-    if (condition >= MOVE_FORWARD_CAR) {
+    if (condition >= Car.MOVE_FORWARD_CAR) {
       this.position += 1;
     }
   }
