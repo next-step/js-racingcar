@@ -1,3 +1,5 @@
+import { printCarsStatus } from "../utils/car.js";
+
 class CarRace {
   constructor(competitors) {
     this.competitors = competitors;
@@ -25,6 +27,8 @@ class CarRace {
     this.competitors.forEach((competitor) => {
       competitor.moveRandom();
     });
+
+    printCarsStatus(this.competitors);
   }
 }
 

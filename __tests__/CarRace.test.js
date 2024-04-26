@@ -1,5 +1,6 @@
-import Car from "../src/domain/Car";
-import CarRace from "../src/domain/CarRace";
+import Car from "../src/domain/Car.js";
+import CarRace from "../src/domain/CarRace.js";
+import { raceMultipleTimes } from "../src/utils/carRace.js";
 
 describe("자동차 경주 기능 테스트", () => {
   test("자동차 경주는 5회 후 종료된다", () => {
@@ -48,16 +49,11 @@ describe("자동차 경주 기능 테스트", () => {
     const car3 = new Car("banu");
     const competitors = [car1, car2, car3];
     const TOTAL_RACE_COUNT = 5;
-    let remainingRaceCount = TOTAL_RACE_COUNT;
 
     const carRace = new CarRace(competitors);
 
     // when
-    while (remainingRaceCount > 0) {
-      carRace.race();
-      remainingRaceCount--;
-    }
-
+    raceMultipleTimes(carRace, TOTAL_RACE_COUNT);
     const winners = carRace.winners;
 
     // then

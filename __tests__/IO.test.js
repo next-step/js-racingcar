@@ -1,10 +1,10 @@
-import Car from "../src/domain/Car";
+import Car from "../src/domain/Car.js";
+import { splitStringByComma } from "../src/utils/IO.js";
 import {
-  joinNamesByComma,
+  joinCarNamesByComma,
   printCarsStatus,
-  splitNamesByComma,
-  validateInput,
-} from "../src/utils/IO";
+  validateCarNames,
+} from "../src/utils/car.js";
 
 describe("입출력 테스트", () => {
   test("자동차의 이름은 쉼표(,)를 기준으로 구분", () => {
@@ -12,7 +12,7 @@ describe("입출력 테스트", () => {
     const CAR_NAMES = "pobi,crong,honux";
 
     // when
-    const splittedNames = splitNamesByComma(CAR_NAMES);
+    const splittedNames = splitStringByComma(CAR_NAMES);
 
     // then
     expect(splittedNames).toEqual(["pobi", "crong", "honux"]);
@@ -20,10 +20,13 @@ describe("입출력 테스트", () => {
 
   test("우승자가 여러 명일 겨우 쉼표(,)를 이용하여 구분", () => {
     // given
-    const RACE_WINNERS = ["pobi", "crong", "honux"];
+    const car1 = new Car("pobi");
+    const car2 = new Car("crong");
+    const car3 = new Car("honux");
+    const raceWinners = [car1, car2, car3];
 
     // when
-    const joinedNames = joinNamesByComma(RACE_WINNERS);
+    const joinedNames = joinCarNamesByComma(raceWinners);
 
     // then
     expect(joinedNames).toBe("pobi, crong, honux");
@@ -68,7 +71,7 @@ describe("입출력 테스트", () => {
 
     // when
     const validateUserInput = () => {
-      validateInput(USER_INPUT);
+      validateCarNames(USER_INPUT);
     };
 
     // then
