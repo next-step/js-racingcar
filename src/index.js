@@ -18,6 +18,7 @@ class App {
       car.nameLengthValidator(carNames);
     } catch (error) {
       Console.print(error.message);
+      return Console.exit();
     }
   }
 }
