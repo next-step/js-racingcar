@@ -15,7 +15,9 @@ export class Name {
     }
 
     if (value.length > this.#MAX_LENGTH) {
-      throw new Error(`${this.#MAX_LENGTH}자 이상의 이름을 생성할 수 없습니다.`);
+      throw new Error(
+        `${this.#MAX_LENGTH}자 이상의 이름을 생성할 수 없습니다.`,
+      );
     }
   }
 

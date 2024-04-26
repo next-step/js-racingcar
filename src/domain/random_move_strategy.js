@@ -1,4 +1,4 @@
-import { isSatisfied } from "./move_condition.js";
+import { isSatisfied } from './move_condition.js';
 
 const RANDOM_BOUND = 10;
 
