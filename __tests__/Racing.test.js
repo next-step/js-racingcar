@@ -1,10 +1,12 @@
 import Racing from '../src/domain/Racing';
 import Car from '../src/domain/Car';
 
+const playerList = ['taxi', 'tesla', 'ford'];
+
 describe('자동차 경주 기능 테스트', () => {
   it('n명의 참가자(자동차)를 받을 수 있다.', () => {
     // given
-    const players = new Racing(['taxi', 'tesla', 'ford']);
+    const players = new Racing(playerList);
 
     // when
     const playerCount = players.getPlayerCount();
@@ -16,8 +18,8 @@ describe('자동차 경주 기능 테스트', () => {
   });
   it('자동차 경주는 n회로 고정하여 진행한다. (default: 5)', () => {
     // given
-    const firstRacingPlayers = new Racing(['taxi', 'tesla', 'ford']);
-    const secondRacingPlayers = new Racing(['taxi', 'tesla', 'ford'], 10);
+    const firstRacingPlayers = new Racing(playerList);
+    const secondRacingPlayers = new Racing(playerList, 10);
 
     // when
     const firstLapCount = firstRacingPlayers.getLapCount();
@@ -29,7 +31,7 @@ describe('자동차 경주 기능 테스트', () => {
   });
   it('우승자(자동차)는 한 명 이상일 수 있다.', () => {
     // given
-    const players = new Racing(['taxi', 'tesla', 'ford']);
+    const players = new Racing(playerList);
 
     // when
     const winners = players.start().getWinners();
@@ -41,14 +43,12 @@ describe('자동차 경주 기능 테스트', () => {
   });
   it('자동차 경주 게임을 완료한 후 우승자 이름을 알려준다.', () => {
     // given
-    const players = new Racing(['taxi', 'tesla', 'ford']);
+    const players = new Racing(playerList);
 
     // when
     const winnerNames = players.start().getWinnerNames();
 
     // then
-    expect(['taxi', 'tesla', 'ford']).toEqual(
-      expect.arrayContaining(winnerNames)
-    );
+    expect(playerList).toEqual(expect.arrayContaining(winnerNames));
   });
 });
