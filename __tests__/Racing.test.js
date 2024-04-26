@@ -39,4 +39,16 @@ describe('자동차 경주 기능 테스트', () => {
     expect(winners.length).toBeGreaterThan(0);
     expect(winners.length).toBeLessThanOrEqual(3);
   });
+  it('자동차 경주 게임을 완료한 후 우승자 이름을 알려준다.', () => {
+    // given
+    const players = new Racing(['taxi', 'tesla', 'ford']);
+
+    // when
+    const winnerNames = players.start().getWinnerNames();
+
+    // then
+    expect(['taxi', 'tesla', 'ford']).toEqual(
+      expect.arrayContaining(winnerNames)
+    );
+  });
 });
