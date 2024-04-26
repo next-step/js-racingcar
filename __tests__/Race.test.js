@@ -26,6 +26,6 @@ describe('자동차 경주 테스트', () => {
     race.start();
 
     // then
-    expect(race.winner.name).toEqual('huru');
+    expect(race.winner).toEqual('huru');
   });
 })
