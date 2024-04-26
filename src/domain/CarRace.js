@@ -1,6 +1,9 @@
 import { printCarsStatus } from "../utils/car.js";
 
+const TOTAL_RACE_COUNT = 5;
 class CarRace {
+  remaingRaceCount = TOTAL_RACE_COUNT;
+
   constructor(competitors) {
     this.competitors = competitors;
   }
@@ -24,11 +27,14 @@ class CarRace {
   }
 
   race() {
-    this.competitors.forEach((competitor) => {
-      competitor.moveRandom();
-    });
+    while (this.remaingRaceCount > 0) {
+      this.competitors.forEach((competitor) => {
+        competitor.moveRandom();
+      });
+      printCarsStatus(this.competitors);
 
-    printCarsStatus(this.competitors);
+      this.remaingRaceCount--;
+    }
   }
 }
 

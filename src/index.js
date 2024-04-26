@@ -1,7 +1,7 @@
 import readline from "readline";
 import { splitStringByComma } from "./utils/IO.js";
 import CarRace from "./domain/CarRace.js";
-import { printCarRaceWinners, raceMultipleTimes } from "./utils/carRace.js";
+import { printCarRaceWinners } from "./utils/carRace.js";
 import { createCarsByNames, validateCarNames } from "./utils/car.js";
 
 function readLineAsync(query) {
@@ -26,8 +26,6 @@ function readLineAsync(query) {
   });
 }
 
-const TOTAL_RACE_COUNT = 5;
-
 async function play() {
   const input = await readLineAsync(
     "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분)."
@@ -45,7 +43,7 @@ async function play() {
   const carRace = new CarRace(cars);
 
   // 자동차 경주 시작
-  raceMultipleTimes(carRace, TOTAL_RACE_COUNT);
+  carRace.race();
 
   // 우승자 출력
   printCarRaceWinners(carRace);
