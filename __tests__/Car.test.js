@@ -1,3 +1,5 @@
+import Car from '../src/domain/Car';
+
 describe('Car', () => {
   test('자동차 이름은 5자 이하로만 부여할 수 있다.', () => {
     // given: 5자 이하의 이름 준비
