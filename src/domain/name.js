@@ -22,5 +22,4 @@ export class Name {
   get value() {
     return this.#value;
   }
-  
 }
