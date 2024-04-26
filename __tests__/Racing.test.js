@@ -27,4 +27,16 @@ describe('자동차 경주 기능 테스트', () => {
     expect(firstLapCount).toBe(5);
     expect(secondLapCount).toBe(10);
   });
+  it('우승자(자동차)는 한 명 이상일 수 있다.', () => {
+    // given
+    const players = new Racing(['taxi', 'tesla', 'ford']);
+
+    // when
+    const winners = players.start().getWinners();
+
+    // then
+    expect(winners.length).not.toBe(0);
+    expect(winners.length).toBeGreaterThan(0);
+    expect(winners.length).toBeLessThanOrEqual(3);
+  });
 });
