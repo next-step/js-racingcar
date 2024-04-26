@@ -25,5 +25,21 @@ describe('자동차 입출력 테스트', () => {
     // then
     expect(logSpy).toHaveBeenCalledWith('huru: --');
     Math.random.mockRestore();
+  });
+
+  test('우승자가 여러 명일 경우 쉼표를 이용하여 구분한다', () => {
+    // given
+    const competitors = [
+      { name: 'seol', position: 1 },
+      { name: 'tang', position: 2 },
+      { name: 'huru', position: 2 }
+    ];
+    const race = new Race(competitors);
+
+    // when
+    race.start();
+
+    // then
+    expect(race.winner).toEqual('tang, huru')
   })
 })

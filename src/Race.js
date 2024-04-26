@@ -17,7 +17,9 @@ class Race {
 
   get winner() {
     const highestPosition = this.getHighest();
-    return this._competitors.find(competitor => competitor.position === highestPosition);
+    // return this._competitors.find(competitor => competitor.position === highestPosition);
+    const winners = this._competitors.filter(competitor => competitor.position === highestPosition);
+    return winners.map(winner => winner.name).join(', ');
   }
 
   getHighest() {
