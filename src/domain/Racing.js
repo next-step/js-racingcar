@@ -1,8 +1,10 @@
+import { DEFAULT_LAP_COUNT } from '../constants';
+
 class Racing {
   #players;
   #lapCount;
 
-  constructor(players, lapCount = 5) {
+  constructor(players, lapCount = DEFAULT_LAP_COUNT) {
     if (!Array.isArray(players)) {
       throw new TypeError('잘못된 형식입니다.');
     }
