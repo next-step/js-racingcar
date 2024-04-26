@@ -5,12 +5,14 @@ class Car {
 
   constructor(name) {
     this.name = name;
+
   }
 
   move() {
     const randomValue = Math.floor(Math.random() * 10);
     if (randomValue >= 4) {
-      this.position += 1
+      this.position += 1;
+      console.log(`${this.name}: ${'-'.repeat(this.position)}`);
     }
   }
 
