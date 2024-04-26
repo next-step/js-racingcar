@@ -5,6 +5,6 @@ export function getMaxPosition(cars) {
 export const getWinners = (cars) => {
   const maxPosition = getMaxPosition(cars);
   return cars
-    .filter((car) => car.position === maxPosition)
+    .filter((car) => car.hasSamePosition(maxPosition))
     .map((car) => car.name);
 };

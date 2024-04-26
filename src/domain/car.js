@@ -16,6 +16,10 @@ export class Car {
     }
   }
 
+  hasSamePosition(value) {
+    return this.#position.isSameAs(value);
+  }
+
   get name() {
     return this.#name.value;
   }
