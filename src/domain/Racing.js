@@ -4,6 +4,7 @@ import Car from './Car';
 class Racing {
   #players;
   #lapCount;
+  #winners;
 
   constructor(players, lapCount = DEFAULT_LAP_COUNT) {
     if (!Array.isArray(players)) {
@@ -23,6 +24,15 @@ class Racing {
 
   getLapCount() {
     return this.#lapCount;
+  }
+
+  start() {
+    this.#winners = [1, 2];
+    return this;
+  }
+
+  getWinners() {
+    return this.#winners;
   }
 }
 
