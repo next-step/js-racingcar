@@ -1,4 +1,5 @@
 import { DEFAULT_LAP_COUNT } from '../constants';
+import Car from './Car';
 
 class Racing {
   #players;
@@ -8,8 +9,12 @@ class Racing {
     if (!Array.isArray(players)) {
       throw new TypeError('잘못된 형식입니다.');
     }
-    this.#players = players;
+    this.#players = players.map((player) => new Car(player));
     this.#lapCount = lapCount;
+  }
+
+  getPlayers() {
+    return this.#players;
   }
 
   getPlayerCount() {
