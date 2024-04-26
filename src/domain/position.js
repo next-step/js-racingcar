@@ -15,6 +15,10 @@ export class Position {
     this.#value += this.#INCREASE_VALUE;
   }
 
+  isSameAs(value) {
+    return this.#value === value;
+  }
+
   get value() {
     return this.#value;
   }
