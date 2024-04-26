@@ -26,23 +26,23 @@ class Racing {
     return this.#lapCount;
   }
 
-  getPlayerPosition() {
+  #getPlayersPosition() {
     return this.#players.map((player) => player.getPosition());
   }
 
-  race() {
-    return this.#players.map((player) => player.forward());
+  #race() {
+    this.#players.forEach((player) => player.forward());
   }
 
-  isEndedRace() {
-    return this.getPlayerPosition().includes(this.#lapCount);
+  #isEndedRace() {
+    return this.#getPlayersPosition().includes(this.#lapCount);
   }
 
   start() {
-    while (!this.isEndedRace()) {
-      this.race();
+    while (!this.#isEndedRace()) {
+      this.#race();
     }
-    this.#winners = this.getPlayerPosition();
+    this.#winners = this.#getPlayersPosition();
     return this;
   }
 
