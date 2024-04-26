@@ -10,7 +10,7 @@ export class Name {
   }
 
   #validate(value) {
-    if (!value || value.length <= this.#MIN_LENGTH) {
+    if (!value || value.length < this.#MIN_LENGTH) {
       throw new Error('빈 값으로 생성할 수 없습니다.');
     }
 

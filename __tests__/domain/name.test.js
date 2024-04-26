@@ -1,9 +1,13 @@
 import { Name } from '../../src/domain/name.js';
 
 describe("객체 생성", () => {
-  it("생성", () => {
-    const name = new Name('name');
-    expect(name.value).toEqual('name');
+  it.each([
+    'a',
+    'abcde',
+  ])
+  ("생성", (value) => {
+    const name = new Name(value);
+    expect(name.value).toEqual(value);
   });
 
   it.each([
