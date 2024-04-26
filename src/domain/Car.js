@@ -8,14 +8,19 @@ export class Car {
   #position = 0;
 
   constructor(name) {
+    this.#validateName(name);
+    this.#name = name;
+    this.#position = 0;
+  }
+
+  #validateName(name) {
     if (!name.length) {
       throw new Error(ERROR_EMPTY_CAR_NAME);
     }
+
     if (name.length > Car.CAR_NAME_MAX_LEN) {
       throw new Error(ERROR_LONG_CAR_NAME);
     }
-    this.#name = name;
-    this.#position = 0;
   }
 
   move(condition) {

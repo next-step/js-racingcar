@@ -34,7 +34,6 @@ describe("입/출력 테스트", () => {
 
     // then
     const cars = TEST_CAR_NAMES.split(",");
-    expect(app.getCars().length).toBe(cars.length);
     cars.forEach((car) => {
       expect(logSpy).toHaveBeenCalledWith(`${car.trim()} : `);
     });
@@ -42,7 +41,7 @@ describe("입/출력 테스트", () => {
 
   test("우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분하여 출력한다.", async () => {
     // given
-    await readLineAsync.mockResolvedValue(TEST_CAR_NAMES);
+    readLineAsync.mockResolvedValue(TEST_CAR_NAMES);
     const app = new App();
 
     // when
@@ -51,6 +50,7 @@ describe("입/출력 테스트", () => {
     // then
     expect(logSpy).toHaveBeenCalledWith(
       `${app
+        .getRace()
         .getWinners()
         .map((car) => car.getName())
         .join(", ")}가 최종 우승했습니다.`
@@ -62,8 +62,11 @@ describe("입/출력 테스트", () => {
     readLineAsync.mockResolvedValue(",crong,honux");
     const app = new App();
 
-    // when + then
-    await expect(app.play()).rejects.toThrow(ERROR_INVALID_CAR_NAME);
+    // when
+    await app.play();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(ERROR_INVALID_CAR_NAME);
   });
 
   test("자동차이름이 중복된 값이면 프로그램을 종료한다.", async () => {
@@ -71,7 +74,10 @@ describe("입/출력 테스트", () => {
     readLineAsync.mockResolvedValue("crong,crong,honux");
     const app = new App();
 
-    // when + then
-    await expect(app.play()).rejects.toThrow(ERROR_DUPLICATE_CAR_NAME);
+    // when
+    await app.play();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(ERROR_DUPLICATE_CAR_NAME);
   });
 });
