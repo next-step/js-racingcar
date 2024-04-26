@@ -26,8 +26,23 @@ class Racing {
     return this.#lapCount;
   }
 
+  getPlayerPosition() {
+    return this.#players.map((player) => player.getPosition());
+  }
+
+  race() {
+    return this.#players.map((player) => player.forward());
+  }
+
+  isEndedRace() {
+    return this.getPlayerPosition().includes(this.#lapCount);
+  }
+
   start() {
-    this.#winners = [1, 2];
+    while (!this.isEndedRace()) {
+      this.race();
+    }
+    this.#winners = this.getPlayerPosition();
     return this;
   }
 
