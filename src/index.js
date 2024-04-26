@@ -1,5 +1,6 @@
 import { INPUT_MESSAGES } from "./constants/messages";
 import { Console } from "./utils/readlinePromise";
+import { splitByComma } from "./utils/splitByComma";
 import { car } from "./validator/car";
 
 class App {
@@ -7,15 +8,16 @@ class App {
     this.carNames = [];
   }
 
-  async #carNamesSplit() {
+  async #carNameStage() {
     const carNames = await Console.input(INPUT_MESSAGES.START_MESSAGE);
-    return carNames.split(",").map((carName) => carName.trim());
+    const carNamesSplitByComma = splitByComma(carNames);
+    car.nameLengthValidator(carNamesSplitByComma);
+    return carNamesSplitByComma;
   }
 
   async init() {
     try {
-      const carNames = await this.#carNamesSplit();
-      car.nameLengthValidator(carNames);
+      const carNamesArray = await this.#carNameStage();
     } catch (error) {
       Console.print(error.message);
       return Console.exit();
