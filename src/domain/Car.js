@@ -1,6 +1,6 @@
 export default class Car {
-  // 이름
   #name;
+  #position = 0;
 
   constructor(name) {
     if (name.length > 5) {
@@ -9,7 +9,20 @@ export default class Car {
     this.#name = name;
   }
 
+  // 이름
   get name() {
     return this.#name;
+  }
+
+  // 위치
+  get position() {
+    return this.#position;
+  }
+
+  // 전진하기
+  move(randomValue) {
+    if (randomValue >= 4) {
+      this.#position += 1;
+    }
   }
 }
