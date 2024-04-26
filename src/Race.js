@@ -1,3 +1,7 @@
+import Car from "./Car";
+
+const car = new Car();
+
 class Race {
 
   constructor(competitors) {
@@ -6,6 +10,9 @@ class Race {
   }
 
   start() {
+    if (car.name >= 5) {
+      return;
+    }
     for (let i=0; i<5; i++) {
       this._playNumber += 1;
     }
