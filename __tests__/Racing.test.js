@@ -6,7 +6,7 @@ describe('자동차 경주 기능 테스트', () => {
     const players = new Racing(['taxi', 'tesla', 'ford']);
 
     // when
-    const playerCount = players.getPlayers();
+    const playerCount = players.getPlayerCount();
 
     // then
     expect(playerCount).toBe(3);
