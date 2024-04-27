@@ -35,4 +35,8 @@ export class CarIO {
   getCars() {
     return this.cars;
   }
+
+  showRacingResult(carName, currentPosition) {
+    console.log(`${carName} : ${currentPosition}`);
+  }
 }

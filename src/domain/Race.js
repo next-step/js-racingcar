@@ -8,17 +8,15 @@ export class Race {
     this.racingResult = [];
   }
 
-  racingStart(showRacingReusult) {
+  racingStart(showRacingResult) {
     for (let i = 0; i < RACING_COUNT; i++) {
       this.racingCars.forEach((car) => {
         car.move();
+        showRacingResult && showRacingResult(car.getName(), car.getPosition());
       });
     }
     this.racingResult = this.racingCars
-      .map((car) => {
-        showRacingReusult && showRacingReusult(car.getName(), car.getPosition());
-        return { carName: car.getName(), currentPosition: car.getPosition() };
-      })
+      .map((car) => ({ carName: car.getName(), currentPosition: car.getPosition() }))
       .sort((a, b) => b.currentPosition - a.currentPosition);
   }
 
