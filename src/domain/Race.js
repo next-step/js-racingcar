@@ -1,5 +1,5 @@
 import Car from "./Car.js";
-import { getRandomNumber } from "../utils/utils.js";
+import { getRandomNumber } from "../utils/number.js";
 
 const MAX_ROUND = 5;
 export default class Race {

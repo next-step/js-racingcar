@@ -1,6 +1,6 @@
 import { readLineAsync } from "./utils/readLineSync.js";
 import Race from "./domain/Race.js";
-import { displayWinners, displayRace } from "./View.js";
+import { displayWinners, displayRace } from "./view.js";
 
 export async function askCarNames() {
   const carNames = await readLineAsync(
