@@ -47,13 +47,14 @@ class Racing {
     return this.#winners.map((player) => player.name);
   }
 
-  race() {
+  race1Lap() {
     this.#players.forEach((player) => player.forward());
+    return this;
   }
 
   start() {
     while (!this.isEndedRace()) {
-      this.race();
+      this.race1Lap();
     }
     return this;
   }
