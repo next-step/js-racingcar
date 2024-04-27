@@ -34,8 +34,19 @@ export class Racing {
 
   start() {
     while (this.#round < RACING_ROUND) {
+      this.#carList.forEach((car) => {
+        car.move();
+        car.display();
+      });
       this.#round++;
     }
+  }
+
+  end() {
+    const maxPosition = Math.max(...this.#carList.map((car) => car.position));
+    this.#winnerList = this.#carList.filter(
+      (car) => car.position === maxPosition
+    );
   }
 
   get round() {
@@ -44,5 +55,9 @@ export class Racing {
 
   get carList() {
     return this.#carList;
+  }
+
+  get winnerList() {
+    return this.#winnerList.map((car) => car.name);
   }
 }

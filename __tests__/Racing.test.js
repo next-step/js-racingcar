@@ -5,16 +5,16 @@ import { CarErrors } from "../src/car";
 jest.mock("readline");
 
 describe("자동차 경주", () => {
+  let mockQuestion;
+  let mockRl;
+
+  beforeEach(() => {
+    mockQuestion = jest.fn();
+    mockRl = { question: mockQuestion, close: jest.fn() };
+    readline.createInterface.mockReturnValue(mockRl);
+  });
+
   describe("사용자가 자동차 경주에 참여하는 자동차를 입력한다.", () => {
-    let mockQuestion;
-    let mockRl;
-
-    beforeEach(() => {
-      mockQuestion = jest.fn();
-      mockRl = { question: mockQuestion, close: jest.fn() };
-      readline.createInterface.mockReturnValue(mockRl);
-    });
-
     test("사용자가 잘못된 길이의 입력 값을 입력하면 에러가 발생한다.", () => {
       // Arrange
       const racing = new RacingModel.Racing();
@@ -66,6 +66,25 @@ describe("자동차 경주", () => {
 
       // Assert
       expect(racing.round).toBe(5);
+    });
+  });
+
+  describe("자동차 경주를 종료한다.", () => {
+    test("우승자는 한명 이상이다.", async () => {
+      // Arrange
+      const racing = new RacingModel.Racing();
+      jest.spyOn(Math, "random").mockReturnValue(0.4);
+      mockQuestion.mockImplementation((query, callback) => {
+        callback("Tesla, BMW, Audi");
+      });
+
+      // Act
+      await racing.setup();
+      racing.start();
+      racing.end();
+
+      // Assert
+      expect(racing.winnerList.length).toBeGreaterThanOrEqual(1);
     });
   });
 });
