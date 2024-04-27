@@ -1,11 +1,15 @@
 export class Car {
   name;
   constructor() {
-    this.name = 0;
+    this.name = '';
   }
 
   setName(name) {
-    this.name = name;
+    if (name.length > 5) {
+      this.name = '';
+    } else {
+      this.name = name;
+    }
   }
 
   getName() {
