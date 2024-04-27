@@ -1,21 +1,24 @@
 class Move {
   #position;
 
-  constructor() {
-    this.#position = 0;
+  static INITIAL_POSITION = 0;
+  static DEFAULT_MOVE_SIZE = 1;
+
+  constructor(position = Move.INITIAL_POSITION) {
+    this.#position = position;
   }
 
   get position() {
     return this.#position;
   }
 
-  forward() {
-    this.#position = this.#position + 1;
+  forward(moveSize = Move.DEFAULT_MOVE_SIZE) {
+    this.#position = this.#position + moveSize;
     return this;
   }
 
-  backward() {
-    this.#position = this.#position - 1;
+  backward(moveSize = Move.DEFAULT_MOVE_SIZE) {
+    this.#position = this.#position - moveSize;
     return this;
   }
 
