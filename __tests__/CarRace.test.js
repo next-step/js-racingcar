@@ -2,6 +2,7 @@ import { getRandomNumber } from "../src/utils/number.js";
 import { displayForwardCar } from "../src/view.js";
 import Car from "../src/domain/Car.js";
 import { playGame } from "../src/controller.js";
+import Race from "../src/domain/Race.js";
 
 describe("자동차 경주 규칙 구현", () => {
   test("경주는 5회로 고정하여 진행한다.", () => {
@@ -26,9 +27,9 @@ describe("자동차 경주 규칙 구현", () => {
 
     if (randomNumber >= 4) {
       expect(car.position).toBe(1);
-    } else {
-      expect(car.position).toBe(0);
+      return;
     }
+    expect(car.position).toBe(0);
   });
 });
 
@@ -41,6 +42,15 @@ describe("자동차 경주 상황 출력 구현", () => {
     displayForwardCar(car);
 
     expect(logSpy).toHaveBeenCalledWith("pobi : -");
+  });
+
+  test("게임의 우승자를 구한다.", () => {
+    const logSpy = jest.spyOn(global.console, "log");
+    const race = new Race(["pobi", "crong", "honux"]);
+    race.cars[1].moveForward();
+    race.cars[1].moveForward();
+
+    expect(race.winners).toEqual([race.cars[1]]);
   });
 
   test("게임 완료 후 우승자를 출력한다.", () => {
