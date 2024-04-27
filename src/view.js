@@ -1,13 +1,12 @@
 import { readLineAsync } from "./utils/readLineSync.js";
+import { MESSAGE } from "./constant/index.js";
 
 export function displayInput(input) {
   console.log(input);
 }
 
 export async function askCarNames() {
-  const carNames = await readLineAsync(
-    "경주할 자동차 이름을 입력하세요. (이름은 쉼표(,) 기준으로 구분)"
-  );
+  const carNames = await readLineAsync(MESSAGE.ASK_CAR_NAMES);
 
   displayInput(carNames);
   console.log("");
@@ -28,6 +27,6 @@ export function displayRace(cars) {
 
 export function displayWinners(race) {
   console.log(
-    `${race.winners.map((car) => car.name).join(", ")}가 최종 우승했습니다.`
+    `${race.winners.map((car) => car.name).join(", ")}${MESSAGE.WINNER}`
   );
 }

@@ -1,10 +1,12 @@
+import { CAR, ERROR_MESSAGE } from "../constant/index.js";
+
 export default class Car {
   name;
   position;
 
   constructor(name) {
-    if (name.length > 5) {
-      throw new Error("자동차 이름은 5자 이하만 가능합니다.");
+    if (name.length > CAR.MAX_NAME_LENGTH) {
+      throw new Error(ERROR_MESSAGE.CAR_NAME_LENGTH);
     }
     this.name = name;
     this.position = 0;
@@ -15,7 +17,7 @@ export default class Car {
   }
 
   move(randomNumber) {
-    if (randomNumber >= 4) {
+    if (randomNumber >= CAR.MIN_MOVE_THRESHOLD) {
       this.moveForward();
     }
   }

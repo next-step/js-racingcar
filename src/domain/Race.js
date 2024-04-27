@@ -1,7 +1,7 @@
 import Car from "./Car.js";
 import { getRandomNumber } from "../utils/number.js";
+import { CAR, RACE } from "../constant/index.js";
 
-const MAX_ROUND = 5;
 export default class Race {
   cars = [];
   maxRound;
@@ -9,12 +9,14 @@ export default class Race {
 
   constructor(carNames) {
     this.cars = carNames.map((name) => new Car(name));
-    this.maxRound = MAX_ROUND;
+    this.maxRound = RACE.MAX_ROUND;
     this.currentRound = 0;
   }
 
   playRound() {
-    this.cars.forEach((car) => car.move(getRandomNumber(0, 9)));
+    this.cars.forEach((car) =>
+      car.move(getRandomNumber(CAR.MIN_RANDOM_NUMBER, CAR.MAX_RANDOM_NUMBER))
+    );
     this.currentRound++;
   }
 
