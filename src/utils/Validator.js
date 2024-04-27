@@ -3,13 +3,13 @@ import ERROR from '../constants/Error';
 
 const Validator = {
   validateUserInput(input) {
-    if (input === '') {
+    if (input === CONSTANTS.emptyString) {
       throw new Error(ERROR.emptyInput);
     }
   },
 
   validateCarNames(input) {
-    if (input.length > CONSTANTS.car.nameLength) {
+    if (input.length > CONSTANTS.car.maxNameLength) {
       throw new Error(ERROR.invalidNameLength);
     }
   },

@@ -1,9 +1,14 @@
+import CONSTANTS from '../constants/Constants';
+import Validator from '../utils/Validator';
+
 class Car {
   #name;
 
-  #position = 0;
+  #position = CONSTANTS.car.initialPosition;
 
   constructor(name) {
+    Validator.validateCarNames(name);
+
     this.#name = name;
   }
 
@@ -16,7 +21,8 @@ class Car {
   }
 
   move() {
-    if (Car.getRandomNumber() >= 4) this.#position += 1;
+    if (Car.getRandomNumber() >= CONSTANTS.car.move.threshold)
+      this.#position += CONSTANTS.car.move.distance;
   }
 
   static getRandomNumber() {

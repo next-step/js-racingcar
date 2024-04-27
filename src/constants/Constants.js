@@ -1,9 +1,14 @@
+const move = Object.freeze({
+  maxNumber: 9,
+  minNumber: 0,
+  threshold: 4,
+  distance: 1,
+});
+
 const car = Object.freeze({
-  nameLength: 5,
+  maxNameLength: 5,
   initialPosition: 0,
-  moveDistance: 1,
-  minRandomNumber: 0,
-  maxRandomNumber: 9,
+  move,
 });
 
 const racingGame = Object.freeze({
@@ -11,6 +16,7 @@ const racingGame = Object.freeze({
 });
 
 const CONSTANTS = Object.freeze({
+  emptyString: '',
   car,
   racingGame,
 });

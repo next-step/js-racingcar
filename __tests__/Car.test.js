@@ -21,7 +21,7 @@ describe('자동차 테스트', () => {
       const { name } = car;
 
       // then
-      expect(name.length <= CONSTANTS.car.nameLength).toBeTruthy();
+      expect(name.length <= CONSTANTS.car.maxNameLength).toBeTruthy();
     });
 
     test.each([
@@ -29,12 +29,12 @@ describe('자동차 테스트', () => {
       [1, CONSTANTS.car.initialPosition],
       [2, CONSTANTS.car.initialPosition],
       [3, CONSTANTS.car.initialPosition],
-      [4, CONSTANTS.car.initialPosition + CONSTANTS.car.moveDistance],
-      [5, CONSTANTS.car.initialPosition + CONSTANTS.car.moveDistance],
-      [6, CONSTANTS.car.initialPosition + CONSTANTS.car.moveDistance],
-      [7, CONSTANTS.car.initialPosition + CONSTANTS.car.moveDistance],
-      [8, CONSTANTS.car.initialPosition + CONSTANTS.car.moveDistance],
-      [9, CONSTANTS.car.initialPosition + CONSTANTS.car.moveDistance],
+      [4, CONSTANTS.car.initialPosition + CONSTANTS.car.move.distance],
+      [5, CONSTANTS.car.initialPosition + CONSTANTS.car.move.distance],
+      [6, CONSTANTS.car.initialPosition + CONSTANTS.car.move.distance],
+      [7, CONSTANTS.car.initialPosition + CONSTANTS.car.move.distance],
+      [8, CONSTANTS.car.initialPosition + CONSTANTS.car.move.distance],
+      [9, CONSTANTS.car.initialPosition + CONSTANTS.car.move.distance],
     ])(
       `자동차가 전진하는 조건은 0에서 9 사이에서 무작위로 얻은 값이 4 이상일 때이다.`,
       (input, result) => {
@@ -52,8 +52,8 @@ describe('자동차 테스트', () => {
 
   describe('예외 케이스 테스트', () => {
     test('자동차 이름이 5자 이상일 경우 예외 처리한다.', () => {
-      // then
-      expect(() => new Car('migugin')).rejects.toThrow(ERROR.invalidNameLength);
+      // when + then
+      expect(() => new Car('migugin')).toThrow(ERROR.invalidNameLength);
     });
   });
 });
