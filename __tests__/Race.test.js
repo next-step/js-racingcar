@@ -1,4 +1,3 @@
-import { App } from "../src";
 import { ERROR_CODES } from "../src/constants";
 import { Race } from "../src/domain";
 import {
@@ -7,7 +6,6 @@ import {
 } from "../src/domain/strategies";
 import { getRandom, readLineAsync } from "../src/utils";
 
-const TEST_CAR_NAME = "pobi";
 const TEST_CAR_NAMES = "pobi,crong,honux";
 
 jest.mock("../src/utils", () => ({
@@ -47,6 +45,25 @@ describe("자동차 경주 게임 테스트", () => {
     // then
     expect(app.getWinners().length).toBe(1);
     expect(app.getWinners()[0].getName()).toBe(carNames[0]);
+  });
+
+  test("라운드마다 전진 조건이 바뀔 수 있다.", async () => {
+    // given
+    const carNames = TEST_CAR_NAMES.split(",");
+    const app = new Race(carNames, new RandomMoveStrategy());
+    getRandom.mockReturnValueOnce(RandomMoveStrategy.MOVE_FORWARD_CAR);
+    app.setStrategyPerRound(2, new DefaultMoveStrategy());
+    app.setStrategyPerRound(3, new DefaultMoveStrategy());
+    app.setStrategyPerRound(4, new DefaultMoveStrategy());
+    app.setStrategyPerRound(5, new DefaultMoveStrategy());
+
+    // when
+    app.race();
+
+    // then
+    expect(app.getCars()[0].getPosition()).toBe(5);
+    expect(app.getCars()[1].getPosition()).toBeGreaterThan(3);
+    expect(app.getCars()[2].getPosition()).toBeGreaterThan(3);
   });
 
   test("이름이 빈 문자열인 자동차가 존재할 때 종료한다.", async () => {
