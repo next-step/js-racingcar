@@ -9,3 +9,7 @@ export function readCarPosition(position) {
 export function readWinners(winners) {
   return winners.toString().replace(/,/g, ', ');
 }
+
+export function readCarProgress(car) {
+  return `${car.name} : ${readCarPosition(car.position)}`;
+}
