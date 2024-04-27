@@ -99,17 +99,14 @@ describe('입출력 관련된 것들', () => {
 
   test('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
     //Given
-
     const cario = new CarIO();
-
     const bmw = new Car();
     const audi = new Car();
     const kia = new Car();
-
     bmw.setName('bmw');
     audi.setName('audi');
     kia.setName('kia');
-
+    const logSpy = jest.spyOn(global.console, 'log');
     audi.getRandomValue = jest.fn().mockReturnValue(5);
     bmw.getRandomValue = jest.fn().mockReturnValue(5);
     kia.getRandomValue = jest.fn().mockReturnValue(5);
@@ -118,11 +115,13 @@ describe('입출력 관련된 것들', () => {
 
     //when
     race.racingStart(cario.showRacingResult);
-    const logSpy = jest.spyOn(global.console, 'log');
 
+    //then
     expect(logSpy).toHaveBeenCalled();
-    expect(logSpy).toHaveBeenCalled(15);
+    expect(logSpy).toHaveBeenCalledTimes(15);
     expect(logSpy).toHaveBeenCalledWith('bmw : 5');
-    expect(logSpy.mock.Calls).toContainEqual(['audi : 5']);
+    expect(logSpy.mock.calls).toContainEqual(['audi : 5']);
+
+    logSpy.mockRestore();
   });
 });
