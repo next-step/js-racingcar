@@ -25,6 +25,12 @@ class View {
 
     this.#outputView.print(output);
   }
+
+  printWinners(winners) {
+    const output = `${winners.join(', ')}가 최종 우승했습니다.`;
+
+    this.#outputView.print(output);
+  }
 }
 
 export default View;
