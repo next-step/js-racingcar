@@ -10,7 +10,7 @@ class Name {
     this.#name = name;
   }
 
-  getName() {
+  get name() {
     return this.#name;
   }
 }

@@ -6,7 +6,7 @@ describe('자동차 기능 테스트', () => {
     const car = new Car('taxi');
 
     // when
-    const name = car.getName();
+    const name = car.name;
 
     // then
     expect(name).toBe('taxi');

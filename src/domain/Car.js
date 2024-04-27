@@ -3,15 +3,15 @@ import Move from './Move';
 import { generateRandomNumber } from '../utils';
 
 class Car extends Move {
-  #name;
+  #carName;
 
   constructor(name) {
     super();
-    this.#name = new Name(name).getName();
+    this.#carName = new Name(name);
   }
 
-  getName() {
-    return this.#name;
+  get name() {
+    return this.#carName.name;
   }
 
   forward() {

@@ -49,7 +49,7 @@ class Racing {
   }
 
   getWinnerNames() {
-    return this.#winners.map((player) => player.getName());
+    return this.#winners.map((player) => player.name);
   }
 
   race() {

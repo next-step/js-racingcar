@@ -3,10 +3,10 @@ import Name from '../src/domain/Name';
 describe('이름 기능 테스트', () => {
   it('이름을 설정할 수 있다.', () => {
     // given
-    const name = new Name('pucci');
+    const pucci = new Name('pucci');
 
     // when
-    const pucciName = name.getName();
+    const pucciName = pucci.name;
 
     // then
     expect(pucciName).toBe('pucci');
@@ -17,8 +17,8 @@ describe('이름 기능 테스트', () => {
     const name2 = new Name('hyunseo', 7);
 
     // when
-    const pucciName = name1.getName();
-    const hyunseoName = name2.getName();
+    const pucciName = name1.name;
+    const hyunseoName = name2.name;
 
     // then
     expect(pucciName.length).toBe(5);
