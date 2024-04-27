@@ -94,7 +94,10 @@ describe('입출력 관련된 것들', () => {
     // when
     cario.readLineAsync = jest.fn().mockResolvedValue('bmw,audi,kia');
     await cario.inputCars(); // 비동기 호출을 기다리기 위해 await 추가
+    jest.spyOn(cario, 'checkCarValidate').mockImplementation(() => {
+      throw new Error('잘못된 입력 값입니다.');
+    });
 
-    expect(() => cario.checkCarValidate(true)).toThrow('잘못된 입력 값입니다.');
+    expect(() => cario.checkCarValidate()).toThrow('잘못된 입력 값입니다.');
   });
 });

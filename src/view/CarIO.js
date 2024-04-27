@@ -88,7 +88,11 @@ export class CarIO {
     console.log(`${carName} : ${currentPosition}`);
   }
 
-  checkCarValidate(validate) {
-    if (validate) throw Error('잘못된 입력 값입니다.');
+  checkCarValidate() {
+    this.cars.forEach((car) => {
+      if (!car.isValidateName()) {
+        throw new Error('자동차 이름은 5자 이하만 가능합니다.');
+      }
+    });
   }
 }
