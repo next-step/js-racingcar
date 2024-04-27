@@ -18,11 +18,7 @@ class Car {
   }
 
   static shouldCarMove(randomValue) {
-    if (randomValue >= 4) {
-      return true;
-    }
-
-    return false;
+    return randomValue >= 4;
   }
 
   static isValidName(name) {
