@@ -1,3 +1,5 @@
+import Validator from '../utils/Validator';
+
 class RacingGame {
   #cars;
 
@@ -6,6 +8,8 @@ class RacingGame {
   #winners;
 
   constructor(cars) {
+    Validator.validateInputFormat(cars);
+
     this.#cars = cars;
     this.#round = 0;
   }
