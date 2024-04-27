@@ -1,14 +1,12 @@
-import { CarModel } from "../car";
-import { readLineAsync } from "../utils/readline";
-
-const INITIAL_ROUND = 0;
-const INITIAL_CAR_LIST = [];
-const INITIAL_WINNER_LIST = [];
-
-const RACING_ROUND = 5;
-
-const SETUP_MESSAGE =
-  "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).";
+import { readLineAsync } from "../../utils/readline.js";
+import { Car } from "../car/car.model.js";
+import {
+  INITIAL_CAR_LIST,
+  INITIAL_ROUND,
+  INITIAL_WINNER_LIST,
+  RACING_ROUND,
+  SETUP_MESSAGE,
+} from "./racing.constant.js";
 
 export class Racing {
   #round;
@@ -27,9 +25,7 @@ export class Racing {
       .split(",")
       .map((carName) => carName.trim());
 
-    this.#carList = carNameList.map(
-      (carName) => new CarModel.Car({ name: carName })
-    );
+    this.#carList = carNameList.map((carName) => new Car({ name: carName }));
   }
 
   start() {

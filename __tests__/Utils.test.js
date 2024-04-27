@@ -4,12 +4,12 @@ import {
   ReadLineArgumentError,
   ReadLineTypeError,
   readLineAsync,
-} from "../src/utils/readline";
+} from "../src/utils/readline.js";
 import {
   BoundaryRangeError,
   BoundaryTypeError,
   boundaryRandomNumber,
-} from "../src/utils/randomNumber";
+} from "../src/utils/randomNumber.js";
 
 jest.mock("readline");
 

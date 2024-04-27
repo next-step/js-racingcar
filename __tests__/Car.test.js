@@ -1,4 +1,8 @@
-import { CarModel, CarErrors } from "../src/car";
+import { Car } from "../src/domain/car/car.model.js";
+import {
+  CarNameRequiredError,
+  CarNameTooLongError,
+} from "../src/domain/car/car.error.js";
 
 describe("자동차", () => {
   describe("이름은 5자 이하로 구성되어야 한다.", () => {
@@ -7,7 +11,7 @@ describe("자동차", () => {
       const carName = "Tesla";
 
       // Act
-      const car = new CarModel.Car({ name: carName });
+      const car = new Car({ name: carName });
 
       // Act & Assert
       expect(car).toBeTruthy();
@@ -18,8 +22,8 @@ describe("자동차", () => {
       const carName = undefined;
 
       // Act & Assert
-      expect(() => new CarModel.Car({ name: carName })).toThrowError(
-        CarErrors.CarNameRequiredError
+      expect(() => new Car({ name: carName })).toThrowError(
+        CarNameRequiredError
       );
     });
 
@@ -28,8 +32,8 @@ describe("자동차", () => {
       const carName = "";
 
       // Act & Assert
-      expect(() => new CarModel.Car({ name: carName })).toThrowError(
-        CarErrors.CarNameRequiredError
+      expect(() => new Car({ name: carName })).toThrowError(
+        CarNameRequiredError
       );
     });
 
@@ -38,8 +42,8 @@ describe("자동차", () => {
       const carName = "TeslaModelS";
 
       // Act & Assert
-      expect(() => new CarModel.Car({ name: carName })).toThrowError(
-        CarErrors.CarNameTooLongError
+      expect(() => new Car({ name: carName })).toThrowError(
+        CarNameTooLongError
       );
     });
   });
@@ -50,7 +54,7 @@ describe("자동차", () => {
     beforeEach(() => {
       // Arrange
       const carName = "Tesla";
-      car = new CarModel.Car({ name: carName });
+      car = new Car({ name: carName });
     });
 
     afterEach(() => {
@@ -84,7 +88,7 @@ describe("자동차", () => {
     test("자동차 이름과 전진 거리를 출력한다.", () => {
       // Arrange
       const carName = "Tesla";
-      const car = new CarModel.Car({ name: carName });
+      const car = new Car({ name: carName });
 
       jest.spyOn(Math, "random").mockReturnValue(0.4);
 

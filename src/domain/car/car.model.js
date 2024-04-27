@@ -1,15 +1,13 @@
-import { validateCarName } from "./car.contract";
-import { boundaryRandomNumber } from "../utils/randomNumber";
-
-const MOVING_CONDITION = 4;
-const MOVING_DISTANCE = 1;
-
-const BOUNDARY_LEFT = 0;
-const BOUNDARY_RIGHT = 9;
-
-const CAR_DISPLAY = "-";
-
-const INITIAL_POSITION = 0;
+import { validateCarName } from "./car.contract.js";
+import { boundaryRandomNumber } from "../../utils/randomNumber.js";
+import {
+  BOUNDARY_LEFT,
+  BOUNDARY_RIGHT,
+  CAR_DISPLAY,
+  INITIAL_POSITION,
+  MOVE_DISTANCE,
+  MOVE_THRESHOLD,
+} from "./car.constant.js";
 
 export class Car {
   #name;
@@ -23,8 +21,8 @@ export class Car {
   }
   move() {
     const randomNumber = boundaryRandomNumber(BOUNDARY_LEFT, BOUNDARY_RIGHT);
-    if (randomNumber >= MOVING_CONDITION) {
-      this.#position += MOVING_DISTANCE;
+    if (randomNumber >= MOVE_THRESHOLD) {
+      this.#position += MOVE_DISTANCE;
     }
   }
 

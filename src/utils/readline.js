@@ -1,17 +1,16 @@
 import readline from "readline";
-
-import { Errors } from "../common";
+import { ArgumentError } from "../common/error.js";
 
 const READLINE_TYPE_ERROR = "query must be string";
 const READLINE_ARGUMENT_ERROR = "arguments must be 1";
 
-export class ReadLineTypeError extends Errors.TypeError {
+export class ReadLineTypeError extends TypeError {
   constructor() {
     super(READLINE_TYPE_ERROR);
   }
 }
 
-export class ReadLineArgumentError extends Errors.ArgumentError {
+export class ReadLineArgumentError extends ArgumentError {
   constructor() {
     super(READLINE_ARGUMENT_ERROR);
   }

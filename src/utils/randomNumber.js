@@ -1,15 +1,15 @@
-import { Errors } from "../common";
+import { ValidationError } from "../common/error.js";
 
 const BOUNDARY_TYPE_ERROR = "Left and right must be numbers";
 const BOUNDARY_RANGE_ERROR = "Left boundary must be less than right boundary";
 
-export class BoundaryRangeError extends Errors.ValidationError {
+export class BoundaryRangeError extends ValidationError {
   constructor() {
     super(BOUNDARY_RANGE_ERROR);
   }
 }
 
-export class BoundaryTypeError extends Errors.TypeError {
+export class BoundaryTypeError extends TypeError {
   constructor() {
     super(BOUNDARY_TYPE_ERROR);
   }
