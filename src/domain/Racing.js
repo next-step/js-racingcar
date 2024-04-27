@@ -9,6 +9,7 @@ class Racing {
 
   constructor(maxLap = Racing.DEFAULT_MAX_LAP) {
     this.#players = [];
+    this.#winners = [];
     this.#maxLap = maxLap;
   }
 
