@@ -45,4 +45,14 @@ describe('레이스 관련 내용 ', () => {
     //then
     expect(race.getWinner()).toEqual('audi,bmw,kia');
   });
+
+  test('자동차 경주는 5회로 고정하여 진행한다.', () => {
+    //Given
+    const race = new Race();
+
+    //When
+
+    //then
+    expect(race.getRaceCount()).toBe(5);
+  });
 });
