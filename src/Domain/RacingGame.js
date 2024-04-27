@@ -8,7 +8,7 @@ class RacingGame {
   #winners;
 
   constructor(cars) {
-    Validator.validateInputFormat(cars);
+    Validator.validateInputData(cars);
 
     this.#cars = cars;
     this.#round = 0;

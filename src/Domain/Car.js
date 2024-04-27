@@ -8,7 +8,7 @@ class Car {
   #position;
 
   constructor(name) {
-    Validator.validateCarNames(name);
+    Validator.validateCarName(name);
 
     this.#name = name;
     this.#position = CONSTANTS.car.initialPosition;
