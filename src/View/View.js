@@ -1,3 +1,4 @@
+import CONSTANTS from '../constants/Constants';
 import MESSAGES from '../constants/Messages';
 import InputView from './InputView';
 import OutputView from './OutputView';
@@ -17,9 +18,14 @@ class View {
     return cars;
   }
 
+  printMessage(string) {
+    this.#outputView.print(string);
+  }
+
   printRoundState(cars) {
     const output = cars.reduce(
-      (acc, cur) => `${acc}${cur.name} : ${'-'.repeat(cur.position)}\n`,
+      (acc, cur) =>
+        `${acc}${cur.name} : ${CONSTANTS.car.move.symbol.repeat(cur.position)}\n`,
       '',
     );
 
@@ -27,7 +33,7 @@ class View {
   }
 
   printWinners(winners) {
-    const output = `${winners.join(', ')}가 최종 우승했습니다.`;
+    const output = `${winners.join(', ')}${MESSAGES.output.gameWinner}`;
 
     this.#outputView.print(output);
   }

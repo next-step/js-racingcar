@@ -1,3 +1,4 @@
+import CONSTANTS from '../constants/Constants';
 import Validator from '../utils/Validator';
 
 class RacingGame {
@@ -11,7 +12,7 @@ class RacingGame {
     Validator.validateInputData(cars);
 
     this.#cars = cars;
-    this.#round = 0;
+    this.#round = CONSTANTS.racingGame.initialRound;
   }
 
   get cars() {
@@ -27,7 +28,7 @@ class RacingGame {
   }
 
   start() {
-    while (this.#round < 5) {
+    while (this.#round < CONSTANTS.racingGame.roundConfig) {
       this.#cars.forEach(car => car.move());
 
       this.#round += 1;

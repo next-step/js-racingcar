@@ -3,6 +3,7 @@ const move = Object.freeze({
   minNumber: 0,
   threshold: 4,
   distance: 1,
+  symbol: '-',
 });
 
 const car = Object.freeze({
@@ -12,7 +13,8 @@ const car = Object.freeze({
 });
 
 const racingGame = Object.freeze({
-  round: 5,
+  initialRound: 0,
+  roundConfig: 5,
 });
 
 const CONSTANTS = Object.freeze({

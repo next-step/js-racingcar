@@ -21,7 +21,7 @@ describe('경주 게임 테스트', () => {
       racingGame.start();
 
       // then
-      expect(racingGame.round).toBe(CONSTANTS.racingGame.round);
+      expect(racingGame.round).toBe(CONSTANTS.racingGame.roundConfig);
     });
 
     test('자동차 경주 게임을 완료한 후 우승자를 선별한다.', () => {

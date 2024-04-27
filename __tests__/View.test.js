@@ -1,6 +1,7 @@
 import InputView from '../src/View/InputView';
 import View from '../src/View/View';
 import ERROR from '../src/constants/Error';
+import MESSAGES from '../src/constants/Messages';
 
 /* 
 입출력
@@ -52,8 +53,8 @@ describe('View 테스트', () => {
     });
 
     test.each([
-      [['pobi'], 'pobi가 최종 우승했습니다.'],
-      [['pobi', 'honux'], 'pobi, honux가 최종 우승했습니다.'],
+      [['pobi'], `pobi${MESSAGES.output.gameWinner}`],
+      [['pobi', 'honux'], `pobi, honux${MESSAGES.output.gameWinner}`],
     ])('우승자는 쉼표를 기준으로 구분하여 출력된다.', (input, expected) => {
       // when
       view.printWinners(input);
