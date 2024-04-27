@@ -23,4 +23,18 @@ describe('레이싱 입출력 기능 테스트', () => {
     // then
     expect(output).toBe('---');
   });
+  it('우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.', () => {
+    // given
+    const racingIO = new RacingIO();
+    const winners = ['taxi', 'ford'];
+    const [winner] = winners;
+
+    // when
+    const winnersOutput = racingIO.printWinners(winners);
+    const winnerOutput = racingIO.printWinners(winner);
+
+    // then
+    expect(winnersOutput).toBe('taxi, ford');
+    expect(winnerOutput).toBe('taxi');
+  });
 });
