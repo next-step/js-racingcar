@@ -8,11 +8,12 @@ export class Car {
   }
 
   setName(name) {
-    if (name.length > 5) {
-      this.name = '';
-    } else {
-      this.name = name;
-    }
+    this.name = name;
+  }
+
+  isValidateName() {
+    if (this.name.length > 5) return false;
+    return true;
   }
 
   getName() {

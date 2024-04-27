@@ -39,4 +39,8 @@ export class CarIO {
   showRacingResult(carName, currentPosition) {
     console.log(`${carName} : ${currentPosition}`);
   }
+
+  checkCarValidate(validate) {
+    if (validate) throw Error('잘못된 입력 값입니다.');
+  }
 }
