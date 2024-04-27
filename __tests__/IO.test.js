@@ -4,7 +4,7 @@ import {
   joinCarNamesByComma,
   printCarsStatus,
   validateCarNames,
-} from "../src/utils/car.js";
+} from "../src/utils/cars.js";
 
 describe("입출력 테스트", () => {
   test("자동차의 이름은 쉼표(,)를 기준으로 구분", () => {

@@ -1,4 +1,4 @@
-import { printCarsStatus } from "../utils/car.js";
+import { joinCarNamesByComma, printCarsStatus } from "../utils/cars.js";
 
 const TOTAL_RACE_COUNT = 5;
 class CarRace {
@@ -36,6 +36,12 @@ class CarRace {
       this.remaingRaceCount--;
     }
   }
+
+  printWinners = () => {
+    const joinedCarRaceWinners = joinCarNamesByComma(this.winners);
+
+    console.log(`${joinedCarRaceWinners}가 최종 우승했습니다.`);
+  };
 }
 
 export default CarRace;

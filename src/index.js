@@ -1,8 +1,7 @@
 import readline from "readline";
 import { splitStringByComma } from "./utils/IO.js";
 import CarRace from "./domain/CarRace.js";
-import { printCarRaceWinners } from "./utils/carRace.js";
-import { createCarsByNames, validateCarNames } from "./utils/car.js";
+import { createCarsByNames, validateCarNames } from "./utils/cars.js";
 
 function readLineAsync(query) {
   return new Promise((resolve, reject) => {
@@ -46,7 +45,7 @@ async function play() {
   carRace.race();
 
   // 우승자 출력
-  printCarRaceWinners(carRace);
+  carRace.printWinners();
 }
 
 play();
