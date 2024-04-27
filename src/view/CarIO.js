@@ -56,4 +56,8 @@ export class CarIO {
       console.log(' ');
     });
   }
+
+  showRacingResult(carName, currentPosition) {
+    console.log(`${carName} : ${currentPosition}`);
+  }
 }
