@@ -120,8 +120,8 @@ describe('자동차 관련 내용', () => {
     const car = new Car();
 
     //When(실행)
-    car.setName('audi');
-    car.randomValue = 4;
+    car.getRandomValue = jest.fn().mockReturnValue(5); // 항상 이동 조건 충족
+
     car.move();
 
     //Then(검증)
