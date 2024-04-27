@@ -6,11 +6,8 @@ class Racing {
   #lapCount;
   #winners;
 
-  constructor(players, lapCount = DEFAULT_LAP_COUNT) {
-    if (!Array.isArray(players)) {
-      throw new TypeError('잘못된 형식입니다.');
-    }
-    this.#players = players.map((player) => new Car(player));
+  constructor(lapCount = DEFAULT_LAP_COUNT) {
+    this.#players = [];
     this.#lapCount = lapCount;
   }
 
@@ -18,7 +15,7 @@ class Racing {
     return this.#getPlayersPosition().includes(this.#lapCount);
   }
 
-  #endRace() {
+  endRace() {
     this.#winners = this.#players.filter(
       (player) => player.getPosition() === this.#lapCount
     );
@@ -30,6 +27,13 @@ class Racing {
 
   getPlayers() {
     return this.#players;
+  }
+
+  setPlayers(players) {
+    if (!Array.isArray(players)) {
+      throw new TypeError('잘못된 형식입니다.');
+    }
+    this.#players = players.map((player) => new Car(player));
   }
 
   getPlayerCount() {
@@ -57,7 +61,7 @@ class Racing {
       this.race();
     }
 
-    this.#endRace();
+    this.endRace();
     return this;
   }
 }
