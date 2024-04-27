@@ -12,4 +12,15 @@ describe('레이싱 입출력 기능 테스트', () => {
     // then
     expect(carName).toEqual(['taxi', 'tesla', 'ford']);
   });
+  it('자동차의 위치는 - 로 표시한다.', () => {
+    // given
+    const racingIO = new RacingIO();
+    const input = 3;
+
+    // when
+    const output = racingIO.positionToString(input);
+
+    // then
+    expect(output).toBe('---');
+  });
 });
