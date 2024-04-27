@@ -51,4 +51,15 @@ describe("자동차 경주 게임 테스트", () => {
     // then
     expect(app).toThrow(ERROR_CODES.ERROR_INVALID_CAR_NAME);
   });
+
+  test("중복된 자동차 이름이 존재할 때 종료한다.", async () => {
+    // given
+    const carNames = "crong,crong,honux".split(",");
+
+    // when
+    const app = () => new Race(carNames);
+
+    // then
+    expect(app).toThrow(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);
+  });
 });
