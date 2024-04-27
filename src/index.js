@@ -33,7 +33,11 @@ export class App {
       Console.print("");
     });
   }
-
+  #printWinner() {
+    const winnerWithComma = this.#winner.map((car) => car.name).join(", ");
+    Console.print(CONSOLE_MESSAGES.WINNER(winnerWithComma));
+    Console.exit();
+  }
   async init() {
     try {
       await this.#carNameStage();
@@ -43,7 +47,7 @@ export class App {
 
       this.#winner = this.#carRace.getWinner();
 
-
+      this.#printWinner();
     } catch (error) {
       Console.print(error.message);
       return Console.exit();
