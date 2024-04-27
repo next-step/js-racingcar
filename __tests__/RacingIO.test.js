@@ -30,7 +30,7 @@ describe('레이싱 입출력 기능 테스트', () => {
   it('레이싱 진행 상황을 표시한다.', () => {
     // given
     const car = new Car('tesla');
-    const carName = car.name;
+    const carName = car.carName;
 
     // when
     const output = readCarProgress(car);

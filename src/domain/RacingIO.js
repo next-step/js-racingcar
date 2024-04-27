@@ -14,5 +14,5 @@ export function readWinners(winners) {
 }
 
 export function readCarProgress(car) {
-  return `${car.name} : ${readCarPosition(car.position)}`;
+  return `${car.carName} : ${readCarPosition(car.position)}`;
 }
