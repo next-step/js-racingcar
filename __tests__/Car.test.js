@@ -1,4 +1,4 @@
-import Car from '../src/Car';
+import Car from '../src/Domain/Car';
 
 /* 
 - 자동차에 5자 이하의 이름을 부여할 수 있다.

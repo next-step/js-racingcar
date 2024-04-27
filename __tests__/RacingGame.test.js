@@ -1,5 +1,5 @@
-import RacingGame from '../src/RacingGame';
-import Car from '../src/Car';
+import RacingGame from '../src/Domain/RacingGame';
+import Car from '../src/Domain/Car';
 
 /* 
 경주 컨트롤러
