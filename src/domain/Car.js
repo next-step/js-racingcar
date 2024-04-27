@@ -1,12 +1,10 @@
 export class Car {
   name;
   position;
-  randomValue;
 
   constructor() {
     this.name = '';
     this.position = 0;
-    this.randomValue = 0;
   }
 
   setName(name) {
@@ -22,7 +20,7 @@ export class Car {
   }
 
   getRandomValue() {
-    this.randomValue = Math.floor(Math.random(0, 9) * 10);
+    return Math.floor(Math.random() * 10);
   }
 
   getPosition() {
@@ -30,7 +28,8 @@ export class Car {
   }
 
   move() {
-    if (this.randomValue >= 4) {
+    const randomValue = this.getRandomValue();
+    if (randomValue >= 4) {
       this.position += 1;
     }
   }

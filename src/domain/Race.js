@@ -9,26 +9,23 @@ export class Race {
   }
 
   racingStart() {
-    for (let racingRepeatCount = 0; racingRepeatCount < 5; racingRepeatCount++) {
-      this.racingCars.map((car) => {
-        car.getRandomValue();
+    for (let i = 0; i < RACING_COUNT; i++) {
+      this.racingCars.forEach((car) => {
         car.move();
       });
     }
     this.racingResult = this.racingCars
-      .map((car) => {
-        return {
-          carName: car.getName(),
-          currentPosition: car.getPosition(),
-        };
-      })
-      .sort((a, b) => {
-        return b.currentPosition - a.currentPosition;
-      });
+      .map((car) => ({ carName: car.getName(), currentPosition: car.getPosition() }))
+      .sort((a, b) => b.currentPosition - a.currentPosition);
   }
 
   getWinner() {
     const winnerPosition = this.racingResult[0].currentPosition;
-    return this.racingResult.filter((car) => winnerPosition <= car.currentPosition);
+    const winner = this.racingResult
+      .filter((car) => winnerPosition <= car.currentPosition)
+      .map((car) => car.carName)
+      .join(',');
+
+    return winner;
   }
 }
