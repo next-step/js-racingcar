@@ -1,6 +1,6 @@
 import Name from './Name';
 import Move from './Move';
-import Utils from '../utils/inedx';
+import { generateRandomNumber } from '../utils';
 
 class Car extends Move {
   #name;
@@ -15,7 +15,7 @@ class Car extends Move {
   }
 
   forward() {
-    if (Utils.generateRandomNumber(0, 9) > 4) {
+    if (generateRandomNumber(0, 9) > 4) {
       return super.forward();
     }
     return this;

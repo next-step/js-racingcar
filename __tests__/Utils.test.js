@@ -1,13 +1,12 @@
-import Utils from '../src/utils/inedx';
+import { generateRandomNumber } from '../src/utils';
 
 describe('유틸 함수 기능 테스트', () => {
   it('0~9사이의 난수를 생성합니다.', () => {
     // given
-    const randomFn = Utils.generateRandomNumber;
+    const range = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     // when
-    const randomNumber = randomFn(0, 9);
-    const range = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const randomNumber = generateRandomNumber(0, 9);
 
     // then
     expect(randomNumber).toEqual(expect.any(Number));
