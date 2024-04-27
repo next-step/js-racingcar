@@ -49,6 +49,12 @@ export class Racing {
     );
   }
 
+  display() {
+    return `${this.#winnerList
+      .map((car) => car.name)
+      .join(", ")}가 최종 우승했습니다.`;
+  }
+
   get round() {
     return this.#round;
   }

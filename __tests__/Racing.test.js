@@ -86,5 +86,22 @@ describe("자동차 경주", () => {
       // Assert
       expect(racing.winnerList.length).toBeGreaterThanOrEqual(1);
     });
+    test("경주를 완료한 후 우승자를 출력한다.", async () => {
+      // Arrange
+      const racing = new RacingModel.Racing();
+      jest.spyOn(Math, "random").mockReturnValue(0.4);
+      mockQuestion.mockImplementation((query, callback) => {
+        callback("Tesla");
+      });
+
+      // Act
+      await racing.setup();
+      racing.start();
+      racing.end();
+
+      // Assert
+      const winner = "Tesla가 최종 우승했습니다.";
+      expect(racing.display()).toBe(winner);
+    });
   });
 });
