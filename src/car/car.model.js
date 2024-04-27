@@ -6,6 +6,8 @@ const MOVING_CONDITION = 4;
 const BOUNDARY_LEFT = 0;
 const BOUNDARY_RIGHT = 9;
 
+const CAR_DISPLAY = "-";
+
 export class Car {
   constructor({ name }) {
     validateCarName(name);
@@ -18,5 +20,9 @@ export class Car {
     if (randomNumber >= MOVING_CONDITION) {
       this.position += 1;
     }
+  }
+
+  display() {
+    console.log(`${this.name}: ${CAR_DISPLAY.repeat(this.position)}`);
   }
 }

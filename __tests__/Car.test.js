@@ -79,4 +79,22 @@ describe("자동차", () => {
       expect(car.position).toBe(0);
     });
   });
+
+  describe("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
+    test("자동차 이름과 전진 거리를 출력한다.", () => {
+      // Arrange
+      const carName = "Tesla";
+      const car = new CarModel.Car({ name: carName });
+
+      const consoleSpy = jest.spyOn(console, "log");
+      jest.spyOn(Math, "random").mockReturnValue(0.4);
+
+      // Act
+      car.move();
+      car.display();
+
+      // Assert
+      expect(consoleSpy).toHaveBeenCalledWith(`${carName}: -`);
+    });
+  });
 });
