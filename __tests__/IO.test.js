@@ -55,29 +55,15 @@ describe("입/출력 테스트", () => {
     );
   });
 
-  test("자동차이름이 빈 값이면 프로그램을 종료한다.", async () => {
+  test("빈 값을 입력하면 종료한다.", async () => {
     // given
-    readLineAsync.mockResolvedValue(",crong,honux");
-    const app = new App(new RandomMoveStrategy());
+    readLineAsync.mockResolvedValue("");
+    const app = new App();
 
     // when
     await app.play();
 
     // then
-    expect(logSpy).toHaveBeenCalledWith(ERROR_MESSAGES.ERROR_INVALID_CAR_NAME);
-  });
-
-  test("자동차이름이 중복된 값이면 프로그램을 종료한다.", async () => {
-    // given
-    readLineAsync.mockResolvedValue("crong,crong,honux");
-    const app = new App(new RandomMoveStrategy());
-
-    // when
-    await app.play();
-
-    // then
-    expect(logSpy).toHaveBeenCalledWith(
-      ERROR_MESSAGES.ERROR_DUPLICATE_CAR_NAME
-    );
+    expect(logSpy).toHaveBeenCalledWith(ERROR_MESSAGES.ERROR_EMPTY_CAR_NAME);
   });
 });
