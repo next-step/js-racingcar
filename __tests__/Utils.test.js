@@ -1,8 +1,17 @@
+import readline from "readline";
+
+import {
+  ReadLineArgumentError,
+  ReadLineTypeError,
+  readLineAsync,
+} from "../src/utils/readline";
 import {
   BoundaryRangeError,
   BoundaryTypeError,
   boundaryRandomNumber,
 } from "../src/utils/randomNumber";
+
+jest.mock("readline");
 
 describe("랜덤 숫자", () => {
   describe("타입이 숫자인지 확인한다.", () => {
@@ -49,5 +58,34 @@ describe("랜덤 숫자", () => {
     // Assert
     expect(result).toBeGreaterThanOrEqual(left);
     expect(result).toBeLessThanOrEqual(right);
+  });
+});
+
+describe("입력", () => {
+  let mockQuestion;
+  let mockRl;
+
+  beforeEach(() => {
+    mockQuestion = jest.fn();
+    mockRl = { question: mockQuestion, close: jest.fn() };
+    readline.createInterface.mockReturnValue(mockRl);
+  });
+
+  test("문자열이 아니면 에러가 발생한다.", async () => {
+    // Arrange
+    const query = 1;
+
+    // Act & Assert
+    await expect(readLineAsync(query)).rejects.toThrowError(ReadLineTypeError);
+  });
+
+  test("인자가 1개가 아니면 에러가 발생한다.", async () => {
+    // Arrange
+    const query = "질문";
+
+    // Act & Assert
+    await expect(readLineAsync(query, "다른 인자")).rejects.toThrowError(
+      ReadLineArgumentError
+    );
   });
 });
