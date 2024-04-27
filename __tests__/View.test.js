@@ -15,7 +15,6 @@ jest.mock('../src/utils/readLineAsync', () => {
 });
 
 describe('View 테스트', () => {
-  // given
   let view;
 
   beforeEach(() => {
@@ -48,21 +47,22 @@ describe('View 테스트', () => {
       expect(logSpy).toHaveBeenCalledWith(expected);
     });
 
-    test('우승자는 쉼표를 기준으로 구분하여 출력된다.', () => {
+    test.each([
+      [['pobi'], 'pobi가 최종 우승했습니다.'],
+      [['pobi', 'honux'], 'pobi, honux가 최종 우승했습니다.'],
+    ])('우승자는 쉼표를 기준으로 구분하여 출력된다.', (input, expected) => {
       // given
       const logSpy = jest.spyOn(console, 'log');
-      const input = ['pobi', 'honux'];
-      const expected = 'pobi, honux가 최종 우승했습니다.';
 
       // when
-      view.printWinner(input);
+      view.printWinners(input);
 
       // then
       expect(logSpy).toHaveBeenCalledWith(expected);
     });
-  });
 
-  describe('예외 케이스 테스트', () => {
-    // ...
+    describe('예외 케이스 테스트', () => {
+      // ...
+    });
   });
 });
