@@ -36,7 +36,7 @@ export class Racing {
     while (this.#round < RACING_ROUND) {
       this.#carList.forEach((car) => {
         car.move();
-        console.log(car.display());
+        car.display();
       });
       this.#round++;
     }
@@ -50,9 +50,12 @@ export class Racing {
   }
 
   display() {
-    return `${this.#winnerList
-      .map((car) => car.name)
-      .join(", ")}가 최종 우승했습니다.`;
+    const winnerList = this.#winnerList.map((car) => car.name).join(", ");
+    const displayMessage = `${winnerList}가 최종 우승했습니다.`;
+
+    console.log(displayMessage);
+
+    return displayMessage;
   }
 
   get round() {

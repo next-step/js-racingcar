@@ -29,7 +29,12 @@ export class Car {
   }
 
   display() {
-    return `${this.#name}: ${CAR_DISPLAY.repeat(this.#position)}`;
+    const carDisplay = CAR_DISPLAY.repeat(this.#position);
+    const displayMessage = `${this.#name}: ${carDisplay}`;
+
+    console.log(displayMessage);
+
+    return displayMessage;
   }
 
   get name() {
