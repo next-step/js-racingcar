@@ -8,22 +8,19 @@ import View from '../src/View/View';
 - 사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.
 */
 
-describe('View 테스트', () => {
-  test('자동차는 쉼표를 기준으로 구분하여 입력받는다.', () => {
-    // given
-    jest.mock('../src/utils/readLineAsync', () => {
-      return {
-        __esModule: true,
-        default: jest
-          .fn()
-          .mockImplementation(() => Promise.resolve('pobi,crong,honux')),
-      };
-    });
+jest.mock('../src/utils/readLineAsync', () => {
+  return jest
+    .fn()
+    .mockImplementation(() => Promise.resolve('pobi,crong,honux'));
+});
 
+describe('View 테스트', () => {
+  test('자동차는 쉼표를 기준으로 구분하여 입력받는다.', async () => {
+    // given
     const view = new View();
 
     // when
-    const cars = view.readCars();
+    const cars = await view.readCars();
 
     // then
     expect(cars).toEqual(['pobi', 'crong', 'honux']);
