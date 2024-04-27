@@ -1,5 +1,6 @@
 export class Car {
   name;
+
   constructor() {
     this.name = '';
   }
