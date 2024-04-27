@@ -43,4 +43,40 @@ describe("자동차", () => {
       );
     });
   });
+
+  describe("자동차가 전진하는지 확인한다.", () => {
+    let car;
+
+    beforeEach(() => {
+      // Arrange
+      const carName = "Tesla";
+      car = new CarModel.Car({ name: carName });
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test("무작위 수가 4 이상이면 전진한다.", () => {
+      // Arrange
+      jest.spyOn(Math, "random").mockReturnValue(0.4);
+
+      // Act
+      car.move();
+
+      // Assert
+      expect(car.position).toBe(1);
+    });
+
+    test("무작위 수가 3 이하이면 전진하지 않는다.", () => {
+      // Arrange
+      jest.spyOn(Math, "random").mockReturnValue(0.3);
+
+      // Act
+      car.move();
+
+      // Assert
+      expect(car.position).toBe(0);
+    });
+  });
 });
