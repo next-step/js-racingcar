@@ -40,6 +40,20 @@ describe("자동차 경주", () => {
         CarErrors.CarNameRequiredError
       );
     });
+
+    test("사용자는 자동차 이름을 쉼표(,)로 구분하여 입력한다.", async () => {
+      // Arrange
+      const racing = new RacingModel.Racing();
+      mockQuestion.mockImplementation((query, callback) => {
+        callback("Tesla, BMW, Audi");
+      });
+
+      // Act
+      await racing.setup();
+
+      // Assert
+      expect(racing.carList.length).toBe(3);
+    });
   });
 
   describe("자동차 경주 게임을 시작한다.", () => {

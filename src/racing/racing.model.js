@@ -41,4 +41,8 @@ export class Racing {
   get round() {
     return this.#round;
   }
+
+  get carList() {
+    return this.#carList;
+  }
 }
