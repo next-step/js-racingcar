@@ -5,6 +5,9 @@ class RacingIO {
   positionToString(position) {
     return '-'.repeat(position);
   }
+  printWinners(winners) {
+    return winners.toString().replace(/,/g, ', ');
+  }
 }
 
 export default RacingIO;
