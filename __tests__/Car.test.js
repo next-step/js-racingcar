@@ -1,6 +1,7 @@
 import { playGame } from "../src/Controller.js";
 import Car from "../src/domain/Car.js";
 import { getRandomNumber } from "../src/utils/utils.js";
+import { displayForwardCar } from "../src/View.js";
 
 describe("자동차 구현 테스트", () => {
   test("자동차에 이름을 부여할 수 있다.", () => {
@@ -60,5 +61,17 @@ describe("자동차 경주 규칙 구현", () => {
     } else {
       expect(car.position).toBe(0);
     }
+  });
+});
+
+describe("자동차 경주 상황 출력 구현", () => {
+  test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
+    const logSpy = jest.spyOn(global.console, "log");
+    const car = new Car("pobi");
+
+    car.moveForward();
+    displayForwardCar(car);
+
+    expect(logSpy).toHaveBeenCalledWith("pobi : -");
   });
 });

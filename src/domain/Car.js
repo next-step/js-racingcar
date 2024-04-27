@@ -10,9 +10,13 @@ export default class Car {
     this.position = 0;
   }
 
+  moveForward() {
+    this.position++;
+  }
+
   move(randomNumber) {
     if (randomNumber >= 4) {
-      this.position++;
+      this.moveForward();
     }
   }
 }

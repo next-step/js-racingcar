@@ -1,5 +1,6 @@
 import { readLineAsync } from "./utils/readLineSync.js";
 import Race from "./domain/Race.js";
+import { displayForwardCar, displayRace } from "./View.js";
 
 export async function askCarNames() {
   const carNames = await readLineAsync(
@@ -7,13 +8,20 @@ export async function askCarNames() {
   );
 
   console.log(carNames);
+  console.log("");
   return carNames;
 }
 
 export function playGame(carNames) {
   try {
     const race = new Race(carNames.split(","));
-    race.play();
+
+    console.log(`실행 결과`);
+    while (race.currentRound < race.maxRound) {
+      race.playRound();
+      displayRace(race.cars);
+    }
+
     return race;
   } catch (error) {
     throw error;
