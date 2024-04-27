@@ -1,15 +1,17 @@
 import CONSTANTS from '../constants/Constants';
+import Random from '../utils/Random';
 import Validator from '../utils/Validator';
 
 class Car {
   #name;
 
-  #position = CONSTANTS.car.initialPosition;
+  #position;
 
   constructor(name) {
     Validator.validateCarNames(name);
 
     this.#name = name;
+    this.#position = CONSTANTS.car.initialPosition;
   }
 
   get name() {
@@ -21,12 +23,13 @@ class Car {
   }
 
   move() {
-    if (Car.getRandomNumber() >= CONSTANTS.car.move.threshold)
-      this.#position += CONSTANTS.car.move.distance;
-  }
+    const randomNumber = Random.getRandomNumber(
+      CONSTANTS.car.move.minNumber,
+      CONSTANTS.car.move.maxNumber,
+    );
 
-  static getRandomNumber() {
-    return Math.floor(Math.random() * 10);
+    if (randomNumber >= CONSTANTS.car.move.threshold)
+      this.#position += CONSTANTS.car.move.distance;
   }
 }
 
