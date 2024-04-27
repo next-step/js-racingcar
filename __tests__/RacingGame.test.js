@@ -37,9 +37,10 @@ describe('경주 게임 테스트', () => {
 
       // when
       racingGame.startGame();
+      const { winners } = racingGame.getGameResult();
 
       // then
-      expect(racingGame.winners).toEqual([racingGame.cars[2]]);
+      expect(winners).toEqual(['honux']);
     });
   });
 

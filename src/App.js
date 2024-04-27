@@ -1,7 +1,6 @@
 import Car from './Domain/Car.js';
 import RacingGame from './Domain/RacingGame.js';
 import View from './View/View.js';
-import MESSAGES from './constants/Messages.js';
 
 class App {
   #view = new View();
@@ -20,23 +19,10 @@ class App {
     this.#racingGame = new RacingGame(cars);
   }
 
-  printRoundResult() {
-    this.#view.printMessage(MESSAGES.output.gameResult);
-
-    this.#racingGame.results.forEach(result => {
-      this.#view.printRoundState(result);
-    });
-  }
-
-  printWinners() {
-    const winners = this.#racingGame.winners.map(winner => winner.name);
-
-    this.#view.printWinners(winners);
-  }
-
   printGameResult() {
-    this.printRoundResult();
-    this.printWinners();
+    const gameResult = this.#racingGame.getGameResult;
+
+    this.#view.printGameResult(gameResult);
   }
 
   async play() {

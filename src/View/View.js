@@ -37,6 +37,16 @@ class View {
 
     this.#outputView.print(output);
   }
+
+  printGameResult({ results, winners }) {
+    this.printMessage(MESSAGES.output.gameResult);
+
+    results.forEach(result => {
+      this.printRoundState(result);
+    });
+
+    this.printWinners(winners);
+  }
 }
 
 export default View;

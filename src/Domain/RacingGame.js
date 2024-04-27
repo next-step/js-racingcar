@@ -26,23 +26,15 @@ class RacingGame {
     return this.#round;
   }
 
-  get winners() {
-    return this.#winners;
-  }
-
-  get results() {
-    return this.#results;
-  }
-
   progressRound() {
     this.#cars.forEach(car => car.move());
 
-    this.saveRoundResult();
+    this.setRoundResult();
 
     this.#round += 1;
   }
 
-  saveRoundResult() {
+  setRoundResult() {
     const roundResult = this.#cars.map(car => ({
       name: car.name,
       position: car.position,
@@ -54,7 +46,9 @@ class RacingGame {
   setWinner() {
     const maxValue = Math.max(...this.#cars.map(car => car.position));
 
-    this.#winners = this.#cars.filter(car => car.position === maxValue);
+    this.#winners = this.#cars
+      .filter(car => car.position === maxValue)
+      .map(winner => winner.name);
   }
 
   startGame() {
@@ -63,6 +57,13 @@ class RacingGame {
     }
 
     this.setWinner();
+  }
+
+  getGameResult() {
+    return {
+      results: this.#results,
+      winners: this.#winners,
+    };
   }
 }
 
