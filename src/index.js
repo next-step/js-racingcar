@@ -13,12 +13,17 @@ export class App {
     this.#carNames = [];
     this.#winner = [];
   }
+  #validateCarNames() {
+    const carNames = this.#carNames;
+    car.nameMaxLengthValidator(carNames);
+    car.nameMinLengthValidator(carNames);
+  }
 
   async #carNameStage() {
     const carNamesInput = await Console.input(CONSOLE_MESSAGES.START);
     const carNamesSplitByComma = splitByComma(carNamesInput);
-    car.nameLengthValidator(carNamesSplitByComma);
     this.#carNames = carNamesSplitByComma;
+    this.#validateCarNames(carNamesSplitByComma);
   }
 
   #raceResultStage() {

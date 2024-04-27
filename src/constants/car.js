@@ -3,4 +3,5 @@ export const CAR = {
   MOVE_THRESHOLD: 4,
   MOVE_UNIT: 1,
   NAME_MAX_LENGTH: 5,
+  NAME_MIN_LENGTH: 1,
 };
