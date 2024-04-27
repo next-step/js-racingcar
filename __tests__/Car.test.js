@@ -18,9 +18,9 @@ describe("자동차 구현 테스트", () => {
 
 describe("자동차 이름 입력 구현 테스트", () => {
   test("자동차 이름은 쉼표를 기준으로 구분한다.", () => {
-    const playGame = new playGame("pobi,crong,honux");
+    const race = new playGame("pobi,crong,honux");
 
-    const raceCars = race.races;
+    const raceCars = race.cars;
 
     expect(raceCars[0].name).toBe("pobi");
     expect(raceCars[1].name).toBe("crong");
