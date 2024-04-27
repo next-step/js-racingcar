@@ -1,3 +1,4 @@
+import { ERROR_MESSAGES } from "../constants";
 import { readLineAsync } from "../utils";
 
 export class View {
@@ -23,6 +24,6 @@ export class View {
   }
 
   static printError(error) {
-    console.log(error.message);
+    console.log(ERROR_MESSAGES[error.message] || ERROR_MESSAGES.ERROR_UNKOWN);
   }
 }

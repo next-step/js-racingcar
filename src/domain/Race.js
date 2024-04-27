@@ -1,8 +1,4 @@
-import {
-  ERROR_DUPLICATE_CAR_NAME,
-  ERROR_INVALID_CAR_NAME,
-  ERROR_LONG_CAR_NAME,
-} from "../constants";
+import { ERROR_CODES } from "../constants";
 import { getRandom } from "../utils";
 import { Car } from "./Car";
 
@@ -16,21 +12,21 @@ export class Race {
 
   constructor(names) {
     this.#validateNames(names);
-    this.#cars = names.map((carName) => new Car(carName));
+    this.#cars = names.map((name) => new Car(name));
   }
 
   #validateNames(names) {
-    if (names.some((carName) => carName === "")) {
-      throw new Error(ERROR_INVALID_CAR_NAME);
+    if (names.some((name) => name === "")) {
+      throw new Error(ERROR_CODES.ERROR_INVALID_CAR_NAME);
     }
 
-    if (names.some((carName) => carName.length > Car.CAR_NAME_MAX_LEN)) {
-      throw new Error(ERROR_LONG_CAR_NAME);
+    if (names.some((name) => name.length > Car.CAR_NAME_MAX_LEN)) {
+      throw new Error(ERROR_CODES.ERROR_LONG_CAR_NAME);
     }
 
     const nameSet = new Set(names);
     if (nameSet.size !== names.length) {
-      throw new Error(ERROR_DUPLICATE_CAR_NAME);
+      throw new Error(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);
     }
   }
 

@@ -1,8 +1,5 @@
 import { App } from "../src";
-import {
-  ERROR_DUPLICATE_CAR_NAME,
-  ERROR_INVALID_CAR_NAME,
-} from "../src/constants";
+import { ERROR_MESSAGES } from "../src/constants";
 import { readLineAsync } from "../src/utils";
 
 const TEST_CAR_NAMES = "pobi,crong,honux";
@@ -66,7 +63,7 @@ describe("입/출력 테스트", () => {
     await app.play();
 
     // then
-    expect(logSpy).toHaveBeenCalledWith(ERROR_INVALID_CAR_NAME);
+    expect(logSpy).toHaveBeenCalledWith(ERROR_MESSAGES.ERROR_INVALID_CAR_NAME);
   });
 
   test("자동차이름이 중복된 값이면 프로그램을 종료한다.", async () => {
@@ -78,6 +75,8 @@ describe("입/출력 테스트", () => {
     await app.play();
 
     // then
-    expect(logSpy).toHaveBeenCalledWith(ERROR_DUPLICATE_CAR_NAME);
+    expect(logSpy).toHaveBeenCalledWith(
+      ERROR_MESSAGES.ERROR_DUPLICATE_CAR_NAME
+    );
   });
 });

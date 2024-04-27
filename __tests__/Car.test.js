@@ -1,5 +1,5 @@
 import { App } from "../src";
-import { ERROR_EMPTY_CAR_NAME, ERROR_LONG_CAR_NAME } from "../src/constants";
+import { ERROR_CODES } from "../src/constants";
 import { Car } from "../src/domain";
 import { getRandom } from "../src/utils";
 
@@ -32,7 +32,7 @@ describe("자동차 테스트", () => {
     const app = () => new Car(carName);
 
     // then
-    expect(app).toThrow(ERROR_LONG_CAR_NAME);
+    expect(app).toThrow(ERROR_CODES.ERROR_LONG_CAR_NAME);
   });
 
   test("자동차 이름이 빈 문자열인 경우 에러", () => {
@@ -43,7 +43,7 @@ describe("자동차 테스트", () => {
     const app = () => new Car(carName);
 
     // then
-    expect(app).toThrow(ERROR_EMPTY_CAR_NAME);
+    expect(app).toThrow(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
   });
 
   test("0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우 전진", () => {
