@@ -6,8 +6,20 @@ export class CarRace {
   #cars;
   #result;
   constructor(carNamesArray) {
-    this.#cars = carNamesArray.map((carName) => new Car(carName));
+    this.#cars = this.#makeCarInstance(carNamesArray);
     this.#result = [];
+  }
+
+  get cars() {
+    return this.#cars;
+  }
+
+  get result() {
+    return this.#result;
+  }
+
+  #makeCarInstance(carNamesArray) {
+    return carNamesArray.map((carName) => new Car(carName));
   }
 
   #moveCar(Car) {
@@ -41,9 +53,7 @@ export class CarRace {
       this.#setCurrentRountResult();
     }
   }
-  get result() {
-    return this.#result;
-  }
+
   #getMaxPosition() {
     return Math.max(...this.#cars.map((car) => car.position));
   }
