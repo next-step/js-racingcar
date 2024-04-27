@@ -1,4 +1,3 @@
-import { DEFAULT_LAP_COUNT } from '../constants';
 import Car from './Car';
 
 class Racing {
@@ -6,7 +5,9 @@ class Racing {
   #lapCount;
   #winners;
 
-  constructor(lapCount = DEFAULT_LAP_COUNT) {
+  static DEFAULT_MAX_LAP = 5;
+
+  constructor(lapCount = Racing.DEFAULT_MAX_LAP) {
     this.#players = [];
     this.#lapCount = lapCount;
   }
