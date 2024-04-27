@@ -7,7 +7,7 @@ describe('자동차 경주 기능 테스트', () => {
   it('n명의 참가자(자동차)를 받을 수 있다.', () => {
     // given
     const racing = new Racing();
-    racing.setPlayers(playerList);
+    racing.players = playerList;
 
     // when
     const playerCount = racing.getPlayerCount();
@@ -21,21 +21,21 @@ describe('자동차 경주 기능 테스트', () => {
     // given
     const firstRacing = new Racing();
     const secondRacing = new Racing(10);
-    firstRacing.setPlayers(playerList);
-    secondRacing.setPlayers(playerList);
+    firstRacing.players = playerList;
+    secondRacing.players = playerList;
 
     // when
-    const firstLapCount = firstRacing.lapCount;
-    const secondLapCount = secondRacing.lapCount;
+    const firstRacingMaxLap = firstRacing.maxLap;
+    const secondRacingMaxLap = secondRacing.maxLap;
 
     // then
-    expect(firstLapCount).toBe(5);
-    expect(secondLapCount).toBe(10);
+    expect(firstRacingMaxLap).toBe(5);
+    expect(secondRacingMaxLap).toBe(10);
   });
   it('우승자(자동차)는 한 명 이상일 수 있다.', () => {
     // given
     const racing = new Racing();
-    racing.setPlayers(playerList);
+    racing.players = playerList;
     racing.start().end();
 
     // when
@@ -49,7 +49,7 @@ describe('자동차 경주 기능 테스트', () => {
   it('우승자 이름을 알 수 있다.', () => {
     // given
     const racing = new Racing();
-    racing.setPlayers(playerList);
+    racing.players = playerList;
     racing.start().end();
 
     // when

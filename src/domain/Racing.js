@@ -2,18 +2,18 @@ import Car from './Car';
 
 class Racing {
   #players;
-  #lapCount;
+  #maxLap;
   #winners;
 
   static DEFAULT_MAX_LAP = 5;
 
-  constructor(lapCount = Racing.DEFAULT_MAX_LAP) {
+  constructor(maxLap = Racing.DEFAULT_MAX_LAP) {
     this.#players = [];
-    this.#lapCount = lapCount;
+    this.#maxLap = maxLap;
   }
 
   isEndedRace() {
-    return this.#getPlayersPosition().includes(this.#lapCount);
+    return this.#getPlayersPosition().includes(this.#maxLap);
   }
 
   #getPlayersPosition() {
@@ -24,7 +24,7 @@ class Racing {
     return this.#players;
   }
 
-  setPlayers(players) {
+  set players(players) {
     if (!Array.isArray(players)) {
       throw new TypeError('잘못된 형식입니다.');
     }
@@ -35,8 +35,8 @@ class Racing {
     return this.#players.length;
   }
 
-  get lapCount() {
-    return this.#lapCount;
+  get maxLap() {
+    return this.#maxLap;
   }
 
   get winners() {
@@ -60,7 +60,7 @@ class Racing {
 
   end() {
     this.#winners = this.#players.filter(
-      (player) => player.getPosition() === this.#lapCount
+      (player) => player.getPosition() === this.#maxLap
     );
     return this;
   }
