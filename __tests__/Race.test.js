@@ -1,7 +1,11 @@
 import { App } from "../src";
 import { ERROR_CODES } from "../src/constants";
 import { Race } from "../src/domain";
-import { readLineAsync } from "../src/utils";
+import {
+  DefaultMoveStrategy,
+  RandomMoveStrategy,
+} from "../src/domain/strategies";
+import { getRandom, readLineAsync } from "../src/utils";
 
 const TEST_CAR_NAME = "pobi";
 const TEST_CAR_NAMES = "pobi,crong,honux";
@@ -16,16 +20,33 @@ describe("자동차 경주 게임 테스트", () => {
     readLineAsync.mockReset();
   });
 
-  test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다.", async () => {
+  test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. - DefaultMoveStrategy", async () => {
     // given
-    readLineAsync.mockResolvedValue(TEST_CAR_NAME);
-    const app = new App();
+    const carNames = TEST_CAR_NAMES.split(",");
+    const app = new Race(carNames, new DefaultMoveStrategy());
 
     // when
-    await app.play();
+    app.race();
 
     // then
-    expect(app.getRace().getWinners().length).toBe(1);
+    expect(app.getWinners().length).toBe(3);
+  });
+
+  test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. - RandomMoveStrategy", async () => {
+    // given
+    const carNames = TEST_CAR_NAMES.split(",");
+    const app = new Race(carNames, new RandomMoveStrategy());
+    getRandom
+      .mockReturnValueOnce(RandomMoveStrategy.MOVE_FORWARD_CAR)
+      .mockReturnValueOnce(0)
+      .mockReturnValueOnce(0);
+
+    // when
+    app.race();
+
+    // then
+    expect(app.getWinners().length).toBe(1);
+    expect(app.getWinners()[0].getName()).toBe(carNames[0]);
   });
 
   test("이름이 빈 문자열인 자동차가 존재할 때 종료한다.", async () => {

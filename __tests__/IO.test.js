@@ -23,7 +23,7 @@ describe("입/출력 테스트", () => {
 
   test("자동차를 출력할 때 쉼표(,)를 기준으로 구분하며 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", async () => {
     // given
-    await readLineAsync.mockResolvedValue(TEST_CAR_NAMES);
+    readLineAsync.mockResolvedValue(TEST_CAR_NAMES);
     const app = new App();
 
     // when
