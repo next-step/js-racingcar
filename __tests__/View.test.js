@@ -1,6 +1,6 @@
 import { readLineAsync } from "../src/utils/index.js";
+import { TEST_CARS } from "../src/const"
 
-const TEST_CARS = ["car1", "car2", "car3"];
 
 /**
  * 
@@ -11,7 +11,7 @@ const TEST_CARS = ["car1", "car2", "car3"];
  */
 
 describe("입출력 테스트", () => {
-  test("쉼표를 기준으로 자동차 이름을 받는다.2", async() => {
+  test("쉼표를 기준으로 자동차 이름을 받는다.", async() => {
     // given
     const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_CARS.join(","));
     const input = await mockReadLineAsync();
