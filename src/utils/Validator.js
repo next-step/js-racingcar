@@ -1,5 +1,5 @@
-import CONSTANTS from '../constants/Constants';
-import ERROR from '../constants/Error';
+import CONSTANTS from '../constants/Constants.js';
+import ERROR from '../constants/Error.js';
 
 const Validator = {
   validateUserInput(input) {

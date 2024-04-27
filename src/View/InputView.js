@@ -1,5 +1,5 @@
-import readLineAsync from '../utils/readLineAsync';
-import Validator from '../utils/Validator';
+import readLineAsync from '../utils/readLineAsync.js';
+import Validator from '../utils/Validator.js';
 
 const InputView = {
   async readlineAsync(message) {

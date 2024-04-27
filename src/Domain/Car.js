@@ -1,6 +1,6 @@
-import CONSTANTS from '../constants/Constants';
-import Random from '../utils/Random';
-import Validator from '../utils/Validator';
+import CONSTANTS from '../constants/Constants.js';
+import Random from '../utils/Random.js';
+import Validator from '../utils/Validator.js';
 
 class Car {
   #name;

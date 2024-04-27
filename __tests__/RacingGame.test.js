@@ -1,8 +1,8 @@
-import CONSTANTS from '../src/constants/Constants';
-import ERROR from '../src/constants/Error';
-import Car from '../src/Domain/Car';
-import RacingGame from '../src/Domain/RacingGame';
-import Random from '../src/utils/Random';
+import CONSTANTS from '../src/constants/Constants.js';
+import ERROR from '../src/constants/Error.js';
+import Car from '../src/Domain/Car.js';
+import RacingGame from '../src/Domain/RacingGame.js';
+import Random from '../src/utils/Random.js';
 
 /* 
 경주 컨트롤러
@@ -18,7 +18,7 @@ describe('경주 게임 테스트', () => {
       const racingGame = new RacingGame(cars);
 
       // when
-      racingGame.start();
+      racingGame.startGame();
 
       // then
       expect(racingGame.round).toBe(CONSTANTS.racingGame.roundConfig);
@@ -36,7 +36,7 @@ describe('경주 게임 테스트', () => {
         .mockReturnValue(9);
 
       // when
-      racingGame.start();
+      racingGame.startGame();
 
       // then
       expect(racingGame.winners).toEqual([racingGame.cars[2]]);

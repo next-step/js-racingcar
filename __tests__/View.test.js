@@ -1,7 +1,7 @@
-import InputView from '../src/View/InputView';
-import View from '../src/View/View';
-import ERROR from '../src/constants/Error';
-import MESSAGES from '../src/constants/Messages';
+import InputView from '../src/View/InputView.js';
+import View from '../src/View/View.js';
+import ERROR from '../src/constants/Error.js';
+import MESSAGES from '../src/constants/Messages.js';
 
 /* 
 입출력

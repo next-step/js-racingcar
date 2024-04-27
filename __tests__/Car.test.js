@@ -1,7 +1,7 @@
-import Car from '../src/Domain/Car';
-import ERROR from '../src/constants/Error';
-import CONSTANTS from '../src/constants/Constants';
-import Random from '../src/utils/Random';
+import Car from '../src/Domain/Car.js';
+import ERROR from '../src/constants/Error.js';
+import CONSTANTS from '../src/constants/Constants.js';
+import Random from '../src/utils/Random.js';
 
 /* 
 - 자동차에 5자 이하의 이름을 부여할 수 있다.

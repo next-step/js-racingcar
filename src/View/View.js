@@ -1,7 +1,7 @@
-import CONSTANTS from '../constants/Constants';
-import MESSAGES from '../constants/Messages';
-import InputView from './InputView';
-import OutputView from './OutputView';
+import CONSTANTS from '../constants/Constants.js';
+import MESSAGES from '../constants/Messages.js';
+import InputView from './InputView.js';
+import OutputView from './OutputView.js';
 
 class View {
   #inputView = InputView;
@@ -22,8 +22,8 @@ class View {
     this.#outputView.print(string);
   }
 
-  printRoundState(cars) {
-    const output = cars.reduce(
+  printRoundState(result) {
+    const output = result.reduce(
       (acc, cur) =>
         `${acc}${cur.name} : ${CONSTANTS.car.move.symbol.repeat(cur.position)}\n`,
       '',
