@@ -1,4 +1,5 @@
 import Car from "./Car.js";
+import { randomNumber } from "../utils/utils.js";
 
 const MAX_ROUND = 5;
 export default class Race {
@@ -14,7 +15,7 @@ export default class Race {
 
   play() {
     while (this.currentRound < this.maxRound) {
-      this.cars.forEach((car) => car.move());
+      this.cars.forEach((car) => car.move(randomNumber));
       this.currentRound++;
     }
   }

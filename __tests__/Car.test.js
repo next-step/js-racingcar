@@ -1,6 +1,6 @@
 import { playGame } from "../src/Controller.js";
 import Car from "../src/domain/Car.js";
-import Race from "../src/domain/Race.js";
+import { getRandomNumber } from "../src/utils/utils.js";
 
 describe("자동차 구현 테스트", () => {
   test("자동차에 이름을 부여할 수 있다.", () => {
@@ -40,5 +40,25 @@ describe("자동차 경주 규칙 구현", () => {
 
     expect(race.maxRound).toBe(5);
     expect(race.currentRound).toBe(5);
+  });
+
+  test("0~9 사이의 랜덤 값을 구한다.", () => {
+    const randomNumber = getRandomNumber(0, 9);
+
+    expect(randomNumber).toBeGreaterThanOrEqual(0);
+    expect(randomNumber).toBeLessThanOrEqual(9);
+  });
+
+  test("0~9 사이의 랜덤 값을 구한 후 값이 4 이상인 경우 전진한다.", () => {
+    const randomNumber = getRandomNumber(0, 9);
+
+    const car = new Car("pobi");
+    car.move(randomNumber);
+
+    if (randomNumber >= 4) {
+      expect(car.position).toBe(1);
+    } else {
+      expect(car.position).toBe(0);
+    }
   });
 });
