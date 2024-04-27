@@ -1,23 +1,41 @@
-import { INPUT_MESSAGES } from "./constants/messages";
-import { Console } from "./utils/readlinePromise";
+import { CONSOLE_MESSAGES } from "./constants/messages";
+import { CarRace } from "./domains/CarRace";
+import { Console } from "./utils/console";
 import { splitByComma } from "./utils/splitByComma";
 import { car } from "./validator/car";
 
-class App {
+export class App {
+  #carNames;
+  #winner;
   constructor() {
-    this.carNames = [];
+    this.#carNames = [];
+    this.#winner = [];
   }
 
   async #carNameStage() {
-    const carNames = await Console.input(INPUT_MESSAGES.START_MESSAGE);
+    const carNames = await Console.input(CONSOLE_MESSAGES.START);
     const carNamesSplitByComma = splitByComma(carNames);
     car.nameLengthValidator(carNamesSplitByComma);
-    return carNamesSplitByComma;
+    this.#carNames = carNamesSplitByComma;
   }
 
+  #raceResultStage() {
+    Console.print(CONSOLE_MESSAGES.RACE_RESULT);
+    const carRace = new CarRace(this.#carNames);
+    carRace.totalRound();
+    return carRace.result;
+  }
+  #printCarRaceResult(result) {
+    result.map((round) => {
+      round.map((car) => Console.printCarPosition(car));
+      Console.print("");
+    });
+  }
   async init() {
     try {
-      const carNamesArray = await this.#carNameStage();
+      const carNameInput = await this.#carNameStage();
+      const carRaceResult = this.#raceResultStage(carNameInput);
+      this.#printCarRaceResult(carRaceResult);
     } catch (error) {
       Console.print(error.message);
       return Console.exit();
