@@ -15,17 +15,11 @@ class Racing {
     return this.#getPlayersPosition().includes(this.#lapCount);
   }
 
-  endRace() {
-    this.#winners = this.#players.filter(
-      (player) => player.getPosition() === this.#lapCount
-    );
-  }
-
   #getPlayersPosition() {
     return this.#players.map((player) => player.getPosition());
   }
 
-  getPlayers() {
+  get players() {
     return this.#players;
   }
 
@@ -40,15 +34,15 @@ class Racing {
     return this.#players.length;
   }
 
-  getLapCount() {
+  get lapCount() {
     return this.#lapCount;
   }
 
-  getWinners() {
+  get winners() {
     return this.#winners;
   }
 
-  getWinnerNames() {
+  getWinnersName() {
     return this.#winners.map((player) => player.name);
   }
 
@@ -60,8 +54,13 @@ class Racing {
     while (!this.isEndedRace()) {
       this.race();
     }
+    return this;
+  }
 
-    this.endRace();
+  end() {
+    this.#winners = this.#players.filter(
+      (player) => player.getPosition() === this.#lapCount
+    );
     return this;
   }
 }

@@ -11,7 +11,7 @@ describe('자동차 경주 기능 테스트', () => {
 
     // when
     const playerCount = racing.getPlayerCount();
-    const [firstPlayer] = racing.getPlayers();
+    const [firstPlayer] = racing.players;
 
     // then
     expect(playerCount).toBe(3);
@@ -25,8 +25,8 @@ describe('자동차 경주 기능 테스트', () => {
     secondRacing.setPlayers(playerList);
 
     // when
-    const firstLapCount = firstRacing.getLapCount();
-    const secondLapCount = secondRacing.getLapCount();
+    const firstLapCount = firstRacing.lapCount;
+    const secondLapCount = secondRacing.lapCount;
 
     // then
     expect(firstLapCount).toBe(5);
@@ -36,9 +36,10 @@ describe('자동차 경주 기능 테스트', () => {
     // given
     const racing = new Racing();
     racing.setPlayers(playerList);
+    racing.start().end();
 
     // when
-    const winners = racing.start().getWinners();
+    const winners = racing.winners;
 
     // then
     expect(winners.length).not.toBe(0);
@@ -49,9 +50,10 @@ describe('자동차 경주 기능 테스트', () => {
     // given
     const racing = new Racing();
     racing.setPlayers(playerList);
+    racing.start().end();
 
     // when
-    const winnerNames = racing.start().getWinnerNames();
+    const winnerNames = racing.getWinnersName();
 
     // then
     expect(playerList).toEqual(expect.arrayContaining(winnerNames));
