@@ -41,7 +41,7 @@ describe('자동차 관련 내용', () => {
 
     //When(실행)
     car.setName('audi');
-    car.radomValue = 4;
+    car.randomValue = 4;
     car.move();
 
     //Then(검증)
