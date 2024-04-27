@@ -1,4 +1,5 @@
 import { App } from "../src";
+import { RandomMoveStrategy } from "../src/domain/strategies";
 import { readLineAsync } from "../src/utils";
 
 const TEST_CAR_NAME = "pobi";
@@ -17,7 +18,7 @@ describe("자동차 경주 게임 테스트", () => {
   test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명이다", async () => {
     // given
     readLineAsync.mockResolvedValue(TEST_CAR_NAME);
-    const app = new App();
+    const app = new App(new RandomMoveStrategy());
 
     // when
     await app.play();
@@ -29,7 +30,7 @@ describe("자동차 경주 게임 테스트", () => {
   test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상이다.", async () => {
     // given
     readLineAsync.mockResolvedValue(TEST_CAR_NAMES);
-    const app = new App();
+    const app = new App(new RandomMoveStrategy());
 
     // when
     await app.play();

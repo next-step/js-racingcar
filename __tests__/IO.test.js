@@ -1,5 +1,6 @@
 import { App } from "../src";
 import { ERROR_MESSAGES } from "../src/constants";
+import { RandomMoveStrategy } from "../src/domain/strategies";
 import { readLineAsync } from "../src/utils";
 
 const TEST_CAR_NAMES = "pobi,crong,honux";
@@ -24,7 +25,7 @@ describe("입/출력 테스트", () => {
   test("자동차를 출력할 때 쉼표(,)를 기준으로 구분하며 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", async () => {
     // given
     await readLineAsync.mockResolvedValue(TEST_CAR_NAMES);
-    const app = new App();
+    const app = new App(new RandomMoveStrategy());
 
     // when
     await app.play();
@@ -39,7 +40,7 @@ describe("입/출력 테스트", () => {
   test("우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분하여 출력한다.", async () => {
     // given
     readLineAsync.mockResolvedValue(TEST_CAR_NAMES);
-    const app = new App();
+    const app = new App(new RandomMoveStrategy());
 
     // when
     await app.play();
@@ -57,7 +58,7 @@ describe("입/출력 테스트", () => {
   test("자동차이름이 빈 값이면 프로그램을 종료한다.", async () => {
     // given
     readLineAsync.mockResolvedValue(",crong,honux");
-    const app = new App();
+    const app = new App(new RandomMoveStrategy());
 
     // when
     await app.play();
@@ -69,7 +70,7 @@ describe("입/출력 테스트", () => {
   test("자동차이름이 중복된 값이면 프로그램을 종료한다.", async () => {
     // given
     readLineAsync.mockResolvedValue("crong,crong,honux");
-    const app = new App();
+    const app = new App(new RandomMoveStrategy());
 
     // when
     await app.play();

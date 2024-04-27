@@ -1,18 +1,17 @@
 import { ERROR_CODES } from "../constants";
-import { getRandom } from "../utils";
 import { Car } from "./Car";
 
 export class Race {
-  static MOVE_MIN = 0;
-  static MOVE_MAX = 9;
   static RACE_ROUND = 5;
 
   #cars = [];
   #winners = [];
+  #moveStrategy;
 
-  constructor(names) {
+  constructor(names, moveStrategy) {
     this.#validateNames(names);
-    this.#cars = names.map((name) => new Car(name));
+    this.#cars = names.map((name) => new Car(name, moveStrategy));
+    this.#moveStrategy = moveStrategy;
   }
 
   #validateNames(names) {
@@ -34,7 +33,9 @@ export class Race {
     const result = [];
     for (let round = 1; round <= Race.RACE_ROUND; round++) {
       this.#cars.forEach((car) => {
-        car.move(getRandom(Race.MOVE_MIN, Race.MOVE_MAX));
+        if (this.#moveStrategy) {
+          this.#moveStrategy.move(car);
+        }
       });
 
       result.push({
