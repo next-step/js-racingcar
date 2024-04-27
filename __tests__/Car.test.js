@@ -1,3 +1,4 @@
+import { playGame } from "../src/Controller.js";
 import Car from "../src/domain/Car.js";
 import Race from "../src/domain/Race.js";
 
@@ -24,5 +25,11 @@ describe("자동차 이름 입력 구현 테스트", () => {
     expect(raceCars[0].name).toBe("pobi");
     expect(raceCars[1].name).toBe("crong");
     expect(raceCars[2].name).toBe("honux");
+  });
+
+  test("사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.", () => {
+    const wrongInput = "pobi, crong, honux123";
+
+    expect(() => new playGame(wrongInput)).toThrow(Error);
   });
 });

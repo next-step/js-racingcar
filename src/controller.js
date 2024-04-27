@@ -11,7 +11,10 @@ export async function askCarNames() {
 }
 
 export function playGame(carNames) {
-  const race = new Race(carNames.split(","));
-
-  return race;
+  try {
+    const race = new Race(carNames.split(","));
+    return race;
+  } catch (error) {
+    throw error;
+  }
 }
