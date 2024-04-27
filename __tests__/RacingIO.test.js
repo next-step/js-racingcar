@@ -7,7 +7,7 @@ describe('레이싱 입출력 기능 테스트', () => {
     const input = 'taxi, tesla,ford ';
 
     // when
-    const carName = racingIO.racingCarInput(input);
+    const carName = racingIO.writeRacingCar(input);
 
     // then
     expect(carName).toEqual(['taxi', 'tesla', 'ford']);
@@ -18,7 +18,7 @@ describe('레이싱 입출력 기능 테스트', () => {
     const input = 3;
 
     // when
-    const output = racingIO.positionToString(input);
+    const output = racingIO.readCarPosition(input);
 
     // then
     expect(output).toBe('---');
@@ -30,8 +30,8 @@ describe('레이싱 입출력 기능 테스트', () => {
     const [winner] = winners;
 
     // when
-    const winnersOutput = racingIO.printWinners(winners);
-    const winnerOutput = racingIO.printWinners(winner);
+    const winnersOutput = racingIO.readWinners(winners);
+    const winnerOutput = racingIO.readWinners(winner);
 
     // then
     expect(winnersOutput).toBe('taxi, ford');

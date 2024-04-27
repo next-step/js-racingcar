@@ -1,11 +1,11 @@
 class RacingIO {
-  racingCarInput(input) {
+  writeRacingCar(input) {
     return input.replace(/\s/g, '').split(',');
   }
-  positionToString(position) {
+  readCarPosition(position) {
     return '-'.repeat(position);
   }
-  printWinners(winners) {
+  readWinners(winners) {
     return winners.toString().replace(/,/g, ', ');
   }
 }
