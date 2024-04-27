@@ -1,7 +1,6 @@
 import readline from "readline";
-import { splitStringByComma } from "./utils/IO.js";
 import CarRace from "./domain/CarRace.js";
-import { createCarsByNames, validateCarNames } from "./utils/cars.js";
+import { createCars, validateCarNames } from "./utils/cars.js";
 
 function readLineAsync(query) {
   return new Promise((resolve, reject) => {
@@ -35,8 +34,7 @@ async function play() {
   validateCarNames(input);
 
   // 자동차 생성
-  const carNames = splitStringByComma(input);
-  const cars = createCarsByNames(carNames);
+  const cars = createCars(input);
 
   // 자동차 경주 생성
   const carRace = new CarRace(cars);

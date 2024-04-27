@@ -1,12 +1,13 @@
 import Car from "../domain/Car.js";
-import { joinArrayByComma, splitStringByComma } from "./IO.js";
 
-export const createCarsByNames = (names) => {
-  return names.map((carName) => new Car(carName));
+export const createCars = (input) => {
+  const carNames = input.split(",");
+
+  return carNames.map((carName) => new Car(carName));
 };
 
 export const validateCarNames = (input) => {
-  const carNames = splitStringByComma(input);
+  const carNames = input.split(",");
 
   carNames.forEach((carName) => {
     if (!Car.isValidName(carName)) {
@@ -24,5 +25,5 @@ export const printCarsStatus = (cars) => {
 
 export const joinCarNamesByComma = (cars) => {
   const carNames = cars.map((car) => car.name);
-  return joinArrayByComma(carNames);
+  return carNames.join(", ");
 };

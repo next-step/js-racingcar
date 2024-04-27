@@ -1,5 +1,4 @@
 import Car from "../src/domain/Car.js";
-import { splitStringByComma } from "../src/utils/IO.js";
 import {
   joinCarNamesByComma,
   printCarsStatus,
@@ -7,17 +6,6 @@ import {
 } from "../src/utils/cars.js";
 
 describe("입출력 테스트", () => {
-  test("자동차의 이름은 쉼표(,)를 기준으로 구분", () => {
-    // given
-    const CAR_NAMES = "pobi,crong,honux";
-
-    // when
-    const splittedNames = splitStringByComma(CAR_NAMES);
-
-    // then
-    expect(splittedNames).toEqual(["pobi", "crong", "honux"]);
-  });
-
   test("우승자가 여러 명일 겨우 쉼표(,)를 이용하여 구분", () => {
     // given
     const car1 = new Car("pobi");
