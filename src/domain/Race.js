@@ -19,10 +19,6 @@ export class Race {
       throw new Error(ERROR_CODES.ERROR_INVALID_CAR_NAME);
     }
 
-    if (names.some((name) => name.length > Car.CAR_NAME_MAX_LEN)) {
-      throw new Error(ERROR_CODES.ERROR_LONG_CAR_NAME);
-    }
-
     const nameSet = new Set(names);
     if (nameSet.size !== names.length) {
       throw new Error(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);

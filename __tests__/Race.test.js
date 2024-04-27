@@ -1,4 +1,6 @@
 import { App } from "../src";
+import { ERROR_CODES, ERROR_MESSAGES } from "../src/constants";
+import { Race } from "../src/domain";
 import { RandomMoveStrategy } from "../src/domain/strategies";
 import { readLineAsync } from "../src/utils";
 
@@ -37,5 +39,16 @@ describe("자동차 경주 게임 테스트", () => {
 
     // then
     expect(app.getRace().getWinners().length).toBeGreaterThan(0);
+  });
+
+  test("이름이 빈 문자열인 자동차가 존재할 때 종료한다.", async () => {
+    // given
+    const carNames = ",crong,honux".split(",");
+
+    // when
+    const app = () => new Race(carNames);
+
+    // then
+    expect(app).toThrow(ERROR_CODES.ERROR_INVALID_CAR_NAME);
   });
 });
