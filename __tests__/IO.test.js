@@ -71,4 +71,15 @@ describe('입출력 관련된 것들', () => {
 
     logSpy.mockRestore();
   });
+
+  test('사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.', async () => {
+    //Given
+    const cario = new CarIO();
+
+    // when
+    cario.readLineAsync = jest.fn().mockResolvedValue('bmw,audi,kia');
+    await cario.inputCars(); // 비동기 호출을 기다리기 위해 await 추가
+
+    expect(cario.checkCarValidate()).toBe(false);
+  });
 });
