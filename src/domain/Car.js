@@ -1,20 +1,20 @@
 class Car {
-  name;
-  position = 0;
+  #name;
+  #position = 0;
 
   constructor(name) {
     if (name.length > 5) {
       throw new Error("이름은 5자 이하여야 합니다.");
     }
-    this.name = name;
+    this.#name = name;
   }
 
   get name() {
-    return this.name;
+    return this.#name;
   }
 
   get position() {
-    return this.position;
+    return this.#position;
   }
 
   static shouldCarMove(randomValue) {
@@ -34,15 +34,15 @@ class Car {
   }
 
   move() {
-    this.position++;
+    this.#position++;
   }
 
   positionToString() {
-    return "-".repeat(this.position);
+    return "-".repeat(this.#position);
   }
 
   statusToString() {
-    return `${this.name} : ${this.positionToString()}`;
+    return `${this.#name} : ${this.positionToString()}`;
   }
 }
 
