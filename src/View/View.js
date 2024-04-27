@@ -1,8 +1,11 @@
-import InputView from './InputView';
 import MESSAGES from '../constants/Messages';
+import InputView from './InputView';
+import OutputView from './OutputView';
 
 class View {
   #inputView = InputView;
+
+  #outputView = OutputView;
 
   async readCars() {
     const userInput = await this.#inputView.readlineAsync(
@@ -12,6 +15,15 @@ class View {
     const cars = userInput.split(',');
 
     return cars;
+  }
+
+  printRoundState(cars) {
+    const output = cars.reduce(
+      (acc, cur) => `${acc}${cur.name} : ${'-'.repeat(cur.position)}\n`,
+      '',
+    );
+
+    this.#outputView.print(output);
   }
 }
 

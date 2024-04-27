@@ -39,7 +39,7 @@ describe('View 테스트', () => {
       const expected = 'pobi : --\ncrong : ----\nhonux : \n';
 
       // when
-      view.printGameState(input);
+      view.printRoundState(input);
 
       // then
       expect(logSpy).toHaveBeenCalledWith(expected);
