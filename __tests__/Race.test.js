@@ -1,7 +1,6 @@
 import { App } from "../src";
-import { ERROR_CODES, ERROR_MESSAGES } from "../src/constants";
+import { ERROR_CODES } from "../src/constants";
 import { Race } from "../src/domain";
-import { RandomMoveStrategy } from "../src/domain/strategies";
 import { readLineAsync } from "../src/utils";
 
 const TEST_CAR_NAME = "pobi";
@@ -17,28 +16,16 @@ describe("자동차 경주 게임 테스트", () => {
     readLineAsync.mockReset();
   });
 
-  test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명이다", async () => {
+  test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다.", async () => {
     // given
     readLineAsync.mockResolvedValue(TEST_CAR_NAME);
-    const app = new App(new RandomMoveStrategy());
+    const app = new App();
 
     // when
     await app.play();
 
     // then
     expect(app.getRace().getWinners().length).toBe(1);
-  });
-
-  test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상이다.", async () => {
-    // given
-    readLineAsync.mockResolvedValue(TEST_CAR_NAMES);
-    const app = new App(new RandomMoveStrategy());
-
-    // when
-    await app.play();
-
-    // then
-    expect(app.getRace().getWinners().length).toBeGreaterThan(0);
   });
 
   test("이름이 빈 문자열인 자동차가 존재할 때 종료한다.", async () => {

@@ -1,22 +1,17 @@
 import { ERROR_CODES } from "./constants";
 import { Race } from "./domain";
-import { View } from "./views";
 import { RandomMoveStrategy } from "./domain/strategies";
+import { View } from "./views";
 
 export class App {
   #race;
-  #moveStrategy;
-
-  constructor(moveStrategy) {
-    this.#moveStrategy = moveStrategy;
-  }
 
   async play() {
     try {
       const carNames = await this.#getCarNames();
       if (carNames.length === 0) return;
 
-      this.#race = new Race(carNames, this.#moveStrategy);
+      this.#race = new Race(carNames, new RandomMoveStrategy());
       const result = this.#race.race();
       this.#render(result);
     } catch (error) {
@@ -48,5 +43,5 @@ export class App {
   }
 }
 
-const app = new App(new RandomMoveStrategy());
+const app = new App();
 app.play();

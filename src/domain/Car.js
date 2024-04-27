@@ -41,4 +41,8 @@ export class Car {
   getName() {
     return this.#name;
   }
+
+  setStrategy(strategy) {
+    this.#moveStrategy = strategy;
+  }
 }

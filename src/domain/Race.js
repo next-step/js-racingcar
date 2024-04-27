@@ -6,12 +6,13 @@ export class Race {
 
   #cars = [];
   #winners = [];
-  #moveStrategy;
+  #strategies = new Map();
+  #defaultStrategy;
 
-  constructor(names, moveStrategy) {
+  constructor(names, defaultStrategy) {
     this.#validateNames(names);
-    this.#cars = names.map((name) => new Car(name, moveStrategy));
-    this.#moveStrategy = moveStrategy;
+    this.#cars = names.map((name) => new Car(name, defaultStrategy));
+    this.#defaultStrategy = defaultStrategy;
   }
 
   #validateNames(names) {
@@ -28,10 +29,10 @@ export class Race {
   race() {
     const result = [];
     for (let round = 1; round <= Race.RACE_ROUND; round++) {
+      const strategy = this.#strategies.get(round) || this.#defaultStrategy;
       this.#cars.forEach((car) => {
-        if (this.#moveStrategy) {
-          this.#moveStrategy.move(car);
-        }
+        car.setStrategy(strategy);
+        car.move();
       });
 
       result.push({
@@ -43,10 +44,7 @@ export class Race {
       });
     }
 
-    const maxPosition = Math.max(...this.#cars.map((car) => car.getPosition()));
-    this.#winners = this.#cars.filter(
-      (car) => car.getPosition() === maxPosition
-    );
+    this.#setWinners();
 
     return result;
   }
@@ -57,5 +55,16 @@ export class Race {
 
   getWinners() {
     return this.#winners;
+  }
+
+  #setWinners() {
+    const maxPosition = Math.max(...this.#cars.map((car) => car.getPosition()));
+    this.#winners = this.#cars.filter(
+      (car) => car.getPosition() === maxPosition
+    );
+  }
+
+  setStrategyPerRound(round, strategy) {
+    this.#strategies.set(round, strategy);
   }
 }
