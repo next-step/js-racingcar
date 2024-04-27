@@ -10,16 +10,12 @@ import RacingGame from '../src/Domain/RacingGame';
 */
 
 describe('경주 게임 테스트', () => {
-  let cars;
-  let racingGame;
-
   describe('정상 케이스 테스트', () => {
-    beforeEach(() => {
-      cars = [new Car('pobi'), new Car('crong'), new Car('honux')];
-      racingGame = new RacingGame(cars);
-    });
-
     test('자동차 경주는 5회 진행한다.', () => {
+      // given
+      const cars = [new Car('pobi'), new Car('crong'), new Car('honux')];
+      const racingGame = new RacingGame(cars);
+
       // when
       racingGame.start();
 
@@ -29,6 +25,9 @@ describe('경주 게임 테스트', () => {
 
     test('자동차 경주 게임을 완료한 후 우승자를 선별한다.', () => {
       // given
+      const cars = [new Car('pobi'), new Car('crong'), new Car('honux')];
+      const racingGame = new RacingGame(cars);
+
       Car.getRandomNumber = jest
         .fn()
         .mockReturnValueOnce(1)
@@ -45,17 +44,20 @@ describe('경주 게임 테스트', () => {
 
   describe('예외 케이스 테스트', () => {
     test.each([
-      [new Car('pobi'), new Car('cr ng')],
-      [new Car(' pobi'), new Car('crong')],
-      [new Car(' '), new Car('crong')],
+      [[new Car('pobi'), new Car('cr ng')]],
+      [[new Car(' pobi'), new Car('crong')]],
+      [[new Car(' '), new Car('crong')]],
     ])('자동차 이름에 공백이 포함된 경우 예외 처리한다.', input => {
+      // given
+      const cars = input;
+
       // when + then
-      expect(() => new RacingGame(input)).toThrow(ERROR.invalidFormat);
+      expect(() => new RacingGame(cars)).toThrow(ERROR.invalidFormat);
     });
 
     test('빈 자동차 이름이 있는 경우 예외 처리한다.', () => {
       // given
-      cars = [new Car(''), new Car('crong')];
+      const cars = [new Car(''), new Car('crong')];
 
       // when + then
       expect(() => new RacingGame(cars)).toThrow(ERROR.invalidFormat);
@@ -63,7 +65,7 @@ describe('경주 게임 테스트', () => {
 
     test('중복된 자동차가 존재하는 경우 예외 처리한다.', () => {
       // given
-      cars = [new Car('pobi'), new Car('pobi')];
+      const cars = [new Car('pobi'), new Car('pobi'), new Car('crong')];
 
       // when + then
       expect(() => new RacingGame(cars)).toThrow(ERROR.duplicateValue);
@@ -71,7 +73,7 @@ describe('경주 게임 테스트', () => {
 
     test('자동차가 한 개인 경우 예외 처리한다.', () => {
       // given
-      cars = [new Car('pobi')];
+      const cars = [new Car('pobi')];
 
       // when + then
       expect(() => new RacingGame(cars)).toThrow(ERROR.invalidSingleValue);

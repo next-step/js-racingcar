@@ -8,16 +8,25 @@ const Validator = {
     }
   },
 
-  validateCarNames(str) {
+  validateCarName(str) {
     if (str.length > CONSTANTS.car.maxNameLength) {
       throw new Error(ERROR.invalidNameLength);
     }
   },
 
-  validateInputFormat(input) {
+  validateInputData(input) {
     const cars = input.map(car => car.name);
 
     this.validateDuplicate(cars);
+    this.validateInputFormat(cars);
+  },
+
+  validateInputFormat(cars) {
+    cars.forEach(car => {
+      if (car.length === 0 || car.includes(' ')) {
+        throw new Error(ERROR.invalidFormat);
+      }
+    });
   },
 
   validateDuplicate(cars) {
