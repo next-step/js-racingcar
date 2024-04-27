@@ -103,5 +103,22 @@ describe("자동차 경주", () => {
       const winner = "Tesla가 최종 우승했습니다.";
       expect(racing.display()).toBe(winner);
     });
+    test("우승자가 여려명일 경우 쉼표(,)로 구분하여 출력한다.", async () => {
+      // Arrange
+      const racing = new RacingModel.Racing();
+      jest.spyOn(Math, "random").mockReturnValue(0.4);
+      mockQuestion.mockImplementation((query, callback) => {
+        callback("Tesla, BMW, Audi");
+      });
+
+      // Act
+      await racing.setup();
+      racing.start();
+      racing.end();
+
+      // Assert
+      const winnerList = "Tesla, BMW, Audi가 최종 우승했습니다.";
+      expect(racing.display()).toBe(winnerList);
+    });
   });
 });
