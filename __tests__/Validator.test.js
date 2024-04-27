@@ -20,4 +20,11 @@ describe("자동차 이름 유효성 테스트", () => {
         .toThrow(ERROR_MESSAGES.CAR_MIN_NAME_LENGTH)
     );
   });
+  test("중복되게 자동차의 이름을 입력할 수 없다.", () => {
+    const carInput = ["a", "a", "b"];
+
+    expect(() => {
+      car.sameNameValidator(carInput).toThrow(ERROR_MESSAGES.SAME_CAR_NAME);
+    });
+  });
 });

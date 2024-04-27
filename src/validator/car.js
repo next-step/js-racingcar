@@ -12,4 +12,13 @@ export const car = {
       throw new Error(ERROR_MESSAGES.CAR_MIN_NAME_LENGTH);
     }
   },
+  sameNameValidator: (carNames) => {
+    carNames.reduce((acc, carName) => {
+      if (acc.includes(carName)) {
+        throw new Error(ERROR_MESSAGES.SAME_CAR_NAME);
+      }
+      acc.push(carName);
+      return acc;
+    }, []);
+  },
 };

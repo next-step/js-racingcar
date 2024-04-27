@@ -17,6 +17,7 @@ export class App {
     const carNames = this.#carNames;
     car.nameMaxLengthValidator(carNames);
     car.nameMinLengthValidator(carNames);
+    car.sameNameValidator(carNames);
   }
 
   async #carNameStage() {
