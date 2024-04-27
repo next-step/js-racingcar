@@ -1,3 +1,4 @@
+import InputView from '../src/View/InputView';
 import View from '../src/View/View';
 import ERROR from '../src/constants/Error';
 
@@ -61,12 +62,12 @@ describe('View 테스트', () => {
     });
 
     describe('예외 케이스 테스트', () => {
-      test('입력 값이 없을 때 예외 처리한다.', async () => {
+      test('입력 값이 없을 때 예외 처리한다.', () => {
         // given
         mockInput = '';
 
         // then
-        expect(await view.readCars()).rejects.toThrow(ERROR.emptyInput);
+        expect(InputView.readlineAsync()).rejects.toThrow(ERROR.emptyInput);
       });
     });
   });
