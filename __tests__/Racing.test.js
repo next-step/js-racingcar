@@ -100,8 +100,8 @@ describe("자동차 경주", () => {
       racing.end();
 
       // Assert
-      const winner = "Tesla가 최종 우승했습니다.";
-      expect(racing.display()).toBe(winner);
+      const expected = "Tesla가 최종 우승했습니다.";
+      expect(racing.display()).toBe(expected);
     });
     test("우승자가 여려명일 경우 쉼표(,)로 구분하여 출력한다.", async () => {
       // Arrange
@@ -117,8 +117,8 @@ describe("자동차 경주", () => {
       racing.end();
 
       // Assert
-      const winnerList = "Tesla, BMW, Audi가 최종 우승했습니다.";
-      expect(racing.display()).toBe(winnerList);
+      const expected = "Tesla, BMW, Audi가 최종 우승했습니다.";
+      expect(racing.display()).toBe(expected);
     });
   });
 });

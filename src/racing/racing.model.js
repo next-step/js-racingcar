@@ -36,7 +36,7 @@ export class Racing {
     while (this.#round < RACING_ROUND) {
       this.#carList.forEach((car) => {
         car.move();
-        car.display();
+        console.log(car.display());
       });
       this.#round++;
     }

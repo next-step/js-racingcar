@@ -86,15 +86,14 @@ describe("자동차", () => {
       const carName = "Tesla";
       const car = new CarModel.Car({ name: carName });
 
-      const consoleSpy = jest.spyOn(console, "log");
       jest.spyOn(Math, "random").mockReturnValue(0.4);
 
       // Act
       car.move();
-      car.display();
 
       // Assert
-      expect(consoleSpy).toHaveBeenCalledWith(`${carName}: -`);
+      const expected = `${carName}: -`;
+      expect(car.display()).toBe(expected);
     });
   });
 });
