@@ -4,12 +4,9 @@ import { Race } from '../src/domain/Race';
 describe('레이스 관련 내용 ', () => {
   test('자동차 경주 게임이 완료한 후 누가 우승했는지 알려준다.', () => {
     //Given
-    const audi = new Car();
-    const bmw = new Car();
-    const kia = new Car();
-    audi.setName('audi');
-    bmw.setName('bmw');
-    kia.setName('kia');
+    const bmw = new Car('bmw');
+    const audi = new Car('audi');
+    const kia = new Car('kia');
 
     const racingCars = [audi, bmw, kia];
     const race = new Race(racingCars);
@@ -26,12 +23,9 @@ describe('레이스 관련 내용 ', () => {
 
   test('우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.', () => {
     //Given
-    const audi = new Car();
-    const bmw = new Car();
-    const kia = new Car();
-    audi.setName('audi');
-    bmw.setName('bmw');
-    kia.setName('kia');
+    const bmw = new Car('bmw');
+    const audi = new Car('audi');
+    const kia = new Car('kia');
 
     audi.getRandomValue = jest.fn().mockReturnValue(5);
     bmw.getRandomValue = jest.fn().mockReturnValue(5);

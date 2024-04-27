@@ -1,7 +1,12 @@
+import { Car } from '../domain/Car.js';
+import readline from 'readline';
+
 export class CarIO {
   cars;
+  inputs;
   constructor() {
-    this.cars = '';
+    this.cars = [];
+    this.inputs = '';
   }
 
   readLineAsync(query) {
@@ -27,9 +32,21 @@ export class CarIO {
   }
 
   async inputCars() {
-    this.cars = await this.readLineAsync(
-      '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).'
+    const names = await this.readLineAsync(
+      '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분): '
     );
+    this.inputs = names;
+    this.cars = names.split(',').map((name) => new Car(name.trim()));
+
+    this.cars.forEach((car) => {
+      this.checkCarValidate(!car.isValidateName());
+    });
+
+    this.checkCarValidate();
+  }
+
+  getInputs() {
+    return this.inputs;
   }
 
   getCars() {
@@ -40,7 +57,11 @@ export class CarIO {
     console.log(`${carName} : ${currentPosition}`);
   }
 
-  checkCarValidate(validate) {
-    if (validate) throw Error('잘못된 입력 값입니다.');
+  checkCarValidate() {
+    this.cars.forEach((car) => {
+      if (!car.isValidateName()) {
+        throw new Error('자동차 이름은 5자 이하만 가능합니다.');
+      }
+    });
   }
 }

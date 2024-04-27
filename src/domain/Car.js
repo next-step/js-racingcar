@@ -2,13 +2,9 @@ export class Car {
   name;
   position;
 
-  constructor() {
-    this.name = '';
-    this.position = 0;
-  }
-
-  setName(name) {
+  constructor(name) {
     this.name = name;
+    this.position = 0;
   }
 
   isValidateName() {

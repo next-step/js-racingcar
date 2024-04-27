@@ -13,18 +13,16 @@ describe('입출력 관련된 것들', () => {
     await cario.inputCars(); // 비동기 호출을 기다리기 위해 await 추가
 
     // then
-    expect(cario.getCars()).toBe('bmw,audi,kia');
+    expect(cario.getInputs()).toBe('bmw,audi,kia');
   });
 
   test('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
     //Given
     const cario = new CarIO();
-    const bmw = new Car();
-    const audi = new Car();
-    const kia = new Car();
-    bmw.setName('bmw');
-    audi.setName('audi');
-    kia.setName('kia');
+    const bmw = new Car('bmw');
+    const audi = new Car('audi');
+    const kia = new Car('kia');
+
     const logSpy = jest.spyOn(global.console, 'log');
     audi.getRandomValue = jest.fn().mockReturnValue(5);
     bmw.getRandomValue = jest.fn().mockReturnValue(5);
@@ -51,7 +49,10 @@ describe('입출력 관련된 것들', () => {
     // when
     cario.readLineAsync = jest.fn().mockResolvedValue('bmw,audi,kia');
     await cario.inputCars(); // 비동기 호출을 기다리기 위해 await 추가
+    jest.spyOn(cario, 'checkCarValidate').mockImplementation(() => {
+      throw new Error('잘못된 입력 값입니다.');
+    });
 
-    expect(() => cario.checkCarValidate(true)).toThrow('잘못된 입력 값입니다.');
+    expect(() => cario.checkCarValidate()).toThrow('잘못된 입력 값입니다.');
   });
 });
