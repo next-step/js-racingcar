@@ -6,36 +6,44 @@ import { car } from "./validator/car";
 
 export class App {
   #carNames;
+  #carRace;
   #winner;
   constructor() {
+    this.#carRace = null;
     this.#carNames = [];
     this.#winner = [];
   }
 
   async #carNameStage() {
-    const carNames = await Console.input(CONSOLE_MESSAGES.START);
-    const carNamesSplitByComma = splitByComma(carNames);
+    const carNamesInput = await Console.input(CONSOLE_MESSAGES.START);
+    const carNamesSplitByComma = splitByComma(carNamesInput);
     car.nameLengthValidator(carNamesSplitByComma);
     this.#carNames = carNamesSplitByComma;
   }
 
   #raceResultStage() {
-    Console.print(CONSOLE_MESSAGES.RACE_RESULT);
-    const carRace = new CarRace(this.#carNames);
-    carRace.totalRound();
-    return carRace.result;
+    this.#carRace = new CarRace(this.#carNames);
+    this.#carRace.totalRound();
   }
-  #printCarRaceResult(result) {
+
+  #printCarRaceResult() {
+    const result = this.#carRace.result;
     result.map((round) => {
       round.map((car) => Console.printCarPosition(car));
       Console.print("");
     });
   }
+
   async init() {
     try {
-      const carNameInput = await this.#carNameStage();
-      const carRaceResult = this.#raceResultStage(carNameInput);
-      this.#printCarRaceResult(carRaceResult);
+      await this.#carNameStage();
+      Console.print(CONSOLE_MESSAGES.RACE_RESULT);
+      this.#raceResultStage();
+      this.#printCarRaceResult();
+
+      this.#winner = this.#carRace.getWinner();
+
+
     } catch (error) {
       Console.print(error.message);
       return Console.exit();

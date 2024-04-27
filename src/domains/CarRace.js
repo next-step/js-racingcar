@@ -1,6 +1,5 @@
 import { CAR_RACE } from "../constants/carRace";
 import { generateRandomNumber } from "../utils/generateRandomNumber";
-import { Console } from "../utils/console";
 import { Car } from "./Car";
 
 export class CarRace {
@@ -45,5 +44,12 @@ export class CarRace {
   get result() {
     return this.#result;
   }
+  #getMaxPosition() {
+    return Math.max(...this.#cars.map((car) => car.position));
+  }
 
+  getWinner() {
+    const maxPosition = this.#getMaxPosition();
+    return this.#cars.filter((car) => car.position === maxPosition);
+  }
 }
