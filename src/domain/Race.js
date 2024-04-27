@@ -17,4 +17,9 @@ export default class Race {
     this.cars.forEach((car) => car.move(getRandomNumber(0, 9)));
     this.currentRound++;
   }
+
+  get winners() {
+    const maxPosition = Math.max(...this.cars.map((car) => car.position));
+    return this.cars.filter((car) => car.position === maxPosition);
+  }
 }

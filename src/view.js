@@ -12,3 +12,9 @@ export function displayRace(cars) {
   });
   console.log("");
 }
+
+export function displayWinners(race) {
+  console.log(
+    `${race.winners.map((car) => car.name).join(", ")}가 최종 우승했습니다.`
+  );
+}

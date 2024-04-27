@@ -74,4 +74,15 @@ describe("자동차 경주 상황 출력 구현", () => {
 
     expect(logSpy).toHaveBeenCalledWith("pobi : -");
   });
+
+  test("게임 완료 후 우승자를 출력한다.", () => {
+    const logSpy = jest.spyOn(global.console, "log");
+    const race = new playGame("pobi,crong,honux");
+
+    const winners = race.winners;
+
+    expect(logSpy).toHaveBeenCalledWith(
+      `${winners.map((car) => car.name).join(", ")}가 최종 우승했습니다.`
+    );
+  });
 });
