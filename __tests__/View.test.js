@@ -1,4 +1,5 @@
 import View from '../src/View/View';
+import ERROR from '../src/constants/Error';
 
 /* 
 입출력
@@ -8,31 +9,32 @@ import View from '../src/View/View';
 - 사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.
 */
 
+let mockInput;
+
 jest.mock('../src/utils/readLineAsync', () => {
-  return jest
-    .fn()
-    .mockImplementation(() => Promise.resolve('pobi,crong,honux'));
+  return jest.fn().mockImplementation(() => Promise.resolve(mockInput));
 });
 
 describe('View 테스트', () => {
   let view;
+  let logSpy;
 
   beforeEach(() => {
     view = new View();
+    logSpy = jest.spyOn(console, 'log');
   });
 
   describe('정상 케이스 테스트', () => {
     test('자동차는 쉼표를 기준으로 구분하여 입력받는다.', async () => {
-      // when
-      const cars = await view.readCars();
+      // given
+      mockInput = 'pobi,crong,honux';
 
       // then
-      expect(cars).toEqual(['pobi', 'crong', 'honux']);
+      expect(await view.readCars()).toEqual(['pobi', 'crong', 'honux']);
     });
 
     test('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
       // given
-      const logSpy = jest.spyOn(console, 'log');
       const input = [
         { name: 'pobi', position: 2 },
         { name: 'crong', position: 4 },
@@ -51,9 +53,6 @@ describe('View 테스트', () => {
       [['pobi'], 'pobi가 최종 우승했습니다.'],
       [['pobi', 'honux'], 'pobi, honux가 최종 우승했습니다.'],
     ])('우승자는 쉼표를 기준으로 구분하여 출력된다.', (input, expected) => {
-      // given
-      const logSpy = jest.spyOn(console, 'log');
-
       // when
       view.printWinners(input);
 
@@ -62,7 +61,13 @@ describe('View 테스트', () => {
     });
 
     describe('예외 케이스 테스트', () => {
-      // ...
+      test('입력 값이 없을 때 예외 처리한다.', async () => {
+        // given
+        mockInput = '';
+
+        // then
+        expect(await view.readCars()).rejects.toThrow(ERROR.emptyInput);
+      });
     });
   });
 });
