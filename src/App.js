@@ -32,7 +32,7 @@ class App {
 
       console.log(`${readWinners(winners)}가 최종 우승했습니다.`);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 }
