@@ -2,6 +2,7 @@ import CONSTANTS from '../src/constants/Constants';
 import ERROR from '../src/constants/Error';
 import Car from '../src/Domain/Car';
 import RacingGame from '../src/Domain/RacingGame';
+import Random from '../src/utils/Random';
 
 /* 
 경주 컨트롤러
@@ -28,7 +29,7 @@ describe('경주 게임 테스트', () => {
       const cars = [new Car('pobi'), new Car('crong'), new Car('honux')];
       const racingGame = new RacingGame(cars);
 
-      Car.getRandomNumber = jest
+      Random.getRandomNumber = jest
         .fn()
         .mockReturnValueOnce(1)
         .mockReturnValueOnce(1)
