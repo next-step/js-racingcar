@@ -45,7 +45,7 @@ class Racing {
   }
 
   getWinnersName() {
-    return this.#winners.map((player) => player.name);
+    return this.#winners.map((player) => player.carName);
   }
 
   race1Lap() {
