@@ -1,4 +1,7 @@
 export function writeRacingCar(input) {
+  if (!input) {
+    throw new TypeError('올바르지 않은 입력입니다.');
+  }
   return input.replace(/\s/g, '').split(',');
 }
 
