@@ -33,3 +33,12 @@ describe("자동차 이름 입력 구현 테스트", () => {
     expect(() => new playGame(wrongInput)).toThrow(Error);
   });
 });
+
+describe("자동차 경주 규칙 구현", () => {
+  test("경주는 5회로 고정하여 진행한다.", () => {
+    const race = new playGame("pobi,crong,honux");
+
+    expect(race.maxRound).toBe(5);
+    expect(race.currentRound).toBe(5);
+  });
+});

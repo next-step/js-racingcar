@@ -13,6 +13,7 @@ export async function askCarNames() {
 export function playGame(carNames) {
   try {
     const race = new Race(carNames.split(","));
+    race.play();
     return race;
   } catch (error) {
     throw error;

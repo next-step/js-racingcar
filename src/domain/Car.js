@@ -7,4 +7,6 @@ export default class Car {
     }
     this.name = name;
   }
+
+  move() {}
 }
