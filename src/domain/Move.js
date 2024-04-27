@@ -5,6 +5,10 @@ class Move {
     this.#position = 0;
   }
 
+  get position() {
+    return this.#position;
+  }
+
   forward() {
     this.#position = this.#position + 1;
     return this;
@@ -17,10 +21,6 @@ class Move {
 
   stop() {
     return this;
-  }
-
-  getPosition() {
-    return this.#position;
   }
 }
 

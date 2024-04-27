@@ -6,7 +6,7 @@ describe('이동 기능 테스트', () => {
     const movement = new Move();
 
     // when
-    const forward = movement.forward().getPosition();
+    const forward = movement.forward().position;
 
     // then
     expect(forward).toBe(1);
@@ -16,7 +16,7 @@ describe('이동 기능 테스트', () => {
     const movement = new Move();
 
     // when
-    const backward = movement.backward().getPosition();
+    const backward = movement.backward().position;
 
     // then
     expect(backward).toBe(-1);
@@ -26,7 +26,7 @@ describe('이동 기능 테스트', () => {
     const movement = new Move();
 
     // when
-    const stop = movement.stop().getPosition();
+    const stop = movement.stop().position;
 
     // then
     expect(stop).toBe(0);

@@ -12,14 +12,6 @@ class Racing {
     this.#maxLap = maxLap;
   }
 
-  isEndedRace() {
-    return this.#getPlayersPosition().includes(this.#maxLap);
-  }
-
-  #getPlayersPosition() {
-    return this.#players.map((player) => player.getPosition());
-  }
-
   get players() {
     return this.#players;
   }
@@ -31,16 +23,24 @@ class Racing {
     this.#players = players.map((player) => new Car(player));
   }
 
-  getPlayerCount() {
-    return this.#players.length;
-  }
-
   get maxLap() {
     return this.#maxLap;
   }
 
   get winners() {
     return this.#winners;
+  }
+
+  isEndedRace() {
+    return this.#getPlayersPosition().includes(this.#maxLap);
+  }
+
+  #getPlayersPosition() {
+    return this.#players.map((player) => player.position);
+  }
+
+  getPlayerCount() {
+    return this.#players.length;
   }
 
   getWinnersName() {
@@ -60,7 +60,7 @@ class Racing {
 
   end() {
     this.#winners = this.#players.filter(
-      (player) => player.getPosition() === this.#maxLap
+      (player) => player.position === this.#maxLap
     );
     return this;
   }

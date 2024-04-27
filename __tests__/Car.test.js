@@ -20,9 +20,9 @@ describe('자동차 기능 테스트', () => {
     ];
 
     // when
-    const taxiPosition = taxi.forward().getPosition();
-    const teslaPosition = tesla.stop().getPosition();
-    const fordPosition = ford.backward().getPosition();
+    const taxiPosition = taxi.forward().position;
+    const teslaPosition = tesla.stop().position;
+    const fordPosition = ford.backward().position;
 
     // then
     expect([0, 1]).toContain(taxiPosition);
@@ -34,7 +34,7 @@ describe('자동차 기능 테스트', () => {
     const car = new Car('taxi');
 
     // when
-    const carPosition = car.forward().getPosition();
+    const carPosition = car.forward().position;
 
     // then
     expect([0, 1]).toContain(carPosition);
