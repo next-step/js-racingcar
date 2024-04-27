@@ -58,7 +58,7 @@ describe('자동차 관련 내용', () => {
     car.setName('audiii');
 
     //Then(검증)
-    expect(car.getName()).toBe('');
+    expect(car.isValidateName()).toBe(false);
   });
 
   test('전진하는 조건은 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우 통과', () => {
