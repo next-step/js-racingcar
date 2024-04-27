@@ -51,4 +51,15 @@ describe('레이싱 입출력 기능 테스트', () => {
     expect(winnersOutput).toBe('taxi, ford');
     expect(winnerOutput).toBe('taxi');
   });
+
+  describe('사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.', () => {
+    // given
+    const input = '';
+
+    // when
+    const userAction = writeRacingCar;
+
+    // then
+    expect(() => userAction(input)).toThrow();
+  });
 });
