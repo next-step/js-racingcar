@@ -2,7 +2,9 @@ import {
   readWinners,
   readCarPosition,
   writeRacingCar,
+  readCarProgress,
 } from '../src/domain/RacingIO';
+import Car from '../src/domain/Car';
 
 describe('레이싱 입출력 기능 테스트', () => {
   it('자동차 이름은 쉼표(,)를 기준으로 구분한다.', async () => {
@@ -24,6 +26,17 @@ describe('레이싱 입출력 기능 테스트', () => {
 
     // then
     expect(output).toBe('---');
+  });
+  it('레이싱 진행 상황을 표시한다.', () => {
+    // given
+    const car = new Car('tesla');
+    const carName = car.name;
+
+    // when
+    const output = readCarProgress(car);
+
+    // then
+    expect(output).toBe(`${carName} : `);
   });
   it('우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.', () => {
     // given
