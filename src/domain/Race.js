@@ -19,6 +19,10 @@ export class Race {
       .sort((a, b) => b.currentPosition - a.currentPosition);
   }
 
+  getRaceCount() {
+    return RACING_COUNT;
+  }
+
   getWinner() {
     const winnerPosition = this.racingResult[0].currentPosition;
     const winner = this.racingResult
