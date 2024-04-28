@@ -26,21 +26,27 @@ export class App {
     const carNamesSplitByComma = splitByComma(carNamesInput);
     this.#carNames = carNamesSplitByComma;
     this.#validateCarNames(carNamesSplitByComma);
+    this.#carRace = new CarRace(this.#carNames);
   }
 
   #raceResultStage() {
-    this.#carRace = new CarRace(this.#carNames);
     this.#carRace.totalRound();
     this.#winner = this.#carRace.getWinner();
+  }
+
+  #printRaceResult() {
+    output.raceResultTitle();
+    output.carRaceResult(this.#carRace.result);
+    output.winner(this.#winner);
   }
 
   async init() {
     try {
       await this.#carNameStage();
-      output.raceResultTitle();
+
       this.#raceResultStage();
-      output.carRaceResult(this.#carRace.result);
-      output.winner(this.#winner);
+
+      this.#printRaceResult();
     } catch (error) {
       Console.print(error.message);
       return Console.exit();
