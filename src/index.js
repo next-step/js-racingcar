@@ -25,7 +25,6 @@ async function playGame() {
 }
 
 let endFlag = true;
-let playTime = 1;
 
 const playingGame = playGame();
 if (!playingGame) {

@@ -29,9 +29,11 @@ export const ERROR_CODE = {
 
 export class Game {
   cars;
+  playTime;
 
   constructor() {
     this.cars = [];
+    this.playTime = 0;
   }
 
   /**
@@ -86,5 +88,17 @@ export class Game {
     });
 
     return true;
+  }
+
+  play() {
+    if (this.play > 5) {
+      return this.getWinner();
+    }
+  }
+
+  getWinner() {}
+
+  #getRandomDistance() {
+    return Math.floor(Math.random() * 10);
   }
 }
