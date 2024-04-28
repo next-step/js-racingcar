@@ -1,9 +1,9 @@
 import Car from "../domain/Car.js";
 
-export const createCars = (input) => {
+export const createCars = (input, moveCondition) => {
   const carNames = input.split(",");
 
-  return carNames.map((carName) => new Car(carName));
+  return carNames.map((carName) => new Car(carName, moveCondition));
 };
 
 export const validateCarNames = (input) => {

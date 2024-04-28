@@ -1,14 +1,21 @@
-import { MAX_CAR_NAME_LENGTH } from "../constants/car";
+import { MAX_CAR_NAME_LENGTH } from "../constants/car.js";
 
 class Car {
   #name;
   #position = 0;
+  #moveCondition;
 
-  constructor(name) {
+  constructor(
+    name,
+    moveCondition = () => {
+      return true;
+    }
+  ) {
     if (name.length > MAX_CAR_NAME_LENGTH) {
       throw new Error("이름은 5자 이하여야 합니다.");
     }
     this.#name = name;
+    this.#moveCondition = moveCondition;
   }
 
   get name() {
@@ -19,24 +26,15 @@ class Car {
     return this.#position;
   }
 
-  static shouldCarMove(randomValue) {
-    return randomValue >= 4;
-  }
-
   static isValidName(name) {
     return name.length <= MAX_CAR_NAME_LENGTH;
   }
 
-  moveRandom() {
-    const randomValue = Math.floor(Math.random() * 10);
-
-    if (Car.shouldCarMove(randomValue)) {
-      this.move();
-    }
-  }
-
   move() {
-    this.#position++;
+    const canMove = this.#moveCondition();
+    if (canMove) {
+      this.#position++;
+    }
   }
 
   positionToString() {

@@ -31,7 +31,7 @@ class CarRace {
   race() {
     while (this.#remainingRaceCount > 0) {
       this.competitors.forEach((competitor) => {
-        competitor.moveRandom();
+        competitor.move();
       });
       printCarsStatus(this.competitors);
 

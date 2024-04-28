@@ -17,13 +17,12 @@ describe("자동차 기능 테스트", () => {
   test("무작위 값이 4 이상일 경우 전진", () => {
     // given
     const CAR_NAME = "ganbu";
-    const car = new Car(CAR_NAME);
     const RANDOM_VALUE = 5;
+    const moveCondition = () => RANDOM_VALUE >= 4;
+    const car = new Car(CAR_NAME, moveCondition);
 
     // when
-    if (Car.shouldCarMove(RANDOM_VALUE)) {
-      car.move();
-    }
+    car.move();
 
     // then
     expect(car.position).toBe(1);
@@ -32,13 +31,12 @@ describe("자동차 기능 테스트", () => {
   test("무작위 값이 4 미만일 경우 정지", () => {
     // given
     const CAR_NAME = "ganbu";
-    const car = new Car(CAR_NAME);
     const RANDOM_VALUE = 2;
+    const moveCondition = () => RANDOM_VALUE >= 4;
+    const car = new Car(CAR_NAME, moveCondition);
 
     // when
-    if (Car.shouldCarMove(RANDOM_VALUE)) {
-      car.move();
-    }
+    car.move();
 
     // then
     expect(car.position).toBe(0);

@@ -33,8 +33,14 @@ async function play() {
   // input 유효성 검사
   validateCarNames(input);
 
+  // 자동차가 움직이는 조건 생성
+  const carMoveCondition = () => {
+    const randomValue = Math.floor(Math.random() * 10);
+    return randomValue >= 4;
+  };
+
   // 자동차 생성
-  const cars = createCars(input);
+  const cars = createCars(input, carMoveCondition);
 
   // 자동차 경주 생성
   const carRace = new CarRace(cars);
