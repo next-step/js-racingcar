@@ -24,6 +24,8 @@ describe("출력 테스트", () => {
     const winner = carRace.getWinner();
     output.winner(winner);
 
-    expect(logSpy).toHaveBeenCalledWith(CONSOLE_MESSAGES.WINNER("a, b, c"));
+    expect(logSpy).toHaveBeenCalledWith(
+      CONSOLE_MESSAGES.WINNER(["a", "b", "c"].join(", "))
+    );
   });
 });
