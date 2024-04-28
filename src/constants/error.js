@@ -1,3 +1,3 @@
-import { TOTAL_RACE_COUNT } from "./carRace.js";
+import { MAX_CAR_NAME_LENGTH } from "./car.js";
 
-export const ERROR_CAR_NAME_TOO_LONG = `이름은 ${TOTAL_RACE_COUNT}자 이하여야 합니다.`;
+export const ERROR_CAR_NAME_TOO_LONG = `이름은 ${MAX_CAR_NAME_LENGTH}자 이하여야 합니다.`;
