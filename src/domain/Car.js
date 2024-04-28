@@ -1,3 +1,5 @@
+import { MOVE_THRESHOLD } from "../constants";
+
 class Car { 
   name;
   position = 0;
@@ -19,7 +21,7 @@ class Car {
   };
 
   moveForward(randomValue){
-    if(randomValue >= 4) this.position++;
+    if(randomValue >= MOVE_THRESHOLD) this.position++;
   };
 };
 

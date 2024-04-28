@@ -1,3 +1,4 @@
+import { MOVE_THRESHOLD } from "../src/constants/index.js";
 import Car from "../src/domain/Car.js";
 
 const MAX_CAR_NAME_LENGTH = 5;
@@ -29,6 +30,6 @@ describe("자동차 기능 테스트", () => {
     car.moveForward(randomValue);
 
     // then
-    randomValue >= 4 ? expect(car.position).toBe(1) : expect(car.position).toBe(0);
+    randomValue >= MOVE_THRESHOLD ? expect(car.position).toBe(1) : expect(car.position).toBe(0);
   })
 });
