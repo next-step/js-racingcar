@@ -30,15 +30,9 @@ async function play() {
   );
   console.log("\n실행결과");
 
-  // 자동차가 움직이는 조건 생성
-  const carMoveCondition = () => {
-    const randomValue = Math.floor(Math.random() * 10);
-    return randomValue >= 4;
-  };
-
   try {
     // 자동차 생성
-    const cars = createCars(input, carMoveCondition);
+    const cars = createCars(input);
 
     // 자동차 경주 생성
     const carRace = new CarRace(cars);

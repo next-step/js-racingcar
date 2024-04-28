@@ -4,18 +4,11 @@ import { ERROR_CAR_NAME_TOO_LONG } from "../constants/error.js";
 class Car {
   #name;
   #position = 0;
-  #moveCondition;
 
-  constructor(
-    name,
-    moveCondition = () => {
-      return true;
-    }
-  ) {
+  constructor(name) {
     Car.validateName(name);
 
     this.#name = name;
-    this.#moveCondition = moveCondition;
   }
 
   get name() {
@@ -33,10 +26,7 @@ class Car {
   }
 
   move() {
-    const canMove = this.#moveCondition();
-    if (canMove) {
-      this.#position++;
-    }
+    this.#position++;
   }
 
   positionToString() {
