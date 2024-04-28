@@ -12,7 +12,7 @@ describe("자동차 경주 기능 테스트", () => {
 
     // when
     carRace.race();
-    const remainingRaceCount = carRace.remaingRaceCount;
+    const remainingRaceCount = carRace.remainingRaceCount;
 
     // then
     expect(remainingRaceCount).toBe(0);
