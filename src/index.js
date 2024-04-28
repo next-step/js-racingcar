@@ -24,8 +24,8 @@ export class App {
   async #inputCarName() {
     const carNamesInput = await input.carName();
     const carNamesSplitByComma = splitByComma(carNamesInput);
-    this.#validateCarNames(carNamesSplitByComma);
     this.#carNames = carNamesSplitByComma;
+    this.#validateCarNames(carNamesSplitByComma);
   }
 
   async #carNameStage() {
