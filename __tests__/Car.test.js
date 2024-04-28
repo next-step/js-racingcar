@@ -1,4 +1,5 @@
 import { MAX_CAR_NAME_LENGTH } from "../src/constants/car";
+import { ERROR_CAR_NAME_TOO_LONG } from "../src/constants/error";
 import Car from "../src/domain/Car";
 
 describe("자동차 기능 테스트", () => {
@@ -14,7 +15,19 @@ describe("자동차 기능 테스트", () => {
     expect(name.length).toBeLessThanOrEqual(MAX_CAR_NAME_LENGTH);
   });
 
-  test("무작위 값이 4 이상일 경우 전진", () => {
+  test("자동차 이름이 입력되었을 때 자동차 이름이 5글자 초과이면 자동차 생성에 실패한다.", () => {
+    // given
+    const CAR_NAME = "gan878u";
+
+    // when
+    const createCar = () => {
+      const car = new Car(CAR_NAME);
+    };
+
+    // then
+    expect(createCar).toThrow(ERROR_CAR_NAME_TOO_LONG);
+  });
+
   test("자동차가 전진하기 위한 조건에서 무작위 값이 4 이상일 경우 해당 자동차는 1만큼 전진한다.", () => {
     // given
     const CAR_NAME = "ganbu";
