@@ -21,11 +21,15 @@ export class App {
     car.sameNameValidator(carNames);
   }
 
-  async #carNameStage() {
+  async #inputCarName() {
     const carNamesInput = await input.carName();
     const carNamesSplitByComma = splitByComma(carNamesInput);
-    this.#carNames = carNamesSplitByComma;
     this.#validateCarNames(carNamesSplitByComma);
+    this.#carNames = carNamesSplitByComma;
+  }
+
+  async #carNameStage() {
+    await this.#inputCarName();
     this.#carRace = new CarRace(this.#carNames);
   }
 
