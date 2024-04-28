@@ -7,7 +7,7 @@ class Race {
   currentRound = 0;
 
   constructor(cars = []) {
-    this.cars = cars.map(car => new Car(car));
+    this.cars = cars;
   };
 
   start(){
@@ -19,10 +19,16 @@ class Race {
       });
       this.currentRound ++;
     };
+    View.printWinners(this.winners);
   };
 
   getTotalRounds(){
     return this.currentRound;
+  }
+
+  get winners(){
+    const highestPosition = Math.max(...this.cars.map(car => car.position));
+    return this.cars.filter(car => car.position === highestPosition);
   }
 }
 

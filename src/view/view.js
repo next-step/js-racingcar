@@ -19,6 +19,11 @@ class View {
   static printRaceStart() {
     console.log("실행 결과");
   };
+
+  static printWinners(winners) {
+    const winnerNames = winners.map(winner => winner.name).join(", ");
+    console.log(`${winnerNames}가 최종 우승했습니다.`);
+  };
 }
 
 export default View;
