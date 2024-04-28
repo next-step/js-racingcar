@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE } from '../constnats';
+
 class Name {
   #name;
 
@@ -5,7 +7,7 @@ class Name {
 
   constructor(name, maxLen = Name.DEFAULT_MAX_NAME_LENGTH) {
     if (name.length > maxLen) {
-      throw new TypeError('최대 길이를 초과하였습니다.');
+      throw new TypeError(ERROR_MESSAGE.MAX_LENGTH);
     }
     this.#name = name;
   }

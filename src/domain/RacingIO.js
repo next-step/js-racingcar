@@ -1,6 +1,8 @@
+import { ERROR_MESSAGE } from '../constnats';
+
 export function writeRacingCar(input) {
   if (!input) {
-    throw new TypeError('올바르지 않은 입력입니다.');
+    throw new TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
   }
   return input.replace(/\s/g, '').split(',');
 }

@@ -1,4 +1,5 @@
 import Car from './Car';
+import { ERROR_MESSAGE } from '../constnats';
 
 class Racing {
   #players;
@@ -19,7 +20,7 @@ class Racing {
 
   set players(players) {
     if (!Array.isArray(players)) {
-      throw new TypeError('잘못된 형식입니다.');
+      throw new TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
     }
     this.#players = players.map((player) => new Car(player));
   }
