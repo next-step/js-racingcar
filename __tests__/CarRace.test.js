@@ -2,7 +2,7 @@ import Car from "../src/domain/Car.js";
 import CarRace from "../src/domain/CarRace.js";
 
 describe("자동차 경주 기능 테스트", () => {
-  test("자동차 경주는 5회 후 종료된다", () => {
+  test("자동차 경주는 총 5회 진행 후 종료된다.", () => {
     // given
     const car1 = new Car("ganu");
     const car2 = new Car("sunu");
@@ -18,7 +18,7 @@ describe("자동차 경주 기능 테스트", () => {
     expect(remainingRaceCount).toBe(0);
   });
 
-  test("position 값이 가장 큰 사람이 우승한다", () => {
+  test("자동차 경주가 종료되었을 때 현재 position 값이 가장 큰 자동차가 우승한다.", () => {
     // given
     const car1 = new Car("ganu");
     const car2 = new Car("sunu");
@@ -28,16 +28,15 @@ describe("자동차 경주 기능 테스트", () => {
 
     // when
     car1.move();
-    car3.move();
     const winners = carRace.winners;
     const winnerNames = winners.map((winner) => winner.name);
 
     // then
-    const expectedWinnerNames = [car1.name, car3.name];
+    const expectedWinnerNames = [car1.name];
     expect(winnerNames).toEqual(expect.arrayContaining(expectedWinnerNames));
   });
 
-  test("자동차 경주 게임을 완료하면 누가 우승했는지 알려준다", () => {
+  test("자동차 경주가 종료되었을 때 한 개 이상의 자동차가 우승한다.", () => {
     // given
     const car1 = new Car("ganu");
     const car2 = new Car("sunu");

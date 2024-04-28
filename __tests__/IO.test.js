@@ -1,3 +1,4 @@
+import { ERROR_CAR_NAME_TOO_LONG } from "../src/constants/error.js";
 import Car from "../src/domain/Car.js";
 import {
   joinCarNamesByComma,
@@ -6,7 +7,7 @@ import {
 } from "../src/utils/cars.js";
 
 describe("입출력 테스트", () => {
-  test("우승자가 여러 명일 겨우 쉼표(,)를 이용하여 구분", () => {
+  test("자동차 경주의 우승자를 출력할 때 우승자가 여러 명일 경우 쉼표(,)로 구분하여 출력한다.", () => {
     // given
     const car1 = new Car("pobi");
     const car2 = new Car("crong");
@@ -20,7 +21,7 @@ describe("입출력 테스트", () => {
     expect(joinedNames).toBe("pobi, crong, honux");
   });
 
-  test("자동차의 현재 위치를 '-' 으로 표현", () => {
+  test("자동차의 현재 위치를 출력할 때 자동차의 위치 값(정수)는 '-'으로 출력된다.", () => {
     // given
     const car = new Car("ganbu");
     car.move();
@@ -32,7 +33,7 @@ describe("입출력 테스트", () => {
     expect(carPositionToString).toBe("-");
   });
 
-  test("전진하는 자동차를 출력할 때 자동차의 이름과 위치를 같이 출력", () => {
+  test("자동차 경주마다 각 자동차의 이름과 현재 위치를 같이 출력한다.", () => {
     // given
     const car1 = new Car("ganu");
     const car2 = new Car("toto");
@@ -53,7 +54,7 @@ describe("입출력 테스트", () => {
     logSpy.mockClear();
   });
 
-  test("사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.", () => {
+  test("자동차 이름이 여러 개 입력되었을 때 한 개이상의 자동차 이름이 5글자 초과이면 프로그램을 종료한다.", () => {
     // given
     const USER_INPUT = "bababi,crong,honux";
 
@@ -63,6 +64,6 @@ describe("입출력 테스트", () => {
     };
 
     // then
-    expect(validateUserInput).toThrow("이름은 5자 이하여야 합니다.");
+    expect(validateUserInput).toThrow(ERROR_CAR_NAME_TOO_LONG);
   });
 });

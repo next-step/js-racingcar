@@ -2,7 +2,7 @@ import { MAX_CAR_NAME_LENGTH } from "../src/constants/car";
 import Car from "../src/domain/Car";
 
 describe("자동차 기능 테스트", () => {
-  test("자동차의 이름은 5자 이하", () => {
+  test("자동차 이름이 입력되었을 때 자동차 이름이 5글자 이하이면 해당 이름을 가진 자동차가 정상적으로 생성된다.", () => {
     // given
     const CAR_NAME = "ganu";
     const car = new Car(CAR_NAME);
@@ -15,6 +15,7 @@ describe("자동차 기능 테스트", () => {
   });
 
   test("무작위 값이 4 이상일 경우 전진", () => {
+  test("자동차가 전진하기 위한 조건에서 무작위 값이 4 이상일 경우 해당 자동차는 1만큼 전진한다.", () => {
     // given
     const CAR_NAME = "ganbu";
     const RANDOM_VALUE = 5;
@@ -28,7 +29,7 @@ describe("자동차 기능 테스트", () => {
     expect(car.position).toBe(1);
   });
 
-  test("무작위 값이 4 미만일 경우 정지", () => {
+  test("자동차가 전진하기 위한 조건에서 생성된 무작위 값이 4 미만일 경우 해당 자동차는 정지한다", () => {
     // given
     const CAR_NAME = "ganbu";
     const RANDOM_VALUE = 2;
