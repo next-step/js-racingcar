@@ -1,4 +1,5 @@
-import Car from "./Car";
+import View from "../view/view.js";
+import Car from "./Car.js";
 
 const MAX_RACE_ROUND = 5;
 class Race {
@@ -10,9 +11,11 @@ class Race {
   };
 
   start(){
+    View.printRaceStart();
     for(let i = 0; i < MAX_RACE_ROUND; i ++){
       this.cars.map(car => {
         car.moveForward(car.getRandomValue());
+        View.printRaceProgress(car.name, car.position);
       });
       this.currentRound ++;
     };

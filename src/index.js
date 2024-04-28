@@ -1,8 +1,6 @@
-import Race from "./domain/index.js";
+import Race from "./domain/Race.js";
 import View from "./view/view.js";
 
-const view = new View();
-const carNames = view.getCarNames();
+const carNames = await View.getCarNames();
 const race = new Race(carNames);
-
-
+race.start();

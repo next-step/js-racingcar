@@ -1,4 +1,4 @@
-import Car from "../src/domain/Car";
+import Car from "../src/domain/Car.js";
 
 const MAX_CAR_NAME_LENGTH = 5;
 /**
