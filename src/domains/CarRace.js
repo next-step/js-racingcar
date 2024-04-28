@@ -22,20 +22,19 @@ export class CarRace {
     return carNamesArray.map((carName) => new Car(carName));
   }
 
-  #moveCar(Car) {
-    if (
-      generateRandomNumber(
-        CAR_RACE.MIN_RANDOM_NUMBER,
-        CAR_RACE.MAX_RANDOM_NUMBER
-      ) >= CAR_RACE.MOVE_THRESHOLD
-    ) {
+  moveCar(Car, randomNumber) {
+    if (randomNumber >= CAR_RACE.MOVE_THRESHOLD) {
       Car.move();
     }
   }
 
   #gameRound() {
     this.#cars.map((car) => {
-      this.#moveCar(car);
+      const randomNumber = generateRandomNumber(
+        CAR_RACE.MIN_RANDOM_NUMBER,
+        CAR_RACE.MAX_RANDOM_NUMBER
+      );
+      this.moveCar(car, randomNumber);
     });
   }
 
