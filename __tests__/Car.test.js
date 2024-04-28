@@ -1,3 +1,4 @@
+import { MAX_CAR_NAME_LENGTH } from "../src/constants/car";
 import Car from "../src/domain/Car";
 
 describe("자동차 기능 테스트", () => {
@@ -10,7 +11,7 @@ describe("자동차 기능 테스트", () => {
     const name = car.name;
 
     // then
-    expect(name.length).toBeLessThanOrEqual(5);
+    expect(name.length).toBeLessThanOrEqual(MAX_CAR_NAME_LENGTH);
   });
 
   test("무작위 값이 4 이상일 경우 전진", () => {

@@ -1,9 +1,11 @@
+import { MAX_CAR_NAME_LENGTH } from "../constants/car";
+
 class Car {
   #name;
   #position = 0;
 
   constructor(name) {
-    if (name.length > 5) {
+    if (name.length > MAX_CAR_NAME_LENGTH) {
       throw new Error("이름은 5자 이하여야 합니다.");
     }
     this.#name = name;
@@ -22,7 +24,7 @@ class Car {
   }
 
   static isValidName(name) {
-    return name.length <= 5;
+    return name.length <= MAX_CAR_NAME_LENGTH;
   }
 
   moveRandom() {

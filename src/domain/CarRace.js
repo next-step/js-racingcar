@@ -1,6 +1,6 @@
+import { TOTAL_RACE_COUNT } from "../constants/carRace.js";
 import { joinCarNamesByComma, printCarsStatus } from "../utils/cars.js";
 
-const TOTAL_RACE_COUNT = 5;
 class CarRace {
   remaingRaceCount = TOTAL_RACE_COUNT;
 
