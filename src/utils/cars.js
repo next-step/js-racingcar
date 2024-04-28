@@ -6,16 +6,6 @@ export const createCars = (input, moveCondition) => {
   return carNames.map((carName) => new Car(carName, moveCondition));
 };
 
-export const validateCarNames = (input) => {
-  const carNames = input.split(",");
-
-  carNames.forEach((carName) => {
-    if (!Car.isValidName(carName)) {
-      throw new Error("이름은 5자 이하여야 합니다.");
-    }
-  });
-};
-
 export const printCarsStatus = (cars) => {
   cars.forEach((car) => {
     console.log(car.statusToString());

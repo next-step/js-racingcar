@@ -1,4 +1,5 @@
 import { MAX_CAR_NAME_LENGTH } from "../constants/car.js";
+import { ERROR_CAR_NAME_TOO_LONG } from "../constants/error.js";
 
 class Car {
   #name;
@@ -11,9 +12,8 @@ class Car {
       return true;
     }
   ) {
-    if (name.length > MAX_CAR_NAME_LENGTH) {
-      throw new Error("이름은 5자 이하여야 합니다.");
-    }
+    Car.validateName(name);
+
     this.#name = name;
     this.#moveCondition = moveCondition;
   }
@@ -26,8 +26,10 @@ class Car {
     return this.#position;
   }
 
-  static isValidName(name) {
-    return name.length <= MAX_CAR_NAME_LENGTH;
+  static validateName(name) {
+    if (name.length > MAX_CAR_NAME_LENGTH) {
+      throw new Error(ERROR_CAR_NAME_TOO_LONG);
+    }
   }
 
   move() {

@@ -3,7 +3,7 @@ import Car from "../src/domain/Car.js";
 import {
   joinCarNamesByComma,
   printCarsStatus,
-  validateCarNames,
+  createCars,
 } from "../src/utils/cars.js";
 
 describe("입출력 테스트", () => {
@@ -56,14 +56,14 @@ describe("입출력 테스트", () => {
 
   test("자동차 이름이 여러 개 입력되었을 때 한 개이상의 자동차 이름이 5글자 초과이면 프로그램을 종료한다.", () => {
     // given
-    const USER_INPUT = "bababi,crong,honux";
+    const USER_INPUT = "longerthan5,crong,honux";
 
     // when
-    const validateUserInput = () => {
-      validateCarNames(USER_INPUT);
+    const createCarsFromInput = () => {
+      const cars = createCars(USER_INPUT);
     };
 
     // then
-    expect(validateUserInput).toThrow(ERROR_CAR_NAME_TOO_LONG);
+    expect(createCarsFromInput).toThrow(ERROR_CAR_NAME_TOO_LONG);
   });
 });

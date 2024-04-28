@@ -1,6 +1,6 @@
 import readline from "readline";
 import CarRace from "./domain/CarRace.js";
-import { createCars, validateCarNames } from "./utils/cars.js";
+import { createCars } from "./utils/cars.js";
 
 function readLineAsync(query) {
   return new Promise((resolve, reject) => {
@@ -30,26 +30,28 @@ async function play() {
   );
   console.log("\n실행결과");
 
-  // input 유효성 검사
-  validateCarNames(input);
-
   // 자동차가 움직이는 조건 생성
   const carMoveCondition = () => {
     const randomValue = Math.floor(Math.random() * 10);
     return randomValue >= 4;
   };
 
-  // 자동차 생성
-  const cars = createCars(input, carMoveCondition);
+  try {
+    // 자동차 생성
+    const cars = createCars(input, carMoveCondition);
 
-  // 자동차 경주 생성
-  const carRace = new CarRace(cars);
+    // 자동차 경주 생성
+    const carRace = new CarRace(cars);
 
-  // 자동차 경주 시작
-  carRace.race();
+    // 자동차 경주 시작
+    carRace.race();
 
-  // 우승자 출력
-  carRace.printWinners();
+    // 우승자 출력
+    carRace.printWinners();
+  } catch (e) {
+    console.error(e);
+    process.exit();
+  }
 }
 
 play();

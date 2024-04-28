@@ -1,6 +1,6 @@
-import { MAX_CAR_NAME_LENGTH } from "../src/constants/car";
-import { ERROR_CAR_NAME_TOO_LONG } from "../src/constants/error";
-import Car from "../src/domain/Car";
+import { MAX_CAR_NAME_LENGTH } from "../src/constants/car.js";
+import { ERROR_CAR_NAME_TOO_LONG } from "../src/constants/error.js";
+import Car from "../src/domain/Car.js";
 
 describe("자동차 기능 테스트", () => {
   test("자동차 이름이 입력되었을 때 자동차 이름이 5글자 이하이면 해당 이름을 가진 자동차가 정상적으로 생성된다.", () => {
