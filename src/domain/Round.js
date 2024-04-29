@@ -44,7 +44,7 @@ export class Round {
   }
 
   get cars() {
-    return [...this.cars];
+    return this.cars;
   }
 
   get winners() {

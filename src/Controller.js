@@ -35,7 +35,7 @@ export class Controller {
   }
 
   get carNames() {
-    return [...this.carNames];
+    return this.carNames;
   }
 
   get winners() {
