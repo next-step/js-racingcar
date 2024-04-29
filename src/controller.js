@@ -2,9 +2,9 @@ import { MESSAGE, ERROR_MESSAGE } from "./constant/index.js";
 import Race from "./domain/Race.js";
 import { displayWinners, displayRace } from "./view.js";
 
-export function playGame(carNames) {
+export function playGame(carNames, maxRound) {
   try {
-    const race = new Race(carNames.split(","));
+    const race = new Race(carNames.split(","), maxRound);
 
     console.log(MESSAGE.RESULT);
     while (race.currentRound < race.maxRound) {

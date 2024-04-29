@@ -34,6 +34,11 @@ describe("자동차 경주 규칙 구현", () => {
 
     expect(car.position).toBe(0);
   });
+
+  test("사용자는 몇 번의 이동을 할 것인지 입력할 수 있어야 한다.", () => {
+    const carRace = playGame("pobi,crong,honux", 5);
+    expect(carRace.maxRound).toBe(5);
+  });
 });
 
 describe("자동차 경주 상황 출력 구현", () => {
