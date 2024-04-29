@@ -1,5 +1,4 @@
 import View from "../view/view.js";
-import Car from "./Car.js";
 
 const MAX_RACE_ROUND = 5;
 class Race {
