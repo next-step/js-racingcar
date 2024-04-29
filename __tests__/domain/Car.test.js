@@ -1,4 +1,4 @@
-import { Car } from '../src/domain/Car';
+import { Car } from '../../src/domain/Car';
 
 describe("Car Test", () => {
     describe("Car가 생성될 때", () => {
