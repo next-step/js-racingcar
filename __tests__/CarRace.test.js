@@ -47,8 +47,8 @@ describe("자동차 경주 상황 출력 구현", () => {
   test("게임의 우승자를 구한다.", () => {
     const logSpy = jest.spyOn(global.console, "log");
     const race = new Race(["pobi", "crong", "honux"]);
-    race.cars[1].moveForward();
-    race.cars[1].moveForward();
+    race.cars[1].move(4);
+    race.cars[1].move(4);
 
     expect(race.winners).toEqual([race.cars[1]]);
   });
