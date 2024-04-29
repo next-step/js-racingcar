@@ -22,7 +22,7 @@ class Race {
     View.printWinners(this.winners);
   };
 
-  getTotalRounds(){
+  get totalRounds(){
     return this.currentRound;
   }
 
