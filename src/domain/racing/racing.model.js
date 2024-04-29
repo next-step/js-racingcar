@@ -1,57 +1,46 @@
-import { readLineAsync } from "../../utils/readline.js";
-import { Car } from "../car/car.model.js";
 import {
   INITIAL_CAR_LIST,
   INITIAL_ROUND,
   INITIAL_WINNER_LIST,
   RACING_ROUND,
-  SETUP_MESSAGE,
 } from "./racing.constant.js";
 
 export class Racing {
   #round;
   #carList;
   #winnerList;
+  #movementRule;
 
-  constructor() {
+  constructor({ carList = INITIAL_CAR_LIST, movementRule }) {
+    this.#carList = carList;
+    this.#movementRule = movementRule;
     this.#round = INITIAL_ROUND;
-    this.#carList = INITIAL_CAR_LIST;
     this.#winnerList = INITIAL_WINNER_LIST;
   }
 
-  async setup() {
-    const inputtedValue = await readLineAsync(SETUP_MESSAGE);
-    const carNameList = inputtedValue
-      .split(",")
-      .map((carName) => carName.trim());
-
-    this.#carList = carNameList.map((carName) => new Car({ name: carName }));
+  start() {
+    this.#race();
+    this.#determineWinnerList();
   }
 
-  start() {
+  #race() {
     while (this.#round < RACING_ROUND) {
-      this.#carList.forEach((car) => {
-        car.move();
-        car.display();
-      });
-      this.#round++;
+      this.#executeRound();
     }
   }
 
-  end() {
+  #executeRound() {
+    this.#carList.forEach((car) => {
+      car.move(this.#movementRule());
+    });
+    this.#round++;
+  }
+
+  #determineWinnerList() {
     const maxPosition = Math.max(...this.#carList.map((car) => car.position));
     this.#winnerList = this.#carList.filter(
       (car) => car.position === maxPosition
     );
-  }
-
-  display() {
-    const winnerList = this.#winnerList.map((car) => car.name).join(", ");
-    const displayMessage = `${winnerList}가 최종 우승했습니다.`;
-
-    console.log(displayMessage);
-
-    return displayMessage;
   }
 
   get round() {
@@ -63,6 +52,6 @@ export class Racing {
   }
 
   get winnerList() {
-    return this.#winnerList.map((car) => car.name);
+    return this.#winnerList;
   }
 }

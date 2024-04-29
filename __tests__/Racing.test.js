@@ -1,124 +1,39 @@
-import readline from "readline";
-
+import { Car } from "../src/domain/car/car.model.js";
 import { Racing } from "../src/domain/racing/racing.model.js";
-import {
-  CarNameRequiredError,
-  CarNameTooLongError,
-} from "../src/domain/car/car.error.js";
-
-jest.mock("readline");
 
 describe("자동차 경주", () => {
-  let mockQuestion;
-  let mockRl;
+  test("자동차 경주는 5회로 고정하여 진행한다.", () => {
+    // Arrange
+    const carList = [new Car({ name: "Tesla" }), new Car({ name: "BMW" })];
+    function movementRule() {
+      return true;
+    }
+    const racing = new Racing({ carList: carList, movementRule: movementRule });
 
-  beforeEach(() => {
-    mockQuestion = jest.fn();
-    mockRl = { question: mockQuestion, close: jest.fn() };
-    readline.createInterface.mockReturnValue(mockRl);
+    // Act
+    racing.start();
+
+    // Assert
+    expect(racing.round).toBe(5);
   });
 
-  describe("사용자가 자동차 경주에 참여하는 자동차를 입력한다.", () => {
-    test("사용자가 잘못된 길이의 입력 값을 입력하면 에러가 발생한다.", () => {
-      // Arrange
-      const racing = new Racing();
-      mockQuestion.mockImplementation((query, callback) => {
-        callback("Tesla, BMW, Porsche");
-      });
+  test("자동차 경주가 종료되면 우승자를 선정한다.", () => {
+    // Arrange
+    const carList = [
+      new Car({ name: "Tesla", position: 5 }),
+      new Car({ name: "BMW", position: 3 }),
+      new Car({ name: "Audi", position: 5 }),
+    ];
+    function movementRule() {
+      return true;
+    }
+    const racing = new Racing({ carList: carList, movementRule: movementRule });
 
-      // Act & Assert
-      expect(() => racing.setup()).rejects.toThrowError(CarNameTooLongError);
-    });
+    // Act
+    racing.start();
 
-    test("사용자가 입력 값을 입력하지 않으면 에러가 발생한다.", () => {
-      // Arrange
-      const racing = new Racing();
-      mockQuestion.mockImplementation((query, callback) => {
-        callback("");
-      });
-
-      // Act & Assert
-      expect(() => racing.setup()).rejects.toThrowError(CarNameRequiredError);
-    });
-
-    test("사용자는 자동차 이름을 쉼표(,)로 구분하여 입력한다.", async () => {
-      // Arrange
-      const racing = new Racing();
-      mockQuestion.mockImplementation((query, callback) => {
-        callback("Tesla, BMW, Audi");
-      });
-
-      // Act
-      await racing.setup();
-
-      // Assert
-      expect(racing.carList.length).toBe(3);
-    });
-  });
-
-  describe("자동차 경주 게임을 시작한다.", () => {
-    test("자동차 경주는 5회로 고정하여 진행한다.", () => {
-      // Arrange
-      const racing = new Racing();
-
-      // Act
-      racing.start();
-
-      // Assert
-      expect(racing.round).toBe(5);
-    });
-  });
-
-  describe("자동차 경주를 종료한다.", () => {
-    test("우승자는 한명 이상이다.", async () => {
-      // Arrange
-      const racing = new Racing();
-      jest.spyOn(Math, "random").mockReturnValue(0.4);
-      mockQuestion.mockImplementation((query, callback) => {
-        callback("Tesla, BMW, Audi");
-      });
-
-      // Act
-      await racing.setup();
-      racing.start();
-      racing.end();
-
-      // Assert
-      expect(racing.winnerList.length).toBeGreaterThanOrEqual(1);
-    });
-    test("경주를 완료한 후 우승자를 출력한다.", async () => {
-      // Arrange
-      const racing = new Racing();
-      jest.spyOn(Math, "random").mockReturnValue(0.4);
-      mockQuestion.mockImplementation((query, callback) => {
-        callback("Tesla");
-      });
-
-      // Act
-      await racing.setup();
-      racing.start();
-      racing.end();
-
-      // Assert
-      const expected = "Tesla가 최종 우승했습니다.";
-      expect(racing.display()).toBe(expected);
-    });
-    test("우승자가 여려명일 경우 쉼표(,)로 구분하여 출력한다.", async () => {
-      // Arrange
-      const racing = new Racing();
-      jest.spyOn(Math, "random").mockReturnValue(0.4);
-      mockQuestion.mockImplementation((query, callback) => {
-        callback("Tesla, BMW, Audi");
-      });
-
-      // Act
-      await racing.setup();
-      racing.start();
-      racing.end();
-
-      // Assert
-      const expected = "Tesla, BMW, Audi가 최종 우승했습니다.";
-      expect(racing.display()).toBe(expected);
-    });
+    // Assert
+    const winnerList = racing.winnerList.map((car) => car.name);
+    expect(winnerList).toStrictEqual(["Tesla", "Audi"]);
   });
 });
