@@ -1,12 +1,14 @@
+import { Controller } from "./Controller";
+import { View } from "./View";
 import { ROUND_TIMES } from "./const/RacingConfig";
 
-export class App {
+class App {
   view;
   controller;
 
-  constructor(view, controller) {
-    this.view = view;
-    this.controller = controller;
+  constructor() {
+    this.view = new View();
+    this.controller = new Controller();
   }
 
   async start() {
@@ -23,3 +25,5 @@ export class App {
     this.view.end(winners);
   }
 }
+
+export const app = new App();
