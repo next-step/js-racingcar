@@ -10,14 +10,10 @@ export class Round {
   }
 
   play() {
-    const copyCars = this.cars.map((e) => e.copy());
-
-    copyCars.forEach((e) => {
+    this.cars.forEach((e) => {
       const random = getRandom(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
       e.play(random);
     });
-
-    this.cars = copyCars;
   }
 
   existsDuplicatedCarName(cars) {
@@ -26,6 +22,12 @@ export class Round {
     if (carNames.length !== new Set(carNames).size) {
       throw new Error("중복된 이름의 자동차가 있습니다.");
     }
+  }
+
+  copy() {
+    const copyCars = this.cars.map((e) => e.copy());
+    const copy = new Round(copyCars);
+    return copy;
   }
 
   get cars() {

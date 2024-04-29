@@ -25,7 +25,7 @@ export class Controller {
       const cars = this.carNames.map((e) => new Car(e));
       return new Round(cars);
     }
-    return new Round(this.rounds.at(-1).cars);
+    return this.rounds.at(-1).copy();
   }
 
   isNotString(input) {
