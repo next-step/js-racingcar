@@ -1,5 +1,9 @@
-import { ERROR_CAR_NAME_TOO_LONG } from "../src/constants/error.js";
+import {
+  ERROR_CAR_NAME_TOO_LONG,
+  ERROR_CAR_RACE_COUNT_NOT_VALID,
+} from "../src/constants/error.js";
 import Car from "../src/domain/Car.js";
+import CarRace from "../src/domain/CarRace.js";
 import {
   joinCarNamesByComma,
   printCarsStatus,
@@ -7,6 +11,22 @@ import {
 } from "../src/utils/cars.js";
 
 describe("입출력 테스트", () => {
+  test("진행할 자동차 경주의 총 횟수가 0 이상의 정수가 아니면 에러를 발생시킨다.", () => {
+    // given
+    const car1 = new Car("ganu");
+    const car2 = new Car("sunu");
+    const competitors = [car1, car2];
+    const RACE_COUNT = -1;
+
+    // when
+    const createCarRace = () => {
+      const carRace = new CarRace(competitors, RACE_COUNT);
+    };
+
+    // then
+    expect(createCarRace).toThrow(ERROR_CAR_RACE_COUNT_NOT_VALID);
+  });
+
   test("자동차 경주의 우승자를 출력할 때 우승자가 여러 명일 경우 쉼표(,)로 구분하여 출력한다.", () => {
     // given
     const car1 = new Car("pobi");

@@ -1,9 +1,12 @@
+import { ERROR_CAR_RACE_COUNT_NOT_VALID } from "../constants/error.js";
 import { joinCarNamesByComma, printCarsStatus } from "../utils/cars.js";
 
 class CarRace {
   #remainingRaceCount;
 
   constructor(competitors, totalRaceCount = 0) {
+    CarRace.validateTotalRaceCount(totalRaceCount);
+
     this.competitors = competitors;
     this.#remainingRaceCount = totalRaceCount;
   }
@@ -26,6 +29,16 @@ class CarRace {
     );
 
     return Math.max(...positionResults);
+  }
+
+  static validateTotalRaceCount(totalRaceCount) {
+    if (typeof totalRaceCount !== "number") {
+      throw new Error(ERROR_CAR_RACE_COUNT_NOT_VALID);
+    }
+
+    if (totalRaceCount < 0) {
+      throw new Error(ERROR_CAR_RACE_COUNT_NOT_VALID);
+    }
   }
 
   race() {
