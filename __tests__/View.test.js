@@ -1,4 +1,4 @@
-import { MOVE_THRESHOLD, TEST_CARS } from "../src/constants";
+import { MOVE_THRESHOLD, TEST_CARS, TEST_DUPLICATED_CARS, TEST_NONEXISTENT_CARS } from "../src/constants";
 import Car from "../src/domain/Car.js";
 import Race from "../src/domain/Race.js";
 import View from "../src/view/view.js";
@@ -8,7 +8,7 @@ import View from "../src/view/view.js";
 ## 입출력
 - [x] 쉼표를 기준으로 자동차 이름을 받는다.
 - [x] 우승자가 여러명일 경우, 쉼표로 구분하여 출력한다.
-- [ ] 사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.
+- [x] 사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.
  */
 
 describe("입출력 테스트", () => {
@@ -51,5 +51,29 @@ describe("입출력 테스트", () => {
     
     // then
     expect(logSpy).toHaveBeenCalledWith(TEST_CARS.join(", ") + "가 최종 우승했습니다.");
+  });
+
+  test("자동차가 존재하지 않을 경우, 프로그램을 종료한다.", async() => {
+    // given
+    const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_NONEXISTENT_CARS.join(","));
+    const input = await mockReadLineAsync();
+
+    // when
+    const validateionCallback = () => View.validates(input);
+    
+    // then
+    expect(validateionCallback).toThrowError("자동차가 존재하지 않습니다.");
+  });
+
+  test("동일한 자동차가 존재할 경우, 프로그램을 종료한다.", async() => {
+    // given
+    const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_DUPLICATED_CARS.join(","));
+    const input = await mockReadLineAsync();
+
+    // when
+    const validateionCallback = () => View.validates(input);
+    
+    // then
+    expect(validateionCallback).toThrowError("중복된 자동차가 존재합니다.");
   });
 })
