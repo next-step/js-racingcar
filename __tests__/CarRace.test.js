@@ -56,7 +56,7 @@ describe("자동차 경주 상황 출력 구현", () => {
     expect(logSpy).toHaveBeenCalledWith("pobi : -");
   });
 
-  test("게임의 우승자를 구한다.", () => {
+  test("레이스에서 가장 많이 이동한 자동차가 우승자가 된다.", () => {
     const race = new Race(["pobi", "crong", "honux"]);
     race.cars[1].move(4);
     race.cars[1].move(4);

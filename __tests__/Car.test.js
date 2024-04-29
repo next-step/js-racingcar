@@ -16,7 +16,7 @@ describe("자동차 구현 테스트", () => {
 });
 
 describe("자동차 이름 입력 구현 테스트", () => {
-  test("자동차 이름은 쉼표를 기준으로 구분한다.", () => {
+  test("경주할 자동차를 입력할 때, 이름은 쉼표를 기준으로 구분한다.", () => {
     const race = playGame("pobi,crong,honux");
 
     const raceCars = race.cars;
