@@ -3,6 +3,14 @@ import { Car } from "../src/domain/Car";
 import { CAR_MOVE_CONDITION } from "../src/const/RacingConfig";
 
 describe("자동차 테스트", () => {
+  test("자동차의 이름은 문자열이어야한다.", () => {
+    expect(() => new Car(1)).toThrowError(new Error("잘못된 입력입니다."));
+  });
+
+  test("자동차의 이름은 빈 문자열일 수 없다.", () => {
+    expect(() => new Car("")).toThrowError(new Error("잘못된 입력입니다."));
+  });
+
   test("자동차의 이름은 5글자 이하여야한다.", () => {
     expect(() => new Car("123456")).toThrowError(
       new Error("자동차의 이름은 5글자 이하여야합니다.")

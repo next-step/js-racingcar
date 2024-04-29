@@ -5,6 +5,7 @@ export class Round {
   cars;
 
   constructor(cars) {
+    this.existsDuplicatedCarName(cars);
     this.cars = cars;
   }
 
@@ -17,6 +18,14 @@ export class Round {
     });
 
     this.cars = copyCars;
+  }
+
+  existsDuplicatedCarName(cars) {
+    const carNames = cars.map((e) => e.name);
+
+    if (carNames.length !== new Set(carNames).size) {
+      throw new Error("중복된 이름의 자동차가 있습니다.");
+    }
   }
 
   get cars() {

@@ -15,6 +15,17 @@ describe("라운드 테스트", () => {
     expect(round.cars.length).toBe(2);
   });
 
+  test("라운드에 중복된 이름의 차가 있을 수 없다.", () => {
+    //given
+    const sameCar1 = new Car("same");
+    const sameCar2 = new Car("same");
+
+    //then
+    expect(() => new Round([sameCar1, sameCar2])).toThrowError(
+      new Error("중복된 이름의 자동차가 있습니다.")
+    );
+  });
+
   // test("라운드를 진행한다.", () => {
   //   //given
   //   const car1 = new Car("car1");
