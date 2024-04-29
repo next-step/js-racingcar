@@ -37,18 +37,26 @@ describe("자동차 경주 규칙 구현", () => {
 });
 
 describe("자동차 경주 상황 출력 구현", () => {
+  let logSpy;
+
+  beforeEach(() => {
+    logSpy = jest.spyOn(global.console, "log");
+  });
+
+  afterEach(() => {
+    logSpy.mockClear();
+  });
+
   test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
-    const logSpy = jest.spyOn(global.console, "log");
     const car = new Car("pobi");
 
-    car.moveForward();
+    car.move(4);
     displayForwardCar(car);
 
     expect(logSpy).toHaveBeenCalledWith("pobi : -");
   });
 
   test("게임의 우승자를 구한다.", () => {
-    const logSpy = jest.spyOn(global.console, "log");
     const race = new Race(["pobi", "crong", "honux"]);
     race.cars[1].move(4);
     race.cars[1].move(4);
@@ -57,7 +65,6 @@ describe("자동차 경주 상황 출력 구현", () => {
   });
 
   test("게임 완료 후 우승자를 출력한다.", () => {
-    const logSpy = jest.spyOn(global.console, "log");
     const race = playGame("pobi,crong,honux");
 
     const winners = race.winners;
