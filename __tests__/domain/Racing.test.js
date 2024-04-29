@@ -10,7 +10,7 @@ describe("Racing Test", () => {
                 });
             })
 
-            describe("car 이름 목록이 빈값이라면", () => {
+            describe("자동차 이름 목록이 빈값이라면", () => {
                 const carNames = ''
 
                 it("에러를 반환한다", () => {
@@ -18,7 +18,7 @@ describe("Racing Test", () => {
                 })
             })
 
-            describe("car 이름 목록이 공백이라면", () => {
+            describe("자동차 이름 목록이 공백이라면", () => {
                 const carNames = ' '
 
                 it("에러를 반환한다", () => {
@@ -26,7 +26,7 @@ describe("Racing Test", () => {
                 })
             });
 
-            describe("car 이름에 공백이 포함되어 있다면", () => {
+            describe("자동차 이름에 공백이 포함되어 있다면", () => {
                 const carNames = 'pobi, ,crong,honux'
 
                 it("에러를 반환한다", () => {
@@ -35,7 +35,7 @@ describe("Racing Test", () => {
             });
         })
 
-        describe("경주가 진행되면", () => {
+    describe("경주가 진행되면", () => {
             const carNames = 'pobi,crong,honux';
             const racing = new Racing(carNames);
             racing.race();
@@ -43,4 +43,15 @@ describe("Racing Test", () => {
                 expect(racing.currentRound).toBe(2);
         })
     });
+
+    describe("경주가 종료되면", () => {
+        const carNames = 'pobi,crong,honux';
+        const racing = new Racing(carNames);
+        while(racing.currentRound < Racing.MAX_ROUND) {
+            racing.race();
+        }
+        it("우승자를 확인할 수 있다.", () => {
+            expect(racing.winners.length).toBeGreaterThanOrEqual(1);
+        });
+    })
 });
