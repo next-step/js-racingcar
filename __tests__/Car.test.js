@@ -12,6 +12,11 @@ describe("자동차 구현 테스트", () => {
     expect(() => new Car(carNameOver5)).toThrow(
       "자동차 이름은 5자 이하만 가능합니다."
     );
+
+    const carNameLength6 = "123456";
+    expect(() => new Car(carNameLength6)).toThrow(
+      "자동차 이름은 5자 이하만 가능합니다."
+    );
   });
 });
 
@@ -27,7 +32,7 @@ describe("자동차 이름 입력 구현 테스트", () => {
   });
 
   test("사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.", () => {
-    const wrongInput = "pobi, crong, honux123";
+    const wrongInput = "pobi, crong, honuxi";
 
     expect(() => playGame(wrongInput)).toThrow(Error);
   });
