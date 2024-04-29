@@ -1,0 +1,29 @@
+.spinner-container {
+  width: 25px;
+  height: 25px;
+}
+
+.spinner::after {
+  content: '';
+  box-sizing: border-box;
+  width: 25px;
+  height: 25px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.spinner.material::after {
+  border-top: 4px solid rgba(0, 191, 215, 1);
+  border-left: 4px solid rgba(0, 191, 215, 1);
+  border-bottom: 4px solid rgba(0, 191, 215, 1);
+  border-right: 4px solid rgba(0, 191, 215, 0);
+  animation: spinner 0.6s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
