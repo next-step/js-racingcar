@@ -1,4 +1,5 @@
 import Race from '../src/domain/Race';
+import InputOutput from '../src/domain/InputOutput';
 
 /**
  * [x] 5회로 고정하여 진행한다. 
@@ -7,28 +8,18 @@ import Race from '../src/domain/Race';
 
 describe('자동차 레이싱은 ', () => {
   it('5회로 고정하여 진행한다', () => {
-    const car_race = new Race();
+    const input = new InputOutput('pobi,crong,honux');
+    const car_race = new Race(input);
     car_race.start();
     expect(car_race.current_lab).toBe(5);
   })
 
   it('무작위값이 0에서 9사이인지 확인한다.', () => {
-    const car_race = new Race();
+    const input = new InputOutput('pobi,crong,honux');
+    const car_race = new Race(input, false);
     car_race.randomNum();
     expect(car_race.random_num).toBeGreaterThanOrEqual(0);
     expect(car_race.random_num).toBeLessThanOrEqual(9);
-  })
-
-  it('무작위 값이 4이상일 경우 전진한다.', () => {
-    const car_race = new Race();
-    car_race.conditionsMove(4);
-    expect(car_race.move).toBe(true);
-  })
-
-  it('4이하일 경우 멈춘다.', () => {
-    const car_race = new Race();
-    car_race.conditionsMove(3);
-    expect(car_race.move).toBe(false);
   })
 });
 

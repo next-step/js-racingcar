@@ -1,5 +1,4 @@
 import Car from '../src/domain/Car';
-
 /**
  * - [x] 자동차에 이름을 부여할 수 있다.
  * - [x] 이름은 5자 이하만 가능하다.
@@ -8,16 +7,11 @@ import Car from '../src/domain/Car';
 describe('자동차에 ', () => {
   
   it('자동차 이름을 부여할 수 있다.', () => {
-    // given
-    const car = new Car("다섯글자다");
-    // when
-    // then 
+    const car = new Car("다섯글자다"); 
     expect(car.name).toBe('다섯글자다');
   });
 
   it('자동차 이름은 5자 이하로 입력할수 있다.', () => {
-    // given
-    // then 
     expect(() => new Car("여섯글자다1")).toThrow('이름은 5자를 초과할 수 없습니다.');
   });
 

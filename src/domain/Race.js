@@ -4,17 +4,20 @@ import Car from "./Car";
 const LAB = 5;
 class Race {
   _input;
-  current_lab = 0;
-  move = false;
+  _current_lab = 0;
+  _move = false;
   _random_num;
+  _env = true;
 
-  constructor(input) {
+  constructor(input, _env) {
     this._input = input;
+    this._env = _env ? _env : true;
   }
 
   start() {
-    console.log("실행 결과");
-    this.current_lab = 0;
+    if(!this._env)
+      console.log("실행 결과");
+    this._current_lab = 0;
     const cars = this._input.cars;
     for (let i = 0; i < LAB; i++) {
       cars.forEach(car => {
@@ -22,8 +25,9 @@ class Race {
         car.conditionsMove(this._random_num);
       });
       const lab_output = this._input.race_output;
-      console.log(lab_output);
-      this.current_lab += 1;
+      if(!this._env)
+        console.log(lab_output);
+      this._current_lab += 1;
     }
   }
 
@@ -37,22 +41,12 @@ class Race {
     this._random_num = number;
   }
 
-  conditionsMove(number) {
-    if(number > 3) {
-      this.move = true;
-    }
-  }
-
   get current_lab() {
-    return this.current_lab;
-  }
-
-  get move() {
-    return this.move;
+    return this._current_lab;
   }
 
   get random_num() {
-    return this.random_num;
+    return this._random_num;
   }
 }
 
