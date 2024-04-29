@@ -18,4 +18,5 @@ export const MESSAGE = {
 
 export const ERROR_MESSAGE = {
   CAR_NAME_LENGTH: "자동차 이름은 5자 이하만 가능합니다.",
+  PLAY_ERROR: "에러가 발생하여 프로그램을 종료합니다.",
 };

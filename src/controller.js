@@ -1,4 +1,4 @@
-import { MESSAGE } from "./constant/index.js";
+import { MESSAGE, ERROR_MESSAGE } from "./constant/index.js";
 import Race from "./domain/Race.js";
 import { displayWinners, displayRace } from "./view.js";
 
@@ -16,6 +16,7 @@ export function playGame(carNames) {
 
     return race;
   } catch (error) {
+    console.error(ERROR_MESSAGE.PLAY_ERROR);
     throw error;
   }
 }
