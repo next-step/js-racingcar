@@ -1,4 +1,4 @@
-import { Game } from "../src/Game";
+import { ERROR_CODE, Game } from "../src/Game";
 
 describe("Game Class 기본적인 요소에 대해 테스트 한다.", () => {
   /**
@@ -28,7 +28,7 @@ describe("Game Class 기본적인 요소에 대해 테스트 한다.", () => {
     expect(cars.length).toBe(4);
   });
 
-  test("자동차 이름이 5글자가 넘으면 false가 반환 된다.", () => {
+  test("자동차 이름이 입력되면 ,를 기준을 배열로 만들어준다.", () => {
     const game = new Game();
 
     const carString = "차1,차2,차3,차4";
@@ -36,6 +36,15 @@ describe("Game Class 기본적인 요소에 대해 테스트 한다.", () => {
 
     expect(cars instanceof Array).toBe(true);
     expect(cars.length).toBe(4);
+  });
+
+  test("자동차 이름이 5글자가 넘으면 INVALID_CAR_NAME 에러코드가 반환 된다.", () => {
+    const game = new Game();
+
+    const carString = "차1123,차2,차3,차4";
+    const cars = game.getCarsByCarsString(carString.trim());
+
+    expect(cars).toBe(ERROR_CODE.INVALID_CAR_NAME);
   });
 
   test("play 함수", () => {});

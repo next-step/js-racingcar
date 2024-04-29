@@ -65,7 +65,6 @@ export class Game {
 
   getCarsByCarsString(carNamesString) {
     const carNames = carNamesString.split(",");
-    console.log(carNames);
 
     if (!carNames || carNames[0] === "") {
       return ERROR_CODE.NO_VALUE;
@@ -105,7 +104,6 @@ export class Game {
       return false;
     }
 
-    let maxDistance = 0;
     let winCar = [];
 
     let max = -Infinity;
