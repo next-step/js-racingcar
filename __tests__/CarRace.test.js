@@ -19,16 +19,19 @@ describe("자동차 경주 규칙 구현", () => {
     expect(randomNumber).toBeLessThanOrEqual(9);
   });
 
-  test("0~9 사이의 랜덤 값을 구한 후 값이 4 이상인 경우 전진한다.", () => {
-    const randomNumber = getRandomNumber(0, 9);
-
+  test("자동차에 전달 된 숫자가 4이상인 경우에 자동차는 전진한다.", () => {
     const car = new Car("pobi");
-    car.move(randomNumber);
 
-    if (randomNumber >= 4) {
-      expect(car.position).toBe(1);
-      return;
-    }
+    car.move(4);
+
+    expect(car.position).toBe(1);
+  });
+
+  test("자동차에 전달 된 숫자가 4미만인 경우에 자동차는 정지한다.", () => {
+    const car = new Car("pobi");
+
+    car.move(3);
+
     expect(car.position).toBe(0);
   });
 });
