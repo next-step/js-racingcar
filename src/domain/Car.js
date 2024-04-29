@@ -1,6 +1,7 @@
 export class Car {
     static CAR_NAME_MAX_LENGTH = 5;
     static DEFAULT_CAR_POISITION = 0;
+    static MIN_MOVABLE_NUMBER = 4;
     _name;
     _position;
 
@@ -21,8 +22,14 @@ export class Car {
         }
     }
 
-    move() {
-        this._position += 1;
+    move(number) {
+        if(this.canMove(number)) {
+            this._position += 1;
+        }
+    }
+
+    canMove(number) {
+        return number >= Car.MIN_MOVABLE_NUMBER;
     }
 
     get position() {

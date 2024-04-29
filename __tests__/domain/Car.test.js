@@ -1,7 +1,7 @@
 import { Car } from '../../src/domain/Car';
 
 describe("Car Test", () => {
-    describe("Car가 생성될 때", () => {
+    describe("자동차의", () => {
         describe("이름이", () => {
             describe("비어있다면", () => {
                 it("에러가 발생한다", () => {
@@ -32,16 +32,26 @@ describe("Car Test", () => {
         });
     })
     
-    describe("Car가 생성되고", () => {
+    describe("자동차는", () => {
     
         const car = new Car('pobi');
     
-        describe("move를 호출하면", () => {
-    
-            it("1만큼 이동한다", () => {
-                car.move();
-                expect(car.position).toBe(1);
-            });
+        describe("레이싱을 진행할 때", () => {
+            describe("무작위 값이 4이상이면 ", () => {
+                const randomNumber = 9;
+                console.log(car.move(randomNumber));
+                it("전진한다", () => {
+                    expect(car.position).toBe(1);
+                });
+            
+            })
+            describe("무작위 값이 4미만이면 ", () => {
+                const randomNumber = 3;
+                car.move(randomNumber);
+                it("멈춘다", () => {
+                    expect(car.position).toBe(1);
+                });
+            })
         });
     
         describe("position을 조회하면", () => {
