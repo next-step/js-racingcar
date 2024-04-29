@@ -11,7 +11,7 @@ class Race {
 
   constructor(input, _env) {
     this._input = input;
-    this._env = _env ? _env : true;
+    this._env = _env !== undefined ? _env : true;
   }
 
   start() {
