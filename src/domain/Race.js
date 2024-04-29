@@ -1,3 +1,5 @@
+import { printCarPosition } from '../utils/print';
+
 export default class Race {
   // 라운드 횟수
   static rounds = 5;
@@ -17,7 +19,7 @@ export default class Race {
       car.move(randomValue);
 
       // 위치 출력
-      console.log(`${car.name}: ${'-'.repeat(car.position)}`);
+      printCarPosition(car);
     });
   }
 

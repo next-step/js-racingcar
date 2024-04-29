@@ -1,4 +1,5 @@
 import Car from '../src/domain/Car';
+import { printCarPosition } from '../src/utils/print';
 
 describe('진행 결과 출력 Utils', () => {
   let car;
