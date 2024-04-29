@@ -1,4 +1,5 @@
 import Car from '../src/domain/Car';
+import Race from '../src/domain/Race';
 
 describe('자동차 경주는', () => {
   test('5라운드로 진행한다.', () => {
@@ -10,6 +11,7 @@ describe('자동차 경주는', () => {
     ]);
 
     // when: 경주 시작
+    jest.spyOn(race, 'initRound');
     race.initRace();
 
     // then: 자동차 경주가 5라운드로 진행되는지 확인
