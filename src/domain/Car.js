@@ -1,4 +1,4 @@
-import { MOVE_THRESHOLD } from "../constants";
+import { MOVE_THRESHOLD } from "../constants/index.js";
 
 class Car { 
   name;
