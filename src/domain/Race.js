@@ -30,5 +30,14 @@ export default class Race {
       console.log(`\nRound ${i + 1})`);
       this.initRound();
     }
+
+    // 우승자 명단 출력
+    console.log('\n🎉 우승자는?');
+    console.log(this.winners.map(car => car.name).join(', '));
+  }
+  // 우승자 목록
+  get winners() {
+    const maxPosition = Math.max(...this.#cars.map(car => car.position));
+    return this.#cars.filter(car => car.position === maxPosition);
   }
 }
