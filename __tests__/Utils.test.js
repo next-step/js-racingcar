@@ -5,11 +5,7 @@ import {
   ReadLineTypeError,
   readLineAsync,
 } from "../src/utils/readline.js";
-import {
-  BoundaryRangeError,
-  BoundaryTypeError,
-  boundaryRandomNumber,
-} from "../src/utils/randomNumber.js";
+import { generateRandomNumber } from "../src/utils/randomNumber.js";
 
 jest.mock("readline");
 
@@ -17,47 +13,43 @@ describe("랜덤 숫자", () => {
   describe("타입이 숫자인지 확인한다.", () => {
     test("숫자가 아닐 경우 에러가 발생한다.", () => {
       // Arrange
-      const left = "1";
-      const right = "5";
+      const min = "1";
+      const max = "5";
 
       // Act & Assert
-      expect(() => boundaryRandomNumber(left, right)).toThrowError(
-        BoundaryTypeError
-      );
+      expect(() => generateRandomNumber(min, max)).toThrowError(TypeError);
     });
 
     test("숫자일 경우 에러가 발생하지 않는다.", () => {
       // Arrange
-      const left = 1;
-      const right = 5;
+      const min = 1;
+      const max = 5;
 
       // Act & Assert
-      expect(() => boundaryRandomNumber(left, right)).not.toThrowError();
+      expect(() => generateRandomNumber(min, max)).not.toThrowError();
     });
   });
 
   test("왼쪽 경계값이 오른쪽 경계값보다 크면 에러가 발생한다.", () => {
     // Arrange
-    const left = 5;
-    const right = 1;
+    const min = 5;
+    const max = 1;
 
     // Act & Assert
-    expect(() => boundaryRandomNumber(left, right)).toThrowError(
-      BoundaryRangeError
-    );
+    expect(() => generateRandomNumber(min, max)).toThrowError(RangeError);
   });
 
   test("무작위 수가 왼쪽 경계값 이상 오른쪽 경계값 이하이면 반환한다.", () => {
     // Arrange
-    const left = 1;
-    const right = 5;
+    const min = 1;
+    const max = 5;
 
     // Act
-    const result = boundaryRandomNumber(left, right);
+    const result = generateRandomNumber(min, max);
 
     // Assert
-    expect(result).toBeGreaterThanOrEqual(left);
-    expect(result).toBeLessThanOrEqual(right);
+    expect(result).toBeGreaterThanOrEqual(min);
+    expect(result).toBeLessThanOrEqual(max);
   });
 });
 

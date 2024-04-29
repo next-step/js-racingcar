@@ -1,28 +1,16 @@
-import { ValidationError } from "../common/error.js";
+const ERROR_MESSAGE = {
+  INVALID_TYPE: "min and max must be numbers",
+  INVALID_RANGE: "min must be less than or equal to max",
+};
 
-const BOUNDARY_TYPE_ERROR = "Left and right must be numbers";
-const BOUNDARY_RANGE_ERROR = "Left boundary must be less than right boundary";
-
-export class BoundaryRangeError extends ValidationError {
-  constructor() {
-    super(BOUNDARY_RANGE_ERROR);
-  }
-}
-
-export class BoundaryTypeError extends TypeError {
-  constructor() {
-    super(BOUNDARY_TYPE_ERROR);
-  }
-}
-
-export function boundaryRandomNumber(left, right) {
-  if (typeof left !== "number" || typeof right !== "number") {
-    throw new BoundaryTypeError();
+export function generateRandomNumber(min, max) {
+  if (typeof min !== "number" || typeof max !== "number") {
+    throw new TypeError(ERROR_MESSAGE.INVALID_TYPE);
   }
 
-  if (left > right) {
-    throw new BoundaryRangeError();
+  if (min > max) {
+    throw new RangeError(ERROR_MESSAGE.INVALID_RANGE);
   }
 
-  return Math.floor(Math.random() * (right - left + 1)) + left;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }

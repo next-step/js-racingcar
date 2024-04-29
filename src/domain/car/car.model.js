@@ -1,5 +1,5 @@
 import { validateCarName } from "./car.contract.js";
-import { boundaryRandomNumber } from "../../utils/randomNumber.js";
+import { generateRandomNumber } from "../../utils/randomNumber.js";
 import {
   BOUNDARY_LEFT,
   BOUNDARY_RIGHT,
@@ -20,7 +20,7 @@ export class Car {
     this.#position = INITIAL_POSITION;
   }
   move() {
-    const randomNumber = boundaryRandomNumber(BOUNDARY_LEFT, BOUNDARY_RIGHT);
+    const randomNumber = generateRandomNumber(BOUNDARY_LEFT, BOUNDARY_RIGHT);
     if (randomNumber >= MOVE_THRESHOLD) {
       this.#position += MOVE_DISTANCE;
     }
