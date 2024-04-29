@@ -1,4 +1,8 @@
-import { MAX_RANDOM_NUMBER, MIN_RANDOM_NUMBER } from "../const/RacingConfig";
+import {
+  CAR_MOVE_CONDITION,
+  MAX_RANDOM_NUMBER,
+  MIN_RANDOM_NUMBER,
+} from "../const/RacingConfig";
 import { getRandom } from "../common/Random";
 
 export class Round {
@@ -12,8 +16,17 @@ export class Round {
   play() {
     this.cars.forEach((e) => {
       const random = getRandom(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
-      e.play(random);
+      if (this.isOkToMove(random)) {
+        e.move();
+      }
     });
+  }
+
+  isOkToMove(random) {
+    if (random >= CAR_MOVE_CONDITION) {
+      return true;
+    }
+    return false;
   }
 
   existsDuplicatedCarName(cars) {

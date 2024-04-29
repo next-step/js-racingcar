@@ -27,12 +27,6 @@ export class Car {
     }
   }
 
-  play(random) {
-    if (random >= CAR_MOVE_CONDITION) {
-      this.move();
-    }
-  }
-
   copy() {
     const copy = new Car(this.name);
     copy.position = this.position;
