@@ -1,6 +1,7 @@
 export class Car {
   name;
   distance;
+  winCount;
 
   constructor(name) {
     this.name = name;

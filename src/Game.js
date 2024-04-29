@@ -1,4 +1,5 @@
 import readline from "readline";
+import { Car } from "./Car";
 
 function readLineAsync(query) {
   return new Promise((resolve, reject) => {
@@ -64,6 +65,7 @@ export class Game {
 
   getCarsByCarsString(carNamesString) {
     const carNames = carNamesString.split(",");
+    console.log(carNames);
 
     if (!carNames || carNames[0] === "") {
       return ERROR_CODE.NO_VALUE;
@@ -78,25 +80,85 @@ export class Game {
     return carNames;
   }
 
-  setCar(cars) {
-    if (!(cars instanceof Array)) {
+  setCar(car) {
+    if (!(car instanceof Car)) {
       return false;
     }
 
-    cars.forEach((car) => {
-      this.cars.push(car);
-    });
+    this.cars.push(car);
 
     return true;
   }
 
   play() {
-    if (this.play > 5) {
-      return this.getWinner();
+    if (this.playTime > 4) {
+      const winners = this.getWinners();
+      const winnerString = winners.reduce((acc, winner, i) => {
+        acc += winner.name;
+        if (i !== winners.length - 1) {
+          acc += ", ";
+        }
+        return acc;
+      }, "");
+
+      console.log(`승자는 ${winnerString} 입니다`);
+      return false;
     }
+
+    let maxDistance = 0;
+    let winCar = [];
+
+    let max = -Infinity;
+    this.cars.forEach((car) => {
+      max = Math.max(max, car.winCount);
+    });
+
+    this.cars.reduce((acc, car) => {
+      const randomDistance = this.#getRandomDistance();
+      car.move(randomDistance);
+      acc.push(car);
+
+      if (car.distance >= max) {
+        winCar.push(car);
+        car.winCount += 1;
+      }
+
+      return acc;
+    }, []);
+
+    this.cars.forEach((car) => {
+      let distanceString = "";
+      for (let i = 0; i < car.distance; i++) {
+        distanceString += "-";
+      }
+      console.log(`${car.name} : ${distanceString}`);
+
+      car.distance = 0;
+    });
+    console.log("");
+
+    this.playTime += 1;
+
+    return true;
   }
 
-  getWinner() {}
+  getWinners() {
+    let winner = [];
+
+    let max = -Infinity;
+    this.cars.forEach((car) => {
+      max = Math.max(max, car.winCount);
+    });
+
+    winner = this.cars.reduce((acc, car) => {
+      if (car.winCount === max) {
+        acc.push(car);
+      }
+      return acc;
+    }, []);
+
+    return winner;
+  }
 
   #getRandomDistance() {
     return Math.floor(Math.random() * 10);
