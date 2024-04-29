@@ -1,11 +1,11 @@
-import { TOTAL_RACE_COUNT } from "../constants/carRace.js";
 import { joinCarNamesByComma, printCarsStatus } from "../utils/cars.js";
 
 class CarRace {
-  #remainingRaceCount = TOTAL_RACE_COUNT;
+  #remainingRaceCount;
 
-  constructor(competitors) {
+  constructor(competitors, totalRaceCount = 0) {
     this.competitors = competitors;
+    this.#remainingRaceCount = totalRaceCount;
   }
 
   get winners() {
