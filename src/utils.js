@@ -8,4 +8,12 @@ const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-module.exports = { getRandomNumber };
+const parseInput = (input) => {
+  if (input === "") {
+    throw new Error(MESSAGE.INPUT_LENGTH_ERROR);
+  }
+
+  return input.split(",");
+};
+
+module.exports = { getRandomNumber, parseInput };
