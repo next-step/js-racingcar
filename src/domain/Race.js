@@ -7,7 +7,7 @@ export default class Race {
   maxRound;
   currentRound;
 
-  constructor(carNames, maxRound = RACE.MAX_ROUND) {
+  constructor(carNames, maxRound) {
     this.cars = carNames.map((name) => new Car(name));
     this.maxRound = maxRound;
     this.currentRound = 0;

@@ -14,6 +14,15 @@ export async function askCarNames() {
   return carNames;
 }
 
+export async function askMaxRound() {
+  const maxRound = await readLineAsync(MESSAGE.ASK_MAX_ROUND);
+
+  displayInput(maxRound);
+  console.log("");
+
+  return maxRound;
+}
+
 export function displayForwardCar(car) {
   console.log(`${car.name} : ${"-".repeat(car.position)}`);
 }
