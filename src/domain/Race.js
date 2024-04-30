@@ -4,7 +4,7 @@ export default class Race {
   // 라운드 횟수
   static rounds = 5;
 
-  // 자동차 목록
+  // 참가 자동차 목록
   #cars = [];
 
   constructor(cars) {
