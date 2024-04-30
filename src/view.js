@@ -18,11 +18,6 @@ export async function askMaxRound() {
   return maxRound;
 }
 
-export function displayCarNames(carNames) {
-  console.log(carNames);
-  console.log("");
-}
-
 export function displayForwardCar(car) {
   console.log(`${car.name} : ${"-".repeat(car.position)}`);
 }

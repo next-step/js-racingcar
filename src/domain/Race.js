@@ -4,20 +4,20 @@ import { CAR, RACE } from "../constant/index.js";
 
 export default class Race {
   #cars = [];
-  maxRound;
-  currentRound;
+  #maxRound;
+  #currentRound;
 
   constructor() {
     this.#cars;
-    this.maxRound;
-    this.currentRound = 0;
+    this.#maxRound;
+    this.#currentRound = 0;
   }
 
   playRound() {
     this.cars.forEach((car) =>
       car.move(getRandomNumber(CAR.MIN_RANDOM_NUMBER, CAR.MAX_RANDOM_NUMBER))
     );
-    this.currentRound++;
+    this.#currentRound++;
   }
 
   get winners() {
@@ -31,5 +31,13 @@ export default class Race {
 
   get cars() {
     return this.#cars;
+  }
+
+  set maxRound(round) {
+    this.#maxRound = round;
+  }
+
+  get maxRound() {
+    return this.#maxRound;
   }
 }

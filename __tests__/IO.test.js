@@ -103,4 +103,30 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 다시 입력할
     //then
     expect(mockAskCarNames).toHaveBeenCalledTimes(3);
   });
+
+  test("사용자가 잘못된 라운드 횟수를 입력한 경우 다시 이동횟수를 입력할 수 있게한다.", async () => {
+    //given
+    const controller = new Controller();
+    const string = "six";
+    const noInput = "";
+    const negative = -1;
+    const zero = 0;
+    const decimal = 1.5;
+    const correctRound = 4;
+
+    const mockAskCarNames = jest.fn();
+    mockAskCarNames
+      .mockImplementationOnce(() => string)
+      .mockImplementationOnce(() => noInput)
+      .mockImplementationOnce(() => negative)
+      .mockImplementationOnce(() => zero)
+      .mockImplementationOnce(() => decimal)
+      .mockImplementationOnce(() => correctRound);
+
+    //when
+    await controller.initMaxRound(mockAskCarNames);
+
+    //then
+    expect(mockAskCarNames).toHaveBeenCalledTimes(6);
+  });
 });
