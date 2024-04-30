@@ -27,4 +27,12 @@ export class View {
   end(winners) {
     console.log(`${winners.join(", ")}가 최종 우승했습니다.`);
   }
+
+  print(message) {
+    console.log(message);
+  }
+
+  error(message) {
+    console.log(`${message}, 다시 입력해주세요.`);
+  }
 }
