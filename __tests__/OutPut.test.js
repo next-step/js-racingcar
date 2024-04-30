@@ -1,3 +1,5 @@
+import { CAR } from "../src/constants/car";
+import { CAR_RACE } from "../src/constants/carRace";
 import { CONSOLE_MESSAGES } from "../src/constants/messages";
 import { Car } from "../src/domains/Car";
 import { CarRace } from "../src/domains/CarRace";
@@ -14,7 +16,9 @@ describe("출력 테스트", () => {
     car.move();
     output.carPosition(car);
 
-    expect(logSpy).toHaveBeenCalledWith("a : -");
+    expect(logSpy).toHaveBeenCalledWith(
+      "a : " + CAR_RACE.POSITION_SYMBOL.repeat(CAR.MOVE_UNIT),
+    );
   });
 
   test("우승자가 여러 명인 경우 쉼표로 구분하여 출력한다.", () => {

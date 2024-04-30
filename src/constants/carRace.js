@@ -3,4 +3,5 @@ export const CAR_RACE = {
   MIN_RANDOM_NUMBER: 0,
   MOVE_THRESHOLD: 4,
   TOTAL_ROUND: 5,
+  POSITION_SYMBOL: "-",
 };

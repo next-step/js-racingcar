@@ -7,7 +7,7 @@ export const output = {
   },
 
   carPosition(car) {
-    Console.print(CONSOLE_MESSAGES.CAR_POSITION(car));
+    Console.print(CONSOLE_MESSAGES.CAR_POSITION(car.name, car.position));
   },
 
   carRaceResult(result) {
