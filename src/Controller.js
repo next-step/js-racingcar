@@ -13,6 +13,8 @@ export class Controller {
   }
 
   play(roundTimes) {
+    this.isVaildRoundTimes(roundTimes);
+
     for (let i = 0; i < roundTimes; i++) {
       const round = this.loadLastRound();
       round.play();
@@ -31,6 +33,16 @@ export class Controller {
   isNotString(input) {
     if (typeof input !== "string") {
       throw new Error("잘못된 입력입니다.");
+    }
+  }
+
+  isVaildRoundTimes(roundTimes) {
+    if (!Number.isInteger(roundTimes)) {
+      throw new Error();
+    }
+
+    if (roundTimes <= 0) {
+      throw new Error();
     }
   }
 
