@@ -1,17 +1,18 @@
-import InputOutput from "./InputOutput";
-import Car from "./Car";
-
-const LAB = 5;
 class Race {
   _input;
   _current_lab = 0;
   _move = false;
   _random_num;
   _env = true;
+  _lab;
 
-  constructor(input, _env) {
+  constructor(input, lab, env) {
+    if(typeof lab !== 'number' || lab === 0) {
+      throw new Error('랩은 숫자이거나 0보다 커야 합니다.');
+    }
     this._input = input;
-    this._env = _env !== undefined ? _env : true;
+    this._lab = lab;
+    this._env = env !== undefined ? env : true;
   }
 
   start() {
@@ -20,7 +21,7 @@ class Race {
       
     this._current_lab = 0;
     const cars = this._input.cars;
-    for (let i = 0; i < LAB; i++) {
+    for (let i = 0; i < this._lab; i++) {
       cars.forEach(car => {
         this.randomNum();
         car.conditionsMove(this._random_num);
