@@ -1,5 +1,7 @@
 import { readLineAsync } from "./utils/readline.js";
 
+const POSITION_MARKER = "-";
+
 export class View {
   async inputCarNames() {
     const inputtedString = await readLineAsync(
@@ -16,7 +18,7 @@ export class View {
 
   printCarPosition(carList) {
     carList.forEach((car) => {
-      console.log(`${car.name}: ${"-".repeat(car.position)}`);
+      console.log(`${car.name}: ${POSITION_MARKER.repeat(car.position)}`);
     });
   }
 }
