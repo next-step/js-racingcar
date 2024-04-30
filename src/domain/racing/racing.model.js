@@ -1,5 +1,6 @@
 import {
   INITIAL_CAR_LIST,
+  INITIAL_RACING_HISTORY,
   INITIAL_ROUND,
   INITIAL_WINNER_LIST,
   RACING_ROUND,
@@ -10,12 +11,14 @@ export class Racing {
   #carList;
   #winnerList;
   #movementRule;
+  #racingHistory;
 
   constructor({ carList = INITIAL_CAR_LIST, movementRule }) {
     this.#carList = carList;
     this.#movementRule = movementRule;
     this.#round = INITIAL_ROUND;
     this.#winnerList = INITIAL_WINNER_LIST;
+    this.#racingHistory = INITIAL_RACING_HISTORY;
   }
 
   start() {
@@ -26,6 +29,7 @@ export class Racing {
   #race() {
     while (this.#round < RACING_ROUND) {
       this.#executeRound();
+      this.#updateRacingHistory();
     }
   }
 
@@ -43,6 +47,10 @@ export class Racing {
     );
   }
 
+  #updateRacingHistory() {
+    this.#racingHistory = [...this.#racingHistory, ...this.#carList];
+  }
+
   get round() {
     return this.#round;
   }
@@ -53,5 +61,9 @@ export class Racing {
 
   get winnerList() {
     return this.#winnerList;
+  }
+
+  get racingHistory() {
+    return this.#racingHistory;
   }
 }
