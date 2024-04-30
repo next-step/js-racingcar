@@ -1,32 +1,60 @@
 import { playGame } from "../src/controller.js";
-import Race from "../src/domain/Race.js";
-import { askCarNames } from "../src/view.js";
 import Controller from "../src/controller.js";
 
 describe("자동차 이름 입력 구현 테스트", () => {
-  test("경주할 자동차를 입력할 때, 이름은 쉼표를 기준으로 구분한다.", () => {
-    const race = playGame("pobi,crong,honux");
+  test("경주할 자동차를 입력할 때, 이름은 쉼표를 기준으로 구분한다.", async () => {
+    //given
+    const controller = new Controller();
+    const correctCarNames = "pobi,crong,honux";
+    const mockAskCarNames = jest.fn(() => correctCarNames);
 
-    const raceCars = race.cars;
+    //when
+    await controller.initCarNames(mockAskCarNames);
+    const raceCars = controller.race.cars;
 
-    expect(raceCars[0].name).toBe("pobi");
-    expect(raceCars[1].name).toBe("crong");
-    expect(raceCars[2].name).toBe("honux");
+    //then
+    console.error(raceCars);
+    expect(raceCars.at(0).name).toBe("pobi");
+    expect(raceCars.at(1).name).toBe("crong");
+    expect(raceCars.at(2).name).toBe("honux");
   });
 });
 
 describe("사용자가 잘못된 입력 값을 작성한 경우 에러 메시지를 보여준다.", () => {
-  test("사용자가 잘못된 자동차 이름을 작성한 경우 에러 메시지를 보여준다.", () => {
-    const wrongNameInput = "pobi, crong, honuxi";
-    const correctRoundInput = 5;
+  test("사용자가 잘못된 자동차 이름을 작성한 경우 에러 메시지를 보여준다.", async () => {
+    //given
+    const logSpy = jest.spyOn(global.console, "error");
+    const controller = new Controller();
+    const carNameOver5 = "pobi, crong, honuxi";
+    const correctCarNames = "pobi,crong,honux";
+    const mockAskCarNames = jest.fn();
+    mockAskCarNames
+      .mockImplementationOnce(() => carNameOver5)
+      .mockImplementationOnce(() => correctCarNames);
 
-    expect(() => playGame(wrongNameInput, correctRoundInput)).toThrow(
-      "자동차 이름은 5자 이하만 가능합니다."
-    );
+    //when
+    await controller.initCarNames(mockAskCarNames);
+
+    //then
+    expect(logSpy).toHaveBeenCalledWith("자동차 이름은 5자 이하만 가능합니다.");
   });
 
-  test("사용자가 자동차 이름을 작성하지 않은 경우 에러 메시지를 보여준다.", () => {
-    expect(() => playGame()).toThrow("자동차 이름을 입력해주세요.");
+  test("사용자가 자동차 이름을 작성하지 않은 경우 에러 메시지를 보여준다.", async () => {
+    //given
+    const logSpy = jest.spyOn(global.console, "error");
+    const controller = new Controller();
+    const noInput = "";
+    const correctCarNames = "pobi,crong,honux";
+    const mockAskCarNames = jest.fn();
+    mockAskCarNames
+      .mockImplementationOnce(() => noInput)
+      .mockImplementationOnce(() => correctCarNames);
+
+    //when
+    await controller.initCarNames(mockAskCarNames);
+
+    //then
+    expect(logSpy).toHaveBeenCalledWith("자동차 이름을 입력해주세요.");
   });
 
   test("사용자가 라운드 값을 0이하로 작성한 경우 에러 메시지를 보여준다.", () => {

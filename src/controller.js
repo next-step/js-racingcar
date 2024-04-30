@@ -65,4 +65,8 @@ export default class Controller {
       this.initCarNames(askCarNames);
     }
   }
+
+  get race() {
+    return this.#race;
+  }
 }
