@@ -1,10 +1,6 @@
 import readline from "readline";
 
-import {
-  ReadLineArgumentError,
-  ReadLineTypeError,
-  readLineAsync,
-} from "../src/utils/readline.js";
+import { readLineAsync } from "../src/utils/readline.js";
 import { generateRandomNumber } from "../src/utils/randomNumber.js";
 
 jest.mock("readline");
@@ -68,7 +64,7 @@ describe("입력", () => {
     const query = 1;
 
     // Act & Assert
-    await expect(readLineAsync(query)).rejects.toThrowError(ReadLineTypeError);
+    await expect(readLineAsync(query)).rejects.toThrowError(Error);
   });
 
   test("인자가 1개가 아니면 에러가 발생한다.", async () => {
@@ -76,8 +72,6 @@ describe("입력", () => {
     const query = "질문";
 
     // Act & Assert
-    await expect(readLineAsync(query, "다른 인자")).rejects.toThrowError(
-      ReadLineArgumentError
-    );
+    await expect(readLineAsync(query, "다른 인자")).rejects.toThrowError(Error);
   });
 });

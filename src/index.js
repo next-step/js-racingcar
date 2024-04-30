@@ -1,12 +1,3 @@
-import { Racing } from "./domain/racing/racing.model.js";
+import { app } from "./App.js";
 
-async function main() {
-  const racing = new Racing();
-
-  await racing.setup();
-  racing.start();
-  racing.end();
-  racing.display();
-}
-
-main();
+app.main();

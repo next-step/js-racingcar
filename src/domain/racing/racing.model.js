@@ -48,7 +48,11 @@ export class Racing {
   }
 
   #updateRacingHistory() {
-    this.#racingHistory = [...this.#racingHistory, ...this.#carList];
+    const history = this.#carList.map((car) => ({
+      name: car.name,
+      position: car.position,
+    }));
+    this.#racingHistory = [...this.#racingHistory, ...history];
   }
 
   get round() {
