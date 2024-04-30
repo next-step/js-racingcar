@@ -6,13 +6,13 @@ class Race {
   _env = true;
   _lab;
 
-  constructor(input, lab, env) {
+  constructor(input, lab = 5, env = true) {
     if(typeof lab !== 'number' || lab === 0) {
       throw new Error('랩은 숫자이거나 0보다 커야 합니다.');
     }
     this._input = input;
     this._lab = lab;
-    this._env = env !== undefined ? env : true;
+    this._env = env;
   }
 
   start() {

@@ -23,7 +23,7 @@ describe('입출력에 ', () => {
     // when
     
     // then 
-    expect(() => new InputOutput(car_names)).toThrow('잘못된 입력 값입니다.');
+    expect(() => new InputOutput(car_names)).toThrow('자동차 이름은 1자 이상 5자 이하로 문자로 입력해주세요.');
   });
 
   it('전진하는 자동차는 이름을 같이 출력', () => {

@@ -7,7 +7,7 @@ import InputOutput from '../src/domain/InputOutput';
  */
 
 describe('자동차 레이싱은 ', () => {
-  it('lab은 랩은 0보다 커야 합니다.', () => {
+  it('lab은 랩은 숫자만 가능합니다.', () => {
     const input = new InputOutput('pobi,crong,honux');
     const lab = '5';
     expect(() => new Race(input, lab)).toThrow('랩은 숫자이거나 0보다 커야 합니다.');
