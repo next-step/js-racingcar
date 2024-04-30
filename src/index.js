@@ -1,11 +1,12 @@
 import { askCarNames, askMaxRound } from "./view.js";
-import { playGame } from "./controller.js";
+import Controller, { playGame } from "./controller.js";
 
 async function app() {
-  const carNames = await askCarNames();
-  const maxRound = await askMaxRound();
+  const controller = new Controller();
+  controller.initCarNames(askCarNames);
+  // const maxRound = await askMaxRound();
 
-  playGame(carNames, maxRound);
+  // playGame(carNames, maxRound);
 }
 
 app();

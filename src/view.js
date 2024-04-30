@@ -6,12 +6,7 @@ export function displayInput(input) {
 }
 
 export async function askCarNames() {
-  const carNames = await readLineAsync(MESSAGE.ASK_CAR_NAMES);
-
-  displayInput(carNames);
-  console.log("");
-
-  return carNames;
+  return await readLineAsync(MESSAGE.ASK_CAR_NAMES);
 }
 
 export async function askMaxRound() {
@@ -21,6 +16,11 @@ export async function askMaxRound() {
   console.log("");
 
   return maxRound;
+}
+
+export function displayCarNames(carNames) {
+  console.log(carNames);
+  console.log("");
 }
 
 export function displayForwardCar(car) {

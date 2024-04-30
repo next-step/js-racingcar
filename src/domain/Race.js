@@ -3,13 +3,13 @@ import { getRandomNumber } from "../utils/number.js";
 import { CAR, RACE } from "../constant/index.js";
 
 export default class Race {
-  cars = [];
+  #cars = [];
   maxRound;
   currentRound;
 
-  constructor(carNames, maxRound) {
-    this.cars = carNames.map((name) => new Car(name));
-    this.maxRound = maxRound;
+  constructor() {
+    this.#cars;
+    this.maxRound;
     this.currentRound = 0;
   }
 
@@ -23,5 +23,13 @@ export default class Race {
   get winners() {
     const maxPosition = Math.max(...this.cars.map((car) => car.position));
     return this.cars.filter((car) => car.position === maxPosition);
+  }
+
+  set cars(carNames) {
+    this.#cars = carNames.map((name) => new Car(name));
+  }
+
+  get cars() {
+    return this.#cars;
   }
 }

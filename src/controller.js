@@ -1,6 +1,11 @@
 import { MESSAGE, ERROR_MESSAGE } from "./constant/index.js";
 import Race from "./domain/Race.js";
-import { displayWinners, displayRace } from "./view.js";
+import {
+  displayWinners,
+  displayRace,
+  askCarNames,
+  displayCarNames,
+} from "./view.js";
 
 export function playGame(carNames, maxRound) {
   if (carNames === undefined) {
@@ -34,5 +39,30 @@ export function playGame(carNames, maxRound) {
   } catch (error) {
     console.error(ERROR_MESSAGE.PLAY_ERROR);
     throw error;
+  }
+}
+
+export default class Controller {
+  #race;
+
+  constructor() {
+    this.#race = new Race();
+  }
+
+  async initCarNames(askCarNames) {
+    try {
+      const carNames = await askCarNames();
+
+      if (carNames === "") {
+        throw new Error("자동차 이름을 입력해주세요.");
+      }
+
+      displayCarNames(carNames);
+
+      this.#race.cars = carNames.split(",");
+    } catch (error) {
+      console.error(error.message);
+      this.initCarNames(askCarNames);
+    }
   }
 }
