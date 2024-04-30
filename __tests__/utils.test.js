@@ -1,4 +1,4 @@
-const { getRandomNumber, parseInput } = require("../src/utils");
+const { getRandomNumber, parseInput, parseOutput } = require("../src/utils");
 
 const { MESSAGE } = require("../constants/message");
 
@@ -34,5 +34,21 @@ describe("parseInput()", () => {
     const input = "";
 
     expect(() => parseInput(input)).toThrow(MESSAGE.INPUT_LENGTH_ERROR);
+  });
+});
+
+describe("parseOuput", () => {
+  it("should return a string, separated by comma", () => {
+    const input = ["pobi", "crong"];
+
+    const output = parseOutput(input);
+
+    expect(output).toBe("pobi,crong");
+  });
+
+  it("should throw an error if input is not an array", () => {
+    const input = "abc";
+
+    expect(() => parseOutput(input)).toThrow(MESSAGE.INPUT_NOT_ARRAY_ERROR);
   });
 });
