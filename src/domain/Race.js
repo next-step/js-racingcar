@@ -1,4 +1,4 @@
-import { printCarPosition, printRaceWinners } from '../utils/print';
+import { printCarPosition, printRaceWinners } from '../utils/print.js';
 
 export default class Race {
   // 라운드 횟수
