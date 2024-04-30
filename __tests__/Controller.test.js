@@ -10,10 +10,10 @@ describe("컨트롤러 테스트", () => {
     controller.init(input);
 
     //when
-    const carNames = controller.carNames;
+    const carCount = controller.baseRound.cars.length;
 
     //then
-    expect(carNames).toEqual(input.split(","));
+    expect(carCount).toEqual(input.split(",").length);
   });
 
   test(`입력 받은 횟수만큼 라운드를 진행한다.`, () => {
