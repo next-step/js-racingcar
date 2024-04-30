@@ -15,18 +15,11 @@ export class App {
     this.#winner = [];
   }
 
-  #validateCarNames() {
-    const carNames = this.#carNames;
-    car.nameMaxLengthValidator(carNames);
-    car.nameMinLengthValidator(carNames);
-    car.sameNameValidator(carNames);
-  }
-
   async #inputCarName() {
     const carNamesInput = await input.carName();
     const carNamesSplitByComma = splitByComma(carNamesInput);
+    car.nameValidator(carNamesSplitByComma);
     this.#carNames = carNamesSplitByComma;
-    this.#validateCarNames(carNamesSplitByComma);
   }
 
   async #carNameStage() {
