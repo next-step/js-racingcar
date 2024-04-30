@@ -1,6 +1,6 @@
 import Car from '../src/domain/Car';
 import Race from '../src/domain/Race';
-import { printCarPosition } from '../src/utils/print';
+import { printCarPosition, printRaceWinners } from '../src/utils/print';
 
 describe('진행 결과 출력 Utils', () => {
   test('자동차의 위치를 출력할 때, 자동차 이름을 같이 출력한다.', () => {

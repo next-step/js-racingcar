@@ -1,4 +1,4 @@
-import { printCarPosition } from '../utils/print';
+import { printCarPosition, printRaceWinners } from '../utils/print';
 
 export default class Race {
   // 라운드 횟수
@@ -35,7 +35,7 @@ export default class Race {
 
     // 우승자 명단 출력
     console.log('\n🎉 우승자는?');
-    console.log(this.winners.map(car => car.name).join(', '));
+    printRaceWinners(this);
   }
   // 우승자 목록
   get winners() {
