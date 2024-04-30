@@ -20,12 +20,12 @@ describe("출력 테스트", () => {
   test("우승자가 여러 명인 경우 쉼표로 구분하여 출력한다.", () => {
     const carRace = new CarRace(["a", "b", "c"]);
 
-    carRace.cars.map((car) => car.move());
+    carRace.cars.map(car => car.move());
     const winner = carRace.getWinner();
     output.winner(winner);
 
     expect(logSpy).toHaveBeenCalledWith(
-      CONSOLE_MESSAGES.WINNER(["a", "b", "c"].join(", "))
+      CONSOLE_MESSAGES.WINNER(["a", "b", "c"].join(", ")),
     );
   });
 });

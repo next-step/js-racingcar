@@ -14,6 +14,7 @@ export class App {
     this.#carNames = [];
     this.#winner = [];
   }
+
   #validateCarNames() {
     const carNames = this.#carNames;
     car.nameMaxLengthValidator(carNames);
@@ -47,9 +48,7 @@ export class App {
   async init() {
     try {
       await this.#carNameStage();
-
       this.#raceResultStage();
-
       this.#printRaceResult();
     } catch (error) {
       Console.print(error.message);

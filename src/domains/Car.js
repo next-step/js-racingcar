@@ -11,9 +11,11 @@ export class Car {
   move() {
     this.#position += CAR.MOVE_UNIT;
   }
+
   get name() {
     return this.#name;
   }
+
   get position() {
     return this.#position;
   }

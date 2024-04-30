@@ -6,7 +6,7 @@ describe("자동차 경주 테스트", () => {
   test("우승자는 한 명 이상일 수 있다.", () => {
     const carRace = new CarRace(["a", "b", "c"]);
 
-    carRace.cars.map((car) => car.move());
+    carRace.cars.map(car => car.move());
     const winner = carRace.getWinner();
 
     expect(winner.length).toEqual(3);
@@ -15,7 +15,7 @@ describe("자동차 경주 테스트", () => {
   test("랜덤 값은 0~9 사이의 값이다.", () => {
     const randomNumber = generateRandomNumber(
       CAR_RACE.MIN_RANDOM_NUMBER,
-      CAR_RACE.MAX_RANDOM_NUMBER
+      CAR_RACE.MAX_RANDOM_NUMBER,
     );
     expect(randomNumber).toBeLessThanOrEqual(CAR_RACE.MAX_RANDOM_NUMBER);
     expect(randomNumber).toBeGreaterThanOrEqual(CAR_RACE.MIN_RANDOM_NUMBER);

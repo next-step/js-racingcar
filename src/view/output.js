@@ -11,14 +11,14 @@ export const output = {
   },
 
   carRaceResult(result) {
-    result.map((round) => {
-      round.map((car) => this.carPosition(car));
+    result.map(round => {
+      round.map(car => this.carPosition(car));
       Console.print("");
     });
   },
 
   winner(winner) {
-    const winnerWithComma = winner.map((car) => car.name).join(", ");
+    const winnerWithComma = winner.map(car => car.name).join(", ");
     Console.print(CONSOLE_MESSAGES.WINNER(winnerWithComma));
     Console.exit();
   },

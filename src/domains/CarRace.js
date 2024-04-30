@@ -19,7 +19,7 @@ export class CarRace {
   }
 
   #makeCarInstance(carNamesArray) {
-    return carNamesArray.map((carName) => new Car(carName));
+    return carNamesArray.map(carName => new Car(carName));
   }
 
   moveCar(Car, randomNumber) {
@@ -29,17 +29,17 @@ export class CarRace {
   }
 
   #gameRound() {
-    this.#cars.map((car) => {
+    this.#cars.map(car => {
       const randomNumber = generateRandomNumber(
         CAR_RACE.MIN_RANDOM_NUMBER,
-        CAR_RACE.MAX_RANDOM_NUMBER
+        CAR_RACE.MAX_RANDOM_NUMBER,
       );
       this.moveCar(car, randomNumber);
     });
   }
 
-  #setCurrentRountResult() {
-    const currentRoundResult = this.#cars.map((car) => ({
+  #setCurrentRoundResult() {
+    const currentRoundResult = this.#cars.map(car => ({
       name: car.name,
       position: car.position,
     }));
@@ -49,16 +49,16 @@ export class CarRace {
   totalRound() {
     for (let i = 0; i < CAR_RACE.TOTAL_ROUND; i++) {
       this.#gameRound();
-      this.#setCurrentRountResult();
+      this.#setCurrentRoundResult();
     }
   }
 
   #getMaxPosition() {
-    return Math.max(...this.#cars.map((car) => car.position));
+    return Math.max(...this.#cars.map(car => car.position));
   }
 
   getWinner() {
     const maxPosition = this.#getMaxPosition();
-    return this.#cars.filter((car) => car.position === maxPosition);
+    return this.#cars.filter(car => car.position === maxPosition);
   }
 }
