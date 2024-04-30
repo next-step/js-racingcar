@@ -1,5 +1,7 @@
 import { ERROR_CAR_RACE_COUNT_NOT_VALID } from "../constants/error.js";
+import { readLineAsync } from "../utils/io.js";
 import { joinCarNamesByComma, printCarsStatus } from "../utils/cars.js";
+import { isNumber } from "../utils/number.js";
 
 class CarRace {
   #remainingRaceCount;
@@ -32,7 +34,7 @@ class CarRace {
   }
 
   static validateTotalRaceCount(totalRaceCount) {
-    if (typeof totalRaceCount !== "number") {
+    if (!isNumber(totalRaceCount)) {
       throw new Error(ERROR_CAR_RACE_COUNT_NOT_VALID);
     }
 
@@ -57,6 +59,21 @@ class CarRace {
       printCarsStatus(this.competitors);
 
       this.#remainingRaceCount--;
+    }
+  }
+
+  static async getTotalRaceCountUntilValid() {
+    while (true) {
+      const input = await readLineAsync("시도할 회수는 몇회인가요?");
+      const totalCount = Number(input);
+
+      try {
+        CarRace.validateTotalRaceCount(totalCount);
+        return totalCount;
+      } catch (e) {
+        console.log(ERROR_CAR_RACE_COUNT_NOT_VALID);
+        console.log();
+      }
     }
   }
 
