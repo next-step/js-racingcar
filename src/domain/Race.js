@@ -16,7 +16,8 @@ class Race {
 
   start() {
     if(!this._env)
-      console.log("실행 결과");
+      console.log("\n실행 결과");
+      
     this._current_lab = 0;
     const cars = this._input.cars;
     for (let i = 0; i < LAB; i++) {
