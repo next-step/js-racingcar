@@ -1,3 +1,4 @@
+import { Car } from "./domains/Car";
 import { CarRace } from "./domains/CarRace";
 import { Console } from "./utils/console";
 import { splitByComma } from "./utils/splitByComma";
@@ -6,25 +7,29 @@ import { input } from "./view/input";
 import { output } from "./view/output";
 
 export class App {
-  #carNames;
+  #carInstance;
   #carRace;
   #winner;
   constructor() {
     this.#carRace = null;
-    this.#carNames = [];
+    this.#carInstance = [];
     this.#winner = [];
+  }
+
+  #makeCarInstance(carNames) {
+    return carNames.map(carName => new Car(carName));
   }
 
   async #inputCarName() {
     const carNamesInput = await input.carName();
     const carNamesSplitByComma = splitByComma(carNamesInput);
     car.nameValidator(carNamesSplitByComma);
-    this.#carNames = carNamesSplitByComma;
+    this.#carInstance = this.#makeCarInstance(carNamesSplitByComma);
   }
 
   async #carNameStage() {
     await this.#inputCarName();
-    this.#carRace = new CarRace(this.#carNames);
+    this.#carRace = new CarRace(this.#carInstance);
   }
 
   #raceResultStage() {

@@ -7,9 +7,11 @@ import { output } from "../src/view/output";
 
 describe("출력 테스트", () => {
   let logSpy;
+
   beforeEach(() => {
     logSpy = jest.spyOn(console, "log");
   });
+
   test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
     const car = new Car("a");
 
@@ -22,9 +24,11 @@ describe("출력 테스트", () => {
   });
 
   test("우승자가 여러 명인 경우 쉼표로 구분하여 출력한다.", () => {
-    const carRace = new CarRace(["a", "b", "c"]);
+    const carNames = ["a", "b", "c"];
+    const carInstance = carNames.map(carName => new Car(carName));
+    carInstance.map(car => car.move());
+    const carRace = new CarRace(carInstance);
 
-    carRace.cars.map(car => car.move());
     const winner = carRace.getWinner();
     output.winner(winner);
 

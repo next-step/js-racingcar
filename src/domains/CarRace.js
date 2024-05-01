@@ -6,25 +6,18 @@ export class CarRace {
   #cars;
   #result;
   constructor(carNamesArray) {
-    this.#cars = this.#makeCarInstance(carNamesArray);
+    this.#cars = carNamesArray;
     this.#result = [];
-  }
-
-  get cars() {
-    return this.#cars;
   }
 
   get result() {
     return this.#result;
   }
 
-  #makeCarInstance(carNamesArray) {
-    return carNamesArray.map(carName => new Car(carName));
-  }
-
-  moveCar(Car, randomNumber) {
+  moveCar(carName, randomNumber) {
+    const targetCar = this.#cars.find(car => car.name === carName);
     if (randomNumber >= CAR_RACE.MOVE_THRESHOLD) {
-      Car.move();
+      targetCar.move();
     }
   }
 
@@ -34,7 +27,7 @@ export class CarRace {
         CAR_RACE.MIN_RANDOM_NUMBER,
         CAR_RACE.MAX_RANDOM_NUMBER,
       );
-      this.moveCar(car, randomDigitFrom0to9);
+      this.moveCar(car.name, randomDigitFrom0to9);
     });
   }
 
