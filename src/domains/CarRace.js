@@ -30,11 +30,11 @@ export class CarRace {
 
   #gameRound() {
     this.#cars.map(car => {
-      const randomDigit = generateRandomNumber(
+      const randomDigitFrom0to9 = generateRandomNumber(
         CAR_RACE.MIN_RANDOM_NUMBER,
         CAR_RACE.MAX_RANDOM_NUMBER,
       );
-      this.moveCar(car, randomDigit);
+      this.moveCar(car, randomDigitFrom0to9);
     });
   }
 
