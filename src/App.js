@@ -26,11 +26,15 @@ class App {
   }
 
   async play() {
-    await this.setRacingGame();
+    try {
+      await this.setRacingGame();
 
-    this.#racingGame.startGame();
+      this.#racingGame.startGame();
 
-    this.printGameResult();
+      this.printGameResult();
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 
