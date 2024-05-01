@@ -30,7 +30,7 @@ describe("자동차 경주 테스트", () => {
     expect(carRace.cars.at(0).position).toEqual(1);
   });
 
-  test("랜덤 값이 4 미만일 때는 전진하지 않는다.", () => {
+  test(`랜덤 값이  ${CAR_RACE.MOVE_THRESHOLD} 미만일 때는 전진하지 않는다.`, () => {
     const randomNumber = CAR_RACE.MOVE_THRESHOLD - 1;
     const carRace = new CarRace(["a"]);
 
