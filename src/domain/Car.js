@@ -1,31 +1,24 @@
 export class Car {
-  name;
-  position;
+  #name;
+  #position;
 
+  /** 유효성 검사는 함수로 빼서 관리는게 좋을까? */
   constructor(name) {
-    this.name = name;
-    this.position = 0;
+    if (name.length > 5) throw new Error('이름은 5자 이하만 가능합니다.');
+
+    this.#name = name;
+    this.#position = 0;
   }
 
-  isValidateName() {
-    if (this.name.length > 5) return false;
-    return true;
+  get name() {
+    return this.#name;
   }
 
-  getName() {
-    return this.name;
+  get position() {
+    return this.#position;
   }
 
-  getRandomValue() {
-    return Math.floor(Math.random() * 10);
-  }
-
-  getPosition() {
-    return this.position;
-  }
-
-  move() {
-    const randomValue = this.getRandomValue();
+  move(randomValue) {
     if (randomValue >= 4) {
       this.position += 1;
     }
