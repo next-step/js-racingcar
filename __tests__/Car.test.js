@@ -1,4 +1,9 @@
 import { Car } from "../src/domain/car/car.model.js";
+import { generateRandomNumber } from "../src/utils/randomNumber.js";
+
+jest.mock("../src/utils/randomNumber.js", () => ({
+  generateRandomNumber: jest.fn(),
+}));
 
 describe("자동차", () => {
   describe("이름은 5자 이하로 구성되어야 한다.", () => {
@@ -113,6 +118,35 @@ describe("자동차", () => {
 
       // Assert
       expect(car.position).toBe(initialPosition);
+    });
+    describe("무작위 수가 4 이상인 경우 전진할 수 있다.", () => {
+      test("무작위수 4 이상인 경우 전진한다.", () => {
+        // Arrange
+        const car = new Car({ name: initialName, position: initialPosition });
+        generateRandomNumber.mockReturnValue(4);
+
+        const randomNumber = generateRandomNumber();
+        const shouldMove = randomNumber >= 4;
+
+        // Act
+        car.move(shouldMove);
+        expect(car.position).toBe(initialPosition + moveDistance);
+      });
+
+      test("무작위수 4 미만인 경우 전진하지 않는다.", () => {
+        // Arrange
+        const car = new Car({ name: initialName, position: initialPosition });
+        generateRandomNumber.mockReturnValue(3);
+
+        const randomNumber = generateRandomNumber();
+        const shouldMove = randomNumber >= 4;
+
+        // Act
+        car.move(shouldMove);
+
+        // Assert
+        expect(car.position).toBe(initialPosition);
+      });
     });
   });
 });
