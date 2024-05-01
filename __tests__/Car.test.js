@@ -1,7 +1,6 @@
 import Car from '../src/Domain/Car.js';
 import ERROR from '../src/constants/Error.js';
 import CONSTANTS from '../src/constants/Constants.js';
-import Random from '../src/utils/Random.js';
 
 describe('자동차 테스트', () => {
   let car;
@@ -19,32 +18,15 @@ describe('자동차 테스트', () => {
       expect(name.length <= CONSTANTS.car.maxNameLength).toBeTruthy();
     });
 
-    test(`자동차는 ${CONSTANTS.car.move.minNumber}~${CONSTANTS.car.move.maxNumber} 사이에서 무작위로 얻은 값이 ${CONSTANTS.car.move.threshold} 이상일 때 전진할 수 있다.`, () => {
+    test(`자동차는 기존 위치에서 정해진 값(${CONSTANTS.car.move.distance})만큼 전진할 수 있다.`, () => {
       // given
-      Random.getRandomNumber = jest
-        .fn()
-        .mockReturnValue(CONSTANTS.car.move.threshold);
+      const { position } = car;
 
       // when
       car.move();
 
       // then
-      expect(car.position).toBe(
-        CONSTANTS.car.initialPosition + CONSTANTS.car.move.distance,
-      );
-    });
-
-    test(`자동차는 ${CONSTANTS.car.move.minNumber}~${CONSTANTS.car.move.maxNumber} 사이에서 무작위로 얻은 값이 ${CONSTANTS.car.move.threshold} 미만일 때 전진할 수 없다.`, () => {
-      // given
-      Random.getRandomNumber = jest
-        .fn()
-        .mockReturnValue(CONSTANTS.car.move.threshold - 1);
-
-      // when
-      car.move();
-
-      // then
-      expect(car.position).toBe(CONSTANTS.car.initialPosition);
+      expect(car.position).toBe(position + CONSTANTS.car.move.distance);
     });
   });
 
