@@ -2,51 +2,37 @@ import { Car } from '../src/domain/Car';
 import { Race } from '../src/domain/Race';
 
 describe('레이스 관련 내용 ', () => {
-  test('자동차 경주 게임이 완료한 후 누가 우승했는지 알려준다.', () => {
+  test('경주에 참여하는 차들은 여러대가 가능하다.', () => {
     //Given
-    const bmw = new Car('bmw');
-    const audi = new Car('audi');
-    const kia = new Car('kia');
-
-    const racingCars = [audi, bmw, kia];
-    const race = new Race(racingCars);
-
-    //When
-    audi.getRandomValue = jest.fn().mockReturnValue(5);
-    bmw.getRandomValue = jest.fn().mockReturnValue(5);
-    kia.getRandomValue = jest.fn().mockReturnValue(5);
-    race.racingStart();
+    const race = new Race([new Car('bmw'), new Car('audi'), new Car('kia')]);
 
     //then
-    expect(race.getWinner()).toBeDefined();
+    expect(race.racingCars.length).toBe(3);
   });
 
-  test('우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분한다.', () => {
+  test('자동차 경주는 5회로 고정하여 진행하고, 자동차 경주가 완료된 후에는 누가 우승했는지 알 수 있다.', () => {
     //Given
-    const bmw = new Car('bmw');
-    const audi = new Car('audi');
-    const kia = new Car('kia');
-
-    audi.getRandomValue = jest.fn().mockReturnValue(5);
-    bmw.getRandomValue = jest.fn().mockReturnValue(5);
-    kia.getRandomValue = jest.fn().mockReturnValue(5);
-    const racingCars = [audi, bmw, kia];
-    const race = new Race(racingCars);
+    const race = new Race([new Car('bmw'), new Car('audi'), new Car('kia')]);
 
     //When
-    race.racingStart();
+    const RACING_COUNT = 5;
+    const mockRandomValue = jest.fn().mockReturnValue(5);
+    race.racingStart(RACING_COUNT, mockRandomValue);
 
     //then
-    expect(race.getWinner()).toEqual('audi,bmw,kia');
+    expect(race.winners).toBe('bmw,audi,kia');
   });
 
-  test('자동차 경주는 5회로 고정하여 진행한다.', () => {
+  test('우승자는 여러명일 수 있고, 여러명일 경우, 쉼표(,)를 이용하여 구분한다.', () => {
     //Given
-    const race = new Race();
+    const race = new Race([new Car('bmw'), new Car('audi'), new Car('kia')]);
 
     //When
+    const RACING_COUNT = 5;
+    const mockRandomValue = jest.fn().mockReturnValue(5);
+    race.racingStart(RACING_COUNT, mockRandomValue);
 
     //then
-    expect(race.getRaceCount()).toBe(5);
+    expect(race.winners).toContain(',');
   });
 });
