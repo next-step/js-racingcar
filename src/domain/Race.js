@@ -1,5 +1,6 @@
 import { ERROR_CODES } from "../constants";
 import { Car } from "./Car";
+import { RandomMoveStrategy } from "./strategies";
 
 export class Race {
   static RACE_ROUND = 5;
@@ -7,7 +8,7 @@ export class Race {
   #cars = [];
   #winners = [];
   #strategies = new Map();
-  #defaultStrategy;
+  #defaultStrategy = new RandomMoveStrategy();
 
   constructor(names, defaultStrategy) {
     this.#validateNames(names);
