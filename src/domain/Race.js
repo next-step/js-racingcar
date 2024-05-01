@@ -1,5 +1,3 @@
-import { randomValue, randomValue } from '../utils';
-
 export class Race {
   #racingCars;
   racingResult;
@@ -26,7 +24,7 @@ export class Race {
   }
 
   racingStart(racingCount, getRandomValue) {
-    repeatRacing(racingCount, this.#racingCars, getRandomValue);
+    this.repeatRacing(racingCount, this.#racingCars, getRandomValue);
 
     this.racingResult = this.#racingCars
       .map((car) => ({ carName: car.name, currentPosition: car.position }))
