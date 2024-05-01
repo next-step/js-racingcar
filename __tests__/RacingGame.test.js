@@ -24,12 +24,36 @@ describe('경주 게임 테스트', () => {
       expect(racingGame.round).toBe(CONSTANTS.racingGame.roundConfig);
     });
 
+    test(`자동차는 ${CONSTANTS.car.move.minNumber} ~ ${CONSTANTS.car.move.maxNumber} 사이에서 무작위로 얻은 값이 ${CONSTANTS.car.move.threshold} 이상일 때 전진할 수 있다.`, () => {
+      // given
+      const car = new Car('pobi');
+      const startPosition = car.position;
+
+      // when
+      RacingGame.moveCar(car, CONSTANTS.car.move.threshold);
+
+      // then
+      expect(car.position).toBe(startPosition + CONSTANTS.car.move.distance);
+    });
+
+    test(`자동차는 ${CONSTANTS.car.move.minNumber} ~ ${CONSTANTS.car.move.maxNumber} 사이에서 무작위로 얻은 값이 ${CONSTANTS.car.move.threshold} 미만일 때 전진할 수 없다.`, () => {
+      // given
+      const car = new Car('pobi');
+      const startPosition = car.position;
+
+      // when
+      RacingGame.moveCar(car, CONSTANTS.car.move.threshold - 1);
+
+      // then
+      expect(car.position).toBe(startPosition);
+    });
+
     test('자동차 경주 게임을 완료한 후 우승자를 선별한다.', () => {
       // given
       const cars = [new Car('pobi'), new Car('crong'), new Car('honux')];
       const racingGame = new RacingGame(cars);
 
-      Random.getRandomNumber = jest
+      Random.generateRandomNumber = jest
         .fn()
         .mockReturnValueOnce(1)
         .mockReturnValueOnce(1)
