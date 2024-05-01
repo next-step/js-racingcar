@@ -78,7 +78,7 @@ class RacingGame {
   static getRandomNumber() {
     const randomNumber = Random.generateRandomNumber(
       CONSTANTS.car.move.minNumber,
-      CONSTANTS.car.move.minNumber,
+      CONSTANTS.car.move.maxNumber,
     );
 
     return randomNumber;

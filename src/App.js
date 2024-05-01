@@ -20,7 +20,7 @@ class App {
   }
 
   printGameResult() {
-    const gameResult = this.#racingGame.getGameResult;
+    const gameResult = this.#racingGame.getGameResult();
 
     this.#view.printGameResult(gameResult);
   }
