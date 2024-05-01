@@ -7,16 +7,16 @@ class App {
 
   #racingGame;
 
-  async readCarList() {
-    const cars = await this.#view.readCars();
+  async getRacingCars() {
+    const carNames = await this.#view.readCarNames();
 
-    return cars.map(car => new Car(car));
+    return carNames.map(car => new Car(car));
   }
 
   async setRacingGame() {
-    const cars = await this.readCarList();
+    const racingCars = await this.getRacingCars();
 
-    this.#racingGame = new RacingGame(cars);
+    this.#racingGame = new RacingGame(racingCars);
   }
 
   printGameResult() {

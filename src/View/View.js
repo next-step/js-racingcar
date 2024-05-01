@@ -8,18 +8,18 @@ class View {
 
   #outputView = OutputView;
 
-  async readCars() {
+  async readCarNames() {
     const userInput = await this.#inputView.readlineAsync(
       MESSAGES.request.inputData,
     );
 
-    const cars = userInput.split(',');
+    const carNames = userInput.split(',');
 
-    return cars;
+    return carNames;
   }
 
-  printMessage(string) {
-    this.#outputView.print(string);
+  printMessage(message) {
+    this.#outputView.print(message);
   }
 
   printRoundState(result) {
