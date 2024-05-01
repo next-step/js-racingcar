@@ -33,7 +33,7 @@ describe('View 테스트', () => {
       const expected = ['pobi', 'crong', 'honux'];
 
       // then
-      expect(await view.readCars()).toEqual(expected);
+      expect(await view.readCarNames()).toEqual(expected);
     });
 
     test('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {

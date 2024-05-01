@@ -12,7 +12,7 @@ class RacingGame {
   #winners;
 
   constructor(cars) {
-    Validator.validateInputData(cars);
+    Validator.validateCarNames(cars);
 
     this.#cars = cars;
     this.#round = CONSTANTS.racingGame.initialRound;

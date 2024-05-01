@@ -8,20 +8,20 @@ const Validator = {
     }
   },
 
-  validateCarName(str) {
-    if (str.length > CONSTANTS.car.maxNameLength) {
+  validateCarNameLength(name) {
+    if (name.length > CONSTANTS.car.maxNameLength) {
       throw new Error(ERROR.invalidNameLength);
     }
   },
 
-  validateInputData(input) {
-    const cars = input.map(car => car.name);
+  validateCarNames(cars) {
+    const carNames = cars.map(car => car.name);
 
-    this.validateInputFormat(cars);
-    this.validateDuplicate(cars);
+    this.validateCarNameFormat(carNames);
+    this.validateDuplicate(carNames);
   },
 
-  validateInputFormat(cars) {
+  validateCarNameFormat(cars) {
     cars.forEach(car => {
       if (car.length === 0 || car.includes(' ')) {
         throw new Error(ERROR.invalidFormat);
@@ -30,11 +30,7 @@ const Validator = {
   },
 
   validateDuplicate(cars) {
-    const copyArr = cars.filter(
-      (car, index) => index === cars.lastIndexOf(car),
-    );
-
-    if (cars.length !== copyArr.length) {
+    if (cars.length !== new Set(cars).size) {
       throw new Error(ERROR.duplicateValue);
     }
   },
