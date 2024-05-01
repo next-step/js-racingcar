@@ -12,7 +12,7 @@ import Random from '../src/utils/Random.js';
 
 describe('경주 게임 테스트', () => {
   describe('정상 케이스 테스트', () => {
-    test('자동차 경주는 5회 진행한다.', () => {
+    test(`자동차 경주는 ${CONSTANTS.racingGame.roundConfig}회 진행한다.`, () => {
       // given
       const cars = [new Car('pobi'), new Car('crong'), new Car('honux')];
       const racingGame = new RacingGame(cars);
