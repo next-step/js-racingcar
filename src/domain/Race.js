@@ -29,23 +29,7 @@ export class Race {
   }
 
   race() {
-    const result = [];
-    for (let round = 1; round <= Race.RACE_ROUND; round++) {
-      const strategy = this.#strategies.get(round) || this.#defaultStrategy;
-      this.#cars.forEach((car) => {
-        car.setStrategy(strategy);
-        car.move();
-      });
-
-      result.push({
-        round,
-        cars: this.#cars.map((car) => ({
-          name: car.name,
-          position: car.position,
-        })),
-      });
-    }
-
+    const result = this.#setRaceResult();
     this.#setWinners();
 
     return result;
@@ -66,5 +50,26 @@ export class Race {
 
   setStrategyPerRound(round, strategy) {
     this.#strategies.set(round, strategy);
+  }
+
+  #setRaceResult() {
+    const result = [];
+    for (let round = 1; round <= Race.RACE_ROUND; round++) {
+      const strategy = this.#strategies.get(round) || this.#defaultStrategy;
+      this.#cars.forEach((car) => {
+        car.setStrategy(strategy);
+        car.move();
+      });
+
+      result.push({
+        round,
+        cars: this.#cars.map((car) => ({
+          name: car.name,
+          position: car.position,
+        })),
+      });
+    }
+
+    return result;
   }
 }
