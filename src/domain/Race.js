@@ -44,7 +44,7 @@ export class Race {
   }
 
   get winners() {
-    const winnerPosition = this.racingResult[0].currentPosition;
+    const winnerPosition = this.racingResult.at(0).currentPosition;
     return this.racingResult
       .filter((car) => winnerPosition <= car.currentPosition)
       .map((car) => car.carName)
