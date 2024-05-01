@@ -2,13 +2,6 @@ import { Car, MAX_CAR_NAME_LENGTH } from '../domain/Car.js';
 import readline from 'readline';
 
 export class CarIO {
-  cars;
-  inputs;
-  constructor() {
-    this.cars = [];
-    this.inputs = '';
-  }
-
   readLineAsync(query) {
     return new Promise((resolve, reject) => {
       if (arguments.length !== 1) {
@@ -47,35 +40,20 @@ export class CarIO {
     const names = await this.readLineAsync(
       '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분): '
     );
-
     this.validSplitIsCommma(names);
-    this.inputs = names;
-    this.cars = names.split(',').map((name) => new Car(name.trim()));
 
-    this.cars.forEach((car) => {
-      this.checkCarValidate(!car.isValidateName());
-    });
-
-    this.checkCarValidate();
+    return names.split(',').map((name) => new Car(name.trim()));
   }
 
-  getInputs() {
-    return this.inputs;
-  }
-
-  getCars() {
-    return this.cars;
-  }
-
-  showRacingResult(carName, currentPosition) {
-    console.log(`${carName} : ${currentPosition}`);
-  }
-
-  checkCarValidate() {
-    this.cars.forEach((car) => {
-      if (!car.isValidateName()) {
-        throw new Error('자동차 이름은 5자 이하만 가능합니다.');
-      }
+  showProgressResult(racingProgress) {
+    let perRacingResult = '';
+    racingProgress.forEach((per_race) => {
+      per_race.forEach(
+        (result) => (perRacingResult += `${result.name} : ${result.position}\n`)
+      );
+      console.log(perRacingResult);
+      perRacingResult = '';
+      console.log(' ');
     });
   }
 }
