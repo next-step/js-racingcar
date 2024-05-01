@@ -1,5 +1,4 @@
 import CONSTANTS from '../constants/Constants.js';
-import Validator from '../utils/Validator.js';
 
 class Car {
   #name;
@@ -7,8 +6,6 @@ class Car {
   #position;
 
   constructor(name) {
-    Validator.validateCarNameLength(name);
-
     this.#name = name;
     this.#position = CONSTANTS.car.initialPosition;
   }

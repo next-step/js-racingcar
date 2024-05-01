@@ -1,5 +1,4 @@
 import Car from '../src/Domain/Car.js';
-import ERROR from '../src/constants/Error.js';
 import CONSTANTS from '../src/constants/Constants.js';
 
 describe('자동차 테스트', () => {
@@ -27,13 +26,6 @@ describe('자동차 테스트', () => {
 
       // then
       expect(car.position).toBe(position + CONSTANTS.car.move.distance);
-    });
-  });
-
-  describe('예외 케이스 테스트', () => {
-    test(`자동차 이름이 ${CONSTANTS.car.maxNameLength}자를 초과 할 경우 예외 처리한다.`, () => {
-      // when + then
-      expect(() => new Car('migugin')).toThrow(ERROR.invalidNameLength);
     });
   });
 });

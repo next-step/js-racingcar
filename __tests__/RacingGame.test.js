@@ -69,6 +69,14 @@ describe('경주 게임 테스트', () => {
   });
 
   describe('예외 케이스 테스트', () => {
+    test(`자동차 이름이 ${CONSTANTS.car.maxNameLength}자를 초과 할 경우 예외 처리한다.`, () => {
+      // given
+      const cars = [new Car('migugin')];
+
+      // when + then
+      expect(() => new RacingGame(cars)).toThrow(ERROR.invalidNameLength);
+    });
+
     test.each([
       [[new Car('pobi'), new Car('cr ng')]],
       [[new Car(' pobi'), new Car('crong')]],
@@ -83,7 +91,7 @@ describe('경주 게임 테스트', () => {
 
     test('빈 자동차 이름이 있는 경우 예외 처리한다.', () => {
       // given
-      const cars = [new Car(''), new Car('crong')];
+      const cars = [new Car('')];
 
       // when + then
       expect(() => new RacingGame(cars)).toThrow(ERROR.invalidFormat);
@@ -91,7 +99,7 @@ describe('경주 게임 테스트', () => {
 
     test('중복된 자동차가 존재하는 경우 예외 처리한다.', () => {
       // given
-      const cars = [new Car('pobi'), new Car('pobi'), new Car('crong')];
+      const cars = [new Car('pobi'), new Car('pobi')];
 
       // when + then
       expect(() => new RacingGame(cars)).toThrow(ERROR.duplicateValue);
