@@ -34,11 +34,11 @@ export class Car {
     this.#position += 1;
   }
 
-  getPosition() {
+  get position() {
     return this.#position;
   }
 
-  getName() {
+  get name() {
     return this.#name;
   }
 

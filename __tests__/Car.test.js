@@ -56,7 +56,7 @@ describe("자동차 테스트", () => {
     car.move();
 
     // then
-    expect(car.getPosition()).toBe(position);
+    expect(car.position).toBe(position);
     expect(getRandom).toHaveBeenCalled();
   });
 });

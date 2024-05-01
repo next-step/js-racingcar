@@ -48,8 +48,7 @@ describe("입/출력 테스트", () => {
     expect(logSpy).toHaveBeenCalledWith(
       `${app
         .getRace()
-        .getWinners()
-        .map((car) => car.getName())
+        .winners.map((car) => car.name)
         .join(", ")}가 최종 우승했습니다.`
     );
   });

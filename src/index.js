@@ -35,7 +35,7 @@ export class App {
     raceResult.forEach((result) => {
       View.printRaceResult(result.cars);
     });
-    View.printWinners(this.#race.getWinners());
+    View.printWinners(this.#race.winners);
   }
 
   getRace() {

@@ -38,8 +38,8 @@ export class Race {
       result.push({
         round,
         cars: this.#cars.map((car) => ({
-          name: car.getName(),
-          position: car.getPosition(),
+          name: car.name,
+          position: car.position,
         })),
       });
     }
@@ -49,19 +49,17 @@ export class Race {
     return result;
   }
 
-  getCars() {
+  get cars() {
     return this.#cars;
   }
 
-  getWinners() {
+  get winners() {
     return this.#winners;
   }
 
   #setWinners() {
-    const maxPosition = Math.max(...this.#cars.map((car) => car.getPosition()));
-    this.#winners = this.#cars.filter(
-      (car) => car.getPosition() === maxPosition
-    );
+    const maxPosition = Math.max(...this.#cars.map((car) => car.position));
+    this.#winners = this.#cars.filter((car) => car.position === maxPosition);
   }
 
   setStrategyPerRound(round, strategy) {

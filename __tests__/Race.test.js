@@ -27,7 +27,7 @@ describe("자동차 경주 게임 테스트", () => {
     app.race();
 
     // then
-    expect(app.getWinners().length).toBe(3);
+    expect(app.winners.length).toBe(3);
   });
 
   test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. - RandomMoveStrategy", async () => {
@@ -43,8 +43,8 @@ describe("자동차 경주 게임 테스트", () => {
     app.race();
 
     // then
-    expect(app.getWinners().length).toBe(1);
-    expect(app.getWinners()[0].getName()).toBe(carNames[0]);
+    expect(app.winners.length).toBe(1);
+    expect(app.winners[0].name).toBe(carNames[0]);
   });
 
   test("라운드마다 전진 조건이 바뀔 수 있다.", async () => {
@@ -61,9 +61,9 @@ describe("자동차 경주 게임 테스트", () => {
     app.race();
 
     // then
-    expect(app.getCars()[0].getPosition()).toBe(5);
-    expect(app.getCars()[1].getPosition()).toBeGreaterThan(3);
-    expect(app.getCars()[2].getPosition()).toBeGreaterThan(3);
+    expect(app.cars[0].position).toBe(5);
+    expect(app.cars[1].position).toBeGreaterThan(3);
+    expect(app.cars[2].position).toBeGreaterThan(3);
   });
 
   test("이름이 빈 문자열인 자동차가 존재할 때 종료한다.", async () => {
