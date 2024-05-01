@@ -1,4 +1,4 @@
-import { Car } from '../domain/Car.js';
+import { Car, MAX_CAR_NAME_LENGTH } from '../domain/Car.js';
 import readline from 'readline';
 
 export class CarIO {
@@ -31,10 +31,24 @@ export class CarIO {
     });
   }
 
+  validInputLength = (input) => {
+    return input.length >= MAX_CAR_NAME_LENGTH;
+  };
+
+  validSplitIsCommma = (input) => {
+    if (!this.validInputLength(input)) return false;
+
+    if (input.split(',').length <= 1) {
+      throw new Error('이름 구분은 쉼표(,)로 가능합니다.');
+    }
+  };
+
   async inputCars() {
     const names = await this.readLineAsync(
       '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분): '
     );
+
+    this.validSplitIsCommma(names);
     this.inputs = names;
     this.cars = names.split(',').map((name) => new Car(name.trim()));
 

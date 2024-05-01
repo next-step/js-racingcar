@@ -3,16 +3,13 @@ import { Race } from '../src/domain/Race';
 import { CarIO } from '../src/view/CarIO';
 
 describe('입출력 관련된 것들', () => {
-  test('자동차 이름은 쉼표(,)로 구분하지 않을경우, Error가 발생한다.', async () => {
-    //Given
+  test('자동차 이름은 쉼표(,)로 구분하지 않을 경우, Error가 발생한다.', async () => {
+    // Given
     const cario = new CarIO();
-    // when
     cario.readLineAsync = jest.fn().mockResolvedValue('bmw audi kia');
 
     // then
-    expect(async () => {
-      await cario.inputCars();
-    }).toThrow();
+    await expect(cario.inputCars()).rejects.toThrow('이름 구분은 쉼표(,)로 가능합니다.');
   });
 
   test('전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.', () => {
