@@ -8,14 +8,6 @@ class Car {
     this.name = name;
   };
 
-  get name(){
-    return this.name;
-  };
-
-  get position(){
-    return this.position;
-  };
-
   getRandomValue(){
     return Math.floor(Math.random() * 10);
   };
