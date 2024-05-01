@@ -19,16 +19,6 @@ describe("Game Class 기본적인 요소에 대해 테스트 한다.", () => {
     expect(cars instanceof Array).toBe(true);
   });
 
-  test("컴마로 구분된 자동차 이름 문자열을 받으면 자동차 배열로 만들어 준다.", () => {
-    const game = new Game();
-
-    const carString = "차1,차2,차3,차4";
-    const cars = game.getCarsByCarsString(carString.trim());
-
-    expect(cars instanceof Array).toBe(true);
-    expect(cars.length).toBe(4);
-  });
-
   test("자동차 이름이 입력되면 ,를 기준을 배열로 만들어준다.", () => {
     const game = new Game();
 
@@ -39,6 +29,16 @@ describe("Game Class 기본적인 요소에 대해 테스트 한다.", () => {
     expect(cars.length).toBe(4);
   });
 
+  test("자동차 이름이 하나만 입력되는 경우에도 자동차 배열이 만들어 진다.", () => {
+    const game = new Game();
+
+    const carString = "차1";
+    const cars = game.getCarsByCarsString(carString.trim());
+
+    expect(cars instanceof Array).toBe(true);
+    expect(cars.length).toBe(1);
+  });
+
   test("자동차 이름이 5글자가 넘으면 INVALID_CAR_NAME 에러코드가 반환 된다.", () => {
     const game = new Game();
 
@@ -46,6 +46,28 @@ describe("Game Class 기본적인 요소에 대해 테스트 한다.", () => {
     const cars = game.getCarsByCarsString(carString.trim());
 
     expect(cars).toBe(ERROR_CODE.INVALID_CAR_NAME);
+  });
+
+  test("자동차 이름이 없으면 NO_VALUE 에러코드가 반환 된다.", () => {
+    const game = new Game();
+
+    const noValueCarName = "";
+    const noValueCars = game.getCarsByCarsString(noValueCarName.trim());
+
+    const emptyCarName = "차,";
+    const emptyCars = game.getCarsByCarsString(emptyCarName.trim());
+
+    expect(noValueCars).toBe(ERROR_CODE.NO_VALUE);
+    expect(emptyCars).toBe(ERROR_CODE.NO_VALUE);
+  });
+
+  test("중복된 자동차 이름이 있으면 DUPLICATE 에러코드가 반환 된다.", () => {
+    const game = new Game();
+
+    const carString = "차2,차2,차3,차4";
+    const cars = game.getCarsByCarsString(carString.trim());
+
+    expect(cars).toBe(ERROR_CODE.DUPLICATE);
   });
 });
 
@@ -58,6 +80,7 @@ describe("게임 플레이 테스트(play 메서드)", () => {
     const result3 = game.play();
     const result4 = game.play();
     const result5 = game.play();
+
     expect(result1).toBe(true);
     expect(result2).toBe(true);
     expect(result3).toBe(true);
@@ -89,10 +112,19 @@ describe("게임 플레이 테스트(play 메서드)", () => {
     game.setCar(testCar3);
     game.setCar(testCar4);
 
-    testCar1.winCount = 3;
-    testCar2.winCount = 1;
-    testCar3.winCount = 2;
-    testCar4.winCount = 3;
+    testCar1.win();
+    testCar1.win();
+    testCar1.win();
+
+    testCar2.win();
+    testCar2.win();
+
+    testCar3.win();
+    testCar3.win();
+
+    testCar4.win();
+    testCar4.win();
+    testCar4.win();
 
     const winers = game.getWinners();
     expect(winers).toEqual([testCar1, testCar4]);

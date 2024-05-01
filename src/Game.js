@@ -1,31 +1,12 @@
 import readline from "readline";
 import { Car } from "./Car";
 
-function readLineAsync(query) {
-  return new Promise((resolve, reject) => {
-    if (arguments.length !== 1) {
-      reject(new Error("arguments must be 1"));
-    }
-
-    if (typeof query !== "string") {
-      reject(new Error("query must be string"));
-    }
-
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-
-    rl.question(query, (input) => {
-      rl.close();
-      resolve(input);
-    });
-  });
-}
+export const PLAY_TIME = 4;
 
 export const ERROR_CODE = {
   NO_VALUE: 1,
   INVALID_CAR_NAME: 2,
+  DUPLICATE: 3,
 };
 
 export class Game {
@@ -66,14 +47,25 @@ export class Game {
   getCarsByCarsString(carNamesString) {
     const carNames = carNamesString.split(",");
 
-    if (!carNames || carNames[0] === "") {
+    const isNoValueCarName = carNames.some((carName) => {
+      return !carName || carName === "";
+    });
+    if (isNoValueCarName) {
       return ERROR_CODE.NO_VALUE;
     }
 
-    for (let i = 0; i < carNames.length; i++) {
-      if (carNames[i].length > 4) {
-        return ERROR_CODE.INVALID_CAR_NAME;
+    const isInvalidCarName = carNames.some((carName) => {
+      if (!carName || carName === "") {
       }
+      return carName.length > 4;
+    });
+    if (isInvalidCarName) {
+      return ERROR_CODE.INVALID_CAR_NAME;
+    }
+
+    const isDuplicateCarName = carNames.length !== new Set(carNames).size;
+    if (isDuplicateCarName) {
+      return ERROR_CODE.DUPLICATE;
     }
 
     return carNames;
@@ -90,7 +82,7 @@ export class Game {
   }
 
   play() {
-    if (this.playTime > 4) {
+    if (this.playTime > PLAY_TIME) {
       const winners = this.getWinners();
       const winnerString = winners.reduce((acc, winner, i) => {
         acc += winner.name;
@@ -100,31 +92,31 @@ export class Game {
         return acc;
       }, "");
 
+      console.log("cars", this.cars);
       console.log(`승자는 ${winnerString} 입니다`);
       return false;
     }
 
-    let winCar = [];
+    this.cars.map((car) => {
+      const randomDistance = this.#getRandomDistance();
+      car.move(randomDistance);
+    });
 
     let max = -Infinity;
     this.cars.forEach((car) => {
-      max = Math.max(max, car.winCount);
+      max = Math.max(max, car.distance);
     });
 
-    this.cars.reduce((acc, car) => {
+    this.cars.map((car) => {
       const randomDistance = this.#getRandomDistance();
       car.move(randomDistance);
-      acc.push(car);
 
       if (car.distance >= max) {
-        winCar.push(car);
-        car.winCount += 1;
+        car.win();
       }
+    });
 
-      return acc;
-    }, []);
-
-    this.cars.forEach((car) => {
+    this.cars.map((car) => {
       let distanceString = "";
       for (let i = 0; i < car.distance; i++) {
         distanceString += "-";

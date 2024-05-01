@@ -1,5 +1,5 @@
 import { Car } from "./Car";
-import { ERROR_CODE, Game } from "./Game";
+import { ERROR_CODE, Game, PLAY_TIME } from "./Game";
 
 async function playGame() {
   // Game 클래스를 만들기
@@ -15,25 +15,31 @@ async function playGame() {
   // 자동차 이름을 잘못입력한 경우 게임 종료
   if (carNames === ERROR_CODE.NO_VALUE) {
     console.log(`자동차 이름이 입력되지 않았습니다.`);
-    return false;
+    return;
   }
   if (carNames === ERROR_CODE.INVALID_CAR_NAME) {
     console.log(`자동차 이름은 5글자를 넘을 수 없습니다.`);
-    return false;
+    return;
+  }
+  if (carNames === ERROR_CODE.DUPLICATE) {
+    console.log(`중복된 자동차 이름이 있습니다.`);
+    return;
   }
 
   console.log(`자동차 이름은 ${carNames}입니다.`);
 
-  for (let i = 0; i < carNames.length; i++) {
-    const result = game.setCar(new Car(carNames[i]));
-    if (!result) {
-      console.log("car가 종료 됩니다.");
-      return;
-    }
+  const isSetCars = carNames.some((carName) => {
+    const result = game.setCar(new Car(carName));
+    return !result;
+  });
+
+  if (isSetCars) {
+    console.log("자동차가 제대로 세팅되지 않았습니다.");
+    return;
   }
-  let end = true;
-  while (end) {
-    end = game.play();
+
+  for (let i = 0; i < PLAY_TIME + 2; i++) {
+    game.play();
   }
 }
 
