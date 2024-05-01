@@ -92,12 +92,8 @@ describe('입출력 관련된 것들', () => {
     const cario = new CarIO();
 
     // when
-    cario.readLineAsync = jest.fn().mockResolvedValue('bmw,audi,kia');
-    await cario.inputCars(); // 비동기 호출을 기다리기 위해 await 추가
-    jest.spyOn(cario, 'checkCarValidate').mockImplementation(() => {
-      throw new Error('잘못된 입력 값입니다.');
-    });
+    cario.readLineAsync = jest.fn().mockResolvedValue('bmasdasw,audi,kia');
 
-    expect(() => cario.checkCarValidate()).toThrow('잘못된 입력 값입니다.');
+    await expect(cario.inputCars()).rejects.toThrow('이름은 5자 이하만 가능합니다.');
   });
 });
