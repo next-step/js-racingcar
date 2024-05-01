@@ -20,7 +20,7 @@ beforeEach(() => {
 });
 
 describe("입출력 테스트", () => {
-  test("자동차 자동차 경주 횟수를 입력할 때 0 이상의 정수를 입력한 경우 입력이 정상적으로 종료된다.", async () => {
+  test("자동차 경주 횟수를 입력할 때 0 이상의 정수를 입력한 경우 입력이 정상적으로 종료된다.", async () => {
     // given
     readLineAsyncSpy.mockImplementationOnce(() => Promise.resolve("1"));
 
@@ -32,7 +32,7 @@ describe("입출력 테스트", () => {
     expect(totalCount).toBe(1);
   });
 
-  test("자동차 자동차 경주 횟수를 입력할 때 0 미만의 정수 또는 정수가 아닌 값을 입력한 경우 에러 메시지를 출력하고 0 이상의 정수가 입력될 때까지 무한 반복한다.", async () => {
+  test("자동차 경주 횟수를 입력할 때 0 미만의 정수 또는 정수가 아닌 값을 입력한 경우 에러 메시지를 출력하고 0 이상의 정수가 입력될 때까지 무한 반복한다.", async () => {
     // given
     readLineAsyncSpy
       .mockImplementationOnce(() => Promise.resolve("-1"))
