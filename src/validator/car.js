@@ -5,16 +5,16 @@ import { limitStrMaxMinLength } from "../utils/limitStrMaxMinLength";
 
 export const car = {
   nameValidator: carNamesArr => {
-    if (
-      carNamesArr.some(
-        carName =>
-          !limitStrMaxMinLength(
-            carName,
-            CAR.NAME_MIN_LENGTH,
-            CAR.NAME_MAX_LENGTH,
-          ),
-      )
-    ) {
+    const hasInvalidLength = carNamesArr.some(
+      carName =>
+        !limitStrMaxMinLength(
+          carName,
+          CAR.NAME_MIN_LENGTH,
+          CAR.NAME_MAX_LENGTH,
+        ),
+    );
+
+    if (hasInvalidLength) {
       throw new Error(ERROR_MESSAGES.CAR_NAME_LENGTH);
     }
 
