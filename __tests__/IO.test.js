@@ -12,23 +12,7 @@ import {
 } from "../src/utils/cars.js";
 
 describe("입출력 테스트", () => {
-  test("진행할 자동차 경주의 총 횟수가 0 이상의 정수가 아니면 에러를 발생시킨다.", () => {
-    // given
-    const car1 = new Car("ganu");
-    const car2 = new Car("sunu");
-    const competitors = [car1, car2];
-    const RACE_COUNT = -1;
-
-    // when
-    const createCarRace = () => {
-      const carRace = new CarRace(competitors, RACE_COUNT);
-    };
-
-    // then
-    expect(createCarRace).toThrow(ERROR_CAR_RACE_COUNT_NOT_VALID);
-  });
-
-  test("사용자가 자동차 자동차 경주 횟수를 입력할 때 0 이상의 정수를 입력한 경우 입력이 종료된다.", async () => {
+  test("자동차 자동차 경주 횟수를 입력할 때 0 이상의 정수를 입력한 경우 입력이 정상적으로 종료된다.", async () => {
     // given
     const mockReadLineAsync = jest
       .spyOn(io, "readLineAsync")
@@ -37,9 +21,31 @@ describe("입출력 테스트", () => {
     // when
     const totalCount = await CarRace.getTotalRaceCountUntilValid();
 
-    // Assert
-    expect(totalCount).toBe(1);
+    // then
     expect(mockReadLineAsync).toHaveBeenCalledTimes(1);
+    expect(totalCount).toBe(1);
+
+    mockReadLineAsync.mockClear();
+  });
+
+  test("자동차 자동차 경주 횟수를 입력할 때 0 미만의 정수 또는 정수가 아닌 값을 입력한 경우 에러 메시지를 출력하고 0 이상의 정수가 입력될 때까지 무한 반복한다.", async () => {
+    // given
+    const consoleSpy = jest.spyOn(console, "log");
+    const mockReadLineAsync = jest
+      .spyOn(io, "readLineAsync")
+      .mockImplementationOnce(() => Promise.resolve("-1"))
+      .mockImplementationOnce(() => Promise.resolve("5"));
+
+    // when
+    const totalCount = await CarRace.getTotalRaceCountUntilValid();
+
+    // then
+    expect(consoleSpy).toHaveBeenCalledWith(ERROR_CAR_RACE_COUNT_NOT_VALID);
+    expect(mockReadLineAsync).toHaveBeenCalledTimes(2);
+    expect(totalCount).toBe(5);
+
+    mockReadLineAsync.mockClear();
+    consoleSpy.mockClear();
   });
 
   test("자동차 경주의 우승자를 출력할 때 우승자가 여러 명일 경우 쉼표(,)로 구분하여 출력한다.", () => {
