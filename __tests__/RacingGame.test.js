@@ -72,13 +72,5 @@ describe('경주 게임 테스트', () => {
       // when + then
       expect(() => new RacingGame(cars)).toThrow(ERROR.duplicateValue);
     });
-
-    test('자동차가 한 개인 경우 예외 처리한다.', () => {
-      // given
-      const cars = [new Car('pobi')];
-
-      // when + then
-      expect(() => new RacingGame(cars)).toThrow(ERROR.invalidSingleValue);
-    });
   });
 });

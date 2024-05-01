@@ -17,9 +17,8 @@ const Validator = {
   validateInputData(input) {
     const cars = input.map(car => car.name);
 
-    this.validateDuplicate(cars);
     this.validateInputFormat(cars);
-    this.validateSingleValue(cars);
+    this.validateDuplicate(cars);
   },
 
   validateInputFormat(cars) {
@@ -37,12 +36,6 @@ const Validator = {
 
     if (cars.length !== copyArr.length) {
       throw new Error(ERROR.duplicateValue);
-    }
-  },
-
-  validateSingleValue(cars) {
-    if (cars.length === 1) {
-      throw new Error(ERROR.invalidSingleValue);
     }
   },
 };
