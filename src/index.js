@@ -13,7 +13,7 @@ async function play() {
     const cars = createCars(input);
 
     // 자동차 경주 횟수 입력
-    const carRaceTotalCount = await CarRace.getTotalRaceCountUntilValid();
+    const carRaceTotalCount = await CarRace.getTotalRaceCountFromUserInput();
 
     // 자동차 경주 생성
     const carRace = new CarRace(cars, carRaceTotalCount);

@@ -3,13 +3,13 @@ import {
   ERROR_CAR_RACE_COUNT_NOT_VALID,
 } from "../src/constants/error.js";
 import Car from "../src/domain/Car.js";
-import CarRace from "../src/domain/CarRace.js";
-import * as io from "../src/utils/io.js";
+import * as io from "../src/utils/readLineAsync.js";
+import { joinCarNamesByComma } from "../src/utils/cars.js";
 import {
-  joinCarNamesByComma,
-  printCarsStatus,
+  getTotalRaceCountFromUserInput,
   getCarNamesFromUserInput,
-} from "../src/utils/cars.js";
+  printCarsStatus,
+} from "../src/utils/view.js";
 
 const logSpy = jest.spyOn(console, "log");
 const readLineAsyncSpy = jest.spyOn(io, "readLineAsync");
@@ -25,7 +25,7 @@ describe("입출력 테스트", () => {
     readLineAsyncSpy.mockImplementationOnce(() => Promise.resolve("1"));
 
     // when
-    const totalCount = await CarRace.getTotalRaceCountUntilValid();
+    const totalCount = await getTotalRaceCountFromUserInput();
 
     // then
     expect(readLineAsyncSpy).toHaveBeenCalledTimes(1);
@@ -39,7 +39,7 @@ describe("입출력 테스트", () => {
       .mockImplementationOnce(() => Promise.resolve("5"));
 
     // when
-    const totalCount = await CarRace.getTotalRaceCountUntilValid();
+    const totalCount = await getTotalRaceCountFromUserInput();
 
     // then
     expect(logSpy).toHaveBeenCalledWith(ERROR_CAR_RACE_COUNT_NOT_VALID);

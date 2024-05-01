@@ -1,4 +1,4 @@
-import readline from "readline";
+import "readline";
 
 export function readLineAsync(query) {
   return new Promise((resolve, reject) => {
