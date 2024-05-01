@@ -1,6 +1,5 @@
 import { Controller } from "./Controller";
 import { View } from "./View";
-import { ROUND_TIMES } from "./const/RacingConfig";
 
 class App {
   view;
@@ -12,12 +11,34 @@ class App {
   }
 
   async start() {
-    const input = await this.view.start();
-    console.log(input);
+    await this.init();
+    await this.play();
+    this.result();
+  }
 
-    this.controller.init(input);
-    this.controller.play(ROUND_TIMES);
+  async init() {
+    try {
+      const carsInput = await this.view.start();
+      this.controller.init(carsInput);
+      this.view.print(carsInput);
+    } catch (e) {
+      this.view.error(e.message);
+      await this.init();
+    }
+  }
 
+  async play() {
+    try {
+      const roundTimesInput = await this.view.roundTimes();
+      this.controller.play(roundTimesInput);
+      this.view.print(roundTimesInput);
+    } catch (e) {
+      this.view.error(e.message);
+      await this.play();
+    }
+  }
+
+  result() {
     const rounds = this.controller.rounds;
     this.view.result(rounds);
 

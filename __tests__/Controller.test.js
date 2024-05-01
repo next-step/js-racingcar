@@ -1,6 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
 import { Controller } from "../src/Controller";
-import { ROUND_TIMES } from "../src/const/RacingConfig";
 import { Round } from "../src/domain/Round";
 
 describe("컨트롤러 테스트", () => {
@@ -11,25 +10,56 @@ describe("컨트롤러 테스트", () => {
     controller.init(input);
 
     //when
-    const carNames = controller.carNames;
+    const carCount = controller.baseRound.cars.length;
 
     //then
-    expect(carNames).toEqual(input.split(","));
+    expect(carCount).toEqual(input.split(",").length);
   });
 
-  test(`라운드를 ${ROUND_TIMES}회 진행한다.`, () => {
+  test(`입력 받은 횟수만큼 라운드를 진행한다.`, () => {
     //given
     const controller = new Controller();
-    const input = "car1,car2,car3";
-    controller.init(input);
+    const carNames = "car1,car2,car3";
+
+    controller.init(carNames);
+
+    const roundTimes = 6;
 
     //when
-    controller.play(ROUND_TIMES);
+    controller.play(roundTimes);
     const rounds = controller.rounds;
 
     //then
-    expect(rounds.length).toBe(ROUND_TIMES);
+    expect(rounds.length).toBe(roundTimes);
     rounds.forEach((e) => expect(e).toBeInstanceOf(Round));
+  });
+
+  test("입력 받은 라운드 횟수가 0이하면 에러를 발생한다.", () => {
+    //given
+    const controller = new Controller();
+    const carNames = "car1,car2,car3";
+    controller.init(carNames);
+
+    //when
+    const roundTimes = 0;
+    const whenRoundTimesZero = () => controller.play(roundTimes);
+
+    //then
+    expect(whenRoundTimesZero).toThrowError();
+  });
+
+  test("입력 받은 라운드 횟수가 정수가 아니면 에러를 발생한다.", () => {
+    //given
+    const controller = new Controller();
+    const carNames = "car1,car2,car3";
+    controller.init(carNames);
+
+    //when
+    const roundTimes = 3.14;
+    const whenRoundTimesNotInteger = () => controller.play(roundTimes);
+
+    //then
+    expect(whenRoundTimesNotInteger).toThrowError();
   });
 
   test("우승자를 출력한다.", () => {
@@ -37,7 +67,7 @@ describe("컨트롤러 테스트", () => {
     const controller = new Controller();
     const input = "car1,car2,car3";
     controller.init(input);
-    controller.play(ROUND_TIMES);
+    controller.play(5);
 
     //when
     const winners = controller.winners;

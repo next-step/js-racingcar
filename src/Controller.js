@@ -2,17 +2,25 @@ import { Round } from "../src/domain/Round";
 import { Car } from "../src/domain/Car";
 
 export class Controller {
-  carNames;
+  baseRound;
   rounds = [];
 
   constructor() {}
 
   init(input) {
     this.isNotString(input);
-    this.carNames = input.split(",");
+    const carNames = input.split(",");
+    this.baseRound = this.createBaseRound(carNames);
+  }
+
+  createBaseRound(carNames) {
+    const cars = carNames.map((e) => new Car(e));
+    return new Round(cars);
   }
 
   play(roundTimes) {
+    this.isVaildRoundTimes(roundTimes);
+
     for (let i = 0; i < roundTimes; i++) {
       const round = this.loadLastRound();
       round.play();
@@ -22,9 +30,9 @@ export class Controller {
 
   loadLastRound() {
     if (this.rounds.length === 0) {
-      const cars = this.carNames.map((e) => new Car(e));
-      return new Round(cars);
+      return this.baseRound;
     }
+
     return this.rounds.at(-1).copy();
   }
 
@@ -34,8 +42,14 @@ export class Controller {
     }
   }
 
-  get carNames() {
-    return this.carNames;
+  isVaildRoundTimes(roundTimes) {
+    if (!Number.isInteger(roundTimes)) {
+      throw new Error();
+    }
+
+    if (roundTimes <= 0) {
+      throw new Error();
+    }
   }
 
   get winners() {

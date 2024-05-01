@@ -21,3 +21,13 @@ export function readLineAsync(query) {
     });
   });
 }
+
+export async function readIntegerAsync(query) {
+  const input = await readLineAsync(query);
+
+  if (!Number.isInteger(input)) {
+    throw new Error("This input must be integer");
+  }
+
+  return parseInt(input);
+}
