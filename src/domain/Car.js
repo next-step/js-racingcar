@@ -1,4 +1,4 @@
-import { MOVE_THRESHOLD } from "../constants/index.js";
+import { MOVE_THRESHOLD, RANDOM_BOUND } from "../constants/index.js";
 
 class Car { 
   name;
@@ -9,7 +9,7 @@ class Car {
   };
 
   getRandomValue(){
-    return Math.floor(Math.random() * 10);
+    return Math.floor(Math.random() * RANDOM_BOUND);
   };
 
   moveForward(randomValue){
