@@ -1,5 +1,11 @@
 import Car from "../domain/Car.js";
 
+export const validateCarNames = (carNames) => {
+  carNames.forEach((carName) => {
+    Car.validateName(carName);
+  });
+};
+
 export const createCarsFromCarNames = (carNames) => {
   return carNames.map((carName) => new Car(carName));
 };

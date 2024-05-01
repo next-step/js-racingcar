@@ -1,32 +1,31 @@
 import CarRace from "./domain/CarRace.js";
-import { createCars } from "./utils/cars.js";
-import { readLineAsync } from "./utils/io.js";
+import { createCarsFromCarNames } from "./utils/cars.js";
+import {
+  getCarNamesFromUserInput,
+  getTotalRaceCountFromUserInput,
+  printCarRaceWinners,
+} from "./utils/view.js";
 
 async function play() {
-  const input = await readLineAsync(
-    "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분)."
-  );
-  console.log("\n실행결과");
+  // 자동차 이름 입력
+  const carNames = await getCarNamesFromUserInput();
 
-  try {
-    // 자동차 생성
-    const cars = createCars(input);
+  // 자동차 이름으로부터 자동차 생성
+  const cars = createCarsFromCarNames(carNames);
 
-    // 자동차 경주 횟수 입력
-    const carRaceTotalCount = await CarRace.getTotalRaceCountFromUserInput();
+  // 자동차 경주 횟수 입력
+  const totalRaceCount = await getTotalRaceCountFromUserInput();
 
-    // 자동차 경주 생성
-    const carRace = new CarRace(cars, carRaceTotalCount);
+  console.log("\n실행 결과");
 
-    // 자동차 경주 시작
-    carRace.race();
+  // 자동차 경주 생성
+  const carRace = new CarRace(cars, totalRaceCount);
 
-    // 우승자 출력
-    carRace.printWinners();
-  } catch (e) {
-    console.error(e);
-    process.exit();
-  }
+  // 자동차 경주 시작
+  carRace.race();
+
+  // 우승자 출력
+  printCarRaceWinners(carRace.winners);
 }
 
 play();

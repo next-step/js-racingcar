@@ -3,8 +3,7 @@ import {
   ERROR_CAR_RACE_COUNT_NOT_VALID,
 } from "../constants/error.js";
 import CarRace from "../domain/CarRace.js";
-import Car from "../domain/Car.js";
-import { joinCarNamesByComma } from "./cars.js";
+import { joinCarNamesByComma, validateCarNames } from "./cars.js";
 import { readLineAsync } from "./readLineAsync.js";
 
 export async function getTotalRaceCountFromUserInput() {
@@ -30,9 +29,7 @@ export async function getCarNamesFromUserInput() {
 
     try {
       const carNames = input.split(",");
-      carNames.forEach((carName) => {
-        Car.validateName(carName);
-      });
+      validateCarNames(carNames);
 
       return carNames;
     } catch (e) {
