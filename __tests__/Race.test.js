@@ -29,7 +29,7 @@ describe('레이스 관련 내용 ', () => {
 
   test('우승자는 여러명일 수 있고, 여러명일 경우, 쉼표(,)를 이용하여 구분한다.', () => {
     //Given
-    const race = new Race();
+    const race = new Race([new Car('bmw'), new Car('audi'), new Car('kia')]);
 
     //When
     race.racingCars = [new Car('bmw'), new Car('audi'), new Car('kia')];
