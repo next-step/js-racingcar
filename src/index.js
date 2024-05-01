@@ -1,5 +1,6 @@
 import { ERROR_CODES } from "./constants";
 import { Race } from "./domain";
+import { CarError } from "./domain/Error";
 import { RandomMoveStrategy } from "./domain/strategies";
 import { View } from "./views";
 
@@ -24,7 +25,7 @@ export class App {
       "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n"
     );
     if (!namesInput) {
-      throw new Error(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
+      throw new CarError(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
     }
 
     return namesInput.split(",").map((name) => name.trim());

@@ -1,5 +1,6 @@
 import { ERROR_CODES } from "../constants";
 import { Car } from "./Car";
+import { CarError } from "./Error";
 import { RandomMoveStrategy } from "./strategies";
 
 export class Race {
@@ -18,12 +19,12 @@ export class Race {
 
   #validateNames(names) {
     if (names.some((name) => name === "")) {
-      throw new Error(ERROR_CODES.ERROR_INVALID_CAR_NAME);
+      throw new CarError(ERROR_CODES.ERROR_INVALID_CAR_NAME);
     }
 
     const nameSet = new Set(names);
     if (nameSet.size !== names.length) {
-      throw new Error(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);
+      throw new CarError(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);
     }
   }
 
