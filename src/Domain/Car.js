@@ -1,5 +1,4 @@
 import CONSTANTS from '../constants/Constants.js';
-import Random from '../utils/Random.js';
 import Validator from '../utils/Validator.js';
 
 class Car {
@@ -23,13 +22,7 @@ class Car {
   }
 
   move() {
-    const randomNumber = Random.getRandomNumber(
-      CONSTANTS.car.move.minNumber,
-      CONSTANTS.car.move.maxNumber,
-    );
-
-    if (randomNumber >= CONSTANTS.car.move.threshold)
-      this.#position += CONSTANTS.car.move.distance;
+    this.#position += CONSTANTS.car.move.distance;
   }
 }
 
