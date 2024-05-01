@@ -4,8 +4,6 @@ import Car from "../src/domain/Car.js";
 
 /**
 - [x] 5회 반복된다.
-
-
  */
 
 describe("자동차 경주 테스트", () => {

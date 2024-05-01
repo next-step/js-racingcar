@@ -1,6 +1,7 @@
 import View from "../view/view.js";
 
 const MAX_RACE_ROUND = 5;
+
 class Race {
   cars = [];
   currentRound = 0;

@@ -3,7 +3,6 @@ import Car from "../src/domain/Car.js";
 
 const MAX_CAR_NAME_LENGTH = 5;
 /**
- * 
 ## 자동차
 - [x] 자동차는 5자 이하의 이름을 갖는다.
 - [x] 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우, 전진한다
