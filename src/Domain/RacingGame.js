@@ -1,4 +1,5 @@
 import CONSTANTS from '../constants/Constants.js';
+import Random from '../utils/Random.js';
 import Validator from '../utils/Validator.js';
 
 class RacingGame {
@@ -27,7 +28,9 @@ class RacingGame {
   }
 
   progressRound() {
-    this.#cars.forEach(car => car.move());
+    this.#cars.forEach(car => {
+      RacingGame.moveCar(car, RacingGame.getRandomNumber());
+    });
 
     this.setRoundResult();
 
@@ -64,6 +67,21 @@ class RacingGame {
       results: this.#results,
       winners: this.#winners,
     };
+  }
+
+  static moveCar(car, value) {
+    if (value >= CONSTANTS.car.move.threshold) {
+      car.move();
+    }
+  }
+
+  static getRandomNumber() {
+    const randomNumber = Random.generateRandomNumber(
+      CONSTANTS.car.move.minNumber,
+      CONSTANTS.car.move.minNumber,
+    );
+
+    return randomNumber;
   }
 }
 
