@@ -1,4 +1,5 @@
-const MAX_CAR_NAME_LENGTH = 5;
+export const MAX_CAR_NAME_LENGTH = 5;
+export const MIN_CAR_NAME_LENGTH = 1;
 const MOVE_CAR_COUNT = 4;
 
 export class Car {
@@ -13,7 +14,7 @@ export class Car {
   }
 
   isValidLength(name) {
-    return name.length <= 5 && name.length >= 1;
+    return name.length <= MAX_CAR_NAME_LENGTH && name.length >= MIN_CAR_NAME_LENGTH;
   }
 
   validateName(name) {
