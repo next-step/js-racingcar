@@ -6,6 +6,7 @@ class Name {
   static DEFAULT_OPTIONS = {
     MIN_NAME_LENGTH: 2,
     MAX_NAME_LENGTH: 5,
+    REGEX: '^[a-zA-Z가-힣]+$',
   };
 
   constructor(
@@ -13,13 +14,13 @@ class Name {
     {
       maxLen = Name.DEFAULT_OPTIONS.MAX_NAME_LENGTH,
       minLen = Name.DEFAULT_OPTIONS.MIN_NAME_LENGTH,
-      regex = /^[a-zA-Z가-힣]+$/g,
+      regex = Name.DEFAULT_OPTIONS.REGEX,
     } = Name.DEFAULT_OPTIONS
   ) {
     if (!(typeof name === 'string')) {
       throw new TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
     }
-    if (!regex.test(name)) {
+    if (!new RegExp(regex, 'g').test(name)) {
       throw new TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
     }
     if (name.length < minLen) {
