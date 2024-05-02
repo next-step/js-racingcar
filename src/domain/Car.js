@@ -6,7 +6,7 @@ class Car {
   #position = 0;
 
   constructor(name) {
-    Car.validateName(name);
+    Car.validateCarName(name);
 
     this.#name = name;
   }
@@ -19,10 +19,20 @@ class Car {
     return this.#position;
   }
 
-  static validateName(name) {
+  static validateCarName(name) {
     if (name.length > MAX_CAR_NAME_LENGTH) {
       throw new Error(ERROR_CAR_NAME_TOO_LONG);
     }
+  }
+
+  static validateCarNames(carNames) {
+    carNames.forEach((carName) => {
+      Car.validateCarName(carName);
+    });
+  }
+
+  static createCarsFromCarNames(carNames) {
+    return carNames.map((carName) => new Car(carName));
   }
 
   move() {

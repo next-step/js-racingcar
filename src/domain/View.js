@@ -1,10 +1,10 @@
-import { joinCarNamesByComma, validateCarNames } from "../utils/cars.js";
 import { readLineAsync } from "../utils/readLineAsync.js";
 import CarRace from "./CarRace.js";
 import {
   ERROR_CAR_NAME_TOO_LONG,
   ERROR_CAR_RACE_COUNT_NOT_VALID,
 } from "../constants/error.js";
+import Car from "./Car.js";
 
 const View = {
   async getTotalRaceCountFromUserInput() {
@@ -29,7 +29,7 @@ const View = {
 
       try {
         const carNames = input.split(",");
-        validateCarNames(carNames);
+        Car.validateCarNames(carNames);
 
         return carNames;
       } catch (e) {
@@ -38,10 +38,11 @@ const View = {
       }
     }
   },
-  printCarRaceWinners(winners) {
-    const joinedCarRaceWinners = joinCarNamesByComma(winners);
+  printCarRaceWinners(cars) {
+    const carNames = cars.map((car) => car.name);
+    const joinedCarNames = carNames.join(", ");
 
-    console.log(`${joinedCarRaceWinners}가 최종 우승했습니다.`);
+    console.log(`${joinedCarNames}가 최종 우승했습니다.`);
   },
   printCarStatus(car) {
     const carPosition = "-".repeat(car.position);

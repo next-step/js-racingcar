@@ -4,7 +4,6 @@ import {
 } from "../src/constants/error.js";
 import Car from "../src/domain/Car.js";
 import * as io from "../src/utils/readLineAsync.js";
-import { joinCarNamesByComma } from "../src/utils/cars.js";
 import View from "../src/domain/View.js";
 
 const logSpy = jest.spyOn(console, "log");
@@ -53,10 +52,12 @@ describe("입출력 테스트", () => {
     const raceWinners = [car1, car2, car3];
 
     // when
-    const joinedNames = joinCarNamesByComma(raceWinners);
+    View.printCarRaceWinners(raceWinners);
 
     // then
-    expect(joinedNames).toBe("pobi, crong, honux");
+    expect(logSpy).toHaveBeenCalledWith(
+      "pobi, crong, honux가 최종 우승했습니다."
+    );
   });
 
   test("자동차의 현재 위치를 출력할 때 자동차의 이름과 함께 자동차의 위치 값(정수)을 '-'의 연속으로 출력한다.", () => {
