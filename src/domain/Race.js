@@ -53,4 +53,8 @@ export default class Race {
   get currentRoundRecord() {
     return this.#records[this.#records.length - 1];
   }
+
+  get records() {
+    return this.#records;
+  }
 }

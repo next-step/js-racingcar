@@ -1,20 +1,21 @@
-import { getRandomNumber } from "../src/utils/number.js";
-import { displayForwardCar } from "../src/view.js";
-import Car from "../src/domain/Car.js";
-import Controller, { playGame } from "../src/controller.js";
+import Controller from "../src/controller.js";
 import Race from "../src/domain/Race.js";
 
 describe("자동차 경주 규칙 구현", () => {
-  test("경주는 주어진 횟수동안 진행한다.", () => {
+  test("경주는 주어진 횟수동안 진행한다.", async () => {
     //given
-    const race = new Race();
-    race.maxRound = 5;
+    const controller = new Controller();
+    const getCarNames = () => "pobi,crong,honux";
+    const getRound = () => 5;
+    await controller.initCarNames(getCarNames);
+    await controller.initMaxRound(getRound);
 
     //when
-    race.playRace();
+    controller.playRaceGame();
 
     //then
-    expect(race.currentRound).toBe(5);
+    const raceCount = controller.race.records.length;
+    expect(raceCount).toBe(5);
   });
 
   test("레이스에서 가장 많이 이동한 자동차가 우승자가 된다.", () => {
