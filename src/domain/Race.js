@@ -1,54 +1,49 @@
+import {getRandomNum} from '../common';
 class Race {
-  _input;
-  _current_lab = 0;
-  _move = false;
-  _random_num;
-  _env = true;
-  _lab;
+  #input;
+  #currentLab = 0;
+  #env = true;
+  #lab;
 
   constructor(input, lab = 5, env = true) {
     if(typeof lab !== 'number' || lab === 0) {
       throw new Error('랩은 숫자이거나 0보다 커야 합니다.');
     }
-    this._input = input;
-    this._lab = lab;
-    this._env = env;
+    this.#input = input;
+    this.#lab = lab;
+    this.#env = env;
   }
 
-  start() {
-    if(!this._env)
-      console.log("\n실행 결과");
-      
-    this._current_lab = 0;
-    const cars = this._input.cars;
-    for (let i = 0; i < this._lab; i++) {
-      cars.forEach(car => {
-        this.randomNum();
-        car.conditionsMove(this._random_num);
-      });
-      const lab_output = this._input.race_output;
-      if(!this._env)
-        console.log(lab_output);
-      this._current_lab += 1;
+  async start() {
+    await printStartMessage(this.#env);
+    this.#currentLab = 0;
+    const cars = this.#input.cars;
+    for (let i = 0; i < this.#lab; i++) {
+      await this.moveCars(cars);
+      this.#currentLab += 1;
     }
   }
 
+  async moveCars(cars) {
+    for (const car of cars) {
+      const number = await getRandomNum();
+      car.conditionsMove(number);
+    };
+  }
+
   winner() {
-    const winner = this._input.winner;
+    const winner = this.#input.winner;
     console.log(winner);
   }
 
-  randomNum() {
-    const number = Math.floor(Math.random() * 10);
-    this._random_num = number;
+  get currentLab() {
+    return this.#currentLab;
   }
+}
 
-  get current_lab() {
-    return this._current_lab;
-  }
-
-  get random_num() {
-    return this._random_num;
+const printStartMessage = (env) => {
+  if(!env) {
+    console.log("\n실행 결과");
   }
 }
 

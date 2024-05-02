@@ -2,68 +2,58 @@ import Car from './Car';
 import {MIN_CAR_NAME_LENGTH, MAX_CAR_NAME_LENGTH} from '../common.js';
 
 class InputOutput {
-  _car_names;
-  _cars = [];
+  #carNames;
+  #cars = [];
 
-  constructor(car_names) {
-
-    this._car_names = car_names;
-    car_names.split(',').forEach(car_name => {
-      if (!this.isValidCarName(car_name)) {
+  constructor(names) {
+    this.#carNames = names;
+    names.split(',').forEach(name => {
+      if (!this.isValidCarName(name)) {
         throw new Error('자동차 이름은 1자 이상 5자 이하로 문자로 입력해주세요.');
       }
 
-      this._cars.push(new Car(car_name));
+      this.#cars.push(new Car(name));
     });
   }
 
-  isValidCarName(car_name) {
-    if(typeof car_name !== 'string')
+  isValidCarName(name) {
+    if(typeof name !== 'string')
       return false;
-    if (car_name.length > MAX_CAR_NAME_LENGTH)
+    if (name.length > MAX_CAR_NAME_LENGTH)
       return false;
-    if(car_name.length < MIN_CAR_NAME_LENGTH)
+    if(name.length < MIN_CAR_NAME_LENGTH)
       return false;
 
     return true;
   }
 
   get cars() {
-    return this._cars;
+    return this.#cars;
   }
 
-  get car_names() {
-    return this._car_names;
+  get carNames() {
+    return this.#carNames;
   }
 
-  get race_output() {
-    let result = '';
-    this._cars.forEach(car => {
+  get raceOutput() {
+    const result = this.#cars.map(car => {
       const position = car.position;
-      const car_name = car.name;
-      const text_position = '-'.repeat(position);
-      result += `${car_name} : ${text_position}\n`;
-    });
+      const carName = car.name;
+      const textPosition = '-'.repeat(position);
+      return `${carName} : ${textPosition}\n`;
+    }).join('');
+
     return result;
   }
 
   get winner() {
-    let max_position = 0;
-    let winners = [];
-    this._cars.forEach(car => {
-      const position = car.position;
-      if(position > max_position) {
-        max_position = position;
+    let maxPosition = 0;
+    this.#cars.map(car => {
+      if(car.position > maxPosition) {
+        maxPosition = car.position;
       }
     })
-
-    this._cars.forEach(car => {
-      const position = car.position;
-      if(position === max_position) {
-        winners.push(car.name);
-      }
-    })
-
+    const winners = this.#cars.filter(car => car.position === maxPosition).map(car => car.name);
     return `${winners.join(',')}가 최종 우승했습니다.`;
   }
 }
