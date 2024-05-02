@@ -9,8 +9,9 @@ export class App {
 
   async play() {
     try {
-      const carNames = await this.#getCarNames();
+      let carNames = await this.#getCarNames();
       if (carNames.length === 0) return;
+      if (!Array.isArray(carNames)) carNames = carNames.split(",");
 
       this.#race = new Race(carNames, new RandomMoveStrategy());
       const result = this.#race.race();
@@ -28,7 +29,7 @@ export class App {
       throw new CarError(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
     }
 
-    return namesInput.split(",").map((name) => name.trim());
+    return namesInput;
   }
 
   #render(raceResult) {
