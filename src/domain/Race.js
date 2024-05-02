@@ -1,4 +1,4 @@
-import {getRandomNum} from '../common';
+import {getRandomNum, printMessage} from '../common';
 class Race {
   #input;
   #currentLab = 0;
@@ -35,12 +35,6 @@ class Race {
 
   get currentLab() {
     return this.#currentLab;
-  }
-}
-
-const printMessage = async(env, msg) => {
-  if(!env) {
-    console.log(msg);  
   }
 }
 

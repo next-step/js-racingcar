@@ -7,3 +7,9 @@ export const getRandomNum = () => {
   const number = Math.floor(Math.random() * 10);
   return number;
 }
+
+export const printMessage = async(env, msg) => {
+  if(!env) {
+    console.log(msg);  
+  }
+}
