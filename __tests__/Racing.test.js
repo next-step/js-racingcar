@@ -42,7 +42,6 @@ describe('자동차 경주 기능 테스트', () => {
     const winners = racing.winners;
 
     // then
-    expect(winners.length).not.toBe(0);
     expect(winners.length).toBeGreaterThan(0);
     expect(winners.length).toBeLessThanOrEqual(3);
   });
