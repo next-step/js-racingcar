@@ -2,7 +2,6 @@ import { describe, expect, test } from "@jest/globals";
 import { Car } from "../src/domain/Car";
 import { Round } from "../src/domain/Round";
 import { CAR_MOVE_CONDITION } from "../src/const/RacingConfig";
-import { getRandom } from "../src/common/Random";
 
 describe("라운드 테스트", () => {
   test("라운드를 진행할 자동차 목록을 받는다.", () => {
