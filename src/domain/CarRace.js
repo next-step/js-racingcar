@@ -1,5 +1,4 @@
 import { ERROR_CAR_RACE_COUNT_NOT_VALID } from "../constants/error.js";
-import { isNumber } from "../utils/number.js";
 import View from "./View.js";
 class CarRace {
   #remainingRaceCount;
@@ -32,7 +31,7 @@ class CarRace {
   }
 
   static validateTotalRaceCount(totalRaceCount) {
-    if (!isNumber(totalRaceCount)) {
+    if (!Number.isInteger(totalRaceCount)) {
       throw new Error(ERROR_CAR_RACE_COUNT_NOT_VALID);
     }
 
