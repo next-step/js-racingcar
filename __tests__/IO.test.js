@@ -30,10 +30,11 @@ describe("입/출력 테스트", () => {
     await app.play();
 
     // then
-    const cars = TEST_CAR_NAMES.split(",");
-    cars.forEach((car) => {
-      expect(logSpy).toHaveBeenCalledWith(`${car.trim()} : `);
-    });
+    const logs = [["pobi : "], ["crong : "], ["honux : "]].map((log) =>
+      JSON.stringify(log)
+    );
+    const calls = logSpy.mock.calls.map((log) => JSON.stringify(log));
+    expect(logs.every((log) => calls.includes(log))).toBe(true);
   });
 
   test("우승자가 여러 명일 경우 쉼표(,)를 이용하여 구분하여 출력한다.", async () => {
@@ -46,10 +47,7 @@ describe("입/출력 테스트", () => {
 
     // then
     expect(logSpy).toHaveBeenCalledWith(
-      `${app
-        .getRace()
-        .winners.map((car) => car.name)
-        .join(", ")}가 최종 우승했습니다.`
+      `pobi, crong, honux가 최종 우승했습니다.`
     );
   });
 
