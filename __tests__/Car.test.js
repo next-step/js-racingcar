@@ -11,32 +11,44 @@ describe('자동차 기능 테스트', () => {
     // then
     expect(name).toBe('taxi');
   });
-  it('자동차는 이동(전진, 후진, 정지)할 수 있다.', () => {
-    // given
-    const [taxi, tesla, ford] = [
-      new Car('taxi'),
-      new Car('tesla'),
-      new Car('ford'),
-    ];
-
-    // when
-    const taxiPosition = taxi.forward().position;
-    const teslaPosition = tesla.stop().position;
-    const fordPosition = ford.backward().position;
-
-    // then
-    expect([0, 1]).toContain(taxiPosition);
-    expect(teslaPosition).toBe(0);
-    expect(fordPosition).toBe(-1);
-  });
-  it('전진하는 조건은 0~9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다.', () => {
+  it('값이 4이상일 경우 전진할 수 있다.', () => {
     // given
     const taxi = new Car('taxi');
 
     // when
-    const taxiPosition = taxi.forward().position;
+    const taxiPosition = taxi.forwardOrStop(4).position;
 
     // then
-    expect([0, 1]).toContain(taxiPosition);
+    expect(taxiPosition).toBe(1);
+  });
+  it('값이 3이하일 경우 전진할 수 없다.', () => {
+    // given
+    const taxi = new Car('taxi');
+
+    // when
+    const taxiPosition = taxi.forwardOrStop(3).position;
+
+    // then
+    expect(taxiPosition).toBe(0);
+  });
+  it('정지할 수 있다.', () => {
+    // given
+    const taxi = new Car('taxi');
+
+    // when
+    const taxiPosition = taxi.stop().position;
+
+    // then
+    expect(taxiPosition).toBe(0);
+  });
+  it('후진할 수 있다.', () => {
+    // given
+    const taxi = new Car('taxi');
+
+    // when
+    const taxiPosition = taxi.backward().position;
+
+    // then
+    expect(taxiPosition).toBe(-1);
   });
 });
