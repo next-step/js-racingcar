@@ -27,8 +27,4 @@ describe("자동차 기능 테스트", () => {
     car.drive(4);
     expect(car.position).toBe(1);
   });
-
-  test("자동차 이름은 ,를 기준으로 구분한다", () => {
-    // expect(() => new Car("scarlet")).toThrow(CAR.NAME_LENGTH_EXCEED);
-  });
 });
