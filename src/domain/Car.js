@@ -4,11 +4,9 @@ import Move from './Move';
 class Car extends Move {
   #carName;
 
-  static FORWARD_LIMIT = 4;
-  static DEFAULT_MOVE_SIZE = 1;
-  static DEFAULT_FORWARD_OR_STOP_OPTIONS = {
-    forwardLimit: Car.FORWARD_LIMIT,
-    moveSize: Car.DEFAULT_MOVE_SIZE,
+  static FORWARD_OR_STOP_DEFAULT_OPTIONS = {
+    FORWARD_LIMIT: 4,
+    MOVE_SIZE: 1,
   };
 
   constructor(carName) {
@@ -22,7 +20,10 @@ class Car extends Move {
 
   forwardOrStop(
     forwardValue,
-    { forwardLimit, moveSize } = Car.DEFAULT_FORWARD_OR_STOP_OPTIONS
+    {
+      forwardLimit = Car.FORWARD_OR_STOP_DEFAULT_OPTIONS.FORWARD_LIMIT,
+      moveSize = Car.FORWARD_OR_STOP_DEFAULT_OPTIONS.MOVE_SIZE,
+    } = Car.FORWARD_OR_STOP_DEFAULT_OPTIONS
   ) {
     if (forwardValue >= forwardLimit) {
       return super.forward(moveSize);
