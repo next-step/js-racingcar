@@ -30,7 +30,7 @@ export class Racing {
   }
 
   //이긴사람 조회
-  winner() {
+  get winner() {
     const maxPosition = Math.max(...this.cars.map((car) => car.position));
     return this.cars.filter((car) => car.position === maxPosition);
   }
