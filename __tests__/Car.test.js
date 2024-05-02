@@ -1,5 +1,5 @@
-import { playGame } from "../src/controller.js";
 import Car from "../src/domain/Car.js";
+import { getRandomNumber } from "../src/utils/number.js";
 
 describe("자동차 구현 테스트", () => {
   test("자동차에 이름을 부여할 수 있다.", () => {
