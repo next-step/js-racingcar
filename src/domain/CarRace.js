@@ -1,6 +1,6 @@
 import { ERROR_CAR_RACE_COUNT_NOT_VALID } from "../constants/error.js";
 import { isNumber } from "../utils/number.js";
-import { printCarsStatus } from "../utils/view.js";
+import View from "./View.js";
 class CarRace {
   #remainingRaceCount;
 
@@ -54,7 +54,7 @@ class CarRace {
           competitor.move();
         }
       });
-      printCarsStatus(this.competitors);
+      View.printCarsStatus(this.competitors);
 
       this.#remainingRaceCount--;
     }

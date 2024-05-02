@@ -5,11 +5,7 @@ import {
 import Car from "../src/domain/Car.js";
 import * as io from "../src/utils/readLineAsync.js";
 import { joinCarNamesByComma } from "../src/utils/cars.js";
-import {
-  getTotalRaceCountFromUserInput,
-  getCarNamesFromUserInput,
-  printCarsStatus,
-} from "../src/utils/view.js";
+import View from "../src/domain/View.js";
 
 const logSpy = jest.spyOn(console, "log");
 const readLineAsyncSpy = jest.spyOn(io, "readLineAsync");
@@ -25,7 +21,7 @@ describe("입출력 테스트", () => {
     readLineAsyncSpy.mockImplementationOnce(() => Promise.resolve("1"));
 
     // when
-    const totalCount = await getTotalRaceCountFromUserInput();
+    const totalCount = await View.getTotalRaceCountFromUserInput();
 
     // then
     expect(readLineAsyncSpy).toHaveBeenCalledTimes(1);
@@ -39,7 +35,7 @@ describe("입출력 테스트", () => {
       .mockImplementationOnce(() => Promise.resolve("5"));
 
     // when
-    const totalCount = await getTotalRaceCountFromUserInput();
+    const totalCount = await View.getTotalRaceCountFromUserInput();
 
     // then
     expect(logSpy).toHaveBeenCalledWith(ERROR_CAR_RACE_COUNT_NOT_VALID);
@@ -83,7 +79,7 @@ describe("입출력 테스트", () => {
     car2.move();
 
     // when
-    printCarsStatus(cars);
+    View.printCarsStatus(cars);
 
     // then
     expect(logSpy).toHaveBeenCalledWith("ganu : -");
@@ -97,7 +93,7 @@ describe("입출력 테스트", () => {
     );
 
     // when
-    const carNames = await getCarNamesFromUserInput();
+    const carNames = await View.getCarNamesFromUserInput();
 
     // then
     expect(readLineAsyncSpy).toHaveBeenCalledTimes(1);
@@ -111,7 +107,7 @@ describe("입출력 테스트", () => {
       .mockImplementationOnce(() => Promise.resolve("ganu,crong,honux"));
 
     // when
-    const carNames = await getCarNamesFromUserInput();
+    const carNames = await View.getCarNamesFromUserInput();
 
     // then
     expect(logSpy).toHaveBeenCalledWith(ERROR_CAR_NAME_TOO_LONG);
