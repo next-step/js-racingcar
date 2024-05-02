@@ -57,16 +57,16 @@ describe("입출력 테스트", () => {
     expect(joinedNames).toBe("pobi, crong, honux");
   });
 
-  test("자동차의 현재 위치를 출력할 때 자동차의 위치 값(정수)는 '-'으로 출력된다.", () => {
+  test("자동차의 현재 위치를 출력할 때 자동차의 이름과 함께 자동차의 위치 값(정수)을 '-'의 연속으로 출력한다.", () => {
     // given
     const car = new Car("ganbu");
     car.move();
 
     // when
-    const carPositionToString = car.positionToString();
+    View.printCarStatus(car);
 
     // then
-    expect(carPositionToString).toBe("-");
+    expect(logSpy).toHaveBeenCalledWith("ganbu : -");
   });
 
   test("자동차 경주마다 각 자동차의 이름과 현재 위치를 같이 출력한다.", () => {

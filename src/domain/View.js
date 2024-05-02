@@ -43,9 +43,14 @@ const View = {
 
     console.log(`${joinedCarRaceWinners}가 최종 우승했습니다.`);
   },
+  printCarStatus(car) {
+    const carPosition = "-".repeat(car.position);
+
+    console.log(`${car.name} : ${carPosition}`);
+  },
   printCarsStatus(cars) {
     cars.forEach((car) => {
-      console.log(car.statusToString());
+      this.printCarStatus(car);
     });
     console.log();
   },
