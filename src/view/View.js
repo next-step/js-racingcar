@@ -1,4 +1,4 @@
-import { readLineAsync, readIntegerAsync } from "./common/ReadLine";
+import { readLineAsync, readIntegerAsync } from "../common/ReadLine";
 
 export class View {
   start() {

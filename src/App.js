@@ -1,5 +1,5 @@
-import { Controller } from "./Controller";
-import { View } from "./View";
+import { Controller } from "./domain/Controller";
+import { View } from "./view/View";
 
 class App {
   #view;

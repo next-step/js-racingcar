@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { Controller } from "../src/Controller";
+import { Controller } from "../src/domain/Controller";
 import { Round } from "../src/domain/Round";
 
 describe("컨트롤러 테스트", () => {

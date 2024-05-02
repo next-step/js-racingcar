@@ -1,5 +1,5 @@
-import { Round } from "../src/domain/Round";
-import { Car } from "../src/domain/Car";
+import { Round } from "./Round";
+import { Car } from "./Car";
 
 export class Controller {
   #baseRound;
