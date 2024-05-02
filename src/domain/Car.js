@@ -5,7 +5,7 @@ export class Car {
   #position = 0;
 
   constructor(name) {
-    this.#validate(name);
+    this.#checkName(name);
     this.#name = name;
   }
 
@@ -13,7 +13,13 @@ export class Car {
     this.#position++;
   }
 
-  #validate(name) {
+  copy() {
+    const copy = new Car(this.#name);
+    copy.position = this.#position;
+    return copy;
+  }
+
+  #checkName(name) {
     if (typeof name !== "string") {
       throw new Error("잘못된 입력입니다.");
     }
@@ -27,12 +33,6 @@ export class Car {
         `자동차의 이름은 ${MAX_CAR_NAME_LENGTH}글자 이하여야합니다.`
       );
     }
-  }
-
-  copy() {
-    const copy = new Car(this.#name);
-    copy.position = this.#position;
-    return copy;
   }
 
   get name() {

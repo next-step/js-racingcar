@@ -8,13 +8,13 @@ export class Controller {
   constructor() {}
 
   init(input) {
-    this.#isNotString(input);
+    this.#checkInput(input);
     const carNames = input.split(",");
     this.#baseRound = this.#createBaseRound(carNames);
   }
 
   play(roundTimes) {
-    this.#isVaildRoundTimes(roundTimes);
+    this.#checkRoundTimes(roundTimes);
 
     for (let i = 0; i < roundTimes; i++) {
       const round = this.#loadLastRound();
@@ -36,13 +36,13 @@ export class Controller {
     return this.#rounds.at(-1).copy();
   }
 
-  #isNotString(input) {
+  #checkInput(input) {
     if (typeof input !== "string") {
       throw new Error("잘못된 입력입니다.");
     }
   }
 
-  #isVaildRoundTimes(roundTimes) {
+  #checkRoundTimes(roundTimes) {
     if (!Number.isInteger(roundTimes)) {
       throw new Error();
     }

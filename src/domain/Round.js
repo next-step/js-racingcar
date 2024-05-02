@@ -29,18 +29,18 @@ export class Round {
     return false;
   }
 
+  copy() {
+    const copyCars = this.#cars.map((e) => e.copy());
+    const copy = new Round(copyCars);
+    return copy;
+  }
+
   #existsDuplicatedCarName(cars) {
     const carNames = cars.map((e) => e.name);
 
     if (carNames.length !== new Set(carNames).size) {
       throw new Error("중복된 이름의 자동차가 있습니다.");
     }
-  }
-
-  copy() {
-    const copyCars = this.#cars.map((e) => e.copy());
-    const copy = new Round(copyCars);
-    return copy;
   }
 
   get cars() {
