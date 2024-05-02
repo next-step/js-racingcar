@@ -4,20 +4,15 @@ import {
   DefaultMoveStrategy,
   RandomMoveStrategy,
 } from "../src/domain/strategies";
-import { getRandom, readLineAsync } from "../src/utils";
+import { getRandom } from "../src/utils";
 
 const TEST_CAR_NAMES = "pobi,crong,honux";
 
 jest.mock("../src/utils", () => ({
-  readLineAsync: jest.fn(),
   getRandom: jest.fn(),
 }));
 
 describe("자동차 경주 게임 테스트", () => {
-  afterEach(() => {
-    readLineAsync.mockReset();
-  });
-
   test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. - DefaultMoveStrategy", async () => {
     // given
     const carNames = TEST_CAR_NAMES.split(",");
