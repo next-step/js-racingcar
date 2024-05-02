@@ -1,7 +1,5 @@
-import { playGame } from "../src/controller.js";
 import Controller from "../src/controller.js";
 import Car from "../src/domain/Car.js";
-import Race from "../src/domain/Race.js";
 import { displayForwardCar } from "../src/view.js";
 
 describe("자동차/경주 입력 구현 테스트", () => {
@@ -198,13 +196,13 @@ describe("자동차 경주 상황 출력 구현", () => {
     expect(logSpy).toHaveBeenCalledWith("pobi : -");
   });
 
-  test("게임 완료 후 우승자를 출력한다.", () => {
+  test("게임 완료 후 우승자를 출력한다.", async () => {
     //given
     const controller = new Controller();
     const getCarNames = () => "pobi,crong,honux";
     const getRound = () => 5;
-    controller.initCarNames(getCarNames);
-    controller.initMaxRound(getRound);
+    await controller.initCarNames(getCarNames);
+    await controller.initMaxRound(getRound);
     controller.playRaceGame();
 
     //when
@@ -213,7 +211,7 @@ describe("자동차 경주 상황 출력 구현", () => {
 
     //then
     expect(logSpy).toHaveBeenCalledWith(
-      `${winners.join(", ")}가 최종 우승했습니다.`
+      `${winners.map(({ name }) => name).join(", ")}가 최종 우승했습니다.`
     );
   });
 });
