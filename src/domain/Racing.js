@@ -4,14 +4,17 @@ import { generateRandomNumber } from '../utils';
 
 class Racing {
   #players;
-  #maxLap;
   #winners;
+  #lap;
+  #maxLap;
 
   static DEFAULT_MAX_LAP = 5;
+  static INITIAL_LAP = 0;
 
   constructor(maxLap = Racing.DEFAULT_MAX_LAP) {
     this.#players = [];
     this.#winners = [];
+    this.#lap = Racing.INITIAL_LAP;
     this.#maxLap = maxLap;
   }
 
@@ -35,7 +38,7 @@ class Racing {
   }
 
   isEndedRace() {
-    return this.#getPlayersPosition().includes(this.#maxLap);
+    return this.#lap >= this.#maxLap;
   }
 
   #getPlayersPosition() {
@@ -51,6 +54,7 @@ class Racing {
   }
 
   race1Lap() {
+    this.#lap = this.#lap + 1;
     this.#players.forEach((player) =>
       player.forwardOrStop(generateRandomNumber(0, 9))
     );
@@ -65,8 +69,9 @@ class Racing {
   }
 
   end() {
+    const winnerPosition = Math.max(...this.#getPlayersPosition());
     this.#winners = this.#players.filter(
-      (player) => player.position === this.#maxLap
+      (player) => player.position === winnerPosition
     );
     return this;
   }
