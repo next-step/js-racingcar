@@ -73,30 +73,58 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 에러 메시지
     expect(logSpy).toHaveBeenCalledWith("자동차 이름을 입력해주세요.");
   });
 
-  test("사용자가 라운드 값을 0이하로 작성한 경우 에러 메시지를 보여준다.", () => {
-    const correctNameInput = "pobi, crong, honux";
-    const wrongInput = -1;
+  test("사용자가 라운드 값을 0이하로 작성한 경우 에러 메시지를 보여준다.", async () => {
+    //given
+    const logSpy = jest.spyOn(global.console, "error");
+    const controller = new Controller();
+    const underZeroNumber = -1;
+    const correctInput = 5;
+    const mockAskMaxRound = jest.fn();
+    mockAskMaxRound
+      .mockImplementationOnce(() => underZeroNumber)
+      .mockImplementationOnce(() => correctInput);
 
-    expect(() => playGame(correctNameInput, wrongInput)).toThrow(
-      "시도할 횟수는 0보다 커야합니다."
-    );
+    //when
+    await controller.initMaxRound(mockAskMaxRound);
+
+    //then
+    expect(logSpy).toHaveBeenCalledWith("시도할 횟수는 0보다 커야합니다.");
   });
 
-  test("사용자가 라운드 값을 string으로 작성한 경우 에러 메시지를 보여준다.", () => {
-    const correctNameInput = "pobi, crong, honux";
-    const wrongInput = "six";
+  test("사용자가 라운드 값을 string으로 작성한 경우 에러 메시지를 보여준다.", async () => {
+    //given
+    const logSpy = jest.spyOn(global.console, "error");
+    const controller = new Controller();
+    const stringInput = "six";
+    const correctInput = 5;
+    const mockAskMaxRound = jest.fn();
+    mockAskMaxRound
+      .mockImplementationOnce(() => stringInput)
+      .mockImplementationOnce(() => correctInput);
 
-    expect(() => playGame(correctNameInput, wrongInput)).toThrow(
-      "시도할 횟수는 숫자여야합니다."
-    );
+    //when
+    await controller.initMaxRound(mockAskMaxRound);
+
+    //then
+    expect(logSpy).toHaveBeenCalledWith("시도할 횟수는 숫자여야합니다.");
   });
 
-  test("사용자가 라운드 값을 작성하지 않은 경우 에러 메시지를 보여준다.", () => {
-    const correctNameInput = "pobi, crong, honux";
+  test("사용자가 라운드 값을 작성하지 않은 경우 에러 메시지를 보여준다.", async () => {
+    //given
+    const logSpy = jest.spyOn(global.console, "error");
+    const controller = new Controller();
+    const noInput = "";
+    const correctInput = 5;
+    const mockAskMaxRound = jest.fn();
+    mockAskMaxRound
+      .mockImplementationOnce(() => noInput)
+      .mockImplementationOnce(() => correctInput);
 
-    expect(() => playGame(correctNameInput)).toThrow(
-      "시도할 횟수를 입력해주세요."
-    );
+    //when
+    await controller.initMaxRound(mockAskMaxRound);
+
+    //then
+    expect(logSpy).toHaveBeenCalledWith("시도할 횟수를 입력해주세요.");
   });
 });
 
