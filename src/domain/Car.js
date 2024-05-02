@@ -1,4 +1,4 @@
-import { CAR_MOVE_CONDITION } from "../const/RacingConfig";
+export const MAX_CAR_NAME_LENGTH = 5;
 
 export class Car {
   name;
@@ -22,8 +22,10 @@ export class Car {
       throw new Error("잘못된 입력입니다.");
     }
 
-    if (name.length > 5) {
-      throw new Error("자동차의 이름은 5글자 이하여야합니다.");
+    if (name.length > MAX_CAR_NAME_LENGTH) {
+      throw new Error(
+        `자동차의 이름은 ${MAX_CAR_NAME_LENGTH}글자 이하여야합니다.`
+      );
     }
   }
 
