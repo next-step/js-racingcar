@@ -10,6 +10,7 @@ export const startRacing = (carNames) => {
     race.cars.forEach((car) => {
       console.log(`${car.name} : ${"-".repeat(car.position)}`);
     });
+    console.log("");
   }
 
   console.log(
@@ -22,7 +23,7 @@ export const startRacing = (carNames) => {
 // 입출력 예시
 async function play() {
   const name = await readLineAsync(
-    "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분)."
+    "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분) > "
   );
   console.log(`${name}`);
 
