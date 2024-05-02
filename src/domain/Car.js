@@ -1,14 +1,14 @@
 import { CAR, ERROR_MESSAGE } from "../constant/index.js";
 
 export default class Car {
-  #name;
+  name;
   position;
 
   constructor(name) {
     if (name.length > CAR.MAX_NAME_LENGTH) {
       throw new Error(ERROR_MESSAGE.CAR_NAME_LENGTH);
     }
-    this.#name = name;
+    this.name = name;
     this.position = 0;
   }
 
@@ -23,6 +23,6 @@ export default class Car {
   }
 
   get name() {
-    return this.#name;
+    return this.name;
   }
 }

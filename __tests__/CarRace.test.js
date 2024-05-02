@@ -18,6 +18,39 @@ describe("자동차 경주 규칙 구현", () => {
     expect(raceCount).toBe(5);
   });
 
+  test("라운드 별 자동차의 이동 상태를 기록한다.", () => {
+    //given
+    const race = new Race();
+    race.cars = ["pobi", "crong", "honux"];
+
+    //when
+    race.playRound();
+    race.playRound();
+    race.playRound();
+
+    //then
+    const round1Index = 0;
+    expect(race.records.at(round1Index)).toEqual([
+      { name: "pobi", position: race.cars[0].position },
+      { name: "crong", position: race.cars[1].position },
+      { name: "honux", position: race.cars[2].position },
+    ]);
+
+    const round2Index = 1;
+    expect(race.records.at(round2Index)).toEqual([
+      { name: "pobi", position: race.cars[0].position },
+      { name: "crong", position: race.cars[1].position },
+      { name: "honux", position: race.cars[2].position },
+    ]);
+
+    const round3Index = 2;
+    expect(race.records.at(round3Index)).toEqual([
+      { name: "pobi", position: race.cars[0].position },
+      { name: "crong", position: race.cars[1].position },
+      { name: "honux", position: race.cars[2].position },
+    ]);
+  });
+
   test("레이스에서 가장 많이 이동한 자동차가 우승자가 된다.", () => {
     //given
     const race = new Race();
