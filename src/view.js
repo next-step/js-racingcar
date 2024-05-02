@@ -22,15 +22,11 @@ export function displayForwardCar(car) {
   console.log(`${car.name} : ${"-".repeat(car.position)}`);
 }
 
-export function displayRace(cars) {
-  cars.forEach((car) => {
-    displayForwardCar(car);
-  });
+export function displayRaceRecords(records) {
+  records.forEach((car) => displayForwardCar(car));
   console.log("");
 }
 
-export function displayWinners(race) {
-  console.log(
-    `${race.winners.map((car) => car.name).join(", ")}${MESSAGE.WINNER}`
-  );
+export function displayWinners(winners) {
+  console.log(`${winners.map((car) => car.name).join(", ")}${MESSAGE.WINNER}`);
 }
