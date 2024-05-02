@@ -6,15 +6,15 @@ import {
 import { getRandom } from "../common/Random";
 
 export class Round {
-  cars;
+  #cars;
 
   constructor(cars) {
-    this.existsDuplicatedCarName(cars);
-    this.cars = cars;
+    this.#existsDuplicatedCarName(cars);
+    this.#cars = cars;
   }
 
   play() {
-    this.cars.forEach((e) => {
+    this.#cars.forEach((e) => {
       const random = getRandom(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
       if (this.isOkToMove(random)) {
         e.move();
@@ -29,7 +29,7 @@ export class Round {
     return false;
   }
 
-  existsDuplicatedCarName(cars) {
+  #existsDuplicatedCarName(cars) {
     const carNames = cars.map((e) => e.name);
 
     if (carNames.length !== new Set(carNames).size) {
@@ -38,19 +38,19 @@ export class Round {
   }
 
   copy() {
-    const copyCars = this.cars.map((e) => e.copy());
+    const copyCars = this.#cars.map((e) => e.copy());
     const copy = new Round(copyCars);
     return copy;
   }
 
   get cars() {
-    return this.cars;
+    return this.#cars;
   }
 
   get winners() {
-    const positions = this.cars.map((car) => car.position);
+    const positions = this.#cars.map((car) => car.position);
     const max = Math.max(...positions);
 
-    return this.cars.filter((car) => car.position === max);
+    return this.#cars.filter((car) => car.position === max);
   }
 }

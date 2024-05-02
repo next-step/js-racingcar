@@ -1,19 +1,19 @@
 export const MAX_CAR_NAME_LENGTH = 5;
 
 export class Car {
-  name;
-  position = 0;
+  #name;
+  #position = 0;
 
   constructor(name) {
-    this.validate(name);
-    this.name = name;
+    this.#validate(name);
+    this.#name = name;
   }
 
   move() {
-    this.position++;
+    this.#position++;
   }
 
-  validate(name) {
+  #validate(name) {
     if (typeof name !== "string") {
       throw new Error("잘못된 입력입니다.");
     }
@@ -30,8 +30,20 @@ export class Car {
   }
 
   copy() {
-    const copy = new Car(this.name);
-    copy.position = this.position;
+    const copy = new Car(this.#name);
+    copy.position = this.#position;
     return copy;
+  }
+
+  get name() {
+    return this.#name;
+  }
+
+  get position() {
+    return this.#position;
+  }
+
+  set position(position) {
+    this.#position = position;
   }
 }

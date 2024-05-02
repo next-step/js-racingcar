@@ -2,47 +2,47 @@ import { Round } from "../src/domain/Round";
 import { Car } from "../src/domain/Car";
 
 export class Controller {
-  baseRound;
-  rounds = [];
+  #baseRound;
+  #rounds = [];
 
   constructor() {}
 
   init(input) {
-    this.isNotString(input);
+    this.#isNotString(input);
     const carNames = input.split(",");
-    this.baseRound = this.createBaseRound(carNames);
+    this.#baseRound = this.#createBaseRound(carNames);
   }
 
-  createBaseRound(carNames) {
+  play(roundTimes) {
+    this.#isVaildRoundTimes(roundTimes);
+
+    for (let i = 0; i < roundTimes; i++) {
+      const round = this.#loadLastRound();
+      round.play();
+      this.#rounds.push(round);
+    }
+  }
+
+  #createBaseRound(carNames) {
     const cars = carNames.map((e) => new Car(e));
     return new Round(cars);
   }
 
-  play(roundTimes) {
-    this.isVaildRoundTimes(roundTimes);
-
-    for (let i = 0; i < roundTimes; i++) {
-      const round = this.loadLastRound();
-      round.play();
-      this.rounds.push(round);
-    }
-  }
-
-  loadLastRound() {
-    if (this.rounds.length === 0) {
-      return this.baseRound;
+  #loadLastRound() {
+    if (this.#rounds.length === 0) {
+      return this.#baseRound;
     }
 
-    return this.rounds.at(-1).copy();
+    return this.#rounds.at(-1).copy();
   }
 
-  isNotString(input) {
+  #isNotString(input) {
     if (typeof input !== "string") {
       throw new Error("잘못된 입력입니다.");
     }
   }
 
-  isVaildRoundTimes(roundTimes) {
+  #isVaildRoundTimes(roundTimes) {
     if (!Number.isInteger(roundTimes)) {
       throw new Error();
     }
@@ -52,8 +52,16 @@ export class Controller {
     }
   }
 
+  get baseRound() {
+    return this.#baseRound;
+  }
+
+  get rounds() {
+    return this.#rounds;
+  }
+
   get winners() {
-    const winners = this.rounds.at(-1).winners;
+    const winners = this.#rounds.at(-1).winners;
     return winners.map((e) => e.name);
   }
 }
