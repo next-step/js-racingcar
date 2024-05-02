@@ -189,9 +189,9 @@ describe("자동차 경주 상황 출력 구현", () => {
   test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
     //given
     const car = new Car("pobi");
+    car.move(4);
 
     //when
-    car.move(4);
     displayForwardCar(car);
 
     //then
@@ -200,14 +200,20 @@ describe("자동차 경주 상황 출력 구현", () => {
 
   test("게임 완료 후 우승자를 출력한다.", () => {
     //given
-    const race = playGame("pobi,crong,honux");
+    const controller = new Controller();
+    const getCarNames = () => "pobi,crong,honux";
+    const getRound = () => 5;
+    controller.initCarNames(getCarNames);
+    controller.initMaxRound(getRound);
+    controller.playRaceGame();
 
     //when
-    const winners = race.winners;
+    const winners = controller.race.winners;
+    controller.finish();
 
     //then
     expect(logSpy).toHaveBeenCalledWith(
-      `${winners.map((car) => car.name).join(", ")}가 최종 우승했습니다.`
+      `${winners.join(", ")}가 최종 우승했습니다.`
     );
   });
 });
