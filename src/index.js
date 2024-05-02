@@ -1,39 +1,30 @@
 import { readLineAsync } from "./utils/readLineAsync.js";
-import Car from "./domain/Car.js";
+import { parserName } from "./utils/Parser.js";
 
-let carList = [];
+import {
+  createRacingCars,
+  getWinners,
+  racing,
+} from "../src/domain/RacingGame.js";
 
 async function play() {
-  const PLAY_TRY = 5;
+  // 자동차 이름 입력
   const name = await readLineAsync(
     "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분)\n"
   );
 
-  const carNames = name.split(",");
-  carNames.forEach((name) => {
-    const car = new Car(name.trim());
-    carList.push(car);
-  });
+  // 자동차 리스트 생성
+  let cars = createRacingCars(name);
 
-  console.log("\n");
-  console.log("실행 결과");
+  // 자동차 경주 시작
+  let finishCars = racing(cars);
 
-  // 자동차 경주 진행
-  for (let i = 0; i < PLAY_TRY; i++) {
-    for (let j = 0; j < carList.length; j++) {
-      carList[j].move();
-    }
-    for (let i = 0; i < carList.length; i++) {
-      console.log(carList[i].name + " : " + "-".repeat(carList[i].position));
-    }
-    console.log("\n");
-  }
+  // 우승자 추출
+  let winners = getWinners(finishCars);
 
-  // 최종 실행 결과
-  let maxPosition = Math.max(...carList.map((car) => car.position));
-  let maxPositionCars = carList.filter((car) => car.position === maxPosition);
-  let winner = maxPositionCars.map((car) => car.name);
-  console.log(winner.join(", ") + "가 최종 우승했습니다.");
+  // 우승자 이름 출력
+  let winnersName = parserName(winners.map((i) => i.name));
+  console.log(winnersName + "가 최종 우승했습니다.");
 }
 
 play();
