@@ -15,13 +15,15 @@ class Race {
   }
 
   async start() {
-    await printStartMessage(this.#env);
+    await printMessage(this.#env, "\n실행 결과");
     this.#currentLab = 0;
     const cars = this.#input.cars;
     for (let i = 0; i < this.#lab; i++) {
       await this.moveCars(cars);
+      await printMessage(this.#env, this.#input.raceOutput);
       this.#currentLab += 1;
     }
+    await printMessage(this.#env, this.#input.winner);
   }
 
   async moveCars(cars) {
@@ -31,19 +33,14 @@ class Race {
     };
   }
 
-  winner() {
-    const winner = this.#input.winner;
-    console.log(winner);
-  }
-
   get currentLab() {
     return this.#currentLab;
   }
 }
 
-const printStartMessage = (env) => {
+const printMessage = async(env, msg) => {
   if(!env) {
-    console.log("\n실행 결과");
+    console.log(msg);  
   }
 }
 

@@ -8,7 +8,6 @@ async function app() {
     const input = new InputOutput(start);
     const race = new Race(input, 5, false);
     race.start();
-    race.winner();
   } catch (error) {
     console.error(error.message);
     process.exit(1);
