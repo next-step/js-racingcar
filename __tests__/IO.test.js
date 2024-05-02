@@ -1,7 +1,10 @@
 import { playGame } from "../src/controller.js";
 import Controller from "../src/controller.js";
+import Car from "../src/domain/Car.js";
+import Race from "../src/domain/Race.js";
+import { displayForwardCar } from "../src/view.js";
 
-describe("자동차 이름 입력 구현 테스트", () => {
+describe("자동차/경주 입력 구현 테스트", () => {
   test("경주할 자동차를 입력할 때, 이름은 쉼표를 기준으로 구분한다.", async () => {
     //given
     const controller = new Controller();
@@ -13,10 +16,23 @@ describe("자동차 이름 입력 구현 테스트", () => {
     const raceCars = controller.race.cars;
 
     //then
-    console.error(raceCars);
     expect(raceCars.at(0).name).toBe("pobi");
     expect(raceCars.at(1).name).toBe("crong");
     expect(raceCars.at(2).name).toBe("honux");
+  });
+
+  test("사용자는 몇 번의 이동을 할 것인지 입력할 수 있어야 한다.", async () => {
+    //given
+    const controller = new Controller();
+    const maxRound = 10;
+    const mockAskMaxRound = jest.fn(() => maxRound);
+
+    //when
+    await controller.initMaxRound(mockAskMaxRound);
+    const race = controller.race;
+
+    //then
+    expect(race.maxRound).toBe(10);
   });
 });
 
@@ -128,5 +144,42 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 다시 입력할
 
     //then
     expect(mockAskCarNames).toHaveBeenCalledTimes(6);
+  });
+});
+
+describe("자동차 경주 상황 출력 구현", () => {
+  let logSpy;
+
+  beforeEach(() => {
+    logSpy = jest.spyOn(global.console, "log");
+  });
+
+  afterEach(() => {
+    logSpy.mockClear();
+  });
+
+  test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
+    //given
+    const car = new Car("pobi");
+
+    //when
+    car.move(4);
+    displayForwardCar(car);
+
+    //then
+    expect(logSpy).toHaveBeenCalledWith("pobi : -");
+  });
+
+  test("게임 완료 후 우승자를 출력한다.", () => {
+    //given
+    const race = playGame("pobi,crong,honux");
+
+    //when
+    const winners = race.winners;
+
+    //then
+    expect(logSpy).toHaveBeenCalledWith(
+      `${winners.map((car) => car.name).join(", ")}가 최종 우승했습니다.`
+    );
   });
 });
