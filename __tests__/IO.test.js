@@ -32,6 +32,8 @@ describe("입출력 테스트", () => {
     // given
     readLineAsyncSpy
       .mockImplementationOnce(() => Promise.resolve("-1"))
+      .mockImplementationOnce(() => Promise.resolve("1.3"))
+      .mockImplementationOnce(() => Promise.resolve("abc"))
       .mockImplementationOnce(() => Promise.resolve("5"));
 
     // when
@@ -39,7 +41,7 @@ describe("입출력 테스트", () => {
 
     // then
     expect(logSpy).toHaveBeenCalledWith(ERROR_CAR_RACE_COUNT_NOT_VALID);
-    expect(readLineAsyncSpy).toHaveBeenCalledTimes(2);
+    expect(readLineAsyncSpy).toHaveBeenCalledTimes(4);
     expect(totalCount).toBe(5);
   });
 
