@@ -1,5 +1,6 @@
 import Car from './Car';
 import { ERROR_MESSAGE } from '../constnats';
+import { generateRandomNumber } from '../utils';
 
 class Racing {
   #players;
@@ -50,7 +51,9 @@ class Racing {
   }
 
   race1Lap() {
-    this.#players.forEach((player) => player.forward());
+    this.#players.forEach((player) =>
+      player.forwardOrStop(generateRandomNumber(0, 9))
+    );
     return this;
   }
 
