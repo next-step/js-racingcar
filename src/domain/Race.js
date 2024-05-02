@@ -5,19 +5,28 @@ import { CAR, RACE } from "../constant/index.js";
 export default class Race {
   #cars = [];
   #maxRound;
-  #currentRound;
+  #records = [];
+  #winners;
 
   constructor() {
     this.#cars;
     this.#maxRound;
-    this.#currentRound = 0;
+    this.#records;
+    this.#winners;
+  }
+
+  #recordRound() {
+    const roundRecord = [];
+
+    this.#cars.forEach((car) => roundRecord.push(car));
+    this.#records.push(roundRecord);
   }
 
   playRound() {
-    this.cars.forEach((car) =>
-      car.move(getRandomNumber(CAR.MIN_RANDOM_NUMBER, CAR.MAX_RANDOM_NUMBER))
-    );
-    this.#currentRound++;
+    this.cars.forEach((car) => {
+      car.move(getRandomNumber(CAR.MIN_RANDOM_NUMBER, CAR.MAX_RANDOM_NUMBER));
+    });
+    this.#recordRound();
   }
 
   get winners() {
@@ -39,5 +48,9 @@ export default class Race {
 
   get maxRound() {
     return this.#maxRound;
+  }
+
+  get currentRoundRecord() {
+    return this.#records[this.#records.length - 1];
   }
 }
