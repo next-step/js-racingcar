@@ -1,4 +1,5 @@
 import Car from './Car';
+import { MAX_CAR_NAME_LENGTH } from './constant';
 
 class Race {
 	#competitors;
@@ -11,10 +12,10 @@ class Race {
 	}
 
 	start() {
-		if (this.car.name >= 5) {
+		if (this.car.name >= MAX_CAR_NAME_LENGTH) {
 			throw new Error('자동차 이름은 5글자를 넘을 수 없습니다!');
 		}
-		for (let i = 0; i < 5; i++) {
+		for (let i = 0; i < MAX_CAR_NAME_LENGTH; i++) {
 			this.#playNumber += 1;
 		}
 	}
