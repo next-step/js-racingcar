@@ -1,4 +1,5 @@
 import { CAR } from "../src/constants/car";
+import { CAR_RACE } from "../src/constants/carRace";
 import { ERROR_MESSAGES } from "../src/constants/messages";
 import { car } from "../src/validator/car";
 import { carRace } from "../src/validator/carRace";
@@ -32,8 +33,8 @@ describe("자동차 이름 유효성 테스트", () => {
 });
 
 describe("시도 횟수 유효성 테스트", () => {
-  test("시도 횟수가 1미만이면 에러 메시지를 띄운다.", () => {
-    const tryCount = 0;
+  test(`시도 횟수가 ${CAR_RACE.MIN_TRY_COUNT}미만이면 에러 메시지를 띄운다.`, () => {
+    const tryCount = CAR_RACE.MIN_TRY_COUNT - 1;
 
     expect(() => {
       carRace.tryCountValidator(tryCount);

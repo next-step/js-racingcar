@@ -1,3 +1,4 @@
+import { CAR_RACE } from "../constants/carRace";
 import { ERROR_MESSAGES } from "../constants/messages";
 
 export const carRace = {
@@ -6,7 +7,7 @@ export const carRace = {
       throw new Error(ERROR_MESSAGES.TRY_COUNT_NUMBER);
     }
 
-    if (tryCount < 1) {
+    if (tryCount < CAR_RACE.MIN_TRY_COUNT) {
       throw new Error(ERROR_MESSAGES.TRY_COUNT_MIN);
     }
   },
