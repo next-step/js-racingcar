@@ -25,10 +25,10 @@ class Race {
 
 	get winner() {
 		const highestPosition = this.getHighest();
-		const winners = this.#competitors.filter(
-			competitor => competitor.position === highestPosition
-		);
-		return winners.map(winner => winner.name).join(', ');
+		return this.#competitors
+			.filter(competitor => competitor.position === highestPosition)
+			.map(winner => winner.name)
+			.join(', ');
 	}
 
 	getHighest() {
