@@ -133,9 +133,18 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 에러 메시지
 });
 
 describe("사용자가 잘못된 입력 값을 작성한 경우 다시 입력할 수 있게 한다.", () => {
+  let controller = new Controller();
+
+  beforeEach(() => {
+    controller = new Controller();
+  });
+
+  afterEach(() => {
+    controller = null;
+  });
+
   test("사용자가 잘못된 자동차 이름을 입력한 경우 다시 자동차 이름을 입력할 수 있게 한다.", async () => {
     //given
-    const controller = new Controller();
     const carNameOver5 = "pobi,crong,honuxi";
     const noInput = "";
     const correctCarNames = "pobi,crong,honux";
@@ -160,8 +169,8 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 다시 입력할
     const zero = 0;
     const decimal = 1.5;
     const correctRound = 4;
-
-    mockGetCarNames
+    const mockGetMaxRound = jest.fn();
+    mockGetMaxRound
       .mockImplementationOnce(() => string)
       .mockImplementationOnce(() => noInput)
       .mockImplementationOnce(() => negative)
@@ -170,10 +179,10 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 다시 입력할
       .mockImplementationOnce(() => correctRound);
 
     //when
-    await controller.initMaxRound(mockGetCarNames);
+    await controller.initMaxRound(mockGetMaxRound);
 
     //then
-    expect(mockGetCarNames).toHaveBeenCalledTimes(6);
+    expect(mockGetMaxRound).toHaveBeenCalledTimes(6);
   });
 });
 
