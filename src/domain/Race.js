@@ -13,14 +13,22 @@ class Race {
   start(){
     View.printRaceStart();
     for(let i = 0; i < MAX_RACE_ROUND; i ++){
-      this.cars.map(car => {
-        car.moveForward(car.getRandomValue());
-        View.printRaceProgress(car.name, car.position);
-      });
-      this.currentRound ++;
+      this.moveCars();
+      this.onNextRound();
     };
     View.printWinners(this.winners);
   };
+
+  moveCars() {
+    this.cars.forEach(car => {
+      car.moveForward(car.getRandomValue());
+      View.printRaceProgress(car.name, car.position);
+    });
+  }
+
+  onNextRound(){
+    this.currentRound++;
+  }
 
   get totalRounds(){
     return this.currentRound;
