@@ -1,12 +1,10 @@
 import { ERROR_CODES } from "../src/constants";
-import { Race } from "../src/domain";
+import { Car, Race } from "../src/domain";
 import {
   DefaultMoveStrategy,
   RandomMoveStrategy,
 } from "../src/domain/strategies";
 import { getRandom } from "../src/utils";
-
-const TEST_CAR_NAMES = "pobi,crong,honux";
 
 jest.mock("../src/utils", () => ({
   getRandom: jest.fn(),
@@ -15,8 +13,10 @@ jest.mock("../src/utils", () => ({
 describe("자동차 경주 게임 테스트", () => {
   test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. - DefaultMoveStrategy", async () => {
     // given
-    const carNames = TEST_CAR_NAMES.split(",");
-    const app = new Race(carNames, new DefaultMoveStrategy());
+    const car1 = new Car("Car1");
+    const car2 = new Car("Car2");
+    const car3 = new Car("Car3");
+    const app = new Race([car1, car2, car3], new DefaultMoveStrategy());
 
     // when
     app.race();
@@ -27,8 +27,10 @@ describe("자동차 경주 게임 테스트", () => {
 
   test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. - RandomMoveStrategy", async () => {
     // given
-    const carNames = TEST_CAR_NAMES.split(",");
-    const app = new Race(carNames, new RandomMoveStrategy());
+    const car1 = new Car("Car1");
+    const car2 = new Car("Car2");
+    const car3 = new Car("Car3");
+    const app = new Race([car1, car2, car3], new RandomMoveStrategy());
     getRandom
       .mockReturnValueOnce(RandomMoveStrategy.MOVE_FORWARD_CAR)
       .mockReturnValueOnce(0)
@@ -39,13 +41,15 @@ describe("자동차 경주 게임 테스트", () => {
 
     // then
     expect(app.winners.length).toBe(1);
-    expect(app.winners[0].name).toBe(carNames[0]);
+    expect(app.winners[0].name).toBe(car1.name);
   });
 
   test("라운드마다 전진 조건이 바뀔 수 있다.", async () => {
     // given
-    const carNames = TEST_CAR_NAMES.split(",");
-    const app = new Race(carNames, new RandomMoveStrategy());
+    const car1 = new Car("Car1");
+    const car2 = new Car("Car2");
+    const car3 = new Car("Car3");
+    const app = new Race([car1, car2, car3], new RandomMoveStrategy());
     getRandom.mockReturnValueOnce(RandomMoveStrategy.MOVE_FORWARD_CAR);
     app.setStrategyPerRound(2, new DefaultMoveStrategy());
     app.setStrategyPerRound(3, new DefaultMoveStrategy());
@@ -59,17 +63,6 @@ describe("자동차 경주 게임 테스트", () => {
     expect(app.cars[0].position).toBe(5);
     expect(app.cars[1].position).toBeGreaterThan(3);
     expect(app.cars[2].position).toBeGreaterThan(3);
-  });
-
-  test("이름이 빈 문자열인 자동차가 존재할 때 종료한다.", async () => {
-    // given
-    const carNames = ",crong,honux".split(",");
-
-    // when
-    const app = () => new Race(carNames);
-
-    // then
-    expect(app).toThrow(ERROR_CODES.ERROR_INVALID_CAR_NAME);
   });
 
   test("중복된 자동차 이름이 존재할 때 종료한다.", async () => {

@@ -24,6 +24,7 @@ export class View {
   }
 
   static printError(error) {
+    console.log(error);
     console.log(ERROR_MESSAGES[error.message] || ERROR_MESSAGES.ERROR_UNKOWN);
   }
 }

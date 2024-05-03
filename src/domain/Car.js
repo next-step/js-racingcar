@@ -6,13 +6,11 @@ export class Car {
 
   #name = "";
   #position = 0;
-  #moveStrategy;
 
-  constructor(name, moveStrategy) {
+  constructor(name) {
     this.#validateName(name);
     this.#name = name;
     this.#position = 0;
-    this.#moveStrategy = moveStrategy;
   }
 
   #validateName(name) {
@@ -25,9 +23,9 @@ export class Car {
     }
   }
 
-  move() {
-    if (this.#moveStrategy) {
-      this.#moveStrategy.move(this);
+  move(shouldMove) {
+    if (shouldMove()) {
+      this.moveForward();
     }
   }
 
@@ -41,9 +39,5 @@ export class Car {
 
   get name() {
     return this.#name;
-  }
-
-  setStrategy(strategy) {
-    this.#moveStrategy = strategy;
   }
 }

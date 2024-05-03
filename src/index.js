@@ -1,5 +1,5 @@
 import { ERROR_CODES } from "./constants";
-import { Race } from "./domain";
+import { Car, Race } from "./domain";
 import { CarError } from "./domain/Error";
 import { RandomMoveStrategy } from "./domain/strategies";
 import { View } from "./views";
@@ -11,9 +11,13 @@ export class App {
     try {
       let carNames = await this.#getCarNames();
       if (carNames.length === 0) return;
-      if (!Array.isArray(carNames)) carNames = carNames.split(",");
+      if (!Array.isArray(carNames))
+        carNames = carNames.split(",").map((name) => name.trim());
 
-      this.#race = new Race(carNames, new RandomMoveStrategy());
+      this.#race = new Race(
+        carNames.map((name) => new Car(name)),
+        new RandomMoveStrategy()
+      );
       const result = this.#race.race();
       this.#render(result);
     } catch (error) {
