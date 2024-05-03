@@ -46,7 +46,7 @@ class CarRace {
     }
   }
 
-  static generateCarMoveCondition() {
+  generateCarMoveCondition() {
     const randomValue = Math.floor(Math.random() * 10);
     return randomValue >= CAR_MOVE_CONDITION_BOUNDARY;
   }
@@ -54,7 +54,7 @@ class CarRace {
   race() {
     while (this.#remainingRaceCount > 0) {
       this.competitors.forEach((competitor) => {
-        const canCarMove = CarRace.generateCarMoveCondition();
+        const canCarMove = this.generateCarMoveCondition();
         if (canCarMove) {
           competitor.move();
         }
