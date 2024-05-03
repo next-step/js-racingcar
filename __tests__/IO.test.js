@@ -52,6 +52,5 @@ describe('자동차 입출력 테스트', () => {
 		// when
 		// then
 		expect(() => race.start().toThrow());
-		// expect(() => race.start()).toThrow();
 	});
 });
