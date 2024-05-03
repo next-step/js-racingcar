@@ -29,4 +29,4 @@
 - [x] 다른 맥락인 코드는 한 칸 띄워주면 가독성이 좋아진다.
 - [x] 모든 메서드가 static -> 객체로 변경
 - [x] 역할 측면에서 for문 이외에 move를 결정하는 함수를 별도로 분리
-- [ ] `randomValue`는 `Round`에 위임
+- [x] `randomValue`는 `Round`에 위임

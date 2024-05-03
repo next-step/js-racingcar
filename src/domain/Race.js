@@ -1,3 +1,4 @@
+import { RANDOM_BOUND } from "../constants/index.js";
 import View from "../view/view.js";
 
 const MAX_RACE_ROUND = 5;
@@ -21,7 +22,7 @@ class Race {
 
   moveCars() {
     this.cars.forEach(car => {
-      car.moveForward(car.getRandomValue());
+      car.moveForward(this.getRandomValue());
       View.printRaceProgress(car.name, car.position);
     });
   }
@@ -29,6 +30,10 @@ class Race {
   onNextRound(){
     this.currentRound++;
   }
+
+  getRandomValue(){
+    return Math.floor(Math.random() * RANDOM_BOUND);
+  };
 
   get totalRounds(){
     return this.currentRound;
