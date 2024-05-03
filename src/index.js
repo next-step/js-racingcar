@@ -2,9 +2,10 @@ import { Car } from "./domains/Car";
 import { CarRace } from "./domains/CarRace";
 import { Console } from "./utils/console";
 import { splitByComma } from "./utils/splitByComma";
-import { car } from "./validator/car";
 import { input } from "./view/input";
 import { output } from "./view/output";
+import { car } from "./validator/car";
+import { carRace } from "./validator/carRace";
 
 export class App {
   #carInstance;
@@ -28,14 +29,27 @@ export class App {
     car.nameValidator(carNamesSplitByComma);
     this.#carInstance = this.#makeCarInstance(carNamesSplitByComma);
   }
+
   async #inputTryCount() {
-    const tryCountInput = await input.tryCount();
-    this.#tryCount = parseInt(tryCountInput);
+    try {
+      const tryCountInput = await input.tryCount();
+      const tryCount = Number(tryCountInput);
+      carRace.tryCountValidator(tryCount);
+      this.#tryCount = tryCount;
+    } catch (error) {
+      Console.print(error.message);
+      await this.#inputTryCount();
+    }
   }
 
   async #carNameStage() {
-    await this.#inputCarName();
-    this.#carRace = new CarRace(this.#carInstance);
+    try {
+      await this.#inputCarName();
+      this.#carRace = new CarRace(this.#carInstance);
+    } catch (error) {
+      Console.print(error.message);
+      await this.#carNameStage();
+    }
   }
 
   #raceResultStage() {
