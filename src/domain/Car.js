@@ -2,6 +2,8 @@ export const MAX_CAR_NAME_LENGTH = 5;
 export const MIN_CAR_NAME_LENGTH = 1;
 const MOVE_CAR_COUNT = 4;
 
+export const ERROR_MESSAGE_NAME_LENGTH = '이름은 5자 이하만 가능합니다.';
+
 export class Car {
   #name;
   #position;
@@ -19,7 +21,7 @@ export class Car {
 
   validateName(name) {
     if (!this.isValidLength(name)) {
-      throw new Error('이름은 5자 이하만 가능합니다.');
+      throw new Error(ERROR_MESSAGE_NAME_LENGTH);
     }
   }
 

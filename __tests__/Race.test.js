@@ -21,7 +21,7 @@ describe('레이스 관련 내용 ', () => {
     race.racingCars = [new Car('bmw'), new Car('audi'), new Car('kia')];
     const RACING_COUNT = 5;
     const mockRandomValue = jest.fn().mockReturnValue(5);
-    race.racingStart(RACING_COUNT, mockRandomValue);
+    race.startRacing(RACING_COUNT, mockRandomValue);
 
     //then
     expect(race.winners).toBe('bmw,audi,kia');
@@ -35,7 +35,7 @@ describe('레이스 관련 내용 ', () => {
     race.racingCars = [new Car('bmw'), new Car('audi'), new Car('kia')];
     const RACING_COUNT = 5;
     const mockRandomValue = jest.fn().mockReturnValue(5);
-    race.racingStart(RACING_COUNT, mockRandomValue);
+    race.startRacing(RACING_COUNT, mockRandomValue);
 
     //then
     expect(race.winners).toContain(',');

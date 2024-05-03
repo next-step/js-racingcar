@@ -1,6 +1,8 @@
 import { Car, MAX_CAR_NAME_LENGTH } from '../domain/Car.js';
 import readline from 'readline';
 
+export const ERROR_MESSAGE_COMMA_SEPARTED = '이름 구분은 쉼표(,)로 가능합니다.';
+
 export class CarIO {
   readLineAsync(query) {
     return new Promise((resolve, reject) => {
@@ -28,11 +30,11 @@ export class CarIO {
     return input.length >= MAX_CAR_NAME_LENGTH;
   };
 
-  validSplitIsCommma = (input) => {
+  validateCommaSeparatedNames = (input) => {
     if (!this.validInputLength(input)) return false;
 
     if (input.split(',').length <= 1) {
-      throw new Error('이름 구분은 쉼표(,)로 가능합니다.');
+      throw new Error(ERROR_MESSAGE_COMMA_SEPARTED);
     }
   };
 
@@ -40,7 +42,7 @@ export class CarIO {
     const names = await this.readLineAsync(
       '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분): '
     );
-    this.validSplitIsCommma(names);
+    this.validateCommaSeparatedNames(names);
 
     return names.split(',').map((name) => new Car(name.trim()));
   }
@@ -54,18 +56,6 @@ export class CarIO {
       console.log(perRacingResult);
       perRacingResult = '';
       console.log(' ');
-    });
-  }
-
-  showRacingResult(carName, currentPosition) {
-    console.log(`${carName} : ${currentPosition}`);
-  }
-
-  checkCarValidate() {
-    this.cars.forEach((car) => {
-      if (!car.isValidateName()) {
-        throw new Error('자동차 이름은 5자 이하만 가능합니다.');
-      }
     });
   }
 }
