@@ -47,7 +47,7 @@ describe("입출력 테스트", () => {
     const race = new Race(positionedCars);
 
     // when
-    View.printWinners(race.winners);
+    View.printWinners(race.getWinners());
     
     // then
     expect(logSpy).toHaveBeenCalledWith(TEST_CARS.join(", ") + "가 최종 우승했습니다.");

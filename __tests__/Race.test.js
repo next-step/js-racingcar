@@ -13,7 +13,7 @@ describe("자동차 경주 테스트", () => {
 
     // when
     race.start();
-    const totalRound = race.totalRounds;
+    const totalRound = race.getTotalRounds();
     
     // then
     expect(totalRound).toBe(5);

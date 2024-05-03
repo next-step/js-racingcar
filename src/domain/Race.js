@@ -17,7 +17,7 @@ class Race {
       this.moveCars();
       this.onNextRound();
     };
-    View.printWinners(this.winners);
+    View.printWinners(this.getWinners());
   };
 
   moveCars() {
@@ -35,11 +35,11 @@ class Race {
     return Math.floor(Math.random() * RANDOM_BOUND);
   };
 
-  get totalRounds(){
+  getTotalRounds(){
     return this.currentRound;
   }
 
-  get winners(){
+  getWinners(){
     const highestPosition = Math.max(...this.cars.map(car => car.position));
     return this.cars.filter(car => car.position === highestPosition);
   }
