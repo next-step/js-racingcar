@@ -12,7 +12,7 @@ class Race {
 
 	start() {
 		if (this.car.name >= 5) {
-			return;
+			throw new Error('자동차 이름은 5글자를 넘을 수 없습니다!');
 		}
 		for (let i = 0; i < 5; i++) {
 			this.#playNumber += 1;
