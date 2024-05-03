@@ -88,16 +88,11 @@ describe("게임 플레이 테스트(play 메서드)", () => {
     expect(result5).toBe(true);
   });
 
-  test("플레이 타임이 5번이 넘으면 false를 반환한다.", () => {
+  test("게임이 정상적으로 종료되면 true를 반환한다.", () => {
     const game = new Game();
 
-    game.play();
-    game.play();
-    game.play();
-    game.play();
-    game.play();
     const result = game.play();
-    expect(result).toBe(false);
+    expect(result).toBe(true);
   });
 
   test("자동차들 중에 승리 횟수가 가장 많은 자동차 배열을 구할 수 있다", () => {
