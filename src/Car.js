@@ -1,28 +1,26 @@
 class Car {
+	name;
+	position = 0;
 
-  name;
-  position = 0;
+	constructor(name) {
+		this.name = name;
+	}
 
-  constructor(name) {
-    this.name = name;
+	move() {
+		const randomValue = Math.floor(Math.random() * 10);
+		if (randomValue >= 4) {
+			this.position += 1;
+			console.log(`${this.name}: ${'-'.repeat(this.position)}`);
+		}
+	}
 
-  }
+	get name() {
+		return this.name;
+	}
 
-  move() {
-    const randomValue = Math.floor(Math.random() * 10);
-    if (randomValue >= 4) {
-      this.position += 1;
-      console.log(`${this.name}: ${'-'.repeat(this.position)}`);
-    }
-  }
-
-  get name() {
-    return this.name;
-  }
-
-  get position() {
-    return this.position;
-  }
+	get position() {
+		return this.position;
+	}
 }
 
 export default Car;
