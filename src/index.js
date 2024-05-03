@@ -10,10 +10,12 @@ export class App {
   #carInstance;
   #carRace;
   #winner;
+  #tryCount;
   constructor() {
     this.#carRace = null;
     this.#carInstance = [];
     this.#winner = [];
+    this.#tryCount = 0;
   }
 
   #makeCarInstance(carNames) {
@@ -26,6 +28,10 @@ export class App {
     car.nameValidator(carNamesSplitByComma);
     this.#carInstance = this.#makeCarInstance(carNamesSplitByComma);
   }
+  async #inputTryCount() {
+    const tryCountInput = await input.tryCount();
+    this.#tryCount = parseInt(tryCountInput);
+  }
 
   async #carNameStage() {
     await this.#inputCarName();
@@ -33,7 +39,7 @@ export class App {
   }
 
   #raceResultStage() {
-    this.#carRace.totalRound();
+    this.#carRace.totalUnitRound(this.#tryCount);
     this.#winner = this.#carRace.getWinner();
   }
 
@@ -46,6 +52,7 @@ export class App {
   async init() {
     try {
       await this.#carNameStage();
+      await this.#inputTryCount();
       this.#raceResultStage();
       this.#printRaceResult();
     } catch (error) {

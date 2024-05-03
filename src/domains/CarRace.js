@@ -39,8 +39,8 @@ export class CarRace {
     this.#result.push(currentRoundResult);
   }
 
-  totalRound() {
-    for (let i = 0; i < CAR_RACE.TOTAL_ROUND; i++) {
+  totalUnitRound(tryCount) {
+    for (let i = 0; i < tryCount; i++) {
       this.#gameRound();
       this.#setCurrentRoundResult();
     }

@@ -1,4 +1,3 @@
-import { App } from "../src";
 import { CAR } from "../src/constants/car";
 import { ERROR_MESSAGES } from "../src/constants/messages";
 import { car } from "../src/validator/car";
