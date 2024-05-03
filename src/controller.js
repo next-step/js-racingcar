@@ -1,6 +1,6 @@
-import { MESSAGE, ERROR_MESSAGE } from "./constant/index.js";
 import Race from "./domain/Race.js";
-import { displayWinners, displayRace, displayRaceRecords } from "./view.js";
+import { displayWinners, displayRaceRecords } from "./view.js";
+import { CAR, RACE, ERROR_MESSAGE } from "./constant/index.js";
 
 export default class Controller {
   #race;
@@ -14,10 +14,10 @@ export default class Controller {
       const carNames = await askCarNames();
 
       if (carNames === "") {
-        throw new Error("자동차 이름을 입력해주세요.");
+        throw new Error(ERROR_MESSAGE.CAR_NAME_REQUIRED);
       }
 
-      this.#race.cars = carNames.split(",");
+      this.#race.cars = carNames.split(CAR.NAME_SEPARATOR);
 
       if (nextStep) {
         await nextStep();
@@ -34,19 +34,19 @@ export default class Controller {
       const maxRound = Number(input);
 
       if (input === "") {
-        throw new Error("시도할 횟수를 입력해주세요.");
+        throw new Error(ERROR_MESSAGE.RACE_ROUND_REQUIRED);
       }
 
       if (isNaN(maxRound)) {
-        throw new Error("시도할 횟수는 숫자여야합니다.");
+        throw new Error(ERROR_MESSAGE.RACE_ROUND_NUMBER);
       }
 
       if (Math.floor(maxRound) !== maxRound) {
-        throw new Error("시도할 횟수는 자연수여야합니다.");
+        throw new Error(ERROR_MESSAGE.RACE_ROUND_NATURAL_NUMBER);
       }
 
-      if (maxRound <= 0) {
-        throw new Error("시도할 횟수는 0보다 커야합니다.");
+      if (maxRound < RACE.MIN_ROUND) {
+        throw new Error(ERROR_MESSAGE.RACE_ROUND_MORE_THAN_ZERO);
       }
 
       this.#race.maxRound = maxRound;
