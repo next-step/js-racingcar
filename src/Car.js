@@ -1,3 +1,5 @@
+import { NUMBER_FOR_MOVE } from './constant';
+
 class Car {
 	name;
 	position = 0;
@@ -8,7 +10,7 @@ class Car {
 
 	move() {
 		const randomValue = Math.floor(Math.random() * 10);
-		if (randomValue >= 4) {
+		if (randomValue >= NUMBER_FOR_MOVE) {
 			this.position += 1;
 			console.log(`${this.name}: ${'-'.repeat(this.position)}`);
 		}
