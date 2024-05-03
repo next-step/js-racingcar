@@ -34,4 +34,4 @@
 - [x] 메세지, 숫자 상수화
 - [x] private 필드 설정
 - [x] getter, setter 사용
-- [ ] import문 확인
+- [x] import문 확인

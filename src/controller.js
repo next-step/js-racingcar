@@ -1,6 +1,6 @@
-import Race from "./domain/Race.js";
 import { displayWinners, displayRaceRecords } from "./view.js";
-import { CAR, RACE, ERROR_MESSAGE } from "./constant/index.js";
+import Race from "./domain/Race.js";
+import { CAR } from "./constant/index.js";
 
 export default class Controller {
   #race;

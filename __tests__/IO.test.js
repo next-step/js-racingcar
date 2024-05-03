@@ -1,6 +1,6 @@
 import Controller from "../src/controller.js";
-import Car from "../src/domain/Car.js";
 import { displayForwardCar } from "../src/view.js";
+import Car from "../src/domain/Car.js";
 
 describe("자동차/경주 입력 구현 테스트", () => {
   test("경주할 자동차를 입력할 때, 이름은 쉼표를 기준으로 구분한다.", async () => {

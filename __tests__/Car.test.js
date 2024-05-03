@@ -1,4 +1,5 @@
 import Car from "../src/domain/Car.js";
+
 import { getRandomNumber } from "../src/utils/number.js";
 
 describe("자동차 구현 테스트", () => {

@@ -1,5 +1,5 @@
-import { askCarNames, askMaxRound } from "./view.js";
 import Controller from "./controller.js";
+import { askCarNames, askMaxRound } from "./view.js";
 
 async function app() {
   const controller = new Controller();
