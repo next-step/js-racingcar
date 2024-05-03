@@ -1,5 +1,7 @@
+import { CAR_MOVE_CONDITION_BOUNDARY } from "../constants/carRace.js";
 import { ERROR_CAR_RACE_COUNT_NOT_VALID } from "../constants/error.js";
 import View from "./View.js";
+
 class CarRace {
   #remainingRaceCount;
 
@@ -46,7 +48,7 @@ class CarRace {
 
   static generateCarMoveCondition() {
     const randomValue = Math.floor(Math.random() * 10);
-    return randomValue >= 4;
+    return randomValue >= CAR_MOVE_CONDITION_BOUNDARY;
   }
 
   race() {
