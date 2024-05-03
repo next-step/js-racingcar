@@ -83,16 +83,4 @@ export class CarIO {
       console.log(' ');
     });
   }
-
-  showRacingResult(carName, currentPosition) {
-    console.log(`${carName} : ${currentPosition}`);
-  }
-
-  checkCarValidate() {
-    this.cars.forEach((car) => {
-      if (!car.isValidateName()) {
-        throw new Error('자동차 이름은 5자 이하만 가능합니다.');
-      }
-    });
-  }
 }

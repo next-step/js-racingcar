@@ -1,5 +1,5 @@
-import { Car, ERROR_MESSAGE_NAME_LENGTH } from '../src/domain/Car';
 import { Race } from '../src/domain/Race';
+import { Car, ERROR_MESSAGE_NAME_LENGTH } from '../src/domain/Car';
 import {
   CarIO,
   ERROR_MESSAGE_COMMA_SEPARTED,
@@ -36,7 +36,7 @@ describe('입출력 관련된 것들', () => {
     cario.readLineAsync = jest.fn().mockResolvedValue('bmw audi kia');
 
     // then
-    await expect(cario.inputCars()).rejects.toThrow(ERROR_MESSAGE_COMMA_SEPARTED);
+    await expect(cario.inputCars()).rejects.toThrow('이름 구분은 쉼표(,)로 가능합니다.');
   });
 
   test('이름을 5자 초과로 입력했을 경우, 프로그램을 종료한다.', async () => {
@@ -94,6 +94,6 @@ describe('입출력 관련된 것들', () => {
     // when
     cario.readLineAsync = jest.fn().mockResolvedValue('bmasdasw,audi,kia');
 
-    await expect(cario.inputCars()).rejects.toThrow('이름은 5자 이하만 가능합니다.');
+    await expect(cario.inputCars()).rejects.toThrow(ERROR_MESSAGE_NAME_LENGTH);
   });
 });
