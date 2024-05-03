@@ -40,21 +40,20 @@ class CarRace {
     }
   }
 
+  static generateCarMoveCondition() {
+    const randomValue = Math.floor(Math.random() * 10);
+    return randomValue >= 4;
+  }
+
   race() {
     while (this.#remainingRaceCount > 0) {
       this.competitors.forEach((competitor) => {
-        // 자동차가 움직이는 조건 생성
-        const canCarMove = () => {
-          const randomValue = Math.floor(Math.random() * 10);
-          return randomValue >= 4;
-        };
-
-        if (canCarMove()) {
+        const canCarMove = CarRace.generateCarMoveCondition();
+        if (canCarMove) {
           competitor.move();
         }
       });
       View.printCarsStatus(this.competitors);
-
       this.#remainingRaceCount--;
     }
   }
