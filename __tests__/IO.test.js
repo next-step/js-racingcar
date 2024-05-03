@@ -35,94 +35,100 @@ describe("자동차/경주 입력 구현 테스트", () => {
 });
 
 describe("사용자가 잘못된 입력 값을 작성한 경우 에러 메시지를 보여준다.", () => {
+  let errorSpy;
+  let mockGetCarNames;
+  let mockGetMaxRound;
+  let controller;
+
+  beforeEach(() => {
+    errorSpy = jest.spyOn(global.console, "error");
+    mockGetCarNames = jest.fn();
+    mockGetMaxRound = jest.fn();
+    controller = new Controller();
+  });
+
+  afterEach(() => {
+    errorSpy.mockClear();
+    mockGetCarNames.mockClear();
+    mockGetMaxRound.mockClear();
+    controller = null;
+  });
+
   test("사용자가 잘못된 자동차 이름을 작성한 경우 에러 메시지를 보여준다.", async () => {
     //given
-    const logSpy = jest.spyOn(global.console, "error");
-    const controller = new Controller();
     const carNameOver5 = "pobi, crong, honuxi";
     const correctCarNames = "pobi,crong,honux";
-    const mockAskCarNames = jest.fn();
-    mockAskCarNames
+    mockGetCarNames
       .mockImplementationOnce(() => carNameOver5)
       .mockImplementationOnce(() => correctCarNames);
 
     //when
-    await controller.initCarNames(mockAskCarNames);
+    await controller.initCarNames(mockGetCarNames);
 
     //then
-    expect(logSpy).toHaveBeenCalledWith("자동차 이름은 5자 이하만 가능합니다.");
+    expect(errorSpy).toHaveBeenCalledWith(
+      "자동차 이름은 5자 이하만 가능합니다."
+    );
   });
 
   test("사용자가 자동차 이름을 작성하지 않은 경우 에러 메시지를 보여준다.", async () => {
     //given
-    const logSpy = jest.spyOn(global.console, "error");
-    const controller = new Controller();
     const noInput = "";
     const correctCarNames = "pobi,crong,honux";
-    const mockAskCarNames = jest.fn();
-    mockAskCarNames
+    mockGetCarNames
       .mockImplementationOnce(() => noInput)
       .mockImplementationOnce(() => correctCarNames);
 
     //when
-    await controller.initCarNames(mockAskCarNames);
+    await controller.initCarNames(mockGetCarNames);
 
     //then
-    expect(logSpy).toHaveBeenCalledWith("자동차 이름을 입력해주세요.");
+    expect(errorSpy).toHaveBeenCalledWith("자동차 이름을 입력해주세요.");
   });
 
   test("사용자가 라운드 값을 0이하로 작성한 경우 에러 메시지를 보여준다.", async () => {
     //given
-    const logSpy = jest.spyOn(global.console, "error");
-    const controller = new Controller();
     const underZeroNumber = -1;
     const correctInput = 5;
-    const mockAskMaxRound = jest.fn();
-    mockAskMaxRound
+    mockGetMaxRound
       .mockImplementationOnce(() => underZeroNumber)
       .mockImplementationOnce(() => correctInput);
 
     //when
-    await controller.initMaxRound(mockAskMaxRound);
+    await controller.initMaxRound(mockGetMaxRound);
 
     //then
-    expect(logSpy).toHaveBeenCalledWith("시도할 횟수는 0보다 커야합니다.");
+    expect(errorSpy).toHaveBeenCalledWith("시도할 횟수는 0보다 커야합니다.");
   });
 
   test("사용자가 라운드 값을 string으로 작성한 경우 에러 메시지를 보여준다.", async () => {
     //given
-    const logSpy = jest.spyOn(global.console, "error");
-    const controller = new Controller();
     const stringInput = "six";
     const correctInput = 5;
-    const mockAskMaxRound = jest.fn();
-    mockAskMaxRound
+    mockGetMaxRound
       .mockImplementationOnce(() => stringInput)
       .mockImplementationOnce(() => correctInput);
 
     //when
-    await controller.initMaxRound(mockAskMaxRound);
+    await controller.initMaxRound(mockGetMaxRound);
 
     //then
-    expect(logSpy).toHaveBeenCalledWith("시도할 횟수는 숫자여야합니다.");
+    expect(errorSpy).toHaveBeenCalledWith("시도할 횟수는 숫자여야합니다.");
   });
 
   test("사용자가 라운드 값을 작성하지 않은 경우 에러 메시지를 보여준다.", async () => {
     //given
-    const logSpy = jest.spyOn(global.console, "error");
-    const controller = new Controller();
     const noInput = "";
     const correctInput = 5;
-    const mockAskMaxRound = jest.fn();
-    mockAskMaxRound
+    mockGetMaxRound
       .mockImplementationOnce(() => noInput)
       .mockImplementationOnce(() => correctInput);
 
     //when
-    await controller.initMaxRound(mockAskMaxRound);
+    await controller.initMaxRound(mockGetMaxRound);
 
     //then
-    expect(logSpy).toHaveBeenCalledWith("시도할 횟수를 입력해주세요.");
+    expect(errorSpy).toHaveBeenCalledWith("시도할 횟수를 입력해주세요.");
   });
 });
 
@@ -148,7 +154,6 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 다시 입력할
 
   test("사용자가 잘못된 라운드 횟수를 입력한 경우 다시 이동횟수를 입력할 수 있게한다.", async () => {
     //given
-    const controller = new Controller();
     const string = "six";
     const noInput = "";
     const negative = -1;
@@ -156,8 +161,7 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 다시 입력할
     const decimal = 1.5;
     const correctRound = 4;
 
-    const mockAskCarNames = jest.fn();
-    mockAskCarNames
+    mockGetCarNames
       .mockImplementationOnce(() => string)
       .mockImplementationOnce(() => noInput)
       .mockImplementationOnce(() => negative)
@@ -166,10 +170,10 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 다시 입력할
       .mockImplementationOnce(() => correctRound);
 
     //when
-    await controller.initMaxRound(mockAskCarNames);
+    await controller.initMaxRound(mockGetCarNames);
 
     //then
-    expect(mockAskCarNames).toHaveBeenCalledTimes(6);
+    expect(mockGetCarNames).toHaveBeenCalledTimes(6);
   });
 });
 
