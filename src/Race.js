@@ -11,7 +11,7 @@ class Race {
 	}
 
 	start() {
-		if (car.name >= 5) {
+		if (this.car.name >= 5) {
 			return;
 		}
 		for (let i = 0; i < 5; i++) {
