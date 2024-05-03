@@ -22,7 +22,7 @@
 
 
 # REVIEW
-- [ ] 더 많은 테스트 코드를 추가
+- [X] 테스트 코드 추가 및 validate 함수 역할 분할
 - [x] expect 삼항연산자
 - [x] private 변수가 아니라면 해당 getter, setter는 없어도 된다.
 - [x] 의미를 갖는 숫자는 상수 설정

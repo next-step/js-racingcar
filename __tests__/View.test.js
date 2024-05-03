@@ -1,4 +1,4 @@
-import { MOVE_THRESHOLD, TEST_CARS, TEST_DUPLICATED_CARS, TEST_NONEXISTENT_CARS } from "../src/constants";
+import { MOVE_THRESHOLD, TEST_CARS, TEST_DUPLICATED_CARS, TEST_NONEXISTENT_CARS, TEST_WHITESPACE_CARS } from "../src/constants";
 import Car from "../src/domain/Car.js";
 import Race from "../src/domain/Race.js";
 import View from "../src/view/view.js";
@@ -75,5 +75,17 @@ describe("입출력 테스트", () => {
     
     // then
     expect(validateionCallback).toThrowError("중복된 자동차가 존재합니다.");
+  });
+
+  test("자동차의 이름이 공백일 경우, 프로그램을 종료한다.", async() => {
+    // given
+    const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_WHITESPACE_CARS.join(","));
+    const input = await mockReadLineAsync();
+
+    // when
+    const validateionCallback = () => View.validates(input);
+    
+    // then
+    expect(validateionCallback).toThrowError("자동차 이름은 최소 1자 이상입니다.");
   });
 })
