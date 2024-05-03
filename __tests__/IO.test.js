@@ -12,6 +12,7 @@ describe('자동차 입출력 테스트', () => {
 		// given
 		jest.spyOn(Math, 'random').mockReturnValue(0.4);
 		const car = new Car('huru');
+		const randomValue = Math.floor(Math.random() * 10);
 		const race = new Race();
 		race.start();
 
@@ -19,7 +20,7 @@ describe('자동차 입출력 테스트', () => {
 
 		// when
 		for (let i = 0; i < race.playNumber; i++) {
-			car.move();
+			car.move(randomValue);
 		}
 
 		// then
