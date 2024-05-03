@@ -6,7 +6,7 @@ export const Console = {
   rl: readlinePromises.createInterface({ input, output }),
 
   async input(question) {
-    return await this.rl.question(question, () => this.rl.close());
+    return await this.rl.question(`${question}\n`, () => this.rl.close());
   },
 
   print(outputMessage) {
