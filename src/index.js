@@ -57,7 +57,7 @@ export class App {
       this.#printRaceResult();
     } catch (error) {
       Console.print(error.message);
-      return Console.exit();
+      await this.init();
     }
   }
 }
