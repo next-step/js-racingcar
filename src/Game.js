@@ -55,8 +55,6 @@ export class Game {
     }
 
     const isInvalidCarName = carNames.some((carName) => {
-      if (!carName || carName === "") {
-      }
       return carName.length > 4;
     });
     if (isInvalidCarName) {
@@ -82,52 +80,50 @@ export class Game {
   }
 
   play() {
-    if (this.playTime > PLAY_TIME) {
-      const winners = this.getWinners();
-      const winnerString = winners.reduce((acc, winner, i) => {
-        acc += winner.name;
-        if (i !== winners.length - 1) {
-          acc += ", ";
-        }
-        return acc;
-      }, "");
+    while (this.playTime < PLAY_TIME) {
+      this.cars.map((car) => {
+        const randomDistance = this.#getRandomDistance();
+        car.move(randomDistance);
+      });
 
-      console.log("cars", this.cars);
-      console.log(`승자는 ${winnerString} 입니다`);
-      return false;
+      let max = -Infinity;
+      this.cars.forEach((car) => {
+        max = Math.max(max, car.distance);
+      });
+
+      this.cars.map((car) => {
+        const randomDistance = this.#getRandomDistance();
+        car.move(randomDistance);
+
+        if (car.distance >= max) {
+          car.win();
+        }
+      });
+
+      this.cars.map((car) => {
+        let distanceString = "";
+        for (let i = 0; i < car.distance; i++) {
+          distanceString += "-";
+        }
+        console.log(`${car.name} : ${distanceString}`);
+
+        car.distance = 0;
+      });
+      console.log("");
+
+      this.playTime += 1;
     }
 
-    this.cars.map((car) => {
-      const randomDistance = this.#getRandomDistance();
-      car.move(randomDistance);
-    });
-
-    let max = -Infinity;
-    this.cars.forEach((car) => {
-      max = Math.max(max, car.distance);
-    });
-
-    this.cars.map((car) => {
-      const randomDistance = this.#getRandomDistance();
-      car.move(randomDistance);
-
-      if (car.distance >= max) {
-        car.win();
+    const winners = this.getWinners();
+    const winnerString = winners.reduce((acc, winner, i) => {
+      acc += winner.name;
+      if (i !== winners.length - 1) {
+        acc += ", ";
       }
-    });
+      return acc;
+    }, "");
 
-    this.cars.map((car) => {
-      let distanceString = "";
-      for (let i = 0; i < car.distance; i++) {
-        distanceString += "-";
-      }
-      console.log(`${car.name} : ${distanceString}`);
-
-      car.distance = 0;
-    });
-    console.log("");
-
-    this.playTime += 1;
+    console.log(`승자는 ${winnerString} 입니다`);
 
     return true;
   }
