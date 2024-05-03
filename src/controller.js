@@ -9,9 +9,9 @@ export default class Controller {
     this.#race = new Race();
   }
 
-  async initCarNames(askCarNames, nextStep) {
+  async initCarNames(getCarNames, nextStep) {
     try {
-      const carNames = await askCarNames();
+      const carNames = await getCarNames();
 
       if (carNames === "") {
         throw new Error(ERROR_MESSAGE.CAR_NAME_REQUIRED);
@@ -24,13 +24,13 @@ export default class Controller {
       }
     } catch (error) {
       console.error(error.message);
-      this.initCarNames(askCarNames, nextStep);
+      this.initCarNames(getCarNames, nextStep);
     }
   }
 
-  async initMaxRound(askMaxRound, nextStep) {
+  async initMaxRound(getMaxRound, nextStep) {
     try {
-      const input = await askMaxRound();
+      const input = await getMaxRound();
       const maxRound = Number(input);
 
       if (input === "") {
@@ -56,12 +56,8 @@ export default class Controller {
       }
     } catch (error) {
       console.error(error.message);
-      return this.initMaxRound(askMaxRound, nextStep);
+      return this.initMaxRound(getMaxRound, nextStep);
     }
-  }
-
-  get race() {
-    return this.#race;
   }
 
   playRaceGame() {
@@ -73,5 +69,9 @@ export default class Controller {
 
   finish() {
     displayWinners(this.#race.winners);
+  }
+
+  get race() {
+    return this.#race;
   }
 }

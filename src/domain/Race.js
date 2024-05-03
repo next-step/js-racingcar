@@ -29,11 +29,6 @@ export default class Race {
     this.#recordRound();
   }
 
-  get winners() {
-    const maxPosition = Math.max(...this.cars.map((car) => car.position));
-    return this.cars.filter((car) => car.position === maxPosition);
-  }
-
   set cars(carNames) {
     this.#cars = carNames.map((name) => new Car(name));
   }
@@ -56,5 +51,10 @@ export default class Race {
 
   get records() {
     return this.#records;
+  }
+
+  get winners() {
+    const maxPosition = Math.max(...this.cars.map((car) => car.position));
+    return this.cars.filter((car) => car.position === maxPosition);
   }
 }

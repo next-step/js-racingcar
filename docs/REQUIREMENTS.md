@@ -32,6 +32,6 @@
 - [ ] validate 관심사 분리
 - [ ] 중복 테스트코드 그룹핑
 - [x] 메세지, 숫자 상수화
-- [ ] private 필드 설정
-- [ ] getter, setter 사용
+- [x] private 필드 설정
+- [x] getter, setter 사용
 - [ ] import문 확인
