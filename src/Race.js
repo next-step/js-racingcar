@@ -3,9 +3,12 @@ import Car from './Car';
 const car = new Car();
 
 class Race {
+	#competitors;
+	#playNumber;
+
 	constructor(competitors) {
-		this._competitors = competitors;
-		this._playNumber = 0;
+		this.#competitors = competitors;
+		this.#playNumber = 0;
 	}
 
 	start() {
@@ -13,18 +16,17 @@ class Race {
 			return;
 		}
 		for (let i = 0; i < 5; i++) {
-			this._playNumber += 1;
+			this.#playNumber += 1;
 		}
 	}
 
 	get playNumber() {
-		return this._playNumber;
+		return this.#playNumber;
 	}
 
 	get winner() {
 		const highestPosition = this.getHighest();
-		// return this._competitors.find(competitor => competitor.position === highestPosition);
-		const winners = this._competitors.filter(
+		const winners = this.#competitors.filter(
 			competitor => competitor.position === highestPosition
 		);
 		return winners.map(winner => winner.name).join(', ');
@@ -32,7 +34,7 @@ class Race {
 
 	getHighest() {
 		return Math.max(
-			...this._competitors.map(competitor => competitor.position)
+			...this.#competitors.map(competitor => competitor.position)
 		);
 	}
 }
