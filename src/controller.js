@@ -13,10 +13,6 @@ export default class Controller {
     try {
       const carNames = await getCarNames();
 
-      if (carNames === "") {
-        throw new Error(ERROR_MESSAGE.CAR_NAME_REQUIRED);
-      }
-
       this.#race.cars = carNames.split(CAR.NAME_SEPARATOR);
 
       if (nextStep) {
@@ -31,24 +27,10 @@ export default class Controller {
   async initMaxRound(getMaxRound, nextStep) {
     try {
       const input = await getMaxRound();
+
+      this.#race.validateMaxRoundRequired(input);
+
       const maxRound = Number(input);
-
-      if (input === "") {
-        throw new Error(ERROR_MESSAGE.RACE_ROUND_REQUIRED);
-      }
-
-      if (isNaN(maxRound)) {
-        throw new Error(ERROR_MESSAGE.RACE_ROUND_NUMBER);
-      }
-
-      if (Math.floor(maxRound) !== maxRound) {
-        throw new Error(ERROR_MESSAGE.RACE_ROUND_NATURAL_NUMBER);
-      }
-
-      if (maxRound < RACE.MIN_ROUND) {
-        throw new Error(ERROR_MESSAGE.RACE_ROUND_MORE_THAN_ZERO);
-      }
-
       this.#race.maxRound = maxRound;
 
       if (nextStep) {
