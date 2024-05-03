@@ -1,12 +1,11 @@
 import Car from './Car';
 
-const car = new Car();
-
 class Race {
 	#competitors;
 	#playNumber;
 
 	constructor(competitors) {
+		this.car = new Car();
 		this.#competitors = competitors;
 		this.#playNumber = 0;
 	}
