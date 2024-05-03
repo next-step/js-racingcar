@@ -5,6 +5,7 @@ import {
 import Car from "../src/domain/Car.js";
 import * as io from "../src/utils/readLineAsync.js";
 import View from "../src/domain/View.js";
+import CarRace from "../src/domain/CarRace.js";
 
 const logSpy = jest.spyOn(console, "log");
 const readLineAsyncSpy = jest.spyOn(io, "readLineAsync");
@@ -49,10 +50,10 @@ describe("입출력 테스트", () => {
     const car1 = new Car("pobi");
     const car2 = new Car("crong");
     const car3 = new Car("honux");
-    const raceWinners = [car1, car2, car3];
+    const carRace = new CarRace([car1, car2, car3]);
 
     // when
-    View.printCarRaceWinners(raceWinners);
+    View.printCarRaceWinners(carRace.winnerNames.join(", "));
 
     // then
     expect(logSpy).toHaveBeenCalledWith(

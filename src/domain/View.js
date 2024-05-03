@@ -38,11 +38,8 @@ const View = {
       }
     }
   },
-  printCarRaceWinners(cars) {
-    const carNames = cars.map((car) => car.name);
-    const joinedCarNames = carNames.join(", ");
-
-    console.log(`${joinedCarNames}가 최종 우승했습니다.`);
+  printCarRaceWinners(winnerNames) {
+    console.log(`${winnerNames}가 최종 우승했습니다.`);
   },
   printCarStatus(car) {
     const carPosition = "-".repeat(car.position);

@@ -21,7 +21,7 @@ async function play() {
   carRace.race();
 
   // 우승자 출력
-  View.printCarRaceWinners(carRace.winners);
+  View.printCarRaceWinners(carRace.winnerNames.join(", "));
 }
 
 play();

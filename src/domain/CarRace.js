@@ -18,6 +18,10 @@ class CarRace {
     return winners;
   }
 
+  get winnerNames() {
+    return this.winners.map((winner) => winner.name);
+  }
+
   get remainingRaceCount() {
     return this.#remainingRaceCount;
   }
