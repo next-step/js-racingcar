@@ -39,4 +39,16 @@ describe("시도 횟수 유효성 테스트", () => {
       carRace.tryCountValidator(tryCount);
     }).toThrow(ERROR_MESSAGES.TRY_COUNT_MIN);
   });
+
+  test("시도 횟수가 정수가 아니면 에러 메시지를 띄운다.", () => {
+    const tryCount1 = "a";
+    const tryCount2 = 1.1;
+
+    expect(() => {
+      carRace.tryCountValidator(tryCount1);
+    }).toThrow(ERROR_MESSAGES.TRY_COUNT_NUMBER);
+    expect(() => {
+      carRace.tryCountValidator(tryCount2);
+    }).toThrow(ERROR_MESSAGES.TRY_COUNT_NUMBER);
+  });
 });
