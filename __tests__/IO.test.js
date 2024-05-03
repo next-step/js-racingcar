@@ -65,9 +65,11 @@ describe("입출력 테스트", () => {
     // given
     const car = new Car("ganbu");
     car.move();
+    const carName = car.name;
+    const carPosition = "-".repeat(car.position);
 
     // when
-    View.printCarStatus(car);
+    View.printCarStatus(carName, carPosition);
 
     // then
     expect(logSpy).toHaveBeenCalledWith("ganbu : -");

@@ -41,14 +41,14 @@ const View = {
   printCarRaceWinners(winnerNames) {
     console.log(`${winnerNames}가 최종 우승했습니다.`);
   },
-  printCarStatus(car) {
-    const carPosition = "-".repeat(car.position);
-
-    console.log(`${car.name} : ${carPosition}`);
+  printCarStatus(carName, carPosition) {
+    console.log(`${carName} : ${carPosition}`);
   },
   printCarsStatus(cars) {
     cars.forEach((car) => {
-      this.printCarStatus(car);
+      const carName = car.name;
+      const carPosition = "-".repeat(car.position);
+      this.printCarStatus(carName, carPosition);
     });
     console.log();
   },
