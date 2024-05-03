@@ -1,6 +1,5 @@
 import { CAR_RACE } from "../constants/carRace";
 import { generateRandomNumber } from "../utils/generateRandomNumber";
-import { Car } from "./Car";
 
 export class CarRace {
   #cars;
