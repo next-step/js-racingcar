@@ -29,6 +29,6 @@ describe("자동차 기능 테스트", () => {
     car.moveForward(randomValue);
 
     // then
-    randomValue >= MOVE_THRESHOLD ? expect(car.position).toBe(1) : expect(car.position).toBe(0);
+    expect(car.position).toBe(randomValue >= MOVE_THRESHOLD ? 1 : 0);
   })
 });
