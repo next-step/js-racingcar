@@ -30,6 +30,16 @@ export class App {
     this.#carInstance = this.#makeCarInstance(carNamesSplitByComma);
   }
 
+  async #carNameStage() {
+    try {
+      await this.#inputCarName();
+      this.#carRace = new CarRace(this.#carInstance);
+    } catch (error) {
+      Console.print(error.message);
+      await this.#carNameStage();
+    }
+  }
+
   async #inputTryCount() {
     try {
       const tryCountInput = await input.tryCount();
@@ -39,16 +49,6 @@ export class App {
     } catch (error) {
       Console.print(error.message);
       await this.#inputTryCount();
-    }
-  }
-
-  async #carNameStage() {
-    try {
-      await this.#inputCarName();
-      this.#carRace = new CarRace(this.#carInstance);
-    } catch (error) {
-      Console.print(error.message);
-      await this.#carNameStage();
     }
   }
 
