@@ -9,36 +9,28 @@ export default class Controller {
     this.#race = new Race();
   }
 
-  async initCarNames(getCarNames, nextStep) {
+  async initCarNames(getCarNames) {
     try {
       const carNames = await getCarNames();
-
-      this.#race.cars = carNames.split(CAR.NAME_SEPARATOR);
-
-      if (nextStep) {
-        await nextStep();
-      }
+      this.#race.cars = await carNames.split(CAR.NAME_SEPARATOR);
     } catch (error) {
       console.error(error.message);
-      this.initCarNames(getCarNames, nextStep);
+
+      return this.initCarNames(getCarNames);
     }
   }
 
-  async initMaxRound(getMaxRound, nextStep) {
+  async initMaxRound(getMaxRound) {
     try {
       const input = await getMaxRound();
-
       this.#race.validateMaxRoundRequired(input);
 
       const maxRound = Number(input);
       this.#race.maxRound = maxRound;
-
-      if (nextStep) {
-        await nextStep();
-      }
     } catch (error) {
       console.error(error.message);
-      return this.initMaxRound(getMaxRound, nextStep);
+
+      return this.initMaxRound(getMaxRound);
     }
   }
 
