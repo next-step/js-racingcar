@@ -44,13 +44,20 @@ const IO = {
   printCarStatus(carName, carPosition) {
     console.log(`${carName} : ${carPosition}`);
   },
-  printCarsStatus(cars) {
-    cars.forEach((car) => {
-      const carName = car.name;
-      const carPosition = "-".repeat(car.position);
-      this.printCarStatus(carName, carPosition);
+  printCarRaceRoundResult(cars, roundResult) {
+    cars.forEach((car, carIndex) => {
+      const carPosition = "-".repeat(roundResult.at(carIndex));
+      this.printCarStatus(car.name, carPosition);
     });
     console.log();
+  },
+  printCarRaceRoundsResult(carRace) {
+    const cars = carRace.competitors;
+
+    console.log("\n실행 결과");
+    carRace.roundResults.forEach((roundResult) => {
+      this.printCarRaceRoundResult(cars, roundResult);
+    });
   },
 };
 

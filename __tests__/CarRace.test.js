@@ -2,7 +2,7 @@ import Car from "../src/domain/Car.js";
 import CarRace from "../src/domain/CarRace.js";
 
 describe("자동차 경주 기능 테스트", () => {
-  test("자동차 경주는 임의의 0 이상의 정수 횟수만큼 진행 후 종료된다.", () => {
+  test("자동차 경주는 임의의 0 이상의 정수 개의 라운드로 이루어져있다.", () => {
     // given
     const car1 = new Car("ganu");
     const car2 = new Car("sunu");
@@ -13,13 +13,29 @@ describe("자동차 경주 기능 테스트", () => {
 
     // when
     carRace.race();
-    const remainingRaceCount = carRace.remainingRaceCount;
+    const remainingRoundsCount = carRace.remainingRoundsCount;
 
     // then
-    expect(remainingRaceCount).toBe(0);
+    expect(remainingRoundsCount).toBe(0);
   });
 
-  test("자동차 경주가 종료되었을 때 현재 position 값이 가장 큰 자동차가 우승한다.", () => {
+  test("자동차 경주는 여러 개의 라운드로 이루어져 있으며, 각 라운드가 종료되면 자동차들의 위치 값이 roundResults에 추가된다", () => {
+    // given
+    const car1 = new Car("ganu");
+    const car2 = new Car("sunu");
+    const car3 = new Car("buhu");
+    const carRace = new CarRace([car1, car2, car3], 2);
+
+    // when
+    carRace.race();
+
+    // then
+    const roundResults = carRace.roundResults;
+    expect(roundResults.length).toBe(2);
+    expect(roundResults.at(0).length).toBe(3);
+  });
+
+  test("자동차 경주는 여러 개의 라운드로 이루어져 있으며, 모든 라운드가 종료되었을 때 현재 position 값이 가장 큰 자동차가 우승한다.", () => {
     // given
     const car1 = new Car("ganu");
     const car2 = new Car("sunu");
@@ -36,7 +52,7 @@ describe("자동차 경주 기능 테스트", () => {
     expect(winnerNames).toStrictEqual(["ganu"]);
   });
 
-  test("자동차 경주가 종료되었을 때 한 개 이상의 자동차가 우승한다.", () => {
+  test("자동차 경주는 여러 개의 라운드로 이루어져 있으며, 모든 라운드가 종료되었을 때 한 개 이상의 자동차가 우승한다.", () => {
     // given
     const car1 = new Car("ganu");
     const car2 = new Car("sunu");
