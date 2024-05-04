@@ -10,14 +10,8 @@ export default class Car {
     this.position = 0;
   }
 
-  #moveForward() {
+  moveForward() {
     this.position++;
-  }
-
-  move(randomNumber) {
-    if (randomNumber >= CAR.MIN_MOVE_THRESHOLD) {
-      this.#moveForward();
-    }
   }
 
   #validateNameLength(name) {

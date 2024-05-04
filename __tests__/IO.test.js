@@ -200,7 +200,7 @@ describe("자동차 경주 상황 출력 구현", () => {
   test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
     //given
     const car = new Car("pobi");
-    car.move(4);
+    car.moveForward();
 
     //when
     displayForwardCar(car);

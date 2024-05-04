@@ -57,10 +57,36 @@ describe("자동차 경주 규칙 구현", () => {
     race.cars = ["pobi", "crong", "honux"];
 
     //when
-    race.cars[1].move(4);
-    race.cars[1].move(4);
+    race.cars[1].moveForward();
+    race.cars[1].moveForward();
 
     //then
     expect(race.winners).toEqual([race.cars[1]]);
+  });
+
+  test("주어진 숫자가 4이상인 경우에 자동차는 전진한다.", () => {
+    //given
+    const race = new Race();
+    race.cars = ["pobi", "crong", "honux"];
+    const pobiCar = race.cars[0];
+
+    //when
+    race.moveCarWithNumberCondition(pobiCar, 4);
+
+    //then
+    expect(pobiCar.position).toBe(1);
+  });
+
+  test("주어진 숫자가 4미만인 경우에 자동차는 정지한다.", () => {
+    //given
+    const race = new Race();
+    race.cars = ["pobi", "crong", "honux"];
+    const pobiCar = race.cars[0];
+
+    //when
+    race.moveCarWithNumberCondition(pobiCar, 3);
+
+    //then
+    expect(pobiCar.position).toBe(0);
   });
 });

@@ -22,9 +22,20 @@ export default class Race {
     this.#records.push(roundRecord);
   }
 
+  moveCarWithNumberCondition(car, number) {
+    if (number >= CAR.MIN_MOVE_THRESHOLD) {
+      car.moveForward();
+    }
+  }
+
   playRound() {
     this.cars.forEach((car) => {
-      car.move(getRandomNumber(CAR.MIN_RANDOM_NUMBER, CAR.MAX_RANDOM_NUMBER));
+      const randomNumber = getRandomNumber(
+        CAR.MIN_RANDOM_NUMBER,
+        CAR.MAX_RANDOM_NUMBER
+      );
+
+      this.moveCarWithNumberCondition(car, randomNumber);
     });
     this.#recordRound();
   }
