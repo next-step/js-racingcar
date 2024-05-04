@@ -1,57 +1,27 @@
-import readline from "readline";
 import CarRace from "./domain/CarRace.js";
-import { createCars } from "./utils/cars.js";
-
-function readLineAsync(query) {
-  return new Promise((resolve, reject) => {
-    if (arguments.length !== 1) {
-      reject(new Error("arguments must be 1"));
-    }
-
-    if (typeof query !== "string") {
-      reject(new Error("query must be string"));
-    }
-
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-
-    rl.question(`${query}\n`, (input) => {
-      rl.close();
-      resolve(input);
-    });
-  });
-}
+import View from "./domain/View.js";
+import Car from "./domain/Car.js";
 
 async function play() {
-  const input = await readLineAsync(
-    "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분)."
-  );
-  console.log("\n실행결과");
+  // 자동차 이름 입력
+  const carNames = await View.getCarNamesFromUserInput();
 
-  // 자동차가 움직이는 조건 생성
-  const carMoveCondition = () => {
-    const randomValue = Math.floor(Math.random() * 10);
-    return randomValue >= 4;
-  };
+  // 자동차 이름으로부터 자동차 생성
+  const cars = Car.createCarsFromCarNames(carNames);
 
-  try {
-    // 자동차 생성
-    const cars = createCars(input, carMoveCondition);
+  // 자동차 경주 횟수 입력
+  const totalRaceCount = await View.getTotalRaceCountFromUserInput();
 
-    // 자동차 경주 생성
-    const carRace = new CarRace(cars);
+  console.log("\n실행 결과");
 
-    // 자동차 경주 시작
-    carRace.race();
+  // 자동차 경주 생성
+  const carRace = new CarRace(cars, totalRaceCount);
 
-    // 우승자 출력
-    carRace.printWinners();
-  } catch (e) {
-    console.error(e);
-    process.exit();
-  }
+  // 자동차 경주 시작
+  carRace.race();
+
+  // 우승자 출력
+  View.printCarRaceWinners(carRace.winnerNames.join(", "));
 }
 
 play();

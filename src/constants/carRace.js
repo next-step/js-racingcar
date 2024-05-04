@@ -1,1 +1,1 @@
-export const TOTAL_RACE_COUNT = 5;
+export const CAR_MOVE_CONDITION_BOUNDARY = 4;

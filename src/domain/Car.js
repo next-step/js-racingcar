@@ -4,18 +4,11 @@ import { ERROR_CAR_NAME_TOO_LONG } from "../constants/error.js";
 class Car {
   #name;
   #position = 0;
-  #moveCondition;
 
-  constructor(
-    name,
-    moveCondition = () => {
-      return true;
-    }
-  ) {
-    Car.validateName(name);
+  constructor(name) {
+    Car.validateCarName(name);
 
     this.#name = name;
-    this.#moveCondition = moveCondition;
   }
 
   get name() {
@@ -26,25 +19,24 @@ class Car {
     return this.#position;
   }
 
-  static validateName(name) {
+  static validateCarName(name) {
     if (name.length > MAX_CAR_NAME_LENGTH) {
       throw new Error(ERROR_CAR_NAME_TOO_LONG);
     }
   }
 
+  static validateCarNames(carNames) {
+    carNames.forEach((carName) => {
+      Car.validateCarName(carName);
+    });
+  }
+
+  static createCarsFromCarNames(carNames) {
+    return carNames.map((carName) => new Car(carName));
+  }
+
   move() {
-    const canMove = this.#moveCondition();
-    if (canMove) {
-      this.#position++;
-    }
-  }
-
-  positionToString() {
-    return "-".repeat(this.#position);
-  }
-
-  statusToString() {
-    return `${this.#name} : ${this.positionToString()}`;
+    this.#position++;
   }
 }
 

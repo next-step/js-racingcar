@@ -1,11 +1,15 @@
-import { TOTAL_RACE_COUNT } from "../constants/carRace.js";
-import { joinCarNamesByComma, printCarsStatus } from "../utils/cars.js";
+import { CAR_MOVE_CONDITION_BOUNDARY } from "../constants/carRace.js";
+import { ERROR_CAR_RACE_COUNT_NOT_VALID } from "../constants/error.js";
+import View from "./View.js";
 
 class CarRace {
-  #remainingRaceCount = TOTAL_RACE_COUNT;
+  #remainingRaceCount;
 
-  constructor(competitors) {
+  constructor(competitors, totalRaceCount = 0) {
+    CarRace.validateTotalRaceCount(totalRaceCount);
+
     this.competitors = competitors;
+    this.#remainingRaceCount = totalRaceCount;
   }
 
   get winners() {
@@ -14,6 +18,10 @@ class CarRace {
     );
 
     return winners;
+  }
+
+  get winnerNames() {
+    return this.winners.map((winner) => winner.name);
   }
 
   get remainingRaceCount() {
@@ -28,22 +36,33 @@ class CarRace {
     return Math.max(...positionResults);
   }
 
-  race() {
-    while (this.#remainingRaceCount > 0) {
-      this.competitors.forEach((competitor) => {
-        competitor.move();
-      });
-      printCarsStatus(this.competitors);
+  static validateTotalRaceCount(totalRaceCount) {
+    if (!Number.isInteger(totalRaceCount)) {
+      throw new Error(ERROR_CAR_RACE_COUNT_NOT_VALID);
+    }
 
-      this.#remainingRaceCount--;
+    if (totalRaceCount < 0) {
+      throw new Error(ERROR_CAR_RACE_COUNT_NOT_VALID);
     }
   }
 
-  printWinners = () => {
-    const joinedCarRaceWinners = joinCarNamesByComma(this.winners);
+  generateCarMoveCondition() {
+    const randomValue = Math.floor(Math.random() * 10);
+    return randomValue >= CAR_MOVE_CONDITION_BOUNDARY;
+  }
 
-    console.log(`${joinedCarRaceWinners}가 최종 우승했습니다.`);
-  };
+  race() {
+    while (this.#remainingRaceCount > 0) {
+      this.competitors.forEach((competitor) => {
+        const canCarMove = this.generateCarMoveCondition();
+        if (canCarMove) {
+          competitor.move();
+        }
+      });
+      View.printCarsStatus(this.competitors);
+      this.#remainingRaceCount--;
+    }
+  }
 }
 
 export default CarRace;

@@ -32,11 +32,13 @@ describe("자동차 기능 테스트", () => {
     // given
     const CAR_NAME = "ganbu";
     const RANDOM_VALUE = 5;
-    const moveCondition = () => RANDOM_VALUE >= 4;
-    const car = new Car(CAR_NAME, moveCondition);
+    const canCarMove = RANDOM_VALUE >= 4;
+    const car = new Car(CAR_NAME);
 
     // when
-    car.move();
+    if (canCarMove) {
+      car.move();
+    }
 
     // then
     expect(car.position).toBe(1);
@@ -46,11 +48,13 @@ describe("자동차 기능 테스트", () => {
     // given
     const CAR_NAME = "ganbu";
     const RANDOM_VALUE = 2;
-    const moveCondition = () => RANDOM_VALUE >= 4;
-    const car = new Car(CAR_NAME, moveCondition);
+    const canCarMove = RANDOM_VALUE >= 4;
+    const car = new Car(CAR_NAME);
 
     // when
-    car.move();
+    if (canCarMove) {
+      car.move();
+    }
 
     // then
     expect(car.position).toBe(0);
