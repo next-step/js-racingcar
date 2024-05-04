@@ -55,7 +55,7 @@ describe("입/출력 테스트", () => {
     readLineAsync.mockResolvedValue(RACE_ROUND.toString());
 
     // when
-    const raceRound = await View.getRaceRountPrompt();
+    const raceRound = await View.getRaceRoundPrompt();
 
     // then
     expect(raceRound).toBe(RACE_ROUND);
@@ -71,7 +71,7 @@ describe("입/출력 테스트", () => {
       .mockReturnValueOnce(RACE_ROUND.toString());
 
     // when
-    const raceRound = await View.getRaceRountPrompt();
+    const raceRound = await View.getRaceRoundPrompt();
 
     // then
     expect(logSpy).toHaveBeenCalledWith(

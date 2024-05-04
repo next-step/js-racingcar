@@ -12,7 +12,7 @@ export class App {
       if (!Array.isArray(carNames))
         carNames = carNames.split(",").map((name) => name.trim());
 
-      const raceRound = await View.getRaceRountPrompt();
+      const raceRound = await View.getRaceRoundPrompt();
 
       this.#race = new Race(
         carNames.map((name) => new Car(name)),

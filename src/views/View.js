@@ -25,7 +25,7 @@ export class View {
     }
   }
 
-  static async getRaceRountPrompt() {
+  static async getRaceRoundPrompt() {
     while (true) {
       try {
         const input = await readLineAsync("시도할 회수는 몇회인가요?\n");
@@ -34,16 +34,11 @@ export class View {
           throw new InputError(ERROR_CODES.ERROR_EMPTY_RACE_ROUND);
         }
 
-        if (
-          isNaN(input) ||
-          Number(input) < 0 ||
-          !Number.isInteger(Number(input))
-        ) {
+        if (!View.isValidRaceRound(input)) {
           throw new InputError(ERROR_CODES.ERROR_INVALID_RACE_ROUND);
         }
 
-        const totalCount = Number(input);
-        return totalCount;
+        return Number(input);
       } catch (error) {
         this.printError(error);
       }
@@ -69,5 +64,11 @@ export class View {
 
   static printError(error) {
     console.log(ERROR_MESSAGES[error.message] || ERROR_MESSAGES.ERROR_UNKOWN);
+  }
+
+  static isValidRaceRound(input) {
+    return (
+      !isNaN(input) && Number(input) >= 0 && Number.isInteger(Number(input))
+    );
   }
 }

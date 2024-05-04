@@ -20,12 +20,11 @@ export class Race {
   }
 
   #validateNames(names) {
-    if (names.some((name) => name === "")) {
+    if (!this.isValidEmptyCarName(names)) {
       throw new CarError(ERROR_CODES.ERROR_INVALID_CAR_NAME);
     }
 
-    const nameSet = new Set(names);
-    if (nameSet.size !== names.length) {
+    if (!this.isValidDuplicateCarName(names)) {
       throw new CarError(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);
     }
   }
@@ -76,5 +75,14 @@ export class Race {
     }
 
     return result;
+  }
+
+  isValidEmptyCarName(names) {
+    return names.some((name) => name !== "");
+  }
+
+  isValidDuplicateCarName(names) {
+    const nameSet = new Set(names);
+    return nameSet.size === names.length;
   }
 }
