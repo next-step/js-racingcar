@@ -70,4 +70,17 @@ describe('자동차 위치는', () => {
     // then: 자동차가 전진에 성공했는지 확인
     expect(car.position).toBe(0);
   });
+
+  test('무작위 값이 0~9 사이의 범위를 벗어난 경우, 전진할 수 없다.', () => {
+    // given: 무작위 값이 0~9 사이의 범위를 벗어난 경우를 가정
+    const RANDOM_VALUE = -1;
+
+    // when: 전진 시도
+    const moveCar = () => car.move(RANDOM_VALUE);
+
+    // then: 자동차가 전진에 성공했는지 확인
+    expect(moveCar).toThrow(
+      '무작위 값은 0~9 사이의 범위를 벗어날 수 없습니다.'
+    );
+  });
 });
