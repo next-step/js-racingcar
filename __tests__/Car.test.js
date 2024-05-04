@@ -23,6 +23,17 @@ describe('자동차 이름은', () => {
     // then: 자동차가 정상적으로 생성되었는지 확인
     expect(createCar).toThrow('자동차 이름은 5자 이하로만 부여할 수 있습니다.');
   });
+
+  test('빈 문자열일 수 없다.', () => {
+    // given: 빈 문자열을 이름으로 준비
+    const EMPTY_NAME = '';
+
+    // when: 빈 문자열을 이름으로 갖는 자동차 생성 시도
+    const createCar = () => new Car(EMPTY_NAME);
+
+    // then: 자동차가 정상적으로 생성되었는지 확인
+    expect(createCar).toThrow('자동차 이름은 빈 문자열일 수 없습니다.');
+  });
 });
 
 describe('자동차 위치는', () => {
