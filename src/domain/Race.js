@@ -1,3 +1,5 @@
+import Car from './Car.js';
+import { parseInput } from '../utils/input.js';
 import { printCarPosition, printRaceWinners } from '../utils/print.js';
 
 export default class Race {
@@ -9,6 +11,14 @@ export default class Race {
 
   constructor(cars) {
     this.#cars = cars;
+  }
+
+  // 다형성을 지원하는 Named Constructor
+  static createWithInput(input) {
+    const carNames = parseInput(input);
+    const cars = carNames.map(name => new Car(name));
+
+    return new Race(cars);
   }
 
   // 라운드 시작
