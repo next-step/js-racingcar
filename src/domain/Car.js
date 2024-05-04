@@ -27,6 +27,10 @@ export default class Car {
 
   // 전진하기
   move(randomValue) {
+    const isRandomValueValid = 0 <= randomValue && randomValue <= 9;
+    if (!isRandomValueValid) {
+      throw new Error('무작위 값은 0~9 사이의 범위를 벗어날 수 없습니다.');
+    }
     if (randomValue >= 4) {
       this.#position += 1;
     }
