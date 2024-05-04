@@ -2,7 +2,6 @@ import { describe, expect, test } from "@jest/globals";
 import { Car } from "../src/domain/Car";
 import { Round } from "../src/domain/Round";
 import { CAR_MOVE_CONDITION } from "../src/const/RacingConfig";
-import { getRandom } from "../src/common/Random";
 
 describe("라운드 테스트", () => {
   test("라운드를 진행할 자동차 목록을 받는다.", () => {
@@ -31,31 +30,25 @@ describe("라운드 테스트", () => {
   test(`자동차는 ${CAR_MOVE_CONDITION} 이상일때 전진한다.`, () => {
     //given
     const car = new Car("test");
-    car.move = jest.fn();
-
     const round = new Round([car]);
-    round.isOkToMove = jest.fn().mockReturnValue(true);
 
     //when
-    round.play();
+    const isOk = round.isOkToMove(CAR_MOVE_CONDITION);
 
     //then
-    expect(car.move).toBeCalled();
+    expect(isOk).toBe(true);
   });
 
   test(`자동차는 ${CAR_MOVE_CONDITION} 미만일때 전진하지 않는다.`, () => {
     //given
     const car = new Car("test");
-    car.move = jest.fn();
-
     const round = new Round([car]);
-    round.isOkToMove = jest.fn().mockReturnValue(false);
 
     //when
-    round.play();
+    const isOk = round.isOkToMove(CAR_MOVE_CONDITION - 1);
 
     //then
-    expect(car.move).not.toBeCalled();
+    expect(isOk).toBe(false);
   });
 
   test("라운드 1등을 리턴한다.", () => {
