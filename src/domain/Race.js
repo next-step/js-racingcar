@@ -1,5 +1,4 @@
 import Car from './Car.js';
-import { parseInput } from '../utils/input.js';
 import { printCarPosition, printRaceWinners } from '../utils/print.js';
 
 export default class Race {
@@ -15,10 +14,18 @@ export default class Race {
 
   // 다형성을 지원하는 Named Constructor
   static createWithInput(input) {
-    const carNames = parseInput(input);
+    const carNames = Race.parseInput(input);
     const cars = carNames.map(name => new Car(name));
 
     return new Race(cars);
+  }
+
+  static parseInput(input) {
+    const regex = /^[0-9A-Za-z]+(?:,[0-9A-Za-z]+)*$/;
+    if (!regex.test(input)) {
+      throw new Error('자동차 이름은 쉼표(,)를 기준으로만 구분할 수 있습니다.');
+    }
+    return input.split(',');
   }
 
   // 라운드 시작
