@@ -1,7 +1,6 @@
 import { CAR_MOVE_CONDITION_BOUNDARY } from "../constants/carRace.js";
 import { ERROR_CAR_RACE_COUNT_NOT_VALID } from "../constants/error.js";
-import View from "./View.js";
-
+import IO from "../view/IO.js";
 class CarRace {
   #remainingRaceCount;
 
@@ -59,7 +58,7 @@ class CarRace {
           competitor.move();
         }
       });
-      View.printCarsStatus(this.competitors);
+      IO.printCarsStatus(this.competitors);
       this.#remainingRaceCount--;
     }
   }

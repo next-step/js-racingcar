@@ -4,8 +4,8 @@ import {
 } from "../src/constants/error.js";
 import Car from "../src/domain/Car.js";
 import * as io from "../src/utils/readLineAsync.js";
-import View from "../src/domain/View.js";
 import CarRace from "../src/domain/CarRace.js";
+import IO from "../src/view/IO.js";
 
 const logSpy = jest.spyOn(console, "log");
 const readLineAsyncSpy = jest.spyOn(io, "readLineAsync");
@@ -21,7 +21,7 @@ describe("입출력 테스트", () => {
     readLineAsyncSpy.mockImplementationOnce(() => Promise.resolve("1"));
 
     // when
-    const totalCount = await View.getTotalRaceCountFromUserInput();
+    const totalCount = await IO.getTotalRaceCountFromUserInput();
 
     // then
     expect(readLineAsyncSpy).toHaveBeenCalledTimes(1);
@@ -37,7 +37,7 @@ describe("입출력 테스트", () => {
       .mockImplementationOnce(() => Promise.resolve("5"));
 
     // when
-    const totalCount = await View.getTotalRaceCountFromUserInput();
+    const totalCount = await IO.getTotalRaceCountFromUserInput();
 
     // then
     expect(logSpy).toHaveBeenCalledWith(ERROR_CAR_RACE_COUNT_NOT_VALID);
@@ -53,7 +53,7 @@ describe("입출력 테스트", () => {
     const carRace = new CarRace([car1, car2, car3]);
 
     // when
-    View.printCarRaceWinners(carRace.winnerNames.join(", "));
+    IO.printCarRaceWinners(carRace.winnerNames.join(", "));
 
     // then
     expect(logSpy).toHaveBeenCalledWith(
@@ -69,7 +69,7 @@ describe("입출력 테스트", () => {
     const carPosition = "-".repeat(car.position);
 
     // when
-    View.printCarStatus(carName, carPosition);
+    IO.printCarStatus(carName, carPosition);
 
     // then
     expect(logSpy).toHaveBeenCalledWith("ganbu : -");
@@ -85,7 +85,7 @@ describe("입출력 테스트", () => {
     car2.move();
 
     // when
-    View.printCarsStatus(cars);
+    IO.printCarsStatus(cars);
 
     // then
     expect(logSpy).toHaveBeenCalledWith("ganu : -");
@@ -99,7 +99,7 @@ describe("입출력 테스트", () => {
     );
 
     // when
-    const carNames = await View.getCarNamesFromUserInput();
+    const carNames = await IO.getCarNamesFromUserInput();
 
     // then
     expect(readLineAsyncSpy).toHaveBeenCalledTimes(1);
@@ -113,7 +113,7 @@ describe("입출력 테스트", () => {
       .mockImplementationOnce(() => Promise.resolve("ganu,crong,honux"));
 
     // when
-    const carNames = await View.getCarNamesFromUserInput();
+    const carNames = await IO.getCarNamesFromUserInput();
 
     // then
     expect(logSpy).toHaveBeenCalledWith(ERROR_CAR_NAME_TOO_LONG);

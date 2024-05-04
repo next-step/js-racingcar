@@ -1,12 +1,12 @@
 import { readLineAsync } from "../utils/readLineAsync.js";
-import CarRace from "./CarRace.js";
+import CarRace from "../domain/CarRace.js";
 import {
   ERROR_CAR_NAME_TOO_LONG,
   ERROR_CAR_RACE_COUNT_NOT_VALID,
 } from "../constants/error.js";
-import Car from "./Car.js";
+import Car from "../domain/Car.js";
 
-const View = {
+const IO = {
   async getTotalRaceCountFromUserInput() {
     while (true) {
       const input = await readLineAsync("시도할 회수는 몇회인가요?");
@@ -54,4 +54,4 @@ const View = {
   },
 };
 
-export default View;
+export default IO;
