@@ -1,9 +1,53 @@
-import { ERROR_MESSAGES } from "../constants";
+import { ERROR_CODES, ERROR_MESSAGES } from "../constants";
+import { InputError } from "../domain/Error";
 import { readLineAsync } from "../utils";
 
 export class View {
   static async readLine(message) {
     return await readLineAsync(message);
+  }
+
+  static async getCarNamesPrompt() {
+    while (true) {
+      try {
+        const input = await View.readLine(
+          "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n"
+        );
+
+        if (!input) {
+          throw new InputError(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
+        }
+
+        return input;
+      } catch (error) {
+        this.printError(error);
+      }
+    }
+  }
+
+  static async getRaceRountPrompt() {
+    while (true) {
+      try {
+        const input = await readLineAsync("시도할 회수는 몇회인가요?\n");
+
+        if (!input) {
+          throw new InputError(ERROR_CODES.ERROR_EMPTY_RACE_ROUND);
+        }
+
+        if (
+          isNaN(input) ||
+          Number(input) < 0 ||
+          !Number.isInteger(Number(input))
+        ) {
+          throw new InputError(ERROR_CODES.ERROR_INVALID_RACE_ROUND);
+        }
+
+        const totalCount = Number(input);
+        return totalCount;
+      } catch (error) {
+        this.printError(error);
+      }
+    }
   }
 
   static printRoundStart() {

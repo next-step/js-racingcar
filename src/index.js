@@ -1,6 +1,4 @@
-import { ERROR_CODES } from "./constants";
 import { Car, Race } from "./domain";
-import { CarError } from "./domain/Error";
 import { RandomMoveStrategy } from "./domain/strategies";
 import { View } from "./views";
 
@@ -9,31 +7,23 @@ export class App {
 
   async play() {
     try {
-      let carNames = await this.#getCarNames();
+      let carNames = await View.getCarNamesPrompt();
       if (carNames.length === 0) return;
       if (!Array.isArray(carNames))
         carNames = carNames.split(",").map((name) => name.trim());
 
+      const raceRound = await View.getRaceRountPrompt();
+
       this.#race = new Race(
         carNames.map((name) => new Car(name)),
-        new RandomMoveStrategy()
+        new RandomMoveStrategy(),
+        raceRound
       );
       const result = this.#race.race();
       this.#render(result);
     } catch (error) {
       View.printError(error);
     }
-  }
-
-  async #getCarNames() {
-    const namesInput = await View.readLine(
-      "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n"
-    );
-    if (!namesInput) {
-      throw new CarError(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
-    }
-
-    return namesInput;
   }
 
   #render(raceResult) {

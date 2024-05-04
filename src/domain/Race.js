@@ -1,5 +1,4 @@
 import { ERROR_CODES } from "../constants";
-import { Car } from "./Car";
 import { CarError } from "./Error";
 import { RandomMoveStrategy } from "./strategies";
 
