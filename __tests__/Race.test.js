@@ -30,7 +30,7 @@ describe("자동차 경주 게임 테스트", () => {
     const car1 = new Car("Car1");
     const car2 = new Car("Car2");
     const car3 = new Car("Car3");
-    const app = new Race([car1, car2, car3], new RandomMoveStrategy());
+    const app = new Race([car1, car2, car3], new RandomMoveStrategy(), 5);
     getRandom
       .mockReturnValueOnce(RandomMoveStrategy.MOVE_FORWARD_CAR)
       .mockReturnValueOnce(0)
@@ -49,7 +49,7 @@ describe("자동차 경주 게임 테스트", () => {
     const car1 = new Car("Car1");
     const car2 = new Car("Car2");
     const car3 = new Car("Car3");
-    const app = new Race([car1, car2, car3], new RandomMoveStrategy());
+    const app = new Race([car1, car2, car3], new RandomMoveStrategy(), 5);
     getRandom.mockReturnValueOnce(RandomMoveStrategy.MOVE_FORWARD_CAR);
     app.setStrategyPerRound(2, new DefaultMoveStrategy());
     app.setStrategyPerRound(3, new DefaultMoveStrategy());
@@ -74,5 +74,20 @@ describe("자동차 경주 게임 테스트", () => {
 
     // then
     expect(app).toThrow(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);
+  });
+
+  test("자동차 경주는 N회로 진행한다.", () => {
+    // given
+    const car1 = new Car("car1");
+    const car2 = new Car("car2");
+    const car3 = new Car("car3");
+    const RACE_ROUND = 5;
+    const race = new Race([car1, car2, car3], null, RACE_ROUND);
+
+    // when
+    const raceRound = race.raceRound;
+
+    // then
+    expect(raceRound).toBe(RACE_ROUND);
   });
 });

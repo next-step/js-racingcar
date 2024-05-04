@@ -4,16 +4,16 @@ import { CarError } from "./Error";
 import { RandomMoveStrategy } from "./strategies";
 
 export class Race {
-  static RACE_ROUND = 5;
-
   #cars = [];
   #winners = [];
   #strategies = new Map();
   #defaultStrategy = new RandomMoveStrategy();
+  #raceRound;
 
-  constructor(cars, defaultStrategy) {
+  constructor(cars, defaultStrategy, round = 1) {
     this.#cars = cars;
     this.#validateNames(cars.map((car) => car.name));
+    this.#raceRound = round;
 
     if (defaultStrategy) {
       this.#defaultStrategy = defaultStrategy;
@@ -46,6 +46,10 @@ export class Race {
     return this.#winners;
   }
 
+  get raceRound() {
+    return this.#raceRound;
+  }
+
   #setWinners() {
     const maxPosition = Math.max(...this.#cars.map((car) => car.position));
     this.#winners = this.#cars.filter((car) => car.position === maxPosition);
@@ -57,7 +61,7 @@ export class Race {
 
   #setRaceResult() {
     const result = [];
-    for (let round = 1; round <= Race.RACE_ROUND; round++) {
+    for (let round = 1; round <= this.#raceRound; round++) {
       const strategy = this.#strategies.get(round) || this.#defaultStrategy;
       this.#cars.forEach((car) => {
         car.move(strategy.shouldMove);
