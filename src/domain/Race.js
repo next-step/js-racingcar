@@ -1,5 +1,5 @@
 import Car from './Car.js';
-import { printCarPosition, printRaceWinners } from '../utils/print.js';
+import { printCarPosition } from '../utils/print.js';
 
 export default class Race {
   // 라운드 횟수
@@ -42,18 +42,13 @@ export default class Race {
 
   // 경주 시작: 5라운드로 진행
   initRace() {
-    console.log('🏁 자동차 경주를 시작합니다!');
-
     // 라운드별 진행
     for (let i = 0; i < Race.ROUNDS; i++) {
       console.log(`\nRound ${i + 1})`);
       this.initRound();
     }
-
-    // 우승자 명단 출력
-    console.log('\n🎉 우승자는?');
-    printRaceWinners(this);
   }
+
   // 우승자 목록
   get winners() {
     const maxPosition = Math.max(...this.#cars.map(car => car.position));
