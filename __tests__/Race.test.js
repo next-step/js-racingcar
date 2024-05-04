@@ -15,8 +15,8 @@ describe('자동차 경주는', () => {
     race.initRace();
 
     // then: 자동차 경주가 5라운드로 진행되는지 확인
-    expect(Race.rounds).toBe(5);
-    expect(race.initRound).toHaveBeenCalledTimes(Race.rounds);
+    expect(Race.ROUNDS).toBe(5);
+    expect(race.initRound).toHaveBeenCalledTimes(Race.ROUNDS);
   });
 
   test('한 명 이상의 우승자가 발생할 수 있다.', () => {

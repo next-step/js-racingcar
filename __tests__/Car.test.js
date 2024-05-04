@@ -10,7 +10,7 @@ describe('자동차 이름은', () => {
     const name = car.name;
 
     // then: 자동차 이름의 길이가 5자 이하인지 확인
-    expect(name.length).toBeLessThanOrEqual(5);
+    expect(name.length).toBeLessThanOrEqual(Car.MAX_NAME_LENGTH);
   });
 
   test('5자를 초과하여 부여할 수 없다.', () => {

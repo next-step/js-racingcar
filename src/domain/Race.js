@@ -2,7 +2,7 @@ import { printCarPosition, printRaceWinners } from '../utils/print.js';
 
 export default class Race {
   // 라운드 횟수
-  static rounds = 5;
+  static ROUNDS = 5;
 
   // 참가 자동차 목록
   #cars = [];
@@ -28,7 +28,7 @@ export default class Race {
     console.log('🏁 자동차 경주를 시작합니다!');
 
     // 라운드별 진행
-    for (let i = 0; i < Race.rounds; i++) {
+    for (let i = 0; i < Race.ROUNDS; i++) {
       console.log(`\nRound ${i + 1})`);
       this.initRound();
     }
