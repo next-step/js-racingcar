@@ -37,4 +37,10 @@ describe('자동차 관련 내용', () => {
     //Then(검증)
     expect(car.position).toBe(0);
   });
+
+  test('자동차이름을 5자 초과시 에러를 발생시킨다.', () => {
+    expect(() => {
+      const car = new Car('audiiii');
+    }).toThrow();
+  });
 });

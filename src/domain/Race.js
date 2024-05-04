@@ -35,7 +35,7 @@ export class Race {
     }
   }
 
-  racingStart(racingCount, getRandomValue) {
+  startRacing(racingCount, getRandomValue) {
     this.repeatRacing(racingCount, this.#racingCars, getRandomValue);
 
     this.racingResult = this.#racingCars
