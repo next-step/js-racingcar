@@ -1,4 +1,4 @@
-const getWinners = (cars) => {
+export const getWinners = (cars) => {
   const result = [];
   let maxPosition = 0;
 
@@ -15,5 +15,3 @@ const getWinners = (cars) => {
 
   return result;
 };
-
-module.exports = { getWinners };

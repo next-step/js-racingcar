@@ -1,5 +1,5 @@
-const { Car } = require("../src/Car");
-const { getWinners } = require("../src/racing");
+import { Car } from "../src/Car";
+import { getWinners } from "../src/racing";
 
 describe("getWinners()", () => {
   it("should return an array of winners", () => {

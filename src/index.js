@@ -1,8 +1,9 @@
-const readline = require("readline");
-const { parseInput, getRandomNumber, parseOutput } = require("./utils");
+import readline from "readline";
 
-const { Car } = require("../src/Car");
-const { getWinners } = require("./racing");
+import { parseInput, getRandomNumber, parseOutput } from "./utils";
+
+import { Car } from "../src/Car";
+import { getWinners } from "./racing";
 
 const LAPS = 5;
 const RANDOM_MIN = 0;

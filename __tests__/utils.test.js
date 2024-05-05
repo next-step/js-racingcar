@@ -1,6 +1,6 @@
-const { getRandomNumber, parseInput, parseOutput } = require("../src/utils");
+import { getRandomNumber, parseInput, parseOutput } from "../src/utils";
 
-const { MESSAGE } = require("../constants/message");
+import { MESSAGE } from "../constants/message";
 
 describe("getRandomNumber()", () => {
   it("should return a random number in a given range", () => {
