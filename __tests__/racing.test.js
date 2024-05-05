@@ -1,5 +1,5 @@
 import Car from "../src/Car";
-import { getWinners } from "../src/racing";
+import { getWinners, createCars } from "../src/racing";
 
 describe("getWinners()", () => {
   it("should return an array of the highest scorer as winner", () => {
@@ -20,5 +20,18 @@ describe("getWinners()", () => {
     const winners = getWinners([car1, car2, car3]);
 
     expect(winners).toStrictEqual(["pobi", "honux", "crong"]);
+  });
+});
+
+describe("createCars()", () => {
+  it("should return an array of car instances", () => {
+    const car1 = new Car("pobi");
+    const car2 = new Car("honux");
+    const car3 = new Car("crong");
+    const names = ["pobi", "honux", "crong"];
+
+    const cars = createCars(names, Car);
+
+    expect(cars).toStrictEqual([car1, car2, car3]);
   });
 });
