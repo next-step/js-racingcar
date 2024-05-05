@@ -7,7 +7,7 @@ export const carRace = {
       throw new Error(ERROR_MESSAGES.TRY_COUNT_NUMBER);
     }
 
-    if (tryCount < CAR_RACE.MIN_TRY_COUNT) {
+    if (tryCount < CAR_RACE.MIN_ROUND_COUNT) {
       throw new Error(ERROR_MESSAGES.TRY_COUNT_MIN);
     }
   },

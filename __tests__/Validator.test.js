@@ -33,8 +33,8 @@ describe("자동차 이름 유효성 테스트", () => {
 });
 
 describe("시도 횟수 유효성 테스트", () => {
-  test(`시도 횟수가 ${CAR_RACE.MIN_TRY_COUNT}미만이면 에러 메시지를 띄운다.`, () => {
-    const tryCount = CAR_RACE.MIN_TRY_COUNT - 1;
+  test(`시도 횟수가 ${CAR_RACE.MIN_ROUND_COUNT}미만이면 에러 메시지를 띄운다.`, () => {
+    const tryCount = CAR_RACE.MIN_ROUND_COUNT - 1;
 
     expect(() => {
       carRace.tryCountValidator(tryCount);
