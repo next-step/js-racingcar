@@ -14,6 +14,7 @@ const play = async () => {
     const cars = createCars(carNames, Car);
 
     for (let i = 0; i < LAPS; i++) {
+      console.log(`Lap #${i + 1} ${"=".repeat(50)}`);
       executeLap(cars);
     }
 
