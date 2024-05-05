@@ -1,16 +1,13 @@
-import IO from "./IO";
 import Car from "../src/Car";
 
-import { parseCarNames, parseLaps, parseOutput } from "./utils";
+import { getValidInput, parseCarNames, parseLaps, parseOutput } from "./utils";
 import { createCars, executeLap, getWinners } from "./racing";
 
 const play = async () => {
-  const carNamesInput = await IO.readLineAsync("자동차 이름을 입력해주세요");
-  const lapsInput = await IO.readLineAsync("시도할 회수는 몇회인가요?");
-
   try {
-    const carNames = parseCarNames(carNamesInput);
-    const laps = parseLaps(lapsInput);
+    const carNames = await getValidInput("경주할 자동차 이름을 입력해주세요.(쉼표(,)를 기준으로 구분)", parseCarNames);
+    const laps = await getValidInput("시도할 횟수는 몇회인가요?", parseLaps);
+
     const cars = createCars(carNames, Car);
 
     for (let i = 0; i < laps; i++) {
