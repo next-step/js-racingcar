@@ -42,4 +42,32 @@ describe("Car class", () => {
       expect(car.position).toBe(0);
     });
   });
+
+  describe("printPosition()", () => {
+    let logSpy;
+    const name = "pobi";
+
+    beforeEach(() => {
+      logSpy = jest.spyOn(console, "log");
+    });
+
+    afterEach(() => {
+      logSpy.mockRestore();
+    });
+
+    it("should print the correct position", () => {
+      const position = 4;
+      const car = new Car(name, position);
+
+      car.printPosition();
+      expect(logSpy).toBeCalledWith("pobi : ----");
+    });
+
+    it("should print the zero position", () => {
+      const car = new Car(name);
+
+      car.printPosition();
+      expect(logSpy).toBeCalledWith("pobi : ");
+    });
+  });
 });
