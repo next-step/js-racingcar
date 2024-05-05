@@ -1,5 +1,7 @@
 import Car from "../src/Car";
 
+import { MESSAGE } from "../constants/message";
+
 describe("Car class", () => {
   describe("Name property", () => {
     it("should have a name property", () => {
@@ -18,8 +20,9 @@ describe("Car class", () => {
   });
 
   describe("move()", () => {
+    const name = "pobi";
+
     it("should increase position by 1 if the given value is greater than or equal to 4", () => {
-      const name = "pobi";
       const value = 4;
       const car = new Car(name);
 
@@ -31,7 +34,6 @@ describe("Car class", () => {
     });
 
     it("should remain in the same position when the given value is less than 4", () => {
-      const name = "pobi";
       const value = 3;
       const car = new Car(name);
 
@@ -40,6 +42,20 @@ describe("Car class", () => {
       car.move(value);
 
       expect(car.position).toBe(0);
+    });
+
+    it("should throw an error if the given value is not a number", () => {
+      const value = "pb";
+      const car = new Car(name);
+
+      expect(() => car.move(value)).toThrow(MESSAGE.INPUT_TYPE_ERROR);
+    });
+
+    it("should throw an error if the given number is out of range", () => {
+      const value = 10;
+      const car = new Car(name);
+
+      expect(() => car.move(value)).toThrow(MESSAGE.INPUT_RANGE_ERROR);
     });
   });
 
