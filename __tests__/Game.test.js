@@ -69,23 +69,24 @@ describe("Game Class 기본적인 요소에 대해 테스트 한다.", () => {
 
     expect(cars).toBe(ERROR_CODE.DUPLICATE);
   });
+
+  test("maxPlayTime을 조정 할 수 있다.", () => {
+    const maxPlayTime = 3;
+    const game = new Game();
+
+    game.setMaxPlayTime(maxPlayTime);
+
+    expect(game.getMaxPlayTime()).toBe(maxPlayTime);
+  });
 });
 
 describe("게임 플레이 테스트(play 메서드)", () => {
-  test("플레이 타임이 5번이 넘지 않았으면 true를 반환한다.", () => {
+  test("maxPlayTime이 지정되지 않았다면 기본 세팅된 플레이 타임만큼 게임이 진행되고 true를 반환한다.", () => {
     const game = new Game();
 
-    const result1 = game.play();
-    const result2 = game.play();
-    const result3 = game.play();
-    const result4 = game.play();
-    const result5 = game.play();
+    const result = game.play();
 
-    expect(result1).toBe(true);
-    expect(result2).toBe(true);
-    expect(result3).toBe(true);
-    expect(result4).toBe(true);
-    expect(result5).toBe(true);
+    expect(result).toBe(true);
   });
 
   test("게임이 정상적으로 종료되면 true를 반환한다.", () => {
@@ -93,35 +94,5 @@ describe("게임 플레이 테스트(play 메서드)", () => {
 
     const result = game.play();
     expect(result).toBe(true);
-  });
-
-  test("자동차들 중에 승리 횟수가 가장 많은 자동차 배열을 구할 수 있다", () => {
-    const game = new Game();
-    const testCar1 = new Car();
-    const testCar2 = new Car();
-    const testCar3 = new Car();
-    const testCar4 = new Car();
-
-    game.setCar(testCar1);
-    game.setCar(testCar2);
-    game.setCar(testCar3);
-    game.setCar(testCar4);
-
-    testCar1.win();
-    testCar1.win();
-    testCar1.win();
-
-    testCar2.win();
-    testCar2.win();
-
-    testCar3.win();
-    testCar3.win();
-
-    testCar4.win();
-    testCar4.win();
-    testCar4.win();
-
-    const winers = game.getWinners();
-    expect(winers).toEqual([testCar1, testCar4]);
   });
 });

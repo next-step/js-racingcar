@@ -1,7 +1,7 @@
 import readline from "readline";
 import { Car } from "./Car";
 
-export const PLAY_TIME = 4;
+export const DEFAULT_PLAY_TIME = 4;
 
 export const ERROR_CODE = {
   NO_VALUE: 1,
@@ -12,6 +12,7 @@ export const ERROR_CODE = {
 export class Game {
   cars;
   playTime;
+  #maxPlayTime = DEFAULT_PLAY_TIME;
 
   constructor() {
     this.cars = [];
@@ -42,6 +43,20 @@ export class Game {
         resolve(input);
       });
     });
+  }
+
+  getMaxPlayTime() {
+    return this.#maxPlayTime;
+  }
+  setMaxPlayTime(maxPlayTime) {
+    if (!maxPlayTime) {
+      console.log("숫자를 입력해주세요.");
+      return false;
+    }
+
+    this.#maxPlayTime = maxPlayTime;
+
+    return true;
   }
 
   getCarsByCarsString(carNamesString) {
@@ -80,35 +95,22 @@ export class Game {
   }
 
   play() {
-    while (this.playTime < PLAY_TIME) {
-      this.cars.map((car) => {
-        const randomDistance = this.#getRandomDistance();
-        car.move(randomDistance);
+    while (this.playTime < this.#maxPlayTime) {
+      const randomDistances = this.cars.map(() => {
+        return this.#getRandomDistance();
       });
 
-      let max = -Infinity;
-      this.cars.forEach((car) => {
-        max = Math.max(max, car.distance);
-      });
+      randomDistances.map((randomDistance, distanceIndex) => {
+        this.cars[distanceIndex].move(randomDistance);
 
-      this.cars.map((car) => {
-        const randomDistance = this.#getRandomDistance();
-        car.move(randomDistance);
-
-        if (car.distance >= max) {
-          car.win();
-        }
-      });
-
-      this.cars.map((car) => {
         let distanceString = "";
-        for (let i = 0; i < car.distance; i++) {
+        for (let i = 0; i < this.cars[distanceIndex].distance; i++) {
           distanceString += "-";
         }
-        console.log(`${car.name} : ${distanceString}`);
 
-        car.distance = 0;
+        console.log(`${this.cars[distanceIndex].name} : ${distanceString}`);
       });
+
       console.log("");
 
       this.playTime += 1;
@@ -133,11 +135,11 @@ export class Game {
 
     let max = -Infinity;
     this.cars.forEach((car) => {
-      max = Math.max(max, car.winCount);
+      max = Math.max(max, car.distance);
     });
 
     winner = this.cars.reduce((acc, car) => {
-      if (car.winCount === max) {
+      if (car.distance === max) {
         acc.push(car);
       }
       return acc;

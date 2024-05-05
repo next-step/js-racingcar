@@ -1,7 +1,6 @@
 export class Car {
   name;
   distance;
-  winCount;
 
   constructor(name) {
     this.name = name;
@@ -10,10 +9,12 @@ export class Car {
   }
 
   move(distance) {
-    this.distance += distance;
-  }
+    if (distance < 4) {
+      return false;
+    }
 
-  win() {
-    this.winCount += 1;
+    this.distance += 1;
+
+    return true;
   }
 }

@@ -40,7 +40,7 @@ describe("Car Class 기본적인 요소에 대해 테스트 한다.", () => {
     car.move(10);
 
     // then
-    expect(car.distance).toBe(10);
+    expect(car.distance).toBe(1);
   });
 
   test("이동 메서드가 여러번 호출되면 이동거리가 누적되어 증가한다.", () => {
@@ -49,14 +49,14 @@ describe("Car Class 기본적인 요소에 대해 테스트 한다.", () => {
     car.move(10);
 
     // then
-    expect(car.distance).toBe(20);
+    expect(car.distance).toBe(2);
   });
 
-  test("Car 인스턴스는 승리 메서드가 호출 되면 우승 횟수 카운트가 올라간다.", () => {
+  test("4미만의 거리가 입력되면 전진하지 않는다.", () => {
     // when
-    car.win(10);
+    car.move(3);
 
     // then
-    expect(car.winCount).toBe(1);
+    expect(car.distance).toBe(0);
   });
 });
