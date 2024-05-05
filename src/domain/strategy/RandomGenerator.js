@@ -1,4 +1,4 @@
-import { NumberGenerator } from "./NumberGenerator";
+import { NumberGenerator } from "./NumberGenerator.js";
 
 export class RandomGenerator extends NumberGenerator {
   static MOVE_MAX = 10;

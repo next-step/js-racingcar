@@ -1,4 +1,4 @@
-import { NumberGenerator } from "../domain/strategy/NumberGenerator";
+import { NumberGenerator } from "../domain/strategy/NumberGenerator.js";
 
 export class NonMovableNumberGenerator extends NumberGenerator {
   static NON_MOVABLE_NUMBER = 1;
