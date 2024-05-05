@@ -19,6 +19,13 @@ describe("getRandomNumber()", () => {
 
     expect(() => getRandomNumber(min, max)).toThrow(TypeError);
   });
+
+  it("should throw an error if min value is greater than max value", () => {
+    const min = 9;
+    const max = 8;
+
+    expect(() => getRandomNumber(min, max)).toThrow(MESSAGE.INPUT_RANGE_ERROR);
+  });
 });
 
 describe("parseInput()", () => {
