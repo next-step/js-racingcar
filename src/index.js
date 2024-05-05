@@ -1,43 +1,25 @@
-import readline from "readline";
+import IO from "./IO";
+import Car from "../src/Car";
 
 import { parseInput, getRandomNumber, parseOutput } from "./utils";
-
-import { Car } from "../src/Car";
-import { getWinners } from "./racing";
+import { createCars, getWinners } from "./racing";
 
 const LAPS = 5;
 const RANDOM_MIN = 0;
 const RANDOM_MAX = 9;
 
-const readLineAsync = (query) => {
-  return new Promise((resolve, reject) => {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-
-    rl.question(query, (input) => {
-      rl.close();
-
-      try {
-        const parsedInput = parseInput(input);
-        resolve(parsedInput);
-      } catch (error) {
-        reject(error);
-      }
-    });
-  });
-};
-
 const play = async () => {
+  const input = await IO.readLineAsync("자동차 이름을 입력해주세요");
+
   try {
-    const carNames = await readLineAsync("자동차 이름을 입력하세요 > ");
-    const cars = carNames.map((name) => new Car(name));
+    const carNames = parseInput(input);
+    const cars = createCars(carNames, Car);
 
     for (let i = 0; i < LAPS; i++) {
       cars.forEach((car) => {
         const randomNumber = getRandomNumber(RANDOM_MIN, RANDOM_MAX);
         car.move(randomNumber);
+        console.log(`${car.name} / ${car.position}`);
       });
     }
 
