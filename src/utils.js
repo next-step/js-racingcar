@@ -11,7 +11,7 @@ export const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-export const parseInput = (input) => {
+export const parseCarNames = (input) => {
   if (input === "") {
     throw new Error(MESSAGE.INPUT_LENGTH_ERROR);
   }

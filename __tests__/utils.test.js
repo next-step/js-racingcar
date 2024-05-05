@@ -1,4 +1,4 @@
-import { getRandomNumber, parseInput, parseOutput } from "../src/utils";
+import { getRandomNumber, parseCarNames, parseOutput } from "../src/utils";
 
 import { MESSAGE } from "../constants/message";
 
@@ -28,11 +28,11 @@ describe("getRandomNumber()", () => {
   });
 });
 
-describe("parseInput()", () => {
+describe("parseCarNames()", () => {
   it("should return an array of car names", () => {
     const input = "pobi,crong,honux";
 
-    const cars = parseInput(input);
+    const cars = parseCarNames(input);
 
     expect(cars).toStrictEqual(["pobi", "crong", "honux"]);
   });
@@ -40,7 +40,7 @@ describe("parseInput()", () => {
   it("should throw an error if input is an empty string", () => {
     const input = "";
 
-    expect(() => parseInput(input)).toThrow(MESSAGE.INPUT_LENGTH_ERROR);
+    expect(() => parseCarNames(input)).toThrow(MESSAGE.INPUT_LENGTH_ERROR);
   });
 });
 
