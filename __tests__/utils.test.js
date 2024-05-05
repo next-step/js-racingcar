@@ -1,4 +1,4 @@
-import { getRandomNumber, parseCarNames, parseLaps, parseOutput } from "../src/utils";
+import { getRandomNumber, parseCarNames, parseLaps, parseOutput, printError } from "../src/utils";
 
 import { MESSAGE } from "../constants/message";
 
@@ -66,7 +66,7 @@ describe("parseLaps()", () => {
   });
 });
 
-describe("parseOuput", () => {
+describe("parseOuput()", () => {
   it("should return a string, separated by comma", () => {
     const input = ["pobi", "crong"];
 
@@ -79,5 +79,26 @@ describe("parseOuput", () => {
     const input = "abc";
 
     expect(() => parseOutput(input)).toThrow(MESSAGE.INPUT_NOT_ARRAY_ERROR);
+  });
+});
+
+describe("printError()", () => {
+  let errorLogSpy;
+
+  beforeEach(() => {
+    errorLogSpy = jest.spyOn(console, "error");
+  });
+
+  afterEach(() => {
+    errorLogSpy.mockRestore();
+  });
+
+  it("should print error message", () => {
+    const errorMessage = MESSAGE.INPUT_LENGTH_ERROR;
+
+    const error = new Error(errorMessage);
+    printError(error);
+
+    expect(errorLogSpy).toBeCalledWith(`Error: ${error.message}`);
   });
 });
