@@ -1,4 +1,6 @@
 import { Car } from "../src/domain/car/Car";
+import { MovableNumberGenerator } from "../src/testHelper/MovableNumberGenerator";
+import { NonMovableNumberGenerator } from "../src/testHelper/NonMovableNumberGenerator";
 
 describe("자동차 클래스 테스트", () => {
   test("생성 테스트", () => {
@@ -11,6 +13,24 @@ describe("자동차 클래스 테스트", () => {
     const car = new Car("BMW");
     car.moveForward();
     expect(car.getPosition()).toBe(1);
+  });
+});
+
+describe("자동차 이동 테스트", () => {
+  test("숫자 4이상 이동", () => {
+    const car = new Car("BMW");
+    const generator = new MovableNumberGenerator();
+    car.move(generator);
+
+    expect(car.getPosition()).toBe(1);
+  });
+
+  test("숫자 4 미만 이동 X", () => {
+    const car = new Car("BMW");
+    const generator = new NonMovableNumberGenerator();
+    car.move(generator);
+
+    expect(car.getPosition()).toBe(0);
   });
 });
 

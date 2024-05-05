@@ -4,6 +4,7 @@ export class Car {
 
   static DEFAULT_POSITION = 0;
   static MAX_NAME_LENGTH = 5;
+  static LEAST_RANDOM_VALUE = 4;
 
   constructor(name) {
     this.#isValidNameLength(name);
@@ -18,6 +19,20 @@ export class Car {
 
     if (name.length > Car.MAX_NAME_LENGTH) {
       throw new Error("차량 이름은 5글자를 초과 할 수 없습니다.");
+    }
+  }
+
+  #isMovableNumber(number) {
+    if (number >= Car.LEAST_RANDOM_VALUE) {
+      return true;
+    }
+    return false;
+  }
+
+  move(numberGenerator) {
+    const randomNumber = numberGenerator.generate();
+    if (this.#isMovableNumber(randomNumber)) {
+      this.moveForward();
     }
   }
 
