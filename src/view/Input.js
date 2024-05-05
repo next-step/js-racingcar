@@ -31,7 +31,6 @@ const Input = {
       try {
         const carNames = input.split(",");
         Car.validateCarNames(carNames);
-
         return carNames;
       } catch (e) {
         console.log(ERROR_CAR_NAME_TOO_LONG);

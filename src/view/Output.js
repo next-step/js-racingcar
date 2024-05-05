@@ -7,21 +7,12 @@ const Output = {
     console.log(`${carName} : ${carPosition}`);
   },
 
-  printCarRaceRoundResult(cars, roundResult) {
-    cars.forEach((car, carIndex) => {
-      const carPosition = "-".repeat(roundResult.at(carIndex));
+  printCarRaceResult(cars) {
+    cars.forEach((car) => {
+      const carPosition = "-".repeat(car.position);
       this.printCarStatus(car.name, carPosition);
     });
     console.log();
-  },
-
-  printCarRaceRoundsResult(carRace) {
-    const cars = carRace.competitors;
-
-    console.log("\n실행 결과");
-    carRace.roundResults.forEach((roundResult) => {
-      this.printCarRaceRoundResult(cars, roundResult);
-    });
   },
 };
 

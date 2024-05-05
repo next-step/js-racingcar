@@ -46,7 +46,7 @@ describe("입출력 테스트", () => {
     expect(carNames).toStrictEqual(["ganu", "crong", "honux"]);
   });
 
-  test("자동차 경주에서 진행할 라운드 횟수를 입력할 때 0 이상의 정수를 입력한 경우 입력이 정상적으로 종료된다.", async () => {
+  test("자동차 경주를 진행할 총 횟수를 입력할 때 0 이상의 정수를 입력한 경우 입력이 정상적으로 종료된다.", async () => {
     // given
     readLineAsyncSpy.mockImplementationOnce(() => Promise.resolve("1"));
 
@@ -58,7 +58,7 @@ describe("입출력 테스트", () => {
     expect(totalCount).toBe(1);
   });
 
-  test("자동차 경주에서 진행할 라운드 횟수를 입력할 때 0 미만의 정수 또는 정수가 아닌 값을 입력한 경우 에러 메시지를 출력하고 0 이상의 정수가 입력될 때까지 무한 반복한다.", async () => {
+  test("자동차 경주를 진행할 총 횟수를 입력할 때 0 미만의 정수 또는 정수가 아닌 값을 입력한 경우 에러 메시지를 출력하고 0 이상의 정수가 입력될 때까지 무한 반복한다.", async () => {
     // given
     readLineAsyncSpy
       .mockImplementationOnce(() => Promise.resolve("-1"))
@@ -75,15 +75,15 @@ describe("입출력 테스트", () => {
     expect(totalCount).toBe(5);
   });
 
-  test("자동차 경주는 여러 개의 라운드로 이루어져 있으며, 각 라운드는 자동차들의 이름과 현재 위치를 출력한다", () => {
+  test("자동차 경주를 여러 회동안 진행할 때 각 경주마다 자동차들의 이름과 현재 위치를 출력한다", () => {
     // given
     const car1 = new Car("ganu");
     const car2 = new Car("toto");
-    const carRace = new CarRace([car1, car2], 1);
+    const carRace = new CarRace([car1, car2]);
     carRace.race();
 
     // when
-    Output.printCarRaceRoundsResult(carRace);
+    Output.printCarRaceResult([car1, car2]);
 
     // then
     expect(logSpy).toHaveBeenCalledWith(expect.stringMatching(/ganu : [-+]?/));

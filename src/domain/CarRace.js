@@ -1,14 +1,8 @@
 import { CAR_MOVE_CONDITION_BOUNDARY } from "../constants/carRace.js";
 import { ERROR_CAR_RACE_COUNT_NOT_VALID } from "../constants/error.js";
 class CarRace {
-  #remainingRoundsCount;
-  #roundResults = [];
-
-  constructor(competitors, totalRaceCount = 0) {
-    CarRace.validateTotalRaceCount(totalRaceCount);
-
+  constructor(competitors) {
     this.competitors = competitors;
-    this.#remainingRoundsCount = totalRaceCount;
   }
 
   get winners() {
@@ -23,20 +17,12 @@ class CarRace {
     return this.winners.map((winner) => winner.name);
   }
 
-  get remainingRoundsCount() {
-    return this.#remainingRoundsCount;
-  }
-
   get winnerPosition() {
     const positionResults = this.competitors.map(
       (competitor) => competitor.position
     );
 
     return Math.max(...positionResults);
-  }
-
-  get roundResults() {
-    return this.#roundResults;
   }
 
   static validateTotalRaceCount(totalRaceCount) {
@@ -54,28 +40,13 @@ class CarRace {
     return randomValue >= CAR_MOVE_CONDITION_BOUNDARY;
   }
 
-  startRound() {
+  race() {
     this.competitors.forEach((competitor) => {
       const canCarMove = this.generateCarMoveCondition();
       if (canCarMove) {
         competitor.move();
       }
     });
-    this.saveRoundResult();
-  }
-
-  saveRoundResult() {
-    const roundResult = this.competitors.map(
-      (competitor) => competitor.position
-    );
-    this.#roundResults.push(roundResult);
-  }
-
-  race() {
-    while (this.#remainingRoundsCount > 0) {
-      this.startRound();
-      this.#remainingRoundsCount--;
-    }
   }
 }
 

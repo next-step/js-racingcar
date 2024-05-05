@@ -14,13 +14,15 @@ async function play() {
   const totalRaceCount = await Input.getTotalRaceCountFromUserInput();
 
   // 자동차 경주 생성
-  const carRace = new CarRace(cars, totalRaceCount);
+  const carRace = new CarRace(cars);
+
+  console.log("\n실행결과");
 
   // 자동차 경주 시작
-  carRace.race();
-
-  // 자동차 경주 라운드 결과 출력
-  Output.printCarRaceRoundsResult(carRace);
+  for (let i = 0; i < totalRaceCount; i++) {
+    carRace.race();
+    Output.printCarRaceResult(cars);
+  }
 
   // 자동차 경주 우승자 출력
   Output.printCarRaceWinners(carRace.winnerNames.join(", "));
