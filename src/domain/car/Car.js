@@ -5,7 +5,6 @@ export class Car {
   static DEFAULT_POSITION = 0;
   static MAX_NAME_LENGTH = 5;
 
-
   constructor(name) {
     this.#isValidNameLength(name);
     this.#name = name;
@@ -20,6 +19,10 @@ export class Car {
     if (name.length > Car.MAX_NAME_LENGTH) {
       throw new Error("차량 이름은 5글자를 초과 할 수 없습니다.");
     }
+  }
+
+  moveForward() {
+    this.#position++;
   }
 
   getName() {
