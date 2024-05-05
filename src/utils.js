@@ -26,3 +26,16 @@ export const parseOutput = (input) => {
 
   return input.join(",");
 };
+
+export const parseLaps = (input) => {
+  const parsedInput = parseFloat(input);
+
+  if (typeof parsedInput === NaN) {
+    throw new TypeError(MESSAGE.INPUT_TYPE_ERROR);
+  }
+  if (!Number.isInteger(parsedInput)) {
+    throw new TypeError(MESSAGE.INPUT_TYPE_ERROR);
+  }
+
+  return parsedInput;
+};
