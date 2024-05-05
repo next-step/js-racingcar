@@ -32,7 +32,7 @@ describe("Car class", () => {
 
     it("should remain in the same position when the given value is less than 4", () => {
       const name = "pobi";
-      const value = 1;
+      const value = 3;
       const car = new Car(name);
 
       expect(car.position).toBe(0);
