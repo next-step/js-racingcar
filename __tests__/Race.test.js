@@ -1,5 +1,5 @@
 import Race from "../src/domain/Race.js";
-import { TEST_CARS } from "../src/constants/index.js";
+import { TEST_CARS } from "./constants/index.js";
 import Car from "../src/domain/Car.js";
 
 /**

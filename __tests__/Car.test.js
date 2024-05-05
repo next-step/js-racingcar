@@ -1,6 +1,5 @@
 import Car from "../src/domain/Car.js";
-import { MINIMUM_CAR_NAME_LENGTH, MOVE_THRESHOLD } from "../src/constants/index.js";
-import { MAXIMUM_CAR_NAME_LENGTH } from "../src/constants/index.js";
+import { MINIMUM_CAR_NAME_LENGTH, MAXIMUM_CAR_NAME_LENGTH } from "../src/constants/index.js";
 /**
 ## 자동차
 - [x] 자동차는 5자 이하의 이름을 갖는다.

@@ -1,4 +1,5 @@
-import { MOVE_THRESHOLD, TEST_CARS, TEST_DUPLICATED_CARS, TEST_NONEXISTENT_CARS, TEST_WHITESPACE_CARS } from "../src/constants";
+import { MOVE_THRESHOLD } from "../src/constants";
+import { TEST_CARS, TEST_DUPLICATED_CARS, TEST_NONEXISTENT_CARS, TEST_WHITESPACE_CARS } from "./constants/index.js";
 import Car from "../src/domain/Car.js";
 import Race from "../src/domain/Race.js";
 import View from "../src/view/view.js";
