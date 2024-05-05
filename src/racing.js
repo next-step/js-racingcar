@@ -17,6 +17,6 @@ export const executeLap = (cars) => {
   cars.forEach((car) => {
     const randomNumber = getRandomNumber(RANDOM_MIN, RANDOM_MAX);
     car.move(randomNumber);
-    console.log(`${car.name} / ${car.position}`);
+    car.printPosition();
   });
 };
