@@ -37,7 +37,7 @@ async function game() {
 
   // 플레이타임을 세팅한다.
   game.setMaxPlayTime(playTime);
-
+  
   const isSetCars = carNames.some((carName) => {
     const result = game.setCar(new Car(carName));
     return !result;
