@@ -1,4 +1,4 @@
-import { getRandomNumber, parseCarNames, parseOutput } from "../src/utils";
+import { getRandomNumber, parseCarNames, parseLaps, parseOutput } from "../src/utils";
 
 import { MESSAGE } from "../constants/message";
 
@@ -41,6 +41,28 @@ describe("parseCarNames()", () => {
     const input = "";
 
     expect(() => parseCarNames(input)).toThrow(MESSAGE.INPUT_LENGTH_ERROR);
+  });
+});
+
+describe("parseLaps()", () => {
+  it("should throw an error if input is not a number", () => {
+    const input = "";
+
+    expect(() => parseLaps(input)).toThrow(MESSAGE.INPUT_TYPE_ERROR);
+  });
+
+  it("should throw an error if input is not an integer", () => {
+    const input = 0.123;
+
+    expect(() => parseLaps(input)).toThrow(MESSAGE.INPUT_TYPE_ERROR);
+  });
+
+  it("should transform an input into an integer", () => {
+    const input = "10";
+
+    const laps = parseLaps(input);
+
+    expect(laps).toBe(10);
   });
 });
 
