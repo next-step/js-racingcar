@@ -1,4 +1,4 @@
-import { Car } from "../src/Car";
+import Car from "../src/Car";
 import { getWinners } from "../src/racing";
 
 describe("getWinners()", () => {

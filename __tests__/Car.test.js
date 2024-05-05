@@ -1,4 +1,4 @@
-import { Car } from "../src/Car";
+import Car from "../src/Car";
 
 describe("Car class", () => {
   describe("Name property", () => {
