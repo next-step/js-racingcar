@@ -1,7 +1,5 @@
+import { MOVABLE_RANGE } from "./Car";
 import { getRandomNumber } from "./utils";
-
-const RANDOM_MIN = 0;
-const RANDOM_MAX = 9;
 
 export const getWinners = (cars) => {
   const maxPosition = Math.max(...cars.map((car) => car.position));
@@ -15,7 +13,7 @@ export const createCars = (carData, CarClass) => {
 
 export const executeLap = (cars) => {
   cars.forEach((car) => {
-    const randomNumber = getRandomNumber(RANDOM_MIN, RANDOM_MAX);
+    const randomNumber = getRandomNumber(MOVABLE_RANGE.MIN, MOVABLE_RANGE.MAX);
     car.move(randomNumber);
     car.printPosition();
   });
