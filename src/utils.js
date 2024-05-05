@@ -1,3 +1,5 @@
+import IO from "./IO";
+
 import { MESSAGE } from "../constants/message";
 
 export const getRandomNumber = (min, max) => {
@@ -42,4 +44,20 @@ export const parseLaps = (input) => {
 
 export const printError = (error) => {
   console.error(`Error: ${error.message}`);
+};
+
+export const getValidInput = async (promptMessage, parseFunction) => {
+  let result;
+
+  while (true) {
+    try {
+      const userInput = await IO.readLineAsync(promptMessage);
+      result = parseFunction(userInput);
+      break;
+    } catch (error) {
+      printError(error);
+    }
+  }
+
+  return result;
 };
