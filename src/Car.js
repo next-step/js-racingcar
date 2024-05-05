@@ -17,4 +17,8 @@ export default class Car {
       this.position++;
     }
   }
+
+  printPosition() {
+    console.log(`${this.name} : ${"-".repeat(this.position)}`);
+  }
 }
