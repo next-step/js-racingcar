@@ -6,7 +6,7 @@ import {
 } from "../constants/error.js";
 import Car from "../domain/Car.js";
 
-const IO = {
+const Input = {
   async getTotalRaceCountFromUserInput() {
     while (true) {
       const input = await readLineAsync("시도할 회수는 몇회인가요?");
@@ -21,6 +21,7 @@ const IO = {
       }
     }
   },
+
   async getCarNamesFromUserInput() {
     while (true) {
       const input = await readLineAsync(
@@ -38,27 +39,6 @@ const IO = {
       }
     }
   },
-  printCarRaceWinners(winnerNames) {
-    console.log(`${winnerNames}가 최종 우승했습니다.`);
-  },
-  printCarStatus(carName, carPosition) {
-    console.log(`${carName} : ${carPosition}`);
-  },
-  printCarRaceRoundResult(cars, roundResult) {
-    cars.forEach((car, carIndex) => {
-      const carPosition = "-".repeat(roundResult.at(carIndex));
-      this.printCarStatus(car.name, carPosition);
-    });
-    console.log();
-  },
-  printCarRaceRoundsResult(carRace) {
-    const cars = carRace.competitors;
-
-    console.log("\n실행 결과");
-    carRace.roundResults.forEach((roundResult) => {
-      this.printCarRaceRoundResult(cars, roundResult);
-    });
-  },
 };
 
-export default IO;
+export default Input;

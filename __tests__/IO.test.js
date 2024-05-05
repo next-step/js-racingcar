@@ -5,7 +5,8 @@ import {
 import Car from "../src/domain/Car.js";
 import * as io from "../src/utils/readLineAsync.js";
 import CarRace from "../src/domain/CarRace.js";
-import IO from "../src/view/IO.js";
+import Input from "../src/view/Input.js";
+import Output from "../src/view/Output.js";
 
 const logSpy = jest.spyOn(console, "log");
 const readLineAsyncSpy = jest.spyOn(io, "readLineAsync");
@@ -23,7 +24,7 @@ describe("입출력 테스트", () => {
     );
 
     // when
-    const carNames = await IO.getCarNamesFromUserInput();
+    const carNames = await Input.getCarNamesFromUserInput();
 
     // then
     expect(readLineAsyncSpy).toHaveBeenCalledTimes(1);
@@ -37,7 +38,7 @@ describe("입출력 테스트", () => {
       .mockImplementationOnce(() => Promise.resolve("ganu,crong,honux"));
 
     // when
-    const carNames = await IO.getCarNamesFromUserInput();
+    const carNames = await Input.getCarNamesFromUserInput();
 
     // then
     expect(logSpy).toHaveBeenCalledWith(ERROR_CAR_NAME_TOO_LONG);
@@ -50,7 +51,7 @@ describe("입출력 테스트", () => {
     readLineAsyncSpy.mockImplementationOnce(() => Promise.resolve("1"));
 
     // when
-    const totalCount = await IO.getTotalRaceCountFromUserInput();
+    const totalCount = await Input.getTotalRaceCountFromUserInput();
 
     // then
     expect(readLineAsyncSpy).toHaveBeenCalledTimes(1);
@@ -66,7 +67,7 @@ describe("입출력 테스트", () => {
       .mockImplementationOnce(() => Promise.resolve("5"));
 
     // when
-    const totalCount = await IO.getTotalRaceCountFromUserInput();
+    const totalCount = await Input.getTotalRaceCountFromUserInput();
 
     // then
     expect(logSpy).toHaveBeenCalledWith(ERROR_CAR_RACE_COUNT_NOT_VALID);
@@ -82,7 +83,7 @@ describe("입출력 테스트", () => {
     carRace.race();
 
     // when
-    IO.printCarRaceRoundsResult(carRace);
+    Output.printCarRaceRoundsResult(carRace);
 
     // then
     expect(logSpy).toHaveBeenCalledWith(expect.stringMatching(/ganu : [-+]?/));
@@ -98,7 +99,7 @@ describe("입출력 테스트", () => {
     const carRace = new CarRace([car1, car2, car3]);
 
     // when
-    IO.printCarRaceWinners(carRace.winnerNames.join(", "));
+    Output.printCarRaceWinners(carRace.winnerNames.join(", "));
 
     // then
     expect(logSpy).toHaveBeenCalledWith(
