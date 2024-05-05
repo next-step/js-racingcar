@@ -39,3 +39,7 @@ export const parseLaps = (input) => {
 
   return parsedInput;
 };
+
+export const printError = (error) => {
+  console.error(`Error: ${error.message}`);
+};
