@@ -27,7 +27,7 @@ describe("parseInput()", () => {
 
     const cars = parseInput(input);
 
-    expect(cars).toEqual(["pobi", "crong", "honux"]);
+    expect(cars).toStrictEqual(["pobi", "crong", "honux"]);
   });
 
   it("should throw an error if input is an empty string", () => {
