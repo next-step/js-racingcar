@@ -30,7 +30,7 @@ export class Race {
   }
 
   race() {
-    const result = this.#setRaceResult();
+    const result = this.#getRaceResult();
     this.#setWinners();
 
     return result;
@@ -57,7 +57,7 @@ export class Race {
     this.#strategies.set(round, strategy);
   }
 
-  #setRaceResult() {
+  #getRaceResult() {
     const result = [];
     for (let round = 1; round <= this.#raceRound; round++) {
       const strategy = this.#strategies.get(round) || this.#defaultStrategy;
