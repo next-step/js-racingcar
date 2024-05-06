@@ -11,6 +11,8 @@ const CAR_NAME_INPUT_PROMPT =
 
 const CAR_RACING_COUNT_INPUT_PROMPT = '시도할 회수는 몇회인가요?';
 
+const NUMERIC_INTEGER = 10;
+
 export class CarIO {
   readLineAsync(query) {
     return new Promise((resolve, reject) => {
@@ -47,7 +49,7 @@ export class CarIO {
   };
 
   validateCheckNumeric = (input) => {
-    return !isNaN(input) && !isNaN(parseInt(input));
+    return !isNaN(input) && !isNaN(parseInt(input, NUMERIC_INTEGER));
   };
 
   async inputCars() {
