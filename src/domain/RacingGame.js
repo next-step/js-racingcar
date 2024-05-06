@@ -1,15 +1,9 @@
 import { generateRandomNumber } from "../utils/GeneratorNumber.js";
 import Car from "./Car.js";
 
+// 수정 사항 : 코드 간결하게 변경
 export function createRacingCars(name) {
-  let cars = [];
-  const carNames = name.split(",");
-  carNames.forEach((name) => {
-    const car = new Car(name.trim());
-    cars.push(car);
-  });
-
-  return cars;
+  return name.split(",").map((name) => new Car(name.trim()));
 }
 
 export function racing(cars) {

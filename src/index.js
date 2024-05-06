@@ -14,16 +14,20 @@ async function play() {
   );
 
   // 자동차 리스트 생성
-  let cars = createRacingCars(name);
+  const cars = createRacingCars(name);
 
   // 자동차 경주 시작
-  let finishCars = racing(cars);
+  const finishCars = racing(cars);
 
   // 우승자 추출
-  let winners = getWinners(finishCars);
+  const winners = getWinners(finishCars);
+
+  // 삭제
+  console.log("winners winners");
+  console.log(winners);
 
   // 우승자 이름 출력
-  let winnersName = parserName(winners.map((i) => i.name));
+  const winnersName = parserName(winners.map((i) => i.name));
   console.log(winnersName + "가 최종 우승했습니다.");
 }
 
