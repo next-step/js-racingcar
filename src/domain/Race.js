@@ -6,18 +6,13 @@ export class Race {
   #cars = [];
   #winners = [];
   #strategies = new Map();
-  #defaultStrategy = new RandomMoveStrategy();
   #raceRound;
 
-  constructor(cars, defaultStrategy, round = 1) {
+  constructor(cars, round = 1) {
     this.#cars = cars;
     this.#validateNames(cars.map((car) => car.name));
     this.#validateRound(round);
     this.#raceRound = round;
-
-    if (defaultStrategy) {
-      this.#defaultStrategy = defaultStrategy;
-    }
   }
 
   #validateNames(names) {
@@ -36,8 +31,8 @@ export class Race {
     }
   }
 
-  race() {
-    const result = this.#getRaceResult();
+  race(strategy) {
+    const result = this.#getRaceResult(strategy);
     this.#setWinners();
 
     return result;
@@ -64,10 +59,10 @@ export class Race {
     this.#strategies.set(round, strategy);
   }
 
-  #getRaceResult() {
+  #getRaceResult(raceStrategy) {
     const result = [];
     for (let round = 1; round <= this.#raceRound; round++) {
-      const strategy = this.#strategies.get(round) || this.#defaultStrategy;
+      const strategy = this.#strategies.get(round) || raceStrategy;
       this.#cars.forEach((car) => {
         car.move(strategy.shouldMove);
       });

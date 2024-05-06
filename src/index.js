@@ -1,5 +1,4 @@
 import { Car, Race } from "./domain";
-import { RandomMoveStrategy } from "./domain/strategies";
 import { View } from "./views";
 
 export class App {
@@ -16,7 +15,6 @@ export class App {
 
       this.#race = new Race(
         carNames.map((name) => new Car(name)),
-        new RandomMoveStrategy(),
         raceRound
       );
       const result = this.#race.race();
