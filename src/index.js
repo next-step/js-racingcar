@@ -7,7 +7,7 @@ async function main() {
   const carIO = new CarIO();
 
   race.racingCars = await carIO.inputCars();
-  const result = await carIO.inputNumberOfRaces(10);
+  const result = await carIO.RepeatUntilNumber(10);
 
   race.startRacing(result, randomValue);
   console.log('race.racingProgress', race.racingProgress);

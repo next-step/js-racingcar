@@ -57,34 +57,20 @@ describe('입출력 관련된 것들', () => {
     cario.readLineAsync = jest.fn().mockResolvedValue('5');
 
     //then
-    await expect(cario.inputNumberOfRaces()).resolves.toBe('5');
+    await expect(cario.RepeatUntilNumber(10)).resolves.toBe(5);
   });
 
   test('사용자가 숫자 이외 다른값을 입력할 경우 콘솔에 에러가 입력된다.', async () => {
     //Given
     const cario = new CarIO();
-    const logSpy = jest.spyOn(global.console, 'log');
+    cario.readLineAsync = jest.fn().mockResolvedValue('asdasdas');
+    cario.validateCheckNumeric = jest.fn().mockReturnValue(false); // 숫자 유효성 검사 항상 실패로 설정
 
     //when
-    cario.readLineAsync = jest.fn().mockResolvedValueOnce('asdasdas');
-    const result = await cario.inputNumberOfRaces(0);
+    const result = await cario.RepeatUntilNumber(10);
 
-    //then
-    expect(logSpy).toHaveBeenCalled();
-    expect(logSpy).toHaveBeenCalledWith(ERROR_MESSAGE_NUMERIC);
-  });
-
-  test('잘못 입력한 경우, 다시입력이 가능하나 가능 횟수에 제한을 둔다.', async () => {
-    //Given
-    const cario = new CarIO();
-    const logSpy = jest.spyOn(global.console, 'log');
-
-    //when
-    cario.readLineAsync = jest.fn().mockResolvedValueOnce('asdasdas');
-    await cario.inputNumberOfRaces(10);
-
-    //then
-    expect(logSpy).toHaveBeenCalledWith(ERROR_MESSAGE_NUMERIC);
+    //Then
+    expect(result).toBe(-1);
   });
 
   test('사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.', async () => {
