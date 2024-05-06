@@ -1,15 +1,8 @@
 import { CAR_MOVE_CONDITION_BOUNDARY } from "../constants/carRace.js";
 import { ERROR_CAR_RACE_COUNT_NOT_VALID } from "../constants/error.js";
-import View from "./View.js";
-
 class CarRace {
-  #remainingRaceCount;
-
-  constructor(competitors, totalRaceCount = 0) {
-    CarRace.validateTotalRaceCount(totalRaceCount);
-
+  constructor(competitors) {
     this.competitors = competitors;
-    this.#remainingRaceCount = totalRaceCount;
   }
 
   get winners() {
@@ -22,10 +15,6 @@ class CarRace {
 
   get winnerNames() {
     return this.winners.map((winner) => winner.name);
-  }
-
-  get remainingRaceCount() {
-    return this.#remainingRaceCount;
   }
 
   get winnerPosition() {
@@ -52,16 +41,12 @@ class CarRace {
   }
 
   race() {
-    while (this.#remainingRaceCount > 0) {
-      this.competitors.forEach((competitor) => {
-        const canCarMove = this.generateCarMoveCondition();
-        if (canCarMove) {
-          competitor.move();
-        }
-      });
-      View.printCarsStatus(this.competitors);
-      this.#remainingRaceCount--;
-    }
+    this.competitors.forEach((competitor) => {
+      const canCarMove = this.generateCarMoveCondition();
+      if (canCarMove) {
+        competitor.move();
+      }
+    });
   }
 }
 

@@ -1,12 +1,12 @@
 import { readLineAsync } from "../utils/readLineAsync.js";
-import CarRace from "./CarRace.js";
+import CarRace from "../domain/CarRace.js";
 import {
   ERROR_CAR_NAME_TOO_LONG,
   ERROR_CAR_RACE_COUNT_NOT_VALID,
 } from "../constants/error.js";
-import Car from "./Car.js";
+import Car from "../domain/Car.js";
 
-const View = {
+const Input = {
   async getTotalRaceCountFromUserInput() {
     while (true) {
       const input = await readLineAsync("시도할 회수는 몇회인가요?");
@@ -21,6 +21,7 @@ const View = {
       }
     }
   },
+
   async getCarNamesFromUserInput() {
     while (true) {
       const input = await readLineAsync(
@@ -30,7 +31,6 @@ const View = {
       try {
         const carNames = input.split(",");
         Car.validateCarNames(carNames);
-
         return carNames;
       } catch (e) {
         console.log(ERROR_CAR_NAME_TOO_LONG);
@@ -38,20 +38,6 @@ const View = {
       }
     }
   },
-  printCarRaceWinners(winnerNames) {
-    console.log(`${winnerNames}가 최종 우승했습니다.`);
-  },
-  printCarStatus(carName, carPosition) {
-    console.log(`${carName} : ${carPosition}`);
-  },
-  printCarsStatus(cars) {
-    cars.forEach((car) => {
-      const carName = car.name;
-      const carPosition = "-".repeat(car.position);
-      this.printCarStatus(carName, carPosition);
-    });
-    console.log();
-  },
 };
 
-export default View;
+export default Input;
