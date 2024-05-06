@@ -3,6 +3,7 @@ import { Console } from "../utils/console";
 
 export const output = {
   raceResultTitle() {
+    Console.print("");
     Console.print(CONSOLE_MESSAGES.RACE_RESULT);
   },
 
