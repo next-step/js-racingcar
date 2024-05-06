@@ -1,39 +1,39 @@
 import Racing from './domain/Racing';
 import {
   readCarProgress,
+  writeNumber,
   readWinners,
   writeRacingCar,
 } from './domain/RacingIO';
 import { readLineAsync } from './utils';
 
-class App {
-  constructor() {
-    this.racing = new Racing();
-  }
-  async execute() {
-    try {
-      const input = await readLineAsync(
-        '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n'
-      );
-      this.racing.players = writeRacingCar(input);
+async function App() {
+  try {
+    const racingCarInput = await readLineAsync(
+      '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n'
+    );
+    const playCount = await readLineAsync('시도할 회수는 몇회인가요?\n');
 
-      console.log('\n실행 결과');
-      while (!this.racing.isEndedRace()) {
-        this.racing.race1Lap();
+    const racing = new Racing(writeNumber(playCount));
+    racing.players = writeRacingCar(racingCarInput);
 
-        for (const car of this.racing.players) {
-          console.log(readCarProgress(car));
-        }
-        console.log('\n');
+    console.log('\n실행 결과');
+    while (!racing.isEndedRace()) {
+      racing.race1Lap();
+
+      for (const car of racing.players) {
+        console.log(readCarProgress(car));
       }
-
-      this.racing.end();
-      const winners = this.racing.getWinnersName();
-
-      console.log(`${readWinners(winners)}가 최종 우승했습니다.`);
-    } catch (e) {
-      console.error(e);
+      console.log('\n');
     }
+
+    racing.end();
+    const winners = racing.getWinnersName();
+
+    console.log(`${readWinners(winners)}가 최종 우승했습니다.`);
+  } catch (e) {
+    console.error(e);
+    await App();
   }
 }
 
