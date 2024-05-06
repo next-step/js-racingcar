@@ -1,5 +1,5 @@
 import { ERROR_CODES, ERROR_MESSAGES } from "../constants";
-import { InputError } from "../domain/Error";
+import { ViewError } from "../domain/errors";
 import { readLineAsync } from "../utils";
 
 export class View {
@@ -15,7 +15,7 @@ export class View {
         );
 
         if (!input) {
-          throw new InputError(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
+          throw new ViewError(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
         }
 
         return input;
@@ -31,7 +31,7 @@ export class View {
         const input = await readLineAsync("시도할 회수는 몇회인가요?\n");
 
         if (!input) {
-          throw new InputError(ERROR_CODES.ERROR_EMPTY_RACE_ROUND);
+          throw new ViewError(ERROR_CODES.ERROR_EMPTY_RACE_ROUND);
         }
 
         return Number(input);

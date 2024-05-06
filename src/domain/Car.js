@@ -1,5 +1,5 @@
 import { ERROR_CODES } from "../constants";
-import { CarError } from "./Error";
+import { CarError } from "./errors";
 
 export class Car {
   static CAR_NAME_MAX_LEN = 5;

@@ -1,5 +1,5 @@
 import { ERROR_CODES } from "../constants";
-import { CarError } from "./Error";
+import { RaceError } from "./errors";
 import { RandomMoveStrategy } from "./strategies";
 
 export class Race {
@@ -22,17 +22,17 @@ export class Race {
 
   #validateNames(names) {
     if (!this.isValidEmptyCarName(names)) {
-      throw new CarError(ERROR_CODES.ERROR_INVALID_CAR_NAME);
+      throw new RaceError(ERROR_CODES.ERROR_INVALID_CAR_NAME);
     }
 
     if (!this.isValidDuplicateCarName(names)) {
-      throw new CarError(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);
+      throw new RaceError(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);
     }
   }
 
   #validateRound(round) {
     if (!this.isValidRaceRound(round)) {
-      throw new CarError(ERROR_CODES.ERROR_INVALID_RACE_ROUND);
+      throw new RaceError(ERROR_CODES.ERROR_INVALID_RACE_ROUND);
     }
   }
 
