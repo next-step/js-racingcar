@@ -32,6 +32,9 @@ describe('자동차 경주 기능 테스트', () => {
     expect(firstRacingMaxLap).toBe(5);
     expect(secondRacingMaxLap).toBe(10);
   });
+  it('자동차 경주는 최소 1회 이상 진행되어야 한다.', () => {
+    expect(() => new Racing(-1)).toThrow();
+  });
   it('우승자(자동차)는 한 명 이상일 수 있다.', () => {
     // given
     const racing = new Racing();
