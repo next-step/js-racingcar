@@ -1,26 +1,36 @@
 import { readLineAsync } from "./utils/readLineAsync.js";
-import { parserName } from "./utils/Parser.js";
-
+import { printRacingCar, printWinners } from "./view/output.js";
+import { generateRandomNumber } from "./utils/GeneratorNumber.js";
 import RacingGame from "../src/domain/RacingGame.js";
 
 async function play() {
-  // 자동차 이름 입력
+  // 사용자가 자동차 이름 입력
   const name = await readLineAsync(
     "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분)\n"
   );
 
+  // 사용자가 경주 횟수 지정 후 racing 객체 생성
+  const game = new RacingGame(
+    await readLineAsync("시도할 회수는 몇회인가요?\n")
+  );
+
   // 자동차 리스트 생성
-  const cars = RacingGame.createRacingCars(name);
+  const cars = game.createRacingCars(name);
 
   // 자동차 경주 시작
-  const finishCars = RacingGame.racing(cars);
+  console.log("\n실행 결과");
+  for (let i = 0; i < game.getRacingTry(); i++) {
+    cars.forEach((car) => {
+      let isMove = game.isValidMove(generateRandomNumber());
+      car.move(isMove);
+      printRacingCar(car);
+    });
+    console.log();
+  }
 
-  // 우승자 추출
-  const winners = RacingGame.getWinners(finishCars);
-
-  // 우승자 이름 출력
-  const winnersName = parserName(winners.map((i) => i.name));
-  console.log(winnersName + "가 최종 우승했습니다.");
+  // 우승자 출력
+  const winners = game.getWinners(cars);
+  printWinners(winners);
 }
 
 play();
