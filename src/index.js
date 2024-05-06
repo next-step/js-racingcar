@@ -1,4 +1,4 @@
-import { Car, Race } from "./domain";
+import { Race } from "./domain";
 import { View } from "./views";
 
 export class App {
@@ -13,10 +13,7 @@ export class App {
 
       const raceRound = await View.getRaceRoundPrompt();
 
-      this.#race = new Race(
-        carNames.map((name) => new Car(name)),
-        raceRound
-      );
+      this.#race = new Race(carNames, raceRound);
       const result = this.#race.race();
       this.#render(result);
     } catch (error) {

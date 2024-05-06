@@ -1,6 +1,6 @@
 import { ERROR_CODES } from "../constants";
+import { Car } from "./Car";
 import { RaceError } from "./errors";
-import { RandomMoveStrategy } from "./strategies";
 
 export class Race {
   #cars = [];
@@ -9,17 +9,21 @@ export class Race {
   #raceRound;
 
   constructor(cars, round = 1) {
-    this.#cars = cars;
-    this.#validateNames(cars.map((car) => car.name));
+    if (Array.isArray(cars)) {
+      if (cars.every((car) => car instanceof Car)) {
+        this.#cars = cars;
+      } else if (cars.every((car) => typeof car === "string")) {
+        this.#cars = cars.map((name) => new Car(name.trim()));
+      }
+    } else if (typeof cars === "string") {
+      this.#cars = cars.split(",").map((name) => new Car(name.trim()));
+    }
+    this.#validateNames(this.#cars.map((car) => car.name));
     this.#validateRound(round);
     this.#raceRound = round;
   }
 
   #validateNames(names) {
-    if (!this.isValidEmptyCarName(names)) {
-      throw new RaceError(ERROR_CODES.ERROR_INVALID_CAR_NAME);
-    }
-
     if (!this.isValidDuplicateCarName(names)) {
       throw new RaceError(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);
     }
@@ -77,10 +81,6 @@ export class Race {
     }
 
     return result;
-  }
-
-  isValidEmptyCarName(names) {
-    return names.some((name) => name !== "");
   }
 
   isValidDuplicateCarName(names) {
