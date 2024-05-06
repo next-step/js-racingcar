@@ -1,8 +1,7 @@
 export class ClientError extends Error {
   constructor(name, message) {
-    super();
+    super(message);
     this.name = name;
-    this.message = message;
   }
 }
 
