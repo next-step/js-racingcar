@@ -27,9 +27,10 @@ describe("자동차 기능 테스트", () => {
   test("무작위 값이 4 이상일 경우, 1 전진한다.", () => {
     // given
     const getRandomValue = jest.fn().mockReturnValue(5);
+    const isCarMovable = car.isCarMovable(getRandomValue());
     
     // when
-    car.moveForward(getRandomValue());
+    if(isCarMovable) car.moveForward();
 
     // then
     expect(car.position).toBe(1);
@@ -38,9 +39,10 @@ describe("자동차 기능 테스트", () => {
   test("무작위 값이 4 미만일 경우, 정지한다.", () => {
     // given
     const getRandomValue = jest.fn().mockReturnValue(3);
+    const isCarMovable = car.isCarMovable(getRandomValue());
     
     // when
-    car.moveForward(getRandomValue());
+    if(isCarMovable) car.moveForward();
 
     // then
     expect(car.position).toBe(0);
