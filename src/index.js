@@ -1,11 +1,7 @@
 import { readLineAsync } from "./utils/readLineAsync.js";
 import { parserName } from "./utils/Parser.js";
 
-import {
-  createRacingCars,
-  getWinners,
-  racing,
-} from "../src/domain/RacingGame.js";
+import RacingGame from "../src/domain/RacingGame.js";
 
 async function play() {
   // 자동차 이름 입력
@@ -14,17 +10,13 @@ async function play() {
   );
 
   // 자동차 리스트 생성
-  const cars = createRacingCars(name);
+  const cars = RacingGame.createRacingCars(name);
 
   // 자동차 경주 시작
-  const finishCars = racing(cars);
+  const finishCars = RacingGame.racing(cars);
 
   // 우승자 추출
-  const winners = getWinners(finishCars);
-
-  // 삭제
-  console.log("winners winners");
-  console.log(winners);
+  const winners = RacingGame.getWinners(finishCars);
 
   // 우승자 이름 출력
   const winnersName = parserName(winners.map((i) => i.name));
