@@ -36,7 +36,7 @@ describe('입출력 관련된 것들', () => {
     cario.readLineAsync = jest.fn().mockResolvedValue('bmw audi kia');
 
     // then
-    await expect(cario.inputCars()).rejects.toThrow('이름 구분은 쉼표(,)로 가능합니다.');
+    await expect(cario.inputCars()).rejects.toThrow(ERROR_MESSAGE_COMMA_SEPARTED);
   });
 
   test('이름을 5자 초과로 입력했을 경우, 프로그램을 종료한다.', async () => {
