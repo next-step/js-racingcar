@@ -7,6 +7,14 @@ export function writeRacingCar(input) {
   return input.replace(/\s/g, '').split(',');
 }
 
+export function writeNumber(input) {
+  const value = Number(input);
+  if (value > Number.MAX_SAFE_INTEGER || !Number.isInteger(value)) {
+    throw TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
+  }
+  return value;
+}
+
 export function readCarPosition(position) {
   return '-'.repeat(position);
 }
