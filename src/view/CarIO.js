@@ -81,10 +81,8 @@ export class CarIO {
 
   showProgressResult(racingProgress) {
     let perRacingResult = '';
-    racingProgress.forEach((per_race) => {
-      per_race.forEach(
-        (result) => (perRacingResult += `${result.name} : ${result.position}\n`)
-      );
+    racingProgress.forEach(({ round, result }) => {
+      result.forEach((car) => (perRacingResult += `${car.name} : ${car.position}\n`));
       console.log(perRacingResult);
       perRacingResult = '';
       console.log(' ');
