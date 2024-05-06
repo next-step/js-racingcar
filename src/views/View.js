@@ -34,10 +34,6 @@ export class View {
           throw new InputError(ERROR_CODES.ERROR_EMPTY_RACE_ROUND);
         }
 
-        if (!View.isValidRaceRound(input)) {
-          throw new InputError(ERROR_CODES.ERROR_INVALID_RACE_ROUND);
-        }
-
         return Number(input);
       } catch (error) {
         this.printError(error);
@@ -64,11 +60,5 @@ export class View {
 
   static printError(error) {
     console.log(ERROR_MESSAGES[error.message] || ERROR_MESSAGES.ERROR_UNKOWN);
-  }
-
-  static isValidRaceRound(input) {
-    return (
-      !isNaN(input) && Number(input) >= 0 && Number.isInteger(Number(input))
-    );
   }
 }

@@ -12,6 +12,7 @@ export class Race {
   constructor(cars, defaultStrategy, round = 1) {
     this.#cars = cars;
     this.#validateNames(cars.map((car) => car.name));
+    this.#validateRound(round);
     this.#raceRound = round;
 
     if (defaultStrategy) {
@@ -26,6 +27,12 @@ export class Race {
 
     if (!this.isValidDuplicateCarName(names)) {
       throw new CarError(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);
+    }
+  }
+
+  #validateRound(round) {
+    if (!this.isValidRaceRound(round)) {
+      throw new CarError(ERROR_CODES.ERROR_INVALID_RACE_ROUND);
     }
   }
 
@@ -84,5 +91,11 @@ export class Race {
   isValidDuplicateCarName(names) {
     const nameSet = new Set(names);
     return nameSet.size === names.length;
+  }
+
+  isValidRaceRound(input) {
+    return (
+      !isNaN(input) && Number(input) >= 0 && Number.isInteger(Number(input))
+    );
   }
 }

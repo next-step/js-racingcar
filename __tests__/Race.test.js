@@ -90,4 +90,21 @@ describe("자동차 경주 게임 테스트", () => {
     // then
     expect(raceRound).toBe(RACE_ROUND);
   });
+
+  test("몇 번의 이동을 할 것인지를 0이상의 정수만 사용하능하다", async () => {
+    // given
+    const car = new Car("car");
+
+    // when + then
+    expect(() => new Race([car], null, "-1")).toThrow(
+      ERROR_CODES.ERROR_INVALID_RACE_ROUND
+    );
+    expect(() => new Race([car], null, "0.5")).toThrow(
+      ERROR_CODES.ERROR_INVALID_RACE_ROUND
+    );
+    expect(() => new Race([car], null, "abc")).toThrow(
+      ERROR_CODES.ERROR_INVALID_RACE_ROUND
+    );
+    expect(() => new Race([car], null, "5")).not.toThrow();
+  });
 });
