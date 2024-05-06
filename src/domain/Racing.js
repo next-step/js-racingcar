@@ -14,7 +14,7 @@ class Racing {
 
   constructor(maxLap = Racing.DEFAULT_MAX_LAP) {
     if (maxLap < Racing.MIN_LAP_LIMIT) {
-      throw new TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
+      throw new TypeError(ERROR_MESSAGE.MIN_LENGTH);
     }
     this.#players = [];
     this.#winners = [];

@@ -21,7 +21,7 @@ class Name {
       throw new TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
     }
     if (!new RegExp(regex, 'g').test(name)) {
-      throw new TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
+      throw new TypeError(ERROR_MESSAGE.INVALID_NAME_FORMAT);
     }
     if (name.length < minLen) {
       throw new TypeError(ERROR_MESSAGE.MIN_LENGTH);
