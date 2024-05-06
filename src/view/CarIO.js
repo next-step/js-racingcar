@@ -49,7 +49,7 @@ export class CarIO {
   };
 
   validateCheckNumeric = (input) => {
-    return !isNaN(input) && !isNaN(parseInt(input, NUMERIC_INTEGER));
+    return !Number.isNaN(parseInt(input, NUMERIC_INTEGER));
   };
 
   async inputCars() {
