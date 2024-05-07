@@ -1,36 +1,38 @@
 import { readLineAsync } from "./utils/readLineSync.js";
 import { CAR, MESSAGE } from "./constant/index.js";
 
-export function displayInput(input) {
-  console.log(input);
-}
+export default class View {
+  displayInput(input) {
+    console.log(input);
+  }
 
-export async function askCarNames() {
-  return await readLineAsync(MESSAGE.ASK_CAR_NAMES);
-}
+  async askCarNames() {
+    return await readLineAsync(MESSAGE.ASK_CAR_NAMES);
+  }
 
-export async function askMaxRound() {
-  const maxRound = await readLineAsync(MESSAGE.ASK_MAX_ROUND);
+  async askMaxRound() {
+    const maxRound = await readLineAsync(MESSAGE.ASK_MAX_ROUND);
 
-  displayInput(maxRound);
-  console.log("");
+    displayInput(maxRound);
+    console.log("");
 
-  return maxRound;
-}
+    return maxRound;
+  }
 
-export function displayForwardCar(car) {
-  console.log(`${car.name} : ${CAR.POSITION_MARK.repeat(car.position)}`);
-}
+  displayForwardCar(car) {
+    console.log(`${car.name} : ${CAR.POSITION_MARK.repeat(car.position)}`);
+  }
 
-export function displayRaceRecords(records) {
-  records.forEach((car) => displayForwardCar(car));
-  console.log("");
-}
+  displayRaceRecords(records) {
+    records.forEach((car) => this.displayForwardCar(car));
+    console.log("");
+  }
 
-export function displayWinners(winners) {
-  console.log(
-    `${winners.map((car) => car.name).join(CAR.NAME_SEPARATOR + " ")}${
-      MESSAGE.WINNER
-    }`
-  );
+  displayWinners(winners) {
+    console.log(
+      `${winners.map((car) => car.name).join(CAR.NAME_SEPARATOR + " ")}${
+        MESSAGE.WINNER
+      }`
+    );
+  }
 }

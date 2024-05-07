@@ -1,11 +1,13 @@
 import Controller from "../src/controller.js";
+import View from "../src/view.js";
 import Race from "../src/domain/Race.js";
 
 describe("자동차 경주 규칙 구현", () => {
   test("경주는 주어진 횟수동안 진행한다.", async () => {
     //given
+    const view = new View();
     const race = new Race();
-    const controller = new Controller(race);
+    const controller = new Controller(view, race);
     const getCarNames = () => "pobi,crong,honux";
     const getRound = () => 5;
     await controller.initCarNames(getCarNames);

@@ -1,13 +1,14 @@
 import Controller from "../src/controller.js";
-import { displayForwardCar } from "../src/view.js";
+import View from "../src/view.js";
 import Car from "../src/domain/Car.js";
 import Race from "../src/domain/Race.js";
 
 describe("자동차/경주 입력 구현 테스트", () => {
   test("경주할 자동차를 입력할 때, 이름은 쉼표를 기준으로 구분한다.", async () => {
     //given
+    const view = new View();
     const race = new Race();
-    const controller = new Controller(race);
+    const controller = new Controller(view, race);
     const correctCarNames = "pobi,crong,honux";
     const mockAskCarNames = jest.fn(() => correctCarNames);
 
@@ -23,8 +24,9 @@ describe("자동차/경주 입력 구현 테스트", () => {
 
   test("사용자는 몇 번의 이동을 할 것인지 입력할 수 있어야 한다.", async () => {
     //given
+    const view = new View();
     const race = new Race();
-    const controller = new Controller(race);
+    const controller = new Controller(view, race);
     const maxRound = 10;
     const mockAskMaxRound = jest.fn(() => maxRound);
 
@@ -41,6 +43,7 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 에러 메시지
   let mockGetCarNames;
   let mockGetMaxRound;
   let race;
+  let view;
   let controller;
 
   beforeEach(() => {
@@ -48,7 +51,8 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 에러 메시지
     mockGetCarNames = jest.fn();
     mockGetMaxRound = jest.fn();
     race = new Race();
-    controller = new Controller(race);
+    view = new View();
+    controller = new Controller(view, race);
   });
 
   afterEach(() => {
@@ -56,6 +60,7 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 에러 메시지
     mockGetCarNames.mockClear();
     mockGetMaxRound.mockClear();
     controller = null;
+    view = null;
     race = null;
   });
 
@@ -140,10 +145,12 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 에러 메시지
 describe("사용자가 잘못된 입력 값을 작성한 경우 다시 입력할 수 있게 한다.", () => {
   let race;
   let controller;
+  let view;
 
   beforeEach(() => {
+    view = new View();
     race = new Race();
-    controller = new Controller(race);
+    controller = new Controller(view, race);
   });
 
   afterEach(() => {
@@ -207,11 +214,12 @@ describe("자동차 경주 상황 출력 구현", () => {
 
   test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
     //given
+    const view = new View();
     const car = new Car("pobi");
     car.moveForward();
 
     //when
-    displayForwardCar(car);
+    view.displayForwardCar(car);
 
     //then
     expect(logSpy).toHaveBeenCalledWith("pobi : -");
@@ -219,8 +227,9 @@ describe("자동차 경주 상황 출력 구현", () => {
 
   test("게임 완료 후 우승자를 출력한다.", async () => {
     //given
+    const view = new View();
     const race = new Race();
-    const controller = new Controller(race);
+    const controller = new Controller(view, race);
     const getCarNames = () => "pobi,crong,honux";
     const getRound = () => 5;
     await controller.initCarNames(getCarNames);
