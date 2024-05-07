@@ -4,7 +4,8 @@ import Race from "../src/domain/Race.js";
 describe("자동차 경주 규칙 구현", () => {
   test("경주는 주어진 횟수동안 진행한다.", async () => {
     //given
-    const controller = new Controller();
+    const race = new Race();
+    const controller = new Controller(race);
     const getCarNames = () => "pobi,crong,honux";
     const getRound = () => 5;
     await controller.initCarNames(getCarNames);
@@ -14,7 +15,7 @@ describe("자동차 경주 규칙 구현", () => {
     controller.playRaceGame();
 
     //then
-    const raceCount = controller.race.records.length;
+    const raceCount = race.records.length;
     expect(raceCount).toBe(5);
   });
 

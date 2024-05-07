@@ -1,17 +1,19 @@
 import Controller from "../src/controller.js";
 import { displayForwardCar } from "../src/view.js";
 import Car from "../src/domain/Car.js";
+import Race from "../src/domain/Race.js";
 
 describe("자동차/경주 입력 구현 테스트", () => {
   test("경주할 자동차를 입력할 때, 이름은 쉼표를 기준으로 구분한다.", async () => {
     //given
-    const controller = new Controller();
+    const race = new Race();
+    const controller = new Controller(race);
     const correctCarNames = "pobi,crong,honux";
     const mockAskCarNames = jest.fn(() => correctCarNames);
 
     //when
     await controller.initCarNames(mockAskCarNames);
-    const raceCars = controller.race.cars;
+    const raceCars = race.cars;
 
     //then
     expect(raceCars.at(0).name).toBe("pobi");
@@ -21,13 +23,13 @@ describe("자동차/경주 입력 구현 테스트", () => {
 
   test("사용자는 몇 번의 이동을 할 것인지 입력할 수 있어야 한다.", async () => {
     //given
-    const controller = new Controller();
+    const race = new Race();
+    const controller = new Controller(race);
     const maxRound = 10;
     const mockAskMaxRound = jest.fn(() => maxRound);
 
     //when
     await controller.initMaxRound(mockAskMaxRound);
-    const race = controller.race;
 
     //then
     expect(race.maxRound).toBe(10);
@@ -38,13 +40,15 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 에러 메시지
   let errorSpy;
   let mockGetCarNames;
   let mockGetMaxRound;
+  let race;
   let controller;
 
   beforeEach(() => {
     errorSpy = jest.spyOn(global.console, "error");
     mockGetCarNames = jest.fn();
     mockGetMaxRound = jest.fn();
-    controller = new Controller();
+    race = new Race();
+    controller = new Controller(race);
   });
 
   afterEach(() => {
@@ -52,11 +56,12 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 에러 메시지
     mockGetCarNames.mockClear();
     mockGetMaxRound.mockClear();
     controller = null;
+    race = null;
   });
 
   test("사용자가 잘못된 자동차 이름을 작성한 경우 에러 메시지를 보여준다.", async () => {
     //given
-    const carNameOver5 = "pobi, crong, honuxi";
+    const carNameOver5 = "pobi,crong,honuxi";
     const correctCarNames = "pobi,crong,honux";
     mockGetCarNames
       .mockImplementationOnce(() => carNameOver5)
@@ -133,13 +138,16 @@ describe("사용자가 잘못된 입력 값을 작성한 경우 에러 메시지
 });
 
 describe("사용자가 잘못된 입력 값을 작성한 경우 다시 입력할 수 있게 한다.", () => {
-  let controller = new Controller();
+  let race;
+  let controller;
 
   beforeEach(() => {
-    controller = new Controller();
+    race = new Race();
+    controller = new Controller(race);
   });
 
   afterEach(() => {
+    race = null;
     controller = null;
   });
 
@@ -211,7 +219,8 @@ describe("자동차 경주 상황 출력 구현", () => {
 
   test("게임 완료 후 우승자를 출력한다.", async () => {
     //given
-    const controller = new Controller();
+    const race = new Race();
+    const controller = new Controller(race);
     const getCarNames = () => "pobi,crong,honux";
     const getRound = () => 5;
     await controller.initCarNames(getCarNames);
@@ -219,7 +228,7 @@ describe("자동차 경주 상황 출력 구현", () => {
     controller.playRaceGame();
 
     //when
-    const winners = controller.race.winners;
+    const winners = race.winners;
     controller.finish();
 
     //then

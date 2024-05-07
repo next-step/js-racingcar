@@ -5,8 +5,8 @@ import { CAR } from "./constant/index.js";
 export default class Controller {
   #race;
 
-  constructor() {
-    this.#race = new Race();
+  constructor(race) {
+    this.#race = race;
   }
 
   async initCarNames(getCarNames) {
@@ -43,9 +43,5 @@ export default class Controller {
 
   finish() {
     displayWinners(this.#race.winners);
-  }
-
-  get race() {
-    return this.#race;
   }
 }
