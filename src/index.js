@@ -2,7 +2,7 @@ import Race from "./domain/Race.js";
 import Controller from "./controller.js";
 import View from "./view.js";
 
-export async function app(controller) {
+export async function app(view, controller) {
   await controller.initCarNames(view.askCarNames);
   await controller.initMaxRound(view.askMaxRound);
 
@@ -14,4 +14,5 @@ export async function app(controller) {
 const view = new View();
 const race = new Race();
 const controller = new Controller(view, race);
-app(controller);
+
+app(view, controller);

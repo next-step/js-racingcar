@@ -2,21 +2,12 @@ import { readLineAsync } from "./utils/readLineSync.js";
 import { CAR, MESSAGE } from "./constant/index.js";
 
 export default class View {
-  displayInput(input) {
-    console.log(input);
-  }
-
   async askCarNames() {
     return await readLineAsync(MESSAGE.ASK_CAR_NAMES);
   }
 
   async askMaxRound() {
-    const maxRound = await readLineAsync(MESSAGE.ASK_MAX_ROUND);
-
-    displayInput(maxRound);
-    console.log("");
-
-    return maxRound;
+    return await readLineAsync(MESSAGE.ASK_MAX_ROUND);
   }
 
   displayForwardCar(car) {
