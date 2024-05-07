@@ -1,3 +1,3 @@
 export class MoveStrategy {
-  move(car) {}
+  shouldMove() {}
 }

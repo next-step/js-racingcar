@@ -1,70 +1,96 @@
 import { ERROR_CODES } from "../constants";
 import { Car } from "./Car";
+import { RaceError } from "./errors";
 
 export class Race {
-  static RACE_ROUND = 5;
-
   #cars = [];
   #winners = [];
   #strategies = new Map();
-  #defaultStrategy;
+  #raceRound;
 
-  constructor(names, defaultStrategy) {
-    this.#validateNames(names);
-    this.#cars = names.map((name) => new Car(name, defaultStrategy));
-    this.#defaultStrategy = defaultStrategy;
+  constructor(cars, round = 1) {
+    if (Array.isArray(cars)) {
+      if (cars.every((car) => car instanceof Car)) {
+        this.#cars = cars;
+      } else if (cars.every((car) => typeof car === "string")) {
+        this.#cars = cars.map((name) => new Car(name.trim()));
+      }
+    } else if (typeof cars === "string") {
+      this.#cars = cars.split(",").map((name) => new Car(name.trim()));
+    }
+    this.#validateNames(this.#cars.map((car) => car.name));
+    this.#validateRound(round);
+    this.#raceRound = round;
   }
 
   #validateNames(names) {
-    if (names.some((name) => name === "")) {
-      throw new Error(ERROR_CODES.ERROR_INVALID_CAR_NAME);
-    }
-
-    const nameSet = new Set(names);
-    if (nameSet.size !== names.length) {
-      throw new Error(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);
+    if (!this.isValidDuplicateCarName(names)) {
+      throw new RaceError(ERROR_CODES.ERROR_DUPLICATE_CAR_NAME);
     }
   }
 
-  race() {
-    const result = [];
-    for (let round = 1; round <= Race.RACE_ROUND; round++) {
-      const strategy = this.#strategies.get(round) || this.#defaultStrategy;
-      this.#cars.forEach((car) => {
-        car.setStrategy(strategy);
-        car.move();
-      });
-
-      result.push({
-        round,
-        cars: this.#cars.map((car) => ({
-          name: car.getName(),
-          position: car.getPosition(),
-        })),
-      });
+  #validateRound(round) {
+    if (!this.isValidRaceRound(round)) {
+      throw new RaceError(ERROR_CODES.ERROR_INVALID_RACE_ROUND);
     }
+  }
 
+  race(strategy) {
+    const result = this.#getRaceResult(strategy);
     this.#setWinners();
 
     return result;
   }
 
-  getCars() {
+  get cars() {
     return this.#cars;
   }
 
-  getWinners() {
+  get winners() {
     return this.#winners;
   }
 
+  get raceRound() {
+    return this.#raceRound;
+  }
+
   #setWinners() {
-    const maxPosition = Math.max(...this.#cars.map((car) => car.getPosition()));
-    this.#winners = this.#cars.filter(
-      (car) => car.getPosition() === maxPosition
-    );
+    const maxPosition = Math.max(...this.#cars.map((car) => car.position));
+    this.#winners = this.#cars.filter((car) => car.position === maxPosition);
   }
 
   setStrategyPerRound(round, strategy) {
     this.#strategies.set(round, strategy);
+  }
+
+  #getRaceResult(raceStrategy) {
+    const result = [];
+    for (let round = 1; round <= this.#raceRound; round++) {
+      const strategy = this.#strategies.get(round) || raceStrategy;
+      this.#cars.forEach((car) => {
+        car.move(strategy.shouldMove);
+      });
+
+      result.push({
+        round,
+        cars: this.#cars.map((car) => ({
+          name: car.name,
+          position: car.position,
+        })),
+      });
+    }
+
+    return result;
+  }
+
+  isValidDuplicateCarName(names) {
+    const nameSet = new Set(names);
+    return nameSet.size === names.length;
+  }
+
+  isValidRaceRound(input) {
+    return (
+      !isNaN(input) && Number(input) >= 0 && Number.isInteger(Number(input))
+    );
   }
 }
