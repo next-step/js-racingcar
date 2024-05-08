@@ -35,7 +35,7 @@ export class Racing {
 
   #executeRound() {
     this.#carList.forEach((car) => {
-      car.move(this.#movementRule());
+      if (this.#movementRule()) car.move();
     });
     this.#round++;
   }

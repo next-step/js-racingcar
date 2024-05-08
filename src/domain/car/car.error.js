@@ -7,7 +7,4 @@ export const ERROR_MESSAGE = {
   POSITION: {
     INVALID_TYPE: "Car position must be a number",
   },
-  MOVE: {
-    INVALID_TYPE: "Movement flag must be a boolean",
-  },
 };

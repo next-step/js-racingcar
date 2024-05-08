@@ -2,12 +2,14 @@ import { Car } from "../src/domain/car/car.model.js";
 import { Racing } from "../src/domain/racing/racing.model.js";
 
 describe("자동차 경주", () => {
-  test("자동차 경주는 5회로 고정하여 진행한다.", () => {
+  function movementRule() {
+    return true;
+  }
+
+  test("자동차 경주는 N회 만큼 진행한다.", () => {
     // Arrange
     const carList = [new Car({ name: "Tesla" }), new Car({ name: "BMW" })];
-    function movementRule() {
-      return true;
-    }
+
     const racing = new Racing({ carList: carList, movementRule: movementRule });
 
     // Act
@@ -24,9 +26,7 @@ describe("자동차 경주", () => {
       new Car({ name: "BMW", position: 3 }),
       new Car({ name: "Audi", position: 5 }),
     ];
-    function movementRule() {
-      return true;
-    }
+
     const racing = new Racing({ carList: carList, movementRule: movementRule });
 
     // Act
