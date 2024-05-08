@@ -37,7 +37,7 @@ describe("Car Class 기본적인 요소에 대해 테스트 한다.", () => {
 
   test("Car 인스턴스는 이동 메서드를 가지고 있고 호출 시에 인자로 받은 이동 거리만큼 움직인다", () => {
     // when
-    car.move(10);
+    car.move(9);
 
     // then
     expect(car.distance).toBe(1);
@@ -45,8 +45,8 @@ describe("Car Class 기본적인 요소에 대해 테스트 한다.", () => {
 
   test("이동 메서드가 여러번 호출되면 이동거리가 누적되어 증가한다.", () => {
     // when
-    car.move(10);
-    car.move(10);
+    car.move(9);
+    car.move(7);
 
     // then
     expect(car.distance).toBe(2);

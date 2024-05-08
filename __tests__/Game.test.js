@@ -42,7 +42,7 @@ describe("Game Class 기본적인 요소에 대해 테스트 한다.", () => {
   test("자동차 이름이 5글자가 넘으면 INVALID_CAR_NAME 에러코드가 반환 된다.", () => {
     const game = new Game();
 
-    const carString = "차1123,차2,차3,차4";
+    const carString = "차112ㄴㅇ3,차2,차3,차4";
     const cars = game.getCarsByCarsString(carString.trim());
 
     expect(cars).toBe(ERROR_CODE.INVALID_CAR_NAME);
@@ -70,25 +70,17 @@ describe("Game Class 기본적인 요소에 대해 테스트 한다.", () => {
     expect(cars).toBe(ERROR_CODE.DUPLICATE);
   });
 
-  test("maxPlayTime을 조정 할 수 있다.", () => {
-    const maxPlayTime = 3;
+  test("setPlayLimit에 인자로 3을 주면 playLimit은 3이 된다.", () => {
+    const playLimit = 3;
     const game = new Game();
 
-    game.setMaxPlayTime(maxPlayTime);
+    game.setPlayLimit(playLimit);
 
-    expect(game.getMaxPlayTime()).toBe(maxPlayTime);
+    expect(game.getPlayLimit()).toBe(playLimit);
   });
 });
 
 describe("게임 플레이 테스트(play 메서드)", () => {
-  test("maxPlayTime이 지정되지 않았다면 기본 세팅된 플레이 타임만큼 게임이 진행되고 true를 반환한다.", () => {
-    const game = new Game();
-
-    const result = game.play();
-
-    expect(result).toBe(true);
-  });
-
   test("게임이 정상적으로 종료되면 true를 반환한다.", () => {
     const game = new Game();
 

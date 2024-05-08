@@ -1,7 +1,4 @@
-import readline from "readline";
 import { Car } from "./Car";
-
-export const DEFAULT_PLAY_TIME = 4;
 
 export const ERROR_CODE = {
   NO_VALUE: 1,
@@ -12,49 +9,23 @@ export const ERROR_CODE = {
 export class Game {
   cars;
   playTime;
-  #maxPlayTime = DEFAULT_PLAY_TIME;
+  #playLimit;
 
   constructor() {
     this.cars = [];
     this.playTime = 0;
   }
 
-  /**
-   * 터미널에서 입출력 받을 수 있게 하는 함수.
-   * 제공받은 함수기 때문에 따로 뭐 하신 않으려고 함
-   */
-  readLineAsync(query) {
-    return new Promise((resolve, reject) => {
-      if (arguments.length !== 1) {
-        reject(new Error("arguments must be 1"));
-      }
-
-      if (typeof query !== "string") {
-        reject(new Error("query must be string"));
-      }
-
-      const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-      });
-
-      rl.question(query, (input) => {
-        rl.close();
-        resolve(input);
-      });
-    });
+  getPlayLimit() {
+    return this.#playLimit;
   }
-
-  getMaxPlayTime() {
-    return this.#maxPlayTime;
-  }
-  setMaxPlayTime(maxPlayTime) {
-    if (!maxPlayTime) {
+  setPlayLimit(playLimit) {
+    if (!playLimit) {
       console.log("숫자를 입력해주세요.");
       return false;
     }
 
-    this.#maxPlayTime = maxPlayTime;
+    this.#playLimit = playLimit;
 
     return true;
   }
@@ -70,7 +41,7 @@ export class Game {
     }
 
     const isInvalidCarName = carNames.some((carName) => {
-      return carName.length > 4;
+      return carName.length > 5;
     });
     if (isInvalidCarName) {
       return ERROR_CODE.INVALID_CAR_NAME;
@@ -95,7 +66,7 @@ export class Game {
   }
 
   play() {
-    while (this.playTime < this.#maxPlayTime) {
+    while (this.playTime < this.#playLimit) {
       const randomDistances = this.cars.map(() => {
         return this.#getRandomDistance();
       });
