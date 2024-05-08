@@ -46,13 +46,19 @@ export const printError = (error) => {
   console.error(`Error: ${error.message}`);
 };
 
-export const getValidInput = async (promptMessage, parseFunction) => {
+export const prompt = async (message, options) => {
+  const { validate, parse } = options;
   let result;
 
   while (true) {
     try {
-      const userInput = await IO.readLineAsync(promptMessage);
-      result = parseFunction(userInput);
+      const answer = await IO.readLineAsync(message);
+
+      if (validate) {
+        validate(answer);
+      }
+
+      result = parse ? parse(answer) : answer;
       break;
     } catch (error) {
       printError(error);
