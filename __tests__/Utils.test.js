@@ -1,7 +1,7 @@
 import readline from "readline";
 
-import { readLineAsync } from "../src/utils/readline.js";
 import { generateRandomNumber } from "../src/utils/randomNumber.js";
+import { readLineAsync } from "../src/utils/readline.js";
 
 jest.mock("readline");
 
@@ -13,7 +13,7 @@ describe("랜덤 숫자", () => {
       const max = "5";
 
       // Act & Assert
-      expect(() => generateRandomNumber(min, max)).toThrowError(TypeError);
+      expect(() => generateRandomNumber(min, max)).toThrow(TypeError);
     });
 
     test("숫자일 경우 에러가 발생하지 않는다.", () => {
@@ -22,7 +22,7 @@ describe("랜덤 숫자", () => {
       const max = 5;
 
       // Act & Assert
-      expect(() => generateRandomNumber(min, max)).not.toThrowError();
+      expect(() => generateRandomNumber(min, max)).not.toThrow(Error);
     });
   });
 
@@ -32,7 +32,7 @@ describe("랜덤 숫자", () => {
     const max = 1;
 
     // Act & Assert
-    expect(() => generateRandomNumber(min, max)).toThrowError(RangeError);
+    expect(() => generateRandomNumber(min, max)).toThrow(RangeError);
   });
 
   test("무작위 수가 왼쪽 경계값 이상 오른쪽 경계값 이하이면 반환한다.", () => {
@@ -64,7 +64,7 @@ describe("입력", () => {
     const query = 1;
 
     // Act & Assert
-    await expect(readLineAsync(query)).rejects.toThrowError(Error);
+    await expect(readLineAsync(query)).rejects.toThrow(Error);
   });
 
   test("인자가 1개가 아니면 에러가 발생한다.", async () => {
@@ -72,6 +72,6 @@ describe("입력", () => {
     const query = "질문";
 
     // Act & Assert
-    await expect(readLineAsync(query, "다른 인자")).rejects.toThrowError(Error);
+    await expect(readLineAsync(query, "다른 인자")).rejects.toThrow(Error);
   });
 });

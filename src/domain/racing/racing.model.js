@@ -44,7 +44,9 @@ export class Racing {
 
   #executeRound() {
     this.#carList.forEach((car) => {
-      if (this.#movementRule()) car.move();
+      if (this.#movementRule()) {
+        car.move();
+      }
     });
     this.#round++;
   }
@@ -52,7 +54,7 @@ export class Racing {
   #determineWinnerList() {
     const maxPosition = Math.max(...this.#carList.map((car) => car.position));
     this.#winnerList = this.#carList.filter(
-      (car) => car.position === maxPosition
+      (car) => car.position === maxPosition,
     );
   }
 

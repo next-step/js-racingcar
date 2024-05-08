@@ -1,5 +1,5 @@
-import { validateCarName, validateCarPosition } from "./car.contract.js";
 import { INITIAL_POSITION, MOVE_DISTANCE } from "./car.constant.js";
+import { validateCarName, validateCarPosition } from "./car.contract.js";
 
 export class Car {
   #name;

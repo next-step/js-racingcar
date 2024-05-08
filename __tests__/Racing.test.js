@@ -14,8 +14,12 @@ describe("자동차 경주", () => {
     // Act & Assert
     expect(
       () =>
-        new Racing({ carList: carList, racingRound: racingRound, movementRule })
-    ).toThrowError(TypeError);
+        new Racing({
+          carList: carList,
+          racingRound: racingRound,
+          movementRule,
+        }),
+    ).toThrow(TypeError);
   });
 
   test("자동차 경주는 N회 만큼 진행한다.", () => {

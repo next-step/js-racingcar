@@ -18,7 +18,7 @@ describe("자동차", () => {
       const carName = undefined;
 
       // Act & Assert
-      expect(() => new Car({ name: carName })).toThrowError(TypeError);
+      expect(() => new Car({ name: carName })).toThrow(TypeError);
     });
 
     test("이름이 공란이면 에러가 발생한다.", () => {
@@ -26,7 +26,7 @@ describe("자동차", () => {
       const carName = "";
 
       // Act & Assert
-      expect(() => new Car({ name: carName })).toThrowError(RangeError);
+      expect(() => new Car({ name: carName })).toThrow(RangeError);
     });
 
     test("이름이 6자인 경우 에러가 발생한다.", () => {
@@ -34,7 +34,7 @@ describe("자동차", () => {
       const carName = "TeslaX";
 
       // Act & Assert
-      expect(() => new Car({ name: carName })).toThrowError(RangeError);
+      expect(() => new Car({ name: carName })).toThrow(RangeError);
     });
   });
 
@@ -46,9 +46,9 @@ describe("자동차", () => {
       const carPosition = "3";
 
       // Act & Assert
-      expect(
-        () => new Car({ name: carName, position: carPosition })
-      ).toThrowError(TypeError);
+      expect(() => new Car({ name: carName, position: carPosition })).toThrow(
+        TypeError,
+      );
     });
 
     test("자동차의 default 위치는 0으로 설정된다.", () => {
@@ -127,7 +127,7 @@ describe("자동차", () => {
 
         // Act
         if (movementRule(randomNumber)) {
-          car.move(shouldMove);
+          car.move();
         }
 
         // Assert

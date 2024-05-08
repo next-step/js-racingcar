@@ -1,6 +1,6 @@
-import { readLineAsync } from "./utils/readline.js";
 import { validateCarName } from "./domain/car/car.contract.js";
 import { validateRacingRound } from "./domain/racing/racing.contract.js";
+import { readLineAsync } from "./utils/readline.js";
 
 const POSITION_MARKER = "-";
 
@@ -8,7 +8,7 @@ export class View {
   async inputCarNames() {
     try {
       const inputtedString = await readLineAsync(
-        "경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분):\n"
+        "경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분):\n",
       );
       const carNameList = inputtedString.split(",").map((name) => name.trim());
 

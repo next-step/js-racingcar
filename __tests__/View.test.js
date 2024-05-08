@@ -1,10 +1,8 @@
-import { View } from "../src/View.js";
-import { Car } from "../src/domain/car/car.model.js";
-
-import { readLineAsync } from "../src/utils/readline.js";
-
 import { ERROR_MESSAGE as CAR_ERROR_MESSAGE } from "../src/domain/car/car.error.js";
+import { Car } from "../src/domain/car/car.model.js";
 import { ERROR_MESSAGE as RACING_ERROR_MESSAGE } from "../src/domain/racing/racing.error.js";
+import { readLineAsync } from "../src/utils/readline.js";
+import { View } from "../src/View.js";
 
 jest.mock("../src/utils/readline.js", () => ({
   readLineAsync: jest.fn(),
@@ -84,10 +82,10 @@ describe("View", () => {
 
       expect(errorSpy).toHaveBeenCalledTimes(2);
       expect(errorSpy).toHaveBeenCalledWith(
-        RACING_ERROR_MESSAGE.ROUND.INVALID_TYPE
+        RACING_ERROR_MESSAGE.ROUND.INVALID_TYPE,
       );
       expect(errorSpy).toHaveBeenCalledWith(
-        RACING_ERROR_MESSAGE.ROUND.INVALID_RANGE
+        RACING_ERROR_MESSAGE.ROUND.INVALID_RANGE,
       );
     });
 

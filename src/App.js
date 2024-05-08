@@ -1,8 +1,7 @@
-import { View } from "./View.js";
-import { Racing } from "./domain/racing/racing.model.js";
 import { Car } from "./domain/car/car.model.js";
-
+import { Racing } from "./domain/racing/racing.model.js";
 import { generateRandomNumber } from "./utils/randomNumber.js";
+import { View } from "./View.js";
 
 const MOVE_THRESHOLD = 4;
 const MOVE_MIN_NUMBER = 0;
