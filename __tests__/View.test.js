@@ -25,10 +25,13 @@ describe("View", () => {
     expect(carNameList).toEqual(["Tesla", "BMW", "Audi"]);
   });
 
-  test("사용자가 잘못된 입력 값을 작성한 경우 프로그램을 종료한다.", async () => {
-    readLineAsync.mockResolvedValue(undefined);
+  test("경주의 라운드 수를 입력받는다.", async () => {
+    const inputtedString = "5";
+    readLineAsync.mockResolvedValue(inputtedString);
 
-    expect(view.inputCarNames()).rejects.toThrowError(Error);
+    const racingRound = await view.inputRacingRound();
+
+    expect(racingRound).toBe(5);
   });
 
   test("경주를 완료한 후 우승자를 출력한다.", () => {

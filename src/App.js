@@ -10,8 +10,6 @@ const MOVE_MAX_NUMBER = 9;
 
 export class App {
   #view;
-  #racing;
-  #carList;
 
   constructor() {
     this.#view = new View();
@@ -25,17 +23,19 @@ export class App {
 
   async main() {
     const carNames = await this.#view.inputCarNames();
+    const racingRound = await this.#view.inputRacingRound();
 
-    this.#carList = carNames.map((name) => new Car({ name }));
-    this.#racing = new Racing({
-      carList: this.#carList,
+    const carList = carNames.map((name) => new Car({ name }));
+    const racing = new Racing({
+      carList: carList,
+      racingRound: racingRound,
       movementRule: this.#movementRule,
     });
 
-    this.#racing.start();
+    racing.start();
 
-    this.#view.printCarPosition(this.#racing.racingHistory);
-    this.#view.printWinner(this.#racing.winnerList);
+    this.#view.printCarPosition(racing.racingHistory);
+    this.#view.printWinner(racing.winnerList);
   }
 }
 
