@@ -1,6 +1,6 @@
 const ERROR_MESSAGE = {
-  INVALID_TYPE: "min and max must be numbers",
-  INVALID_RANGE: "min must be less than or equal to max",
+  INVALID_TYPE: "최소값과 최대값은 숫자여야 합니다",
+  INVALID_RANGE: "최소값은 최대값보다 작거나 같아야 합니다",
 };
 
 export function generateRandomNumber(min, max) {
