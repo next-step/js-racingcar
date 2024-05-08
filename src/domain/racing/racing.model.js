@@ -3,18 +3,27 @@ import {
   INITIAL_RACING_HISTORY,
   INITIAL_ROUND,
   INITIAL_WINNER_LIST,
-  RACING_ROUND,
+  INITIAL_RACING_ROUND,
 } from "./racing.constant.js";
+import { validateRacingRound } from "./racing.contract.js";
 
 export class Racing {
   #round;
   #carList;
   #winnerList;
+  #racingRound;
   #movementRule;
   #racingHistory;
 
-  constructor({ carList = INITIAL_CAR_LIST, movementRule }) {
+  constructor({
+    carList = INITIAL_CAR_LIST,
+    racingRound = INITIAL_RACING_ROUND,
+    movementRule,
+  }) {
+    validateRacingRound(racingRound);
+
     this.#carList = carList;
+    this.#racingRound = racingRound;
     this.#movementRule = movementRule;
     this.#round = INITIAL_ROUND;
     this.#winnerList = INITIAL_WINNER_LIST;
@@ -27,7 +36,7 @@ export class Racing {
   }
 
   #race() {
-    while (this.#round < RACING_ROUND) {
+    while (this.#round < this.#racingRound) {
       this.#executeRound();
       this.#updateRacingHistory();
     }
@@ -48,11 +57,15 @@ export class Racing {
   }
 
   #updateRacingHistory() {
-    const history = this.#carList.map((car) => ({
+    const history = this.#generateRacingHistory();
+    this.#racingHistory = [...this.#racingHistory, ...history];
+  }
+
+  #generateRacingHistory() {
+    return this.#carList.map((car) => ({
       name: car.name,
       position: car.position,
     }));
-    this.#racingHistory = [...this.#racingHistory, ...history];
   }
 
   get round() {
