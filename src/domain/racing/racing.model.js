@@ -39,6 +39,8 @@ export class Racing {
     while (this.#round < this.#racingRound) {
       this.#executeRound();
       this.#updateRacingHistory();
+
+      this.#round++;
     }
   }
 
@@ -48,13 +50,12 @@ export class Racing {
         car.move();
       }
     });
-    this.#round++;
   }
 
   #determineWinnerList() {
     const maxPosition = Math.max(...this.#carList.map((car) => car.position));
     this.#winnerList = this.#carList.filter(
-      (car) => car.position === maxPosition,
+      (car) => car.position === maxPosition
     );
   }
 
