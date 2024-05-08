@@ -31,7 +31,7 @@ describe("View", () => {
 
       const carNameList = await view.inputCarNames();
 
-      expect(carNameList).toEqual(["Tesla", "BMW", "Audi"]);
+      expect(carNameList).toStrictEqual(["Tesla", "BMW", "Audi"]);
     });
 
     test("사용자가 잘못된 자동차 이름을 입력할 경우 에러 메시지를 출력한다.", async () => {
@@ -82,10 +82,10 @@ describe("View", () => {
 
       expect(errorSpy).toHaveBeenCalledTimes(2);
       expect(errorSpy).toHaveBeenCalledWith(
-        RACING_ERROR_MESSAGE.ROUND.INVALID_TYPE,
+        RACING_ERROR_MESSAGE.ROUND.INVALID_TYPE
       );
       expect(errorSpy).toHaveBeenCalledWith(
-        RACING_ERROR_MESSAGE.ROUND.INVALID_RANGE,
+        RACING_ERROR_MESSAGE.ROUND.INVALID_RANGE
       );
     });
 

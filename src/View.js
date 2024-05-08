@@ -5,34 +5,37 @@ import { readLineAsync } from "./utils/readline.js";
 const POSITION_MARKER = "-";
 
 export class View {
-  async inputCarNames() {
+  async #prompt({ message, validate, format }) {
     try {
-      const inputtedString = await readLineAsync(
-        "경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분):\n",
-      );
-      const carNameList = inputtedString.split(",").map((name) => name.trim());
+      const inputtedString = await readLineAsync(message);
+      const formattedInput = format ? format(inputtedString) : inputtedString;
 
-      carNameList.forEach((name) => validateCarName(name));
+      validate && validate(formattedInput);
 
-      return carNameList;
+      return formattedInput;
     } catch (error) {
       console.error(error.message);
-      return await this.inputCarNames();
+      return await this.#prompt({ message, validate, format });
     }
   }
 
+  async inputCarNames() {
+    const message =
+      "경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분):\n";
+    const format = (input) => input.split(",").map((name) => name.trim());
+    const validate = (carNameList) => {
+      carNameList.forEach((name) => validateCarName(name));
+    };
+
+    return await this.#prompt({ message, validate, format });
+  }
+
   async inputRacingRound() {
-    try {
-      const inputtedString = await readLineAsync("시도할 회수는 몇회인가요?\n");
-      const racingRound = Number(inputtedString);
+    const message = "시도할 횟수는 몇회인가요?\n";
+    const format = Number;
+    const validate = validateRacingRound;
 
-      validateRacingRound(racingRound);
-
-      return racingRound;
-    } catch (error) {
-      console.error(error.message);
-      return await this.inputRacingRound();
-    }
+    return await this.#prompt({ message, validate, format });
   }
 
   printWinner(winnerCarList) {
