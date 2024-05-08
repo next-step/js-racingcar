@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from "./racing.error";
+import { ERROR_MESSAGE } from "./racing.error.js";
 
 export function validateRacingRound(racingRound) {
   if (typeof racingRound !== "number") {
