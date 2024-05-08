@@ -32,7 +32,7 @@ export class View {
 
   async inputRacingRound() {
     const message = "시도할 횟수는 몇회인가요?\n";
-    const format = Number;
+    const format = (input) => parseInt(input, 10);
     const validate = validateRacingRound;
 
     return await this.#prompt({ message, validate, format });
