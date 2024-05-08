@@ -1,10 +1,18 @@
-import { askCarNames } from "./view.js";
-import { playGame } from "./controller.js";
+import Race from "./domain/Race.js";
+import Controller from "./controller.js";
+import View from "./view.js";
 
-async function app() {
-  const carNames = await askCarNames();
+export async function app(view, controller) {
+  await controller.initCarNames(view.askCarNames);
+  await controller.initMaxRound(view.askMaxRound);
 
-  playGame(carNames);
+  controller.playRaceGame();
+
+  controller.finish();
 }
 
-app();
+const view = new View();
+const race = new Race();
+const controller = new Controller(view, race);
+
+app(view, controller);

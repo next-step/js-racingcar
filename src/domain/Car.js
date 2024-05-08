@@ -5,20 +5,33 @@ export default class Car {
   position;
 
   constructor(name) {
-    if (name.length > CAR.MAX_NAME_LENGTH) {
-      throw new Error(ERROR_MESSAGE.CAR_NAME_LENGTH);
-    }
+    this.#validateName(name);
     this.name = name;
     this.position = 0;
   }
 
-  #moveForward() {
+  moveForward() {
     this.position++;
   }
 
-  move(randomNumber) {
-    if (randomNumber >= CAR.MIN_MOVE_THRESHOLD) {
-      this.#moveForward();
+  #validateNameLength(name) {
+    if (name.length > CAR.MAX_NAME_LENGTH) {
+      throw new Error(ERROR_MESSAGE.CAR_NAME_LENGTH);
     }
+  }
+
+  #validateNameRequired(name) {
+    if (name === "") {
+      throw new Error(ERROR_MESSAGE.CAR_NAME_REQUIRED);
+    }
+  }
+
+  #validateName(name) {
+    this.#validateNameRequired(name);
+    this.#validateNameLength(name);
+  }
+
+  get name() {
+    return this.name;
   }
 }

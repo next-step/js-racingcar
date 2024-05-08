@@ -1,22 +1,47 @@
-import { MESSAGE, ERROR_MESSAGE } from "./constant/index.js";
-import Race from "./domain/Race.js";
-import { displayWinners, displayRace } from "./view.js";
+import { CAR } from "./constant/index.js";
 
-export function playGame(carNames) {
-  try {
-    const race = new Race(carNames.split(","));
+export default class Controller {
+  #view;
+  #race;
 
-    console.log(MESSAGE.RESULT);
-    while (race.currentRound < race.maxRound) {
-      race.playRound();
-      displayRace(race.cars);
+  constructor(view, race) {
+    this.#view = view;
+    this.#race = race;
+  }
+
+  async initCarNames(getCarNames) {
+    try {
+      const carNames = await getCarNames();
+      this.#race.cars = await carNames.split(CAR.NAME_SEPARATOR);
+    } catch (error) {
+      console.error(error.message);
+
+      return this.initCarNames(getCarNames);
     }
+  }
 
-    displayWinners(race);
+  async initMaxRound(getMaxRound) {
+    try {
+      const input = await getMaxRound();
+      this.#race.validateMaxRoundRequired(input);
 
-    return race;
-  } catch (error) {
-    console.error(ERROR_MESSAGE.PLAY_ERROR);
-    throw error;
+      const maxRound = Number(input);
+      this.#race.maxRound = maxRound;
+    } catch (error) {
+      console.error(error.message);
+
+      return this.initMaxRound(getMaxRound);
+    }
+  }
+
+  playRaceGame() {
+    for (let i = 0; i < this.#race.maxRound; i++) {
+      this.#race.playRound();
+      this.#view.displayRaceRecords(this.#race.currentRoundRecord);
+    }
+  }
+
+  finish() {
+    this.#view.displayWinners(this.#race.winners);
   }
 }

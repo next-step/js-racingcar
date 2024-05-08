@@ -1,76 +1,95 @@
-import { getRandomNumber } from "../src/utils/number.js";
-import { displayForwardCar } from "../src/view.js";
-import Car from "../src/domain/Car.js";
-import { playGame } from "../src/controller.js";
+import Controller from "../src/controller.js";
+import View from "../src/view.js";
 import Race from "../src/domain/Race.js";
 
 describe("자동차 경주 규칙 구현", () => {
-  test("경주는 5회로 고정하여 진행한다.", () => {
-    const race = playGame("pobi,crong,honux");
+  test("경주는 주어진 횟수동안 진행한다.", async () => {
+    //given
+    const view = new View();
+    const race = new Race();
+    const controller = new Controller(view, race);
+    const getCarNames = () => "pobi,crong,honux";
+    const getRound = () => 5;
+    await controller.initCarNames(getCarNames);
+    await controller.initMaxRound(getRound);
 
-    expect(race.maxRound).toBe(5);
-    expect(race.currentRound).toBe(5);
+    //when
+    controller.playRaceGame();
+
+    //then
+    const raceCount = race.records.length;
+    expect(raceCount).toBe(5);
   });
 
-  test("0~9 사이의 랜덤 값을 구한다.", () => {
-    const randomNumber = getRandomNumber(0, 9);
+  test("라운드 별 자동차의 이동 상태를 기록한다.", () => {
+    //given
+    const race = new Race();
+    race.cars = ["pobi", "crong", "honux"];
 
-    expect(randomNumber).toBeGreaterThanOrEqual(0);
-    expect(randomNumber).toBeLessThanOrEqual(9);
-  });
+    //when
+    race.playRound();
+    race.playRound();
+    race.playRound();
 
-  test("자동차에 전달 된 숫자가 4이상인 경우에 자동차는 전진한다.", () => {
-    const car = new Car("pobi");
+    //then
+    const round1Index = 0;
+    expect(race.records.at(round1Index)).toEqual([
+      { name: "pobi", position: race.cars[0].position },
+      { name: "crong", position: race.cars[1].position },
+      { name: "honux", position: race.cars[2].position },
+    ]);
 
-    car.move(4);
+    const round2Index = 1;
+    expect(race.records.at(round2Index)).toEqual([
+      { name: "pobi", position: race.cars[0].position },
+      { name: "crong", position: race.cars[1].position },
+      { name: "honux", position: race.cars[2].position },
+    ]);
 
-    expect(car.position).toBe(1);
-  });
-
-  test("자동차에 전달 된 숫자가 4미만인 경우에 자동차는 정지한다.", () => {
-    const car = new Car("pobi");
-
-    car.move(3);
-
-    expect(car.position).toBe(0);
-  });
-});
-
-describe("자동차 경주 상황 출력 구현", () => {
-  let logSpy;
-
-  beforeEach(() => {
-    logSpy = jest.spyOn(global.console, "log");
-  });
-
-  afterEach(() => {
-    logSpy.mockClear();
-  });
-
-  test("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
-    const car = new Car("pobi");
-
-    car.move(4);
-    displayForwardCar(car);
-
-    expect(logSpy).toHaveBeenCalledWith("pobi : -");
+    const round3Index = 2;
+    expect(race.records.at(round3Index)).toEqual([
+      { name: "pobi", position: race.cars[0].position },
+      { name: "crong", position: race.cars[1].position },
+      { name: "honux", position: race.cars[2].position },
+    ]);
   });
 
   test("레이스에서 가장 많이 이동한 자동차가 우승자가 된다.", () => {
-    const race = new Race(["pobi", "crong", "honux"]);
-    race.cars[1].move(4);
-    race.cars[1].move(4);
+    //given
+    const race = new Race();
+    race.cars = ["pobi", "crong", "honux"];
 
+    //when
+    race.cars[1].moveForward();
+    race.cars[1].moveForward();
+
+    //then
     expect(race.winners).toEqual([race.cars[1]]);
   });
 
-  test("게임 완료 후 우승자를 출력한다.", () => {
-    const race = playGame("pobi,crong,honux");
+  test("주어진 숫자가 4이상인 경우에 자동차는 전진한다.", () => {
+    //given
+    const race = new Race();
+    race.cars = ["pobi", "crong", "honux"];
+    const pobiCar = race.cars[0];
 
-    const winners = race.winners;
+    //when
+    race.moveCarWithNumberCondition(pobiCar, 4);
 
-    expect(logSpy).toHaveBeenCalledWith(
-      `${winners.map((car) => car.name).join(", ")}가 최종 우승했습니다.`
-    );
+    //then
+    expect(pobiCar.position).toBe(1);
+  });
+
+  test("주어진 숫자가 4미만인 경우에 자동차는 정지한다.", () => {
+    //given
+    const race = new Race();
+    race.cars = ["pobi", "crong", "honux"];
+    const pobiCar = race.cars[0];
+
+    //when
+    race.moveCarWithNumberCondition(pobiCar, 3);
+
+    //then
+    expect(pobiCar.position).toBe(0);
   });
 });
