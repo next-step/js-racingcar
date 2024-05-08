@@ -8,4 +8,6 @@ export function validateRacingRound(racingRound) {
   if (racingRound <= 0) {
     throw new RangeError(ERROR_MESSAGE.ROUND.INVALID_RANGE);
   }
+
+  return racingRound;
 }

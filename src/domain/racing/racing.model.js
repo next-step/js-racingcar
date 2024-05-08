@@ -20,10 +20,8 @@ export class Racing {
     racingRound = INITIAL_RACING_ROUND,
     movementRule,
   }) {
-    validateRacingRound(racingRound);
-
+    this.#racingRound = validateRacingRound(racingRound);
     this.#carList = carList;
-    this.#racingRound = racingRound;
     this.#movementRule = movementRule;
     this.#round = INITIAL_ROUND;
     this.#winnerList = INITIAL_WINNER_LIST;

@@ -9,10 +9,11 @@ export class View {
     try {
       const inputtedString = await readLineAsync(message);
       const formattedInput = format ? format(inputtedString) : inputtedString;
+      const validatedInput = validate
+        ? validate(formattedInput)
+        : formattedInput;
 
-      validate && validate(formattedInput);
-
-      return formattedInput;
+      return validatedInput;
     } catch (error) {
       console.error(error.message);
       return await this.#prompt({ message, validate, format });
@@ -23,9 +24,8 @@ export class View {
     const message =
       "경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분):\n";
     const format = (input) => input.split(",").map((name) => name.trim());
-    const validate = (carNameList) => {
-      carNameList.forEach((name) => validateCarName(name));
-    };
+    const validate = (carNameList) =>
+      carNameList.map((name) => validateCarName(name));
 
     return await this.#prompt({ message, validate, format });
   }

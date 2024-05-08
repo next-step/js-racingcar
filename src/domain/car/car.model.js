@@ -6,11 +6,8 @@ export class Car {
   #position;
 
   constructor({ name, position = INITIAL_POSITION }) {
-    validateCarName(name);
-    validateCarPosition(position);
-
-    this.#name = name;
-    this.#position = position;
+    this.#name = validateCarName(name);
+    this.#position = validateCarPosition(position);
   }
 
   move() {
