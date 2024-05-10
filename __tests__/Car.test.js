@@ -1,6 +1,7 @@
 import { Car } from "../src/domain/car/Car";
-import { MovableNumberGenerator } from "../src/testHelper/MovableNumberGenerator";
-import { NonMovableNumberGenerator } from "../src/testHelper/NonMovableNumberGenerator";
+import { RandomGenerator } from "../src/domain/strategy/RandomGenerator";
+
+jest.mock('../src/domain/strategy/RandomGenerator');
 
 describe("자동차 클래스 테스트", () => {
   test("생성 테스트", () => {
@@ -17,17 +18,19 @@ describe("자동차 클래스 테스트", () => {
 });
 
 describe("자동차 이동 테스트", () => {
-  test("숫자 4이상 이동", () => {
+  test("RandomGenerator가 숫자를 4이상 반환시 Car의 Position 이동", () => {
+    RandomGenerator.prototype.generate.mockReturnValue(5);
     const car = new Car("BMW");
-    const generator = new MovableNumberGenerator();
+    const generator = new RandomGenerator();
     car.move(generator);
 
     expect(car.getPosition()).toBe(1);
   });
 
-  test("숫자 4 미만 이동 X", () => {
+  test("RandomGenerator가 숫자를 4미만 반환시 Car의 Position 이동하지 않는다.", () => {
+    RandomGenerator.prototype.generate.mockReturnValue(1);
     const car = new Car("BMW");
-    const generator = new NonMovableNumberGenerator();
+    const generator = new RandomGenerator();
     car.move(generator);
 
     expect(car.getPosition()).toBe(0);
