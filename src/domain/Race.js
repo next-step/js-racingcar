@@ -1,10 +1,9 @@
 export class Race {
   #racingCars;
-  racingResult;
   #racingProgress;
 
-  constructor() {
-    this.racingResult = [];
+  constructor(racingCars) {
+    this.#racingCars = racingCars;
     this.#racingProgress = [];
   }
 
@@ -16,38 +15,31 @@ export class Race {
     return this.#racingProgress;
   }
 
-  set racingCars(racingCars) {
-    this.#racingCars = racingCars;
-  }
-
   repeatRacing(racingCount, cars, getRandomValue) {
-    let per_race = [];
-
     for (let i = 0; i < racingCount; i++) {
       cars.forEach((car) => {
         const randomValue = getRandomValue();
         car.move(randomValue);
-        per_race.push({ name: car.name, position: car.position });
       });
-
-      this.#racingProgress.push(per_race);
-      per_race = [];
+      this.recordProgress(cars, i);
     }
+  }
+
+  recordProgress(cars, round) {
+    const racingInfo = cars.map((car) => ({ name: car.name, position: car.position }));
+    this.#racingProgress.push({ round: round, result: racingInfo });
   }
 
   startRacing(racingCount, getRandomValue) {
     this.repeatRacing(racingCount, this.#racingCars, getRandomValue);
-
-    this.racingResult = this.#racingCars
-      .map((car) => ({ carName: car.name, currentPosition: car.position }))
-      .sort((a, b) => b.currentPosition - a.currentPosition);
   }
 
   get winners() {
-    const winnerPosition = this.racingResult.at(0).currentPosition;
-    return this.racingResult
-      .filter((car) => winnerPosition <= car.currentPosition)
-      .map((car) => car.carName)
+    const winnerPosition = Math.max(...this.#racingCars.map((car) => car.position));
+
+    return this.racingCars
+      .filter((car) => winnerPosition <= car.position)
+      .map((car) => car.name)
       .join(',');
   }
 }
