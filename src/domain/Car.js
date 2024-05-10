@@ -4,6 +4,9 @@ class Car {
   name
   position = 0
 
+  /**
+   * @param { string } name
+   */
   constructor(name) {
     this.name = name
   }
@@ -17,6 +20,10 @@ class Car {
     this.position++
   }
 
+  /**
+   * @param {number} randomValue
+   * @returns boolean
+   */
   isCarMovable(randomValue) {
     return randomValue >= MOVE_THRESHOLD
   }
