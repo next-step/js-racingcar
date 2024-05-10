@@ -2,6 +2,11 @@ import readline from "readline";
 
 export function isNumber(value) {
   const number = Number(value);
+
+  if (value <= 0) {
+    return false;
+  }
+
   return typeof number === "number" && !isNaN(number);
 }
 

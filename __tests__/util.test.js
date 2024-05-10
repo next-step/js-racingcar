@@ -18,4 +18,22 @@ describe("isNumber() 테스트", () => {
 
     expect(result).toBe(false);
   });
+
+  test("0을 넣으면 false가 반환된다.", () => {
+    const result = isNumber(0);
+
+    expect(result).toBe(false);
+  });
+
+  test("음수를 넣으면 false가 반환된다.", () => {
+    const result = isNumber(-6);
+
+    expect(result).toBe(false);
+  });
+
+  test("공백을 넣으면 false가 반환된다.", () => {
+    const result = isNumber("");
+
+    expect(result).toBe(false);
+  });
 });

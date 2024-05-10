@@ -67,19 +67,19 @@ export class Game {
 
   play() {
     while (this.playTime < this.#playLimit) {
-      const randomDistances = this.cars.map(() => {
+      const isMoveArray = this.cars.map(() => {
         return this.#getRandomDistance();
       });
 
-      randomDistances.map((randomDistance, distanceIndex) => {
-        this.cars[distanceIndex].move(randomDistance);
+      isMoveArray.map((randomDistance, isMoveIndex) => {
+        this.cars[isMoveIndex].move(randomDistance);
 
         let distanceString = "";
-        for (let i = 0; i < this.cars[distanceIndex].distance; i++) {
+        for (let i = 0; i < this.cars[isMoveIndex].distance; i++) {
           distanceString += "-";
         }
 
-        console.log(`${this.cars[distanceIndex].name} : ${distanceString}`);
+        console.log(`${this.cars[isMoveIndex].name} : ${distanceString}`);
       });
 
       console.log("");
