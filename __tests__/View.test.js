@@ -7,12 +7,12 @@ import {
   TEST_CARS,
   TEST_DUPLICATED_CARS,
   TEST_NONEXISTENT_CARS,
-  TEST_WRONG_LENGTH_CARS,
+  TEST_INVALID_LENGTH_CARS,
 } from './constants/index.js'
 import {
   DUPLICATED_CARS_MSG,
   NONEXISTENT_CARS_MSG,
-  WRONG_LENGTH_CARS_MSG,
+  INVALID_LENGTH_CARS_MSG,
 } from '../src/constants/error.js'
 
 let logSpy
@@ -87,13 +87,13 @@ describe('입출력 테스트', () => {
 
   test('자동차의 이름이 1자 미만, 5자 초과일 경우, 에러 메시지를 보여준다.', async () => {
     // given
-    const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_WRONG_LENGTH_CARS.join(','))
+    const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_INVALID_LENGTH_CARS.join(','))
     const input = await mockReadLineAsync()
 
     // when
     carValidation.validates(input)
 
     // then
-    expect(logSpy).toHaveBeenCalledWith(WRONG_LENGTH_CARS_MSG)
+    expect(logSpy).toHaveBeenCalledWith(INVALID_LENGTH_CARS_MSG)
   })
 })
