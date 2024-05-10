@@ -7,12 +7,12 @@ export class Car {
   static #LEAST_RANDOM_VALUE = 4;
 
   constructor(name) {
-    this.#isValidNameLength(name);
+    this.#checkValidNameLength(name);
     this.#name = name;
     this.#position = Car.#DEFAULT_POSITION;
   }
 
-  #isValidNameLength(name) {
+  #checkValidNameLength(name) {
     if (!name || /^\s*$/.test(name)) {
       throw new Error("차 이름이 null값 이거나 빈 값일 수는 없습니다.");
     }
@@ -23,10 +23,7 @@ export class Car {
   }
 
   #isMovableNumber(number) {
-    if (number >= Car.#LEAST_RANDOM_VALUE) {
-      return true;
-    }
-    return false;
+    return number >= Car.#LEAST_RANDOM_VALUE;
   }
 
   move(numberGenerator) {

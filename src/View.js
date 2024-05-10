@@ -13,9 +13,7 @@ export class View {
   static printRecord(car, record) {
     // console.log(car.getName() + " : ");
     process.stdout.write(car.getName() + " : ");
-    for (let j = 0; j < record; j++) {
-      process.stdout.write("-");
-    }
+    process.stdout.write("-".repeat(record));
     console.log("\n");
   }
 
