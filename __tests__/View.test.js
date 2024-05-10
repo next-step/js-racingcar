@@ -3,12 +3,21 @@ import Car from '../src/domain/Car.js'
 import Race from '../src/domain/Race.js'
 import { MOVE_THRESHOLD } from '../src/constants'
 import { carValidation } from '../src/rules/CarValidation'
-import { TEST_CARS, TEST_DUPLICATED_CARS, TEST_NONEXISTENT_CARS, TEST_WRONG_LENGTH_CARS } from './constants/index.js'
-import { DUPLICATED_CARS_MSG, NONEXISTENT_CARS_MSG, WRONG_LENGTH_CARS_MSG} from "../src/constants/error.js"
+import {
+  TEST_CARS,
+  TEST_DUPLICATED_CARS,
+  TEST_NONEXISTENT_CARS,
+  TEST_WRONG_LENGTH_CARS,
+} from './constants/index.js'
+import {
+  DUPLICATED_CARS_MSG,
+  NONEXISTENT_CARS_MSG,
+  WRONG_LENGTH_CARS_MSG,
+} from '../src/constants/error.js'
 
-let logSpy;
+let logSpy
 
-beforeEach(()=>{
+beforeEach(() => {
   logSpy = jest.spyOn(console, 'log')
 })
 
@@ -61,30 +70,30 @@ describe('입출력 테스트', () => {
     carValidation.validates(input)
 
     // then
-    expect(logSpy).toHaveBeenCalledWith(NONEXISTENT_CARS_MSG);
+    expect(logSpy).toHaveBeenCalledWith(NONEXISTENT_CARS_MSG)
   })
-  
+
   test('동일한 자동차가 존재할 경우, 에러 메세지를 보여준다.', async () => {
     // given
     const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_DUPLICATED_CARS.join(','))
     const input = await mockReadLineAsync()
-    
+
     // when
     carValidation.validates(input)
-    
+
     // then
-    expect(logSpy).toHaveBeenCalledWith(DUPLICATED_CARS_MSG);
+    expect(logSpy).toHaveBeenCalledWith(DUPLICATED_CARS_MSG)
   })
-  
+
   test('자동차의 이름이 1자 미만, 5자 초과일 경우, 에러 메시지를 보여준다.', async () => {
     // given
     const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_WRONG_LENGTH_CARS.join(','))
     const input = await mockReadLineAsync()
-    
+
     // when
     carValidation.validates(input)
-    
+
     // then
-    expect(logSpy).toHaveBeenCalledWith(WRONG_LENGTH_CARS_MSG);
+    expect(logSpy).toHaveBeenCalledWith(WRONG_LENGTH_CARS_MSG)
   })
 })

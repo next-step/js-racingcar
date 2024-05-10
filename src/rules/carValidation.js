@@ -1,5 +1,9 @@
 import { MAXIMUM_CAR_NAME_LENGTH, MINIMUM_CAR_NAME_LENGTH } from '../constants/index.js'
-import { DUPLICATED_CARS_MSG, NONEXISTENT_CARS_MSG, WRONG_LENGTH_CARS_MSG} from "../constants/error.js"
+import {
+  DUPLICATED_CARS_MSG,
+  NONEXISTENT_CARS_MSG,
+  WRONG_LENGTH_CARS_MSG,
+} from '../constants/error.js'
 
 export const carValidation = {
   isValidCarAmount(names) {

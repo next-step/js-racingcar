@@ -1,1 +1,1 @@
-export * from "./readLineSync.js";
+export * from './readLineSync.js'

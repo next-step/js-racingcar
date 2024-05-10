@@ -1,29 +1,29 @@
-import { MOVE_THRESHOLD, RANDOM_BOUND } from "../constants/index.js";
+import { MOVE_THRESHOLD, RANDOM_BOUND } from '../constants/index.js'
 
-class Car { 
-  name;
-  position = 0;
-  
-  constructor(name){
-    this.name = name;
-  };
+class Car {
+  name
+  position = 0
 
-  raceMove(){
-    const randomValue = this.getRandomValue();
-    if(this.isCarMovable(randomValue)) this.moveForward();
-  };
+  constructor(name) {
+    this.name = name
+  }
 
-  moveForward(){
-    this.position++;
-  };
-  
-  isCarMovable(randomValue){
+  raceMove() {
+    const randomValue = this.getRandomValue()
+    if (this.isCarMovable(randomValue)) this.moveForward()
+  }
+
+  moveForward() {
+    this.position++
+  }
+
+  isCarMovable(randomValue) {
     return randomValue >= MOVE_THRESHOLD
   }
 
-  getRandomValue(){
-    return Math.floor(Math.random() * RANDOM_BOUND);
-  };
-};
+  getRandomValue() {
+    return Math.floor(Math.random() * RANDOM_BOUND)
+  }
+}
 
-export default Car;
+export default Car
