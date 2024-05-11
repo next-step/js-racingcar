@@ -1,4 +1,6 @@
-import { getRandomNumber, parseCarNames, parseLaps, parseOutput, printError } from "../src/utils";
+import IO from "../src/IO";
+import * as utils from "../src/utils";
+import { getRandomNumber, parseCarNames, parseLaps, parseOutput, printError, prompt } from "../src/utils";
 
 import { MESSAGE } from "../constants/message";
 
@@ -100,5 +102,64 @@ describe("printError()", () => {
     printError(error);
 
     expect(errorLogSpy).toBeCalledWith(`Error: ${error.message}`);
+  });
+});
+
+describe("prompt()", () => {
+  let errorLogSpy;
+  let readLineAsyncSpy;
+  let parseCarNamesSpy;
+  let parseLapsSpy;
+  let printErrorSpy;
+
+  beforeEach(() => {
+    errorLogSpy = jest.spyOn(console, "error");
+    readLineAsyncSpy = jest.spyOn(IO, "readLineAsync");
+    parseCarNamesSpy = jest.spyOn(utils, "parseCarNames");
+    parseLapsSpy = jest.spyOn(utils, "parseLaps");
+    printErrorSpy = jest.spyOn(utils, "printError");
+  });
+
+  afterEach(() => {
+    errorLogSpy.mockRestore();
+    readLineAsyncSpy.mockRestore();
+    parseCarNamesSpy.mockRestore();
+    parseLapsSpy.mockRestore();
+    printErrorSpy.mockRestore();
+  });
+
+  it("should correctly parse and return car names from input", async () => {
+    readLineAsyncSpy.mockImplementationOnce(() => Promise.resolve("pobi,crong,honux"));
+
+    const carNames = await prompt("경주", {
+      parse: parseCarNamesSpy,
+    });
+
+    expect(readLineAsyncSpy).toHaveBeenCalledTimes(1);
+    expect(carNames).toStrictEqual(["pobi", "crong", "honux"]);
+  });
+
+  it("should correctly parse and return number of laps from input", async () => {
+    readLineAsyncSpy.mockImplementationOnce(() => Promise.resolve("1"));
+
+    const laps = await prompt("경주할 자동차 이름을 입력해주세요.(쉼표(,)를 기준으로 구분)", {
+      parse: parseLapsSpy,
+    });
+
+    expect(readLineAsyncSpy).toHaveBeenCalledTimes(1);
+    expect(laps).toBe(1);
+  });
+
+  it("should handle exceptions and retry until successful", async () => {
+    readLineAsyncSpy
+      .mockImplementationOnce(() => Promise.resolve(undefined))
+      .mockImplementationOnce(() => Promise.resolve("1"));
+
+    const laps = await prompt("시도할 횟수는 몇회인가요?", {
+      parse: parseLapsSpy,
+    });
+
+    expect(readLineAsyncSpy).toHaveBeenCalledTimes(2);
+    expect(laps).toBe(1);
   });
 });
