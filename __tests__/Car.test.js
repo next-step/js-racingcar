@@ -34,4 +34,15 @@ describe("자동차 테스트", () => {
     // then
     expect(app).toThrow(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
   });
+
+  test("자동차의 전진조건을 만족하면 전진", () => {
+    // given
+    const car = new Car("car");
+
+    // when
+    car.move(() => true);
+
+    // then
+    expect(car.position).toBe(1);
+  });
 });
