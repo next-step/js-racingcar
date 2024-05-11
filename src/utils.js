@@ -32,7 +32,7 @@ export const parseOutput = (input) => {
 export const parseLaps = (input) => {
   const parsedInput = parseFloat(input);
 
-  if (typeof parsedInput === NaN) {
+  if (isNaN(input)) {
     throw new TypeError(MESSAGE.INPUT_TYPE_ERROR);
   }
   if (!Number.isInteger(parsedInput)) {
