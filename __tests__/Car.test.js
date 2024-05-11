@@ -7,10 +7,10 @@ describe("자동차 테스트", () => {
     const carName = "Car";
 
     // when
-    const app = () => new Car(carName);
+    const car = () => new Car(carName);
 
     // then
-    expect(app).not.toThrow();
+    expect(car).not.toThrow();
   });
 
   test("자동차 이름이 5자 초과인 경우 에러", () => {
@@ -18,10 +18,10 @@ describe("자동차 테스트", () => {
     const carName = "LongCar";
 
     // when
-    const app = () => new Car(carName);
+    const car = () => new Car(carName);
 
     // then
-    expect(app).toThrow(ERROR_CODES.ERROR_LONG_CAR_NAME);
+    expect(car).toThrow(ERROR_CODES.ERROR_LONG_CAR_NAME);
   });
 
   test("자동차 이름이 빈 문자열인 경우 에러", () => {
@@ -29,10 +29,10 @@ describe("자동차 테스트", () => {
     const carName = "";
 
     // when
-    const app = () => new Car(carName);
+    const car = () => new Car(carName);
 
     // then
-    expect(app).toThrow(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
+    expect(car).toThrow(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
   });
 
   test("자동차의 전진조건을 만족하면 전진", () => {
