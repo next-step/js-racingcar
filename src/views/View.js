@@ -45,7 +45,13 @@ export class View {
     console.log("\n실행 결과");
   }
 
-  static printRaceResult(cars) {
+  static printRaceResult(raceResult) {
+    raceResult.forEach((result) => {
+      View.printResult(result.cars);
+    });
+  }
+
+  static printResult(cars) {
     cars.forEach((car) => {
       console.log(`${car.name} : ${"-".repeat(car.position)}`);
     });

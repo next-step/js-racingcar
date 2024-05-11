@@ -26,7 +26,7 @@ describe("입/출력 테스트", () => {
     const car3 = new Car("honux");
 
     // when
-    View.printRaceResult([car1, car2, car3]);
+    View.printResult([car1, car2, car3]);
 
     // then
     expect(logSpy).toHaveBeenCalledWith("pobi : ");

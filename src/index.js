@@ -11,9 +11,7 @@ export class App {
       const race = new Race(carNames, raceRound);
       const raceResult = race.race(new RandomMoveStrategy());
       View.printRoundStart();
-      raceResult.forEach((result) => {
-        View.printRaceResult(result.cars);
-      });
+      View.printRaceResult(raceResult);
       View.printWinners(race.winners);
     } catch (error) {
       console.log(error);
