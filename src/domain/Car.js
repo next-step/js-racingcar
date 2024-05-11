@@ -14,6 +14,10 @@ export class Car {
   }
 
   #validateName(name) {
+    if (typeof name !== "string") {
+      throw new CarError(ERROR_CODES.ERROR_INVALID_CAR_NAME);
+    }
+
     if (!name.length) {
       throw new CarError(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
     }

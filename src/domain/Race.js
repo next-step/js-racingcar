@@ -11,16 +11,28 @@ export class Race {
   constructor(cars, round = 1) {
     if (Array.isArray(cars)) {
       if (cars.every((car) => car instanceof Car)) {
-        this.#cars = cars;
+        this.#ofCars(cars);
       } else if (cars.every((car) => typeof car === "string")) {
-        this.#cars = cars.map((name) => new Car(name.trim()));
+        this.#ofNames(cars);
       }
     } else if (typeof cars === "string") {
-      this.#cars = cars.split(",").map((name) => new Car(name.trim()));
+      this.#ofString(cars);
     }
     this.#validateNames(this.#cars.map((car) => car.name));
     this.#validateRound(round);
     this.#raceRound = round;
+  }
+
+  #ofString(cars) {
+    this.#ofNames(cars.split(","));
+  }
+
+  #ofNames(cars) {
+    this.#ofCars(cars.map((name) => new Car(name.trim())));
+  }
+
+  #ofCars(cars) {
+    this.#cars = cars;
   }
 
   #validateNames(names) {
