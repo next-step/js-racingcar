@@ -1,6 +1,6 @@
-import { ClientError } from "./ClientError";
+import { CustomError } from "./CustomError";
 
-export class RaceError extends ClientError {
+export class RaceError extends CustomError {
   constructor(message) {
     super("RaceError", message);
   }

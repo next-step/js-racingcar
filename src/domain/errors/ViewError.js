@@ -1,6 +1,6 @@
-import { ClientError } from "./ClientError";
+import { CustomError } from "./CustomError";
 
-export class ViewError extends ClientError {
+export class ViewError extends CustomError {
   constructor(message) {
     super("ViewError", message);
   }
