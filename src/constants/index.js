@@ -11,3 +11,8 @@ export const MOVE_THRESHOLD = 4
 export const MINIMUM_RANDOM_VALUE = 0
 
 export const MAXIMUM_RANDOM_VALUE = 9
+
+//race
+export const MAXIMUM_ROUND_VALUE = 10
+
+export const MINIMUM_ROUND_VALUE = 1

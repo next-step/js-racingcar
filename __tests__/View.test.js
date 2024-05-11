@@ -8,12 +8,20 @@ import {
   TEST_DUPLICATED_CARS,
   TEST_NONEXISTENT_CARS,
   TEST_INVALID_LENGTH_CARS,
+  TEST_NONEXISTENT_ROUND,
+  TEST_STRING_ROUND,
+  TEST_WHITESPACE_ROUND,
+  TEST_INVALID_RANGE_ROUND,
 } from './constants/index.js'
 import {
   DUPLICATED_CARS_MSG,
   NONEXISTENT_CARS_MSG,
   INVALID_LENGTH_CARS_MSG,
+  NONEXISTENT_ROUND_MSG,
+  INVALID_RANGE_ROUND_MSG,
+  INVALID_TYPEOF_ROUND_MSG,
 } from '../src/constants/error.js'
+import { raceValidation } from '../src/rules/raceValidation.js'
 
 let logSpy
 
@@ -95,5 +103,53 @@ describe('입출력 테스트', () => {
 
     // then
     expect(logSpy).toHaveBeenCalledWith(INVALID_LENGTH_CARS_MSG)
+  })
+
+  test('주어진 횟수를 입력받지 못하면 에러 메시지를 보여준다', async () => {
+    //given
+    const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_NONEXISTENT_ROUND)
+    const input = await mockReadLineAsync()
+
+    //when
+    raceValidation.validates(input)
+
+    //then
+    expect(logSpy).toHaveBeenCalledWith(NONEXISTENT_ROUND_MSG)
+  })
+
+  test('주어진 횟수가 문자열일 경우, 에러 메시지를 보여준다', async () => {
+    //given
+    const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_STRING_ROUND)
+    const input = await mockReadLineAsync()
+
+    //when
+    raceValidation.validates(input)
+
+    //then
+    expect(logSpy).toHaveBeenCalledWith(INVALID_TYPEOF_ROUND_MSG)
+  })
+
+  test('주어진 횟수가 공백일 경우, 에러 메시지를 보여준다', async () => {
+    //given
+    const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_WHITESPACE_ROUND)
+    const input = await mockReadLineAsync()
+
+    //when
+    raceValidation.validates(input)
+
+    //then
+    expect(logSpy).toHaveBeenCalledWith(INVALID_TYPEOF_ROUND_MSG)
+  })
+
+  test('주어진 횟수가 1 미만, 10 초과의 숫자일 경우, 에러 메시지를 보여준다.', async () => {
+    //given
+    const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_INVALID_RANGE_ROUND)
+    const input = await mockReadLineAsync()
+
+    //when
+    raceValidation.validates(input)
+
+    //then
+    expect(logSpy).toHaveBeenCalledWith(INVALID_RANGE_ROUND_MSG)
   })
 })
