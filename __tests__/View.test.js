@@ -12,6 +12,7 @@ import {
   TEST_STRING_ROUND,
   TEST_WHITESPACE_ROUND,
   TEST_INVALID_RANGE_ROUND,
+  TEST_CARS_INPUT,
 } from './constants/index.js'
 import {
   DUPLICATED_CARS_MSG,
@@ -32,7 +33,7 @@ beforeEach(() => {
 describe('입출력 테스트', () => {
   test('쉼표를 기준으로 자동차 이름을 받는다.', async () => {
     // given
-    const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_CARS.join(','))
+    const mockReadLineAsync = jest.fn().mockResolvedValue(TEST_CARS_INPUT)
     const input = await mockReadLineAsync()
 
     // when
@@ -58,12 +59,10 @@ describe('입출력 테스트', () => {
 
   test('우승자가 여러명일 경우, 쉼표로 구분하여 출력한다.', async () => {
     // given
-    const positionedCars = TEST_CARS.map((car) => new Car(car))
-    positionedCars.forEach((car) => car.moveForward(MOVE_THRESHOLD))
-    const race = new Race(positionedCars)
+    const cars = TEST_CARS.map((car) => new Car(car))
 
     // when
-    View.printWinners(race.getWinners())
+    View.printWinners(cars)
 
     // then
     expect(logSpy).toHaveBeenCalledWith(TEST_CARS.join(', ') + '가 최종 우승했습니다.')

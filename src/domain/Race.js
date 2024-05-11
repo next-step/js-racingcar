@@ -1,18 +1,19 @@
 import View from '../view/view.js'
-
-const MAX_RACE_ROUND = 5
+import Car from './Car.js'
 
 class Race {
   cars = []
   currentRound = 0
+  round = 0
 
-  constructor(cars = []) {
-    this.cars = cars
+  constructor(cars = [], round = 0) {
+    this.cars = cars.map((car) => new Car(car))
+    this.round = round
   }
 
   start() {
     View.printRaceStart()
-    for (let i = 0; i < MAX_RACE_ROUND; i++) {
+    for (let i = 0; i < this.round; i++) {
       this.moveCars()
       this.onNextRound()
     }

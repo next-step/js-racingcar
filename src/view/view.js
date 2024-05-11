@@ -17,10 +17,12 @@ const View = {
     console.log(`${winnerNames}가 최종 우승했습니다.`)
   },
 
-  async getInputs() {
+  async getSettings() {
     try {
-      const carNames = await this.getCarNames()
-      const raceRound = await this.getRaceRound()
+      const cars = await this.getCarNames()
+      const round = await this.getRaceRound()
+
+      return { cars, round }
     } catch (error) {
       console.error(error)
     }
@@ -32,7 +34,7 @@ const View = {
         const names = await readLineAsync(
           '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n'
         )
-        if (carValidation.validates(names)) return names
+        if (carValidation.validates(names)) return this.parsingCars(names)
       }
     } catch (error) {
       console.error(error)
@@ -43,11 +45,28 @@ const View = {
     try {
       while (true) {
         const round = await readLineAsync('시도할 횟수는 몇회인가요?')
-        if (raceValidation.validates(round)) return round
+        if (raceValidation.validates(round)) return this.parsingRound(round)
       }
     } catch (error) {
       console.error(error)
     }
+  },
+
+  /**
+   * @param {string} cars
+   * @returns string[]
+   */
+  parsingCars(cars) {
+    return cars.split(',')
+  },
+
+  /**
+   *
+   * @param {string} round
+   * @returns number
+   */
+  parsingRound(round) {
+    return +round
   },
 }
 
