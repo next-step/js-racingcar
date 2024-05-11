@@ -35,12 +35,14 @@ describe("자동차 경주 게임 테스트", () => {
     const car1 = new Car("Car1");
     const car2 = new Car("Car2");
     const car3 = new Car("Car3");
-    const race = new Race([car1, car2, car3], 5);
+    const strategies = new Map();
+    strategies.set(2, new DefaultMoveStrategy());
+    strategies.set(3, new DefaultMoveStrategy());
+    strategies.set(4, new DefaultMoveStrategy());
+    strategies.set(5, new DefaultMoveStrategy());
+
+    const race = new Race([car1, car2, car3], 5, strategies);
     getRandom.mockReturnValueOnce(RandomMoveStrategy.MOVE_FORWARD_CAR);
-    race.setStrategyPerRound(2, new DefaultMoveStrategy());
-    race.setStrategyPerRound(3, new DefaultMoveStrategy());
-    race.setStrategyPerRound(4, new DefaultMoveStrategy());
-    race.setStrategyPerRound(5, new DefaultMoveStrategy());
 
     // when
     race.race(new RandomMoveStrategy());

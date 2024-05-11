@@ -5,10 +5,10 @@ import { RaceError } from "./errors";
 export class Race {
   #cars = [];
   #winners = [];
-  #strategies = new Map();
+  #strategies;
   #raceRound;
 
-  constructor(cars, round = 1) {
+  constructor(cars, round = 1, strategies = new Map()) {
     if (Array.isArray(cars)) {
       if (cars.every((car) => car instanceof Car)) {
         this.#ofCars(cars);
@@ -21,6 +21,7 @@ export class Race {
     this.#validateNames(this.#cars.map((car) => car.name));
     this.#validateRound(round);
     this.#raceRound = round;
+    this.#strategies = strategies;
   }
 
   #ofString(cars) {
@@ -69,10 +70,6 @@ export class Race {
   #setWinners() {
     const maxPosition = Math.max(...this.#cars.map((car) => car.position));
     this.#winners = this.#cars.filter((car) => car.position === maxPosition);
-  }
-
-  setStrategyPerRound(round, strategy) {
-    this.#strategies.set(round, strategy);
   }
 
   #getRaceResult(raceStrategy) {
