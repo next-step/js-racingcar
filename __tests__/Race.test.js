@@ -4,20 +4,21 @@ import {
   DefaultMoveStrategy,
   RandomMoveStrategy,
 } from "../src/domain/strategies";
-import { getRandom } from "../src/utils";
-
-jest.mock("../src/utils", () => ({
-  getRandom: jest.fn(),
-}));
+import * as utils from "../src/utils/getRandom";
 
 describe("자동차 경주 게임 테스트", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   test("자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다.", async () => {
     // given
     const car1 = new Car("Car1");
     const car2 = new Car("Car2");
     const car3 = new Car("Car3");
     const race = new Race([car1, car2, car3], 5);
-    getRandom
+    jest
+      .spyOn(utils, "getRandom")
       .mockReturnValueOnce(RandomMoveStrategy.MOVE_FORWARD_CAR)
       .mockReturnValueOnce(0)
       .mockReturnValueOnce(0);
@@ -42,7 +43,9 @@ describe("자동차 경주 게임 테스트", () => {
     strategies.set(5, new DefaultMoveStrategy());
 
     const race = new Race([car1, car2, car3], 5, strategies);
-    getRandom.mockReturnValueOnce(RandomMoveStrategy.MOVE_FORWARD_CAR);
+    jest
+      .spyOn(utils, "getRandom")
+      .mockReturnValueOnce(RandomMoveStrategy.MOVE_FORWARD_CAR);
 
     // when
     race.race(new RandomMoveStrategy());

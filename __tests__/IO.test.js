@@ -1,11 +1,5 @@
-import { ERROR_MESSAGES } from "../src/constants";
-import { readLineAsync } from "../src/utils";
 import { View } from "../src/views";
 import { Car } from "../src/domain/Car";
-
-jest.mock("../src/utils", () => ({
-  readLineAsync: jest.fn(),
-}));
 
 describe("입/출력 테스트", () => {
   let logSpy;
@@ -15,7 +9,6 @@ describe("입/출력 테스트", () => {
   });
 
   afterEach(() => {
-    readLineAsync.mockReset();
     jest.restoreAllMocks();
   });
 
