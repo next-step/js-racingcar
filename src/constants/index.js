@@ -1,7 +1,18 @@
-export const MOVE_THRESHOLD = 4;
+// car
+export const MINIMUM_CAR_NAME_LENGTH = 1
 
-export const RANDOM_BOUND = 10;
+export const MAXIMUM_CAR_NAME_LENGTH = 5
 
-export const MINIMUM_CAR_NAME_LENGTH = 1;
+// random
+export const RANDOM_BOUND = 10
 
-export const MAXIMUM_CAR_NAME_LENGTH = 5;
+export const MOVE_THRESHOLD = 4
+
+export const MINIMUM_RANDOM_VALUE = 0
+
+export const MAXIMUM_RANDOM_VALUE = 9
+
+//race
+export const MAXIMUM_ROUND_VALUE = 10
+
+export const MINIMUM_ROUND_VALUE = 1

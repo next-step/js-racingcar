@@ -1,21 +1,23 @@
-import Race from "../src/domain/Race.js";
-import { TEST_CARS } from "./constants/index.js";
-import Car from "../src/domain/Car.js";
+import Race from '../src/domain/Race.js'
+import { TEST_CARS_INPUT, TEST_ROUND, TEST_ROUND_INPUT } from './constants/index.js'
+import View from '../src/view/view.js'
 
-/**
-- [x] 5회 반복된다.
- */
-
-describe("자동차 경주 테스트", () => {
-  test("자동차 경주는 5회로 고정하여 진행한다.", () => {
+describe('자동차 경주 테스트', () => {
+  test('자동차 경주는 주어진 횟수 동안 경주가 진행된다.', async () => {
     // given
-    const race = new Race(TEST_CARS.map(car => new Car(car)));
+    let mockGetCarNames = jest.fn().mockResolvedValue(TEST_CARS_INPUT)
+    let mockGetRound = jest.fn().mockResolvedValue(TEST_ROUND_INPUT)
+
+    const cars = View.parsingCars(await mockGetCarNames())
+    const round = View.parsingRound(await mockGetRound())
+
+    const race = new Race(cars, round)
 
     // when
-    race.start();
-    const totalRound = race.getTotalRounds();
-    
+    race.start()
+    const totalRound = race.getTotalRounds()
+
     // then
-    expect(totalRound).toBe(5);
-  });
-});
+    expect(totalRound).toBe(TEST_ROUND)
+  })
+})
