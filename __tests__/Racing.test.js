@@ -1,5 +1,5 @@
-import { Car } from "../src/domain/car/car.model.js";
-import { Racing } from "../src/domain/racing/racing.model.js";
+import Car from "../src/domain/car/car.model.js";
+import Racing from "../src/domain/racing/racing.model.js";
 
 describe("자동차 경주", () => {
   function movementRule() {

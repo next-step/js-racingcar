@@ -1,4 +1,4 @@
-import { Car } from "../src/domain/car/car.model.js";
+import Car from "../src/domain/car/car.model.js";
 
 describe("자동차", () => {
   describe("이름은 5자 이하로 구성되어야 한다.", () => {

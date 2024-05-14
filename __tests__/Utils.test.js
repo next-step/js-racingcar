@@ -1,7 +1,7 @@
 import readline from "readline";
 
 import { generateRandomNumber } from "../src/utils/randomNumber.js";
-import { readLineAsync } from "../src/utils/readline.js";
+import readLineAsync from "../src/utils/readLineAsync.js";
 
 jest.mock("readline");
 
