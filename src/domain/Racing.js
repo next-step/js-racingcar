@@ -12,14 +12,11 @@ class Racing {
   static INITIAL_LAP = 0;
   static MIN_LAP_LIMIT = 1;
 
-  constructor(maxLap = Racing.DEFAULT_MAX_LAP) {
-    if (maxLap < Racing.MIN_LAP_LIMIT) {
-      throw new TypeError(ERROR_MESSAGE.MIN_LENGTH);
-    }
+  constructor() {
     this.#players = [];
     this.#winners = [];
     this.#lap = Racing.INITIAL_LAP;
-    this.#maxLap = maxLap;
+    this.#maxLap = Racing.DEFAULT_MAX_LAP;
   }
 
   get players() {
@@ -39,6 +36,13 @@ class Racing {
 
   get winners() {
     return this.#winners;
+  }
+
+  set maxLap(maxLap) {
+    if (maxLap < Racing.MIN_LAP_LIMIT) {
+      throw new TypeError(ERROR_MESSAGE.MIN_LENGTH);
+    }
+    this.#maxLap = maxLap;
   }
 
   isEndedRace() {
