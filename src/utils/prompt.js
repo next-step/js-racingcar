@@ -1,4 +1,4 @@
-import readLineAsync from "./readLineAsync";
+import readLineAsync from "./readLineAsync.js";
 
 async function prompt({ message, validate, format }) {
   let isValid = false;

@@ -1,5 +1,5 @@
-import { INITIAL_ROUND } from "./racing.constant";
-import { validateRacingRound } from "./racing.contract";
+import { INITIAL_ROUND } from "./racing.constant.js";
+import { validateRacingRound } from "./racing.contract.js";
 
 class RacingManager {
   #round;

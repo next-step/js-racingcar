@@ -1,4 +1,7 @@
-import { INITIAL_RACING_HISTORY, INITIAL_WINNER_LIST } from "./racing.constant";
+import {
+  INITIAL_RACING_HISTORY,
+  INITIAL_WINNER_LIST,
+} from "./racing.constant.js";
 
 class RacingData {
   #racingHistory = INITIAL_RACING_HISTORY;
