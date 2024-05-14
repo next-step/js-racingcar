@@ -4,7 +4,7 @@ import {
   writeNumber,
   readWinners,
   writeRacingCar,
-} from './domain/RacingIO';
+} from './view/RacingIO';
 import { readLineAsync } from './utils';
 
 async function App() {

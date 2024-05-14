@@ -4,7 +4,7 @@ import {
   writeRacingCar,
   readCarProgress,
   writeNumber,
-} from '../src/domain/RacingIO';
+} from '../src/view/RacingIO';
 import Car from '../src/domain/Car';
 
 describe('레이싱 입출력 기능 테스트', () => {
