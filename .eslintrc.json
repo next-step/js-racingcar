@@ -1,8 +1,31 @@
 {
-  "rules": {},
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "no-unused-vars": "warn",
+    "eqeqeq": ["error", "always"],
+    "curly": "error"
+  },
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -10,6 +33,10 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:prettier/recommended"
-  ]
+    "plugin:prettier/recommended",
+    "plugin:import/errors",
+    "plugin:jest/recommended",
+    "plugin:import/warnings"
+  ],
+  "plugins": ["import", "prettier"]
 }

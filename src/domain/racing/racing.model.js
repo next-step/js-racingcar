@@ -1,73 +1,43 @@
-import {
-  INITIAL_CAR_LIST,
-  INITIAL_RACING_HISTORY,
-  INITIAL_ROUND,
-  INITIAL_WINNER_LIST,
-  RACING_ROUND,
-} from "./racing.constant.js";
+import { INITIAL_CAR_LIST, INITIAL_RACING_ROUND } from "./racing.constant.js";
+import RacingData from "./racingData.model.js";
+import RacingManager from "./racingManager.model.js";
 
-export class Racing {
-  #round;
-  #carList;
-  #winnerList;
-  #movementRule;
-  #racingHistory;
+class Racing {
+  #racingManager;
+  #racingData;
 
-  constructor({ carList = INITIAL_CAR_LIST, movementRule }) {
-    this.#carList = carList;
-    this.#movementRule = movementRule;
-    this.#round = INITIAL_ROUND;
-    this.#winnerList = INITIAL_WINNER_LIST;
-    this.#racingHistory = INITIAL_RACING_HISTORY;
+  constructor({
+    carList = INITIAL_CAR_LIST,
+    racingRound = INITIAL_RACING_ROUND,
+    movementRule,
+  }) {
+    this.#racingManager = new RacingManager(carList, racingRound, movementRule);
+    this.#racingData = new RacingData();
   }
 
   start() {
-    this.#race();
-    this.#determineWinnerList();
-  }
-
-  #race() {
-    while (this.#round < RACING_ROUND) {
-      this.#executeRound();
-      this.#updateRacingHistory();
+    while (this.#racingManager.currentRound < this.#racingManager.racingRound) {
+      this.#racingManager.executeRound();
+      this.#racingData.updateRacingHistory(this.#racingManager.carList);
     }
-  }
-
-  #executeRound() {
-    this.#carList.forEach((car) => {
-      car.move(this.#movementRule());
-    });
-    this.#round++;
-  }
-
-  #determineWinnerList() {
-    const maxPosition = Math.max(...this.#carList.map((car) => car.position));
-    this.#winnerList = this.#carList.filter(
-      (car) => car.position === maxPosition
-    );
-  }
-
-  #updateRacingHistory() {
-    const history = this.#carList.map((car) => ({
-      name: car.name,
-      position: car.position,
-    }));
-    this.#racingHistory = [...this.#racingHistory, ...history];
+    this.#racingData.determineWinnerList(this.#racingManager.carList);
   }
 
   get round() {
-    return this.#round;
+    return this.#racingManager.currentRound;
   }
 
   get carList() {
-    return this.#carList;
+    return this.#racingManager.carList;
   }
 
   get winnerList() {
-    return this.#winnerList;
+    return this.#racingData.winnerList;
   }
 
   get racingHistory() {
-    return this.#racingHistory;
+    return this.#racingData.racingHistory;
   }
 }
+
+export default Racing;

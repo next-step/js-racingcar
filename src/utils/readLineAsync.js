@@ -1,6 +1,6 @@
 import readline from "readline";
 
-export function readLineAsync(query) {
+function readLineAsync(query) {
   return new Promise((resolve, reject) => {
     if (arguments.length !== 1) {
       reject(new Error("arguments must be 1"));
@@ -21,3 +21,5 @@ export function readLineAsync(query) {
     });
   });
 }
+
+export default readLineAsync;
