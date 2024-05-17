@@ -10,7 +10,7 @@ import { readLineAsync } from './utils';
 async function App() {
   let [isInValidNames, isInValidLapCount] = [true, true];
   let racingCarNames = '';
-  let racing = new Racing();
+  const racing = new Racing();
 
   while (isInValidNames) {
     try {
