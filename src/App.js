@@ -5,35 +5,29 @@ import {
   readWinners,
   writeRacingCar,
 } from './view/RacingIO';
-import { readLineAsync } from './utils';
+import { prompt, readLineAsync } from './utils';
 
 async function App() {
-  let [isInValidNames, isInValidLapCount] = [true, true];
   const racing = new Racing();
 
-  while (isInValidNames) {
-    try {
-      const carNames = await readLineAsync(
-        '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n'
-      );
-      racing.players = writeRacingCar(carNames);
-
-      isInValidNames = false;
-    } catch (e) {
-      console.log(e.message + '\n');
+  const carNames = await prompt(
+    '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).\n',
+    {
+      validate: (value) => {
+        if (value.length < 2) {
+          throw new Error('최소 2명의 참가자가 필요합니다.');
+        }
+      },
+      format: writeRacingCar,
     }
-  }
+  );
+  racing.players = carNames;
 
-  while (isInValidLapCount) {
-    try {
-      const racingLapCount = await readLineAsync('시도할 회수는 몇회인가요?\n');
-      racing.maxLap = writeNumber(racingLapCount);
-
-      isInValidLapCount = false;
-    } catch (e) {
-      console.log(e.message + '\n');
-    }
-  }
+  const racingLapCount = await prompt('시도할 회수는 몇회인가요?\n', {
+    validate: (value) => Number.isInteger(value),
+    format: writeNumber,
+  });
+  racing.maxLap = racingLapCount;
 
   console.log('\n실행 결과');
   while (!racing.isEndedRace()) {
