@@ -1,17 +1,16 @@
-import { ERROR_MESSAGE } from '../constnats';
+import ThrowMessage from '../utils/ThrowMessage';
 
 export function writeRacingCar(input) {
-  if (!input) {
-    throw new TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
-  }
+  new ThrowMessage(input).isTruthy();
+
   return input.replace(/\s/g, '').split(',');
 }
 
 export function writeNumber(input) {
   const value = Number(input);
-  if (value > Number.MAX_SAFE_INTEGER || !Number.isInteger(value)) {
-    throw TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
-  }
+
+  new ThrowMessage(value).maxSafeInteger().isInteger();
+
   return value;
 }
 

@@ -1,6 +1,6 @@
 import Car from './Car';
-import { ERROR_MESSAGE } from '../constnats';
 import { generateRandomNumber } from '../utils';
+import ThrowMessage from '../utils/ThrowMessage';
 
 class Racing {
   #players;
@@ -24,9 +24,8 @@ class Racing {
   }
 
   set players(players) {
-    if (!Array.isArray(players)) {
-      throw new TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
-    }
+    new ThrowMessage(players).isArray();
+
     this.#players = players.map((player) => new Car(player));
   }
 
@@ -39,9 +38,8 @@ class Racing {
   }
 
   set maxLap(maxLap) {
-    if (maxLap < Racing.MIN_LAP_LIMIT) {
-      throw new TypeError(ERROR_MESSAGE.MIN_LENGTH);
-    }
+    new ThrowMessage(maxLap).min(Racing.MIN_LAP_LIMIT);
+
     this.#maxLap = maxLap;
   }
 
