@@ -8,7 +8,7 @@ class ThrowMessage {
 
   isString() {
     if (!(typeof this.#value === 'string')) {
-      throw new TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
+      throw new TypeError(ERROR_MESSAGE.IS_NOT_ARRAY);
     }
     return this;
   }
@@ -20,9 +20,9 @@ class ThrowMessage {
     return this;
   }
 
-  regex(regex) {
+  regex(regex, message = ERROR_MESSAGE.INVALID_REGEX_FORMAT) {
     if (!new RegExp(regex, 'g').test(this.#value)) {
-      throw new TypeError(ERROR_MESSAGE.INVALID_NAME_FORMAT);
+      throw new TypeError(message);
     }
     return this;
   }
@@ -57,20 +57,20 @@ class ThrowMessage {
 
   maxSafeInteger() {
     if (this.#value > Number.MAX_SAFE_INTEGER) {
-      throw TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
+      throw TypeError(ERROR_MESSAGE.INVALID_MAX_INTEGER);
     }
     return this;
   }
 
   isInteger() {
     if (!Number.isInteger(this.#value)) {
-      throw TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
+      throw TypeError(ERROR_MESSAGE.IS_NOT_NUMBER);
     }
   }
 
   isTruthy() {
     if (!this.#value) {
-      throw TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
+      throw TypeError(ERROR_MESSAGE.IS_NOT_TRUTHY);
     }
     return this;
   }

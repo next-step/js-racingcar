@@ -1,4 +1,5 @@
 import ThrowMessage from '../utils/ThrowMessage';
+import { ERROR_MESSAGE } from '../constnats';
 
 class Name {
   #name;
@@ -19,7 +20,7 @@ class Name {
   ) {
     new ThrowMessage(name)
       .isString()
-      .regex(regex)
+      .regex(regex, ERROR_MESSAGE.INVALID_NAME_FORMAT)
       .minLength(minLen)
       .maxLength(maxLen);
 
