@@ -46,17 +46,25 @@ describe("자동차 테스트", () => {
     expect(car.position).toBe(1);
   });
 
-  test("자동차 이름은 문자열이어야 한다", () => {
+  test("자동차 이름은 문자열이다.", () => {
     // given
-    const carNumName = 12345;
-    const carStrName = "12345";
+    const carName = "12345";
 
     // when
-    const car1 = () => new Car(carNumName);
-    const car2 = () => new Car(carStrName);
+    const car = () => new Car(carName);
 
     // then
-    expect(car1).toThrow(ERROR_CODES.ERROR_INVALID_CAR_NAME);
-    expect(car2).not.toThrow();
+    expect(car).not.toThrow();
+  });
+
+  test("자동차 이름은 문자열이 아니면 에러출력", () => {
+    // given
+    const carName = 12345;
+
+    // when
+    const car = () => new Car(carName);
+
+    // then
+    expect(car).toThrow(ERROR_CODES.ERROR_INVALID_CAR_NAME);
   });
 });
