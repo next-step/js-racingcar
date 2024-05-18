@@ -1,6 +1,6 @@
 import { ERROR_CODES } from "../constants";
 import { Car } from "./Car";
-import { RaceError } from "./errors";
+import { RaceError } from "../errors";
 
 export class Race {
   #cars = [];

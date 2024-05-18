@@ -1,5 +1,5 @@
 import { ERROR_CODES, ERROR_MESSAGES } from "../constants";
-import { ViewError } from "../domain/errors";
+import { ViewError } from "../errors";
 import { readLineAsync } from "../utils";
 
 export class View {

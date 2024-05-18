@@ -1,4 +1,4 @@
-import { CustomError } from "./CustomError";
+import { CustomError } from "../CustomError";
 
 export class CarError extends CustomError {
   constructor(message) {
