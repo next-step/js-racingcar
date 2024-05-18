@@ -43,12 +43,10 @@ export class View {
 
   static printRoundResult(raceResult) {
     console.log("\n실행 결과");
-    raceResult.forEach(({ cars }) => {
-      View.printResult(cars);
-    });
+    raceResult.forEach(View.printResult);
   }
 
-  static printResult(cars) {
+  static printResult({ cars }) {
     cars.forEach((car) => {
       console.log(`${car.name} : ${"-".repeat(car.position)}`);
     });
