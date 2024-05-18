@@ -9,6 +9,14 @@ export class Race {
   #raceRound;
 
   constructor(cars, round = 1, strategies = new Map()) {
+    this.#of(cars);
+    this.#validateNames(this.#cars.map((car) => car.name));
+    this.#validateRound(round);
+    this.#raceRound = round;
+    this.#strategies = strategies;
+  }
+
+  #of(cars) {
     if (Array.isArray(cars)) {
       if (cars.every((car) => car instanceof Car)) {
         this.#ofCars(cars);
@@ -18,10 +26,6 @@ export class Race {
     } else if (typeof cars === "string") {
       this.#ofString(cars);
     }
-    this.#validateNames(this.#cars.map((car) => car.name));
-    this.#validateRound(round);
-    this.#raceRound = round;
-    this.#strategies = strategies;
   }
 
   #ofString(cars) {
