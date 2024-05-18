@@ -20,7 +20,8 @@ describe('자동차 경주 기능 테스트', () => {
   it('자동차 경주는 n회로 고정하여 진행한다. (default: 5)', () => {
     // given
     const firstRacing = new Racing();
-    const secondRacing = new Racing(10);
+    const secondRacing = new Racing();
+    secondRacing.maxLap = 10;
     firstRacing.players = playerList;
     secondRacing.players = playerList;
 
@@ -33,7 +34,10 @@ describe('자동차 경주 기능 테스트', () => {
     expect(secondRacingMaxLap).toBe(10);
   });
   it('자동차 경주는 최소 1회 이상 진행되어야 한다.', () => {
-    expect(() => new Racing(-1)).toThrow();
+    expect(() => {
+      const racing = new Racing();
+      racing.maxLap = -1;
+    }).toThrow();
   });
   it('우승자(자동차)는 한 명 이상일 수 있다.', () => {
     // given

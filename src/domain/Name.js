@@ -1,3 +1,4 @@
+import ThrowMessage from '../utils/ThrowMessage';
 import { ERROR_MESSAGE } from '../constnats';
 
 class Name {
@@ -17,18 +18,12 @@ class Name {
       regex = Name.DEFAULT_OPTIONS.REGEX,
     } = Name.DEFAULT_OPTIONS
   ) {
-    if (!(typeof name === 'string')) {
-      throw new TypeError(ERROR_MESSAGE.INVALID_PARAMETER);
-    }
-    if (!new RegExp(regex, 'g').test(name)) {
-      throw new TypeError(ERROR_MESSAGE.INVALID_NAME_FORMAT);
-    }
-    if (name.length < minLen) {
-      throw new TypeError(ERROR_MESSAGE.MIN_LENGTH);
-    }
-    if (name.length > maxLen) {
-      throw new TypeError(ERROR_MESSAGE.MAX_LENGTH);
-    }
+    new ThrowMessage(name)
+      .isString()
+      .regex(regex, ERROR_MESSAGE.INVALID_NAME_FORMAT)
+      .minLength(minLen)
+      .maxLength(maxLen);
+
     this.#name = name;
   }
 

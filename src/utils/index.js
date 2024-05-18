@@ -25,3 +25,20 @@ export function readLineAsync(query) {
     });
   });
 }
+
+export async function prompt(
+  query,
+  { validate = (value) => true, format = (value) => value }
+) {
+  while (true) {
+    try {
+      const input = await readLineAsync(query);
+      const value = format(input);
+      validate(value);
+
+      return value;
+    } catch (e) {
+      console.log(e.message + '\n');
+    }
+  }
+}
