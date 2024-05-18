@@ -41,13 +41,10 @@ export class View {
     }
   }
 
-  static printRoundStart() {
+  static printRoundResult(raceResult) {
     console.log("\n실행 결과");
-  }
-
-  static printRaceResult(raceResult) {
-    raceResult.forEach((result) => {
-      View.printResult(result.cars);
+    raceResult.forEach(({ cars }) => {
+      View.printResult(cars);
     });
   }
 
