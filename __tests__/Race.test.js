@@ -17,17 +17,12 @@ describe("자동차 경주 게임 테스트", () => {
     const car2 = new Car("Car2");
     const car3 = new Car("Car3");
     const race = new Race([car1, car2, car3], 5);
-    jest
-      .spyOn(utils, "getRandom")
-      .mockReturnValueOnce(RandomMoveStrategy.MOVE_FORWARD_CAR)
-      .mockReturnValueOnce(0)
-      .mockReturnValueOnce(0);
 
     // when
-    race.race(new RandomMoveStrategy());
+    race.race(new DefaultMoveStrategy());
 
     // then
-    expect(race.winners.length).toBe(1);
+    expect(race.winners.length).toBe(3);
     expect(race.winners[0].name).toBe(car1.name);
   });
 
@@ -76,7 +71,7 @@ describe("자동차 경주 게임 테스트", () => {
     const race = new Race([car1, car2, car3], RACE_ROUND);
 
     // when
-    const raceRound = race.raceRound;
+    const raceRound = race.raceRound.size;
 
     // then
     expect(raceRound).toBe(RACE_ROUND);

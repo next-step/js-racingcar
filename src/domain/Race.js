@@ -5,15 +5,13 @@ import { RaceError } from "./errors";
 export class Race {
   #cars = [];
   #winners = [];
-  #strategies;
-  #raceRound;
+  #raceRound = new Map();
 
   constructor(cars, round = 1, strategies = new Map()) {
     this.#of(cars);
     this.#validateNames(this.#cars.map((car) => car.name));
     this.#validateRound(round);
-    this.#raceRound = round;
-    this.#strategies = strategies;
+    this.#ofRoundMap(round, strategies);
   }
 
   #of(cars) {
@@ -26,6 +24,14 @@ export class Race {
     } else if (typeof cars === "string") {
       this.#ofString(cars);
     }
+  }
+
+  #ofRoundMap(round, strategies) {
+    const roundMap = new Map();
+    for (let i = 1; i <= round; i++) {
+      roundMap.set(i, strategies.get(i));
+    }
+    this.#raceRound = roundMap;
   }
 
   #ofString(cars) {
@@ -78,8 +84,10 @@ export class Race {
 
   #getRaceResult(raceStrategy) {
     const result = [];
-    for (let round = 1; round <= this.#raceRound; round++) {
-      const strategy = this.#strategies.get(round) || raceStrategy;
+    console.log("size", this.#raceRound.size);
+    for (let round = 1; round <= this.#raceRound.size; round++) {
+      const strategy = this.#raceRound.get(round) || raceStrategy;
+      console.log("strategy", strategy);
       this.#cars.forEach((car) => {
         car.move(strategy.shouldMove);
       });
