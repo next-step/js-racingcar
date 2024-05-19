@@ -1,20 +1,20 @@
 import Car from "./domain/car/car.model.js";
-import CarView from "./domain/car/car.view.js";
 import Racing from "./domain/racing/racing.model.js";
-import RacingView from "./domain/racing/racing.view.js";
 import { generateRandomNumber } from "./utils/randomNumber.js";
+import InputView from "./view/input.js";
+import OutputView from "./view/output.js";
 
 const MOVE_THRESHOLD = 4;
 const MOVE_MIN_NUMBER = 0;
 const MOVE_MAX_NUMBER = 9;
 
 export class App {
-  #carView;
-  #racingView;
+  #inputView;
+  #outputView;
 
   constructor() {
-    this.#carView = new CarView();
-    this.#racingView = new RacingView();
+    this.#inputView = new InputView();
+    this.#outputView = new OutputView();
   }
 
   #movementRule() {
@@ -24,8 +24,8 @@ export class App {
   }
 
   async main() {
-    const carNames = await this.#carView.inputCarNames();
-    const totalRounds = await this.#racingView.inputTotalRounds();
+    const carNames = await this.#inputView.inputCarNames();
+    const totalRounds = await this.#inputView.inputTotalRounds();
 
     const cars = carNames.map((name) => new Car({ name }));
     const racing = new Racing({
@@ -36,8 +36,8 @@ export class App {
 
     racing.start();
 
-    this.#carView.printCarsPosition(racing.history);
-    this.#racingView.printWinners(racing.winners);
+    this.#outputView.printCarsPosition(racing.history);
+    this.#outputView.printWinners(racing.winners);
   }
 }
 
