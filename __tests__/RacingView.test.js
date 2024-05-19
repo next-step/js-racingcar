@@ -26,7 +26,7 @@ describe("Racing View", () => {
       const inputtedString = "5";
       readLineAsync.mockResolvedValue(inputtedString);
 
-      const racingRound = await racingView.inputRacingRound();
+      const racingRound = await racingView.inputTotalRounds();
 
       expect(racingRound).toBe(5);
     });
@@ -38,7 +38,7 @@ describe("Racing View", () => {
         readLineAsync.mockResolvedValueOnce(input);
       });
 
-      await racingView.inputRacingRound();
+      await racingView.inputTotalRounds();
 
       expect(errorSpy).toHaveBeenCalledTimes(2);
       expect(errorSpy).toHaveBeenCalledWith(
@@ -56,7 +56,7 @@ describe("Racing View", () => {
         readLineAsync.mockResolvedValueOnce(input);
       });
 
-      const racingRound = await racingView.inputRacingRound();
+      const racingRound = await racingView.inputTotalRounds();
 
       expect(racingRound).toBe(3);
     });
@@ -64,18 +64,18 @@ describe("Racing View", () => {
 
   test("경주를 완료한 후 우승자를 출력한다.", () => {
     const carName = "Tesla";
-    const winnerList = [new Car({ name: carName })];
+    const winners = [new Car({ name: carName })];
 
-    racingView.printWinners(winnerList);
+    racingView.printWinners(winners);
 
     expect(logSpy).toHaveBeenCalledWith("Tesla가 최종 우승했습니다.");
   });
 
   test("우승자가 여려명일 경우 쉼표(,) 기준으로 구분하여 출력한다.", () => {
-    const carNameList = ["Tesla", "BMW"];
-    const winnerList = carNameList.map((name) => new Car({ name: name }));
+    const carNames = ["Tesla", "BMW"];
+    const winners = carNames.map((name) => new Car({ name: name }));
 
-    racingView.printWinners(winnerList);
+    racingView.printWinners(winners);
 
     expect(logSpy).toHaveBeenCalledWith("Tesla, BMW가 최종 우승했습니다.");
   });

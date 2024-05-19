@@ -26,9 +26,9 @@ describe("Car View", () => {
       const inputtedString = "Tesla, BMW, Audi";
       readLineAsync.mockResolvedValueOnce(inputtedString);
 
-      const carNameList = await carView.inputCarNames();
+      const carNames = await carView.inputCarNames();
 
-      expect(carNameList).toStrictEqual(["Tesla", "BMW", "Audi"]);
+      expect(carNames).toStrictEqual(["Tesla", "BMW", "Audi"]);
     });
 
     test("사용자가 잘못된 자동차 이름을 입력할 경우 에러 메시지를 출력한다.", async () => {
@@ -52,9 +52,9 @@ describe("Car View", () => {
         readLineAsync.mockResolvedValueOnce(input);
       });
 
-      const carNameList = await carView.inputCarNames();
+      const carNames = await carView.inputCarNames();
 
-      expect(carNameList).toStrictEqual(["Tesla"]);
+      expect(carNames).toStrictEqual(["Tesla"]);
     });
   });
 

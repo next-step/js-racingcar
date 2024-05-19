@@ -10,8 +10,8 @@ class CarView {
   async inputCarNames() {
     const message = CAR_NAME_INPUT_MESSAGE;
     const format = (input) => input.split(",").map((name) => name.trim());
-    const validate = (carNameList) =>
-      carNameList.map((name) => validateCarName(name));
+    const validate = (carNames) =>
+      carNames.map((name) => validateCarName(name));
 
     return await prompt({ message, validate, format });
   }
@@ -20,8 +20,8 @@ class CarView {
     console.log(`${car.name}: ${CAR_POSITION_MARKER.repeat(car.position)}`);
   }
 
-  printCarsPosition(carList) {
-    carList.forEach((car) => this.printCarPosition(car));
+  printCarsPosition(cars) {
+    cars.forEach((car) => this.printCarPosition(car));
   }
 }
 

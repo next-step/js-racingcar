@@ -14,6 +14,13 @@ class Car {
     this.#position += MOVE_DISTANCE;
   }
 
+  toJSON() {
+    return Object.freeze({
+      name: this.#name,
+      position: this.#position,
+    });
+  }
+
   get name() {
     return this.#name;
   }

@@ -1,42 +1,49 @@
-import { INITIAL_CAR_LIST, INITIAL_RACING_ROUND } from "./racing.constant.js";
-import RacingData from "./racingData.model.js";
+import deepCopy from "../../utils/deepCopy.js";
+
+import {
+  INITIAL_CARS,
+  INITIAL_RACING_HISTORY,
+  INITIAL_TOTAL_ROUNDS,
+} from "./racing.constant.js";
 import RacingManager from "./racingManager.model.js";
+import RacingRound from "./racingRound.model.js";
 
 class Racing {
-  #racingManager;
-  #racingData;
+  #manager;
+  #round;
+  #history = INITIAL_RACING_HISTORY;
 
   constructor({
-    carList = INITIAL_CAR_LIST,
-    racingRound = INITIAL_RACING_ROUND,
+    cars = INITIAL_CARS,
+    totalRounds = INITIAL_TOTAL_ROUNDS,
     movementRule,
   }) {
-    this.#racingManager = new RacingManager(carList, racingRound, movementRule);
-    this.#racingData = new RacingData();
+    this.#manager = new RacingManager(totalRounds);
+    this.#round = new RacingRound(cars, movementRule);
   }
 
   start() {
-    while (this.#racingManager.currentRound < this.#racingManager.racingRound) {
-      this.#racingManager.executeRound();
-      this.#racingData.updateRacingHistory(this.#racingManager.carList);
+    while (this.#manager.isRemainRound) {
+      this.#round.execute();
+      this.#updateHistory();
+      this.#manager.incrementRound();
     }
-    this.#racingData.determineWinnerList(this.#racingManager.carList);
+  }
+
+  #updateHistory() {
+    this.#history = [...this.#history, ...this.#round.toJSON()];
   }
 
   get round() {
-    return this.#racingManager.currentRound;
+    return this.#manager.currentRound;
   }
 
-  get carList() {
-    return this.#racingManager.carList;
+  get winners() {
+    return this.#round.getWinners();
   }
 
-  get winnerList() {
-    return this.#racingData.winnerList;
-  }
-
-  get racingHistory() {
-    return this.#racingData.racingHistory;
+  get history() {
+    return deepCopy(this.#history);
   }
 }
 

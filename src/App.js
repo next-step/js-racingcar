@@ -25,19 +25,19 @@ export class App {
 
   async main() {
     const carNames = await this.#carView.inputCarNames();
-    const racingRound = await this.#racingView.inputRacingRound();
+    const totalRounds = await this.#racingView.inputTotalRounds();
 
-    const carList = carNames.map((name) => new Car({ name }));
+    const cars = carNames.map((name) => new Car({ name }));
     const racing = new Racing({
-      carList: carList,
-      racingRound: racingRound,
+      cars,
+      totalRounds,
       movementRule: this.#movementRule,
     });
 
     racing.start();
 
-    this.#carView.printCarsPosition(racing.racingHistory);
-    this.#racingView.printWinners(racing.winnerList);
+    this.#carView.printCarsPosition(racing.history);
+    this.#racingView.printWinners(racing.winners);
   }
 }
 
