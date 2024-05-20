@@ -21,7 +21,7 @@ describe("자동차 경주 게임 기능 테스트", () => {
     const winners = game.getWinners(cars);
 
     // then
-    expect(winners[0].getName()).toBe("정민지");
+    expect(winners[0].name).toBe("정민지");
   });
 
   test("입력된 자동차 이름은 , 로 구분하여 자동차가 생성된다.", () => {
@@ -47,6 +47,6 @@ describe("자동차 경주 게임 기능 테스트", () => {
     const racingGame = new RacingGame(racingCount);
 
     // then
-    expect(racingGame.getRacingTry()).toEqual(racingCount);
+    expect(racingGame.racingTry).toEqual(racingCount);
   });
 });

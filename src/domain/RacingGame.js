@@ -12,15 +12,13 @@ class RacingGame {
   }
 
   getWinners(cars = []) {
-    let maxPosition = Math.max(...cars.map((car) => car.getPosition()));
-    let maxPositionCars = cars.filter(
-      (car) => car.getPosition() === maxPosition
-    );
+    const maxPosition = Math.max(...cars.map((car) => car.position));
+    const maxPositionCars = cars.filter((car) => car.position === maxPosition);
 
     return maxPositionCars; // car 객체
   }
 
-  getRacingTry() {
+  get racingTry() {
     return this.#racingTry;
   }
 }
