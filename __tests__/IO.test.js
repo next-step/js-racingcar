@@ -1,11 +1,5 @@
-import { ERROR_MESSAGES } from "../src/constants";
-import { readLineAsync } from "../src/utils";
 import { View } from "../src/views";
 import { Car } from "../src/domain/Car";
-
-jest.mock("../src/utils", () => ({
-  readLineAsync: jest.fn(),
-}));
 
 describe("입/출력 테스트", () => {
   let logSpy;
@@ -15,7 +9,6 @@ describe("입/출력 테스트", () => {
   });
 
   afterEach(() => {
-    readLineAsync.mockReset();
     jest.restoreAllMocks();
   });
 
@@ -26,7 +19,7 @@ describe("입/출력 테스트", () => {
     const car3 = new Car("honux");
 
     // when
-    View.printRaceResult([car1, car2, car3]);
+    View.printResult({ cars: [car1, car2, car3] });
 
     // then
     expect(logSpy).toHaveBeenCalledWith("pobi : ");

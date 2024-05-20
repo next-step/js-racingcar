@@ -7,16 +7,11 @@ export class App {
     try {
       const carNames = await View.getCarNamesPrompt();
       const raceRound = await View.getRaceRoundPrompt();
-
       const race = new Race(carNames, raceRound);
       const raceResult = race.race(new RandomMoveStrategy());
-      View.printRoundStart();
-      raceResult.forEach((result) => {
-        View.printRaceResult(result.cars);
-      });
+      View.printRoundResult(raceResult);
       View.printWinners(race.winners);
     } catch (error) {
-      console.log(error);
       View.printError(error);
     }
   }

@@ -1,5 +1,5 @@
 import { ERROR_CODES, ERROR_MESSAGES } from "../constants";
-import { ViewError } from "../domain/errors";
+import { ViewError } from "../errors";
 import { readLineAsync } from "../utils";
 
 export class View {
@@ -41,11 +41,12 @@ export class View {
     }
   }
 
-  static printRoundStart() {
+  static printRoundResult(raceResult) {
     console.log("\n실행 결과");
+    raceResult.forEach(View.printResult);
   }
 
-  static printRaceResult(cars) {
+  static printResult({ cars }) {
     cars.forEach((car) => {
       console.log(`${car.name} : ${"-".repeat(car.position)}`);
     });

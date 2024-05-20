@@ -1,26 +1,49 @@
 import { ERROR_CODES } from "../constants";
 import { Car } from "./Car";
-import { RaceError } from "./errors";
+import { RaceError } from "../errors";
 
 export class Race {
   #cars = [];
   #winners = [];
-  #strategies = new Map();
-  #raceRound;
+  #raceRound = new Map();
 
-  constructor(cars, round = 1) {
-    if (Array.isArray(cars)) {
-      if (cars.every((car) => car instanceof Car)) {
-        this.#cars = cars;
-      } else if (cars.every((car) => typeof car === "string")) {
-        this.#cars = cars.map((name) => new Car(name.trim()));
-      }
-    } else if (typeof cars === "string") {
-      this.#cars = cars.split(",").map((name) => new Car(name.trim()));
-    }
+  constructor(cars, round = 1, strategies = new Map()) {
+    this.#of(cars);
     this.#validateNames(this.#cars.map((car) => car.name));
     this.#validateRound(round);
-    this.#raceRound = round;
+    this.#ofRoundMap(round, strategies);
+  }
+
+  #of(cars) {
+    if (Array.isArray(cars)) {
+      if (cars.every((car) => car instanceof Car)) {
+        this.#ofCars(cars);
+      } else if (cars.every((car) => typeof car === "string")) {
+        this.#ofNames(cars);
+      }
+    } else if (typeof cars === "string") {
+      this.#ofString(cars);
+    }
+  }
+
+  #ofRoundMap(round, strategies) {
+    const roundMap = new Map();
+    for (let i = 1; i <= round; i++) {
+      roundMap.set(i, strategies.get(i));
+    }
+    this.#raceRound = roundMap;
+  }
+
+  #ofString(cars) {
+    this.#ofNames(cars.split(","));
+  }
+
+  #ofNames(cars) {
+    this.#ofCars(cars.map((name) => new Car(name.trim())));
+  }
+
+  #ofCars(cars) {
+    this.#cars = cars;
   }
 
   #validateNames(names) {
@@ -59,14 +82,12 @@ export class Race {
     this.#winners = this.#cars.filter((car) => car.position === maxPosition);
   }
 
-  setStrategyPerRound(round, strategy) {
-    this.#strategies.set(round, strategy);
-  }
-
   #getRaceResult(raceStrategy) {
     const result = [];
-    for (let round = 1; round <= this.#raceRound; round++) {
-      const strategy = this.#strategies.get(round) || raceStrategy;
+    console.log("size", this.#raceRound.size);
+    for (let round = 1; round <= this.#raceRound.size; round++) {
+      const strategy = this.#raceRound.get(round) || raceStrategy;
+      console.log("strategy", strategy);
       this.#cars.forEach((car) => {
         car.move(strategy.shouldMove);
       });

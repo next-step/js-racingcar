@@ -1,5 +1,5 @@
 import { ERROR_CODES } from "../constants";
-import { CarError } from "./errors";
+import { CarError } from "../errors";
 
 export class Car {
   static CAR_NAME_MAX_LEN = 5;
@@ -14,6 +14,10 @@ export class Car {
   }
 
   #validateName(name) {
+    if (typeof name !== "string") {
+      throw new CarError(ERROR_CODES.ERROR_INVALID_CAR_NAME);
+    }
+
     if (!name.length) {
       throw new CarError(ERROR_CODES.ERROR_EMPTY_CAR_NAME);
     }
