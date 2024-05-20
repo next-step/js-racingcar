@@ -19,7 +19,7 @@ class Car {
     );
   }
 
-  move(movable = true, name) {
+  move(movable = true) {
     if (movable) {
       this.#position += 1;
     }
