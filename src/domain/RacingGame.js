@@ -1,7 +1,6 @@
 import Car from "./Car.js";
 
 class RacingGame {
-  static MOVE_VALUE = 4;
   #racingTry;
 
   constructor(racingTry) {
@@ -10,10 +9,6 @@ class RacingGame {
 
   createRacingCars(name) {
     return name.split(",").map((name) => new Car(name.trim()));
-  }
-
-  isValidMove(randomValue) {
-    return randomValue >= RacingGame.MOVE_VALUE;
   }
 
   getWinners(cars = []) {

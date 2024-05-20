@@ -1,5 +1,6 @@
 import Car from "../src/domain/Car.js";
 import RacingGame from "../src/domain/RacingGame.js";
+import RandomNumberRaceStrategy from "../src/domain/RandomNumberRaceStrategy.js";
 
 describe("자동차 경주 게임 기능 테스트", () => {
   test("가장 멀리 간 자동차의 이름을 반환한다.", () => {
@@ -47,17 +48,5 @@ describe("자동차 경주 게임 기능 테스트", () => {
 
     // then
     expect(racingGame.getRacingTry()).toEqual(racingCount);
-  });
-
-  test("값이 4 이상일 경우 전진할 수 있다.", () => {
-    // given
-
-    const game = new RacingGame(5);
-
-    // when
-    const isMove = game.isValidMove(4);
-
-    // then
-    expect(isMove).toBe(true);
   });
 });
