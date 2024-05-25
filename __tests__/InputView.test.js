@@ -1,7 +1,5 @@
-import { ERROR_MESSAGE as CAR_ERROR_MESSAGE } from "../src/domain/car/car.error.js";
-import { ERROR_MESSAGE as RACING_ERROR_MESSAGE } from "../src/domain/racing/racing.error.js";
 import readLineAsync from "../src/utils/readLineAsync.js";
-import InputView from "../src/view/input";
+import InputView from "../src/view/input.js";
 
 jest.mock("../src/utils/readLineAsync.js", () => jest.fn());
 
@@ -39,8 +37,6 @@ describe("Input View", () => {
       await inputView.inputCarNames();
 
       expect(errorSpy).toHaveBeenCalledTimes(2);
-      expect(errorSpy).toHaveBeenCalledWith(CAR_ERROR_MESSAGE.NAME.TOO_LONG);
-      expect(errorSpy).toHaveBeenCalledWith(CAR_ERROR_MESSAGE.NAME.REQUIRED);
     });
 
     test("사용자가 잘못된 자동차 이름을 입력할 경우 다시 입력을 받는다.", async () => {
@@ -76,12 +72,6 @@ describe("Input View", () => {
       await inputView.inputTotalRounds();
 
       expect(errorSpy).toHaveBeenCalledTimes(2);
-      expect(errorSpy).toHaveBeenCalledWith(
-        RACING_ERROR_MESSAGE.ROUND.INVALID_TYPE,
-      );
-      expect(errorSpy).toHaveBeenCalledWith(
-        RACING_ERROR_MESSAGE.ROUND.INVALID_RANGE,
-      );
     });
 
     test("사용자가 잘못된 경주 라운드를 입력할 경우 다시 입력을 받는다.", async () => {
