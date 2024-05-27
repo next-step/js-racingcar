@@ -1,38 +1,24 @@
 import { INITIAL_ROUND } from "./racing.constant.js";
-import { validateRacingRound } from "./racing.contract.js";
+import { validateTotalRounds } from "./racing.contract.js";
 
 class RacingManager {
-  #round;
-  #racingRound;
-  #carList;
-  #movementRule;
+  #currentRound = INITIAL_ROUND;
+  #totalRounds;
 
-  constructor(carList, racingRound, movementRule) {
-    this.#round = INITIAL_ROUND;
-    this.#racingRound = validateRacingRound(racingRound);
-    this.#carList = carList;
-    this.#movementRule = movementRule;
+  constructor(totalRounds) {
+    this.#totalRounds = validateTotalRounds(totalRounds);
   }
 
-  executeRound() {
-    this.#carList.forEach((car) => {
-      if (this.#movementRule()) {
-        car.move();
-      }
-    });
-    this.#round++;
+  incrementRound() {
+    this.#currentRound++;
   }
 
-  get racingRound() {
-    return this.#racingRound;
+  get isRemainRound() {
+    return this.#currentRound < this.#totalRounds;
   }
 
   get currentRound() {
-    return this.#round;
-  }
-
-  get carList() {
-    return [...this.#carList];
+    return this.#currentRound;
   }
 }
 

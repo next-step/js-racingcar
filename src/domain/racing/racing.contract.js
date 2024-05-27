@@ -1,13 +1,13 @@
 import { ERROR_MESSAGE } from "./racing.error.js";
 
-export function validateRacingRound(racingRound) {
-  if (isNaN(racingRound) || typeof racingRound !== "number") {
+export function validateTotalRounds(totalRounds) {
+  if (isNaN(totalRounds) || typeof totalRounds !== "number") {
     throw new TypeError(ERROR_MESSAGE.ROUND.INVALID_TYPE);
   }
 
-  if (racingRound <= 0) {
+  if (totalRounds <= 0) {
     throw new RangeError(ERROR_MESSAGE.ROUND.INVALID_RANGE);
   }
 
-  return racingRound;
+  return totalRounds;
 }
