@@ -1,28 +1,26 @@
-import { EXECUTE_RACING_MAX_COUNT, NINE, ZERO } from "../constants/number.js";
-import { randomNumber } from "../util/random.js";
-import Car from "./Car.js";
+import { generateRandomNumber } from "../util/random.js";
 
 export class Racing {
-  cars = [];
-  currRound;
-  maxRound;
+  #cars = [];
+  #currRound = 0;
+  #maxRound;
 
-  constructor(enter) {
-    this.cars = enter.map((name) => new Car(name));
-    this.currRound = 0;
+  constructor(cars, roundCount) {
+    this.#cars = cars;
+    this.#maxRound = roundCount;
   }
 
-  gameRound() {
-    this.cars.forEach((car) => car.drive(randomNumber(ZERO, NINE)));
-    this.currRound++;
+  gameStart() {
+    let carHistories = [];
+    while (this.#currRound < this.#maxRound) {
+      this.#cars.forEach((car) => car.drive(generateRandomNumber()));
+      this.#currRound++;
+      carHistories.push(new Array(...this.#cars));
+    }
+    return carHistories;
   }
 
-  set maxRound(round) {
-    this.maxRound = round;
-  }
-
-  get winner() {
-    const maxPosition = Math.max(...this.cars.map((car) => car.position));
-    return this.cars.filter((car) => car.position === maxPosition);
+  get cars() {
+    return this.#cars;
   }
 }
