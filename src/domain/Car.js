@@ -8,21 +8,22 @@ export default class Car {
   name;
   position = 0;
 
-  constructor(name) {
-    if (!this.isValidName(name)) throw new Error(CAR.NAME_LENGTH_EXCEED);
-
+  constructor(name, position) {
+    this.#isValidateName(name);
     this.name = name;
+    if (position !== undefined) {
+      this.position = position;
+    }
   }
 
   drive(randomNumber) {
     if (randomNumber >= DRIVE_MIN_POSITION) this.position++;
   }
 
-  isValidName(checkString) {
-    if (checkString.trim() === false) return false;
+  #isValidateName(checkString) {
+    if (checkString.trim() == false) throw new Error(CAR.NAME_EMPTY);
 
-    if (checkString.length > CAR_NAME_MAX_LENGTH) return false;
-
-    return true;
+    if (checkString.length > CAR_NAME_MAX_LENGTH)
+      throw new Error(CAR.NAME_LENGTH_EXCEED);
   }
 }
