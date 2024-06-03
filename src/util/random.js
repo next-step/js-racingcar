@@ -1,3 +1,5 @@
-export const randomNumber = (min, max) => {
-  return Math.random() * (max - min) + min;
+import { NINE, ZERO } from "../constants/number.js";
+
+export const generateRandomNumber = () => {
+  return Math.random() * (NINE - ZERO) + ZERO;
 };

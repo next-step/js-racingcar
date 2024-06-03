@@ -18,9 +18,9 @@ describe("자동차 기능 테스트", () => {
     expect(() => new Car("scarlet")).toThrow(CAR.NAME_LENGTH_EXCEED);
   });
 
-  // test("자동차 이름이 빈값일 경우, 에러를 던진다", () => {
-  //   expect(() => new Car("    ")).toThrow(CAR.NAME_EMPTY);
-  // });
+  test("자동차 이름이 빈값일 경우, 에러를 던진다", () => {
+    expect(() => new Car("    ")).toThrow(CAR.NAME_EMPTY);
+  });
 
   test("전진 조건이 4이상이면 1칸 전진", () => {
     const car = new Car("navy");
