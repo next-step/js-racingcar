@@ -14,17 +14,18 @@ describe("자동차 기능 테스트", () => {
     expect(name.length).toBeLessThanOrEqual(CAR_NAME_MAX_LENGTH);
   });
 
-  test("자동차 이름이 5자 이상이면 에러를 던진다", () => {
-    expect(() => new Car("scarlet")).toThrow(CAR.NAME_LENGTH_EXCEED);
-  });
-
-  test("자동차 이름이 빈값일 경우, 에러를 던진다", () => {
-    expect(() => new Car("    ")).toThrow(CAR.NAME_EMPTY);
-  });
-
   test("전진 조건이 4이상이면 1칸 전진", () => {
     const car = new Car("navy");
     car.drive(4);
     expect(car.position).toBe(1);
+  });
+
+  describe.each([
+    { name: "scarlet", expectedError: CAR.NAME_LENGTH_EXCEED },
+    { name: "    ", expectedError: CAR.NAME_EMPTY },
+  ])("($name)으로 ", ({ name, expectedError }) => {
+    test(`자동차 객체를 생성하면 ${expectedError} 가 발생한다`, () => {
+      expect(() => new Car(name)).toThrow(expectedError);
+    });
   });
 });
