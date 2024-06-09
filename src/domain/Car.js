@@ -6,14 +6,12 @@ import {
 
 export default class Car {
   name;
-  position = 0;
+  position;
 
-  constructor(name, position) {
+  constructor(name, position = 0) {
     this.#isValidateName(name);
     this.name = name;
-    if (position !== undefined) {
-      this.position = position;
-    }
+    this.position = position;
   }
 
   drive(randomNumber) {
@@ -21,7 +19,8 @@ export default class Car {
   }
 
   #isValidateName(checkString) {
-    if (checkString.trim() == false) throw new Error(CAR.NAME_EMPTY);
+    const regEx = /\s/g;
+    if (regEx.test(checkString)) throw new Error(CAR.NAME_EMPTY);
 
     if (checkString.length > CAR_NAME_MAX_LENGTH)
       throw new Error(CAR.NAME_LENGTH_EXCEED);
