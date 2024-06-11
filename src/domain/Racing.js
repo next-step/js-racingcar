@@ -11,11 +11,14 @@ export class Racing {
   }
 
   gameStart() {
-    let carHistories = [];
+    const carHistories = [];
     while (this.#currRound < this.#maxRound) {
-      this.#cars.forEach((car) => car.drive(generateRandomNumber()));
+      this.#cars.forEach((car) => car.drive(generateRandomNumber(0, 9)));
+
+      const newCars = this.#cars.map((car) => Object.assign({}, car));
+      carHistories.push([...newCars]);
+
       this.#currRound++;
-      carHistories.push(new Array(...this.#cars));
     }
     return carHistories;
   }
