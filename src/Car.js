@@ -1,5 +1,6 @@
 class Car {
   #name;
+
   #location;
 
   getName() {
@@ -21,9 +22,11 @@ class Car {
   goToX() {
     this.#location.x += 1;
   }
+
   goToY() {
     this.#location.y += 1;
   }
+
   goToZ() {
     this.#location.z += 1;
   }
