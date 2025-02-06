@@ -12,7 +12,7 @@ describe("Car 클래스는", () => {
         expect(car.name).toBe(expectedName);
     });
 
-    it("초기 position 값을 올바르게 설정한다", () => {
+    it("초기 position 값을 리턴한다", () => {
         expect(car.position).toBe(0);
     });
 
