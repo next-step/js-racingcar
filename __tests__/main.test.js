@@ -3,7 +3,7 @@ import Car from "../src/main";
 describe("step2", () => {
   let car;
 
-  beforeEach(() => {
+  beforeAll(() => {
     car = new Car("붕붕");
   });
 
