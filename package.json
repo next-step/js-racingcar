@@ -27,9 +27,5 @@
     "presets": [
       "@babel/preset-env"
     ]
-  },
-  "engines": {
-    "npm": ">=10.8.2",
-    "node": ">=20.17.0"
   }
 }
