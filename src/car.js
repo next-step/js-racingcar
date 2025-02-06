@@ -5,10 +5,6 @@ class Car {
         this.name = name;
     }
 
-    get position() {
-        return this.position;
-    }
-
     moveForward() {
         this.position += 1;
     }
