@@ -1,4 +1,4 @@
-import { Car } from "Car";
+import Car from "./Car.js";
 
 const instance = new Car();
 

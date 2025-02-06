@@ -18,30 +18,18 @@ class Car {
     this.#location = location;
   }
 
-  #goToX() {
+  goToX() {
     this.#location.x += 1;
   }
-  #goToY() {
+  goToY() {
     this.#location.y += 1;
   }
-  #goToZ() {
+  goToZ() {
     this.#location.z += 1;
   }
 
-  getGoToX() {
-    return this.#goToX();
-  }
-
-  getGoToY() {
-    return this.#goToY();
-  }
-
-  getGoToZ() {
-    return this.#goToZ();
-  }
-
-  constructor() {
-    this.#name = "";
+  constructor(name) {
+    this.#name = name;
     this.#location = {
       x: 0,
       y: 0,
@@ -49,3 +37,5 @@ class Car {
     };
   }
 }
+
+export default Car;
