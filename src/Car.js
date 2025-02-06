@@ -1,6 +1,23 @@
 class Car {
   #name;
   #location;
+
+  getName() {
+    return this.#name;
+  }
+
+  setName(name) {
+    this.#name = name;
+  }
+
+  getLocation() {
+    return this.#location;
+  }
+
+  setLocation(location) {
+    this.#location = location;
+  }
+
   #goToX() {
     this.#location.x += 1;
   }
@@ -24,7 +41,7 @@ class Car {
   }
 
   constructor() {
-    this.#name = 0;
+    this.#name = "";
     this.#location = {
       x: 0,
       y: 0,
