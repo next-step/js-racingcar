@@ -1,12 +1,6 @@
 import Car from "../src/main";
 
-// const car = new Car("붕붕");
-
 let car;
-
-// beforeAll(() => {
-//   car = new Car("붕붕");
-// });
 
 beforeEach(() => {
   car = new Car("붕붕");
