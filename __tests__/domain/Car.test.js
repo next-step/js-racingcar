@@ -11,11 +11,14 @@ describe("자동차는", () => {
             expect(car.name).toBe(expectedName);
         });
 
-        describe("> 이름이 유효하지 않을 때", () => {
-            it("에러를 던져야 한다", () => {
-                const givenCarName = "포르쉐포르쉐";
-                expect(() => new Car(givenCarName)).toThrow(Car.ERROR_MESSAGES.INVALID_NAME);
-            });
+        it("이름이 5자를 초과하면 에러를 던져야 한다", () => {
+            const givenCarName = "포르쉐포르쉐";
+            expect(() => new Car(givenCarName)).toThrow(Car.ERROR_MESSAGES.INVALID_NAME);
+        });
+
+        it("이름이 1자 미만이면 에러를 던져야 한다", () => {
+            const givenCarName = "";
+            expect(() => new Car(givenCarName)).toThrow(Car.ERROR_MESSAGES.INVALID_NAME);
         });
     });
     describe("=== 자동차의 위치에 대한 테스트 ===", () => {

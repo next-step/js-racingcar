@@ -28,8 +28,8 @@ describe("레이스는", () => {
         });
 
         it("각 라운드마다 자동차의 상태가 기록되어야 한다", () => {
-            const result = race.start();
-            expect(result.every(roundData => Array.isArray(roundData.cars))).toBe(true);
+            const raceResult = race.start();
+            expect(raceResult.every(roundData => Array.isArray(roundData.cars))).toBe(true);
         });
     });
 });
