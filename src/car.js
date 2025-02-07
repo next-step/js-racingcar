@@ -23,3 +23,12 @@ export async function makeCar() {
 
   return cars;
 }
+
+export function drawSkidMark(state) {
+  let mark = "";
+  for (let i = 0; i < state; i++) {
+    mark += "-";
+  }
+
+  return mark;
+}
