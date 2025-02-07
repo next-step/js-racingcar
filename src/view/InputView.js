@@ -1,7 +1,13 @@
-const readline = require("readline");
-const Car = require("../domain/Car.js");
+import readline from "readline";
+import Car from "../domain/Car.js";
 
 class InputView {
+    async askCarNames() {
+        return this.readLineAsync("경주할 자동차 이름을 입력하세요.\n").then((input) => {
+            return input.split(",").map((name) => new Car(name.trim()));
+        });
+    }
+
     async readLineAsync(query) {
         return new Promise((resolve, reject) => {
             if (arguments.length !== 1) {
@@ -12,25 +18,17 @@ class InputView {
                 reject(new Error("query must be string"));
             }
 
-            const rl = readline.createInterface({
+            const readLine = readline.createInterface({
                 input: process.stdin,
                 output: process.stdout,
             });
 
-            rl.question(query, (input) => {
-                rl.close();
+            readLine.question(query, (input) => {
+                readLine.close();
                 resolve(input);
             });
         });
     }
-
-    async askCarName() {
-        return this.readLineAsync("경주할 자동차 이름을 입력하세요.");
-    }
-
-    createCarsFromInput(input) {
-        return input.split(",").map((name) => new Car(name.trim()));
-    }
 }
 
-module.exports = InputView;
+export default InputView;
