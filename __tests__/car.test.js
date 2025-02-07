@@ -10,6 +10,13 @@ describe("자동차는", () => {
             const expectedName = "포르쉐";
             expect(car.name).toBe(expectedName);
         });
+
+        describe("> 이름이 유효하지 않을 때", () => {
+            it("에러를 던져야 한다", () => {
+                const givenCarName = "포르쉐포르쉐";
+                expect(() => new Car(givenCarName)).toThrow(Car.ERROR_MESSAGES.INVALID_NAME);
+            });
+        });
     });
     describe("=== 자동차의 위치에 대한 테스트 ===", () => {
         it("처음 생성되었을 때는 시작 위치(0)에 있어야 한다", () => {
