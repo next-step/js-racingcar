@@ -4,13 +4,19 @@
 
     - Expected linebreaks to be 'LF' but found 'CRLF'.eslintlinebreak-style
 
-        
+- eslint-plugin-jest 
+
+    - jest와 eslint를 묶어주는 패키지
+
+    - eslint-plugin-jest
 
 - eslint-config-airbnb
 
     - React가 필요 없어, eslint-config-airbnb-base를 사용 
 
     - peerDependencies를 만족하지 못해, eslint 9버전에서 8버전으로 내림 
+
+    - https://www.npmjs.com/package/eslint-config-airbnb-base
 
 # 2단계 - 단위 테스트 연습 
 

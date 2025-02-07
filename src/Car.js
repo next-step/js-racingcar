@@ -15,6 +15,9 @@ class Car {
     return this.#location;
   }
 
+  // TODO: https://github.com/next-step/js-racingcar/pull/270#discussion_r1945834268
+  // 배운 점
+  // 1. 사용처에서 필요한 만큼의 인터페이스만 열어줍니다
   setLocation(location) {
     this.#location = location;
   }
