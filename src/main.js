@@ -1,14 +1,18 @@
 class Car {
-  INITIAL_LOCATION = 0;
-  FORWARD_STEP = 1;
+  static INITIAL_LOCATION = 0;
+  static FORWARD_STEP = 1;
+
+  name;
+  location = Car.INITIAL_LOCATION;
 
   constructor(name) {
     this.name = name;
-    this.location = INITIAL_LOCATION;
   }
 
   forward() {
-    this.location += FORWARD_STEP;
+    this.location += Car.FORWARD_STEP;
     return this.location;
   }
 }
+
+export default Car;
