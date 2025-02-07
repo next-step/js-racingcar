@@ -7,4 +7,8 @@ export default class Car {
     this.state += 1;
     return;
   }
+
+  async getName() {
+    await readLineAsync().then((name) => {});
+  }
 }
