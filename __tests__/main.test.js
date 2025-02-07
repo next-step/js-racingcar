@@ -1,28 +1,40 @@
-import Car from "../src/main";
+import start from "../src/main";
+import Car from "../src/makeCar";
 
-describe("step2", () => {
-  let car;
+jest.mock("readline");
 
-  beforeAll(() => {
-    car = new Car("붕붕");
+import readline from "readline";
+
+describe("자동차 경주 게임이 잘 진행되는지 테스트한다.", () => {
+  let mockInterface;
+
+  beforeEach(() => {
+    mockInterface = {
+      question: jest.fn(),
+      close: jest.fn(),
+    };
+
+    readline.createInterface.mockReturnValue(mockInterface);
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
-  test("자동차는 이름을 상태로 가질 수 있다.", () => {
-    expect(car.name).toBe("붕붕");
+  it("사용자가 입력한 값이 차의 이름이 됩니다.", async () => {
+    mockInterface.question.mockImplementation((query, callback) => {
+      callback("현대,기아,쌍용");
+    });
+
+    const carArr = await start();
+
+    expect(carArr).toEqual([new Car("현대"), new Car("기아"), new Car("쌍용")]);
   });
 
-  test("자동차는 위치 값을 가지며, 초기 상태는 0이다.", () => {
-    expect(car.state).toBe(0);
-  });
+  it("사용자가 입력한 차의 이름이 5글자를 넘으면 에러가 발생합니다.", async () => {
+    mockInterface.question.mockImplementation((query, callback) => {
+      callback("현대기아자동차");
+    });
 
-  test("자동차는 전진할 수 있으며 한 번에 1만큼 전진한다.", () => {
-    //메서드 실행하기전 초기값 설정
-    const initialState = car.state;
-    //메서드 실행
-    car.go();
-    //메서드 실행후 state 값 저장
-    const afterState = car.state;
-
-    expect(afterState - initialState).toBe(1);
+    await expect(start()).rejects.toThrow("차 이름은 5글자 이하만 가능합니다.");
   });
 });
