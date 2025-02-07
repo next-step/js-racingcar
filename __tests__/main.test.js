@@ -1,28 +1,49 @@
-import Car from "../src/main";
+import start from "../src/main";
 
-describe("step2", () => {
-  let car;
+jest.mock("readline");
 
-  beforeAll(() => {
-    car = new Car("붕붕");
+import readline from "readline";
+
+describe("자동차 경주 게임이 잘 진행되는지 테스트한다.", () => {
+  let mockInterface;
+
+  beforeEach(() => {
+    mockInterface = {
+      question: jest.fn(),
+      close: jest.fn(),
+    };
+
+    readline.createInterface.mockReturnValue(mockInterface);
+  });
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
-  test("자동차는 이름을 상태로 가질 수 있다.", () => {
-    expect(car.name).toBe("붕붕");
+  it("이름을 입력하면 자동으로 경주가 시작됩니다.", async () => {
+    mockInterface.question.mockImplementation((query, callback) => {
+      callback("기아");
+    });
+    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+
+    await start();
+
+    expect(consoleSpy).toHaveBeenCalledWith("경주 시작!");
   });
 
-  test("자동차는 위치 값을 가지며, 초기 상태는 0이다.", () => {
-    expect(car.state).toBe(0);
-  });
+  it("1칸씩 전진한 흔적(" - ")이 콘솔창에 남는다.", async () => {
+    mockInterface.question.mockImplementation((query, callback) => {
+      callback("기아");
+    });
 
-  test("자동차는 전진할 수 있으며 한 번에 1만큼 전진한다.", () => {
-    //메서드 실행하기전 초기값 설정
-    const initialState = car.state;
-    //메서드 실행
-    car.go();
-    //메서드 실행후 state 값 저장
-    const afterState = car.state;
+    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
 
-    expect(afterState - initialState).toBe(1);
+    await start();
+
+    expect(consoleSpy).toHaveBeenNthCalledWith(1, "경주 시작!");
+    expect(consoleSpy).toHaveBeenNthCalledWith(2, "기아 : -");
+    expect(consoleSpy).toHaveBeenNthCalledWith(3, "기아 : --");
+    expect(consoleSpy).toHaveBeenNthCalledWith(4, "기아 : ---");
+    expect(consoleSpy).toHaveBeenNthCalledWith(5, "기아 : ----");
+    expect(consoleSpy).toHaveBeenNthCalledWith(6, "기아 : -----");
   });
 });
