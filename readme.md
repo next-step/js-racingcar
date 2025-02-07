@@ -18,9 +18,14 @@
 
     - https://www.npmjs.com/package/eslint-config-airbnb-base
 
+- eslint-plugin-import 
+
+    - 라이브러리 패키지 구문을 빼고, 직접 작성한 파일은 확장자를 붙이도록 한다
+
+    - https://pozafly.github.io/environment/putting-rules-into-import-syntax-with-eslint/
+
+
 # 2단계 - 단위 테스트 연습 
-
-
 
 ## 학습 목표 
 
@@ -43,4 +48,4 @@
 
 1. 이름은 문자열이어야 한다.
 
-2. 위치 값은 3차원을 기준으로 하며, { x: 0, y: 0, z: 0 } 의 형태이어야 한다다
+2. 위치 값은 3차원을 기준으로 하며, { x: 0, y: 0, z: 0 } 의 형태이어야 한다

@@ -1,7 +1,10 @@
-import Car from "../src/Car";
-import carNameRule from "../src/rule";
+import Car from "../src/Car.js";
+import carNameRule from "../src/rule.js";
 
-describe("자동차 이름", () => {
+describe("자동차는 이름을 상태로로 가진다", () => {
+  beforeAll(() => {
+    console.log("자동차 이름 테스트 시작");
+  });
   it("이름은 숫자와 string만 가능하다.", () => {
     const nameRegExp = carNameRule;
 
@@ -34,5 +37,9 @@ describe("자동차 이름", () => {
     const tenCar = new Car("123456789A");
     const minLengthTenCar = nameRegExp.test(tenCar.getName());
     expect(minLengthTenCar).toEqual(false);
+  });
+
+  afterAll(() => {
+    console.log("자동차 이름 테스트 끝");
   });
 });

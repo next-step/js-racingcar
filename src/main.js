@@ -1,5 +1,5 @@
-import Car from "./Car";
+import Car from "./Car.js";
 
 const instance = new Car();
 
-console.log(instance.getGoToX(), instance);
+console.log(instance);

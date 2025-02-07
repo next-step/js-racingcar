@@ -15,10 +15,6 @@ class Car {
     return this.#location;
   }
 
-  setLocation(location) {
-    this.#location = location;
-  }
-
   goToX() {
     this.#location.x += 1;
   }

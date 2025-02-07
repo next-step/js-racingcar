@@ -1,6 +1,7 @@
 {
   "rules": {
     "linebreak-style": ["error", "unix"],
+    "import/extensions": ["error", "ignorePackages"],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
