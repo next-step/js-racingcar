@@ -30,7 +30,10 @@
 
 ---
 
-##
+## 1주차 보완점 
+
+- https://github.com/next-step/js-racingcar/pull/270#discussion_r1945834268
+
 
 ### 1. 사용처에서 필요한 만큼만 인터페이스를 열어준다
 
