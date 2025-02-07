@@ -1,17 +1,14 @@
-import { readLineAsync } from "../src/getUserInput.js";
-import Car from "../src/makeCar.js";
+import Car, { makeCar } from "./car.js";
 
 export default async function start() {
-  const cars = [];
-  await readLineAsync("경주할 자동차 이름을 입력하세요 : ").then((name) => {
-    const nameArr = name.split(",");
+  const cars = await makeCar();
 
-    nameArr.forEach((name, index) => {
-      cars.push(new Car(name));
-    });
-  });
+  console.log("경주 시작!");
+  for (let i = 0; i < 5; i++) {
+    cars.forEach((car) => car.go());
+  }
 
-  return cars;
+  console.log(cars);
 }
 
 // await start();
