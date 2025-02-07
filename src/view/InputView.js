@@ -1,5 +1,5 @@
 const readline = require("readline");
-const Car = require("./Car.js");
+const Car = require("../domain/Car.js");
 
 class InputView {
     async readLineAsync(query) {
