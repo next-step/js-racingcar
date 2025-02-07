@@ -1,11 +1,7 @@
 class OutputView {
 
-    getCarMoveProgress(car) {
-        return "-".repeat(car.position);
-    }
-
     getCarStatus(car) {
-        return `${car.name} : ${this.getCarMoveProgress(car)}`;
+        return `${car.name} : ${"-".repeat(car.position)}`;
     }
 
     printRaceResult(raceResult) {
