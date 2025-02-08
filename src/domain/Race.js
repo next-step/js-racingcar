@@ -2,6 +2,9 @@ class Race {
     static DEFAULT_ROUNDS = 5;
 
     constructor(cars, rounds = Race.DEFAULT_ROUNDS) {
+        if (rounds < 1) {
+            throw new Error("라운드는 1 이상이어야 합니다.");
+        }
         this.cars = cars;
         this.rounds = rounds;
         this.raceResult = new RaceResult();

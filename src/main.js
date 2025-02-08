@@ -9,8 +9,9 @@ async function main() {
     const outputView = new OutputView();
 
     const carsNames = await inputView.askCarNames();
+    const rounds = await inputView.askRounds();
     const cars = Car.createCars(carsNames, new RandomAcceleration());
-    const race = new Race(cars);
+    const race = new Race(cars, rounds);
     const raceResult = race.start();
 
     outputView.printRaceResult(raceResult);

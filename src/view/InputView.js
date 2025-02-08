@@ -7,6 +7,12 @@ class InputView {
         });
     }
 
+    async askRounds() {
+        return this.readLineAsync("시도할 회수는 몇회인가요?\n").then((input) => {
+            return Number(input);
+        });
+    }
+
     async readLineAsync(query) {
         return new Promise((resolve, reject) => {
             if (arguments.length !== 1) {
