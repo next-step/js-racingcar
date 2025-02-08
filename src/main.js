@@ -1,18 +1,34 @@
-class Car {
-  static INITIAL_LOCATION = 0;
-  static FORWARD_STEP = 1;
+import { getCarName } from './input.js';
+import Race from './race.js';
 
-  name;
-  location = Car.INITIAL_LOCATION;
+function formatRaceResults(results) {
+  let result = [];
 
-  constructor(name) {
-    this.name = name;
-  }
+  results.forEach((round) => {
+    round.forEach(({ name, location }) => {
+      result.push(`${name} : ${'-'.repeat(location)}`);
+    });
 
-  forward() {
-    this.location += Car.FORWARD_STEP;
-    return this.location;
+    result.push('');
+  });
+
+  return result;
+}
+
+async function play() {
+  try {
+    const name = await getCarName();
+
+    console.log('\n실행 결과');
+
+    const results = new Race(name).start();
+    const formattedResult = formatRaceResults(results);
+    formattedResult.forEach((message) => console.log(message));
+
+    console.log('경주를 완료했습니다');
+  } catch (error) {
+    console.error(error);
   }
 }
 
-export default Car;
+play();
