@@ -33,6 +33,10 @@ export function getRaceCount(query) {
 
     rl.question(query, (input) => {
       rl.close();
+      if (Number.isNaN(Number(input))) {
+        reject(new Error("횟수는 숫자만 입력가능합니다."));
+        return;
+      }
       resolve(input);
     });
   });

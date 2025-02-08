@@ -20,4 +20,4 @@ export default async function start() {
   }
 }
 
-// await start();
+await start();

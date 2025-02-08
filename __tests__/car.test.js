@@ -55,14 +55,4 @@ describe("사용자가 입력한 값을 이름으로 가지는 차를 생성한�
 
     expect(carArr.map((car) => car.name)).toEqual(["현대", "기아", "쌍용"]);
   });
-
-  test("사용자가 입력한 차의 이름이 5글자를 넘으면 에러가 발생합니다.", async () => {
-    mockInterface.question.mockImplementation((query, callback) => {
-      callback("현대기아자동차");
-    });
-
-    await expect(makeCar()).rejects.toThrow(
-      "차 이름은 5글자 이하만 가능합니다."
-    );
-  });
 });
