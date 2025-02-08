@@ -1,25 +1,57 @@
-import Car from '../src/main';
+import { isInputValid } from '../src/utils';
 
-describe('자동차 클래스 테스트', () => {
-  let car = null;
+describe('콘솔 입력에 대한 유효성 검사 동작 테스트', () => {
+  test('사용자 입력란에 "아반떼"을 입력하면 유효성 검사는 통과이다.', () => {
+    const isValid = isInputValid('아반떼');
 
-  beforeEach(() => (car = new Car({ name: '자동차이름' })));
-
-  test('자동차는 이름을 상태로 가질 수 있다.', () => {
-    const name = car.getName();
-
-    expect(name).toEqual('자동차이름');
+    expect(isValid).toBeTruthy();
   });
 
-  test('자동차는 위치 값을 가지며, 초기 상태는 0이다.', () => {
-    const location = car.getLocation();
+  test('사용자 입력란에 "아반떼,그렌져"을 입력하면 유효성 검사는 통과이다.', () => {
+    const isValid = isInputValid('아반떼,그렌져');
 
-    expect(location).toEqual(0);
+    expect(isValid).toBeTruthy();
   });
 
-  test('자동차는 전진할 수 있으며 한 번에 1만큼 전진한다.', () => {
-    const movedLocation = car.moveForward();
+  test('사용자 입력란에 "아반떼, 그렌져"을 입력하면 유효성 검사는 통과이다.', () => {
+    const isValid = isInputValid('아반떼, 그렌져');
 
-    expect(movedLocation).toEqual(1);
+    expect(isValid).toBeTruthy();
+  });
+
+  test('사용자 입력란에 "아반떼,"을 입력하면 유효성 검사는 실패이다.', () => {
+    const isValid = isInputValid('아반떼,');
+
+    expect(isValid).toBeFalsy();
+  });
+
+  test('사용자 입력란에 다섯 글자를 넘는 "그랜드 스타렉스"을 입력하면 유효성 검사는 실패이다.', () => {
+    const isValid = isInputValid('그랜드 스타렉스');
+
+    expect(isValid).toBeFalsy();
+  });
+
+  test('사용자 입력란에 다섯 글자 초과를 포함되어 단어가 있어도 유효성 검사는 실패이다.', () => {
+    const isValid = isInputValid('아반떼, 그랜드 스타렉스');
+
+    expect(isValid).toBeFalsy();
+  });
+
+  test('사용자 입력란에 "아반떼,"을 입력하면 유효성 검사는 실패이다.', () => {
+    const isValid = isInputValid('아반떼,');
+
+    expect(isValid).toBeFalsy();
+  });
+
+  test('사용자 입력란에 공백을 입력하면 유효성 검사는 실패이다.', () => {
+    const isValid = isInputValid('');
+
+    expect(isValid).toBeFalsy();
+  });
+
+  test('사용자 입력란에 쉼표를 입력하면 유효성 검사는 실패이다.', () => {
+    const isValid = isInputValid(',');
+
+    expect(isValid).toBeFalsy();
   });
 });
