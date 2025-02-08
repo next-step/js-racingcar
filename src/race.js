@@ -6,8 +6,7 @@ class Race {
   players;
 
   constructor(playerNames) {
-    const playerNameArray = playerNames.split(',');
-    this.players = playerNameArray.map((name) => new Car(name));
+    this.players = playerNames.map((name) => new Car(name));
   }
 
   proceed() {
@@ -24,6 +23,10 @@ class Race {
     }
 
     return result;
+  }
+
+  get players() {
+    return this.players;
   }
 }
 
