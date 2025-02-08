@@ -1,6 +1,10 @@
+import { getRandomNumber } from '../utils/index.js';
 import Car from './Car.js';
 
 const DEFAULT_LAP = 5;
+const MIN_RANDOM_NUMBER = 0;
+const MAX_RANDOM_NUMBER = 9;
+const MIN_MOVEMENT_THRESHOLD = 4;
 
 export default class Game {
   #players = [];
@@ -98,9 +102,13 @@ export default class Game {
    */
   getPlayerCurrentStatus(car) {
     const name = car.getName();
-    const movedLocation = car.moveForward();
 
-    return { name, location: movedLocation };
+    const dice = getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
+    if (dice >= MIN_MOVEMENT_THRESHOLD) {
+      car.moveForward();
+    }
+
+    return { name, location: car.getLocation() };
   }
 
   /**
