@@ -31,7 +31,7 @@ describe("레이스는", () => {
             });
 
             it("라운드 수가 1 미만이면 예외를 발생시켜야 한다", () => {
-                expect(() => new Race(cars, 0)).toThrow("라운드는 1 이상이어야 합니다.");
+                expect(() => new Race(cars, 0)).toThrow(Race.ERROR_MESSAGES.INVALID_ROUNDS);
             });
         });
     });
@@ -57,7 +57,7 @@ describe("레이스는", () => {
             it("우승자 목록을 반환해야한다.", () => {
                 const raceResult = race.start();
 
-                expect(raceResult.getWinners().length).toBeGreaterThan(0);
+                expect(raceResult.findWinners().length).toBeGreaterThan(0);
             });
         });
     })

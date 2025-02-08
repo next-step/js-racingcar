@@ -1,9 +1,13 @@
 class Race {
     static DEFAULT_ROUNDS = 5;
+    static MINIMUM_ROUNDS = 1;
+    static ERROR_MESSAGES = {
+        INVALID_ROUNDS: "라운드는 1 이상이어야 합니다.",
+    };
 
     constructor(cars, rounds = Race.DEFAULT_ROUNDS) {
-        if (rounds < 1) {
-            throw new Error("라운드는 1 이상이어야 합니다.");
+        if (rounds < Race.MINIMUM_ROUNDS) {
+            throw new Error(Race.ERROR_MESSAGES.INVALID_ROUNDS);
         }
         this.cars = cars;
         this.rounds = rounds;
@@ -38,7 +42,7 @@ class RaceResult {
         });
     }
 
-    getWinners() {
+    findWinners() {
         if (this.raceHistory.length === 0) {
             return [];
         }

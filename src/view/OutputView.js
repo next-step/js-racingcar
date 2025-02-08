@@ -10,7 +10,7 @@ class OutputView {
             this.printRoundStatus(roundData);
             console.log("");
         });
-        this.printWinners(raceResult.getWinners());
+        this.printWinners(raceResult.findWinners());
     }
 
     printRoundStatus(roundData) {
