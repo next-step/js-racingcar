@@ -10,6 +10,8 @@ export default async function start() {
     (inputValue) => (count = inputValue)
   );
 
+  console.log("경주 시작!");
+  console.log("");
   while (count !== 0) {
     race(count, cars);
     count--;
@@ -20,4 +22,4 @@ export default async function start() {
   }
 }
 
-await start();
+// await start();
