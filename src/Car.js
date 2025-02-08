@@ -1,4 +1,4 @@
-import { TRACK_MARK } from "./constants.js";
+import { TRACK_MARK, CAR_MOVE_PER_RACING } from "./constants.js";
 
 class Car {
   #name;
@@ -10,7 +10,7 @@ class Car {
   }
 
   move() {
-    this.#position++;
+    this.#position += CAR_MOVE_PER_RACING;
   }
 
   getName() {
