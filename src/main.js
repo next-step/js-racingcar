@@ -1,23 +1,22 @@
 import { makeCar, drawSkidMark } from "./car.js";
-import { race } from "./race.js";
+import { race, findFarthestCar } from "./race.js";
 import { getRaceCount } from "./getUserInput.js";
 
 export default async function start() {
+  let count = 0;
   const cars = await makeCar();
 
-  await getRaceCount("시도할 회수는 몇회인가요? ").then((count) =>
-    race(count, cars)
+  await getRaceCount("시도할 회수는 몇회인가요? ").then(
+    (inputValue) => (count = inputValue)
   );
-  console.log("");
-  console.log("경주 시작!");
-  console.log("");
 
-  for (let i = 0; i < 5; i++) {
-    cars.forEach((car) => {
-      car.go();
-      drawSkidMark(car);
-      console.log("");
-    });
+  while (count !== 0) {
+    race(count, cars);
+    count--;
+  }
+
+  if (Number(count) === 0) {
+    console.log("우승자는! " + findFarthestCar(cars) + "입니다!");
   }
 }
 

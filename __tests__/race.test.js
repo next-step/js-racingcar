@@ -43,15 +43,11 @@ describe("전달 받은 차들이 레이싱을 해서 우승자를 찾는다.", 
     const originalRandom = Math.random;
 
     Math.random = jest.fn().mockReturnValue(0.5);
-
     checkHeCanGo(firstCar);
-
     expect(firstCar.state).toBe(1);
 
     Math.random = jest.fn().mockReturnValue(0.3);
-
     checkHeCanGo(secondCar);
-
     expect(secondCar.state).toBe(0);
 
     Math.random = originalRandom;
