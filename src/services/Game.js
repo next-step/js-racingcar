@@ -1,6 +1,10 @@
+import { getRandomNumber } from '../utils/index.js';
 import Car from './Car.js';
 
 const DEFAULT_LAP = 5;
+const MIN_RANDOM_NUMBER = 0;
+const MAX_RANDOM_NUMBER = 9;
+const MIN_MOVEMENT_THRESHOLD = 4;
 
 export default class Game {
   #players = [];
@@ -29,8 +33,8 @@ export default class Game {
   /**
    * 게임이 끝났다는 걸 안내
    */
-  #announceGameEnd() {
-    console.log('경주를 완료했습니다.');
+  #announceGameEnd(winners) {
+    console.log(`${winners}가 최종 우승했습니다.`);
   }
 
   /**
@@ -74,6 +78,22 @@ export default class Game {
   }
 
   /**
+   * 우승한 자동차 이름들을 추출하는 함수
+   *
+   * @param {Car[]} cars 마지막 바퀴까지 달린 자동차들
+   * @returns 우승한 자동차 이름들
+   */
+  getWinners(cars) {
+    const carLocations = cars.map((car) => car.getLocation());
+    const topTrack = Math.max(...carLocations);
+
+    return cars
+      .filter((car) => topTrack === car.getLocation())
+      .map((car) => car.getName())
+      .join(', ');
+  }
+
+  /**
    * 자동차 경주 바퀴(Lap)마다 자동차의 움직임을 결정하고
    * 상태를 확인할 수 있는 함수
    *
@@ -82,9 +102,13 @@ export default class Game {
    */
   getPlayerCurrentStatus(car) {
     const name = car.getName();
-    const movedLocation = car.moveForward();
 
-    return { name, location: movedLocation };
+    const dice = getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
+    if (dice >= MIN_MOVEMENT_THRESHOLD) {
+      car.moveForward();
+    }
+
+    return { name, location: car.getLocation() };
   }
 
   /**
@@ -103,6 +127,8 @@ export default class Game {
       });
       this.#announceCurrentLapEnd();
     }
-    this.#announceGameEnd();
+
+    const winners = this.getWinners(cars);
+    this.#announceGameEnd(winners);
   }
 }
