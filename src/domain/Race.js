@@ -1,5 +1,7 @@
 class Race {
-    constructor(cars, rounds = 5) {
+    static DEFAULT_ROUNDS = 5;
+
+    constructor(cars, rounds = Race.DEFAULT_ROUNDS) {
         this.cars = cars;
         this.rounds = rounds;
         this.raceResult = [];

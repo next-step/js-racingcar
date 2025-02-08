@@ -15,8 +15,9 @@ describe("레이스는", () => {
             expect(race.cars).toEqual(cars);
         });
 
-        it("라운드 수를 전달받지 않으면 기본값(5)이 설정되어야 한다", () => {
-            expect(race.rounds).toBe(5);
+        it("라운드 수를 전달받지 않으면 기본값이 설정되어야 한다", () => {
+            const expectedRounds = 5;
+            expect(race.rounds).toBe(expectedRounds);
         });
     });
 
