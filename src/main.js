@@ -1,11 +1,5 @@
-class Car {
-  location = 0;
+import Car from "./Car.js";
 
-  constructor(name) {
-    this.name = name;
-  }
+const car = new Car("GV80");
 
-  move() {
-    this.location += 1;
-  }
-}
+console.log(car);
