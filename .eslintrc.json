@@ -4,7 +4,18 @@
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error"
+    "jest/valid-expect": "error",
+    "new-cap": ["error", { "newIsCap": true, "capIsNew": false }],
+    "camelcase": ["error", { "properties": "always", "ignoreDestructuring": false }],
+    "id-match": [
+      "error",
+      "^(?:[a-z][a-zA-Z0-9]*|[A-Z][a-zA-Z0-9]*|[A-Z][A-Z0-9_]+)$",
+      {
+        "properties": true,
+        "onlyDeclarations": false,
+        "ignoreDestructuring": false
+      }
+    ]
   },
   "env": {
     "es6": true,
@@ -16,9 +27,5 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended",
-    "airbnb-base"
-  ]
+  "extends": ["eslint:recommended", "plugin:prettier/recommended", "airbnb-base"]
 }

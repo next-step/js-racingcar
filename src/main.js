@@ -4,8 +4,11 @@ class Car {
   location = 0;
 
   constructor(name) {
-    // console.log(adsf, "adsf");
     this.name = name;
+  }
+
+  Alnasndsafkln() {
+    return this.name;
   }
 
   moveForward() {
