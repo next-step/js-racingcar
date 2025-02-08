@@ -5,15 +5,19 @@ class Car {
         INVALID_NAME: `자동차 이름은 ${Car.MIN_NAME_LENGTH}자 이상 ${Car.MAX_NAME_LENGTH}자 이하만 가능합니다.`
     };
 
-    constructor(name) {
+    constructor(name, acceleration) {
         if (!Car.isValidName(name)) {
             throw new Error(Car.ERROR_MESSAGES.INVALID_NAME);
         }
         this.name = name;
         this.position = 0;
+        this.acceleration = acceleration;
     }
 
     moveForward() {
+        if (!this.acceleration.canAccelerate()) {
+            return;
+        }
         this.position += 1;
     }
 

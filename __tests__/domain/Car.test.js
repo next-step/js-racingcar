@@ -2,8 +2,13 @@ import Car from "../../src/domain/Car.js";
 
 describe("자동차는", () => {
     let car;
+    let alwaysMoveAcceleration;
+
     beforeEach(() => {
-        car = new Car("포르쉐");
+        alwaysMoveAcceleration = {
+            canAccelerate: () => true
+        };
+        car = new Car("포르쉐", alwaysMoveAcceleration);
     });
     describe("=== 자동차의 이름에 대한 테스트 ===", () => {
         it("생성될 때 전달받은 이름을 가지고 있어야 한다", () => {
@@ -26,7 +31,7 @@ describe("자동차는", () => {
             expect(car.position).toBe(0);
         });
         describe("> 전진할 때", () => {
-            it("위치가 1만큼 증가해야 한다", () => {
+            it("엑셀이 'true'를 반환하면 위치가 증가해야 한다", () => {
                 const initialPosition = car.position;
                 car.moveForward();
                 expect(car.position).toBe(initialPosition + 1);

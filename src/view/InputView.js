@@ -1,10 +1,11 @@
 import readline from "readline";
 import Car from "../domain/Car.js";
+import {RandomAcceleration} from "../domain/Acceleration.js";
 
 class InputView {
     async askCarNames() {
         return this.readLineAsync("경주할 자동차 이름을 입력하세요.\n").then((input) => {
-            return input.split(",").map((name) => new Car(name.trim()));
+            return input.split(",").map((name) => new Car(name.trim(), new RandomAcceleration()));
         });
     }
 
