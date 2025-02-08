@@ -1,6 +1,8 @@
 class Car {
-  name = "";
+  name = 'sadfs';
+
   location = 0;
+
   constructor(name) {
     this.name = name;
   }
