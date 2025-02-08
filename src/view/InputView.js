@@ -1,6 +1,4 @@
 import readline from "readline";
-import Car from "../domain/Car.js";
-import {RandomAcceleration} from "../domain/Acceleration.js";
 
 class InputView {
     async askCarNames() {

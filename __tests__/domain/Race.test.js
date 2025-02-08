@@ -1,12 +1,21 @@
-import Car from "../../src/domain/Car.js";
+import {Car} from "../../src/domain/Car.js";
 import Race from "../../src/domain/Race.js";
 
 describe("레이스는", () => {
     let race;
     let cars;
+    let alwaysMoveAcceleration;
 
     beforeEach(() => {
-        cars = [new Car("포르쉐"), new Car("벤츠"), new Car("BMW")];
+        alwaysMoveAcceleration = {
+            canAccelerate: () => true
+        };
+
+        cars = [
+            new Car("포르쉐", alwaysMoveAcceleration),
+            new Car("벤츠", alwaysMoveAcceleration),
+            new Car("BMW", alwaysMoveAcceleration),
+        ];
         race = new Race(cars);
     });
 
@@ -22,7 +31,6 @@ describe("레이스는", () => {
     });
 
     describe("=== 레이스 진행 테스트 ===", () => {
-
         it("레이스 결과가 라운드 수만큼 기록되어야 한다", () => {
             const raceResult = race.start();
             expect(raceResult.length).toBe(race.rounds);
@@ -34,3 +42,5 @@ describe("레이스는", () => {
         });
     });
 });
+
+

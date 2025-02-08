@@ -1,7 +1,7 @@
 class OutputView {
 
     getCarStatus(car) {
-        return `${car.name} : ${"-".repeat(car.position)}`;
+        return `${car.name.value} : ${"-".repeat(car.position.value)}`;
     }
 
     printRaceResult(raceResult) {
