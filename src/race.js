@@ -1,4 +1,4 @@
-import Car from './car';
+import Car from './car.js';
 
 class Race {
   static RACE_ROUNDS = 5;
@@ -7,6 +7,13 @@ class Race {
 
   constructor(playerNames) {
     const playerNameArray = playerNames.split(',');
-    players = playerNameArray.map((name) => new Car(name));
+    this.players = playerNameArray.map((name) => new Car(name));
+  }
+
+  proceed() {
+    this.players.forEach((player) => player.forward());
+    return this.players.map((player) => player.status);
   }
 }
+
+export default Race;

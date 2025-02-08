@@ -16,6 +16,10 @@ class Car {
     this.location += Car.FORWARD_STEP;
     return this.location;
   }
+
+  get status() {
+    return { name: this.name, location: this.location };
+  }
 }
 
 export default Car;
