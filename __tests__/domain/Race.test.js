@@ -1,5 +1,5 @@
 import {Car} from "../../src/domain/Car.js";
-import Race from "../../src/domain/Race.js";
+import {Race} from "../../src/domain/Race.js";
 
 describe("레이스는", () => {
     let race;
@@ -30,17 +30,27 @@ describe("레이스는", () => {
         });
     });
 
-    describe("=== 레이스 진행 테스트 ===", () => {
+    describe("=== 레이스 기록 테스트 ===", () => {
         it("레이스 결과가 라운드 수만큼 기록되어야 한다", () => {
             const raceResult = race.start();
-            expect(raceResult.length).toBe(race.rounds);
+            expect(raceResult.raceHistory.length).toBe(race.rounds);
         });
 
         it("각 라운드마다 자동차의 상태가 기록되어야 한다", () => {
             const raceResult = race.start();
-            expect(raceResult.every(roundData => Array.isArray(roundData.cars))).toBe(true);
+            expect(
+                raceResult.raceHistory.every(roundData => Array.isArray(roundData.cars))
+            ).toBe(true);
         });
     });
+
+    describe("=== 레이스 결과 테스트 ===", () => {
+        it("우승자 목록을 반환해야한다.", () => {
+            const raceResult = race.start();
+
+            expect(raceResult.getWinners().length).toBeGreaterThan(0);
+        });
+    })
 });
 
 
