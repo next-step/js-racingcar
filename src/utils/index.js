@@ -7,15 +7,16 @@ const MAX_VALUE_LENGTH = 5;
  * @returns 해당 입력값이 유효한지 여부
  */
 export function isInputValid(input) {
-  const hasSplitedValues = !!input && input.split(',').length > 0;
-  const hasNonEmptyValues = input
-    .split(',')
-    .every(
-      (splitedInput) =>
-        !!splitedInput &&
-        splitedInput.trim().length > 0 &&
-        splitedInput.trim().length <= MAX_VALUE_LENGTH,
-    );
+  if (!input) return false;
 
-  return hasSplitedValues && hasNonEmptyValues;
+  const splitedValues = input.split(',');
+
+  const hasSplitedValues = splitedValues.length > 0;
+  const hasEmptyValues = splitedValues.some(
+    (splitedInput) =>
+      splitedInput.trim().length === 0 ||
+      splitedInput.trim().length > MAX_VALUE_LENGTH,
+  );
+
+  return hasSplitedValues && !hasEmptyValues;
 }
