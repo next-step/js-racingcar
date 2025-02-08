@@ -61,6 +61,30 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
     });
   });
 
+  describe('게임이 종료되었을 때', () => {
+    test('자동차들의 위치가 [1, 2, 1]이면, 2번째 자동차인 "카니발"이 우승자로 출력되어야 한다.', () => {
+      const cars = [
+        new Car({ name: '아반떼', location: 1 }),
+        new Car({ name: '카니발', location: 2 }),
+        new Car({ name: '제네시스', location: 1 }),
+      ];
+      const winners = game.getWinners(cars);
+
+      expect(winners).toBe('카니발');
+    });
+
+    test('자동차들의 위치가 [1, 2, 2]이면, 2, 3번째 자동차인 "카니발", "제네시스"이 우승자로 출력되어야 한다.', () => {
+      const cars = [
+        new Car({ name: '아반떼', location: 1 }),
+        new Car({ name: '카니발', location: 2 }),
+        new Car({ name: '제네시스', location: 2 }),
+      ];
+      const winners = game.getWinners(cars);
+
+      expect(winners).toBe('카니발, 제네시스');
+    });
+  });
+
   // View
   test('자동차 위치가 0이면, 자동차 움직임 궤도는 공백으로 출력되어야 한다.', () => {
     const track = game.drawMovedTrack(DEFAULT_CAR_LOCATION);
