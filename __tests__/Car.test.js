@@ -1,7 +1,7 @@
 import Car from '../src/car';
 
-describe('자동차 경주 테스트', () => {
-  const CAR_NAME = 'Bentley';
+describe('자동차 테스트', () => {
+  const CAR_NAME = '벤틀리';
   const INITIAL_LOCATION = 0;
 
   it('자동차에 이름을 부여할 수 있다', () => {
