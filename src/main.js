@@ -9,7 +9,7 @@ async function getCarName() {
 
   nameArray.forEach((name) => {
     if (name.length >= NAME_MAX_LENGTH) {
-      throw new Error('자동차 이름은 5자까지 입력 가능합니다.');
+      process.exit();
     }
   });
 
@@ -47,8 +47,8 @@ async function play() {
     formattedResult.forEach((message) => console.log(message));
 
     console.log('경주를 완료했습니다');
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.error(error);
   }
 }
 
