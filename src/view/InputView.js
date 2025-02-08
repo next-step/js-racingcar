@@ -1,10 +1,15 @@
 import readline from "readline";
-import Car from "../domain/Car.js";
 
 class InputView {
     async askCarNames() {
         return this.readLineAsync("경주할 자동차 이름을 입력하세요.\n").then((input) => {
-            return input.split(",").map((name) => new Car(name.trim()));
+            return input.split(",").map((name) => name.trim());
+        });
+    }
+
+    async askRounds() {
+        return this.readLineAsync("시도할 회수는 몇회인가요?\n").then((input) => {
+            return Number(input);
         });
     }
 
