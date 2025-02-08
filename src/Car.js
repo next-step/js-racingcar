@@ -1,14 +1,12 @@
+import { TRACK_MARK } from "./constants.js";
+
 class Car {
   #name;
   #position;
 
-  constructor() {
-    this.#name = "";
-    this.#position = 0;
-  }
-
-  changeName(name) {
+  constructor(name) {
     this.#name = name;
+    this.#position = 0;
   }
 
   move() {
@@ -21,6 +19,10 @@ class Car {
 
   getCurrentPosition() {
     return this.#position;
+  }
+
+  printTrack() {
+    console.log(`${this.#name} : ${TRACK_MARK.repeat(this.#position)}`);
   }
 }
 
