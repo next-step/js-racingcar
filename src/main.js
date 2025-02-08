@@ -4,6 +4,7 @@ class Car {
   location = 0;
 
   constructor(name) {
+    // console.log(adsf, "adsf");
     this.name = name;
   }
 
