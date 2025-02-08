@@ -38,4 +38,21 @@ describe("자동차는", () => {
             });
         });
     });
+
+    describe("=== 자동차 목록 만들기에 대한 테스트 ===", () => {
+        it("자동차 이름 배열을 받아서 Car 객체 배열을 반환해야 한다", () => {
+            const names = ["포르쉐", "벤츠", "아우디"];
+            const cars = Car.createCars(names, alwaysMoveAcceleration);
+
+            expect(cars.every(car => car instanceof Car)).toBe(true);
+        });
+
+        it("자동차 목록이 없는 경우 에러를 던져야 한다", () => {
+            expect(() => Car.createCars()).toThrow(Car.ERROR_MESSAGES.INVALID_NAMES);
+        });
+
+        it("자동차 이름이 배열이 아닌 경우 에러를 던져야 한다", () => {
+            expect(() => Car.createCars("포르쉐,벤츠,아우디")).toThrow(Car.ERROR_MESSAGES.INVALID_NAMES);
+        });
+    });
 });
