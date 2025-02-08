@@ -23,3 +23,17 @@ export function readLineAsync(query) {
     });
   });
 }
+
+export function getRaceCount(query) {
+  return new Promise((resolve, reject) => {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
+    rl.question(query, (input) => {
+      rl.close();
+      resolve(input);
+    });
+  });
+}

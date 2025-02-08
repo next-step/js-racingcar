@@ -24,11 +24,11 @@ export async function makeCar() {
   return cars;
 }
 
-export function drawSkidMark(state) {
+export function drawSkidMark(car) {
   let mark = "";
-  for (let i = 0; i < state; i++) {
+  for (let i = 0; i < car.state; i++) {
     mark += "-";
   }
 
-  return mark;
+  console.log(`${car.name} : ${mark}`);
 }
