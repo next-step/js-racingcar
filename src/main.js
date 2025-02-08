@@ -1,5 +1,3 @@
-import Car from "./Car.js";
+import { play } from "./console.js";
 
-const instance = new Car();
-
-console.log(instance);
+play();
