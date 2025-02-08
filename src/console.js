@@ -2,8 +2,6 @@ import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import Car from "./Car.js";
 
-export const GAME_COUNT = 1;
-
 export const makeToArray = (string) =>
   string.split(",").map((val) => val.trim());
 
@@ -21,22 +19,59 @@ export const checkCarNames = (cars) => {
   }
 };
 
-export const makeCarObject = (cars) => cars.map((name) => new Car(name));
+export const makeCarObject = (cars, position) =>
+  cars.map((name) => new Car(name, position));
 
-export const goForward = (cars, position) => {
-  cars.forEach((car) => {
-    if (position === "x") {
-      car.goToX();
-    }
+export const goForward = (cars, predicate) => cars.map((car) => predicate(car));
+
+export const printWithCarName = (carName, result) => `${carName}: ${result}`;
+
+export const print = (cars, results) => {
+  const newResult = cars.map((car, index) =>
+    results.map((row) => row[index]).join(""),
+  );
+
+  cars.forEach((car, index) => {
+    console.log(printWithCarName(car.getName(), newResult[index]));
   });
+
+  return newResult;
 };
 
-export const race = (carObjs) => {
-  Array.from({ length: GAME_COUNT }).forEach((_, index) => {
-    console.log(`반복 ${index + 1}`);
+export const race = (carObjs, gameCount) => {
+  const goDirection = (car) => {
+    const randomNumber = Math.floor(Math.random() * 3);
 
-    goForward(carObjs, "x");
-  });
+    if (car instanceof Car && randomNumber === 0) {
+      car.goToX();
+      return "X";
+    }
+    if (car instanceof Car && randomNumber === 1) {
+      car.goToY();
+      return "Y";
+    }
+    if (car instanceof Car && randomNumber === 2) {
+      car.goToZ();
+      return "Z";
+    }
+
+    throw new Error("이동할 수 없습니다.");
+  };
+
+  const carResults = Array.from({ length: gameCount }).reduce((gameResult) => {
+    const results = goForward(carObjs, goDirection);
+
+    gameResult.push(results);
+    console.log("");
+    print(carObjs, gameResult);
+    console.log("");
+    return gameResult;
+  }, []);
+  return carResults;
+};
+
+export const printExitMessage = (string) => {
+  console.log(string);
 };
 
 export const play = async () => {
@@ -45,16 +80,17 @@ export const play = async () => {
     output,
   });
 
-  const carName = getCars(read);
+  const carName = await getCars(read);
 
   const cars = makeToArray(carName);
 
   checkCarNames(cars);
 
-  // const instance = new Car();
-  const carObjs = makeCarObject(cars);
+  const carObjs = makeCarObject(cars, { x: 0, y: 0, z: 0 });
 
-  race(carObjs);
+  race(carObjs, 5);
+
+  printExitMessage("경주를 완료했습니다.");
 
   read.close();
 };

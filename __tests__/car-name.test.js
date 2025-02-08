@@ -1,42 +1,62 @@
 import Car from "../src/Car.js";
-import carNameRule from "../src/rule.js";
 
-describe("자동차는 이름을 상태로로 가진다", () => {
+describe("자동차는 이름을 상태로 가진다", () => {
   beforeAll(() => {
     console.log("자동차 이름 테스트 시작");
   });
-  it("이름은 숫자와 string만 가능하다.", () => {
-    const nameRegExp = carNameRule;
+  it("이름은 숫자와 영문만 가능하다.", () => {
+    // given
+    const name = "hojeong12";
+    const errorName = "-----!!";
+    const location = {
+      x: 0,
+      y: 0,
+      z: 0,
+    };
 
-    const car = new Car("hojeong12");
+    const expectedCarNameOne = "hojeong12";
+    const expectedCarNameTwo = "생성할 수 없는 이름입니다.";
 
-    expect(car.getName()).toEqual("hojeong12");
+    // when
+    const actualCarNameOne = new Car(name, location).getName();
 
-    expect(nameRegExp.test(car.getName())).toEqual(true);
+    // then
+    expect(expectedCarNameOne).toEqual(actualCarNameOne);
+    expect(() => {
+      // FIXME -> goTo When
+      new Car(errorName, location).getName();
+    }).toThrow(expectedCarNameTwo);
   });
 
   it("이름은 최소 1글자, 최대 9글자이어야 한다.", () => {
-    const nameRegExp = carNameRule;
+    // given
+    const nameOne = "1";
+    const nameTwo = "123456789";
+    const nameThree = "123456789A";
+    const location = {
+      x: 0,
+      y: 0,
+      z: 0,
+    };
+    const expectedCarName = "생성할 수 없는 이름입니다.";
+    const expectedCarOneLength = 1;
+    const expectedCarTwoLength = 9;
 
-    // 길이가 0일 때
-    const car = new Car("");
-    const minLength = nameRegExp.test(car.getName());
-    expect(minLength).toEqual(false);
+    // when
+    const carOne = new Car(nameOne, location);
+    const carTwo = new Car(nameTwo, location);
+    const actualCarOneLength = carOne.getName().length;
+    const actualCarTwoLength = carTwo.getName().length;
 
-    // 길이가 1일 때
-    const oneCar = new Car("1");
-    const minLengthOneCar = nameRegExp.test(oneCar.getName());
-    expect(minLengthOneCar).toEqual(true);
+    // then
+    expect(expectedCarOneLength).toEqual(actualCarOneLength);
+    expect(expectedCarTwoLength).toEqual(actualCarTwoLength);
 
-    // 길이가 9일 때
-    const nineCar = new Car("123456789");
-    const minLengthNineCar = nameRegExp.test(nineCar.getName());
-    expect(minLengthNineCar).toEqual(true);
-
-    // 길이가 10일 때
-    const tenCar = new Car("123456789A");
-    const minLengthTenCar = nameRegExp.test(tenCar.getName());
-    expect(minLengthTenCar).toEqual(false);
+    // 10글자일 때
+    expect(() => {
+      // FIXME -> goTo When
+      new Car(nameThree, location).getName();
+    }).toThrow(expectedCarName);
   });
 
   afterAll(() => {
