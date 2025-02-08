@@ -1,24 +1,55 @@
 import { readLineAsync } from './readline-utils.js';
 import Race from './race.js';
 
-async function play() {
-  const name = await readLineAsync('경주할 자동차 이름을 입력하세요.\n');
+async function getCarName() {
+  const NAME_MAX_LENGTH = 5;
+
+  const name = await readLineAsync('경주할 자동차 이름을 입력하세요\n');
+  const nameArray = name.split(',');
+
+  nameArray.forEach((name) => {
+    if (name.length >= NAME_MAX_LENGTH) {
+      throw new Error('자동차 이름은 5자까지 입력 가능합니다.');
+    }
+  });
+
+  return name;
+}
+
+function startRace(name) {
   const race = new Race(name);
+  const result = race.start();
+  return result;
+}
 
-  console.log('\n실행 결과');
+function formatRaceResults(results) {
+  let result = [];
 
-  for (let i = 0; i < Race.RACE_ROUNDS; i++) {
-    const results = race.proceed();
-
-    results.forEach((car, index) => {
-      const isLastCar = index === results.length - 1;
-      const result = `${car.name} : ${'-'.repeat(car.location)}`;
-
-      console.log(`${result}${isLastCar ? '\n' : ''}`);
+  results.forEach((round) => {
+    round.forEach(({ name, location }) => {
+      result.push(`${name} : ${'-'.repeat(location)}`);
     });
-  }
 
-  console.log('경주를 완료했습니다.');
+    result.push('');
+  });
+
+  return result;
+}
+
+async function play() {
+  try {
+    const name = await getCarName();
+
+    console.log('\n실행 결과');
+
+    const results = startRace(name);
+    const formattedResult = formatRaceResults(results);
+    formattedResult.forEach((message) => console.log(message));
+
+    console.log('경주를 완료했습니다');
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 play();

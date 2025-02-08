@@ -14,6 +14,17 @@ class Race {
     this.players.forEach((player) => player.forward());
     return this.players.map((player) => player.status);
   }
+
+  start() {
+    let result = [];
+
+    for (let i = 0; i < Race.RACE_ROUNDS; i++) {
+      const roundResult = this.proceed();
+      result.push(roundResult);
+    }
+
+    return result;
+  }
 }
 
 export default Race;
