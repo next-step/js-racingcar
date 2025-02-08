@@ -1,32 +1,20 @@
-export default class Car {
-  #name = '';
-  #location = 0;
+import Game from './services/Game.js';
+import { isInputValid } from './utils/index.js';
+import { readLineAsync } from './libs/readline.js';
 
-  constructor({ name }) {
-    this.#name = name;
+async function main() {
+  console.log('경주할 자동차 이름을 입력하세요.');
+  const input = await readLineAsync('');
+
+  if (!isInputValid(input)) {
+    console.log('잘못 입력하셨습니다. 프로그램을 종료합니다.');
+    return;
   }
 
-  /**
-   * 자동차 이름을 반환하는 함수
-   * @returns 자동차 이름
-   */
-  getName() {
-    return this.#name;
-  }
+  const names = input.split(',').map((value) => value.trim());
+  const game = new Game({ names });
 
-  /**
-   * 현재 자동차 위치를 반환하는 함수
-   * @returns 현재 자동차 위치
-   */
-  getLocation() {
-    return this.#location;
-  }
-
-  /**
-   * 자동차를 한 칸 전진하는 함수
-   * @returns 한 칸 전진된 자동차 위치
-   */
-  moveForward() {
-    return ++this.#location;
-  }
+  game.start();
 }
+
+main();

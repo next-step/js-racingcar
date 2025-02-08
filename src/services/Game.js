@@ -30,7 +30,7 @@ export default class Game {
    * 게임이 끝났다는 걸 안내
    */
   #announceGameEnd() {
-    console.log('경주 완료했습니다.');
+    console.log('경주를 완료했습니다.');
   }
 
   /**
