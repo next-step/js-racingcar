@@ -29,7 +29,6 @@ class Car {
 
   moveForward() {
     this.#location += 1;
-    console.log(this.getName());
   }
 
   moveBackward() {
