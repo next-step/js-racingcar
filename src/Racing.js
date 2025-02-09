@@ -7,7 +7,7 @@ class Racing {
 
   constructor(carNamesStr) {
     const carNames = carNamesStr.split(",").map((name) => name.trim());
-    Validator.validateCarName(carNames);
+    Validator.validateDuplicateCarName(carNames);
     this.#cars = carNames.map((name) => new Car(name));
   }
 
@@ -19,6 +19,10 @@ class Racing {
       }
       console.log();
     }
+  }
+
+  getCars() {
+    return [...this.#cars];
   }
 }
 
