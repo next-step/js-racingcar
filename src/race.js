@@ -10,17 +10,29 @@ export function findFarthestCar(cars) {
   return winners.join(",");
 }
 
-export function checkHeCanGo(car) {
+export function tryDriveCar(car) {
+  const CRITERIA = 4;
+
   const randomNum = Math.random() * 10;
-  if (randomNum >= 4) {
+  if (randomNum >= CRITERIA) {
     car.go();
   }
 }
 
-export function race(count, cars) {
+export const drive = (cars) => {
   cars.forEach((car) => {
-    checkHeCanGo(car);
+    tryDriveCar(car);
     drawSkidMark(car);
   });
   console.log("");
+};
+
+export function race(raceCount, cars) {
+  console.log("경주 시작!");
+  console.log("");
+
+  for (let i = raceCount; i > 0; i--) {
+    drive(cars);
+  }
+  console.log("우승자는! " + findFarthestCar(cars) + "입니다!");
 }

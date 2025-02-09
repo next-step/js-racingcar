@@ -46,7 +46,7 @@ describe("사용자가 입력한 값을 이름으로 가지는 차를 생성한�
     jest.restoreAllMocks();
   });
 
-  test("사용자가 입력한 값이 차의 이름이 됩니다.", async () => {
+  test("사용자가 입력한 값이 차의 이름이 된다.", async () => {
     mockInterface.question.mockImplementation((query, callback) => {
       callback("현대,기아,쌍용");
     });
