@@ -5,7 +5,7 @@ jest.mock("readline");
 
 import readline from "readline";
 
-describe("전달 받은 차들이 레이싱을 해서 우승자를 찾는다.", () => {
+describe("사용자가 입력한 차들이 레이싱을 할때", () => {
   let firstCar;
   let secondCar;
   let thirdCar;
@@ -58,7 +58,7 @@ describe("전달 받은 차들이 레이싱을 해서 우승자를 찾는다.", 
   });
 });
 
-describe("자동차 경주가 잘 표시되는지 확인한한다.", () => {
+describe("자동차 경주가 진행 될 때", () => {
   let mockInterface;
 
   beforeEach(() => {
@@ -73,7 +73,7 @@ describe("자동차 경주가 잘 표시되는지 확인한한다.", () => {
     jest.restoreAllMocks();
   });
 
-  test("레이싱이 진행되는 상황이 콘솔에 표시된다.", async () => {
+  test("레이싱 진행 상황이 콘솔에 표시된다.", async () => {
     Math.random = jest.fn().mockReturnValue(0.5);
 
     const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});

@@ -31,7 +31,7 @@ describe("차 인스턴스를 만든다.", () => {
   });
 });
 
-describe("사용자가 입력한 값을 이름으로 가지는 차를 생성한다.", () => {
+describe("사용자가 콘솔창에 값을 입력할 때", () => {
   let mockInterface;
 
   beforeEach(() => {

@@ -6,7 +6,7 @@ jest.mock("readline");
 
 import readline from "readline";
 
-describe("잘못된 값을 입력했을때 프로그램이 종료되는지 확인한다.", () => {
+describe("사용자가 잘못된 값을 입력했을때", () => {
   let mockInterface;
 
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe("잘못된 값을 입력했을때 프로그램이 종료되는지 확�
     jest.restoreAllMocks();
   });
 
-  test("사용자가 입력한 차의 이름이 5글자를 넘을때 에러가 발생한한다.", async () => {
+  test("차의 이름이 등록할때 차가 5글자를 넘으면 에러가 발생한다.", async () => {
     mockInterface.question.mockImplementation((query, callback) => {
       callback("현대기아자동차");
     });
@@ -37,7 +37,7 @@ describe("잘못된 값을 입력했을때 프로그램이 종료되는지 확�
     await expect(makeCar()).resolves.toBeDefined();
   });
 
-  test("사용자가 숫자 이외의 값을 입력했을때 에러가 발생한한다.", async () => {
+  test("시도할 횟수에 숫자 이외의 값을 입력했을때 에러가 발생한한다.", async () => {
     mockInterface.question.mockImplementation((query, callback) => {
       callback("가나다");
     });
