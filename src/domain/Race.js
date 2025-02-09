@@ -1,17 +1,15 @@
-import Car from './Car.js';
-
 class Race {
   static RACE_ROUNDS = 5;
 
-  players;
+  #cars;
 
-  constructor(playerNames) {
-    this.players = playerNames.map((name) => new Car(name));
+  constructor(cars) {
+    this.#cars = cars;
   }
 
   proceed() {
-    this.players.forEach((player) => player.forward());
-    return this.players.map((player) => player.status);
+    this.#cars.forEach((car) => car.forward());
+    return this.#cars.map((car) => car.status);
   }
 
   start() {
@@ -25,8 +23,8 @@ class Race {
     return result;
   }
 
-  get players() {
-    return this.players;
+  get cars() {
+    return this.#cars;
   }
 }
 

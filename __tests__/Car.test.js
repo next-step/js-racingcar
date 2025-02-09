@@ -9,6 +9,16 @@ describe('자동차 테스트', () => {
     expect(car.name).toEqual(CAR_NAME);
   });
 
+  it('자동차 이름은 5자 이하로 설정해야 한다.', () => {
+    expect(Car.validateName('벤틀리')).toBe(true);
+    expect(Car.validateName('Bentley')).toBe(false);
+  });
+
+  it('자동차 이름 앞 뒤에 공백이 포함된 경우 제거된다', () => {
+    const car = new Car(' 벤틀리 ');
+    expect(car.name).toBe('벤틀리');
+  });
+
   it('자동차 위치의 초기 값은 0이다.', () => {
     const car = new Car(CAR_NAME);
     expect(car.location).toEqual(INITIAL_LOCATION);
