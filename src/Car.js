@@ -1,10 +1,12 @@
 import { TRACK_MARK, CAR_MOVE_PER_RACING } from "./constants.js";
+import Validator from "./Validator.js";
 
 class Car {
   #name;
   #position;
 
   constructor(name) {
+    Validator.validateValidCarName(name);
     this.#name = name;
     this.#position = 0;
   }
