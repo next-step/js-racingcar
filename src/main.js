@@ -1,14 +1,19 @@
+import ValidationError from './shared/validationError';
+
 class Car {
-  name = 'sadfs';
+  name = '';
 
   location = 0;
 
   constructor(name) {
+    Car.validationName(name);
     this.name = name;
   }
 
-  Alnasndsafkln() {
-    return this.name;
+  static validationName(name) {
+    if (typeof name !== 'string') {
+      throw new ValidationError('자동차의 이름은 문자열만 입력 가능합니다.');
+    }
   }
 
   moveForward() {
