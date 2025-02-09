@@ -1,6 +1,6 @@
 class OutputView {
-    getCarStatus(car) {
-        return `${car.name} : ${"-".repeat(car.position)}`;
+    getCarStatus({name, position}) {
+        return `${name} : ${"-".repeat(position)}`;
     }
 
     printRaceResult(raceResult) {
@@ -13,14 +13,12 @@ class OutputView {
         this.printWinners(raceResult.findWinners());
     }
 
-    printRoundStatus(roundData) {
-        roundData.cars.forEach(car => {
-            console.log(this.getCarStatus(car));
-        });
+    printRoundStatus({cars}) {
+        cars.forEach(car => console.log(this.getCarStatus(car)));
     }
 
     printWinners(winners) {
-        const winnerNames = winners.map(carName => carName).join(", ");
+        const winnerNames = winners.join(", ");
         console.log(`${winnerNames}가 최종 우승했습니다.`);
     }
 }

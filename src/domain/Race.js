@@ -46,9 +46,7 @@ class RaceResult {
         if (this.raceHistory.length === 0) {
             return [];
         }
-
-        const finalRound = this.raceHistory[this.raceHistory.length - 1];
-        const finalCars = finalRound.cars;
+        const {cars: finalCars} = this.raceHistory[this.raceHistory.length - 1];
         const maxPositionValue = Math.max(...finalCars.map(car => car.position));
 
         return finalCars
