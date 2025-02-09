@@ -1,9 +1,9 @@
-import ValidationError from './shared/validationError';
+import ValidationError from './shared/validationError.js';
 
 class Car {
   name = '';
 
-  location = 0;
+  #location = 0;
 
   constructor(name) {
     Car.validationName(name);
@@ -20,15 +20,15 @@ class Car {
   }
 
   moveForward() {
-    this.location += 1;
+    this.#location += 1;
   }
 
   moveBackward() {
-    this.location -= 1;
+    this.#location -= 1;
   }
 
   getLocation() {
-    return this.location;
+    return this.#location;
   }
 
   getName() {
