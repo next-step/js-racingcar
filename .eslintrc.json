@@ -15,7 +15,8 @@
         "onlyDeclarations": false,
         "ignoreDestructuring": false
       }
-    ]
+    ],
+    "import/extensions": ["error", "ignorePackages"]
   },
   "env": {
     "es6": true,
