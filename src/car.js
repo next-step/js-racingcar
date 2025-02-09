@@ -5,15 +5,12 @@ class Car {
 
   static nameTypeErrorMessage = '자동차의 이름은 문자열만 입력 가능합니다.';
 
-<<<<<<< HEAD
   static moveBackwardErrorMessage = 'location 0 에서는 후진 할 수 없습니다.';
 
   static maxNameSize = 5;
 
   static minNameSize = 1;
 
-=======
->>>>>>> 8291e07 (feat: error message 를 class의 static으로 갖고 있도록 변경)
   name = '';
 
   #location = 0;
