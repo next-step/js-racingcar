@@ -1,15 +1,15 @@
 class Acceleration {
-    canAccelerate() {
-        throw new Error("canAccelerate() 메서드를 구현해야 합니다.");
-    }
+  canAccelerate() {
+    throw new Error("canAccelerate() 메서드를 구현해야 합니다.");
+  }
 }
 
 class RandomAcceleration extends Acceleration {
-    static MOVE_THRESHOLD = 4;
+  static MOVE_THRESHOLD = 4;
 
-    canAccelerate() {
-        return Math.floor(Math.random() * 10) >= RandomAcceleration.MOVE_THRESHOLD;
-    }
+  canAccelerate() {
+    return Math.floor(Math.random() * 10) >= RandomAcceleration.MOVE_THRESHOLD;
+  }
 }
 
-export {Acceleration, RandomAcceleration};
+export { Acceleration, RandomAcceleration };
