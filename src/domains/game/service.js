@@ -1,9 +1,7 @@
-import { getRandomNumber } from '../utils/index.js';
-import Car from './Car.js';
+import { getRandomNumber } from '../../utils/index.js';
+import Car from '../car/service.js';
 
 const DEFAULT_LAP = 5;
-const MIN_RANDOM_NUMBER = 0;
-const MAX_RANDOM_NUMBER = 9;
 const MIN_MOVEMENT_THRESHOLD = 4;
 
 export default class Game {
@@ -83,7 +81,7 @@ export default class Game {
    * @param {Car[]} cars 마지막 바퀴까지 달린 자동차들
    * @returns 우승한 자동차 이름들
    */
-  getWinners(cars) {
+  getWinnersName(cars) {
     const carLocations = cars.map((car) => car.getLocation());
     const topTrack = Math.max(...carLocations);
 
@@ -94,21 +92,42 @@ export default class Game {
   }
 
   /**
-   * 자동차 경주 바퀴(Lap)마다 자동차의 움직임을 결정하고
-   * 상태를 확인할 수 있는 함수
+   * 움직임이 필요할 때, 실행되는 Callback 함수
    *
-   * @param {Car} car 자동차
-   * @returns 자동차 이름과 움직인 자동차의 위치 정보
+   * @param {Car} car 자동차 정보
+   * @returns 자동차 이름과 자동차의 위치 정보
    */
-  getPlayerCurrentStatus(car) {
-    const name = car.getName();
+  handleCarMove(car) {
+    car.moveForward();
 
-    const dice = getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
-    if (dice >= MIN_MOVEMENT_THRESHOLD) {
-      car.moveForward();
+    return { name: car.getName(), location: car.getLocation() };
+  }
+
+  /**
+   * 움직임이 필요가 없을 때, 실행되는 Callback 함수
+   *
+   * @param {Car} car 자동차 정보
+   * @returns 자동차 이름과 자동차의 위치 정보
+   */
+  handleCarStay(car) {
+    return { name: car.getName(), location: car.getLocation() };
+  }
+
+  /**
+   * 자동차의 움직임 여부을 결정하는 함수
+   *
+   * @param {Car} car 자동차 정보
+   * @param {function(Object): void} onMove 움직일 필요가 있어 작동되는 callback
+   * @param {function(Object): void} onStay 움직일 필요가 없어 작동되는 callback
+   * @returns 자동차 이름과 자동차의 위치 정보
+   */
+  determineCarMovement(car, onMove, onStay) {
+    const randomNumber = getRandomNumber();
+    if (randomNumber < MIN_MOVEMENT_THRESHOLD) {
+      return onStay(car);
     }
 
-    return { name, location: car.getLocation() };
+    return onMove(car);
   }
 
   /**
@@ -121,7 +140,11 @@ export default class Game {
 
     for (let lap = 0; lap < this.#lap; lap++) {
       cars.forEach((car) => {
-        const { name, location } = this.getPlayerCurrentStatus(car);
+        const { name, location } = this.determineCarMovement(
+          car,
+          this.handleCarMove,
+          this.handleCarStay,
+        );
 
         this.#announcePlayerMovedTrack(name, location);
       });

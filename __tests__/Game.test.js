@@ -1,5 +1,5 @@
-import Car from '../src/services/Car.js';
-import Game from '../src/services/Game.js';
+import Car from '../src/domains/car/service';
+import Game from '../src/domains/game/service';
 
 describe('게임(자동차 경주) 진행에 대한 테스트', () => {
   const DEFAULT_CAR_NAMES = ['아반떼', '스타렉스'];
@@ -50,7 +50,11 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
 
     test('전진을 결정하는 무작위 숫자가 4일 경우 자동차가 한 칸 이동한다.', () => {
       const car = new Car({ name: '아반떼' });
-      const status = game.getPlayerCurrentStatus(car);
+      const status = game.determineCarMovement(
+        car,
+        game.handleCarMove,
+        game.handleCarStay,
+      );
 
       expect(status).toEqual({
         name: '아반떼',
@@ -64,7 +68,11 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
         .mockReturnValue((MIN_MOVEMENT_THRESHOLD - 1) * 0.1);
 
       const car = new Car({ name: '아반떼' });
-      const status = game.getPlayerCurrentStatus(car);
+      const status = game.determineCarMovement(
+        car,
+        game.handleCarMove,
+        game.handleCarStay,
+      );
 
       expect(status).toEqual({
         name: '아반떼',
@@ -74,7 +82,11 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
 
     test('0에 위치한 자동차(아반떼)는 1로 움직여야 한다.', () => {
       const car = new Car({ name: '아반떼' });
-      const status = game.getPlayerCurrentStatus(car);
+      const status = game.determineCarMovement(
+        car,
+        game.handleCarMove,
+        game.handleCarStay,
+      );
 
       expect(status).toEqual({
         name: '아반떼',
@@ -87,7 +99,11 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
         name: '아반떼',
         location: DEFAULT_CAR_LOCATION + 3,
       });
-      const status = game.getPlayerCurrentStatus(car);
+      const status = game.determineCarMovement(
+        car,
+        game.handleCarMove,
+        game.handleCarStay,
+      );
 
       expect(status).toEqual({
         name: '아반떼',
@@ -103,7 +119,7 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
         new Car({ name: '카니발', location: 2 }),
         new Car({ name: '제네시스', location: 1 }),
       ];
-      const winners = game.getWinners(cars);
+      const winners = game.getWinnersName(cars);
 
       expect(winners).toBe('카니발');
     });
@@ -114,7 +130,7 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
         new Car({ name: '카니발', location: 2 }),
         new Car({ name: '제네시스', location: 2 }),
       ];
-      const winners = game.getWinners(cars);
+      const winners = game.getWinnersName(cars);
 
       expect(winners).toBe('카니발, 제네시스');
     });
