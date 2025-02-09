@@ -14,6 +14,9 @@ class Car {
     if (typeof name !== 'string') {
       throw new ValidationError('자동차의 이름은 문자열만 입력 가능합니다.');
     }
+    if (name.length === 0) {
+      throw new ValidationError('자동차의 이름은 1글자 이상 입력하셔야 합니다.');
+    }
   }
 
   moveForward() {
