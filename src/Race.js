@@ -1,4 +1,4 @@
-import Car from './car.js';
+import Car from './Car.js';
 
 class Race {
   static RACE_ROUNDS = 5;

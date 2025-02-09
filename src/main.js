@@ -1,5 +1,5 @@
 import { getCarName } from './input.js';
-import Race from './race.js';
+import Race from './Race.js';
 
 function formatRaceResults(results) {
   let result = [];

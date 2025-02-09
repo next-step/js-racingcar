@@ -1,4 +1,4 @@
-import Car from '../src/car';
+import Car from '../src/Car.js';
 
 describe('자동차 테스트', () => {
   const CAR_NAME = '벤틀리';

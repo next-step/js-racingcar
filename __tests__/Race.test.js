@@ -1,4 +1,4 @@
-import Race from '../src/race';
+import Race from '../src/Race.js';
 
 import { isValidCarName, formatCarNameInput } from '../src/input';
 
