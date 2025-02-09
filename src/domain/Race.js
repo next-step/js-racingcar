@@ -9,7 +9,9 @@ class Race {
 
   playRound() {
     this.#cars.forEach((car) => car.forward());
-    return this.#cars.map((car) => car.status);
+    return this.#cars.map(({ name, location }) => {
+      return { name, location };
+    });
   }
 
   start() {

@@ -3,8 +3,8 @@ class Car {
   static FORWARD_STEP = 1;
   static NAME_MAX_LENGTH = 5;
 
-  name;
-  location = Car.INITIAL_LOCATION;
+  #name;
+  #location = Car.INITIAL_LOCATION;
 
   constructor(name) {
     const trimmedName = name.trim();
@@ -16,7 +16,7 @@ class Car {
         `자동차의 이름을 ${Car.NAME_MAX_LENGTH}로 입력해 주세요.`
       );
 
-    this.name = trimmedName;
+    this.#name = trimmedName;
   }
 
   static validateName(name) {
@@ -25,12 +25,16 @@ class Car {
   }
 
   forward() {
-    this.location += Car.FORWARD_STEP;
-    return this.location;
+    this.#location += Car.FORWARD_STEP;
+    return this.#location;
   }
 
-  get status() {
-    return { name: this.name, location: this.location };
+  get name() {
+    return this.#name;
+  }
+
+  get location() {
+    return this.#location;
   }
 }
 
