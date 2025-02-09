@@ -1,14 +1,9 @@
 import {CarName} from "../../src/domain/Car.js";
 
 describe("자동차 이름은", () => {
-    let carName;
-
-    beforeEach(() => {
-        carName = new CarName("포르쉐");
-    });
-
     it("생성될 때 전달받은 이름을 가지고 있어야 한다", () => {
-        const expectedName = "포르쉐";
+        const expectedName = "람보르기니";
+        const carName = new CarName(expectedName);
         expect(carName.value).toBe(expectedName);
     });
 
