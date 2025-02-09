@@ -1,6 +1,6 @@
-import { makeCar } from "./car.js";
-import { race, findFarthestCar } from "./race.js";
-import { getRaceCount } from "./getUserInput.js";
+import { makeCar } from "../domain/car.js";
+import { race } from "../domain/race.js";
+import { getRaceCount } from "../domain/getUserInput.js";
 
 export default async function start() {
   const cars = await makeCar();

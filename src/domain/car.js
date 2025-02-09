@@ -1,4 +1,4 @@
-import { readLineAsync } from "../src/getUserInput.js";
+import { readLineAsync } from "./getUserInput.js";
 
 export default class Car {
   constructor(name) {
@@ -22,13 +22,4 @@ export async function makeCar() {
   });
 
   return cars;
-}
-
-export function drawSkidMark(car) {
-  let mark = "";
-  for (let i = 0; i < car.state; i++) {
-    mark += "-";
-  }
-
-  console.log(`${car.name} : ${mark}`);
 }

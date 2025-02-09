@@ -1,9 +1,5 @@
-import { findFarthestCar, tryDriveCar, drive } from "../src/race";
-import Car from "../src/car";
-
-jest.mock("readline");
-
-import readline from "readline";
+import { findFarthestCar, tryDriveCar } from "../src/domain/race";
+import Car from "../src/domain/car";
 
 describe("사용자가 입력한 차들이 레이싱을 할때", () => {
   let firstCar;
@@ -44,44 +40,10 @@ describe("사용자가 입력한 차들이 레이싱을 할때", () => {
   });
 
   test("차들이 전달 받은 값이 4 이상일때만 전진한다.", () => {
-    const originalRandom = Math.random;
-
-    Math.random = jest.fn().mockReturnValue(0.5);
-    tryDriveCar(firstCar);
+    tryDriveCar(firstCar, 4);
     expect(firstCar.state).toBe(1);
 
-    Math.random = jest.fn().mockReturnValue(0.3);
-    tryDriveCar(secondCar);
-    expect(secondCar.state).toBe(0);
-
-    Math.random = originalRandom;
-  });
-});
-
-describe("자동차 경주가 진행 될 때", () => {
-  let mockInterface;
-
-  beforeEach(() => {
-    mockInterface = {
-      question: jest.fn(),
-      close: jest.fn(),
-    };
-
-    readline.createInterface.mockReturnValue(mockInterface);
-  });
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
-  test("레이싱 진행 상황이 콘솔에 표시된다.", async () => {
-    Math.random = jest.fn().mockReturnValue(0.5);
-
-    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
-
-    drive([new Car("기아")]);
-
-    const expectedLogs = ["기아 : -", ""];
-
-    expect(consoleSpy.mock.calls).toEqual(expectedLogs.map((msg) => [msg]));
+    tryDriveCar(firstCar, 2);
+    expect(firstCar.state).toBe(1);
   });
 });

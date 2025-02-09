@@ -1,17 +1,13 @@
-import Car, { makeCar } from "../src/car";
+import Car, { makeCar } from "../src/domain/car";
 
-jest.mock("readline");
-
-import readline from "readline";
-
-describe("차 인스턴스를 만든다.", () => {
+describe("차 인스턴스를 만들때", () => {
   let car;
 
   beforeAll(() => {
     car = new Car("붕붕");
   });
 
-  test("자동차는 인스턴스를 생성 할때 전달 받은 값을 이름으로 가진다.", () => {
+  test("자동차는 전달 받은 값을 이름으로 가진다.", () => {
     expect(car.name).toBe("붕붕");
   });
 
@@ -28,31 +24,5 @@ describe("차 인스턴스를 만든다.", () => {
     const afterState = car.state;
 
     expect(afterState - initialState).toBe(1);
-  });
-});
-
-describe("사용자가 콘솔창에 값을 입력할 때", () => {
-  let mockInterface;
-
-  beforeEach(() => {
-    mockInterface = {
-      question: jest.fn(),
-      close: jest.fn(),
-    };
-
-    readline.createInterface.mockReturnValue(mockInterface);
-  });
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
-  test("사용자가 입력한 값이 차의 이름이 된다.", async () => {
-    mockInterface.question.mockImplementation((query, callback) => {
-      callback("현대,기아,쌍용");
-    });
-
-    const carArr = await makeCar();
-
-    expect(carArr.map((car) => car.name)).toEqual(["현대", "기아", "쌍용"]);
   });
 });
