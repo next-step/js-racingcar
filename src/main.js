@@ -1,5 +1,8 @@
-import Car from "./Car.js";
+import Input from "./Input.js";
 
-const car = new Car("GV80");
+async function main() {
+  const input = new Input();
+  input.askCarNames();
+}
 
-console.log(car);
+main();
