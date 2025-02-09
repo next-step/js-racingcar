@@ -5,6 +5,10 @@ class Car {
 
   static nameTypeErrorMessage = '자동차의 이름은 문자열만 입력 가능합니다.';
 
+  static maxNameSize = 5;
+
+  static minNameSize = 1;
+
   name = '';
 
   #location = 0;
@@ -18,7 +22,7 @@ class Car {
     if (typeof name !== 'string') {
       throw new ValidationError(Car.nameTypeErrorMessage);
     }
-    if (name.length === 0) {
+    if (name.length < Car.minNameSize || name.length > Car.maxNameSize) {
       throw new ValidationError(Car.nameLengthErrorMessage);
     }
   }
