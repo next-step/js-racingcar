@@ -15,16 +15,18 @@ describe("자동차 경주 테스트", () => {
     expect(roundCount).toBe(5);
   });
 
-  test("라운드 1회당 자동차는 1칸씩 전진한다", () => {
+  test("라운드 1회당 모든 자동차 클래스의 moveForward 메서드를 1번씩 호출한다", () => {
     const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
-
     const racingGame = racingGameGenerator(cars);
 
-    cars.forEach((car) => expect(car.position).toBe(0));
+    const moveForwardSpys = cars.map((car) => jest.spyOn(car, "moveForward"));
 
-    for (let position = 1; position <= 5; position++) {
-      const result = racingGame.next().value;
-      result.forEach((car) => expect(car.position).toBe(position));
+    for (let round = 1; round <= 5; round++) {
+      moveForwardSpys.forEach((spy) => spy.mockClear());
+      racingGame.next();
+      moveForwardSpys.forEach((spy) => expect(spy).toHaveBeenCalledTimes(1));
     }
+
+    moveForwardSpys.forEach((spy) => spy.mockRestore());
   });
 });
