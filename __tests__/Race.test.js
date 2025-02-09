@@ -14,7 +14,7 @@ describe('자동차 경주 테스트', () => {
   it('경주 1회당 자동차는 1칸 전진한다', () => {
     const race = new Race([new Car('벤틀리'), new Car('캐딜락')]);
 
-    race.proceed();
+    race.playRound();
 
     const cars = race.cars;
     const locations = cars.map((car) => car.location);

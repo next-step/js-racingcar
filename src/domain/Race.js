@@ -1,5 +1,5 @@
 class Race {
-  static RACE_ROUNDS = 5;
+  static ROUNDS = 5;
 
   #cars;
 
@@ -7,20 +7,17 @@ class Race {
     this.#cars = cars;
   }
 
-  proceed() {
+  playRound() {
     this.#cars.forEach((car) => car.forward());
     return this.#cars.map((car) => car.status);
   }
 
   start() {
-    let result = [];
+    const results = Array.from({ length: Race.ROUNDS }).map(() =>
+      this.playRound()
+    );
 
-    for (let i = 0; i < Race.RACE_ROUNDS; i++) {
-      const roundResult = this.proceed();
-      result.push(roundResult);
-    }
-
-    return result;
+    return results;
   }
 
   get cars() {
