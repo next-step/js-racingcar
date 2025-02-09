@@ -17,21 +17,17 @@ function formatRaceResults(results) {
 }
 
 async function play() {
-  try {
-    const names = await getCarName();
+  const names = await getCarName();
 
-    console.log('\n실행 결과');
+  console.log('\n실행 결과');
 
-    const cars = names.map((name) => new Car(name));
-    const results = new Race(cars).start();
+  const cars = names.map((name) => new Car(name));
+  const results = new Race(cars).start();
 
-    const formattedResult = formatRaceResults(results);
-    formattedResult.forEach((message) => console.log(message));
+  const formattedResult = formatRaceResults(results);
+  formattedResult.forEach((message) => console.log(message));
 
-    console.log('경주를 완료했습니다');
-  } catch (error) {
-    console.error(error);
-  }
+  console.log('경주를 완료했습니다');
 }
 
 play();
