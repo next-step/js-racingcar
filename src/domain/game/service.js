@@ -113,7 +113,7 @@ export default class Game {
       renderCurrentLapEnd();
     }
 
-    const winners = this.getWinners(cars);
+    const winners = this.getWinnersName(cars);
     renderGameEnd(winners);
   }
 }

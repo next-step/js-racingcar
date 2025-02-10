@@ -1,15 +1,10 @@
-import Game from './services/Game.js';
-import { isCarNamesValid, isLapVaild } from './utils/index.js';
-import { readLineAsync } from './libs/readline.js';
+import Game from './domain/game/service.js';
+import { isCarNamesValid, isLapVaild } from './domain/game/utils.js';
+import { renderCarNamesInput, renderLapInput } from './view/main/index.js';
 
 async function main() {
-  console.log(
-    '경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).',
-  );
-  const inputNames = await readLineAsync('');
-
-  console.log('시도할 회수는 몇회인가요?');
-  const inputLap = await readLineAsync('');
+  const inputNames = await renderCarNamesInput();
+  const inputLap = await renderLapInput();
 
   if (!isCarNamesValid(inputNames) || !isLapVaild(inputLap)) {
     console.log('잘못 입력하셨습니다. 프로그램을 종료합니다.');
