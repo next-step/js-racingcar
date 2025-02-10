@@ -1,4 +1,4 @@
-import { isCarNamesValid } from '../../src/domains/game/utils';
+import { isCarNamesValid } from '../../src/domain/game/utils';
 
 describe('isCarNamesValid 함수 테스트', () => {
   describe('쉼표를 어떻게 사용하는냐에 따라 자동차 이름을 구분한다.', () => {

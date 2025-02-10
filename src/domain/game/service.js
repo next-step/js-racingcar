@@ -1,4 +1,10 @@
 import { getRandomNumber } from '../../utils/index.js';
+import {
+  renderCarMovementInfo,
+  renderCurrentLapEnd,
+  renderGameEnd,
+  renderGameResult,
+} from '../../view/game/index.js';
 import Car from '../car/service.js';
 
 export default class Game {
@@ -11,50 +17,6 @@ export default class Game {
   constructor({ names, lap = Game.DEFAULT_LAP }) {
     this.#players = names;
     this.#lap = lap;
-  }
-
-  /**
-   * 현재 바퀴 수가 끝났다는 안내
-   */
-  #announceCurrentLapEnd() {
-    console.log('');
-  }
-
-  /**
-   * 게임의 결과를 안내
-   */
-  #announceGameResult() {
-    console.log('');
-    console.log('실행 결과');
-  }
-
-  /**
-   * 게임이 끝났다는 걸 안내
-   */
-  #announceGameEnd(winners) {
-    console.log(`${winners}가 최종 우승했습니다.`);
-  }
-
-  /**
-   * 해당 바퀴 떄, 자동차가 얼만큼 달리고 있는지 안내
-   *
-   * @param {string} name 자동차 이름
-   * @param {number} location 자동차의 자동차 위치
-   */
-  #announcePlayerMovedTrack(name, location) {
-    const movedTrack = this.drawMovedTrack(location);
-
-    console.log(`${name} : ${movedTrack}`);
-  }
-
-  /**
-   * 자동차 움직임 궤도를 그리는 함수
-   *
-   * @param {number} location 위치 값
-   * @returns 움직인 궤도
-   */
-  drawMovedTrack(location) {
-    return Array.from({ length: location }, () => '-').join('');
   }
 
   /**
@@ -136,7 +98,7 @@ export default class Game {
   start() {
     const cars = this.#players.map((name) => new Car({ name }));
 
-    this.#announceGameResult();
+    renderGameResult();
 
     for (let lap = 0; lap < this.#lap; lap++) {
       cars.forEach((car) => {
@@ -146,12 +108,12 @@ export default class Game {
           this.handleCarStay,
         );
 
-        this.#announcePlayerMovedTrack(name, location);
+        renderCarMovementInfo(name, location);
       });
-      this.#announceCurrentLapEnd();
+      renderCurrentLapEnd();
     }
 
     const winners = this.getWinners(cars);
-    this.#announceGameEnd(winners);
+    renderGameEnd(winners);
   }
 }

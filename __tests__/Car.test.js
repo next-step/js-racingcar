@@ -1,4 +1,4 @@
-import Car from '../src/domains/car/service';
+import Car from '../src/domain/car/service';
 
 describe('자동차 클래스 테스트', () => {
   const DEFAULT_CAR_NAME = '아반떼';

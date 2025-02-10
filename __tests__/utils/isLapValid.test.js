@@ -1,4 +1,4 @@
-import { isLapVaild } from '../../src/domains/game/utils.js';
+import { isLapVaild } from '../../src/domain/game/utils.js';
 
 describe('isLapValid 함수 테스트', () => {
   test('"7"을 입력하면 true를 반환한다.', () => {

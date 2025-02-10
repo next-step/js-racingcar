@@ -1,5 +1,6 @@
-import Car from '../src/domains/car/service';
-import Game from '../src/domains/game/service';
+import Car from '../src/domain/car/service';
+import Game from '../src/domain/game/service';
+import { renderCarMovementLine } from '../src/view/game';
 
 describe('게임(자동차 경주) 진행에 대한 테스트', () => {
   const DEFAULT_CAR_NAMES = ['아반떼', '스타렉스'];
@@ -135,19 +136,19 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
 
   // View
   test('자동차 위치가 0이면, 자동차 움직임 궤도는 공백으로 출력되어야 한다.', () => {
-    const track = game.drawMovedTrack(Car.DEFAULT_CAR_LOCATION);
+    const track = renderCarMovementLine(Car.DEFAULT_CAR_LOCATION);
 
     expect(track).toBe('');
   });
 
   test('자동차 위치가 1이면, 자동차 움직임 궤도는 "-"으로 출력되어야 한다.', () => {
-    const track = game.drawMovedTrack(Car.DEFAULT_CAR_LOCATION + 1);
+    const track = renderCarMovementLine(Car.DEFAULT_CAR_LOCATION + 1);
 
     expect(track).toBe('-');
   });
 
   test('자동차 위치가 5이면, 자동차 움직임 궤도는 "-----"으로 출력되어야 한다.', () => {
-    const track = game.drawMovedTrack(Car.DEFAULT_CAR_LOCATION + 5);
+    const track = renderCarMovementLine(Car.DEFAULT_CAR_LOCATION + 5);
 
     expect(track).toBe('-----');
   });
