@@ -1,5 +1,5 @@
-import ValidationError from './shared/validationError.js';
-import Car from './car.js';
+import ValidationError from '../src/shared/validationError.js';
+import Car from '../src/car.js';
 
 describe('자동차 경주 테스트', () => {
   const CAR_NAME = 'kia';

@@ -1,5 +1,5 @@
-import Race from './race.js';
-import Car from './car.js';
+import Race from '../src/race.js';
+import Car from '../src/car.js';
 
 describe('자동차 경주', () => {
   it('Car List 인스턴스를 받아 자동차 경주를 준비 할 수 있다.', () => {
