@@ -135,21 +135,16 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
   });
 
   // View
-  test('자동차 위치가 0이면, 자동차 움직임 궤도는 공백으로 출력되어야 한다.', () => {
-    const track = renderCarMovementLine(Car.DEFAULT_CAR_LOCATION);
+  test.each([
+    [Car.DEFAULT_CAR_LOCATION, ''],
+    [Car.DEFAULT_CAR_LOCATION + 1, '-'],
+    [Car.DEFAULT_CAR_LOCATION + 5, '-----'],
+  ])(
+    '자동차 위치가 %i이면, 자동차 움직임 궤도는 "%s"으로 출력되어야 한다.',
+    (input, expected) => {
+      const track = renderCarMovementLine(input);
 
-    expect(track).toBe('');
-  });
-
-  test('자동차 위치가 1이면, 자동차 움직임 궤도는 "-"으로 출력되어야 한다.', () => {
-    const track = renderCarMovementLine(Car.DEFAULT_CAR_LOCATION + 1);
-
-    expect(track).toBe('-');
-  });
-
-  test('자동차 위치가 5이면, 자동차 움직임 궤도는 "-----"으로 출력되어야 한다.', () => {
-    const track = renderCarMovementLine(Car.DEFAULT_CAR_LOCATION + 5);
-
-    expect(track).toBe('-----');
-  });
+      expect(track).toBe(expected);
+    },
+  );
 });

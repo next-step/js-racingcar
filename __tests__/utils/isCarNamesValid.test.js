@@ -1,59 +1,38 @@
 import { isCarNamesValid } from '../../src/domain/game/utils';
 
 describe('isCarNamesValid 함수 테스트', () => {
-  describe('쉼표를 어떻게 사용하는냐에 따라 자동차 이름을 구분한다.', () => {
-    test('"아반떼,그렌져"을 입력하면 true로 반환한다.', () => {
-      const isValid = isCarNamesValid('아반떼,그렌져');
+  describe('자동차 이름을 쉼표로 구분할 수 있어야 한다.', () => {
+    test.each([
+      ['아반떼,그렌져', true],
+      ['아반떼, 그렌져', true],
+      ['아반떼,', false],
+    ])('"%s"을(를) 입력하면 %s을(를) 반환한다.', (input, expected) => {
+      const isValid = isCarNamesValid(input);
 
-      expect(isValid).toBeTruthy();
-    });
-
-    test('"아반떼, 그렌져"을 입력하면 true로 반환한다.', () => {
-      const isValid = isCarNamesValid('아반떼, 그렌져');
-
-      expect(isValid).toBeTruthy();
-    });
-
-    test('"아반떼,"을 입력하면 false로 반환한다.', () => {
-      const isValid = isCarNamesValid('아반떼,');
-
-      expect(isValid).toBeFalsy();
+      expect(isValid).toBe(expected);
     });
   });
 
-  describe('5글자 이하의 문자열만 이름으로 사용할 수 있어야 한다.', () => {
-    // 4글자
-    test('"제네시스"을 입력하면 true를 반환한다.', () => {
-      const isValid = isCarNamesValid('제네시스');
+  describe('자동차 이름은 최대 5글자까지만 허용해야 한다.', () => {
+    test.each([
+      ['제네시스', true], // 4글자
+      ['아이오닉5N', false], // 6글자
+      ['아반떼, 그랜드 스타렉스', false], // 하나라도 5글자 초과
+    ])('"%s"을(를) 입력하면 %s을(를) 반환한다.', (input, expected) => {
+      const isValid = isCarNamesValid(input);
 
-      expect(isValid).toBeTruthy();
-    });
-
-    // 6글자
-    test('"아이오닉5N"을 입력하면 false로 반환한다.', () => {
-      const isValid = isCarNamesValid('아이오닉5N');
-
-      expect(isValid).toBeFalsy();
-    });
-
-    test('"아반떼, 그랜드 스타렉스"을 입력하면 false로 반환한다.', () => {
-      const isValid = isCarNamesValid('아반떼, 그랜드 스타렉스');
-
-      expect(isValid).toBeFalsy();
+      expect(isValid).toBe(expected);
     });
   });
 
-  describe('사용자가 잘못 입력할 경우도 대비해야 한다.', () => {
-    test('쉼표만 입력하면 false로 반환한다.', () => {
-      const isValid = isCarNamesValid(',');
+  describe('잘못된 입력 값 처리', () => {
+    test.each([
+      [',', false], // 쉼표만 입력
+      ['', false], // 빈 문자열 입력
+    ])('"%s"을(를) 입력하면 %s을(를) 반환한다.', (input, expected) => {
+      const isValid = isCarNamesValid(input);
 
-      expect(isValid).toBeFalsy();
-    });
-
-    test('공백을 입력하면 false로 반환한다.', () => {
-      const isValid = isCarNamesValid('');
-
-      expect(isValid).toBeFalsy();
+      expect(isValid).toBe(expected);
     });
   });
 });
