@@ -20,4 +20,30 @@ describe('자동차 경주', () => {
     race.startRace();
     expect(race.getTrajectory()).toHaveLength(Race.RaceMaxCount);
   });
+
+  it('랜덤값이 3보다 클 때 자동차가 전진해야 한다.', () => {
+    Race.randomNumber = jest.fn(() => 5);
+    const trajectory = race.startRace();
+
+    expect(trajectory).toHaveLength(5);
+
+    trajectory.forEach((roundData, index) => {
+      const expectedLocation = index + 1;
+      roundData.trajectory.forEach((carData) => {
+        expect(carData.location).toBe(expectedLocation);
+      });
+    });
+  });
+  it('랜덤값이 3보다 작을 때 자동차는 전진 하지 못한다.', () => {
+    Race.randomNumber = jest.fn(() => 3);
+    const trajectory = race.startRace();
+
+    expect(trajectory).toHaveLength(5);
+
+    trajectory.forEach((roundData) => {
+      roundData.trajectory.forEach((carData) => {
+        expect(carData.location).toBe(0);
+      });
+    });
+  });
 });
