@@ -1,5 +1,6 @@
 import { readLineAsync } from './readline-utils.js';
 import Car from './domain/Car.js';
+import Race from './domain/Race.js';
 
 export function formatCarNameInput(names) {
   return names.split(',');
@@ -15,4 +16,13 @@ export async function getCarName() {
   });
 
   return names;
+}
+
+export async function getRaceRoundCount() {
+  const input = await readLineAsync('시도할 회수는 몇회인가요?\n');
+  const roundCount = Number(input);
+
+  if (!Race.validateRoundCount(roundCount)) process.exit();
+
+  return roundCount;
 }

@@ -14,10 +14,16 @@ class Race {
     });
   }
 
-  start() {
-    const results = Array.from({ length: Race.ROUNDS }).map(() =>
-      this.playRound()
-    );
+  static validateRoundCount(count) {
+    return typeof count === 'number' && Number.isInteger(count);
+  }
+
+  start(count) {
+    const isValidRoundCount = Race.validateRoundCount(count);
+
+    const results = Array.from({
+      length: isValidRoundCount ? count : Race.ROUNDS,
+    }).map(() => this.playRound());
 
     return results;
   }
