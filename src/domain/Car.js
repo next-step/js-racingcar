@@ -28,14 +28,17 @@ class Car {
     return true;
   }
 
+  static getRandomNumber() {
+    // Math.random()은 0에서 1사이의 숫자를 반환한다. 원하는 범위를 얻기 위해 최소값을 더해 범위를 이동시킨다.
+    return (
+      Math.random() * (Car.#FORWARD_MAX_RANGE - Car.#FORWARD_MIN_RANGE) +
+      Car.#FORWARD_MIN_RANGE
+    );
+  }
+
   /** #FORWARD_MAX_RANGE와 #FORWARD_MIN_RANGE 중 숫자를 랜덤으로 골라, 해당 숫자가 FORWARD_MIN_VALUE 보다 큰지 검사한다. */
   static forwardCondition() {
-    // Math.random()은 0에서 1사이의 숫자를 반환한다. 원하는 범위를 얻기 위해 최소값을 더해 범위를 이동시킨다.
-
-    const randomNumber =
-      Math.random() * (Car.#FORWARD_MAX_RANGE - Car.#FORWARD_MIN_RANGE) +
-      Car.#FORWARD_MIN_RANGE;
-
+    const randomNumber = Car.getRandomNumber();
     return randomNumber >= Car.#FORWARD_MIN_VALUE;
   }
 
