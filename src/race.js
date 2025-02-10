@@ -20,7 +20,10 @@ class Race {
 
   moveCars() {
     this.cars.forEach((car) => {
-      car.moveForward();
+      const isThreeOrMore = Race.randomNumber() > 3;
+      if (isThreeOrMore) {
+        car.moveForward();
+      }
       Race.racePrint(car);
     });
   }
@@ -42,6 +45,10 @@ class Race {
 
   getTrajectory() {
     return this.result;
+  }
+
+  static randomNumber() {
+    return Math.floor(Math.random() * 10);
   }
 }
 
