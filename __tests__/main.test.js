@@ -40,14 +40,26 @@ describe('자동차 경주 테스트', () => {
     });
   });
 
-  it('자동차는 위치 값을 가지며, 초기 상태는 0이다.', () => {
-    expect(car.getLocation()).toBe(0);
-  });
+  describe('자동차 위치 테스트', () => {
+    it('자동차는 위치 값을 가지며, 초기 상태는 0이다.', () => {
+      expect(car.getLocation()).toBe(0);
+    });
 
-  it('자동차는 전진할 수 있으며 한 번에 1만큼 전진한다.', () => {
-    car.moveForward();
-    expect(car.getLocation()).toBe(1);
-    car.moveForward();
-    expect(car.getLocation()).toBe(2);
+    it('자동차는 전진할 수 있으며 한 번에 1만큼 전진한다.', () => {
+      car.moveForward();
+      expect(car.getLocation()).toBe(1);
+      car.moveForward();
+      expect(car.getLocation()).toBe(2);
+    });
+
+    it('location 0 상태 에서는 후진 시 에러를 뱉어야 합니다.', () => {
+      try {
+        car.moveBackward();
+        throw new Error('테스트 작동하지 않음');
+      } catch (err) {
+        expect(err).toBeInstanceOf(ValidationError);
+        expect(err.message).toBe(Car.moveBackwardErrorMessage);
+      }
+    });
   });
 });

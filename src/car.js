@@ -5,6 +5,8 @@ class Car {
 
   static nameTypeErrorMessage = '자동차의 이름은 문자열만 입력 가능합니다.';
 
+  static moveBackwardErrorMessage = 'location 0 에서는 후진 할 수 없습니다.';
+
   static maxNameSize = 5;
 
   static minNameSize = 1;
@@ -27,11 +29,18 @@ class Car {
     }
   }
 
+  static validationLocation(location) {
+    if (location === 0) {
+      throw new ValidationError(Car.moveBackwardErrorMessage);
+    }
+  }
+
   moveForward() {
     this.#location += 1;
   }
 
   moveBackward() {
+    Car.validationLocation(this.#location);
     this.#location -= 1;
   }
 
