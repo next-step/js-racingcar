@@ -1,14 +1,14 @@
 import { getRandomNumber } from '../../utils/index.js';
 import Car from '../car/service.js';
 
-const DEFAULT_LAP = 5;
-const MIN_MOVEMENT_THRESHOLD = 4;
-
 export default class Game {
+  static DEFAULT_LAP = 5;
+  static MIN_MOVEMENT_THRESHOLD = 4;
+
   #players = [];
   #lap = 0;
 
-  constructor({ names, lap = DEFAULT_LAP }) {
+  constructor({ names, lap = Game.DEFAULT_LAP }) {
     this.#players = names;
     this.#lap = lap;
   }
@@ -123,7 +123,7 @@ export default class Game {
    */
   determineCarMovement(car, onMove, onStay) {
     const randomNumber = getRandomNumber();
-    if (randomNumber < MIN_MOVEMENT_THRESHOLD) {
+    if (randomNumber < Game.MIN_MOVEMENT_THRESHOLD) {
       return onStay(car);
     }
 

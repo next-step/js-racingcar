@@ -1,8 +1,10 @@
 export default class Car {
+  static DEFAULT_CAR_LOCATION = 0;
+
   #name = '';
   #location = 0;
 
-  constructor({ name, location = 0 }) {
+  constructor({ name, location = Car.DEFAULT_CAR_LOCATION }) {
     this.#name = name;
     this.#location = location;
   }

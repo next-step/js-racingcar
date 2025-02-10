@@ -3,9 +3,6 @@ import Game from '../src/domains/game/service';
 
 describe('게임(자동차 경주) 진행에 대한 테스트', () => {
   const DEFAULT_CAR_NAMES = ['아반떼', '스타렉스'];
-  const DEFAULT_CAR_LOCATION = 0;
-  const DEFAULT_GAME_LAP = 5;
-  const MIN_MOVEMENT_THRESHOLD = 4;
 
   let game = null;
 
@@ -22,17 +19,17 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
     test('경주 횟수를 정의하지 않으면 게임의 경주 횟수는 5회로 생성되어야 한다.', () => {
       const gameLap = game.getLap();
 
-      expect(gameLap).toBe(DEFAULT_GAME_LAP);
+      expect(gameLap).toBe(Game.DEFAULT_LAP);
     });
 
     test('여섯 바퀴로 변경할 수 있다.', () => {
       const customGame = new Game({
         names: DEFAULT_CAR_NAMES,
-        lap: DEFAULT_GAME_LAP + 1,
+        lap: Game.DEFAULT_LAP + 1,
       });
       const gameLap = customGame.getLap();
 
-      expect(gameLap).toBe(DEFAULT_GAME_LAP + 1);
+      expect(gameLap).toBe(Game.DEFAULT_LAP + 1);
     });
   });
 
@@ -41,7 +38,7 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
     beforeEach(() => {
       jest
         .spyOn(global.Math, 'random')
-        .mockReturnValue(MIN_MOVEMENT_THRESHOLD * 0.1);
+        .mockReturnValue(Game.MIN_MOVEMENT_THRESHOLD * 0.1);
     });
 
     afterEach(() => {
@@ -58,14 +55,14 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
 
       expect(status).toEqual({
         name: '아반떼',
-        location: DEFAULT_CAR_LOCATION + 1,
+        location: Car.DEFAULT_CAR_LOCATION + 1,
       });
     });
 
     test('전진을 결정하는 무작위 숫자가 3일 경우 자동차가 이동하지 않는다.', () => {
       jest
         .spyOn(global.Math, 'random')
-        .mockReturnValue((MIN_MOVEMENT_THRESHOLD - 1) * 0.1);
+        .mockReturnValue((Game.MIN_MOVEMENT_THRESHOLD - 1) * 0.1);
 
       const car = new Car({ name: '아반떼' });
       const status = game.determineCarMovement(
@@ -76,7 +73,7 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
 
       expect(status).toEqual({
         name: '아반떼',
-        location: DEFAULT_CAR_LOCATION,
+        location: Car.DEFAULT_CAR_LOCATION,
       });
     });
 
@@ -90,14 +87,14 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
 
       expect(status).toEqual({
         name: '아반떼',
-        location: DEFAULT_CAR_LOCATION + 1,
+        location: Car.DEFAULT_CAR_LOCATION + 1,
       });
     });
 
     test('3에 위치한 자동차(아반떼)는 4로 움직여야 한다.', () => {
       const car = new Car({
         name: '아반떼',
-        location: DEFAULT_CAR_LOCATION + 3,
+        location: Car.DEFAULT_CAR_LOCATION + 3,
       });
       const status = game.determineCarMovement(
         car,
@@ -107,7 +104,7 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
 
       expect(status).toEqual({
         name: '아반떼',
-        location: DEFAULT_CAR_LOCATION + 4,
+        location: Car.DEFAULT_CAR_LOCATION + 4,
       });
     });
   });
@@ -138,19 +135,19 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
 
   // View
   test('자동차 위치가 0이면, 자동차 움직임 궤도는 공백으로 출력되어야 한다.', () => {
-    const track = game.drawMovedTrack(DEFAULT_CAR_LOCATION);
+    const track = game.drawMovedTrack(Car.DEFAULT_CAR_LOCATION);
 
     expect(track).toBe('');
   });
 
   test('자동차 위치가 1이면, 자동차 움직임 궤도는 "-"으로 출력되어야 한다.', () => {
-    const track = game.drawMovedTrack(DEFAULT_CAR_LOCATION + 1);
+    const track = game.drawMovedTrack(Car.DEFAULT_CAR_LOCATION + 1);
 
     expect(track).toBe('-');
   });
 
   test('자동차 위치가 5이면, 자동차 움직임 궤도는 "-----"으로 출력되어야 한다.', () => {
-    const track = game.drawMovedTrack(DEFAULT_CAR_LOCATION + 5);
+    const track = game.drawMovedTrack(Car.DEFAULT_CAR_LOCATION + 5);
 
     expect(track).toBe('-----');
   });

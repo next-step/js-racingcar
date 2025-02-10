@@ -1,3 +1,6 @@
+const DEFAULT_MIN_NUMBER = 0;
+const DEFAULT_MAX_NUMBER = 9;
+
 /**
  * 렌덤 정수값을 추출하는 함수
  *
@@ -5,6 +8,9 @@
  * @param {number} max 난수의 최대 범위의 값
  * @returns 랜덤 값
  */
-export function getRandomNumber(min = 0, max = 9) {
+export function getRandomNumber(
+  min = DEFAULT_MIN_NUMBER,
+  max = DEFAULT_MAX_NUMBER,
+) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
