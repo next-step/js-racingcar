@@ -3,6 +3,10 @@ class Car {
   static FORWARD_STEP = 1;
   static NAME_MAX_LENGTH = 5;
 
+  static #FORWARD_MIN_VALUE = 4;
+  static #FORWARD_INPUT_MIN_VALUE = 0;
+  static #FORWARD_INPUT_MAX_VALUE = 9;
+
   #name;
   #location = Car.INITIAL_LOCATION;
 
@@ -24,8 +28,36 @@ class Car {
     return true;
   }
 
-  forward() {
-    this.#location += Car.FORWARD_STEP;
+  static validateForwardInput(forwardInput) {
+    if (typeof forwardInput !== 'number' && !Number.isInteger(forwardInput))
+      return false;
+
+    if (
+      forwardInput > Car.#FORWARD_INPUT_MAX_VALUE ||
+      forwardInput < Car.#FORWARD_INPUT_MIN_VALUE
+    )
+      return false;
+
+    return true;
+  }
+
+  static generateForwardCondition() {
+    // Math.random()은 0에서 1사이의 숫자를 반환한다. 원하는 범위를 얻기 위해 최소값을 더해 범위를 이동시킨다.
+    return (
+      Math.random() *
+        (Car.#FORWARD_INPUT_MAX_VALUE - Car.#FORWARD_INPUT_MIN_VALUE) +
+      Car.#FORWARD_INPUT_MIN_VALUE
+    );
+  }
+
+  forward(forwardInput) {
+    const isValidInput = Car.validateForwardInput(forwardInput);
+    const input = isValidInput ? forwardInput : Car.generateForwardCondition();
+
+    if (input >= Car.#FORWARD_MIN_VALUE) {
+      this.#location += Car.FORWARD_STEP;
+    }
+
     return this.#location;
   }
 
