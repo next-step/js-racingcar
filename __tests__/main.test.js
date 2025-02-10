@@ -1,4 +1,3 @@
-import ValidationError from '../src/shared/validationError.js';
 import Car from '../src/car.js';
 
 describe('자동차 경주 테스트', () => {
@@ -17,25 +16,11 @@ describe('자동차 경주 테스트', () => {
 
     describe('자동차 경주 테스트 - 에러 처리', () => {
       it('자동차의 이름의 타입은 String만 입력할 수 있다.', () => {
-        try {
-          // eslint-disable-next-line no-new
-          new Car(123);
-          throw new Error('테스트 작동하지 않음');
-        } catch (err) {
-          expect(err).toBeInstanceOf(ValidationError);
-          expect(err.message).toBe(Car.nameTypeErrorMessage);
-        }
+        expect(() => new Car(123)).toThrow(Car.nameTypeErrorMessage);
       });
 
       it('자동차의 이름은 1글자 이상 5글자 이하로 입력 하여야 한다.', () => {
-        try {
-          // eslint-disable-next-line no-new
-          new Car('');
-          throw new Error('테스트 작동하지 않음');
-        } catch (err) {
-          expect(err).toBeInstanceOf(ValidationError);
-          expect(err.message).toBe(Car.nameLengthErrorMessage);
-        }
+        expect(() => new Car('')).toThrow(Car.nameLengthErrorMessage);
       });
     });
   });
@@ -53,13 +38,7 @@ describe('자동차 경주 테스트', () => {
     });
 
     it('location 0 상태 에서는 후진 시 에러를 뱉어야 합니다.', () => {
-      try {
-        car.moveBackward();
-        throw new Error('테스트 작동하지 않음');
-      } catch (err) {
-        expect(err).toBeInstanceOf(ValidationError);
-        expect(err.message).toBe(Car.moveBackwardErrorMessage);
-      }
+      expect(() => car.moveBackward()).toThrow(Car.moveBackwardErrorMessage);
     });
   });
 });
