@@ -7,13 +7,9 @@ async function main() {
 
   const cars = name.split(',').map((car) => new Car(car));
   const race = new Race(cars);
+  console.log('실행 결과');
   race.startRace();
-  const raceTrajectory = race.getTrajectory();
-  raceTrajectory.forEach((car) => {
-    car.trajectory.forEach((raceData) => {
-      console.log(`${raceData.name} : ${'-'.repeat(raceData.location)}`);
-    });
-  });
+  console.log('경주를 완료했습니다.');
 }
 
 main();

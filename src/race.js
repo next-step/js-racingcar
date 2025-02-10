@@ -10,9 +10,7 @@ class Race {
     let i = 0;
 
     while (Race.RaceMaxCount > i) {
-      this.cars.forEach((car) => {
-        car.moveForward();
-      });
+      this.moveCars();
       this.setTrajectory(i);
 
       i += 1;
@@ -23,7 +21,13 @@ class Race {
   moveCars() {
     this.cars.forEach((car) => {
       car.moveForward();
+      Race.racePrint(car);
     });
+  }
+
+  static racePrint(car) {
+    console.log(`${car.getName()} : ${'-'.repeat(car.getLocation())}`);
+    return `${car.getName()} : ${'-'.repeat(car.getLocation())}`;
   }
 
   setTrajectory(round) {
