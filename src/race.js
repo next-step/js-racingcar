@@ -1,11 +1,6 @@
 class Race {
   static RaceMaxCount = 5;
 
-  static setTrajectory(car, array) {
-    const location = car.getLocation();
-    array.push(`${car.getName()} : ${'-'.repeat(location)}`);
-  }
-
   constructor(cars) {
     this.cars = cars;
     this.result = [];
@@ -15,16 +10,27 @@ class Race {
     let i = 0;
 
     while (Race.RaceMaxCount > i) {
-      const array = [];
-      i += 1;
       this.cars.forEach((car) => {
         car.moveForward();
-        Race.setTrajectory(car, array);
       });
+      this.setTrajectory(i);
 
-      this.result.push(array);
+      i += 1;
     }
     return this.getTrajectory();
+  }
+
+  moveCars() {
+    this.cars.forEach((car) => {
+      car.moveForward();
+    });
+  }
+
+  setTrajectory(round) {
+    this.result.push({
+      round,
+      trajectory: this.cars.map((car) => `${car.getName()} : ${'-'.repeat(car.location)}`),
+    });
   }
 
   getTrajectory() {
