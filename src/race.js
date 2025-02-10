@@ -29,7 +29,10 @@ class Race {
   setTrajectory(round) {
     this.result.push({
       round,
-      trajectory: this.cars.map((car) => `${car.getName()} : ${'-'.repeat(car.location)}`),
+      trajectory: this.cars.map((car) => ({
+        name: car.getName(),
+        location: car.getLocation(),
+      })),
     });
   }
 
