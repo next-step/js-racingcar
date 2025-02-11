@@ -7,8 +7,10 @@ export default function carGame(names) {
 
   namesArray.forEach((name) => {
     // 유효성 검사
-    if (name.length > MAX_LENGTH)
-      throw new Error("이름은 5자 이하만 가능합니다.");
+    if (name.length > MAX_LENGTH) {
+      console.error("이름은 5자 이하만 가능합니다.");
+      process.exit(1);
+    }
 
     console.log("경주할 자동차 이름을 입력하세요.");
     console.log(name);
