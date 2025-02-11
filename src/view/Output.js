@@ -15,6 +15,10 @@ class Output {
   printCarLocation(name, location) {
     console.log(`${name} : ${"-".repeat(location)}`);
   }
+
+  printErrorMessage(error) {
+    console.log(error.message);
+  }
 }
 
 export default Output;

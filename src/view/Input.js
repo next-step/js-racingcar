@@ -1,5 +1,5 @@
-import { ERROR_MESSAGES } from "../src/utils/constants.js";
-import readLineAsync from "../src/utils/readline.js";
+import { ERROR_MESSAGES } from "../utils/constants.js";
+import readLineAsync from "../utils/readline.js";
 
 class Input {
   async askCarNames() {
@@ -9,7 +9,6 @@ class Input {
     if (!this.validateNotSpace(carNames)) {
       throw new Error(ERROR_MESSAGES.NOT_SPACE_IN_NAME);
     }
-
     return carNames;
   }
 
