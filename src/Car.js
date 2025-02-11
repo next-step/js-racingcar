@@ -1,3 +1,5 @@
+import { CAR_RACE_CONFIG } from "./constants.js";
+
 class Car {
   name;
   position = 0;
@@ -7,7 +9,7 @@ class Car {
   }
 
   move() {
-    this.position += 1;
+    this.position += CAR_RACE_CONFIG.DISTANCE_PER_MOVE;
   }
 }
 

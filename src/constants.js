@@ -1,0 +1,5 @@
+export const CAR_RACE_CONFIG = {
+  RACE_COUNT: 5,
+  MAX_NAME_LENGTH: 5,
+  DISTANCE_PER_MOVE: 1,
+};

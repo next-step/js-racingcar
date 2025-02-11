@@ -1,14 +1,16 @@
-class Validator {
-  static inputLength = 5;
+import { CAR_RACE_CONFIG } from "./constants.js";
 
+class Validator {
   static carNameValidate(inputValue) {
     const value = inputValue.toString().trim();
 
     if (!value) {
       throw new Error("자동차 이름 입력값이 비었습니다.");
     }
-    if (value.length > this.inputLength) {
-      throw new Error(`자동차 이름은 ${this.inputLength}자 이하만 가능합니다.`);
+    if (value.length > CAR_RACE_CONFIG.MAX_NAME_LENGTH) {
+      throw new Error(
+        `자동차 이름은 ${CAR_RACE_CONFIG.MAX_NAME_LENGTH}자 이하만 가능합니다.`
+      );
     }
   }
 }
