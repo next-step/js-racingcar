@@ -6,7 +6,7 @@ describe("자동차는", () => {
 
   beforeEach(() => {
     alwaysForwardCondition = {
-      canAccelerate: () => true,
+      canMoveForward: () => true,
     };
     car = new Car("포르쉐", alwaysForwardCondition);
   });

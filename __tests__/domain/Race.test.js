@@ -4,17 +4,17 @@ import { Race } from "../../src/domain/Race.js";
 describe("레이스는", () => {
   let race;
   let cars;
-  let alwaysMoveAcceleration;
+  let alwaysForwardCondition;
 
   beforeEach(() => {
-    alwaysMoveAcceleration = {
-      canAccelerate: () => true,
+    alwaysForwardCondition = {
+      canMoveForward: () => true,
     };
 
     cars = [
-      new Car("포르쉐", alwaysMoveAcceleration),
-      new Car("벤츠", alwaysMoveAcceleration),
-      new Car("BMW", alwaysMoveAcceleration),
+      new Car("포르쉐", alwaysForwardCondition),
+      new Car("벤츠", alwaysForwardCondition),
+      new Car("BMW", alwaysForwardCondition),
     ];
     race = new Race(cars);
   });

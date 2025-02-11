@@ -3,13 +3,13 @@ class Car {
     INVALID_NAMES: "자동차 이름 목록이 올바르지 않습니다.",
   };
 
-  constructor(name, acceleration) {
+  constructor(name, forwardCondition) {
     this.name = new CarName(name);
     this.position = new Position();
-    this.acceleration = acceleration;
+    this.forwardCondition = forwardCondition;
   }
 
-  static createCars(names, acceleration) {
+  static createCars(names, forwardCondition) {
     if (!Array.isArray(names) || names.length === 0) {
       throw new Error(Car.ERROR_MESSAGES.INVALID_NAMES);
     }
@@ -17,11 +17,11 @@ class Car {
     if (names.some((name) => carNameBlankRegex.test(name))) {
       throw new Error(Car.ERROR_MESSAGES.INVALID_NAMES);
     }
-    return names.map((name) => new Car(name, acceleration));
+    return names.map((name) => new Car(name, forwardCondition));
   }
 
   moveForward() {
-    if (!this.acceleration.canAccelerate()) {
+    if (!this.forwardCondition.canMoveForward()) {
       return;
     }
     this.position.moveForward();
