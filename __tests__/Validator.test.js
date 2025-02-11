@@ -3,7 +3,7 @@ import Validator from "../src/Validator.js";
 
 describe("자동차 이름 검증", () => {
   test("자동차 이름 입력값이 없는 경우", () => {
-    expect(() => Validator.carNameValidate(" ")).toThrow(
+    expect(() => Validator.carNameValidate("")).toThrow(
       "자동차 이름 입력값이 비었습니다."
     );
   });

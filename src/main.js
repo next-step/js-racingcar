@@ -9,10 +9,9 @@ import { printRacingOutput } from "./output.js";
 const play = async () => {
   const rl = readline.createInterface({ input, output });
   const answer = await rl.question("경주할 자동차 이름을 입력하세요.");
-  const carNameList = Race.parseCarNameList(
-    answer,
-    CAR_RACE_CONFIG.INPUT_DIVIDER
-  );
+  const carNameList = answer
+    .split(CAR_RACE_CONFIG.INPUT_DIVIDER)
+    .map((name) => name.toString().trim());
 
   try {
     carNameList.forEach((name) => Validator.carNameValidate(name));
