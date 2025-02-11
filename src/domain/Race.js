@@ -17,15 +17,18 @@ class Race {
   start() {
     for (let round = 1; round <= this.rounds; round++) {
       this.moveCars(this.cars);
-
-      this.result.push({
-        round: round,
-        cars: this.cars.map((car) => ({
-          name: car.getName(),
-          location: car.getLocation(),
-        })),
-      });
+      this.recordRoundResult(round, this.cars);
     }
+  }
+
+  recordRoundResult(round, cars) {
+    this.result.push({
+      round: round,
+      cars: cars.map((car) => ({
+        name: car.getName(),
+        location: car.getLocation(),
+      })),
+    });
   }
 }
 
