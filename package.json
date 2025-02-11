@@ -24,6 +24,7 @@
     "vite": "^6.1.0"
   },
   "jest": {
+    "verbose": true,
     "transform": {
       "^.+\\.js$": "babel-jest"
     }

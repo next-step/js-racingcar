@@ -1,14 +1,6 @@
 import { ERROR_MESSAGES } from "../src/utils/constants.js";
 import Car from "../src/domain/Car.js";
-
-const carNames = {
-  N: "N",
-  NEXT: "NEXT",
-  NEXTSTEP: "NEXTSTEP",
-  MYCAR: "MYCAR",
-  G70: "G70",
-  GV80: "GV80",
-};
+import { carNames } from "../src/utils/constants.js";
 
 describe("자동차 세팅 테스트 ", () => {
   describe("자동차는", () => {
