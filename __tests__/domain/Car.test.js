@@ -2,13 +2,13 @@ import { Car, CarName, Position } from "../../src/domain/Car.js";
 
 describe("자동차는", () => {
   let car;
-  let alwaysMoveAcceleration;
+  let alwaysForwardCondition;
 
   beforeEach(() => {
-    alwaysMoveAcceleration = {
+    alwaysForwardCondition = {
       canAccelerate: () => true,
     };
-    car = new Car("포르쉐", alwaysMoveAcceleration);
+    car = new Car("포르쉐", alwaysForwardCondition);
   });
 
   describe("=== 자동차의 이름에 대한 테스트 ===", () => {
@@ -19,14 +19,14 @@ describe("자동차는", () => {
 
     it("이름이 5자를 초과하면 에러를 던져야 한다", () => {
       const givenCarName = "포르쉐포르쉐";
-      expect(() => new Car(givenCarName, alwaysMoveAcceleration)).toThrow(
+      expect(() => new Car(givenCarName, alwaysForwardCondition)).toThrow(
         CarName.ERROR_MESSAGES.INVALID_NAME,
       );
     });
 
     it("이름이 1자 미만이면 에러를 던져야 한다", () => {
       const givenCarName = "";
-      expect(() => new Car(givenCarName, alwaysMoveAcceleration)).toThrow(
+      expect(() => new Car(givenCarName, alwaysForwardCondition)).toThrow(
         CarName.ERROR_MESSAGES.INVALID_NAME,
       );
     });
@@ -50,20 +50,26 @@ describe("자동차는", () => {
   describe("=== 자동차 목록 만들기에 대한 테스트 ===", () => {
     it("자동차 이름 배열을 받아서 Car 객체 배열을 반환해야 한다", () => {
       const names = ["포르쉐", "벤츠", "아우디"];
-      const cars = Car.createCars(names, alwaysMoveAcceleration);
+      const cars = Car.createCars(names, alwaysForwardCondition);
 
       expect(cars.every((car) => car instanceof Car)).toBe(true);
     });
 
     it("자동차 목록이 없는 경우 에러를 던져야 한다", () => {
-      expect(() => Car.createCars([], alwaysMoveAcceleration)).toThrow(
+      expect(() => Car.createCars([], alwaysForwardCondition)).toThrow(
         Car.ERROR_MESSAGES.INVALID_NAMES,
       );
     });
 
+    it("자동차 이름이 공백인 경우 에러를 던져야 한다", () => {
+      expect(() =>
+        Car.createCars(["포르쉐", " ", "아우디"], alwaysForwardCondition),
+      ).toThrow(Car.ERROR_MESSAGES.INVALID_NAMES);
+    });
+
     it("자동차 이름이 배열이 아닌 경우 에러를 던져야 한다", () => {
       expect(() =>
-        Car.createCars("포르쉐,벤츠,아우디", alwaysMoveAcceleration),
+        Car.createCars("포르쉐,벤츠,아우디", alwaysForwardCondition),
       ).toThrow(Car.ERROR_MESSAGES.INVALID_NAMES);
     });
   });

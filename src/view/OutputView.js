@@ -21,6 +21,10 @@ class OutputView {
     const winnerNames = winners.join(", ");
     console.log(`${winnerNames}가 최종 우승했습니다.`);
   }
+
+  printError(errorMessage) {
+    console.log(errorMessage);
+  }
 }
 
 export default OutputView;

@@ -13,6 +13,10 @@ class Car {
     if (!Array.isArray(names) || names.length === 0) {
       throw new Error(Car.ERROR_MESSAGES.INVALID_NAMES);
     }
+    const carNameBlankRegex = /^\s*$/;
+    if (names.some((name) => carNameBlankRegex.test(name))) {
+      throw new Error(Car.ERROR_MESSAGES.INVALID_NAMES);
+    }
     return names.map((name) => new Car(name, acceleration));
   }
 
