@@ -10,11 +10,17 @@ export default function carGame(names) {
     if (name.length > MAX_LENGTH)
       throw new Error("이름은 5자 이하만 가능합니다.");
 
+    console.log("경주할 자동차 이름을 입력하세요.");
+    console.log(name);
+    console.log("");
     const car = new Car(name);
 
+    console.log("실행 결과");
     for (let i = 0; i < ROUNDS; i++) {
       car.move();
       console.log(car.getStatus());
+      console.log("");
     }
+    console.log("경주를 완료했습니다.");
   });
 }
