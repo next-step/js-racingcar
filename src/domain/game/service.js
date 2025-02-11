@@ -78,14 +78,17 @@ export default class Game {
   /**
    * 자동차의 움직임 여부을 결정하는 함수
    *
-   * @param {Car} car 자동차 정보
+   * @param {Object} 자동차 정보 및 임계치
    * @param {function(Object): void} onMove 움직일 필요가 있어 작동되는 callback
    * @param {function(Object): void} onStay 움직일 필요가 없어 작동되는 callback
    * @returns 자동차 이름과 자동차의 위치 정보
    */
-  determineCarMovement(car, onMove, onStay) {
-    const randomNumber = getRandomNumber();
-    if (randomNumber < Game.MIN_MOVEMENT_THRESHOLD) {
+  determineCarMovement(
+    { car, threshold = Game.MIN_MOVEMENT_THRESHOLD },
+    onMove,
+    onStay,
+  ) {
+    if (threshold < Game.MIN_MOVEMENT_THRESHOLD) {
       return onStay(car);
     }
 
@@ -102,8 +105,9 @@ export default class Game {
 
     for (let lap = 0; lap < this.#lap; lap++) {
       cars.forEach((car) => {
+        const threshold = getRandomNumber();
         const { name, location } = this.determineCarMovement(
-          car,
+          { car, threshold },
           this.handleCarMove,
           this.handleCarStay,
         );

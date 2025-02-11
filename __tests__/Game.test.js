@@ -36,20 +36,11 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
 
   // Controller
   describe('게임에서 한 바퀴가 진행 되었을 때', () => {
-    beforeEach(() => {
-      jest
-        .spyOn(global.Math, 'random')
-        .mockReturnValue(Game.MIN_MOVEMENT_THRESHOLD * 0.1);
-    });
-
-    afterEach(() => {
-      jest.spyOn(global.Math, 'random').mockRestore();
-    });
-
     test('전진을 결정하는 무작위 숫자가 4일 경우 자동차가 한 칸 이동한다.', () => {
       const car = new Car({ name: '아반떼' });
+
       const status = game.determineCarMovement(
-        car,
+        { car },
         game.handleCarMove,
         game.handleCarStay,
       );
@@ -61,13 +52,9 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
     });
 
     test('전진을 결정하는 무작위 숫자가 3일 경우 자동차가 이동하지 않는다.', () => {
-      jest
-        .spyOn(global.Math, 'random')
-        .mockReturnValue((Game.MIN_MOVEMENT_THRESHOLD - 1) * 0.1);
-
       const car = new Car({ name: '아반떼' });
       const status = game.determineCarMovement(
-        car,
+        { car, threshold: Game.MIN_MOVEMENT_THRESHOLD - 1 },
         game.handleCarMove,
         game.handleCarStay,
       );
@@ -81,7 +68,7 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
     test('0에 위치한 자동차(아반떼)는 1로 움직여야 한다.', () => {
       const car = new Car({ name: '아반떼' });
       const status = game.determineCarMovement(
-        car,
+        { car },
         game.handleCarMove,
         game.handleCarStay,
       );
@@ -98,7 +85,7 @@ describe('게임(자동차 경주) 진행에 대한 테스트', () => {
         location: Car.DEFAULT_CAR_LOCATION + 3,
       });
       const status = game.determineCarMovement(
-        car,
+        { car },
         game.handleCarMove,
         game.handleCarStay,
       );
