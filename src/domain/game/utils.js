@@ -25,8 +25,12 @@ export function isCarNamesValid(input) {
  * @param {string | undefined} input 입력 받은 값
  * @returns 해당 입력값이 유효한지 여부
  */
-export function isLapVaild(input) {
+export function isLapValid(input) {
   if (!input) return true; // 빈 값으로 입력하면 기본 횟수로 설정
 
-  return !isNaN(Number(input));
+  const inputNumber = Number(input);
+
+  return (
+    !isNaN(inputNumber) && Number.isInteger(inputNumber) && inputNumber > 0
+  );
 }
