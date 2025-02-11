@@ -2,23 +2,21 @@ import Car from "../src/main";
 
 const NAME = "boky";
 
-const createCar = () => new Car(NAME);
+describe("콘솔에서 동작하는 자동차 경주 게임을 구현한다.", () => {
+  it("자동차에 이름을 부여할 수 있다.", () => {
+    const car = new Car(NAME);
 
-describe("자동차 클래스 기능 테스트", () => {
-  it("자동차는 이름을 가진다.", () => {
-    const car = createCar();
     expect(car.name).toEqual(NAME);
   });
 
-  it("자동차는 위치 값을 가지며, 초기 상태는 0이다.", () => {
-    const car = createCar();
-    expect(car.position).toEqual(0);
-  });
+  it("전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
+    const car = new Car(NAME);
 
-  it("자동차는 전진할 수 있으며 한 번에 1만큼 전진한다.", () => {
-    const car = createCar();
+    // 초기 상태
+    expect(car.getStatus()).toEqual(`${NAME} : `);
+
+    // 전진
     car.move();
-    const forwardedLocation = car.position;
-    expect(forwardedLocation).toEqual(1);
+    expect(car.getStatus()).toEqual(`${NAME} : -`);
   });
 });
