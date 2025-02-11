@@ -5,11 +5,12 @@ describe('자동차 경주', () => {
   let name = null;
   let cars = null;
   let race = null;
+  const count = 5;
 
   beforeEach(() => {
     name = ['to', 'kia', 'jest'];
     cars = name.map((car) => new Car(car));
-    race = new Race(cars);
+    race = new Race(cars, count);
   });
 
   it('Car List 인스턴스를 받아 자동차 경주를 준비 할 수 있다.', () => {
@@ -18,31 +19,77 @@ describe('자동차 경주', () => {
 
   it('라운드의 궤적 데이터를 저장 하여야 한다.', () => {
     race.startRace();
-    expect(race.getTrajectory()).toHaveLength(Race.RaceMaxCount);
+    expect(race.getTrajectory()).toHaveLength(count);
   });
 
-  it('랜덤값이 3보다 클 때 자동차가 전진해야 한다.', () => {
-    Race.randomNumber = jest.fn(() => 5);
-    const trajectory = race.startRace();
+  describe('랜덤값이 모두 4 이상일 경우', () => {
+    beforeAll(() => {
+      jest.spyOn(Race, 'randomNumber').mockReturnValue(4);
+    });
 
-    expect(trajectory).toHaveLength(5);
+    afterAll(() => {
+      Race.randomNumber.mockRestore();
+    });
 
-    trajectory.forEach((roundData, index) => {
-      const expectedLocation = index + 1;
-      roundData.trajectory.forEach((carData) => {
-        expect(carData.location).toBe(expectedLocation);
+    it('startRace()를 호출하면 모든 자동차가 매 라운드 전진하여 결과가 누적된다', () => {
+      const trajectory = race.startRace();
+
+      expect(trajectory).toHaveLength(5);
+
+      trajectory.forEach((roundData, index) => {
+        const expectedLocation = index + 1;
+        roundData.trajectory.forEach((carData) => {
+          expect(carData.location).toBe(expectedLocation);
+        });
       });
     });
+
+    it('getWinner() 호출 시 모든 자동차가 우승자로 반환된다', () => {
+      race.startRace();
+      const winners = race.getWinner();
+
+      expect(winners).toBe('to, kia, jest');
+    });
   });
-  it('랜덤값이 3보다 작을 때 자동차는 전진 하지 못한다.', () => {
-    Race.randomNumber = jest.fn(() => 3);
-    const trajectory = race.startRace();
 
-    expect(trajectory).toHaveLength(5);
+  describe('랜덤값이 자동차별로 다르게 반환되는 경우', () => {
+    describe('자동차 하나만 통과한 경우', () => {
+      let mockRandomNumbers;
+      beforeAll(() => {
+        const sequence = [4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2];
+        mockRandomNumbers = jest.fn(() => sequence.shift());
+        jest.spyOn(Race, 'randomNumber').mockImplementation(mockRandomNumbers);
+      });
 
-    trajectory.forEach((roundData) => {
-      roundData.trajectory.forEach((carData) => {
-        expect(carData.location).toBe(0);
+      afterAll(() => {
+        Race.randomNumber.mockRestore();
+      });
+
+      it('레이스가 종료되면 첫번 째 자동차만 우승한다.', () => {
+        race.startRace();
+        const winner = race.getWinner();
+
+        expect(winner).toBe('to');
+      });
+    });
+
+    describe('자동차가 1개 이상 통과한 경우', () => {
+      let mockRandomNumbers;
+      beforeAll(() => {
+        const sequence = [4, 2, 8, 4, 2, 8, 4, 2, 8, 4, 2, 8, 4, 2, 8];
+        mockRandomNumbers = jest.fn(() => sequence.shift());
+        jest.spyOn(Race, 'randomNumber').mockImplementation(mockRandomNumbers);
+      });
+
+      afterAll(() => {
+        Race.randomNumber.mockRestore();
+      });
+
+      it('레이스가 종료되면 첫번 째, 두번 째 자동차만 우승한다.', () => {
+        race.startRace();
+        const winner = race.getWinner();
+
+        expect(winner).toBe('to, jest');
       });
     });
   });
