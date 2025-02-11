@@ -1,15 +1,16 @@
 class Race {
-  static RaceMaxCount = 5;
+  RaceMaxCount = 5;
 
-  constructor(cars) {
+  constructor(cars, count) {
     this.cars = cars;
     this.result = [];
+    this.RaceMaxCount = count;
   }
 
   startRace() {
     let i = 0;
 
-    while (Race.RaceMaxCount > i) {
+    while (this.RaceMaxCount > i) {
       this.moveCars();
       this.setTrajectory(i);
 
@@ -39,7 +40,7 @@ class Race {
   }
 
   getWinner() {
-    const { trajectory } = this.result[Race.RaceMaxCount - 1];
+    const { trajectory } = this.result[this.RaceMaxCount - 1];
 
     const { winners } = trajectory.reduce(
       (acc, { name, location }) => {
@@ -62,7 +63,7 @@ class Race {
   }
 
   static racePrint(car) {
-    console.log(`${car.getName()} : ${'-'.repeat(car.getLocation())}`);
+    console.log(`${car.getName()} : ${'-'.repeat(car.getLocation())}`, 'adsf');
     return `${car.getName()} : ${'-'.repeat(car.getLocation())}`;
   }
 
