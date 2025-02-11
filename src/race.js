@@ -15,6 +15,7 @@ class Race {
       this.setTrajectory(i);
 
       i += 1;
+      console.log('\n');
     }
     return this.getTrajectory();
   }
@@ -25,7 +26,7 @@ class Race {
       if (isThreeOrMore) {
         car.moveForward();
       }
-      Race.racePrint(car);
+      console.log(Race.racePrint(car));
     });
   }
 
@@ -63,7 +64,6 @@ class Race {
   }
 
   static racePrint(car) {
-    console.log(`${car.getName()} : ${'-'.repeat(car.getLocation())}`, 'adsf');
     return `${car.getName()} : ${'-'.repeat(car.getLocation())}`;
   }
 
