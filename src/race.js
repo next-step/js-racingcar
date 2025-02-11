@@ -54,7 +54,7 @@ class Race {
       { max: 0, winners: [] },
     );
 
-    return winners;
+    return winners.join(', ');
   }
 
   getTrajectory() {
