@@ -4,6 +4,7 @@ import Car from "./Car.js";
 import Validator from "./Validator.js";
 import { CAR_RACE_CONFIG } from "./constants.js";
 import Race from "./Race.js";
+import { printRacingOutput } from "./output.js";
 
 const play = async () => {
   const rl = readline.createInterface({ input, output });
@@ -23,6 +24,7 @@ const play = async () => {
       CAR_RACE_CONFIG.DISTANCE_PER_MOVE
     );
     const raceResult = race.start();
+    printRacingOutput(raceResult);
   } catch (error) {
     throw error;
   } finally {
