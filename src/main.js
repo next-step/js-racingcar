@@ -1,14 +1,17 @@
-import Input from "./Input.js";
+import Input from "../view/Input.js";
 import Race from "./domain/Race.js";
-import Output from "./Output.js";
+import Output from "../view/Output.js";
+import Car from "./domain/Car.js";
 
 async function main() {
   const input = new Input();
   const output = new Output();
-  
-  const cars = await input.askCarNames();
+
+  const carNames = await input.askCarNames();
+  const cars = carNames.map((name) => new Car(name));
+
   const race = new Race(cars);
-  
+
   race.start();
   output.printRaceResult(race.result);
 }
