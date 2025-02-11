@@ -13,18 +13,22 @@ class Race {
     return racingCarInput.split(divider).map((name) => name.toString().trim());
   }
 
-  moveCar(car) {
+  moveCarPerRound(car) {
     Array.from({ length: this.distancePerMove }).forEach(() => car.move());
+  }
+
+  playRound() {
+    const roundResult = {};
+    this.carList.forEach((car) => {
+      this.moveCarPerRound(car);
+      roundResult[car.name] = car.position;
+    });
+    return roundResult;
   }
 
   start() {
     return Array.from({ length: this.raceCount }).map(() => {
-      const roundResult = {};
-      this.carList.forEach((car) => {
-        this.moveCar(car);
-        roundResult[car.name] = car.position;
-      });
-      return roundResult;
+      return this.playRound();
     });
   }
 }
