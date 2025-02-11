@@ -11,8 +11,7 @@ async function main() {
   const race = new Race(cars, count);
   console.log('실행 결과');
   race.startRace();
-  console.log(`우승자는 ${race.getWinner()}`);
-  console.log('경주를 완료했습니다.');
+  console.log(`${race.getWinner()}가 최종 우승했습니다.`);
 }
 
 main();
