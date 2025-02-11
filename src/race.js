@@ -28,11 +28,6 @@ class Race {
     });
   }
 
-  static racePrint(car) {
-    console.log(`${car.getName()} : ${'-'.repeat(car.getLocation())}`);
-    return `${car.getName()} : ${'-'.repeat(car.getLocation())}`;
-  }
-
   setTrajectory(round) {
     this.result.push({
       round,
@@ -43,8 +38,32 @@ class Race {
     });
   }
 
+  getWinner() {
+    const { trajectory } = this.result[Race.RaceMaxCount - 1];
+
+    const { winners } = trajectory.reduce(
+      (acc, { name, location }) => {
+        if (location > acc.max) {
+          return { max: location, winners: [name] };
+        }
+        if (location === acc.max) {
+          acc.winners.push(name);
+        }
+        return acc;
+      },
+      { max: 0, winners: [] },
+    );
+
+    return winners;
+  }
+
   getTrajectory() {
     return this.result;
+  }
+
+  static racePrint(car) {
+    console.log(`${car.getName()} : ${'-'.repeat(car.getLocation())}`);
+    return `${car.getName()} : ${'-'.repeat(car.getLocation())}`;
   }
 
   static randomNumber() {
