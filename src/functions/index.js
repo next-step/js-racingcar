@@ -1,5 +1,5 @@
 import Car from "../car/index.js";
-import { MAX_LENGTH } from "../constants/index.js";
+import { MAX_LENGTH, ROUNDS } from "../constants/index.js";
 
 export default function carGame(names) {
   // 쉼표를 기준으로 자동차 이름 구분
@@ -11,6 +11,10 @@ export default function carGame(names) {
       throw new Error("이름은 5자 이하만 가능합니다.");
 
     const car = new Car(name);
-    console.log(car);
+
+    for (let i = 0; i < ROUNDS; i++) {
+      car.move();
+      console.log(car.getStatus());
+    }
   });
 }
