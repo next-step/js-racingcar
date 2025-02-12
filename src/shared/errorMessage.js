@@ -4,11 +4,4 @@ const nameTypeErrorMessage = '자동차의 이름은 문자열만 입력 가능�
 
 const moveBackwardErrorMessage = 'location 0 에서는 후진 할 수 없습니다.';
 
-class ValidationError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'ValidationError';
-  }
-}
-
-export { nameLengthErrorMessage, nameTypeErrorMessage, moveBackwardErrorMessage, ValidationError };
+export { nameLengthErrorMessage, nameTypeErrorMessage, moveBackwardErrorMessage };

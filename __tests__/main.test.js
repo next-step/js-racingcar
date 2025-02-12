@@ -1,4 +1,9 @@
 import Car from '../src/car.js';
+import {
+  moveBackwardErrorMessage,
+  nameLengthErrorMessage,
+  nameTypeErrorMessage,
+} from '../src/shared/validationError.js';
 
 describe('자동차 경주 테스트', () => {
   const CAR_NAME = 'kia';
@@ -16,11 +21,11 @@ describe('자동차 경주 테스트', () => {
 
     describe('자동차 경주 테스트 - 에러 처리', () => {
       it('자동차의 이름의 타입은 String만 입력할 수 있다.', () => {
-        expect(() => new Car(123)).toThrow(Car.nameTypeErrorMessage);
+        expect(() => new Car(123)).toThrow(nameTypeErrorMessage);
       });
 
       it('자동차의 이름은 1글자 이상 5글자 이하로 입력 하여야 한다.', () => {
-        expect(() => new Car('')).toThrow(Car.nameLengthErrorMessage);
+        expect(() => new Car('')).toThrow(nameLengthErrorMessage);
       });
     });
   });
@@ -38,7 +43,7 @@ describe('자동차 경주 테스트', () => {
     });
 
     it('location 0 상태 에서는 후진 시 에러를 뱉어야 합니다.', () => {
-      expect(() => car.moveBackward()).toThrow(Car.moveBackwardErrorMessage);
+      expect(() => car.moveBackward()).toThrow(moveBackwardErrorMessage);
     });
   });
 });
