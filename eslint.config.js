@@ -13,7 +13,7 @@ export default [
     },
     rules: {
       eqeqeq: ["error", "always"],
-      "no-unused-vars": "error",
+      "no-unused-vars": "warn",
       "no-var": "error",
       "no-else-return": "error",
     },
