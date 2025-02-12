@@ -11,6 +11,11 @@ async function main() {
   const race = new Race(cars, count);
   console.log('실행 결과');
   race.startRace();
+  race.getTrajectory().forEach(({ trajectory }) => {
+    trajectory.forEach((car) => {
+      console.log(`${car.name} : ${'-'.repeat(car.location)}`);
+    });
+  });
   console.log(`${race.getWinner()}가 최종 우승했습니다.`);
 }
 

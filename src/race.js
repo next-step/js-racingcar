@@ -1,7 +1,7 @@
-import generateRandomNumber from './shared/generateRandomNumber';
+import generateRandomNumber from './shared/generateRandomNumber.js';
 
 class Race {
-  static boundaryNumber = 5;
+  static boundaryNumber = 3;
 
   RaceMaxCount = 5;
 
@@ -19,7 +19,6 @@ class Race {
       this.setTrajectory(i);
 
       i += 1;
-      console.log('\n');
     }
     return this.getTrajectory();
   }
@@ -29,7 +28,6 @@ class Race {
       if (generateRandomNumber() > Race.boundaryNumber) {
         car.moveForward();
       }
-      console.log(Race.racePrint(car));
     });
   }
 
