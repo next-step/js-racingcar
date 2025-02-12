@@ -1,6 +1,6 @@
 import Car from "../src/domain/Car";
 import Race from "../src/domain/Race";
-import { CARNAMES, ROUNDS } from "../src/utils/constants";
+import { CAR_NAMES, ROUNDS } from "../src/utils/constants";
 
 describe("기본 경주 테스트", () => {
   let cars;
@@ -56,7 +56,7 @@ describe("기본 경주 테스트", () => {
 
 describe("사용자 입력 경주 테스트", () => {
   it("사용자가 10을 입력하면 경주를 10회 진행한다.", () => {
-    const cars = [new Car(CARNAMES.G70), new Car(CARNAMES.GV80)];
+    const cars = [new Car(CAR_NAMES.G70), new Car(CAR_NAMES.GV80)];
     const race = new Race(cars, ROUNDS.TEN);
 
     expect(race.rounds).toBe(ROUNDS.TEN);

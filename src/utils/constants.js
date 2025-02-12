@@ -5,19 +5,19 @@ export const ERROR_MESSAGES = {
   INPUT_ASYNC_ERROR: "[ERROR] 인풋 비동기화 처리중 에러 발생.",
 };
 
-export const CARNAMES = {
+export const CAR_NAMES = {
   NAME: "NAME",
   NAME_SPACE: "N AME",
   N: "N",
   NEXT: "NEXT",
-  NEXTSTEP: "NEXTSTEP",
-  MYCAR: "MYCAR",
+  NEXT_STEP: "NEXT_STEP",
+  M_CAR: "M_CAR",
   G70: "G70",
   GV80: "GV80",
 };
 
 export const ROUNDS = {
-  ONE : 1,
-  FIVE : 5,
-  TEN : 10,
-}
+  ONE: 1,
+  FIVE: 5,
+  TEN: 10,
+};

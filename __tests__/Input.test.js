@@ -1,5 +1,5 @@
 import Input from "../src/view/Input";
-import { CARNAMES } from "../src/utils/constants";
+import { CAR_NAMES } from "../src/utils/constants";
 
 describe("Input 유효성 메서드 테스트", () => {
   let input;
@@ -9,30 +9,30 @@ describe("Input 유효성 메서드 테스트", () => {
 
   describe("이름 안에 공백이 포함된 경우", () => {
     it("이름에 공백이 있으면 false를 반환한다.", () => {
-      const validate = input.isValidNotSpace([CARNAMES.NAME_SPACE]);
+      const validate = input.isValidNotSpace([CAR_NAMES.NAME_SPACE]);
       expect(validate).toBeFalsy();
     });
 
     it("이름에 공백이 없으면 true를 반환한다.", () => {
-      const validate = input.isValidNotSpace([CARNAMES.NAME]);
+      const validate = input.isValidNotSpace([CAR_NAMES.NAME]);
       expect(validate).toBeTruthy();
     });
   });
 
   describe("SplitBy 메서드", () => {
     it("쉼표로 구분된 문자열을 배열로 변환한다.", () => {
-      const result = input.splitBy("G70,GV80,NEXTSTEP", ",");
-      expect(result).toEqual([CARNAMES.G70, CARNAMES.GV80, CARNAMES.NEXTSTEP]);
+      const result = input.splitBy("G70,GV80,NEXT_STEP", ",");
+      expect(result).toEqual([CAR_NAMES.G70, CAR_NAMES.GV80, CAR_NAMES.NEXT_STEP]);
     });
 
     it("-로 구분된 문자열을 배열로 변환한다.", () => {
-      const result = input.splitBy("G70-GV80-NEXTSTEP", "-");
-      expect(result).toEqual([CARNAMES.G70, CARNAMES.GV80, CARNAMES.NEXTSTEP]);
+      const result = input.splitBy("G70-GV80-NEXT_STEP", "-");
+      expect(result).toEqual([CAR_NAMES.G70, CAR_NAMES.GV80, CAR_NAMES.NEXT_STEP]);
     });
 
     it("이름의 앞 뒤 공백을 제거하고 배열로 변환한다.", () => {
-      const result = input.splitBy("     G70,GV80     ,    NEXTSTEP    ", ",");
-      expect(result).toEqual([CARNAMES.G70, CARNAMES.GV80, CARNAMES.NEXTSTEP]);
+      const result = input.splitBy("     G70,GV80     ,    NEXT_STEP    ", ",");
+      expect(result).toEqual([CAR_NAMES.G70, CAR_NAMES.GV80, CAR_NAMES.NEXT_STEP]);
     });
   });
 
