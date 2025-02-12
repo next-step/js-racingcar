@@ -3,7 +3,7 @@ import {
   nameLengthErrorMessage,
   nameTypeErrorMessage,
   moveBackwardErrorMessage,
-} from './shared/validationError.js';
+} from '../shared/validationError.js';
 
 class Car {
   static maxNameSize = 5;

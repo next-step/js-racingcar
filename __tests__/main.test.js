@@ -1,4 +1,4 @@
-import Car from '../src/car.js';
+import Car from '../src/domain/car.js';
 import {
   moveBackwardErrorMessage,
   nameLengthErrorMessage,
