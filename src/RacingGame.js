@@ -8,7 +8,7 @@ class RacingGame {
     this.totalRound = totalRound;
   }
 
-  *startRace(getCanMove = () => true) {
+  *startRace(getCanMove) {
     while (this.round < this.totalRound) {
       this.#moveCars(getCanMove);
       this.round++;

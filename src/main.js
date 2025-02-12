@@ -7,6 +7,14 @@ import {
   printRacingGameResult,
 } from "./io.js";
 
+const getCanMove = () => {
+  const MIN = 0;
+  const MAX = 9;
+  const randomNumber = Math.floor(Math.random() * (MAX - MIN + 1)) + MIN;
+
+  return randomNumber >= 4;
+};
+
 const main = async () => {
   const readline = createReadlineInterface();
 
@@ -17,7 +25,7 @@ const main = async () => {
 
     const racingGame = new RacingGame(cars, trialCount);
 
-    printRacingGameResult(racingGame);
+    printRacingGameResult(racingGame, getCanMove);
   } catch (e) {
     if (!(e instanceof Error)) return;
     console.log(e.message);
