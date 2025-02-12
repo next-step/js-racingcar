@@ -1,5 +1,5 @@
-import Car from "../src/car/index.js";
-import carGame from "../src/functions/index.js";
+import Car from "../src/models/car.js";
+import Race from "../src/services/race.js";
 
 describe("자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.", () => {
   it("자동차에 이름을 부여할 수 있다.", () => {

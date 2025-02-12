@@ -1,3 +1,4 @@
-import carGame from "./functions/index.js";
+import Race from "./services/race.js";
 
-console.log(carGame("boky1, boky2"));
+const input = "boky1, boky2";
+Race(input);
