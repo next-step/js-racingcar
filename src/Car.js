@@ -1,4 +1,8 @@
-import { TRACK_MARK, CAR_MOVE_PER_RACING } from "./constants.js";
+import {
+  TRACK_MARK,
+  CAR_MOVE_PER_RACING,
+  FORWARD_CONDITION,
+} from "./constants.js";
 import Validator from "./Validator.js";
 
 class Car {
@@ -11,8 +15,14 @@ class Car {
     this.#position = 0;
   }
 
-  move() {
+  #move() {
     this.#position += CAR_MOVE_PER_RACING;
+  }
+
+  takeTurn(randomNum) {
+    if (randomNum >= FORWARD_CONDITION) {
+      this.#move();
+    }
   }
 
   getName() {
