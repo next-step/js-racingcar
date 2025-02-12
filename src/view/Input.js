@@ -15,7 +15,7 @@ class Input {
 
       return carNames;
     } catch (error) {
-      throw new Error(ERROR_MESSAGES.INPUT_ASYNC_ERROR);
+      throw new Error(error.message);
     }
   }
 
