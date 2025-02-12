@@ -1,10 +1,11 @@
 import Car from "./Car.js";
+import RacingGame from "./RacingGame.js";
 import {
   createReadlineInterface,
   getCarNamesFromInput,
+  getTrialCountFromInput,
   printRacingGameResult,
 } from "./io.js";
-import { racingGameGenerator } from "./racing.js";
 
 const main = async () => {
   const readline = createReadlineInterface();
@@ -12,7 +13,9 @@ const main = async () => {
   try {
     const names = await getCarNamesFromInput(readline);
     const cars = names.map((name) => new Car(name));
-    const racingGame = racingGameGenerator(cars);
+    const trialCount = await getTrialCountFromInput(readline);
+
+    const racingGame = new RacingGame(cars, trialCount);
 
     printRacingGameResult(racingGame);
   } catch (e) {
