@@ -3,13 +3,18 @@ import readLineAsync from "../utils/readline.js";
 
 class Input {
   async askCarNames() {
-    const input = await readLineAsync("자동차 이름을 입력하세요. \n");
-    const carNames = this.splitBy(input, ",");
+    try {
+      const input = await readLineAsync("자동차 이름을 입력하세요. \n");
+      const carNames = this.splitBy(input, ",");
 
-    if (!this.validateNotSpace(carNames)) {
-      throw new Error(ERROR_MESSAGES.NOT_SPACE_IN_NAME);
+      if (!this.validateNotSpace(carNames)) {
+        throw new Error(ERROR_MESSAGES.NOT_SPACE_IN_NAME);
+      }
+
+      return carNames;
+    } catch (error) {
+      throw new Error(ERROR_MESSAGES.INPUT_ASYNC_ERROR);
     }
-    return carNames;
   }
 
   splitBy(string, separator) {
