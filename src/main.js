@@ -8,8 +8,9 @@ async function main() {
   const output = new Output();
 
   try {
-    const carNames = await input.askCarNames();
+    const carNames = await input.getCarNames();
     const cars = carNames.map((name) => new Car(name));
+    const rounds = await input.getRoundCount();
 
     const race = new Race(cars);
 
