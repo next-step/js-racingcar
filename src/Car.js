@@ -13,7 +13,8 @@ class Car {
     this.name = name;
   }
 
-  moveForward() {
+  moveForward(getCanMove = () => true) {
+    if (!getCanMove()) return;
     this.position += 1;
   }
 

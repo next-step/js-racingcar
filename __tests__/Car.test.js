@@ -14,7 +14,7 @@ describe("자동차 클래스 테스트", () => {
     }
   );
 
-  it("자동차는 전진할 수 있으며 한 번에 1만큼 전진한다.", () => {
+  it("자동차는 기본적으로 전진할 수 있으며 한 번에 1만큼 전진한다.", () => {
     const car = new Car("강은비");
 
     expect(car.position).toBe(0);
@@ -22,5 +22,15 @@ describe("자동차 클래스 테스트", () => {
     car.moveForward();
 
     expect(car.position).toBe(1);
+  });
+
+  it("자동차는 전진할 수 없을 때 전진하지 않는다.", () => {
+    const car = new Car("강은비");
+
+    expect(car.position).toBe(0);
+
+    car.moveForward(() => false);
+
+    expect(car.position).toBe(0);
   });
 });
