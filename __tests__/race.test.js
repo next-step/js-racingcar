@@ -1,5 +1,8 @@
 import Race from '../src/race.js';
 import Car from '../src/car.js';
+import generateRandomNumber from '../src/shared/generateRandomNumber.js';
+
+jest.mock('../src/shared/generateRandomNumber');
 
 describe('자동차 경주', () => {
   let name = null;
@@ -24,11 +27,11 @@ describe('자동차 경주', () => {
 
   describe('랜덤값이 모두 4 이상일 경우', () => {
     beforeAll(() => {
-      jest.spyOn(Race, 'randomNumber').mockReturnValue(4);
+      generateRandomNumber.mockImplementation(() => 4);
     });
 
     afterAll(() => {
-      Race.randomNumber.mockRestore();
+      generateRandomNumber.mockRestore();
     });
 
     it('startRace()를 호출하면 모든 자동차가 매 라운드 전진하여 결과가 누적된다', () => {
@@ -58,11 +61,11 @@ describe('자동차 경주', () => {
       beforeAll(() => {
         const sequence = [4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2];
         mockRandomNumbers = jest.fn(() => sequence.shift());
-        jest.spyOn(Race, 'randomNumber').mockImplementation(mockRandomNumbers);
+        generateRandomNumber.mockImplementation(mockRandomNumbers);
       });
 
       afterAll(() => {
-        Race.randomNumber.mockRestore();
+        generateRandomNumber.mockRestore();
       });
 
       it('레이스가 종료되면 첫번 째 자동차만 우승한다.', () => {
@@ -78,11 +81,11 @@ describe('자동차 경주', () => {
       beforeAll(() => {
         const sequence = [4, 2, 8, 4, 2, 8, 4, 2, 8, 4, 2, 8, 4, 2, 8];
         mockRandomNumbers = jest.fn(() => sequence.shift());
-        jest.spyOn(Race, 'randomNumber').mockImplementation(mockRandomNumbers);
+        generateRandomNumber.mockImplementation(mockRandomNumbers);
       });
 
       afterAll(() => {
-        Race.randomNumber.mockRestore();
+        generateRandomNumber.mockRestore();
       });
 
       it('레이스가 종료되면 첫번 째, 두번 째 자동차만 우승한다.', () => {
