@@ -12,6 +12,11 @@ class Output {
     });
   }
 
+  printWinners(winnerNames) {
+    const winner = winnerNames.join(", ");
+    console.log(`${winner}가 최종 우승했습니다.`);
+  }
+
   printCarLocation(name, location) {
     console.log(`${name} : ${"-".repeat(location)}`);
   }

@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from '../utils/constants.js';
+import { ERROR_MESSAGES, NUMBERS } from "../utils/constants.js";
 
 class Car {
   #name;
@@ -23,8 +23,16 @@ class Car {
     this.#location += 1;
   }
 
+  movingCondition() {
+    return this.getRandomNumber() >= NUMBERS.THRESHOLD;
+  }
+
   isValidName(name) {
     return name.length >= 1 && name.length <= 5;
+  }
+
+  getRandomNumber() {
+    return Math.floor(Math.random() * NUMBERS.MAX_RANGE);
   }
 }
 

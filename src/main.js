@@ -13,9 +13,12 @@ async function main() {
     const rounds = await input.getRoundCount();
 
     const race = new Race(cars, rounds);
-    
-    race.start();
-    output.printRaceResult(race.result);
+
+    const raceResult = race.start();
+    const raceWinners = race.getWinners();
+
+    output.printRaceResult(raceResult);
+    output.printWinners(raceWinners);
   } catch (error) {
     output.printErrorMessage(error);
   }

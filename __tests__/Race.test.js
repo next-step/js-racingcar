@@ -21,35 +21,15 @@ describe("기본 경주 테스트", () => {
     });
   });
 
-  describe("자동차는 1회당 한 칸씩 전진한다.", () => {
-    const MOVE_DISTANCE = 1;
-    let result;
+  describe("경주 결과 테스트", () => {
+    it("경주가 끝나면 결과를 반환한다.", () => {
+      expect(race.start()).toEqual(race.result);
+    });
 
-    beforeEach(() => {
+    it("우승자 조회시 우승자 목록을 반환한다.", () => {
       race.start();
-      result = race.result;
-    });
 
-    it("1회에는 한 칸 이동한다.", () => {
-      const firstRound = result.find(
-        (round) => round.round === ROUNDS.ONE * MOVE_DISTANCE
-      );
-      const allCarsFirstMovedLocation = firstRound.cars.every(
-        (car) => car.location === ROUNDS.ONE
-      );
-
-      expect(allCarsFirstMovedLocation).toBeTruthy();
-    });
-
-    it("5회에는 다섯 칸 이동한다.", () => {
-      const finalRound = result.find(
-        (round) => round.round === ROUNDS.FIVE * MOVE_DISTANCE
-      );
-      const allCarsFinalLocation = finalRound.cars.every(
-        (car) => car.location === ROUNDS.FIVE * MOVE_DISTANCE
-      );
-
-      expect(allCarsFinalLocation).toBeTruthy();
+      expect(race.getWinners().length).toBeGreaterThan(0);
     });
   });
 });

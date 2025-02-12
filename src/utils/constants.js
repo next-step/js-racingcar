@@ -21,3 +21,5 @@ export const ROUNDS = {
   FIVE: 5,
   TEN: 10,
 };
+
+export const NUMBERS = { THRESHOLD: 4, MAX_RANGE: 10 };

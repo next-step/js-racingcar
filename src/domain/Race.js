@@ -10,7 +10,11 @@ class Race {
   }
 
   moveCars(cars) {
-    cars.map((car) => car.moveForward());
+    cars.map((car) => {
+      if (car.movingCondition()) {
+        car.moveForward();
+      }
+    });
   }
 
   // 자동차는 1회에 1칸씩 이동
@@ -19,16 +23,29 @@ class Race {
       this.moveCars(this.cars);
       this.recordRoundResult(round, this.cars);
     }
+    return this.result;
   }
 
   recordRoundResult(round, cars) {
     this.result.push({
       round: round,
+
       cars: cars.map((car) => ({
         name: car.getName(),
         location: car.getLocation(),
       })),
     });
+  }
+
+  getWinners() {
+    const locations = this.cars.map((car) => car.getLocation());
+    const maxLocation = Math.max(...locations);
+
+    const winnersCar = this.cars.filter(
+      (car) => car.getLocation() === maxLocation
+    );
+
+    return winnersCar.map((car) => car.getName());
   }
 }
 
