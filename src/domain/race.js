@@ -1,4 +1,4 @@
-import generateRandomNumber from './shared/generateRandomNumber.js';
+import generateRandomNumber from '../shared/generateRandomNumber.js';
 
 class Race {
   static boundaryNumber = 3;
@@ -47,7 +47,7 @@ class Race {
       { max: 0, winners: [] },
     );
 
-    return winners.join(', ');
+    return winners;
   }
 
   getTrajectory() {
