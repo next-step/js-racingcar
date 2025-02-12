@@ -31,16 +31,6 @@ class Race {
     });
   }
 
-  setTrajectory(round) {
-    this.result.push({
-      round,
-      trajectory: this.cars.map((car) => ({
-        name: car.getName(),
-        location: car.getLocation(),
-      })),
-    });
-  }
-
   getWinner() {
     const { trajectory } = this.result[this.RaceMaxCount - 1];
 
@@ -64,8 +54,14 @@ class Race {
     return this.result;
   }
 
-  static racePrint(car) {
-    return `${car.getName()} : ${'-'.repeat(car.getLocation())}`;
+  setTrajectory(round) {
+    this.result.push({
+      round,
+      trajectory: this.cars.map((car) => ({
+        name: car.getName(),
+        location: car.getLocation(),
+      })),
+    });
   }
 }
 
