@@ -12,8 +12,8 @@ async function main() {
     const cars = carNames.map((name) => new Car(name));
     const rounds = await input.getRoundCount();
 
-    const race = new Race(cars);
-
+    const race = new Race(cars, rounds);
+    
     race.start();
     output.printRaceResult(race.result);
   } catch (error) {

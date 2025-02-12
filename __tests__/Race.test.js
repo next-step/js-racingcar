@@ -1,7 +1,8 @@
 import Car from "../src/domain/Car";
 import Race from "../src/domain/Race";
+import { CARNAMES, ROUNDS } from "../src/utils/constants";
 
-describe("경주 테스트", () => {
+describe("기본 경주 테스트", () => {
   let cars;
   let race;
 
@@ -15,9 +16,8 @@ describe("경주 테스트", () => {
       expect(race.cars).toEqual(cars);
     });
 
-    it("경주는 5회로 고정하여 진행한다.", () => {
-      const DEFAULT_ROUNDS = 5;
-      expect(race.rounds).toBe(DEFAULT_ROUNDS);
+    it("경주는 기본 5회로 진행한다.", () => {
+      expect(race.rounds).toBe(Race.DEFAULT_ROUNDS);
     });
   });
 
@@ -31,29 +31,34 @@ describe("경주 테스트", () => {
     });
 
     it("1회에는 한 칸 이동한다.", () => {
-      const FIRST_ROUND = 1;
-
       const firstRound = result.find(
-        (round) => round.round === FIRST_ROUND * MOVE_DISTANCE
+        (round) => round.round === ROUNDS.ONE * MOVE_DISTANCE
       );
       const allCarsFirstMovedLocation = firstRound.cars.every(
-        (car) => car.location === FIRST_ROUND
+        (car) => car.location === ROUNDS.ONE
       );
 
       expect(allCarsFirstMovedLocation).toBeTruthy();
     });
 
     it("5회에는 다섯 칸 이동한다.", () => {
-      const TOTAL_ROUND = 5;
-
       const finalRound = result.find(
-        (round) => round.round === TOTAL_ROUND * MOVE_DISTANCE
+        (round) => round.round === ROUNDS.FIVE * MOVE_DISTANCE
       );
       const allCarsFinalLocation = finalRound.cars.every(
-        (car) => car.location === TOTAL_ROUND * MOVE_DISTANCE
+        (car) => car.location === ROUNDS.FIVE * MOVE_DISTANCE
       );
 
       expect(allCarsFinalLocation).toBeTruthy();
     });
+  });
+});
+
+describe("사용자 입력 경주 테스트", () => {
+  it("사용자가 10을 입력하면 경주를 10회 진행한다.", () => {
+    const cars = [new Car(CARNAMES.G70), new Car(CARNAMES.GV80)];
+    const race = new Race(cars, ROUNDS.TEN);
+
+    expect(race.rounds).toBe(ROUNDS.TEN);
   });
 });

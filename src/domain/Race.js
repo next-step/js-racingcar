@@ -4,9 +4,9 @@ class Race {
   rounds;
   result = [];
 
-  constructor(cars) {
+  constructor(cars, rounds = Race.DEFAULT_ROUNDS) {
     this.cars = cars;
-    this.rounds = Race.DEFAULT_ROUNDS;
+    this.rounds = rounds;
   }
 
   moveCars(cars) {

@@ -5,7 +5,7 @@ export const ERROR_MESSAGES = {
   INPUT_ASYNC_ERROR: "[ERROR] 인풋 비동기화 처리중 에러 발생.",
 };
 
-export const carNames = {
+export const CARNAMES = {
   NAME: "NAME",
   NAME_SPACE: "N AME",
   N: "N",
@@ -15,3 +15,9 @@ export const carNames = {
   G70: "G70",
   GV80: "GV80",
 };
+
+export const ROUNDS = {
+  ONE : 1,
+  FIVE : 5,
+  TEN : 10,
+}

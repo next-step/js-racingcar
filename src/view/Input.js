@@ -22,6 +22,10 @@ class Input {
   async getRoundCount() {
     const input = await readLineAsync("시도할 회수는 몇회인가요? \n");
 
+    if (this.isBlank(input)) {
+      return;
+    }
+
     if (!this.isValidInteger(input)) {
       throw new Error(ERROR_MESSAGES.INVALID_RACE_COUNT);
     }
@@ -40,6 +44,10 @@ class Input {
   isValidInteger(value) {
     const number = parseFloat(value);
     return !isNaN(number) && number > 0 && Number.isInteger(number);
+  }
+
+  isBlank(value) {
+    return value.trim() === "";
   }
 }
 
