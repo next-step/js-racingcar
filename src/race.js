@@ -1,6 +1,8 @@
 import generateRandomNumber from './shared/generateRandomNumber';
 
 class Race {
+  static boundaryNumber = 5;
+
   RaceMaxCount = 5;
 
   constructor(cars, count) {
@@ -24,8 +26,7 @@ class Race {
 
   moveCars() {
     this.cars.forEach((car) => {
-      const isThreeOrMore = generateRandomNumber() > 3;
-      if (isThreeOrMore) {
+      if (generateRandomNumber() > Race.boundaryNumber) {
         car.moveForward();
       }
       console.log(Race.racePrint(car));
