@@ -21,6 +21,18 @@ class RacingGame {
       car.moveForward(getCanMove);
     }
   }
+
+  getWinners() {
+    const maxPosition = Math.max(...this.cars.map((car) => car.position));
+    const winners = [];
+
+    for (const car of this.cars) {
+      if (car.position !== maxPosition) continue;
+      winners.push(car.name);
+    }
+
+    return winners;
+  }
 }
 
 export default RacingGame;

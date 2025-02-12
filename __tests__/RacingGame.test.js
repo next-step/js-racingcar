@@ -39,7 +39,7 @@ describe("자동차 경주 테스트", () => {
     }
   });
 
-  test("자동차는 각 라운드에서 전진 조건에 따라 전진하거나 전진하지 않는다..", () => {
+  test("자동차는 각 라운드에서 전진 조건에 따라 전진하거나 전진하지 않는다.", () => {
     const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
 
     const racingGame = new RacingGame(cars);
@@ -56,5 +56,19 @@ describe("자동차 경주 테스트", () => {
     roundResult2.forEach((car) => expect(car.position).toBe(1));
 
     jest.restoreAllMocks();
+  });
+
+  test("자동차 경주 우승자는 가장 멀리 전진한 자동차들이다.", () => {
+    const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
+
+    const racingGame = new RacingGame(cars);
+
+    cars[0].position = 5;
+    cars[1].position = 3;
+    cars[2].position = 5;
+
+    const winners = racingGame.getWinners();
+
+    expect(winners).toEqual(["벤츠", "아우디"]);
   });
 });
