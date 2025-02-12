@@ -27,10 +27,10 @@ export const getTrialCountFromInput = async (readline) => {
   return trial;
 };
 
-export const printRacingGameResult = (racingGame, getCanMove) => {
+export const printRacingGameResult = (racingGame) => {
   console.log("\n실행 결과");
 
-  const raceIterator = racingGame.startRace(getCanMove);
+  const raceIterator = racingGame.startRace();
 
   for (const roundResult of raceIterator) {
     printCarPositions(roundResult);

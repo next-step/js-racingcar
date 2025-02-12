@@ -42,8 +42,8 @@ describe("자동차 경주 테스트", () => {
   test("자동차는 각 라운드에서 전진 조건에 따라 전진하거나 전진하지 않는다.", () => {
     const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
 
-    const racingGame = new RacingGame(cars);
-    const raceIterator = racingGame.startRace(() => Math.random() >= 0.5); // 랜덤값이 0.5 이상일 때 전진하도록 설정
+    const racingGame = new RacingGame(cars, 5, () => Math.random() >= 0.5);
+    const raceIterator = racingGame.startRace();
 
     jest.spyOn(Math, "random").mockReturnValue(0.5);
 

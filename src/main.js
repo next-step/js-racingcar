@@ -23,9 +23,9 @@ const main = async () => {
     const cars = names.map((name) => new Car(name));
     const trialCount = await getTrialCountFromInput(readline);
 
-    const racingGame = new RacingGame(cars, trialCount);
+    const racingGame = new RacingGame(cars, trialCount, getCanMove);
 
-    printRacingGameResult(racingGame, getCanMove);
+    printRacingGameResult(racingGame);
   } catch (e) {
     if (!(e instanceof Error)) return;
     console.log(e.message);
