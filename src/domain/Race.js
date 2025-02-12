@@ -17,7 +17,6 @@ class Race {
     });
   }
 
-  // 자동차는 1회에 1칸씩 이동
   start() {
     for (let round = 1; round <= this.rounds; round++) {
       this.moveCars(this.cars);
