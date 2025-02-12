@@ -1,3 +1,5 @@
+import generateRandomNumber from './shared/generateRandomNumber';
+
 class Race {
   RaceMaxCount = 5;
 
@@ -22,7 +24,7 @@ class Race {
 
   moveCars() {
     this.cars.forEach((car) => {
-      const isThreeOrMore = Race.randomNumber() > 3;
+      const isThreeOrMore = generateRandomNumber() > 3;
       if (isThreeOrMore) {
         car.moveForward();
       }
@@ -65,10 +67,6 @@ class Race {
 
   static racePrint(car) {
     return `${car.getName()} : ${'-'.repeat(car.getLocation())}`;
-  }
-
-  static randomNumber() {
-    return Math.floor(Math.random() * 10);
   }
 }
 
