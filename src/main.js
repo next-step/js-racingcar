@@ -7,12 +7,13 @@ import {
   printRacingGameResult,
 } from "./io.js";
 
-const getCanMove = () => {
+const canMove = () => {
   const MIN = 0;
   const MAX = 9;
+  const THRESHOLD = 4;
   const randomNumber = Math.floor(Math.random() * (MAX - MIN + 1)) + MIN;
 
-  return randomNumber >= 4;
+  return randomNumber >= THRESHOLD;
 };
 
 const main = async () => {
@@ -23,7 +24,7 @@ const main = async () => {
     const cars = names.map((name) => new Car(name));
     const trialCount = await getTrialCountFromInput(readline);
 
-    const racingGame = new RacingGame(cars, trialCount, getCanMove);
+    const racingGame = new RacingGame(cars, trialCount, canMove);
 
     printRacingGameResult(racingGame);
   } catch (e) {

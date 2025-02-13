@@ -2,17 +2,17 @@ class RacingGame {
   cars = [];
   round = 0;
   totalRound;
-  getCanMove;
+  canMove;
 
-  constructor(cars, totalRound = 5, getCanMove = () => true) {
+  constructor(cars, totalRound = 5, canMove = () => true) {
     this.cars = cars;
     this.totalRound = totalRound;
-    this.getCanMove = getCanMove;
+    this.canMove = canMove;
   }
 
   *startRace() {
     while (this.round < this.totalRound) {
-      this.#moveCars(this.getCanMove);
+      this.#moveCars(this.canMove);
       this.round++;
       yield this.cars;
     }
@@ -20,7 +20,7 @@ class RacingGame {
 
   #moveCars() {
     for (const car of this.cars) {
-      car.moveForward(this.getCanMove);
+      car.moveForward(this.canMove);
     }
   }
 
