@@ -23,11 +23,11 @@ class RacingGame {
   *runRace() {
     while (this.round < this.totalRound) {
       this.round++;
-      yield this.#moveCars();
+      yield this.#getRoundResult();
     }
   }
 
-  #moveCars() {
+  #getRoundResult() {
     return this.cars.map((car) => {
       car.moveForward(this.canMove);
       return { name: car.name, position: car.position };
