@@ -8,9 +8,7 @@ describe("자동차 경주 테스트", () => {
     const racingGame = new RacingGame(cars);
     const raceIterator = racingGame.startRace();
 
-    while (!raceIterator.next().done) {}
-
-    expect(racingGame.round).toBe(5);
+    expect([...raceIterator].length).toBe(5);
   });
 
   it("자동차 경주는 설정된 라운드만큼 진행된다.", () => {
@@ -19,9 +17,7 @@ describe("자동차 경주 테스트", () => {
     const racingGame = new RacingGame(cars, 7);
     const raceIterator = racingGame.startRace();
 
-    while (!raceIterator.next().done) {}
-
-    expect(racingGame.round).toBe(7);
+    expect([...raceIterator].length).toBe(7);
   });
 
   test("자동차는 기본적으로 각 라운드마다 1칸씩 전진한다.", () => {
