@@ -2,6 +2,10 @@ import Car from "../src/Car";
 import RacingGame, { InvalidRacingTotalRound } from "../src/RacingGame";
 
 describe("자동차 경주 테스트", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it("자동차 경주는 기본적으로 최대 5라운드로 진행된다.", () => {
     const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
 
@@ -31,41 +35,72 @@ describe("자동차 경주 테스트", () => {
     }
   );
 
-  test("자동차는 기본적으로 각 라운드마다 1칸씩 전진한다.", () => {
+  it("자동차는 기본적으로 각 라운드마다 1칸씩 전진한다.", () => {
     const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
-
-    const totalRound = 6;
-    const racingGame = new RacingGame(cars, totalRound);
-    const raceIterator = racingGame.runRace();
 
     cars.forEach((car) => expect(car.position).toBe(0));
 
-    for (let position = 1; position <= totalRound; position++) {
-      const result = raceIterator.next().value;
-      result.forEach((car) => expect(car.position).toBe(position));
-    }
+    const totalRound = 6;
+    const racingGame = new RacingGame(cars, totalRound);
+    const raceResults = [...racingGame.runRace()];
+
+    // 예상 자동차 위치 변화
+    const expectedPositions = [
+      [1, 1, 1],
+      [2, 2, 2],
+      [3, 3, 3],
+      [4, 4, 4],
+      [5, 5, 5],
+      [6, 6, 6],
+    ];
+
+    raceResults.forEach((roundResult, roundIndex) => {
+      roundResult.forEach((car, carIndex) => {
+        expect(car.position).toBe(expectedPositions[roundIndex][carIndex]);
+      });
+    });
   });
 
-  test("자동차는 각 라운드에서 전진 조건에 따라 전진하거나 전진하지 않는다.", () => {
+  it("자동차는 각 라운드에서 전진 조건에 따라 전진하거나 전진하지 않는다.", () => {
     const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
 
-    const racingGame = new RacingGame(cars, 5, () => Math.random() >= 0.5);
-    const raceIterator = racingGame.runRace();
+    const totalRound = 3;
+    const racingGame = new RacingGame(
+      cars,
+      totalRound,
+      () => Math.random() >= 0.5
+    );
 
-    jest.spyOn(Math, "random").mockReturnValue(0.5);
+    // 자동차 개수 × 라운드 수만큼 `Math.random()`이 호출되므로 모킹값을 충분히 제공
+    jest
+      .spyOn(Math, "random")
+      .mockReturnValueOnce(0.6) // 벤츠 (라운드 1)
+      .mockReturnValueOnce(0.3) // BMW (라운드 1)
+      .mockReturnValueOnce(0.8) // 아우디 (라운드 1)
+      .mockReturnValueOnce(0.2) // 벤츠 (라운드 2)
+      .mockReturnValueOnce(0.7) // BMW (라운드 2)
+      .mockReturnValueOnce(0.9) // 아우디 (라운드 2)
+      .mockReturnValueOnce(0.4) // 벤츠 (라운드 3)
+      .mockReturnValueOnce(0.5) // BMW (라운드 3)
+      .mockReturnValueOnce(0.1); // 아우디 (라운드 3)
 
-    const roundResult1 = raceIterator.next().value;
-    roundResult1.forEach((car) => expect(car.position).toBe(1));
+    const raceResults = [...racingGame.runRace()];
 
-    jest.spyOn(Math, "random").mockReturnValue(0.2);
+    // 예상 자동차 위치 변화
+    const expectedPositions = [
+      [1, 0, 1], // (라운드 1) 벤츠: 전진, BMW: 멈춤, 아우디: 전진
+      [1, 1, 2], // (라운드 2) 벤츠: 멈춤, BMW: 전진, 아우디: 전진
+      [1, 2, 2], // (라운드 3) 벤츠: 멈춤, BMW: 전진, 아우디: 멈춤
+    ];
 
-    const roundResult2 = raceIterator.next().value;
-    roundResult2.forEach((car) => expect(car.position).toBe(1));
-
-    jest.restoreAllMocks();
+    raceResults.forEach((roundResult, roundIndex) => {
+      roundResult.forEach((car, carIndex) => {
+        expect(car.position).toBe(expectedPositions[roundIndex][carIndex]);
+      });
+    });
   });
 
-  test("자동차 경주 우승자는 가장 멀리 전진한 자동차들이다.", () => {
+  it("자동차 경주 우승자는 가장 멀리 전진한 자동차들이다.", () => {
     const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
 
     const racingGame = new RacingGame(cars);
