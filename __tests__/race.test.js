@@ -60,7 +60,7 @@ describe('자동차 경주', () => {
       let mockRandomNumbers;
       beforeAll(() => {
         const sequence = [4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2];
-        mockRandomNumbers = jest.fn(() => sequence.shift());
+        mockRandomNumbers = () => sequence.shift();
         generateRandomNumber.mockImplementation(mockRandomNumbers);
       });
 
@@ -80,7 +80,8 @@ describe('자동차 경주', () => {
       let mockRandomNumbers;
       beforeAll(() => {
         const sequence = [4, 2, 8, 4, 2, 8, 4, 2, 8, 4, 2, 8, 4, 2, 8];
-        mockRandomNumbers = jest.fn(() => sequence.shift());
+        mockRandomNumbers = () => sequence.shift();
+
         generateRandomNumber.mockImplementation(mockRandomNumbers);
       });
 
