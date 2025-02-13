@@ -1,11 +1,11 @@
-import Car from "./Car.js";
-import RacingGame from "./RacingGame.js";
+import Car from "./domain/Car.js";
+import RacingGame from "./domain/RacingGame.js";
 import {
   createReadlineInterface,
   getCarNamesFromInput,
   getTrialCountFromInput,
-  printRacingGameResult,
-} from "./io.js";
+} from "./view/input.js";
+import { printRacingGameResult } from "./view/output.js";
 
 const canMove = () => {
   const MIN = 0;

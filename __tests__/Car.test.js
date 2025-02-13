@@ -1,4 +1,4 @@
-import Car, { InvalidCarName } from "../src/Car";
+import Car, { InvalidCarName } from "../src/domain/Car";
 
 describe("자동차 클래스 테스트", () => {
   it("자동차는 이름과 위치 값을 갖는다.", () => {

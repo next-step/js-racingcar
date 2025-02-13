@@ -1,5 +1,5 @@
-import Car from "../src/Car";
-import RacingGame, { InvalidRacingTotalRound } from "../src/RacingGame";
+import Car from "../src/domain/Car";
+import RacingGame, { InvalidRacingTotalRound } from "../src/domain/RacingGame";
 
 describe("자동차 경주 테스트", () => {
   afterEach(() => {
