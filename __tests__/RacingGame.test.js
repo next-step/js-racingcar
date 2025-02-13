@@ -40,8 +40,7 @@ describe("자동차 경주 테스트", () => {
 
     cars.forEach((car) => expect(car.position).toBe(0));
 
-    const totalRound = 6;
-    const racingGame = new RacingGame(cars, totalRound);
+    const racingGame = new RacingGame(cars, 6);
     const raceResults = [...racingGame.runRace()];
 
     // 예상 자동차 위치 변화
@@ -64,29 +63,17 @@ describe("자동차 경주 테스트", () => {
   it("자동차는 각 라운드에서 전진 조건에 따라 전진하거나 전진하지 않는다.", () => {
     const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
 
-    const totalRound = 3;
-    const racingGame = new RacingGame(
-      cars,
-      totalRound,
-      () => Math.random() >= 0.5
-    );
+    const raceConditions = [
+      [true, false, true], // 라운드 1: 벤츠, 아우디 전진, BMW 멈춤
+      [false, true, true], // 라운드 2: BMW, 아우디 전진, 벤츠 멈춤
+      [false, true, false], // 라운드 3: BMW 전진, 벤츠, 아우디 멈춤
+    ].flat();
 
-    // 자동차 개수 × 라운드 수만큼 `Math.random()`이 호출되므로 모킹값을 충분히 제공
-    jest
-      .spyOn(Math, "random")
-      .mockReturnValueOnce(0.6) // 벤츠 (라운드 1)
-      .mockReturnValueOnce(0.3) // BMW (라운드 1)
-      .mockReturnValueOnce(0.8) // 아우디 (라운드 1)
-      .mockReturnValueOnce(0.2) // 벤츠 (라운드 2)
-      .mockReturnValueOnce(0.7) // BMW (라운드 2)
-      .mockReturnValueOnce(0.9) // 아우디 (라운드 2)
-      .mockReturnValueOnce(0.4) // 벤츠 (라운드 3)
-      .mockReturnValueOnce(0.5) // BMW (라운드 3)
-      .mockReturnValueOnce(0.1); // 아우디 (라운드 3)
+    const canMove = () => raceConditions.shift();
+    const racingGame = new RacingGame(cars, 3, canMove);
 
     const raceResults = [...racingGame.runRace()];
 
-    // 예상 자동차 위치 변화
     const expectedPositions = [
       [1, 0, 1], // (라운드 1) 벤츠: 전진, BMW: 멈춤, 아우디: 전진
       [1, 1, 2], // (라운드 2) 벤츠: 멈춤, BMW: 전진, 아우디: 전진
