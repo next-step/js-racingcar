@@ -6,7 +6,7 @@ describe("자동차 경주 테스트", () => {
     const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
 
     const racingGame = new RacingGame(cars);
-    const raceIterator = racingGame.startRace();
+    const raceIterator = racingGame.runRace();
 
     expect([...raceIterator].length).toBe(5);
   });
@@ -15,7 +15,7 @@ describe("자동차 경주 테스트", () => {
     const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
 
     const racingGame = new RacingGame(cars, 7);
-    const raceIterator = racingGame.startRace();
+    const raceIterator = racingGame.runRace();
 
     expect([...raceIterator].length).toBe(7);
   });
@@ -36,7 +36,7 @@ describe("자동차 경주 테스트", () => {
 
     const totalRound = 6;
     const racingGame = new RacingGame(cars, totalRound);
-    const raceIterator = racingGame.startRace();
+    const raceIterator = racingGame.runRace();
 
     cars.forEach((car) => expect(car.position).toBe(0));
 
@@ -50,7 +50,7 @@ describe("자동차 경주 테스트", () => {
     const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
 
     const racingGame = new RacingGame(cars, 5, () => Math.random() >= 0.5);
-    const raceIterator = racingGame.startRace();
+    const raceIterator = racingGame.runRace();
 
     jest.spyOn(Math, "random").mockReturnValue(0.5);
 

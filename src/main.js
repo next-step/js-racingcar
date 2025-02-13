@@ -25,8 +25,10 @@ const main = async () => {
     const trialCount = await getTrialCountFromInput(readline);
 
     const racingGame = new RacingGame(cars, trialCount, canMove);
+    const raceResults = [...racingGame.runRace()];
+    const winners = racingGame.getWinners();
 
-    printRacingGameResult(racingGame);
+    printRacingGameResult(raceResults, winners);
   } catch (e) {
     if (!(e instanceof Error)) return;
     console.log(e.message);

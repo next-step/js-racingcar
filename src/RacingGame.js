@@ -20,18 +20,18 @@ class RacingGame {
     return true;
   }
 
-  *startRace() {
+  *runRace() {
     while (this.round < this.totalRound) {
-      this.#moveCars(this.canMove);
       this.round++;
-      yield this.cars;
+      yield this.#moveCars();
     }
   }
 
   #moveCars() {
-    for (const car of this.cars) {
+    return this.cars.map((car) => {
       car.moveForward(this.canMove);
-    }
+      return { name: car.name, position: car.position };
+    });
   }
 
   getWinners() {
