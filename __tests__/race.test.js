@@ -51,7 +51,7 @@ describe('자동차 경주', () => {
       race.startRace();
       const winners = race.getWinner();
 
-      expect(winners).toBe('to, kia, jest');
+      expect(winners).toStrictEqual(['to', 'kia', 'jest']);
     });
   });
 
@@ -72,7 +72,7 @@ describe('자동차 경주', () => {
         race.startRace();
         const winner = race.getWinner();
 
-        expect(winner).toBe('to');
+        expect(winner).toStrictEqual(['to']);
       });
     });
 
@@ -91,8 +91,7 @@ describe('자동차 경주', () => {
       it('레이스가 종료되면 첫번 째, 두번 째 자동차만 우승한다.', () => {
         race.startRace();
         const winner = race.getWinner();
-
-        expect(winner).toBe('to, jest');
+        expect(winner).toStrictEqual(['to', 'jest']);
       });
     });
   });
