@@ -5,9 +5,19 @@ class RacingGame {
   canMove;
 
   constructor(cars, totalRound = 5, canMove = () => true) {
+    if (!this.#isValidTotalRound(totalRound)) {
+      throw new InvalidRacingTotalRound();
+    }
     this.cars = cars;
     this.totalRound = totalRound;
     this.canMove = canMove;
+  }
+
+  #isValidTotalRound(totalRound) {
+    if (typeof totalRound !== "number") return false;
+    if (!Number.isInteger(totalRound)) return false;
+    if (totalRound <= 0) return false;
+    return true;
   }
 
   *startRace() {
@@ -38,3 +48,9 @@ class RacingGame {
 }
 
 export default RacingGame;
+
+export class InvalidRacingTotalRound extends Error {
+  constructor() {
+    super("자동차 경주의 총 라운드 값은 1 이상의 정수여야 합니다.");
+  }
+}

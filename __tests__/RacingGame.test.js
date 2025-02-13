@@ -1,5 +1,5 @@
 import Car from "../src/Car";
-import RacingGame from "../src/RacingGame";
+import RacingGame, { InvalidRacingTotalRound } from "../src/RacingGame";
 
 describe("자동차 경주 테스트", () => {
   it("자동차 경주는 기본적으로 최대 5라운드로 진행된다.", () => {
@@ -19,6 +19,17 @@ describe("자동차 경주 테스트", () => {
 
     expect([...raceIterator].length).toBe(7);
   });
+
+  it.each([Number.NaN, -1, 0, 3.5, "4", true])(
+    "자동차 경주의 총 라운드 값은 1 이상의 정수여야 한다. (총 라운드: %p)",
+    (totalRound) => {
+      const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
+
+      expect(() => new RacingGame(cars, totalRound)).toThrow(
+        InvalidRacingTotalRound
+      );
+    }
+  );
 
   test("자동차는 기본적으로 각 라운드마다 1칸씩 전진한다.", () => {
     const cars = [new Car("벤츠"), new Car("BMW"), new Car("아우디")];
