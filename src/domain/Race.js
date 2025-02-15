@@ -1,32 +1,41 @@
 class Race {
-  static ROUNDS = 5;
+  static DEFAULT_ROUND_COUNT = 5;
 
   #cars;
+  #roundCount;
   #results;
-
-  constructor(cars) {
-    this.#cars = cars;
-  }
-
-  playRound() {
-    this.#cars.forEach((car) => car.forward());
-    return this.#cars.map(({ name, location }) => {
-      return { name, location };
-    });
-  }
+  #forwardCondition;
 
   static validateRoundCount(count) {
     return typeof count === "number" && Number.isInteger(count);
   }
 
-  start(count) {
-    const isValidRoundCount = Race.validateRoundCount(count);
+  constructor(cars, roundCount, forwardCondition) {
+    this.#cars = cars;
+    this.#forwardCondition = forwardCondition;
+    this.#roundCount = Race.validateRoundCount(roundCount)
+      ? roundCount
+      : Race.DEFAULT_ROUND_COUNT;
+  }
 
-    this.#results = Array.from({
-      length: isValidRoundCount ? count : Race.ROUNDS,
+  playRound() {
+    this.#cars.forEach((car) => {
+      car.forward(this.#forwardCondition);
+    });
+
+    return this.#cars.map(({ name, location }) => {
+      return { name, location };
+    });
+  }
+
+  start() {
+    const results = Array.from({
+      length: this.#roundCount,
     }).map(() => this.playRound());
 
-    return this.#results;
+    this.#results = results;
+
+    return results;
   }
 
   getWinners() {

@@ -4,6 +4,8 @@ import { consoleRaceResult } from "./view/output.js";
 import Race from "./domain/Race.js";
 import Car from "./domain/Car.js";
 
+import { getRandomNumber } from "./getRandomNumber.js";
+
 async function getCarNames() {
   const names = await inputCarNames();
 
@@ -30,14 +32,21 @@ function formatResults(results) {
   );
 }
 
+const FORWARD_MIN_VALUE = 4;
+const FORWARD_MIN_RANGE = 0;
+const FORWARD_MAX_RANGE = 9;
+
+const raceCondition = () =>
+  getRandomNumber(FORWARD_MIN_RANGE, FORWARD_MAX_RANGE) >= FORWARD_MIN_VALUE;
+
 async function play() {
   const names = await getCarNames();
   const count = await getRaceRoundCount();
 
   const cars = names.map((name) => new Car(name));
+  const race = new Race(cars, count, raceCondition);
 
-  const race = new Race(cars);
-  const results = race.start(count);
+  const results = race.start();
   const winners = race.getWinners();
 
   consoleRaceResult(formatResults(results), winners);
