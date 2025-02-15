@@ -1,5 +1,5 @@
-function generateRandomNumber() {
-  return Math.floor(Math.random() * 10);
+function generateRandomNumber(num = 10) {
+  return Math.floor(Math.random() * num);
 }
 
 export default generateRandomNumber;
