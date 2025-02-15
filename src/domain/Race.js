@@ -9,10 +9,10 @@ class Race {
   #forwardCondition;
 
   static validateRoundCount(count) {
-    const isValid =
+    const validRoundCount =
       typeof count === "number" && Number.isInteger(count) && count > 0;
 
-    if (!isValid) throw new Error(Race.ROUND_COUNT_ERROR_MESSAGE);
+    if (!validRoundCount) throw new Error(Race.ROUND_COUNT_ERROR_MESSAGE);
   }
 
   constructor(cars, roundCount, forwardCondition) {

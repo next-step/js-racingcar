@@ -8,9 +8,9 @@ class Car {
   #location = Car.INITIAL_LOCATION;
 
   static validateName(name) {
-    const isValid = name.length > 0 && name.length <= Car.NAME_MAX_LENGTH;
+    const validName = name.length > 0 && name.length <= Car.NAME_MAX_LENGTH;
 
-    if (!isValid) throw new Error(Car.NAME_LENGTH_ERROR_MESSAGE);
+    if (!validName) throw new Error(Car.NAME_LENGTH_ERROR_MESSAGE);
   }
 
   constructor(name) {
@@ -21,9 +21,9 @@ class Car {
   }
 
   forward(condition) {
-    const isCanForward = condition ? condition() : true;
+    const caForward = condition ? condition() : true;
 
-    if (isCanForward) {
+    if (caForward) {
       this.#location += Car.FORWARD_STEP;
     }
 
