@@ -20,7 +20,7 @@ class Race {
 
       i += 1;
     }
-    return this.getTrajectory();
+    return this.getResult();
   }
 
   moveCars() {
@@ -50,7 +50,7 @@ class Race {
     return winners;
   }
 
-  getTrajectory() {
+  getResult() {
     return this.result;
   }
 

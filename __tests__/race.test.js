@@ -22,7 +22,7 @@ describe('자동차 경주', () => {
 
   it('라운드의 궤적 데이터를 저장 하여야 한다.', () => {
     race.startRace();
-    expect(race.getTrajectory()).toHaveLength(count);
+    expect(race.getResult()).toHaveLength(count);
   });
 
   describe('랜덤값이 모두 4 이상일 경우', () => {
