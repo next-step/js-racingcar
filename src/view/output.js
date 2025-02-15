@@ -4,7 +4,7 @@ class Output {
     return '실행 결과';
   }
 
-  stringJoinWinner(winners) {
+  printJoinWinner(winners) {
     return winners.join(', ');
   }
 
@@ -12,7 +12,7 @@ class Output {
     return `${car.name} : ${'-'.repeat(car.location)}`;
   }
 
-  trajectory(raceResult) {
+  printTrajectory(raceResult) {
     raceResult.forEach(({ trajectory }) => {
       trajectory.forEach((car) => {
         console.log(this.printCurrentCarTrajectory(car));
@@ -21,7 +21,7 @@ class Output {
   }
 
   printFinalWinner(winner) {
-    return `${this.stringJoinWinner(winner)}가 최종 우승했습니다.`;
+    return `${this.printJoinWinner(winner)}가 최종 우승했습니다.`;
   }
 }
 
