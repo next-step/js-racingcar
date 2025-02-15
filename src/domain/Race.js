@@ -2,6 +2,7 @@ class Race {
   static ROUNDS = 5;
 
   #cars;
+  #results;
 
   constructor(cars) {
     this.#cars = cars;
@@ -15,21 +16,28 @@ class Race {
   }
 
   static validateRoundCount(count) {
-    return typeof count === 'number' && Number.isInteger(count);
+    return typeof count === "number" && Number.isInteger(count);
   }
 
   start(count) {
     const isValidRoundCount = Race.validateRoundCount(count);
 
-    const results = Array.from({
+    this.#results = Array.from({
       length: isValidRoundCount ? count : Race.ROUNDS,
     }).map(() => this.playRound());
 
-    return results;
+    return this.#results;
   }
 
-  get cars() {
-    return this.#cars;
+  getWinners() {
+    const lastRound = this.#results[this.#results.length - 1];
+
+    const maxLocation = Math.max(...lastRound.map((car) => car.location));
+    const winners = lastRound
+      .filter((car) => car.location === maxLocation)
+      .map((car) => car.name);
+
+    return winners;
   }
 }
 

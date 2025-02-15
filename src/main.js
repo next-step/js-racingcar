@@ -1,8 +1,8 @@
-import { inputCarNames, inputRaceRoundCount } from './view/input.js';
-import { consoleRaceResult } from './view/output.js';
+import { inputCarNames, inputRaceRoundCount } from "./view/input.js";
+import { consoleRaceResult } from "./view/output.js";
 
-import Race from './domain/Race.js';
-import Car from './domain/Car.js';
+import Race from "./domain/Race.js";
+import Car from "./domain/Car.js";
 
 async function getCarNames() {
   const names = await inputCarNames();
@@ -22,14 +22,25 @@ async function getRaceRoundCount() {
   return count;
 }
 
+function formatResults(results) {
+  return results.flatMap((round) =>
+    round
+      .map(({ name, location }) => `${name} : ${"-".repeat(location)}`)
+      .concat("")
+  );
+}
+
 async function play() {
   const names = await getCarNames();
   const count = await getRaceRoundCount();
 
   const cars = names.map((name) => new Car(name));
-  const results = new Race(cars).start(count);
 
-  if (results.length > 0) consoleRaceResult(results);
+  const race = new Race(cars);
+  const results = race.start(count);
+  const winners = race.getWinners();
+
+  consoleRaceResult(formatResults(results), winners);
 }
 
 play();
