@@ -24,14 +24,6 @@ async function getRaceRoundCount() {
   return count;
 }
 
-function formatResults(results) {
-  return results.flatMap((round) =>
-    round
-      .map(({ name, location }) => `${name} : ${"-".repeat(location)}`)
-      .concat("")
-  );
-}
-
 const FORWARD_MIN_VALUE = 4;
 const FORWARD_MIN_RANGE = 0;
 const FORWARD_MAX_RANGE = 9;
@@ -49,7 +41,7 @@ async function play() {
   const results = race.start();
   const winners = race.getWinners();
 
-  consoleRaceResult(formatResults(results), winners);
+  consoleRaceResult(results, winners);
 }
 
 play();
