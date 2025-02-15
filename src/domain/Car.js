@@ -2,26 +2,22 @@ class Car {
   static INITIAL_LOCATION = 0;
   static FORWARD_STEP = 1;
   static NAME_MAX_LENGTH = 5;
+  static NAME_MAX_LENGTH_ERROR_MESSAGE = `자동차의 이름은 1자 이상 ${Car.NAME_MAX_LENGTH}자 이하로 입력해 주세요.`;
 
   #name;
   #location = Car.INITIAL_LOCATION;
 
-  constructor(name) {
-    const trimmedName = name.trim();
+  static validateName(name) {
+    const isValid = name.length > 0 && name.length <= Car.NAME_MAX_LENGTH;
 
-    const isValidName = Car.validateName(trimmedName);
-
-    if (!isValidName)
-      throw new Error(
-        `자동차의 이름을 ${Car.NAME_MAX_LENGTH}로 입력해 주세요.`
-      );
-
-    this.#name = trimmedName;
+    if (!isValid) throw new Error(Car.NAME_MAX_LENGTH_ERROR_MESSAGE);
   }
 
-  static validateName(name) {
-    if (name.length > Car.NAME_MAX_LENGTH) return false;
-    return true;
+  constructor(name) {
+    const trimmedName = name.trim();
+    Car.validateName(name.trim());
+
+    this.#name = trimmedName;
   }
 
   forward(condition) {

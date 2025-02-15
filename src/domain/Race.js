@@ -1,5 +1,7 @@
 class Race {
   static DEFAULT_ROUND_COUNT = 5;
+  static ROUND_COUNT_ERROR_MESSAGE =
+    "라운드 수는 0 이상의 숫자를 입력해주세요.";
 
   #cars;
   #roundCount;
@@ -7,15 +9,18 @@ class Race {
   #forwardCondition;
 
   static validateRoundCount(count) {
-    return typeof count === "number" && Number.isInteger(count);
+    const isValid =
+      typeof count === "number" && Number.isInteger(count) && count > 0;
+
+    if (!isValid) throw new Error(Race.ROUND_COUNT_ERROR_MESSAGE);
   }
 
   constructor(cars, roundCount, forwardCondition) {
     this.#cars = cars;
     this.#forwardCondition = forwardCondition;
-    this.#roundCount = Race.validateRoundCount(roundCount)
-      ? roundCount
-      : Race.DEFAULT_ROUND_COUNT;
+
+    Race.validateRoundCount(roundCount);
+    this.#roundCount = roundCount;
   }
 
   playRound() {
