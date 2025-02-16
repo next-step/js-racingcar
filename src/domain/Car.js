@@ -34,9 +34,9 @@ class Car {
   }
 
   forward(condition) {
-    const caForward = condition ? condition() : true;
+    const canForward = condition?.() ?? true;
 
-    if (caForward) {
+    if (canForward) {
       this.#location += Car.FORWARD_STEP;
     }
 
