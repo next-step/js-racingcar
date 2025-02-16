@@ -19,9 +19,9 @@ async function play() {
     const cars = names.map((name) => new Car(name));
 
     const count = await inputRaceRoundCount();
-    const race = new Race(cars, count, raceCondition);
+    const race = new Race(cars, count);
 
-    const results = race.start();
+    const results = race.start(count, raceCondition);
     const winners = race.getWinners();
 
     consoleRaceResult(results, winners);

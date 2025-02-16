@@ -4,9 +4,7 @@ class Race {
     "라운드 수는 0 이상의 숫자를 입력해주세요.";
 
   #cars;
-  #roundCount;
   #results;
-  #forwardCondition;
 
   static validateRoundCount(count) {
     const validRoundCount =
@@ -15,17 +13,13 @@ class Race {
     if (!validRoundCount) throw new Error(Race.ROUND_COUNT_ERROR_MESSAGE);
   }
 
-  constructor(cars, roundCount, forwardCondition) {
+  constructor(cars) {
     this.#cars = cars;
-    this.#forwardCondition = forwardCondition;
-
-    Race.validateRoundCount(roundCount);
-    this.#roundCount = roundCount;
   }
 
-  playRound() {
+  playRound(forwardCondition) {
     this.#cars.forEach((car) => {
-      car.forward(this.#forwardCondition);
+      car.forward(forwardCondition);
     });
 
     return this.#cars.map(({ name, location }) => {
@@ -33,10 +27,12 @@ class Race {
     });
   }
 
-  start() {
+  start(roundCount, forwardCondition) {
+    Race.validateRoundCount(roundCount);
+
     const results = Array.from({
-      length: this.#roundCount,
-    }).map(() => this.playRound());
+      length: roundCount,
+    }).map(() => this.playRound(forwardCondition));
 
     this.#results = results;
 
@@ -44,7 +40,7 @@ class Race {
   }
 
   getWinners() {
-    const lastRound = this.#results[this.#results.length - 1];
+    const lastRound = this.#results.at(-1);
 
     const maxLocation = Math.max(...lastRound.map((car) => car.location));
     const winners = lastRound
