@@ -1,16 +1,29 @@
+class InvalidRoundCountException extends Error {
+  constructor(minCount, maxCount) {
+    const message = `라운드 수는 ${minCount} 이상 ${maxCount} 이하의 숫자를 입력해주세요.`;
+    super(message);
+  }
+}
+
 class Race {
-  static DEFAULT_ROUND_COUNT = 5;
-  static ROUND_COUNT_ERROR_MESSAGE =
-    "라운드 수는 0 이상의 숫자를 입력해주세요.";
+  static MIN_ROUND_COUNT = 1;
+  static MAX_ROUND_COUNT = 10;
 
   #cars;
   #results;
 
   static validateRoundCount(count) {
     const validRoundCount =
-      typeof count === "number" && Number.isInteger(count) && count > 0;
+      typeof count === "number" &&
+      Number.isInteger(count) &&
+      count >= Race.MIN_ROUND_COUNT &&
+      count <= Race.MAX_ROUND_COUNT;
 
-    if (!validRoundCount) throw new Error(Race.ROUND_COUNT_ERROR_MESSAGE);
+    if (!validRoundCount)
+      throw new InvalidRoundCountException(
+        Race.MIN_ROUND_COUNT,
+        Race.MAX_ROUND_COUNT
+      );
   }
 
   constructor(cars) {
