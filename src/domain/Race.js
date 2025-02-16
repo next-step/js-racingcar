@@ -9,8 +9,8 @@ class Race {
   static MIN_ROUND_COUNT = 1;
   static MAX_ROUND_COUNT = 10;
 
-  #cars;
-  #results;
+  #cars = [];
+  #results = [];
 
   static validateRoundCount(count) {
     const validRoundCount =
@@ -30,7 +30,7 @@ class Race {
     this.#cars = cars;
   }
 
-  playRound(forwardCondition) {
+  #playRound(forwardCondition) {
     this.#cars.forEach((car) => {
       car.forward(forwardCondition);
     });
@@ -45,11 +45,11 @@ class Race {
 
     const results = Array.from({
       length: roundCount,
-    }).map(() => this.playRound(forwardCondition));
+    }).map(() => this.#playRound(forwardCondition));
 
-    this.#results = results;
+    this.#results = [...this.#results, ...results];
 
-    return results;
+    return this.#results.map((round) => round.map((car) => ({ ...car })));
   }
 
   getWinners() {

@@ -2,8 +2,8 @@ import { inputCarNames, inputRaceRoundCount } from "./view/input.js";
 import { consoleRaceResult } from "./view/output.js";
 
 import Race from "./domain/Race.js";
+import RaceCondition from "./domain/RaceCondition.js";
 import Car from "./domain/Car.js";
-import { getRaceCondition } from "./domain/getRaceCondition.js";
 
 async function play() {
   try {
@@ -13,7 +13,7 @@ async function play() {
     const count = await inputRaceRoundCount();
     const race = new Race(cars, count);
 
-    const results = race.start(count, getRaceCondition);
+    const results = race.start(count, new RaceCondition().check);
     const winners = race.getWinners();
 
     consoleRaceResult(results, winners);
