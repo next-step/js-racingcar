@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import Car from '../src/domain/car.js';
-=======
-import Car from '../src/car.js';
->>>>>>> upstream/rjsdnql123
 import {
   moveBackwardErrorMessage,
   nameLengthErrorMessage,
