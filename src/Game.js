@@ -1,7 +1,7 @@
 import { View } from "./view/View.js";
 
 export class Game {
-  #CAR_RACING_TIMES = 5;
+  #RACING_TIMES = 5;
 
   #RACING_DURATION = 1_000;
 
@@ -11,7 +11,7 @@ export class Game {
 
   play() {
     return new Promise((resolve) => {
-      for (let i = 0; i < this.#CAR_RACING_TIMES; i += 1) {
+      for (let i = 0; i < this.#RACING_TIMES; i += 1) {
         let racingStatusText = "";
 
         this.racingCars.forEach((racingCar) => {
@@ -23,7 +23,7 @@ export class Game {
         setTimeout(() => {
           View.log(racingStatusText);
 
-          const isRacingEnd = i === this.#CAR_RACING_TIMES - 1;
+          const isRacingEnd = i === this.#RACING_TIMES - 1;
           if (isRacingEnd) {
             resolve();
           }
