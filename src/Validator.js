@@ -5,7 +5,7 @@ export class Validator {
     const isValid = names.every((name) => Validator.isValidCarName(name));
 
     if (!isValid) {
-      throw new Error("자동차 이름의 길이가 적절하지 않습니다.");
+      throw new Error(`자동차 이름을 ${Validator.MAX_CAR_NAME}자 이하로 입력해주세요.`);
     }
   }
 
