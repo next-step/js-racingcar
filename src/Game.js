@@ -1,3 +1,5 @@
+import { View } from "./view/View.js";
+
 export class Game {
   #CAR_RACING_TIMES = 5;
 
@@ -19,7 +21,7 @@ export class Game {
         });
 
         setTimeout(() => {
-          console.log(racingStatusText);
+          View.log(racingStatusText);
 
           const isRacingEnd = i === this.#CAR_RACING_TIMES - 1;
           if (isRacingEnd) {

@@ -18,11 +18,11 @@ async function main() {
       racingCars,
     });
 
-    console.log("\n실행 결과");
+    View.log("\n실행 결과");
     await game.play();
-    console.log("경주를 완료했습니다.");
+    View.log("경주를 완료했습니다.");
   } catch (error) {
-    console.error(error);
+    View.log(error);
   }
 }
 
