@@ -1,1 +1,5 @@
-console.log("Car");
+class Car {
+  constructor(name) {
+	this.name = name
+  }
+}
