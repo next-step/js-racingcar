@@ -6,7 +6,7 @@ class Car {
     this.position = position;
   }
 
-  forward(position = FORWARD_STEP) {
+  forward(position = Car.FORWARD_STEP) {
     this.position += position;
   }
 }
