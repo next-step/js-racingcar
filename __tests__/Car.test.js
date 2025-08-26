@@ -19,12 +19,12 @@ describe(Car.name, () => {
   it("자동차는 전진할 수 있으며 한 번에 1만큼 전진하다.", () => {
     const car = new Car("소나타");
 
-    const carInfo1 = car.record;
-    expect(carInfo1.xPosition).toBe(0);
+    const record1 = car.record;
+    expect(record1.xPosition).toBe(0);
 
     car.goForward();
 
-    const carInfo2 = car.record;
-    expect(carInfo2.xPosition).toBe(1);
+    const record2 = car.record;
+    expect(record2.xPosition).toBe(1);
   });
 });
