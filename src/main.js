@@ -15,5 +15,3 @@ class Car {
     this.#xPosition += amount;
   }
 }
-
-const car = new Car("BMW");
