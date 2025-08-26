@@ -1,1 +1,4 @@
-console.log("Car");
+class Car {
+  name = ''
+  position = 0
+}
