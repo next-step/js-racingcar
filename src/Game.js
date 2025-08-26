@@ -3,33 +3,35 @@ export class Game {
 
   #RACING_DURATION = 1_000;
 
-  constructor(carList) {
-    this.carList = carList;
+  constructor({ racingCars }) {
+    this.racingCars = racingCars;
   }
 
   play() {
     return new Promise((resolve) => {
       for (let i = 0; i < this.#CAR_RACING_TIMES; i += 1) {
-        this.carList.forEach((car) => {
-          car.goForward();
-        });
+        let racingStatusText = "";
 
-        let racingStatus = "";
-        this.carList.forEach((car) => {
-          const { name, xPosition } = car.getCarInfo();
+        this.racingCars.forEach((racingCar) => {
+          racingCar.goForward();
 
-          racingStatus += `${name} : ${"-".repeat(xPosition)}\n`;
+          racingStatusText += `${this.#getRacingStatusText(racingCar.record)}\n`;
         });
 
         setTimeout(() => {
-          console.log(racingStatus);
+          console.log(racingStatusText);
 
           const isRacingEnd = i === this.#CAR_RACING_TIMES - 1;
           if (isRacingEnd) {
             resolve();
           }
-        }, this.#RACING_DURATION * i);
+        }, i * this.#RACING_DURATION);
       }
     });
+  }
+
+  #getRacingStatusText(racingCarRecord) {
+    const { name, xPosition } = racingCarRecord;
+    return `${name} : ${"-".repeat(xPosition)}`;
   }
 }

@@ -12,9 +12,11 @@ async function main() {
 
     CarValidator.validateCarNames(carNames);
 
-    const carList = carNames.map((carName) => new Car(carName));
+    const racingCars = carNames.map((carName) => new Car(carName));
 
-    const game = new Game(carList);
+    const game = new Game({
+      racingCars,
+    });
 
     console.log("\n실행 결과");
     await game.play();
