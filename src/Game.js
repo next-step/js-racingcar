@@ -24,8 +24,8 @@ export class Game {
         setTimeout(() => {
           console.log(racingStatus);
 
-          const isFinalTime = i === this.#CAR_RACING_TIMES - 1;
-          if (isFinalTime) {
+          const isRacingEnd = i === this.#CAR_RACING_TIMES - 1;
+          if (isRacingEnd) {
             resolve();
           }
         }, this.#RACING_DURATION * i);
