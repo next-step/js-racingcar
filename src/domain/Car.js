@@ -7,11 +7,7 @@ export class Car {
     this.#name = name;
   }
 
-<<<<<<<< HEAD:src/domain/Car.js
   get record() {
-========
-  getCarInfo() {
->>>>>>>> origin2/seung-wan:src/Car.js
     return {
       name: this.#name,
       xPosition: this.#xPosition,
