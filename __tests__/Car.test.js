@@ -1,4 +1,4 @@
-import { Car } from "../src/Car";
+import { Car } from "../src/Car.js";
 
 describe(Car.name, () => {
   it("자동차는 이름을 상태로 가질 수 있다", () => {
