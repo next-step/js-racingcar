@@ -12,6 +12,9 @@ describe("Car", () => {
     const car = new Car("커트");
     expect(car.position).toEqual(0);
   });
+  it("자동차의 위치 값은 음수 값을 가질 수 없습니다.", () => {
+    expect(() => new Car("커트", -1)).toThrow();
+  });
   it("자동차는 한 번에 1만큼 전진합니다.", () => {
     const car = new Car("커트");
     car.forward();

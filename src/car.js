@@ -16,6 +16,9 @@ class Car {
       throw new Error("자동차 이름은 빈 문자열일 수 없습니다.");
     }
     this.#name = name;
+    if (typeof position !== "number" || position < 0) {
+      throw new Error("자동차의 위치는 음수 값일 수 없습니다.");
+    }
     this.#position = position;
   }
 
