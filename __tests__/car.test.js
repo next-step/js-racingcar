@@ -16,13 +16,13 @@ describe('자동차 테스트', () => {
     expect(car.position).toBe(0);
   });
 
-  test('위치는 1만큼 전진한다', () => {
+  test('위치는 STEP_SIZE(1) 만큼 전진한다', () => {
     expect(car.position).toBe(Car.INITIAL_POSITION);
 
     car.moveForward();
-    expect(car.position).toBe(1);
+    expect(car.position).toBe(Car.INITIAL_POSITION + Car.STEP_SIZE * 1);
 
     car.moveForward();
-    expect(car.position).toBe(2);
+    expect(car.position).toBe(Car.STEP_SIZE * 2);
   });
 });
