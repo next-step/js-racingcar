@@ -17,4 +17,8 @@ describe("Car", () => {
     car.forward();
     expect(car.position).toEqual(1);
   });
+  it("자동차는 음수 값으로 전진할 수 없습니다.", () => {
+    const car = new Car("커트");
+    expect(() => car.forward(-1)).toThrow();
+  });
 });

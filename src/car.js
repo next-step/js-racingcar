@@ -20,6 +20,9 @@ class Car {
   }
 
   forward(position = Car.FORWARD_STEP) {
+    if (position < 0) {
+      throw new Error("자동차는 음수 값으로 전진할 수 없습니다.");
+    }
     this.#position += position;
   }
 }
