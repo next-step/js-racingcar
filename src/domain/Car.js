@@ -7,7 +7,7 @@ export class Car {
     this.#name = name;
   }
 
-  getCarInfo() {
+  get record() {
     return {
       name: this.#name,
       xPosition: this.#xPosition,
