@@ -2,25 +2,31 @@ import { Car } from "./domain/Car.js";
 import { CarValidator } from "./domain/CarValidator.js";
 import { Game } from "./Game.js";
 import { View } from "./view/View.js";
+import { assert } from "./utils/assert.js";
+import { isNumber } from "./utils/isNumber.js";
 
 const CAR_NAME_DELIMITER = ",";
 
 async function main() {
   try {
-    const input = await View.read("경주할 자동차 이름을 입력하세요.\n");
-    const carNames = input.split(CAR_NAME_DELIMITER);
+    const carNameInput = await View.read("경주할 자동차 이름을 입력하세요.\n");
+    const racingTimesInput = await View.read("시도할 회수는 몇회인가요?\n");
 
+    const carNames = carNameInput.split(CAR_NAME_DELIMITER);
     CarValidator.validateCarNames(carNames);
+    const racingTimes = Number(racingTimesInput);
+    assert(isNumber(racingTimes) && !Number.isNaN(racingTimes), "시도할 회수는 숫자값을 입력해주세요");
 
     const racingCars = carNames.map((carName) => new Car(carName));
 
     const game = new Game({
       racingCars,
+      racingTimes: racingTimesInput,
     });
 
     View.log("\n실행 결과");
-    await game.play();
-    View.log("경주를 완료했습니다.");
+    const winnerNames = await game.play();
+    View.log(`${winnerNames}가 최종 우승했습니다.`);
   } catch (error) {
     View.log(error);
   }
