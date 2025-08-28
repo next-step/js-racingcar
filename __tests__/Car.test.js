@@ -17,7 +17,7 @@ describe("자동차", () => {
   test("자동차는 전진할 수 있으며 한 번에 1만큼 전진한다.", () => {
     const car = new Car();
 
-    car.increment();
+    car.moveFoward();
     expect(car.location).toBe(1);
   });
 });
