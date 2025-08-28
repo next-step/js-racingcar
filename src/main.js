@@ -4,7 +4,7 @@ class Car {
     this.location = 0;
   }
 
-  increment() {
+  moveFoward() {
     this.location++;
   }
 }
