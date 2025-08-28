@@ -1,6 +1,6 @@
 class Car {
   constructor() {
-    this.name = "BMW";
+    // this.name = "BMW";
     this.location = 0;
   }
 
@@ -8,3 +8,4 @@ class Car {
     this.location++;
   }
 }
+export default Car;
