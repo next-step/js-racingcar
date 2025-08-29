@@ -48,10 +48,28 @@ function readLineAsync(query) {
   });
 }
 
+const catPassedArea = (carName) => {
+  console.log(carName);
+  console.log();
+  const CAR_MOVE_COUNT = 5;
+
+  console.log("실행 결과");
+
+  for (let i = 0; i < CAR_MOVE_COUNT; i++) {
+    console.log(`${carName} : ${"-".repeat(i + 1)}`);
+    console.log();
+  }
+  console.log();
+  console.log("경주를 완료했습니다.");
+};
+
 // 게임 시작
 const play = async () => {
   const carNames = await readLineAsync("경주할 자동차 이름을 입력하세요. > ");
-  console.log(carNames);
+
+  for (let carName of carNames) {
+    catPassedArea(carName);
+  }
 };
 
 play();
