@@ -1,9 +1,10 @@
 import { Car } from "./domain/Car.js";
 import { CarValidator } from "./domain/CarValidator.js";
-import { Game } from "./Game.js";
+
 import { View } from "./view/View.js";
-import { assert } from "./utils/assert.js";
-import { isNumber } from "./utils/isNumber.js";
+
+import { Game } from "./Game.js";
+import { GameValidator } from "./GameValidator.js";
 
 const CAR_NAME_DELIMITER = ",";
 
@@ -15,7 +16,7 @@ async function main() {
     const carNames = carNameInput.split(CAR_NAME_DELIMITER);
     CarValidator.validateCarNames(carNames);
     const racingTimes = Number(racingTimesInput);
-    assert(isNumber(racingTimes) && !Number.isNaN(racingTimes), "시도할 회수는 숫자값을 입력해주세요");
+    GameValidator.validateRacingTimes(racingTimes);
 
     const racingCars = carNames.map((carName) => new Car(carName));
 
