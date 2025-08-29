@@ -1,4 +1,4 @@
-class Car {
+export class Car {
   static FORWARD_STEP = 1;
   static MAX_LENGTH_NAME = 5;
 
@@ -17,7 +17,7 @@ class Car {
       throw new Error("자동차 이름은 빈 문자열일 수 없습니다.");
     }
     if (typeof name !== "string" || Car.MAX_LENGTH_NAME < name.length) {
-      throw new Error("자동차 이름은 5자 이하만 가능합니다.")
+      throw new Error("자동차 이름은 5자 이하만 가능합니다.");
     }
     this.#name = name;
     if (typeof position !== "number" || position < 0) {
