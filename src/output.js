@@ -2,8 +2,8 @@ export function printResult() {
   console.log("\n실행 결과\n");
 }
 
-export function printCarStatus(name) {
-  console.log(name);
+export function printCarStatus(name, position) {
+  console.log(name, " : ", "-".repeat(position), "\n");
 }
 
 export function printFinish() {
