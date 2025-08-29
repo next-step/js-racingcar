@@ -1,5 +1,5 @@
 import Car from "./car.js";
-import { printResult } from "./output.js";
+import { printCarStatus, printFinish, printResult } from "./output.js";
 
 export class Racing {
   #carList;
@@ -25,7 +25,9 @@ export class Racing {
     for (let cycle = 0; cycle < this.#phase; cycle++) {
       this.#carList.forEach((car) => {
         car.forward();
+        printCarStatus(car.name);
       });
     }
+    printFinish();
   }
 }
