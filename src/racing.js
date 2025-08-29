@@ -1,4 +1,5 @@
-import Car from "./car";
+import Car from "./car.js";
+import { printResult } from "./output.js";
 
 export class Racing {
   #carList;
@@ -17,5 +18,14 @@ export class Racing {
       throw new Error("자동차 경주는 1회 이상이어야 합니다.");
     }
     this.#phase = phase;
+  }
+
+  run() {
+    printResult();
+    for (let cycle = 0; cycle < this.#phase; cycle++) {
+      this.#carList.forEach((car) => {
+        car.forward();
+      });
+    }
   }
 }

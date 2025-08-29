@@ -1,7 +1,9 @@
 import { makeCarList, makeCarNameList } from "./car-utils.js";
-import Car from "./car.js";
 import { readLineAsync } from "./input.js";
+import { Racing } from "./racing.js";
 
-const carNames = await readLineAsync("경주할 자동차 이름을 입력하세요.\n");
-const carNameList = makeCarNameList(carNames);
+const carName = await readLineAsync("경주할 자동차 이름을 입력하세요.\n");
+const carNameList = makeCarNameList(carName);
 const carList = makeCarList(carNameList);
+const racing = new Racing({ carList: carList });
+racing.run();
