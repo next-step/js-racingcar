@@ -7,7 +7,7 @@ export function makeCarNameList(carNames, separator = ",") {
   if (carNames.length < 1) {
     throw new Error("자동차 이름의 길이는 0보다 커야 합니다.");
   }
-  if (carNames.length < 6 && !carNames.includes(separator)) {
+  if (carNames.length <= Car.MAX_LENGTH_NAME && !carNames.includes(separator)) {
     return [carNames];
   }
   if (!carNames.includes(separator)) {
