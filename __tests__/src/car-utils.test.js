@@ -16,6 +16,11 @@ describe("car-utils", () => {
     expect(() => makeCarNameList(carNameList[1])).toThrow();
     expect(() => makeCarNameList(carNameList[2])).toThrow();
   });
+  it("자동차 이름이 5글자 이하이고 쉼표가 없으면 자동차 이름을 그대로 반환합니다.", () => {
+    const carName = "안녕하세요";
+    const carNameList = makeCarNameList(carName);
+    expect(carNameList).toEqual([carName]);
+  });
   it("자동차 이름 리스트를 Car 객체로 변환할 수 있습니다.", () => {
     const carNameList = ["아반떼", "레이", "쏘나타"];
     const carList = makeCarList(carNameList).map((car) => car.name);
