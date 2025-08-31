@@ -1,13 +1,15 @@
+import RacingGame from './RacingGame.js';
+import readLineAsync from './readLineAsync.js';
 
-export default class Car {
-  position = 0;
-  name;
+// 입출력 예시
+async function play() {
+  try {
+    const name = await readLineAsync('경주할 자동차 이름을 입력하세요: ');
+    const racingCar = new RacingGame(name);
 
-  constructor(name) {
-    this.name = name;
-  }
-
-  moveForward() {
-    this.position += 1;
+    racingCar.startGame();
+  } catch (error) {
+    console.log(error);
   }
 }
+play();
