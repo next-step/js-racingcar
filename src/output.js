@@ -1,11 +1,19 @@
-export function printResult() {
+import { Racing } from "./racing.js";
+
+export function printResult(/** @type Racing */ racing) {
   console.log("\n실행 결과\n");
+  for (let cycle = 0; cycle < racing.phase; cycle++) {
+    racing.carList.forEach((car) => {
+      printCarStatus(car.name, racing.history.get(car)[cycle]);
+    });
+  }
+  printFinish();
 }
 
-export function printCarStatus(name, position) {
+function printCarStatus(name, position) {
   console.log(name, " : ", "-".repeat(position), "\n");
 }
 
-export function printFinish() {
+function printFinish() {
   console.log("경주를 완료했습니다.");
 }

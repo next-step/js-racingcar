@@ -1,10 +1,20 @@
 import Car from "./car.js";
-import { printCarStatus, printFinish, printResult } from "./output.js";
 
 export class Racing {
   /** @type {Car[]} */
   #carList;
+  get carList() {
+    return this.#carList;
+  }
   #phase;
+  get phase() {
+    return this.#phase;
+  }
+  /** @type {Map<Car, number[]>} */
+  #history;
+  get history() {
+    return this.#history;
+  }
 
   constructor({ carList, phase = 5 }) {
     this.#validCarList(carList);
@@ -12,17 +22,21 @@ export class Racing {
 
     this.#validPhase(phase);
     this.#phase = phase;
+
+    this.#history = new Map();
+    this.#carList.forEach((car) => {
+      this.#history.set(car, []);
+    });
   }
 
   run() {
-    printResult();
     for (let cycle = 0; cycle < this.#phase; cycle++) {
       this.#carList.forEach((car) => {
         car.forward();
-        printCarStatus(car.name);
+        const positionHistory = this.#history.get(car);
+        this.#history.set(car, [...positionHistory, car.position]);
       });
     }
-    printFinish();
   }
 
   #validCarList(carList) {
