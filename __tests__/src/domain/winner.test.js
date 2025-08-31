@@ -1,6 +1,6 @@
-import Car from "../../src/car.js";
-import { Cars } from "../../src/cars.js";
-import { Winner } from "../../src/winner.js";
+import Car from "../../../src/domain/car.js";
+import { Cars } from "../../../src/domain/cars.js";
+import { Winner } from "../../../src/domain/winner.js";
 
 describe("winner", () => {
   it("단독 우승자의 자동차 이름을 알려줍니다.", () => {

@@ -1,4 +1,4 @@
-import { Cars } from "../../src/cars.js";
+import { Cars } from "../../../src/domain/cars.js";
 
 describe("cars", () => {
   it("자동차 이름은 쉼표(,)를 기준으로 구분하여 Cars의 인스턴스를 생성합니다.", () => {

@@ -1,4 +1,4 @@
-import { CarMoveStrategy } from "./car-strategy.js";
+import { CarMoveStrategy } from "../car-strategy.js";
 
 export class Car {
   static #FORWARD_STEP = 1;

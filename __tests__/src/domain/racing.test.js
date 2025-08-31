@@ -1,5 +1,5 @@
-import { Cars } from "../../src/cars.js";
-import { Racing } from "../../src/racing.js";
+import { Cars } from "../../../src/domain/cars.js";
+import { Racing } from "../../../src/domain/racing.js";
 
 describe("racing", () => {
   it("자동차 경주는 1회 이상이어야 합니다.", () => {

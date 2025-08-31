@@ -1,5 +1,5 @@
-import { Racing } from "./racing.js";
-import { Winner } from "./winner.js";
+import { Racing } from "../domain/racing.js";
+import { Winner } from "../domain/winner.js";
 
 export function printResult(/** @type Racing */ racing) {
   console.log("\n실행 결과\n");
