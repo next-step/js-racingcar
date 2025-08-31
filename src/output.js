@@ -6,12 +6,13 @@ export function printResult(/** @type Racing */ racing) {
     racing.carList.forEach((car) => {
       printCarStatus(car.name, racing.history.get(car)[cycle]);
     });
+    console.log("\n");
   }
   printFinish();
 }
 
 function printCarStatus(name, position) {
-  console.log(name, " : ", "-".repeat(position), "\n");
+  console.log(name, " : ", "-".repeat(position));
 }
 
 function printFinish() {
