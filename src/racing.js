@@ -1,4 +1,5 @@
 import Car from "./car.js";
+import { validCarList } from "./validation.js";
 
 export class Racing {
   /** @type {Car[]} */
@@ -17,7 +18,7 @@ export class Racing {
   }
 
   constructor({ carList, phase = 5 }) {
-    this.#validCarList(carList);
+    validCarList(carList);
     this.#carList = carList;
 
     this.#validPhase(phase);
@@ -36,15 +37,6 @@ export class Racing {
         const positionHistory = this.#history.get(car);
         this.#history.set(car, [...positionHistory, car.position]);
       });
-    }
-  }
-
-  #validCarList(carList) {
-    if (
-      !Array.isArray(carList) ||
-      !carList.every((car) => car instanceof Car)
-    ) {
-      throw new Error("Car 인스턴스 배열이여야 합니다.");
     }
   }
 
