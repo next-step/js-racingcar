@@ -23,7 +23,7 @@ describe("Car", () => {
     car.forward(4);
     expect(car.position).toEqual(1);
   });
-  it("자동차는 4 미만일 경우에만 전진하지 못합니다.", () => {
+  it("자동차는 4 미만일 경우에는 전진하지 못합니다.", () => {
     const car = new Car("레이");
     car.forward(3);
     expect(car.position).toEqual(0);
