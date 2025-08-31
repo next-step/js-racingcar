@@ -18,10 +18,15 @@ describe("Car", () => {
   it("자동차의 위치 값은 음수 값을 가질 수 없습니다.", () => {
     expect(() => new Car("커트", -1)).toThrow();
   });
-  it("자동차는 한 번에 1만큼 전진합니다.", () => {
-    const car = new Car("커트");
-    car.forward();
+  it("자동차는 4 이상일 경우에만 전진할 수 있습니다.", () => {
+    const car = new Car("레이");
+    car.forward(4);
     expect(car.position).toEqual(1);
+  });
+  it("자동차는 4 미만일 경우에는 전진하지 못합니다.", () => {
+    const car = new Car("레이");
+    car.forward(3);
+    expect(car.position).toEqual(0);
   });
   it("자동차는 음수 값으로 전진할 수 없습니다.", () => {
     const car = new Car("커트");
