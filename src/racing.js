@@ -2,6 +2,7 @@ import Car from "./car.js";
 import { printCarStatus, printFinish, printResult } from "./output.js";
 
 export class Racing {
+  /** @type {Car[]} */
   #carList;
   #phase;
 

@@ -3,6 +3,7 @@ export class Car {
   static MAX_LENGTH_NAME = 5;
   static MIN_LENGTH_NAME = 1;
 
+  /** @type {string} */
   #name;
   get name() {
     return this.#name;
