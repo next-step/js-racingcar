@@ -1,3 +1,5 @@
+import { CarMoveStrategy } from "./car-strategy.js";
+
 export class Car {
   static #FORWARD_STEP = 1;
   static #MIN_POSITION = 4;
@@ -15,19 +17,23 @@ export class Car {
     return this.#position;
   }
 
-  constructor(name, position = 0) {
+  #moveStrategy;
+
+  constructor(name, position = 0, moveStrtegy = new CarMoveStrategy()) {
     this.#validateName(name);
     this.#name = name;
 
     this.#validatePosition(position);
     this.#position = position;
+
+    this.#moveStrategy = moveStrtegy;
   }
 
   forward(number) {
     if (number < 0) {
       throw new Error("자동차는 음수 값으로 전진할 수 없습니다.");
     }
-    if (number < Car.#MIN_POSITION) {
+    if (!this.#moveStrategy.shouldMove(number)) {
       return;
     }
     if (number) this.#position += Car.#FORWARD_STEP;
