@@ -1,4 +1,5 @@
 import { Racing } from "./racing.js";
+import { Winner } from "./winner.js";
 
 export function printResult(/** @type Racing */ racing) {
   console.log("\n실행 결과\n");
@@ -8,13 +9,13 @@ export function printResult(/** @type Racing */ racing) {
     });
     console.log("\n");
   }
-  printFinish();
+}
+
+export function printWinner(/** @type Winner */ winner) {
+  const winnerList = winner.getCarNameList();
+  console.log(`${winnerList}가 최종 우승했습니다.`);
 }
 
 function printCarStatus(name, position) {
   console.log(name, " : ", "-".repeat(position));
-}
-
-function printFinish() {
-  console.log("경주를 완료했습니다.");
 }
