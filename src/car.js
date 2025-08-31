@@ -1,5 +1,6 @@
 export class Car {
-  static FORWARD_STEP = 1;
+  static #FORWARD_STEP = 1;
+  static #MIN_POSITION = 4;
   static MAX_LENGTH_NAME = 5;
   static MIN_LENGTH_NAME = 1;
 
@@ -22,11 +23,14 @@ export class Car {
     this.#position = position;
   }
 
-  forward(position = Car.FORWARD_STEP) {
-    if (position < 0) {
+  forward(number) {
+    if (number < 0) {
       throw new Error("자동차는 음수 값으로 전진할 수 없습니다.");
     }
-    this.#position += position;
+    if (number < Car.#MIN_POSITION) {
+      return;
+    }
+    if (number) this.#position += Car.#FORWARD_STEP;
   }
 
   #validateName(name) {

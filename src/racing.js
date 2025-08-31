@@ -32,7 +32,7 @@ export class Racing {
   run() {
     for (let cycle = 0; cycle < this.#phase; cycle++) {
       this.#carList.forEach((car) => {
-        car.forward();
+        car.forward(Math.floor(Math.random() * 10));
         const positionHistory = this.#history.get(car);
         this.#history.set(car, [...positionHistory, car.position]);
       });
