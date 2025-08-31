@@ -4,7 +4,7 @@ export function makeCarNameList(carNames, separator = ",") {
   if (typeof carNames !== "string") {
     throw new Error("자동차 이름은 string 타입이어야 합니다.");
   }
-  if (carNames.length < 1) {
+  if (carNames.length < Car.MIN_LENGTH_NAME) {
     throw new Error("자동차 이름의 길이는 0보다 커야 합니다.");
   }
   if (carNames.length <= Car.MAX_LENGTH_NAME && !carNames.includes(separator)) {

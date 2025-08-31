@@ -1,6 +1,7 @@
 export class Car {
   static FORWARD_STEP = 1;
   static MAX_LENGTH_NAME = 5;
+  static MIN_LENGTH_NAME = 1;
 
   #name;
   get name() {
