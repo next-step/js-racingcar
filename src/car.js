@@ -14,16 +14,10 @@ export class Car {
   }
 
   constructor(name, position = 0) {
-    if (typeof name !== "string" || name.length === 0) {
-      throw new Error("자동차 이름은 빈 문자열일 수 없습니다.");
-    }
-    if (typeof name !== "string" || Car.MAX_LENGTH_NAME < name.length) {
-      throw new Error("자동차 이름은 5자 이하만 가능합니다.");
-    }
+    this.#validateName(name);
     this.#name = name;
-    if (typeof position !== "number" || position < 0) {
-      throw new Error("자동차의 위치는 음수 값일 수 없습니다.");
-    }
+
+    this.#validatePosition(position);
     this.#position = position;
   }
 
@@ -32,6 +26,21 @@ export class Car {
       throw new Error("자동차는 음수 값으로 전진할 수 없습니다.");
     }
     this.#position += position;
+  }
+
+  #validateName(name) {
+    if (typeof name !== "string" || name.length === 0) {
+      throw new Error("자동차 이름은 빈 문자열일 수 없습니다.");
+    }
+    if (Car.MAX_LENGTH_NAME < name.length) {
+      throw new Error("자동차 이름은 5자 이하만 가능합니다.");
+    }
+  }
+
+  #validatePosition(position) {
+    if (typeof position !== "number" || position < 0) {
+      throw new Error("자동차의 위치는 음수 값일 수 없습니다.");
+    }
   }
 }
 
