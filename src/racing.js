@@ -1,11 +1,11 @@
 import Car from "./car.js";
-import { validCarList } from "./validation.js";
+import { Cars } from "./cars.js";
 
 export class Racing {
-  /** @type {Car[]} */
-  #carList;
-  get carList() {
-    return this.#carList;
+  /** @type {Cars} */
+  #cars;
+  get cars() {
+    return this.#cars;
   }
   #phase;
   get phase() {
@@ -17,22 +17,21 @@ export class Racing {
     return this.#history;
   }
 
-  constructor({ carList, phase = 5 }) {
-    validCarList(carList);
-    this.#carList = carList;
+  constructor({ cars, phase = 5 }) {
+    this.#cars = cars;
 
     this.#validPhase(phase);
     this.#phase = phase;
 
     this.#history = new Map();
-    this.#carList.forEach((car) => {
+    this.#cars.value.forEach((car) => {
       this.#history.set(car, []);
     });
   }
 
   run() {
     for (let cycle = 0; cycle < this.#phase; cycle++) {
-      this.#carList.forEach((car) => {
+      this.#cars.value.forEach((car) => {
         car.forward(Math.floor(Math.random() * 10));
         const positionHistory = this.#history.get(car);
         this.#history.set(car, [...positionHistory, car.position]);

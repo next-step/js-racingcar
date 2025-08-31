@@ -1,18 +1,18 @@
-import Car from "./car.js";
-import { validCarList } from "./validation.js";
+import { Cars } from "./cars.js";
 
 export class Winner {
-  /** @type {Car[]} */
-  #carList;
+  /** @type {Cars} */
+  #cars;
 
-  constructor({ carList }) {
-    validCarList(carList);
-    this.#carList = carList;
+  constructor({ cars }) {
+    this.#cars = cars;
   }
 
   getCarNameList() {
-    const maxPosition = Math.max(...this.#carList.map((car) => car.position));
-    return this.#carList
+    const maxPosition = Math.max(
+      ...this.#cars.value.map((car) => car.position)
+    );
+    return this.#cars.value
       .filter((car) => car.position === maxPosition)
       .map((car) => car.name);
   }
