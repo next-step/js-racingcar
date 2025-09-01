@@ -78,3 +78,34 @@ describe("자동차 경주 게임 테스트", () => {
   });
 });
 
+describe("자동차 경주 게임 테스트", () => {
+  describe("자동차 이름을 입력할 때", () => {
+    test("이름을 입력하면 전진하는 자동차를 출력할 때 자동차 이름과 궤적이 출력된다. 자동차는 1회당 1칸 전진, 경주는 5회 고정", async () => {
+      const testInput = jest
+        .fn()
+        .mockResolvedValueOnce("car1")
+        .mockResolvedValueOnce("5");
+      const logs = [];
+      const log = (s) => logs.push(String(s).trim());
+      const fakeRandom = { random: () => 0.9 };
+
+      await playCarGame({
+        askInput: testInput,
+        resultConsoleLog: log,
+        random: fakeRandom,
+        rounds: 5,
+      });
+
+      expect(logs).toEqual([
+        "실행 결과",
+        "car1 : -",
+        "car1 : --",
+        "car1 : ---",
+        "car1 : ----",
+        "car1 : -----",
+        "경주를 완료했습니다.",
+      ]);
+    });
+  });
+});
+
