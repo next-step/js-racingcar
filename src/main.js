@@ -3,8 +3,8 @@ import { CarValidator } from "./domain/CarValidator.js";
 
 import { View } from "./view/View.js";
 
-import { Game } from "./Game.js";
-import { GameValidator } from "./GameValidator.js";
+import { Game } from "./domain/Game.js";
+import { GameValidator } from "./domain/GameValidator.js";
 
 const CAR_NAME_DELIMITER = ",";
 
@@ -26,7 +26,11 @@ async function main() {
     });
 
     View.log("\n실행 결과");
-    const winnerNames = await game.play();
+    const winnerNames = await game.play({
+      onAfterEachRound: (racingStatusText) => {
+        View.log(racingStatusText);
+      },
+    });
     View.log(`${winnerNames}가 최종 우승했습니다.`);
   } catch (error) {
     View.log(error);

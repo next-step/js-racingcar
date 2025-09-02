@@ -1,5 +1,5 @@
-import { generateRandomNumber } from "./utils/generateRandomNumber.js";
-import { View } from "./view/View.js";
+import { generateRandomNumber } from "../utils/generateRandomNumber.js";
+import { View } from "../view/View.js";
 
 export class Game {
   #RACING_CONFIG = {
@@ -18,7 +18,7 @@ export class Game {
     this.racingTimes = racingTimes;
   }
 
-  play() {
+  play({ onAfterEachRound }) {
     return new Promise((resolve) => {
       for (let i = 0; i < this.racingTimes; i += 1) {
         let racingStatusText = "";
@@ -33,7 +33,7 @@ export class Game {
         });
 
         setTimeout(() => {
-          View.log(racingStatusText);
+          onAfterEachRound(racingStatusText);
 
           const isRacingEnd = i === this.racingTimes - 1;
           if (isRacingEnd) {

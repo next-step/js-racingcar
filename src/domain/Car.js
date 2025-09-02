@@ -1,9 +1,13 @@
+import { CarValidator } from "./CarValidator.js";
+
 export class Car {
   #name;
 
   #xPosition = 0;
 
   constructor(name) {
+    CarValidator.validateCarName(name);
+
     this.#name = name;
   }
 
