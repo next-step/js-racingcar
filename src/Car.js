@@ -1,6 +1,6 @@
 import readline from "readline";
 
-class Car {
+export default class Car {
   constructor(name) {
     this.name = name;
     this.location = 0;
