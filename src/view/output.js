@@ -1,10 +1,10 @@
-import { Racing } from "./racing.js";
-import { Winner } from "./winner.js";
+import { Racing } from "../domain/racing.js";
+import { Winner } from "../domain/winner.js";
 
 export function printResult(/** @type Racing */ racing) {
   console.log("\n실행 결과\n");
   for (let cycle = 0; cycle < racing.phase; cycle++) {
-    racing.carList.forEach((car) => {
+    racing.cars.value.forEach((car) => {
       printCarStatus(car.name, racing.history.get(car)[cycle]);
     });
     console.log("\n");

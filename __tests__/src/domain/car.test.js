@@ -1,4 +1,4 @@
-import Car from "../../src/car";
+import Car from "../../../src/domain/car.js";
 
 describe("Car", () => {
   it("자동차는 이름을 가질 수 있습니다.", () => {
