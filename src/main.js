@@ -2,6 +2,7 @@ import { Car } from "./domain/Car.js";
 import { CarValidator } from "./domain/CarValidator.js";
 
 import { View } from "./view/View.js";
+import { GameView } from "./view/GameView.js";
 
 import { Game } from "./domain/Game.js";
 import { GameValidator } from "./domain/GameValidator.js";
@@ -22,16 +23,26 @@ async function main() {
 
     const game = new Game({
       racingCars,
-      racingTimes: racingTimesInput,
+      racingTimes,
     });
 
     View.log("\n실행 결과");
-    const winnerNames = await game.play({
-      onAfterEachRound: (racingStatusText) => {
+    for (let i = 0; i < racingTimes; i += 1) {
+      let racingStatusText = "";
+      const racingRecords = game.play();
+
+      racingStatusText = GameView.getRacingStatusText(racingRecords);
+
+      setTimeout(() => {
         View.log(racingStatusText);
-      },
-    });
-    View.log(`${winnerNames}가 최종 우승했습니다.`);
+
+        const isRacingEnd = i === racingTimes - 1;
+        if (isRacingEnd) {
+          const winnerNames = game.getRacingWinnerNames();
+          View.log(`${winnerNames}가 최종 우승했습니다.`);
+        }
+      }, i * Game.RACING_CONFIG.DURATION);
+    }
   } catch (error) {
     View.log(error);
   }
