@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node src/main.js",
+    "dev": "node src/Car.js",
     "build": "vite build",
     "preview": "vite preview",
     "test": "jest --no-cache"
