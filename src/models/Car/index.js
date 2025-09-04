@@ -2,6 +2,8 @@ import {
   CAR_NAME_MAX_LENGTH,
   CAR_NAME_REQUIRED_ERROR_MESSAGE,
   CAR_NAME_MAX_LENGTH_ERROR_MESSAGE,
+  CAR_RANDOM_UPPER_BOUND,
+  CAR_MOVE_THRESHOLD,
 } from './constant.js';
 
 export class Car {
@@ -19,7 +21,15 @@ export class Car {
     this.#name = name.trim();
   }
 
+  #canMove() {
+    return getRandomInt(0, CAR_RANDOM_UPPER_BOUND) >= CAR_MOVE_THRESHOLD;
+  }
+
   move() {
+    if (!this.#canMove()) {
+      return;
+    }
+
     this.#location += 1;
   }
 
@@ -29,4 +39,10 @@ export class Car {
       location: this.#location,
     };
   }
+}
+
+export function getRandomInt(min, max) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
 }
