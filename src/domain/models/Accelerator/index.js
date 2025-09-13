@@ -6,13 +6,11 @@ export class Accelerator {
   #upperBound;
   #threshold;
 
-  constructor(
-    { lowerBound, upperBound, threshold } = {
-      lowerBound: Accelerator.Bound.MIN,
-      upperBound: Accelerator.Bound.MAX,
-      threshold: Accelerator.Threshold,
-    },
-  ) {
+  constructor({
+    lowerBound = Accelerator.Bound.MIN,
+    upperBound = Accelerator.Bound.MAX,
+    threshold = Accelerator.Threshold,
+  } = {}) {
     this.#lowerBound = lowerBound;
     this.#upperBound = upperBound;
     this.#threshold = threshold;
@@ -23,8 +21,8 @@ export class Accelerator {
   }
 }
 
-function getRandomInt(min, max) {
-  const minCeiled = Math.ceil(min);
-  const maxFloored = Math.floor(max);
+function getRandomInt(lowerBound, upperBound) {
+  const minCeiled = Math.ceil(lowerBound);
+  const maxFloored = Math.floor(upperBound);
   return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
 }
