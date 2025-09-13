@@ -1,33 +1,31 @@
-import {
-  CAR_NAME_MAX_LENGTH,
-  CAR_NAME_REQUIRED_ERROR_MESSAGE,
-  CAR_NAME_MAX_LENGTH_ERROR_MESSAGE,
-  CAR_RANDOM_UPPER_BOUND,
-  CAR_MOVE_THRESHOLD,
-} from './constant.js';
-import { randomInt } from 'crypto';
-
 export class Car {
+  static Validation = {
+    NAME_MAX_LENGTH: 5,
+  };
+
+  static ErrorMessages = {
+    NAME_REQUIRED: '자동차 이름은 필수입니다.',
+    NAME_MAX_LENGTH: `자동차 이름은 ${Car.Validation.NAME_MAX_LENGTH}자 이하이어야 합니다.`,
+  };
+
   #name;
   #location = 0;
+  #accelerator;
 
-  constructor(name) {
+  constructor({ name, accelerator }) {
     if (!name || !name.trim()) {
-      throw new Error(CAR_NAME_REQUIRED_ERROR_MESSAGE);
+      throw new Error(Car.ErrorMessages.NAME_REQUIRED);
     }
-    if (name.trim().length > CAR_NAME_MAX_LENGTH) {
-      throw new Error(CAR_NAME_MAX_LENGTH_ERROR_MESSAGE);
+    if (name.trim().length > Car.Validation.NAME_MAX_LENGTH) {
+      throw new Error(Car.ErrorMessages.NAME_MAX_LENGTH);
     }
 
     this.#name = name.trim();
-  }
-
-  #canMove() {
-    return getRandomInt(0, CAR_RANDOM_UPPER_BOUND) >= CAR_MOVE_THRESHOLD;
+    this.#accelerator = accelerator;
   }
 
   move() {
-    if (!this.#canMove()) {
+    if (!this.#accelerator.accelerate()) {
       return;
     }
 
@@ -40,10 +38,4 @@ export class Car {
       location: this.#location,
     };
   }
-}
-
-export function getRandomInt(min, max) {
-  const minCeiled = Math.ceil(min);
-  const maxFloored = Math.floor(max);
-  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
 }
