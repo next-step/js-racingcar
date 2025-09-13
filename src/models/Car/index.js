@@ -5,6 +5,7 @@ import {
   CAR_RANDOM_UPPER_BOUND,
   CAR_MOVE_THRESHOLD,
 } from './constant.js';
+import { randomInt } from 'crypto';
 
 export class Car {
   #name;
