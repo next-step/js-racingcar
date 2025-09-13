@@ -1,9 +1,9 @@
-import { Car, getRandomInt } from '../src/models/Car/index.js';
+import { Car, getRandomInt } from '../src/domain/models/Car/index.js';
 import {
   CAR_NAME_REQUIRED_ERROR_MESSAGE,
   CAR_NAME_MAX_LENGTH_ERROR_MESSAGE,
   CAR_MOVE_THRESHOLD,
-} from '../src/models/Car/constant.js';
+} from '../src/domain/models/Car/constant.js';
 
 jest.mock('../src/models/Car/index.js', () => {
   const actual = jest.requireActual('../src/models/Car/index.js');

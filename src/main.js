@@ -1,5 +1,7 @@
 import { readLineAsync } from './utils/readLineAsync.js';
-import { Car } from './models/Car/index.js';
+import { Car } from './domain/models/Car/index.js';
+import { getWinners, moveCars } from './domain/index.js';
+import { linebreak, printWinners, printCurrentRound } from './view/index.js';
 
 play();
 
@@ -17,33 +19,4 @@ async function play() {
   }
 
   printWinners(getWinners(cars));
-}
-
-function moveCars(cars) {
-  cars.forEach((car) => car.move());
-}
-
-function printCurrentRound(cars) {
-  cars.forEach((car) => {
-    const { name, location } = car.information;
-    console.log(`${name} : ${'-'.repeat(location)}`);
-  });
-  linebreak();
-}
-
-function getWinners(cars) {
-  const maxLocation = Math.max(...cars.map((car) => car.information.location));
-  return cars.filter((car) => car.information.location === maxLocation);
-}
-
-function printWinners(winners) {
-  console.log(
-    `${winners
-      .map((winner) => winner.information.name)
-      .join(', ')}가 최종 우승했습니다.`,
-  );
-}
-
-function linebreak() {
-  console.log();
 }
