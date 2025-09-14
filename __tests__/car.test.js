@@ -49,12 +49,28 @@ describe('자동차 위치 값 관련 테스트', () => {
 
     expect(car.position).toBe(0)
   })
+})
 
-  it('자동차는 전진할 수 있으며 한 번에 1만큼 전진한다', () => {
+describe('전진하는 조건은 0에서 9 사이에서 무작위 값을 구한 후 무작위 값이 4 이상일 경우이다', () => {
+  let name = '자동차'
+
+  beforeEach(() => {
+    name = '자동차'
+  })
+
+  it('무작위 값이 4 이상이면 전진한다', () => {
     const car = new Car(name)
 
-    car.moveForward()
+    car.moveForward(4)
 
     expect(car.position).toBe(1)
+  })
+
+  it('무작위 값이 3 이하이면 전진하지 않는다', () => {
+    const car = new Car(name)
+
+    car.moveForward(3)
+
+    expect(car.position).toBe(0)
   })
 })
